@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
@@ -19,13 +20,12 @@ import com.lvl6.utils.DBConnection;
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  private static final String TABLE_NAME = DBConstants.TABLE_USER_CITY_ELEMS;
+  private static final String TABLE_NAME = DBConstants.TABLE_USER_EXPANSIONS;
 
   public static UserCityExpansionData getUserCityExpansionDataForUser(int userId) {
     log.debug("retrieving user city expansion data for userId " + userId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
-    paramsToVals.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
-    
+    paramsToVals.put(DBConstants.GENERIC__USER_ID, userId);
     
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
@@ -51,17 +51,23 @@ import com.lvl6.utils.DBConnection;
   }
 
   private static UserCityExpansionData getUserCityExpansionDataFromRSRow(ResultSet rs) throws SQLException {
-    int userId = rs.getInt(DBConstants.USER_CITY_ELEMS__USER_ID);
-    int farLeftExpansions = rs.getInt(DBConstants.USER_CITY_ELEMS__FAR_LEFT_EXPANSIONS);
-    int farRightExpansions = rs.getInt(DBConstants.USER_CITY_ELEMS__FAR_RIGHT_EXPANSIONS);
-    boolean isExpanding = rs.getBoolean(DBConstants.USER_CITY_ELEMS__IS_EXPANDING);
+    int i = 1;
+    int userId = rs.getInt(i++);
+    int farLeftExpansions = rs.getInt(i++);
+    int farRightExpansions = rs.getInt(i++);
+    int nearLeftExpansions = rs.getInt(i++);
+    int nearRightExpansions = rs.getInt(i++);
+    boolean isExpanding = rs.getBoolean(i++);
+
+    Date lastExpandTime = null;
+    Timestamp ts = rs.getTimestamp(i++);
+    if (!rs.wasNull()) {
+      lastExpandTime = new Date(ts.getTime());
+    }
     
-    long lastExpandTimeLong = rs.getLong(DBConstants.USER_CITY_ELEMS__LAST_EXPAND_TIME);
-    Timestamp lastExpandTime = (rs.wasNull()) ? null : new Timestamp(lastExpandTimeLong);
-    
-    int lastExpandDirectionInt = rs.getInt(DBConstants.USER_CITY_ELEMS__LAST_EXPAND_TIME);
+    int lastExpandDirectionInt = rs.getInt(i++);
     ExpansionDirection lastExpandDirection = (rs.wasNull()) ? null : ExpansionDirection.valueOf(lastExpandDirectionInt);
 
-    return new UserCityExpansionData(userId, farLeftExpansions, farRightExpansions, isExpanding, lastExpandTime, lastExpandDirection);
+    return new UserCityExpansionData(userId, farLeftExpansions, farRightExpansions, nearLeftExpansions, nearRightExpansions, isExpanding, lastExpandTime, lastExpandDirection);
   }
 }

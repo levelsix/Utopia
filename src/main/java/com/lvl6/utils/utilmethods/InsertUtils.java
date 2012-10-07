@@ -136,38 +136,6 @@ public class InsertUtils implements InsertUtil{
     return blacksmithAttemptId;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * com.lvl6.utils.utilmethods.InsertUtil#insertAviaryAndCarpenterCoords(int,
-   * com.lvl6.info.CoordinatePair, com.lvl6.info.CoordinatePair)
-   */
-  /* (non-Javadoc)
-   * @see com.lvl6.utils.utilmethods.InsertUtil#insertAviaryAndCarpenterCoords(int, com.lvl6.info.CoordinatePair, com.lvl6.info.CoordinatePair)
-   */
-  @Override
-  public boolean insertAviaryAndCarpenterCoords(int userId,
-      CoordinatePair aviary, CoordinatePair carpenter) {
-    Map<String, Object> insertParams = new HashMap<String, Object>();
-    insertParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
-    insertParams.put(DBConstants.USER_CITY_ELEMS__AVIARY_X_COORD,
-        aviary.getX());
-    insertParams.put(DBConstants.USER_CITY_ELEMS__AVIARY_Y_COORD,
-        aviary.getY());
-    insertParams.put(DBConstants.USER_CITY_ELEMS__CARPENTER_X_COORD,
-        carpenter.getX());
-    insertParams.put(DBConstants.USER_CITY_ELEMS__CARPENTER_Y_COORD,
-        carpenter.getY());
-
-    int numInserted = DBConnection.get().insertIntoTableBasic(
-        DBConstants.TABLE_USER_CITY_ELEMS, insertParams);
-    if (numInserted == 1) {
-      return true;
-    }
-    return false;
-  }
-
   /* (non-Javadoc)
    * @see com.lvl6.utils.utilmethods.InsertUtil#insertAdcolonyRecentHistory(int, java.sql.Timestamp, int, java.lang.String)
    */

@@ -29,7 +29,7 @@ import com.lvl6.proto.EventProto.UserCreateRequestProto;
 import com.lvl6.proto.EventProto.UserCreateResponseProto;
 import com.lvl6.proto.EventProto.UserCreateResponseProto.Builder;
 import com.lvl6.proto.EventProto.UserCreateResponseProto.UserCreateStatus;
-import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
+import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.LocationProto;
@@ -438,14 +438,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return true;
   }
 
-  private int calculateCorrectSumStat(ClassType classType) {
+  private int calculateCorrectSumStat(EquipClassType classType) {
     int sumStat = ControllerConstants.TUTORIAL__INIT_ENERGY 
         + ControllerConstants.TUTORIAL__INIT_STAMINA;
-    if (classType == ClassType.WARRIOR) {
+    if (classType == EquipClassType.WARRIOR) {
       return sumStat + ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK + ControllerConstants.TUTORIAL__WARRIOR_INIT_DEFENSE;
-    } else if (classType == ClassType.ARCHER) {
+    } else if (classType == EquipClassType.ARCHER) {
       return sumStat + ControllerConstants.TUTORIAL__ARCHER_INIT_ATTACK + ControllerConstants.TUTORIAL__ARCHER_INIT_DEFENSE;
-    } else if (classType == ClassType.MAGE) {
+    } else if (classType == EquipClassType.MAGE) {
       return sumStat + ControllerConstants.TUTORIAL__MAGE_INIT_ATTACK + ControllerConstants.TUTORIAL__MAGE_INIT_DEFENSE;
     }
     return sumStat;

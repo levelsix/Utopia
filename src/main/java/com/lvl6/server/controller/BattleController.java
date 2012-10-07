@@ -16,7 +16,9 @@ import com.lvl6.events.request.BattleRequestEvent;
 import com.lvl6.events.response.BattleResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Equipment;
+import com.lvl6.info.LockBoxEvent;
 import com.lvl6.info.Quest;
+import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
@@ -35,6 +37,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.LockBoxEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
@@ -103,6 +106,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       UserEquip lostEquip = null;
       int expGained = ControllerConstants.NOT_SET;
       int lostCoins = ControllerConstants.NOT_SET;
+      int lockBoxEventId = ControllerConstants.NOT_SET;
       User winner = null;
       User loser = null;
 
@@ -128,6 +132,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         Random random = new Random();
         lostCoins = calculateLostCoins(loser, random, (result == BattleResult.ATTACKER_FLEE));
         resBuilder.setCoinsGained(lostCoins);
+        
+        lockBoxEventId = checkIfUserAcquiresLockBox(attacker, result, battleTime);
+        if (lockBoxEventId != ControllerConstants.NOT_SET) {
+          resBuilder.setEventIdOfLockBoxGained(lockBoxEventId);
+        }
 
         if (result == BattleResult.ATTACKER_WIN) {
           expGained = calculateExpGain(winner, loser);
@@ -143,7 +152,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       if (legitBattle) {
         writeChangesToDB(stolenEquipIsLastOne, winner, loser, attacker,
-            defender, expGained, lostCoins, battleTime, result==BattleResult.ATTACKER_FLEE);
+            defender, expGained, lostCoins, battleTime, result==BattleResult.ATTACKER_FLEE,
+            lockBoxEventId);
         
         UpdateClientUserResponseEvent resEventAttacker = MiscMethods
             .createUpdateClientUserResponseEventAndUpdateLeaderboard(attacker);
@@ -332,7 +342,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private void writeChangesToDB(boolean stolenEquipIsLastOne, User winner, User loser, User attacker, User defender, int expGained,
-      int lostCoins, Timestamp battleTime, boolean isFlee) {
+      int lostCoins, Timestamp battleTime, boolean isFlee, int lockBoxEventId) {
 
     boolean simulateStaminaRefill = (attacker.getStamina() == attacker.getStaminaMax());
 
@@ -371,6 +381,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
               + battleTime + " vs " + loser.getId());
         }
       }
+    }
+    
+    if (lockBoxEventId != ControllerConstants.NOT_SET) {
+      if (!UpdateUtils.get().incrementNumberOfLockBoxesForLockBoxEvent(attacker.getId(), lockBoxEventId, 1))
+        log.error("problem incrementing user lock boxes for user = "+attacker+" lock box event id ="+lockBoxEventId);
     }
   }
 
@@ -446,4 +461,20 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return null;
   }
 
+  private int checkIfUserAcquiresLockBox(User user, BattleResult result, Timestamp curTime) {
+    if (result != BattleResult.ATTACKER_WIN) return ControllerConstants.NOT_SET;
+    
+    Map<Integer, LockBoxEvent> events = LockBoxEventRetrieveUtils.getLockBoxEventIdsToLockBoxEvents();
+    LockBoxEvent curEvent = null;
+    for (LockBoxEvent event : events.values()) {
+      if (curTime.getTime() > event.getStartDate().getTime() && curTime.getTime() < event.getEndDate().getTime()) {
+        curEvent = event;
+        break;
+      }
+    }
+
+    float chanceToAttainBox = ControllerConstants.LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_BATTLE;
+    if (Math.random() < chanceToAttainBox) return curEvent.getId();
+    return ControllerConstants.NOT_SET;
+  }
 }

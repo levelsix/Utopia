@@ -2,6 +2,80 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+message MarketplaceSearchEquipProto {
+	optional int32 equipId = 1;
+	optional string name = 2;
+}
+
+//-------------------------------------------------------------------------------------
+
+message LockBoxEventProto {
+	optional int32 lockBoxEventId = 1;
+	optional int64 startDate = 2;
+	optional int64 endDate = 3;
+	optional string lockBoxImageName = 4;
+	optional string eventName = 5;
+	optional FullEquipProto prizeEquip = 6;
+	repeated LockBoxItemProto items = 7;
+}
+
+message LockBoxItemProto {
+	optional int32 lockBoxItemId = 1;
+	optional int32 lockBoxEventId = 2;
+	optional float chanceToUnlock = 3;
+	optional string name = 4;
+	optional EquipClassType type = 5;
+	optional string imageName = 6;
+}
+
+message UserLockBoxEventProto {
+	optional int32 lockBoxEventId = 1;
+	optional int32 userId = 2;
+	optional int32 numLockBoxes = 3;
+	optional int32 numTimesCompleted = 4;
+	optional int64 lastPickTime = 5;
+	repeated UserLockBoxItemProto items = 6;
+}
+
+message UserLockBoxItemProto {
+	optional int32 lockBoxItemId = 1;
+	optional int32 userId = 2;
+	optional int32 quantity = 3;
+}
+	
+enum EquipClassType {
+	WARRIOR = 0;
+	ARCHER = 1;
+	MAGE = 2;
+	ALL_AMULET = 3;	
+}
+
+//------------------------------------------------------------------------------------------
+
+message FullBossProto {
+	optional int32 bossId = 1;
+	optional int32 baseHealth = 2;
+	optional int32 minDamage = 3;
+	optional int32 maxDamage = 4;
+	optional int32 minutesToKill = 5;
+	optional int32 minutesToRespawn = 6;
+	optional int32 experienceGained = 7;
+	optional int32 cityId = 8;
+	optional int32 assetNumWithinCity = 9;
+	optional string goodName = 10;
+	optional string badName = 11;
+	optional int32 staminaCost = 12;
+}
+
+message FullUserBossProto {
+	optional int32 bossId = 1;
+	optional int32 userId = 2;
+	optional int32 curHealth = 3;
+	optional int32 numTimesKilled = 4;
+	optional int64 startTime = 5;
+}
+
+//------------------------------------------------------------------------------------------
 
 message FullClanProtoWithClanSize {
 	optional FullClanProto clan = 1;
@@ -20,6 +94,7 @@ message ClanWallPostProto {
 //------------------------------------------------------------------------------------------
 
 message MinimumUserProtoForClans {
+
 	optional MinimumUserProtoWithBattleHistory minUserProto = 1;
 	optional UserClanStatus clanStatus = 2;
 }
@@ -56,10 +131,12 @@ enum GroupChatScope {
 	CLAN = 3;
 }
 
-enum MonteCard {
-	BAD = 0;
-	MEDIUM = 1;
-	GOOD = 2;
+message MonteCardProto {
+	optional int32 cardId = 1;
+     optional int32 diamondsGained = 2;
+     optional FullEquipProto equip = 3;
+     optional int32 equipLevel = 4;
+     optional int32 coinsGained = 5;
 }	
 
 //------------------------------------------------------------------------------------------
@@ -205,6 +282,7 @@ message FullUserProto {
 	optional int32 numAdColonyVideosWatched = 51;
 	optional int32 numGroupChatsRemaining = 54;
 	optional MinimumClanProto clan = 55;
+	optional int64 lastGoldmineRetrieval = 56;
 
 	//CreateInfoProtoUtils.java doesn't set these (I can't think of a time the client would need this
 	//consider making other fields like this
@@ -232,7 +310,7 @@ message FullEquipProto {
 	optional int32 coinPrice = 8;
 	optional int32 diamondPrice = 9;
 	optional float chanceOfLoss = 10;
-	optional ClassType classType = 11;
+	optional EquipClassType classType = 11;
 	optional Rarity rarity = 12;
 	optional bool isBuyableInArmory = 13;
 	optional float chanceOfForgeFailureBase = 14;
@@ -250,13 +328,6 @@ message FullEquipProto {
 		WEAPON = 0;
 		ARMOR = 1;
 		AMULET = 2;
-	}
-	
-	enum ClassType {
-		WARRIOR = 0;
-		ARCHER = 1;
-		MAGE = 2;
-		ALL_AMULET = 3;	
 	}
 }
 
@@ -349,11 +420,13 @@ message FullCityProto {
 
 message FullUserCityExpansionDataProto {
 	optional int32 userId = 1;
-	optional int32 farLeftExpansions = 3;
-	optional int32 farRightExpansions = 4;
-	optional bool isExpanding = 5;
-	optional int64 lastExpandTime = 6;
-	optional ExpansionDirection lastExpandDirection = 7;
+	optional int32 farLeftExpansions = 2;
+	optional int32 farRightExpansions = 3;
+	optional int32 nearLeftExpansions = 4;
+	optional int32 nearRightExpansions = 5;
+	optional bool isExpanding = 6;
+	optional int64 lastExpandTime = 7;
+	optional ExpansionDirection lastExpandDirection = 8;
 }
 
 //------------------------------------------------------------------------------------------
@@ -460,6 +533,8 @@ enum StructOrientation {
 enum ExpansionDirection {
 	FAR_LEFT = 0;
 	FAR_RIGHT = 1;
+	NEAR_LEFT = 2;
+	NEAR_RIGHT = 3;
 }
 
 //------------------------------------------------------------------------------------------

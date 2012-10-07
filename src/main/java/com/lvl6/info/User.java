@@ -68,6 +68,7 @@ public class User implements Serializable {
   private int numConsecutiveDaysPlayed;
   private int numGroupChatsRemaining;
   private int clanId;
+  private Date lastGoldmineRetrieval;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime, int energy,
@@ -85,7 +86,7 @@ public class User implements Serializable {
       boolean isFake, Date createTime, boolean isAdmin, String apsalarId,
       int numCoinsRetrievedFromStructs, int numAdColonyVideosWatched,
       int numTimesKiipRewarded, int numConsecutiveDaysPlayed,
-      int numGroupChatsRemaining, int clanId) {
+      int numGroupChatsRemaining, int clanId, Date lastGoldmineRetrieval) {
     super();
     this.id = id;
     this.name = name;
@@ -137,6 +138,7 @@ public class User implements Serializable {
     this.numConsecutiveDaysPlayed = numConsecutiveDaysPlayed;
     this.numGroupChatsRemaining = numGroupChatsRemaining;
     this.clanId = clanId;
+    this.setLastGoldmineRetrieval(lastGoldmineRetrieval);
   }
 
 
@@ -839,6 +841,27 @@ public class User implements Serializable {
   }
 
 
+  public boolean updateLastGoldmineRetrieval (int diamondChange, Timestamp lastGoldRetrieval) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER__LAST_GOLDMINE_RETRIEVAL, lastGoldRetrieval);
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.diamonds += diamondChange;
+      this.lastGoldmineRetrieval = lastGoldRetrieval;
+      return true;
+    }
+    return false;
+  }
+
+
   public boolean updateRelativeCoinsCoinsretrievedfromstructs (int coinChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
@@ -879,7 +902,6 @@ public class User implements Serializable {
     }
     return false;
   }
-
 
   /*
    * used for vault transactions
@@ -1286,6 +1308,16 @@ public class User implements Serializable {
         + ", numConsecutiveDaysPlayed=" + numConsecutiveDaysPlayed
         + ", numGroupChatsRemaining=" + numGroupChatsRemaining + ", clanId="
         + clanId + "]";
+  }
+
+
+  public Date getLastGoldmineRetrieval() {
+    return lastGoldmineRetrieval;
+  }
+
+
+  public void setLastGoldmineRetrieval(Date lastGoldmineRetrieval) {
+    this.lastGoldmineRetrieval = lastGoldmineRetrieval;
   }
 
 }

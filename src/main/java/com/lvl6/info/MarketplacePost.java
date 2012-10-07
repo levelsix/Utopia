@@ -8,17 +8,17 @@ import com.lvl6.proto.InfoProto.MarketplacePostType;
 
 public class MarketplacePost implements Serializable {
 
-	private static final long serialVersionUID = -8965685522575882138L;
-	private int id;
-	private int posterId;
-	private MarketplacePostType postType;
-	private Date timeOfPost;
-	private int postedEquipId = ControllerConstants.NOT_SET;
-	private int diamondCost = ControllerConstants.NOT_SET;
-	private int coinCost = ControllerConstants.NOT_SET;
-	private int equipLevel;
+  private static final long serialVersionUID = -8965685522575882138L;
+  private int id;
+  private int posterId;
+  private MarketplacePostType postType;
+  private Date timeOfPost;
+  private int postedEquipId = ControllerConstants.NOT_SET;
+  private int diamondCost = ControllerConstants.NOT_SET;
+  private int coinCost = ControllerConstants.NOT_SET;
+  private int equipLevel;
 
-	public MarketplacePost(int id, int posterId, MarketplacePostType postType,
+  public MarketplacePost(int id, int posterId, MarketplacePostType postType,
       Date timeOfPost, int postedEquipId, int diamondCost, int coinCost,
       int equipLevel) {
     this.id = id;
@@ -32,34 +32,34 @@ public class MarketplacePost implements Serializable {
   }
 
   public int getId() {
-		return id;
-	}
+    return id;
+  }
 
-	public int getPosterId() {
-		return posterId;
-	}
+  public int getPosterId() {
+    return posterId;
+  }
 
-	public MarketplacePostType getPostType() {
-		return postType;
-	}
+  public MarketplacePostType getPostType() {
+    return postType;
+  }
 
-	public Date getTimeOfPost() {
-		return timeOfPost;
-	}
+  public Date getTimeOfPost() {
+    return timeOfPost;
+  }
 
-	public int getPostedEquipId() {
-		return postedEquipId;
-	}
+  public int getPostedEquipId() {
+    return postedEquipId;
+  }
 
-	public int getDiamondCost() {
-		return diamondCost;
-	}
+  public int getDiamondCost() {
+    return diamondCost;
+  }
 
-	public int getCoinCost() {
-		return coinCost;
-	}
+  public int getCoinCost() {
+    return coinCost;
+  }
 
-	public int getEquipLevel() {
+  public int getEquipLevel() {
     return equipLevel;
   }
 

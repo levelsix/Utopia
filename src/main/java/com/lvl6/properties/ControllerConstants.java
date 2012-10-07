@@ -88,12 +88,13 @@ public class ControllerConstants {
   public static final int FORGE_MAX_EQUIP_LEVEL = 10;
   public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 3;
   public static final double FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER = 1.8;
-  
-  public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FIRST_EXPANSION = 3;
-  public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_SECOND_EXPANSION = 12;
-  public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_THIRD_EXPANSION = 24;
-  public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FOURTH_EXPANSION = 30;
-  public static final int EXPANSION_WAIT_COMPLETE__HOUR_INCREMENT_BETWEEN_LATER_LEVELS = 4;
+
+  public static final int EXPANSION_WAIT_COMPLETE__HOUR_CONSTANT = 0;
+  public static final int EXPANSION_WAIT_COMPLETE__HOUR_INCREMENT_BASE = 4;
+  public static final int EXPANSION_WAIT_COMPLETE__BASE_MINUTES_TO_ONE_GOLD = 3;
+
+  public static final int PURCHASE_EXPANSION__COST_CONSTANT = 1000;
+  public static final int PURCHASE_EXPANSION__COST_EXPONENT_BASE = 2;
   
   public static final int SIZE_OF_ATTACK_LIST = 20;
 
@@ -306,6 +307,23 @@ public class ControllerConstants {
   //THREE CARD MONTE
   public static final int THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY = 60;
   
+  //GOLDMINE
+  public static final int GOLDMINE__NUM_HOURS_BEFORE_RETRIEVAL = 11;
+  public static final int GOLDMINE__NUM_HOURS_TO_PICK_UP = 1;
+  public static final int GOLDMINE__GOLD_AMOUNT_FROM_PICK_UP = 1;
+  public static final int GOLDMINE__GOLD_COST_TO_RESTART = 10;
+  
+  //LOCK BOXES
+  public static final int LOCK_BOXES__GOLD_COST_TO_PICK = 10;
+  public static final int LOCK_BOXES__SILVER_COST_TO_PICK = 500;
+  public static final float LOCK_BOXES__GOLD_CHANCE_TO_PICK = 1.f;
+  public static final float LOCK_BOXES__SILVER_CHANCE_TO_PICK = 0.25f;
+  public static final float LOCK_BOXES__FREE_CHANCE_TO_PICK = 0.15f;
+  public static final int LOCK_BOXES__NUM_MINUTES_TO_REPICK = 60;
+  public static final int LOCK_BOXES__GOLD_COST_TO_RESET_PICK = 10;
+  public static final float LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_TASK_BASE = 0.03f;
+  public static final float LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_TASK_MAX = 1.f;
+  public static final float LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_BATTLE = 0.25f;
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),

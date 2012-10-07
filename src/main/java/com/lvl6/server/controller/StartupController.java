@@ -1,9 +1,9 @@
 package com.lvl6.server.controller;
 
-import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -16,10 +16,8 @@ import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.StartupRequestEvent;
-import com.lvl6.events.response.ArmoryResponseEvent;
 import com.lvl6.events.response.RetrieveStaticDataResponseEvent;
 import com.lvl6.events.response.StartupResponseEvent;
-import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.BattleDetails;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.City;
@@ -35,16 +33,15 @@ import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserClan;
 import com.lvl6.info.UserEquip;
+import com.lvl6.info.UserLockBoxEvent;
 import com.lvl6.info.UserQuest;
 import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
-import com.lvl6.proto.EventProto.ArmoryResponseProto;
 import com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto;
 import com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto.RetrieveStaticDataStatus;
 import com.lvl6.proto.EventProto.StartupRequestProto;
 import com.lvl6.proto.EventProto.StartupResponseProto;
-import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.Builder;
 import com.lvl6.proto.EventProto.StartupResponseProto.DailyBonusInfo;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus;
@@ -55,6 +52,8 @@ import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
+import com.lvl6.proto.InfoProto.LockBoxEventProto;
+import com.lvl6.proto.InfoProto.MarketplaceSearchEquipProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
@@ -63,6 +62,7 @@ import com.lvl6.retrieveutils.IAPHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
 import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
 import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
+import com.lvl6.retrieveutils.UserLockBoxEventRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
@@ -74,7 +74,6 @@ import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.server.GameServer;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.CreateInfoProtoUtils;
-import com.lvl6.utils.NIOUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
@@ -157,6 +156,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           setUnhandledForgeAttempts(resBuilder, user);
           setNoticesToPlayers(resBuilder, user);
           setUserClanInfos(resBuilder, user);
+          setLockBoxEvents(resBuilder, user);
+          setMarketplaceSearchEquips(resBuilder);
 
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
@@ -188,6 +189,26 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     //for things that client doesn't need
     log.info("After response tasks");
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);    
+  }
+
+  private void setMarketplaceSearchEquips(
+      StartupResponseProto.Builder resBuilder) {
+    Collection<Equipment> equips = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().values();
+    for (Equipment equip : equips) {
+      resBuilder.addMktSearchEquips(MarketplaceSearchEquipProto.newBuilder().setEquipId(equip.getId()).setName(equip.getName()).build());
+    }
+  }
+
+  private void setLockBoxEvents(StartupResponseProto.Builder resBuilder,
+      User user) {
+    resBuilder.addAllLockBoxEvents(MiscMethods.currentLockBoxEventsForUserType(user.getType()));
+    Map<Integer, UserLockBoxEvent> map = UserLockBoxEventRetrieveUtils.getLockBoxEventIdsToLockBoxEventsForUser(user.getId());
+    for (LockBoxEventProto p : resBuilder.getLockBoxEventsList()) {
+      UserLockBoxEvent e = map.get(p.getLockBoxEventId());
+      if (e != null) {
+        resBuilder.addUserLockBoxEvents(CreateInfoProtoUtils.createUserLockBoxEventProto(e, user.getType()));
+      }
+    }
   }
 
 	protected void updateLeaderboard(String apsalarId, User user, Timestamp now,int newNumConsecutiveDaysLoggedIn) {

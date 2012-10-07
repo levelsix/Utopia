@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.lvl6.info.Equipment;
 import com.lvl6.properties.DBConstants;
-import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
+import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.utils.DBConnection;
@@ -35,7 +35,7 @@ import com.lvl6.utils.DBConnection;
     return equipIdToEquipment;
   }
 
-  public static List<Equipment> getAllEquipmentForClassType(ClassType classtype) {
+  public static List<Equipment> getAllEquipmentForClassType(EquipClassType classtype) {
     log.debug("retrieving all armory equipment for class type " + classtype);
     if (equipIdToEquipment == null) {
       setStaticEquipIdsToEquipment();
@@ -43,7 +43,7 @@ import com.lvl6.utils.DBConnection;
     List <Equipment> equips = new ArrayList<Equipment>();
     for (Integer equipId : equipIdToEquipment.keySet()) {
       Equipment equip = equipIdToEquipment.get(equipId);
-      if (equip.getClassType() == classtype || equip.getClassType() == ClassType.ALL_AMULET) {
+      if (equip.getClassType() == classtype || equip.getClassType() == EquipClassType.ALL_AMULET) {
         equips.add(equip);
       }
     }
@@ -111,7 +111,7 @@ import com.lvl6.utils.DBConnection;
     int diamondPrice = rs.getInt(i++);
     boolean diamondPriceSet = !rs.wasNull();
     float chanceOfLoss = rs.getFloat(i++);
-    ClassType classType = ClassType.valueOf(rs.getInt(i++));
+    EquipClassType classType = EquipClassType.valueOf(rs.getInt(i++));
     Rarity rarity = Rarity.valueOf(rs.getInt(i++));
     boolean isBuyableInArmory = rs.getBoolean(i++);
     float chanceOfForgeFailureBase = rs.getFloat(i++);

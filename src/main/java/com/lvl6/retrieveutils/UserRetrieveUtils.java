@@ -423,6 +423,12 @@ import com.lvl6.utils.utilmethods.StringUtils;
       clanId = ControllerConstants.NOT_SET;
     }
     
+    Date lastGoldmineRetrieval = null;
+    ts = rs.getTimestamp(i++);
+    if (!rs.wasNull()) {
+      lastGoldmineRetrieval = new Date(ts.getTime());
+    }
+    
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, energy, lastEnergyRefillTime, 
         skillPoints, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
         vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, flees,
@@ -430,7 +436,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
         weaponEquippedUserEquipId, armorEquippedUserEquipId, amuletEquippedUserEquipId, lastLoginTime, lastLogoutTime, deviceToken, 
         lastBattleNotificationTime, lastTimeAttacked, numBadges, lastShortLicensePurchaseTime, lastLongLicensePurchaseTime, isFake, userCreateTime, 
         isAdmin, apsalarId, numCoinsRetrievedFromStructs, numAdcolonyVideosWatched, numTimesKiipRewarded, numConsecutiveDaysPlayed, 
-        numGroupChatsRemaining, clanId);
+        numGroupChatsRemaining, clanId, lastGoldmineRetrieval);
     return user;
   }
 }

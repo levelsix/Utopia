@@ -3,12 +3,7 @@ package com.lvl6.utils;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class PlayerInAction implements Serializable {
-	
-	private Logger log = LoggerFactory.getLogger(PlayerInAction.class);
 	private static final long serialVersionUID = 5759697882546340795L;
 	
 	protected int playerId;

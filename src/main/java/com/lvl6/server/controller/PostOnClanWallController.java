@@ -2,7 +2,6 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +21,11 @@ import com.lvl6.proto.EventProto.PostOnClanWallResponseProto.Builder;
 import com.lvl6.proto.EventProto.PostOnClanWallResponseProto.PostOnClanWallStatus;
 import com.lvl6.proto.InfoProto.ClanWallPostProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
-import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
-import com.lvl6.utils.utilmethods.MiscMethods;
-import com.lvl6.utils.utilmethods.QuestUtils;
 
   @Component @DependsOn("gameServer") public class PostOnClanWallController extends EventController {
 

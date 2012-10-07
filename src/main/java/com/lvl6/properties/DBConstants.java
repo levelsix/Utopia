@@ -9,7 +9,7 @@ public class DBConstants {
   public static final String TABLE_USER_CITIES = "user_cities";
   public static final String TABLE_USER_QUESTS = "user_quests";
   public static final String TABLE_USER_STRUCTS = "user_structs";
-  public static final String TABLE_USER_CITY_ELEMS = "user_city_elems";
+  public static final String TABLE_USER_EXPANSIONS = "user_expansions";
   public static final String TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS = "user_quests_completed_defeat_type_jobs";
   public static final String TABLE_USER_QUESTS_COMPLETED_TASKS = "user_quests_completed_tasks";
   public static final String TABLE_USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS = "user_quests_defeat_type_job_progress";
@@ -46,6 +46,13 @@ public class DBConstants {
   public static final String TABLE_DIAMOND_EQUIP_PURCHASE_HISTORY = "diamond_equip_purchase_history";
   public static final String TABLE_STAT_REFILL_HISTORY = "stat_refill_history";
   public static final String TABLE_CLAN_WALL_POSTS = "clan_wall_posts";
+  public static final String TABLE_THREE_CARD_MONTE = "three_card_monte";
+  public static final String TABLE_BOSSES = "bosses";
+  public static final String TABLE_USER_BOSSES = "user_bosses";
+  public static final String TABLE_LOCK_BOX_EVENTS = "lock_box_events";
+  public static final String TABLE_LOCK_BOX_ITEMS = "lock_box_items";
+  public static final String TABLE_USER_LOCK_BOX_EVENTS = "user_lock_box_events";
+  public static final String TABLE_USER_LOCK_BOX_ITEMS = "user_lock_box_items";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -102,6 +109,7 @@ public class DBConstants {
   public static final String USER__NUM_CONSECUTIVE_DAYS_PLAYED = "num_consecutive_days_played";
   public static final String USER__NUM_GROUP_CHATS_REMAINING = "num_group_chats_remaining";
   public static final String USER__CLAN_ID = "clan_id";
+  public static final String USER__LAST_GOLDMINE_RETRIEVAL = "last_goldmine_retrieval";
   
   /*USER EQUIP TABLE*/
   public static final String USER_EQUIP__ID = GENERIC__ID;
@@ -191,30 +199,14 @@ public class DBConstants {
   public static final String USER_STRUCTS__ORIENTATION = "orientation";
   
   /*USER CRITSTRUCTS TABLE*/
-  public static final String USER_CITY_ELEMS__USER_ID = GENERIC__USER_ID;
-  public static final String USER_CITY_ELEMS__ARMORY_X_COORD = "armory_xcoord";
-  public static final String USER_CITY_ELEMS__ARMORY_Y_COORD = "armory_ycoord";
-  public static final String USER_CITY_ELEMS__ARMORY_ORIENTATION = "armory_orientation";
-  public static final String USER_CITY_ELEMS__VAULT_X_COORD = "vault_xcoord";
-  public static final String USER_CITY_ELEMS__VAULT_Y_COORD = "vault_ycoord";
-  public static final String USER_CITY_ELEMS__VAULT_ORIENTATION = "vault_orientation";
-  public static final String USER_CITY_ELEMS__MARKETPLACE_X_COORD = "marketplace_xcoord";
-  public static final String USER_CITY_ELEMS__MARKETPLACE_Y_COORD = "marketplace_ycoord";
-  public static final String USER_CITY_ELEMS__MARKETPLACE_ORIENTATION = "marketplace_orientation";
-  public static final String USER_CITY_ELEMS__LUMBERMILL_X_COORD = "lumbermill_xcoord";
-  public static final String USER_CITY_ELEMS__LUMBERMILL_Y_COORD = "lumbermill_ycoord";
-  public static final String USER_CITY_ELEMS__LUMBERMILL_ORIENTATION = "lumbermill_orientation";
-  public static final String USER_CITY_ELEMS__CARPENTER_X_COORD = "carpenter_xcoord";
-  public static final String USER_CITY_ELEMS__CARPENTER_Y_COORD = "carpenter_ycoord";
-  public static final String USER_CITY_ELEMS__CARPENTER_ORIENTATION = "carpenter_orientation";
-  public static final String USER_CITY_ELEMS__AVIARY_X_COORD = "aviary_xcoord";
-  public static final String USER_CITY_ELEMS__AVIARY_Y_COORD = "aviary_ycoord";
-  public static final String USER_CITY_ELEMS__AVIARY_ORIENTATION = "aviary_orientation";
-  public static final String USER_CITY_ELEMS__FAR_LEFT_EXPANSIONS = "far_left_expansions";
-  public static final String USER_CITY_ELEMS__FAR_RIGHT_EXPANSIONS = "far_right_expansions";
-  public static final String USER_CITY_ELEMS__IS_EXPANDING = "is_expanding";
-  public static final String USER_CITY_ELEMS__LAST_EXPAND_TIME = "last_expand_time";
-  public static final String USER_CITY_ELEMS__LAST_EXPAND_DIRECTION = "last_expand_direction";
+  public static final String USER_EXPANSIONS__USER_ID = GENERIC__USER_ID;
+  public static final String USER_EXPANSIONS__FAR_LEFT_EXPANSIONS = "far_left_expansions";
+  public static final String USER_EXPANSIONS__FAR_RIGHT_EXPANSIONS = "far_right_expansions";
+  public static final String USER_EXPANSIONS__NEAR_LEFT_EXPANSIONS = "near_left_expansions";
+  public static final String USER_EXPANSIONS__NEAR_RIGHT_EXPANSIONS = "near_right_expansions";
+  public static final String USER_EXPANSIONS__IS_EXPANDING = "is_expanding";
+  public static final String USER_EXPANSIONS__LAST_EXPAND_TIME = "last_expand_time";
+  public static final String USER_EXPANSIONS__LAST_EXPAND_DIRECTION = "last_expand_direction";
     
   /*USER QUESTS TABLE*/
   public static final String USER_QUESTS__USER_ID = GENERIC__USER_ID;
@@ -331,6 +323,30 @@ public class DBConstants {
   public static final String STAT_REFILL_HISTORY__REFILL_TYPE = "refill_type";
   public static final String STAT_REFILL_HISTORY__DIAMONDS_SPENT = "diamonds_spent";
   public static final String STAT_REFILL_HISTORY__REFILL_TIME = "refill_time";
-
   
+  /*USER BOSSES*/
+  public static final String USER_BOSSES__USER_ID = "user_id";
+  public static final String USER_BOSSES__BOSS_ID = "boss_id";
+  public static final String USER_BOSSES__START_TIME = "start_time";
+
+  /*USER LOCK BOX EVENTS*/
+  public static final String USER_LOCK_BOX_EVENTS__EVENT_ID = "lock_box_event_id";
+  public static final String USER_LOCK_BOX_EVENTS__USER_ID = "user_id";
+  public static final String USER_LOCK_BOX_EVENTS__NUM_BOXES = "num_boxes";
+  public static final String USER_LOCK_BOX_EVENTS__LAST_OPENING_TIME = "last_opening_time";
+  public static final String USER_LOCK_BOX_EVENTS__NUM_TIMES_COMPLETED = "num_times_completed";
+
+  /*USER LOCK BOX ITEMS*/
+  public static final String USER_LOCK_BOX_ITEMS__ITEM_ID = "lock_box_item_id";
+  public static final String USER_LOCK_BOX_ITEMS__USER_ID = "user_id";
+  public static final String USER_LOCK_BOX_ITEMS__QUANTITY = "quantity";
+  
+  /*EQUIPMENT TABLE*/
+  public static final String EQUIPMENT__EQUIP_ID = GENERIC__ID;
+  public static final String EQUIPMENT__ATK_BOOST = "atk_boost";
+  public static final String EQUIPMENT__DEF_BOOST = "def_boost";
+  public static final String EQUIPMENT__MIN_LEVEL = "min_level";
+  public static final String EQUIPMENT__NAME = "name";
+  public static final String EQUIPMENT__RARITY = "rarity";
+  public static final String EQUIPMENT__TYPE = "type";
 }

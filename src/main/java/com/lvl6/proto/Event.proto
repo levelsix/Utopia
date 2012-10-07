@@ -45,6 +45,8 @@ message BattleResponseProto {
 	optional FullEquipProto equipGained = 8;
     optional int32 expGained = 6;
     
+    optional int32 eventIdOfLockBoxGained = 9;
+    
     enum BattleStatus {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
@@ -138,7 +140,9 @@ message StartupResponseProto {
 	repeated ReferralNotificationProto referralNotifications = 14;
 	repeated PlayerWallPostProto playerWallPostNotifications = 19;
 	repeated ClanWallPostProto clanWallPostNotifications = 27;
-
+	
+	repeated LockBoxEventProto lockBoxEvents = 28;
+	repeated UserLockBoxEventProto userLockBoxEvents = 29;
 	
 	optional string appStoreURL = 17;
 	
@@ -152,6 +156,8 @@ message StartupResponseProto {
 	optional FullEquipProto forgeAttemptEquip = 25;
 	
 	repeated string noticesToPlayers = 24;
+		
+	repeated MarketplaceSearchEquipProto mktSearchEquips = 30;
 	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
@@ -277,6 +283,35 @@ message StartupResponseProto {
 		
 		optional ClanConstants clanConstants = 78;
 		optional int32 diamondCostToPlayThreeCardMonte = 79;
+		
+		optional GoldmineConstants goldmineConstants = 80;
+		optional LockBoxConstants lockBoxConstants = 81;
+		optional ExpansionConstants expansionConstants = 82;
+		
+		message ExpansionConstants {
+			optional int32 expansionWaitCompleteHourConstant = 1;
+			optional int32 expansionWaitCompleteHourIncrementBase = 2;
+			optional int32 expansionWaitCompleteBaseMinutesToOneGold = 3;
+			optional int32 expansionPurchaseCostConstant = 4;
+			optional int32 expansionPurchaseCostExponentBase = 5;
+		}
+		
+		message LockBoxConstants {
+			optional int32 goldCostToPickLockBox = 1;
+			optional int32 silverCostToPickLockBox = 2;
+			optional float goldChanceToPickLockBox = 3;
+			optional float silverChanceToPickLockBox = 4;
+			optional float freeChanceToPickLockBox = 5;
+			optional int32 numMinutesToRepickLockBox = 6;
+			optional int32 goldCostToResetPickLockBox = 7;
+		}
+		
+		message GoldmineConstants {
+			optional int32 numHoursBeforeGoldmineRetrieval = 1;
+			optional int32 numHoursForGoldminePickup = 2;
+			optional int32 goldAmountFromGoldminePickup = 3;
+			optional int32 goldCostForGoldmineRestart = 4;
+		}
 		
 		message ClanConstants {
 			optional int32 diamondPriceToCreateClan = 1;
@@ -527,6 +562,8 @@ message TaskActionResponseProto {
 	optional int32 coinBonusIfCityRankup = 7;
 	optional int32 expBonusIfCityRankup = 8;
 	optional int32 cityId = 9;
+	
+	optional int32 eventIdOfLockBoxGained = 10;
 	
 	enum TaskActionStatus {
 		SUCCESS = 0; 
@@ -816,8 +853,37 @@ message UpdateClientUserResponseProto {
 
 message RetrieveCurrentMarketplacePostsRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional int32 beforeThisPostId = 2;
-	optional bool fromSender = 3;
+	optional bool fromSender = 2;
+	optional int32 currentNumOfEntries = 3;
+	optional RetrieveCurrentMarketplacePostsFilter filter = 4;
+	optional bool commonEquips = 5;
+	optional bool uncommonEquips = 6;
+	optional bool rareEquips = 7;
+	optional bool epicEquips = 8;
+	optional bool legendaryEquips = 9;
+	optional bool myClassOnly = 10;
+	optional int32 minEquipLevel = 11;
+	optional int32 maxEquipLevel = 12;
+	optional int32 minForgeLevel = 13;
+	optional int32 maxForgeLevel = 14;
+	optional RetrieveCurrentMarketplacePostsSortingOrder sortOrder = 15;
+	optional int32 specificEquipId = 16;
+	
+	enum RetrieveCurrentMarketplacePostsFilter {
+		ALL = 0;
+		WEAPONS = 1;
+		ARMOR = 2;
+		AMULETS = 3;
+	}
+	
+	enum RetrieveCurrentMarketplacePostsSortingOrder {
+		MOST_RECENT_POSTS = 0;
+		PRICE_LOW_TO_HIGH = 1;
+		PRICE_HIGH_TO_LOW = 2;
+		ATTACK_HIGH_TO_LOW = 3;
+		DEFENSE_HIGH_TO_LOW = 4;
+		TOTAL_STATS_HIGH_TO_LOW = 5;
+	}
 }
 
 																						//DONE
@@ -1031,12 +1097,6 @@ message LoadPlayerCityResponseProto {
 	repeated FullUserProto ownerAllies = 5;			//only if owner is an enemy
 	repeated FullUserProto ownerEnemies = 6;		//only if owner is you or ally
 
-    optional FullUserCritstructProto armory = 7;
-    optional FullUserCritstructProto vault = 8;
-    optional FullUserCritstructProto marketplace = 9;
-    optional FullUserCritstructProto carpenter = 10;
-    optional FullUserCritstructProto aviary = 11;    
-
 	optional FullUserCityExpansionDataProto userCityExpansionData = 12;
      
     enum LoadPlayerCityStatus {
@@ -1139,6 +1199,7 @@ message RetrieveStaticDataRequestProto {
 	repeated int32 possessEquipJobIds = 9;
 	repeated int32 upgradeStructJobIds = 10;
 	optional int32 levelForExpRequiredRequest = 11;
+	optional bool currentLockBoxEvents = 12;
 }
 
 																						//DONE
@@ -1154,8 +1215,9 @@ message RetrieveStaticDataResponseProto {
 	repeated PossessEquipJobProto possessEquipJobs = 9;
 	repeated UpgradeStructJobProto upgradeStructJobs = 10;
 	optional int32 expRequiredForRequestedLevel = 11;
+	repeated LockBoxEventProto lockBoxEvents = 12;
 	
-	optional RetrieveStaticDataStatus status = 12;
+	optional RetrieveStaticDataStatus status = 13;
 	
 	enum RetrieveStaticDataStatus {
 		SUCCESS = 0;
@@ -1193,6 +1255,7 @@ message PurchaseCityExpansionResponseProto {
 message ExpansionWaitCompleteRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int64 curTime = 2;						//used for checking
+	optional bool speedUp = 3;
 }
 
 																						//DONE
@@ -1943,24 +2006,12 @@ message RetrieveThreeCardMonteRequestProto {
 message RetrieveThreeCardMonteResponseProto {
      optional MinimumUserProto sender = 1;
 
-     optional int32 badDiamondsGained = 2;
-     optional FullEquipProto badEquip = 3;
-     optional int32 badEquipLevel = 4;
-     optional int32 badCoinsGained = 5;
-
-     optional int32 mediumDiamondsGained = 6;
-     optional FullEquipProto mediumEquip = 7;
-     optional int32 mediumEquipLevel = 8;
-     optional int32 mediumCoinsGained = 9;
-
-     optional int32 goodDiamondsGained = 10;
-     optional FullEquipProto goodEquip = 11;
-     optional int32 goodEquipLevel = 12;
-     optional int32 goodCoinsGained = 13;
+	optional MonteCardProto badMonteCard = 2;
+	optional MonteCardProto mediumMonteCard = 3;
+	optional MonteCardProto goodMonteCard = 4;
      
      optional RetrieveThreeCardMonteStatus status = 14;;
      
-	 
      enum RetrieveThreeCardMonteStatus {
      	SUCCESS = 0;
      	SOME_FAIL = 1;
@@ -1972,12 +2023,7 @@ message RetrieveThreeCardMonteResponseProto {
 message PlayThreeCardMonteRequestProto {
 	 optional MinimumUserProto sender = 1;
 	
-	 optional MonteCard monteCard = 2;
-
-	 optional int32 diamondsGained = 3;
-	 optional int32 coinsGained = 4;
-	 optional FullEquipProto equipGained = 5;
-	 optional int32 equipLevel = 6;
+	 optional int32 cardId = 2;
 }
 
 message PlayThreeCardMonteResponseProto {
@@ -1991,6 +2037,100 @@ message PlayThreeCardMonteResponseProto {
      	OTHER_FAIL = 1;
      	NOT_ENOUGH_DIAMONDS = 2;
      }
+}
+
+message BeginGoldmineTimerRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional bool reset = 2;
+    optional int64 clientTime = 3;
+}
+
+message BeginGoldmineTimerResponseProto {
+	optional MinimumUserProto sender = 1;
+	
+	optional BeginGoldmineTimerStatus status = 2;
+	
+	enum BeginGoldmineTimerStatus {
+		SUCCESS = 0;
+		NOT_ENOUGH_DIAMONDS = 1;
+		STILL_COLLECTING = 2;
+		OTHER_FAIL = 3;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 4;
+	}
+}
+
+message CollectFromGoldmineRequestProto {
+	optional MinimumUserProto sender = 1;
+    optional int64 clientTime = 2;
+}
+
+message CollectFromGoldmineResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional CollectFromGoldmineStatus status = 3;
+	
+	enum CollectFromGoldmineStatus {
+		SUCCESS = 0;
+		NOT_YET_STARTED = 1;
+		STILL_COLLECTING = 2;
+		OTHER_FAIL = 3;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 4;
+	}
+}
+
+message PickLockBoxRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 lockBoxEventId = 2;
+	optional PickLockBoxMethod method = 3;
+    optional int64 clientTime = 4;
+	
+	enum PickLockBoxMethod {
+		FREE = 0;
+		SILVER = 1;
+		GOLD = 2;
+	}
+}
+
+message PickLockBoxResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional bool success = 2;
+	optional LockBoxItemProto item = 3;
+	optional FullUserEquipProto prizeEquip = 4;
+	optional int32 lockBoxEventId = 5;
+	optional int64 clientTime = 6;
+	optional PickLockBoxStatus status = 7;
+	
+	enum PickLockBoxStatus {
+		SUCCESS = 0;
+		NOT_ENOUGH_CURRENCY = 1;
+		NOT_ENOUGH_LOCKBOXES = 2;
+		EVENT_IS_NOT_IN_PROGRESS = 3;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 4;
+		OTHER_FAIL = 5;
+	}
+}
+
+message BossActionRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 bossId = 2;
+	optional int64 curTime = 3;
+}
+
+message BossActionResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional BossActionStatus status = 2;
+	optional int32 damageDone = 3;
+	repeated FullUserEquipProto lootUserEquip = 5;
+	repeated int32 coinsGained = 6;
+	repeated int32 diamondsGained = 7;
+	optional int32 bossId = 8;
+	
+	enum BossActionStatus {
+		SUCCESS = 0; 
+		USER_NOT_ENOUGH_STAMINA = 1;
+		BOSS_HAS_NOT_SPAWNED = 2;
+		OTHER_FAIL = 3;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 4;
+	} 
 }
 
 //if reset

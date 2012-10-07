@@ -513,9 +513,11 @@ public class DBConnection {
     return generatedKey;
   }
 
-  public int insertOnDuplicateKeyRelativeUpdate(String tablename,
+  /*public int insertOnDuplicateKeyRelativeUpdate(String tablename,
       Map<String, Object> insertParams, String columnUpdate,
-      Object updateQuantity) {
+      Object updateQuantity) {*/ 
+  public int insertOnDuplicateKeyUpdate(String tablename,
+      Map<String, Object> insertParams, Map<String, Object> relativeUpdates, Map<String, Object> absoluteUpdates) {
 
     List<String> questions = new LinkedList<String>();
     List<String> columns = new LinkedList<String>();
@@ -529,12 +531,32 @@ public class DBConnection {
         columns.add(column);
         values.add(insertParams.get(column));
       }
-      values.add(updateQuantity);
+      //values.add(updateQuantity);
       String query = "insert into " + tablename + "("
           + StringUtils.getListInString(columns, ",") + ") VALUES ("
           + StringUtils.getListInString(questions, ",")
-          + ") on duplicate key update " + columnUpdate + "="
-          + columnUpdate + "+?";
+          + ") on duplicate key update ";/* + columnUpdate + "="
+          + columnUpdate + "+?";*/
+
+      if (relativeUpdates != null && relativeUpdates.size() > 0) {
+        //This is to enable updates to multiple columns when "insert on duplicate key" encounters a duplicate key
+        List<String> updateColumnClauses = new LinkedList<String>();
+        for (String columnToUpdate : relativeUpdates.keySet()) {
+          updateColumnClauses.add(columnToUpdate + "="+columnToUpdate+"+?");
+          values.add(relativeUpdates.get(columnToUpdate));
+        }
+        query += StringUtils.getListInString(updateColumnClauses, ",");
+      }
+
+      if (absoluteUpdates != null && absoluteUpdates.size() > 0) {
+        List<String> absoluteColumnClauses = new LinkedList<String>();
+        for (String columnToUpdate : absoluteUpdates.keySet()) {
+          absoluteColumnClauses.add(columnToUpdate + "=?");
+          values.add(absoluteUpdates.get(columnToUpdate));
+        }
+        query += StringUtils.getListInString(absoluteColumnClauses, ",");
+      }
+
       Connection conn = null;
       PreparedStatement stmt = null;
       try {
@@ -623,7 +645,7 @@ public class DBConnection {
     return rs;
   }
 
-  private ResultSet selectRows(Connection conn, List<String> columns,
+  public ResultSet selectRows(Connection conn, List<String> columns,
       Map<String, Object> absoluteConditionParams,
       Map<String, Object> relativeGreaterThanConditionParams,
       Map<String, Object> relativeLessThanConditionParams,

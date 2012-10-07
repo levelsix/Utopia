@@ -21,9 +21,9 @@ import com.lvl6.proto.EventProto.CharacterModResponseProto;
 import com.lvl6.proto.EventProto.CharacterModResponseProto.Builder;
 import com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus;
 import com.lvl6.proto.InfoProto.CharacterModType;
+import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
-import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
@@ -149,18 +149,18 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
 
     boolean unequipWeapon = false, unequipArmor = false, unequipAmulet = false;
-    ClassType userClass = MiscMethods.getClassTypeFromUserType(newUserType);
+    EquipClassType userClass = MiscMethods.getClassTypeFromUserType(newUserType);
 
     for (UserEquip ue : specificUserEquips) {
       Equipment equip = equipmentIdsToEquipment.get(ue.getEquipId());
       if (ue.getId() == user.getWeaponEquippedUserEquipId()) {
-        unequipWeapon =  (userClass != equip.getClassType() && equip.getClassType() != ClassType.ALL_AMULET);
+        unequipWeapon =  (userClass != equip.getClassType() && equip.getClassType() != EquipClassType.ALL_AMULET);
       }
       if (ue.getId() == user.getArmorEquippedUserEquipId()) {
-        unequipArmor =  (userClass != equip.getClassType() && equip.getClassType() != ClassType.ALL_AMULET);
+        unequipArmor =  (userClass != equip.getClassType() && equip.getClassType() != EquipClassType.ALL_AMULET);
       }
       if (ue.getId() == user.getAmuletEquippedUserEquipId()) {
-        unequipAmulet =  (userClass != equip.getClassType() && equip.getClassType() != ClassType.ALL_AMULET);
+        unequipAmulet =  (userClass != equip.getClassType() && equip.getClassType() != EquipClassType.ALL_AMULET);
       }
     }
     if (!user.updateUnequip(unequipWeapon, unequipArmor, unequipAmulet)) {
