@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
@@ -57,9 +58,12 @@ import com.lvl6.utils.DBConnection;
     int nearLeftExpansions = rs.getInt(i++);
     int nearRightExpansions = rs.getInt(i++);
     boolean isExpanding = rs.getBoolean(i++);
-    
-    long lastExpandTimeLong = rs.getLong(i++);
-    Timestamp lastExpandTime = rs.wasNull() ? null : new Timestamp(lastExpandTimeLong);
+
+    Date lastExpandTime = null;
+    Timestamp ts = rs.getTimestamp(i++);
+    if (!rs.wasNull()) {
+      lastExpandTime = new Date(ts.getTime());
+    }
     
     int lastExpandDirectionInt = rs.getInt(i++);
     ExpansionDirection lastExpandDirection = (rs.wasNull()) ? null : ExpansionDirection.valueOf(lastExpandDirectionInt);

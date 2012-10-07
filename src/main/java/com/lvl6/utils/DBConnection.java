@@ -516,8 +516,8 @@ public class DBConnection {
   /*public int insertOnDuplicateKeyRelativeUpdate(String tablename,
       Map<String, Object> insertParams, String columnUpdate,
       Object updateQuantity) {*/ 
-  public int insertOnDuplicateKeyRelativeUpdate(String tablename,
-      Map<String, Object> insertParams, Map<String, Object> columnsToUpdate) {
+  public int insertOnDuplicateKeyUpdate(String tablename,
+      Map<String, Object> insertParams, Map<String, Object> relativeUpdates, Map<String, Object> absoluteUpdates) {
 
     List<String> questions = new LinkedList<String>();
     List<String> columns = new LinkedList<String>();
@@ -537,15 +537,26 @@ public class DBConnection {
           + StringUtils.getListInString(questions, ",")
           + ") on duplicate key update ";/* + columnUpdate + "="
           + columnUpdate + "+?";*/
-      
-      //This is to enable updates to multiple columns when "insert on duplicate key" encounters a duplicate key
-      List<String> updateColumnClauses = new LinkedList<String>();
-      for (String columnToUpdate : columnsToUpdate.keySet()) {
-        updateColumnClauses.add(columnToUpdate + "=?");
-        values.add(columnsToUpdate.get(columnToUpdate));
+
+      if (relativeUpdates != null && relativeUpdates.size() > 0) {
+        //This is to enable updates to multiple columns when "insert on duplicate key" encounters a duplicate key
+        List<String> updateColumnClauses = new LinkedList<String>();
+        for (String columnToUpdate : relativeUpdates.keySet()) {
+          updateColumnClauses.add(columnToUpdate + "="+columnToUpdate+"+?");
+          values.add(relativeUpdates.get(columnToUpdate));
+        }
+        query += StringUtils.getListInString(updateColumnClauses, ",");
       }
-      query += StringUtils.getListInString(updateColumnClauses, ",");
-      
+
+      if (absoluteUpdates != null && absoluteUpdates.size() > 0) {
+        List<String> absoluteColumnClauses = new LinkedList<String>();
+        for (String columnToUpdate : absoluteUpdates.keySet()) {
+          absoluteColumnClauses.add(columnToUpdate + "=?");
+          values.add(absoluteUpdates.get(columnToUpdate));
+        }
+        query += StringUtils.getListInString(absoluteColumnClauses, ",");
+      }
+
       Connection conn = null;
       PreparedStatement stmt = null;
       try {

@@ -183,6 +183,7 @@ public class CreateInfoProtoUtils {
   public static FullUserCityExpansionDataProto createFullUserCityExpansionDataProtoFromUserCityExpansionData(UserCityExpansionData uced) {
     FullUserCityExpansionDataProto.Builder builder = FullUserCityExpansionDataProto.newBuilder().setUserId(uced.getUserId())
         .setFarLeftExpansions(uced.getFarLeftExpansions()).setFarRightExpansions(uced.getFarRightExpansions())
+        .setNearLeftExpansions(uced.getNearLeftExpansions()).setNearRightExpansions(uced.getNearRightExpansions())
         .setIsExpanding(uced.isExpanding());
     if (uced.getLastExpandTime() != null) {
       builder.setLastExpandTime(uced.getLastExpandTime().getTime());

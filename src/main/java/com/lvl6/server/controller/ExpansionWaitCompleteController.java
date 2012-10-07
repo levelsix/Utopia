@@ -80,17 +80,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private void writeChangesToDB(User user, UserCityExpansionData userCityExpansionData, boolean speedUp) {
-    int farLeftExpansionChange = 0, farRightExpansionChange = 0, nearLeftExpansionChange = 0, nearRightExpansionChange = 0;
+    int farLeftExpansionChange = userCityExpansionData.getFarLeftExpansions(), farRightExpansionChange = userCityExpansionData.getFarRightExpansions(), 
+        nearLeftExpansionChange = userCityExpansionData.getNearLeftExpansions(), nearRightExpansionChange = userCityExpansionData.getNearRightExpansions();
     if (userCityExpansionData.getLastExpandDirection() == ExpansionDirection.FAR_LEFT) {
       farLeftExpansionChange++;
-    }
-    if (userCityExpansionData.getLastExpandDirection() == ExpansionDirection.FAR_RIGHT) {
+    } else if (userCityExpansionData.getLastExpandDirection() == ExpansionDirection.FAR_RIGHT) {
       farRightExpansionChange++;
-    }
-    if (userCityExpansionData.getLastExpandDirection() == ExpansionDirection.NEAR_LEFT) {
+    } else if (userCityExpansionData.getLastExpandDirection() == ExpansionDirection.NEAR_LEFT) {
       nearLeftExpansionChange++;
-    }
-    if (userCityExpansionData.getLastExpandDirection() == ExpansionDirection.NEAR_RIGHT) {
+    } else if (userCityExpansionData.getLastExpandDirection() == ExpansionDirection.NEAR_RIGHT) {
       nearRightExpansionChange++;
     }
     if (!UpdateUtils.get().updateUserExpansionNumexpansionsIsexpanding(userCityExpansionData.getUserId(), 

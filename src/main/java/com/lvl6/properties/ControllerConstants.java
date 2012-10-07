@@ -93,7 +93,7 @@ public class ControllerConstants {
   public static final int EXPANSION_WAIT_COMPLETE__HOUR_INCREMENT_BASE = 4;
   public static final int EXPANSION_WAIT_COMPLETE__BASE_MINUTES_TO_ONE_GOLD = 3;
 
-  public static final int PURCHASE_EXPANSION__COST_CONSTANT = 100;
+  public static final int PURCHASE_EXPANSION__COST_CONSTANT = 1000;
   public static final int PURCHASE_EXPANSION__COST_EXPONENT_BASE = 2;
   
   public static final int SIZE_OF_ATTACK_LIST = 20;

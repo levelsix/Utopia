@@ -115,7 +115,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       resBuilder.setStatus(PurchaseCityExpansionStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
       return false;
     }
-    if (userCityExpansionData.isExpanding()) {
+    if (userCityExpansionData != null && userCityExpansionData.isExpanding()) {
       resBuilder.setStatus(PurchaseCityExpansionStatus.ALREADY_EXPANDING);
       return false;      
     }
@@ -128,7 +128,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private int calculateExpansionCost(UserCityExpansionData userCityExpansionData) {
-    int curNumExpansions = userCityExpansionData.getTotalNumCompletedExpansions();
+    int curNumExpansions = userCityExpansionData != null ? userCityExpansionData.getTotalNumCompletedExpansions() : 0;
     return (int) (ControllerConstants.PURCHASE_EXPANSION__COST_CONSTANT*Math.pow(ControllerConstants.PURCHASE_EXPANSION__COST_EXPONENT_BASE, curNumExpansions));
   }
 }
