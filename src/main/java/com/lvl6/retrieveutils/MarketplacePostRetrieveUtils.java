@@ -17,7 +17,9 @@ import org.springframework.stereotype.Component;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
+import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
+import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.utils.DBConnection;
 
 @Component @DependsOn("gameServer") public class MarketplacePostRetrieveUtils {
@@ -91,7 +93,9 @@ import com.lvl6.utils.DBConnection;
     }
     
     //Greater than -1 means filter by specific class type
-    if(-1 < characterClassType) { absoluteConditionParams.put("class_type", characterClassType); }
+    if(-1 < characterClassType) {
+      absoluteConditionParams.put("(class_type="+EquipClassType.ALL_AMULET_VALUE+" or class_type="+characterClassType+") and 1", 1); 
+    }
     //end absolute condition params
     
     //begin relative greater than condition params
@@ -129,8 +133,10 @@ import com.lvl6.utils.DBConnection;
     //List<MarketplacePost> newMarketplacePosts = marketplacePosts.subList(postId, amountToRetrieve); 
     //previous can create indexOutOfBoundsException. We're already potentially getting an amount of new items equal to 'limit'
     //so using size of list as last index
-    List<MarketplacePost> newMarketplacePosts = marketplacePosts.subList(postId, marketplacePosts.size());
-    newMarketplacePosts = new ArrayList<MarketplacePost>(newMarketplacePosts);
+    List<MarketplacePost> newMarketplacePosts = null;
+    if (postId < marketplacePosts.size()) {
+      newMarketplacePosts = marketplacePosts.subList(postId, marketplacePosts.size());
+    }
     
     DBConnection.get().close(rs, null, conn);
     return newMarketplacePosts;
