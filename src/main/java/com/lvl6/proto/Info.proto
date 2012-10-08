@@ -420,11 +420,13 @@ message FullCityProto {
 
 message FullUserCityExpansionDataProto {
 	optional int32 userId = 1;
-	optional int32 farLeftExpansions = 3;
-	optional int32 farRightExpansions = 4;
-	optional bool isExpanding = 5;
-	optional int64 lastExpandTime = 6;
-	optional ExpansionDirection lastExpandDirection = 7;
+	optional int32 farLeftExpansions = 2;
+	optional int32 farRightExpansions = 3;
+	optional int32 nearLeftExpansions = 4;
+	optional int32 nearRightExpansions = 5;
+	optional bool isExpanding = 6;
+	optional int64 lastExpandTime = 7;
+	optional ExpansionDirection lastExpandDirection = 8;
 }
 
 //------------------------------------------------------------------------------------------
@@ -531,6 +533,8 @@ enum StructOrientation {
 enum ExpansionDirection {
 	FAR_LEFT = 0;
 	FAR_RIGHT = 1;
+	NEAR_LEFT = 2;
+	NEAR_RIGHT = 3;
 }
 
 //------------------------------------------------------------------------------------------

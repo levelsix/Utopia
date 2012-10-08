@@ -38,8 +38,6 @@ public interface InsertUtil {
    * com.lvl6.utils.utilmethods.InsertUtil#insertAviaryAndCarpenterCoords(int,
    * com.lvl6.info.CoordinatePair, com.lvl6.info.CoordinatePair)
    */
-  public abstract boolean insertAviaryAndCarpenterCoords(int userId,
-      CoordinatePair aviary, CoordinatePair carpenter);
 
   public abstract boolean insertAdcolonyRecentHistory(int userId,
       Timestamp timeOfReward, int amountEarned, AdColonyRewardType adColonyRewardType, String digest);

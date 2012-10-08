@@ -88,12 +88,13 @@ public class ControllerConstants {
   public static final int FORGE_MAX_EQUIP_LEVEL = 10;
   public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 3;
   public static final double FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER = 1.8;
-  
-  public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FIRST_EXPANSION = 3;
-  public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_SECOND_EXPANSION = 12;
-  public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_THIRD_EXPANSION = 24;
-  public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FOURTH_EXPANSION = 30;
-  public static final int EXPANSION_WAIT_COMPLETE__HOUR_INCREMENT_BETWEEN_LATER_LEVELS = 4;
+
+  public static final int EXPANSION_WAIT_COMPLETE__HOUR_CONSTANT = 0;
+  public static final int EXPANSION_WAIT_COMPLETE__HOUR_INCREMENT_BASE = 4;
+  public static final int EXPANSION_WAIT_COMPLETE__BASE_MINUTES_TO_ONE_GOLD = 3;
+
+  public static final int PURCHASE_EXPANSION__COST_CONSTANT = 1000;
+  public static final int PURCHASE_EXPANSION__COST_EXPONENT_BASE = 2;
   
   public static final int SIZE_OF_ATTACK_LIST = 20;
 

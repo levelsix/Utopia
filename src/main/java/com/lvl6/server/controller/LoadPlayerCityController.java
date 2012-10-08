@@ -11,6 +11,7 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.LoadPlayerCityRequestEvent;
 import com.lvl6.events.response.LoadPlayerCityResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.info.UserCityExpansionData;
 import com.lvl6.info.UserStruct;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.LoadPlayerCityRequestProto;
@@ -20,6 +21,7 @@ import com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatu
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.UserCityExpansionRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
@@ -60,14 +62,11 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
       List<UserStruct> userStructs = RetrieveUtils.userStructRetrieveUtils().getUserStructsForUser(cityOwnerId);
       setResponseUserStructs(resBuilder, userStructs);
-
-//      Map<CritStructType, UserCritstruct> userCritStructs = UserCritstructRetrieveUtils.getUserCritstructsForUser(cityOwnerProto.getUserId());
-//      setResponseCritstructs(resBuilder, userCritStructs);
       
-//      UserCityExpansionData userCityExpansionData = UserCityExpansionRetrieveUtils.getUserCityExpansionDataForUser(cityOwnerProto.getUserId());
-//      if (userCityExpansionData != null) {
-//        resBuilder.setUserCityExpansionData(CreateInfoProtoUtils.createFullUserCityExpansionDataProtoFromUserCityExpansionData(userCityExpansionData));
-//      }
+      UserCityExpansionData userCityExpansionData = UserCityExpansionRetrieveUtils.getUserCityExpansionDataForUser(senderProto.getUserId());
+      if (userCityExpansionData != null) {
+        resBuilder.setUserCityExpansionData(CreateInfoProtoUtils.createFullUserCityExpansionDataProtoFromUserCityExpansionData(userCityExpansionData));
+      }
 
       resBuilder.setCityOwner(CreateInfoProtoUtils.createMinimumUserProtoFromUser(owner));
       
@@ -133,34 +132,5 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       log.error("user structs found for user is null");
     }
   }
-
-//  private void setResponseCritstructs(Builder resBuilder, Map<CritStructType, UserCritstruct> userCritStructs) {
-//    if (userCritStructs != null) {
-//      for (CritStructType cst : userCritStructs.keySet()) {
-//        UserCritstruct uc = userCritStructs.get(cst);
-//        if (uc != null) {
-//          if (cst == CritStructType.ARMORY) {
-//            resBuilder.setArmory(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
-//          }
-//          if (cst == CritStructType.AVIARY) {
-//            resBuilder.setAviary(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
-//          }
-//          if (cst == CritStructType.CARPENTER) {
-//            resBuilder.setCarpenter(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
-//          }
-//          if (cst == CritStructType.MARKETPLACE) {
-//            resBuilder.setMarketplace(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
-//          }
-//          if (cst == CritStructType.VAULT) {
-//            resBuilder.setVault(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
-//          }
-//        } else {
-//          resBuilder.setStatus(LoadPlayerCityStatus.OTHER_FAIL);
-//        }
-//      }
-//    } else {
-//      resBuilder.setStatus(LoadPlayerCityStatus.OTHER_FAIL);
-//    }
-//  }
 
 }

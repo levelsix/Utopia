@@ -21,7 +21,7 @@ import com.lvl6.utils.DBConnection;
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  private static final String TABLE_NAME = DBConstants.TABLE_USER_CITY_ELEMS;
+  private static final String TABLE_NAME = DBConstants.TABLE_USER_EXPANSIONS;
 
   public static Map<CritStructType, UserCritstruct> getUserCritstructsForUser(int userId) {
     log.debug("retrieving user critstructs for userId " + userId);
