@@ -780,7 +780,7 @@
 			</dependency> -->
 		<dependency>
 			<groupId>org.hectorclient</groupId>
-			<artifactId>hector</artifactId>
+			<artifactId>hector-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
