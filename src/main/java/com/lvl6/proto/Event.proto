@@ -282,7 +282,9 @@ message StartupResponseProto {
 		optional int32 maxLengthOfChatString = 77;
 		
 		optional ClanConstants clanConstants = 78;
+		
 		optional int32 diamondCostToPlayThreeCardMonte = 79;
+		optional int32 minLevelToDisplayThreeCardMonte = 83;
 		
 		optional GoldmineConstants goldmineConstants = 80;
 		optional LockBoxConstants lockBoxConstants = 81;
