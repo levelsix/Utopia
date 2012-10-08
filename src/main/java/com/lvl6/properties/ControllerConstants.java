@@ -97,7 +97,7 @@ public class ControllerConstants {
   
   public static final int SIZE_OF_ATTACK_LIST = 20;
 
-  public static final int BATTLE__MAX_NUM_TIMES_ATTACKED_BY_ONE_IN_PROTECTION_PERIOD = 50;
+  public static final int BATTLE__MAX_NUM_TIMES_ATTACKED_BY_ONE_IN_PROTECTION_PERIOD = 10;
   public static final int BATTLE__HOURS_IN_ATTACKED_BY_ONE_PROTECTION_PERIOD = 8;
   
   
@@ -277,7 +277,7 @@ public class ControllerConstants {
   public static final int POST_ON_PLAYER_WALL__MAX_CHAR_LENGTH = 1000;
 
   //RETRIEVE PLAYER WALL POSTS
-  public static final int RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP = 15;
+  public static final int RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP = 100;
   
   //CHARACTER MOD
   public static final int CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_CHARACTER_TYPE = 150;
@@ -336,6 +336,7 @@ public class ControllerConstants {
   public static final String[] STARTUP__NOTICES_TO_PLAYERS = {
 //    "FREE limited edition gold equip for joining today!"
 //    "Forging Contest! 50 GOLD reward! Details at forum.lvl6.com"
+      "Due to technical complications, 5 day bonus is no longer offered. Sorry."
     };
   
   
