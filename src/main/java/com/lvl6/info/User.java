@@ -426,6 +426,35 @@ public class User implements Serializable {
     }
     return false;
   }
+  
+  /*
+   * used for reducing stamina after attacking a boss
+   */
+  public boolean updateStaminaAfterAttackingBoss(int staminaChange) {
+	  String tableName = DBConstants.TABLE_USER;
+	  
+	  //the columns that are going to change, "relative params" because 
+	  //column changing is relative to itself
+	  Map<String, Object> relativeParams = new HashMap<String, Object>();
+	  relativeParams.put(DBConstants.USER__STAMINA, staminaChange);
+	 
+	  //WHERE clause 
+	  Map<String, Object> conditionParams = new HashMap<String, Object>();
+	  conditionParams.put(DBConstants.USER__ID, id);
+	  
+	  //the delimiter to separate the condition tests in the WHERE clause
+	  String condDelim = "";
+	  
+	  int numUpdated = DBConnection.get().updateTableRows(tableName, 
+			  null, relativeParams, conditionParams, condDelim);
+	  if (1 == numUpdated) {
+		  //should be one since id is unique
+		  //need to update object since updated database
+		  this.stamina += staminaChange;
+		  return true;
+	  }
+	  return false;
+  }
 
   /*
    * used for refilling stamina

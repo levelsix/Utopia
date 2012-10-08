@@ -344,6 +344,8 @@ public class DBConstants {
   public static final String USER_BOSSES__USER_ID = "user_id";
   public static final String USER_BOSSES__BOSS_ID = "boss_id";
   public static final String USER_BOSSES__START_TIME = "start_time";
+  public static final String USER_BOSSES__CUR_HEALTH = "cur_health";
+  public static final String USER_BOSSES__NUM_TIMES_KILLED = "num_times_killed";
 
   /*USER LOCK BOX EVENTS*/
   public static final String USER_LOCK_BOX_EVENTS__EVENT_ID = "lock_box_event_id";

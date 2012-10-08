@@ -541,7 +541,7 @@ public class DBConnection {
       //This is to enable updates to multiple columns when "insert on duplicate key" encounters a duplicate key
       List<String> updateColumnClauses = new LinkedList<String>();
       for (String columnToUpdate : columnsToUpdate.keySet()) {
-        updateColumnClauses.add(columnToUpdate + "=?");
+        updateColumnClauses.add(columnToUpdate + "=" + columnToUpdate + "+?");
         values.add(columnsToUpdate.get(columnToUpdate));
       }
       query += StringUtils.getListInString(updateColumnClauses, ",");
@@ -569,6 +569,58 @@ public class DBConnection {
     return numUpdated;
   }
 
+  /*
+   * mysql replace statement either:
+   * 1) inserts new row into table if there does not exist a row in the table
+   * that has the same PRIMARY KEY or UNIQUE index
+   * 2) drops preexisting row in the table with the same PRIMARY KEY and inserts new row
+   * 
+   * in case (1) this function returns 1
+   * in case (2) this function returns at least 2
+   */
+  public int replace (String tableName, Map<String, Object> columnsAndValues) {
+	  //return value 
+	  int numUpdated = 0;
+	  
+	  if (null != columnsAndValues && 0 < columnsAndValues.size()) {
+		//for prepared statement
+	  	List<String> columns = new LinkedList<String>();
+	  	List<Object> values = new LinkedList<Object>();
+	  	List<String> questions = new LinkedList<String>();
+
+	  	for (String column : columnsAndValues.keySet()) {
+	  		columns.add(column);
+	  		values.add(columnsAndValues.get(column));
+	  		questions.add("?");
+	  	}
+	  	
+	  	String query = "REPLACE INTO " + tableName 
+	  		+ "(" + StringUtils.getListInString(columns, ",") + ")"
+	  		+ " VALUE " + "( " + StringUtils.getListInString(questions, ",");
+	  	
+	  	Connection conn = null;
+	  	PreparedStatement stmt = null;
+	  	try {
+	  		conn = dataSource.getConnection();
+	  		stmt = conn.prepareStatement(query);
+	  		
+	  		int i = 1;
+	  		for(Object value : values) {
+	  			stmt.setObject(i, value);
+	  			i++;
+	  		}
+	  		numUpdated = stmt.executeUpdate();
+	  	} catch (SQLException e) {
+	  	  log.error("problem with " + query + ", values are " + values, e);
+	      e.printStackTrace();
+	    } finally {
+	        close(null, stmt, conn);
+	    }
+	  }
+	  
+	  return numUpdated;
+  }
+  
   /*
    * returns num of rows affected
    */
