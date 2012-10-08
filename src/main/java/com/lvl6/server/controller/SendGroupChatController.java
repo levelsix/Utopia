@@ -105,9 +105,9 @@ public class SendGroupChatController extends EventController {
       server.writeEvent(resEvent);
 
       if (legitSend) {
-        if (scope == GroupChatScope.GLOBAL) {
-          writeChangesToDB(user);
-        }
+//        if (scope == GroupChatScope.GLOBAL) {
+//          writeChangesToDB(user);
+//        }
         
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods
             .createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
@@ -184,11 +184,11 @@ public class SendGroupChatController extends EventController {
       return false;
     }
 
-    if (user.getNumGroupChatsRemaining() <= 0) {
-      resBuilder.setStatus(SendGroupChatStatus.NOT_ENOUGH_GROUP_CHATS);
-      log.error("user has no group chats remaining");
-      return false;
-    }
+//    if (user.getNumGroupChatsRemaining() <= 0) {
+//      resBuilder.setStatus(SendGroupChatStatus.NOT_ENOUGH_GROUP_CHATS);
+//      log.error("user has no group chats remaining");
+//      return false;
+//    }
 
     if (chatMessage.length() > ControllerConstants.SEND_GROUP_CHAT__MAX_LENGTH_OF_CHAT_STRING) {
       resBuilder.setStatus(SendGroupChatStatus.TOO_LONG);

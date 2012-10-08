@@ -283,12 +283,19 @@ message StartupResponseProto {
 		
 		optional ClanConstants clanConstants = 78;
 		
-		optional int32 diamondCostToPlayThreeCardMonte = 79;
-		optional int32 minLevelToDisplayThreeCardMonte = 83;
+		optional ThreeCardMonteConstants threeCardMonteConstants = 79;
 		
 		optional GoldmineConstants goldmineConstants = 80;
 		optional LockBoxConstants lockBoxConstants = 81;
 		optional ExpansionConstants expansionConstants = 82;
+		
+		message ThreeCardMonteConstants {
+			optional int32 diamondCostToPlayThreeCardMonte = 1;
+			optional int32 minLevelToDisplayThreeCardMonte = 2;
+			optional float badMonteCardPercentageChance = 3;
+			optional float mediumMonteCardPercentageChance = 4;
+			optional float goodMonteCardPercentageChance = 5;
+		}
 		
 		message ExpansionConstants {
 			optional int32 expansionWaitCompleteHourConstant = 1;

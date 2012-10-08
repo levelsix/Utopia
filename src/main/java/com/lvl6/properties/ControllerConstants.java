@@ -307,6 +307,9 @@ public class ControllerConstants {
   //THREE CARD MONTE
   public static final int THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY = 60;
   public static final int THREE_CARD_MONTE__MIN_LEVEL = 5;
+  public static final float THREE_CARD_MONTE__BAD_PERCENTAGE = 0.55f;
+  public static final float THREE_CARD_MONTE__MEDIUM_PERCENTAGE = 0.25f;
+  public static final float THREE_CARD_MONTE__GOOD_PERCENTAGE = 0.2f;
   
   //GOLDMINE
   public static final int GOLDMINE__NUM_HOURS_BEFORE_RETRIEVAL = 11;
