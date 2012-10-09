@@ -21,8 +21,7 @@ import com.lvl6.events.response.StartupResponseEvent;
 import com.lvl6.info.BattleDetails;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.City;
-import com.lvl6.info.Clan;
-import com.lvl6.info.ClanWallPost;
+import com.lvl6.info.ClanChatPost;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.MarketplaceTransaction;
@@ -40,7 +39,6 @@ import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto;
-import com.lvl6.proto.EventProto.RetrieveClanWallPostsResponseProto.RetrieveClanWallPostsStatus;
 import com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto.RetrieveStaticDataStatus;
 import com.lvl6.proto.EventProto.StartupRequestProto;
 import com.lvl6.proto.EventProto.StartupResponseProto;
@@ -59,8 +57,7 @@ import com.lvl6.proto.InfoProto.MarketplaceSearchEquipProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
-import com.lvl6.retrieveutils.ClanRetrieveUtils;
-import com.lvl6.retrieveutils.ClanWallPostRetrieveUtils;
+import com.lvl6.retrieveutils.ClanChatPostRetrieveUtils;
 import com.lvl6.retrieveutils.IAPHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
 import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
@@ -198,20 +195,20 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private void setChatMessages(StartupResponseProto.Builder resBuilder,
       User user) {
     if (user.getClanId() > 0) {
-      List <ClanWallPost> activeClanWallPosts;
-      activeClanWallPosts = ClanWallPostRetrieveUtils.getMostRecentClanWallPostsForClan(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, user.getClanId());
+      List <ClanChatPost> activeClanChatPosts;
+      activeClanChatPosts = ClanChatPostRetrieveUtils.getMostRecentClanChatPostsForClan(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, user.getClanId());
         
-      if (activeClanWallPosts != null) {
-        if (activeClanWallPosts != null && activeClanWallPosts.size() > 0) {
+      if (activeClanChatPosts != null) {
+        if (activeClanChatPosts != null && activeClanChatPosts.size() > 0) {
           List <Integer> userIds = new ArrayList<Integer>();
-          for (ClanWallPost p : activeClanWallPosts) {
+          for (ClanChatPost p : activeClanChatPosts) {
             userIds.add(p.getPosterId());
           }
           Map<Integer, User> usersByIds = null;
           if (userIds.size() > 0) {
             usersByIds = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
-            for (ClanWallPost pwp : activeClanWallPosts) {
-              resBuilder.addClanChats(CreateInfoProtoUtils.createGroupChatMessageProtoFromClanWallPost(pwp, usersByIds.get(pwp.getPosterId())));
+            for (ClanChatPost pwp : activeClanChatPosts) {
+              resBuilder.addClanChats(CreateInfoProtoUtils.createGroupChatMessageProtoFromClanChatPost(pwp, usersByIds.get(pwp.getPosterId())));
             }
           }
         }
@@ -438,10 +435,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
     }
 
-    List<ClanWallPost> clanWallPosts = null;
+    List<ClanChatPost> clanChatPosts = null;
     if (user.getClanId() > 0) {
-      clanWallPosts = ClanWallPostRetrieveUtils.getMostRecentClanWallPostsForClan(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, user.getClanId());
-      for (ClanWallPost p : clanWallPosts) {
+      clanChatPosts = ClanChatPostRetrieveUtils.getMostRecentClanChatPostsForClan(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, user.getClanId());
+      for (ClanChatPost p : clanChatPosts) {
         userIds.add(p.getPosterId());
       }
     }
@@ -467,7 +464,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         resBuilder.addPlayerWallPostNotifications(CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(p, usersByIds.get(p.getPosterId())));
       }
     }
-    if (clanWallPosts != null && clanWallPosts.size() > 0) {
+    if (clanChatPosts != null && clanChatPosts.size() > 0) {
       
     }
   }

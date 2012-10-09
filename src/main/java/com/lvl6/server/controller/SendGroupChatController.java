@@ -166,7 +166,7 @@ public class SendGroupChatController extends EventController {
 //    }
     
     if (scope == GroupChatScope.CLAN) {
-    InsertUtils.get().insertClanWallPost(user.getId(), user.getClanId(), content, timeOfPost);
+    InsertUtils.get().insertClanChatPost(user.getId(), user.getClanId(), content, timeOfPost);
     }
   }
 

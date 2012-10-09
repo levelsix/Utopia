@@ -645,7 +645,23 @@ public class InsertUtils implements InsertUtil{
   }
 
   @Override
-  public int insertClanWallPost(int userId, int clanId, String content,
+  public int insertClanBulletinPost(int userId, int clanId, String content,
+      Timestamp timeOfPost) {
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.CLAN_BULLETIN_POSTS__POSTER_ID, userId);
+    insertParams.put(DBConstants.CLAN_BULLETIN_POSTS__CLAN_ID,
+        clanId);
+    insertParams.put(DBConstants.CLAN_BULLETIN_POSTS__TIME_OF_POST,
+        timeOfPost);
+    insertParams.put(DBConstants.CLAN_BULLETIN_POSTS__CONTENT, content);
+
+    int wallPostId = DBConnection.get().insertIntoTableBasicReturnId(
+        DBConstants.TABLE_CLAN_BULLETIN_POSTS, insertParams);
+    return wallPostId;
+  }
+
+  @Override
+  public int insertClanChatPost(int userId, int clanId, String content,
       Timestamp timeOfPost) {
     Map<String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.CLAN_WALL_POSTS__POSTER_ID, userId);

@@ -11,7 +11,8 @@ import com.lvl6.info.BattleDetails;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.City;
 import com.lvl6.info.Clan;
-import com.lvl6.info.ClanWallPost;
+import com.lvl6.info.ClanBulletinPost;
+import com.lvl6.info.ClanChatPost;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
@@ -45,7 +46,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNo
 import com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.AnimatedSpriteOffsetProto;
 import com.lvl6.proto.InfoProto.BuildStructJobProto;
-import com.lvl6.proto.InfoProto.ClanWallPostProto;
+import com.lvl6.proto.InfoProto.ClanBulletinPostProto;
 import com.lvl6.proto.InfoProto.CoordinateProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto;
 import com.lvl6.proto.InfoProto.DialogueProto;
@@ -758,10 +759,16 @@ public class CreateInfoProtoUtils {
     return builder.build();
   }
 
-  public static GroupChatMessageProto createGroupChatMessageProtoFromClanWallPost(
-      ClanWallPost p, User user) {
+  public static GroupChatMessageProto createGroupChatMessageProtoFromClanChatPost(
+      ClanChatPost p, User user) {
     return GroupChatMessageProto.newBuilder().setSender(createMinimumUserProtoFromUser(user))
         .setTimeOfChat(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
+  }
+
+  public static ClanBulletinPostProto createClanBulletinPostProtoFromClanBulletinPost(
+      ClanBulletinPost p, User user) {
+    return ClanBulletinPostProto.newBuilder().setClanBulletinPostId(p.getId()).setPoster(createMinimumUserProtoFromUser(user)).setClanId(user.getClanId())
+        .setTimeOfPost(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
   }
   
   public static FullUserClanProto createFullUserClanProtoFromUserClan(UserClan uc) {

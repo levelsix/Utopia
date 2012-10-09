@@ -46,6 +46,7 @@ public class DBConstants {
   public static final String TABLE_DIAMOND_EQUIP_PURCHASE_HISTORY = "diamond_equip_purchase_history";
   public static final String TABLE_STAT_REFILL_HISTORY = "stat_refill_history";
   public static final String TABLE_CLAN_WALL_POSTS = "clan_wall_posts";
+  public static final String TABLE_CLAN_BULLETIN_POSTS = "clan_bulletin_posts";
   public static final String TABLE_THREE_CARD_MONTE = "three_card_monte";
   public static final String TABLE_BOSSES = "bosses";
   public static final String TABLE_USER_BOSSES = "user_bosses";
@@ -270,7 +271,14 @@ public class DBConstants {
   public static final String PLAYER_WALL_POSTS__WALL_OWNER_ID = "wall_owner_id";
   public static final String PLAYER_WALL_POSTS__TIME_OF_POST = "time_of_post";
   public static final String PLAYER_WALL_POSTS__CONTENT = "content";
-  
+
+  /*CLAN_WALL_POSTS*/
+  public static final String CLAN_BULLETIN_POSTS__ID = GENERIC__ID;
+  public static final String CLAN_BULLETIN_POSTS__POSTER_ID = "poster_id";
+  public static final String CLAN_BULLETIN_POSTS__CLAN_ID = "clan_id";
+  public static final String CLAN_BULLETIN_POSTS__TIME_OF_POST = "time_of_post";
+  public static final String CLAN_BULLETIN_POSTS__CONTENT = "content";
+
   /*CLAN_WALL_POSTS*/
   public static final String CLAN_WALL_POSTS__ID = GENERIC__ID;
   public static final String CLAN_WALL_POSTS__POSTER_ID = "poster_id";

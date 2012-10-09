@@ -119,6 +119,9 @@ public interface InsertUtil {
 
   public abstract boolean insertDiamondEquipPurchaseHistory(int buyerId, int equipId, int diamondsSpent, Timestamp purchaseTime);
 
-  public abstract int insertClanWallPost(int userId, int clanId, String content,
+  public abstract int insertClanBulletinPost(int userId, int clanId, String content,
+      Timestamp timeOfPost);
+
+  public abstract int insertClanChatPost(int userId, int clanId, String content,
       Timestamp timeOfPost);
 }

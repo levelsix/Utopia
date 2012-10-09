@@ -90,8 +90,8 @@ message FullClanProtoWithClanSize {
 	optional int32 clanSize = 2;
 }
 
-message ClanWallPostProto {
-	optional int32 clanWallPostId = 5;
+message ClanBulletinPostProto {
+	optional int32 clanBulletinPostId = 5;
 	optional MinimumUserProto poster = 1;
 	optional int32 clanId = 2;
 	optional int64 timeOfPost = 3;

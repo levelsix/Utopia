@@ -139,7 +139,7 @@ message StartupResponseProto {
 	repeated AttackedNotificationProto attackNotifications = 13;
 	repeated ReferralNotificationProto referralNotifications = 14;
 	repeated PlayerWallPostProto playerWallPostNotifications = 19;
-	repeated ClanWallPostProto clanWallPostNotifications = 27;
+	repeated ClanBulletinPostProto clanBulletinPostNotifications = 27;
 	
 	repeated LockBoxEventProto lockBoxEvents = 28;
 	repeated UserLockBoxEventProto userLockBoxEvents = 29;
@@ -1948,18 +1948,18 @@ message ChangeClanDescriptionResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-message PostOnClanWallRequestProto {
+message PostOnClanBulletinRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional string content = 3;
 }
 
 																						//DONE
-message PostOnClanWallResponseProto {
+message PostOnClanBulletinResponseProto {
 	 optional MinimumUserProto sender = 1;
-     optional PostOnClanWallStatus status = 2;
-	 optional ClanWallPostProto post = 3;
+     optional PostOnClanBulletinStatus status = 2;
+	 optional ClanBulletinPostProto post = 3;
 	
-     enum PostOnClanWallStatus {
+     enum PostOnClanBulletinStatus {
      	SUCCESS = 0;
      	NO_CONTENT_SENT = 1;
      	POST_TOO_LARGE = 2;
@@ -1970,20 +1970,20 @@ message PostOnClanWallResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-message RetrieveClanWallPostsRequestProto {
+message RetrieveClanBulletinPostsRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 beforeThisPostId = 2;
 }
 
 																						//DONE
-message RetrieveClanWallPostsResponseProto {
+message RetrieveClanBulletinPostsResponseProto {
      optional MinimumUserProto sender = 1;
      optional int32 beforeThisPostId = 2;
-	 optional RetrieveClanWallPostsStatus status = 4;
+	 optional RetrieveClanBulletinPostsStatus status = 4;
      
-     repeated ClanWallPostProto clanWallPosts = 5;
+     repeated ClanBulletinPostProto clanBulletinPosts = 5;
      
-     enum RetrieveClanWallPostsStatus {
+     enum RetrieveClanBulletinPostsStatus {
      	SUCCESS = 0;
      	OTHER_FAIL = 1;
      	NOT_IN_CLAN = 2;
