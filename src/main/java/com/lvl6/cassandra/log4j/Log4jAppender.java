@@ -143,7 +143,9 @@ public class Log4jAppender extends AppenderSkeleton {
 					try {
 						UUID key = TimeUUIDUtils.getUniqueTimeUUIDinMillis();
 						ColumnFamilyUpdater<String, String> updater = client.createUpdater(key.toString());
-						updater.setLong(Log4JConstants.TIME, event.getTimeStamp());
+						
+						//TODO: turning off cassandra logging until I can figure out 'too many open files' bug
+/*						updater.setLong(Log4JConstants.TIME, event.getTimeStamp());
 						updater.setString(Log4JConstants.HOST, getHost());
 						updater.setString(Log4JConstants.MESSAGE, message);
 						updater.setString(Log4JConstants.LEVEL, event.getLevel() + "");
@@ -155,10 +157,11 @@ public class Log4jAppender extends AppenderSkeleton {
 							addPlayerId(mdccopy, updater);
 							addUdid(mdccopy, updater);
 						}
-						client.update(updater);
+						client.update(updater);*/
+						
+						//leaving elastic search logging turned on
 						search.indexEvent(event, key, getHost(), mdccopy);
-						//logcounter.incrementAndGet();
-						//LogLog.warn(message);
+
 					} catch (Exception e) {
 						client = null;
 						LogLog.error("append failed, " + e.getMessage(), e);

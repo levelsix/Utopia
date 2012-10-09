@@ -94,17 +94,20 @@ public class APNSWriter extends Wrap {
 		ConnectedPlayer connectedPlayer = server.getPlayerById(playerId);
 		if (connectedPlayer != null) {
 			log.info("wrote a response event to connected player with id "
-					+ playerId + " instead of APNS");
+					+ playerId + " instead of sending APNS message");
 			server.writeEvent(event);
 		} else {
-			log.info("received APNS notification to send to player with id "
-					+ playerId);
+			//TODO: temporary to stop apns spam until we get working certificate
+			if(true) {
+				log.warn("Ignoring APNS messages until certificate is fixed");
+				return;
+			}
+			log.info("received APNS notification to send to player with id "+ playerId);
 			User user = RetrieveUtils.userRetrieveUtils().getUserById(playerId);
 			if (user != null && user.getDeviceToken() != null
 					&& user.getDeviceToken().length() > 0) {
 				try {
-					ApnsService service;
-					service = getApnsService();
+					ApnsService service = getApnsService();
 					//service.start();
 					Date now = new Date();
 					if (LAST_NULLIFY_INACTIVE_DEVICE_TOKEN_TIME.getTime()
