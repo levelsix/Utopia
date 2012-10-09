@@ -82,8 +82,8 @@ import com.lvl6.utils.utilmethods.InsertUtil;
             + clan.getId() + ", content=" + content + ", timeOfPost=" + timeOfPost);
       } else {
         ClanWallPost cwp =  new ClanWallPost(wallPostId, user.getId(), clan.getId(), timeOfPost, content);
-        ClanWallPostProto cwpp = CreateInfoProtoUtils.createClanWallPostProtoFromClanWallPost(cwp, user);
-        resBuilder.setPost(cwpp);
+//        ClanWallPostProto cwpp = CreateInfoProtoUtils.createClanWallPostProtoFromClanWallPost(cwp, user);
+//        resBuilder.setPost(cwpp);
       }
       resEvent.setPostOnClanWallResponseProto(resBuilder.build());
       server.writeClanEvent(resEvent, clan.getId());

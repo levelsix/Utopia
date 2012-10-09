@@ -1,5 +1,6 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -30,6 +31,7 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 @Component
@@ -85,7 +87,7 @@ public class SendGroupChatController extends EventController {
     MinimumUserProto senderProto = reqProto.getSender();
     final GroupChatScope scope = reqProto.getScope();
     String chatMessage = reqProto.getChatMessage();
-
+    Timestamp timeOfPost = new Timestamp(reqProto.getClientTime());
 
     SendGroupChatResponseProto.Builder resBuilder = SendGroupChatResponseProto
         .newBuilder();
@@ -105,9 +107,7 @@ public class SendGroupChatController extends EventController {
       server.writeEvent(resEvent);
 
       if (legitSend) {
-//        if (scope == GroupChatScope.GLOBAL) {
-//          writeChangesToDB(user);
-//        }
+          writeChangesToDB(user, scope, chatMessage, timeOfPost);
         
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods
             .createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
@@ -160,9 +160,13 @@ public class SendGroupChatController extends EventController {
   }
 
 
-  private void writeChangesToDB(User user) {
-    if (!user.updateRelativeNumGroupChatsRemainingAndDiamonds(-1, 0)) {
-      log.error("problem with decrementing a global chat");
+  private void writeChangesToDB(User user, GroupChatScope scope, String content, Timestamp timeOfPost) {
+//    if (!user.updateRelativeNumGroupChatsRemainingAndDiamonds(-1, 0)) {
+//      log.error("problem with decrementing a global chat");
+//    }
+    
+    if (scope == GroupChatScope.CLAN) {
+    InsertUtils.get().insertClanWallPost(user.getId(), user.getClanId(), content, timeOfPost);
     }
   }
 

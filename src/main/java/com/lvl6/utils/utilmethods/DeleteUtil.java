@@ -33,5 +33,5 @@ public interface DeleteUtil {
 
   public abstract boolean deleteUserClan(int userId, int clanId);
 
-  public abstract void deleteUserClanRequestsForUser(int userId);
+  public void deleteUserClansForUserExceptSpecificClan(int userId, int clanId);
 }

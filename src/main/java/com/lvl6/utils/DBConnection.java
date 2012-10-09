@@ -622,6 +622,33 @@ public class DBConnection {
     return numDeleted;
   }
 
+  /* assumes number of ? in the query = values.size() */
+  public int deleteDirectQueryNaive(String query, List<Object> values) {
+    Connection conn = null;
+    PreparedStatement stmt = null;
+
+    try {
+      conn = getConnection();
+      stmt = conn.prepareStatement(query);
+      if (values != null && values.size() > 0) {
+        int i = 1;
+        for (Object value : values) {
+          stmt.setObject(i, value);
+          i++;
+        }
+      }
+      int numDeleted = stmt.executeUpdate();
+      return numDeleted;
+    } catch (SQLException e) {
+      log.error("problem with " + query + ", values are " + values, e);
+    } catch (NullPointerException e) {
+      log.error("problem with " + query + ", values are " + values, e);
+    } finally {
+      close(null, stmt, conn);
+    }
+    return 0;
+  }
+  
   private ResultSet selectRowsByIntAttr(Connection conn,
       List<String> columns, String attr, int value, String tablename) {
     String query = "select ";

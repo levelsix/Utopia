@@ -159,6 +159,9 @@ message StartupResponseProto {
 		
 	repeated MarketplaceSearchEquipProto mktSearchEquips = 30;
 	
+	repeated GroupChatMessageProto globalChats = 31;
+	repeated GroupChatMessageProto clanChats = 32;
+	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
 		optional bool firstTimeToday = 2;
@@ -1715,6 +1718,7 @@ message SendGroupChatRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional GroupChatScope scope = 2;
 	optional string chatMessage = 3;
+	optional int64 clientTime = 4;
 }
 
 message SendGroupChatResponseProto {

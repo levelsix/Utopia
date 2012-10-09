@@ -24,6 +24,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
@@ -100,6 +101,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     if (!InsertUtils.get().insertUserClan(user.getId(), clanId, UserClanStatus.MEMBER, new Timestamp(new Date().getTime()))) {
       log.error("problem with inserting user clan data for user " + user + ", and clan id " + clanId);
     }
+    DeleteUtils.get().deleteUserClansForUserExceptSpecificClan(user.getId(), clanId);
   }
 
   private boolean checkLegitCreate(Builder resBuilder, User user, String clanName, String tag) {

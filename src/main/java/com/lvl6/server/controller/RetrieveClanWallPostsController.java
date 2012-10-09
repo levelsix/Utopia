@@ -85,7 +85,7 @@ import com.lvl6.utils.RetrieveUtils;
               if (userIds.size() > 0) {
                 usersByIds = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
                 for (ClanWallPost pwp : activeClanWallPosts) {
-                  resBuilder.addClanWallPosts(CreateInfoProtoUtils.createClanWallPostProtoFromClanWallPost(pwp, usersByIds.get(pwp.getPosterId())));
+//                  resBuilder.addClanWallPosts(CreateInfoProtoUtils.createClanWallPostProtoFromClanWallPost(pwp, usersByIds.get(pwp.getPosterId())));
                 }
               }
             }

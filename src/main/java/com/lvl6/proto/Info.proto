@@ -2,6 +2,14 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+message GroupChatMessageProto {
+	optional MinimumUserProto sender = 1;
+	optional int64 timeOfChat = 2;
+	optional string content = 3;
+}
+
+//-------------------------------------------------------------------------------------
+
 message MarketplaceSearchEquipProto {
 	optional int32 equipId = 1;
 	optional string name = 2;

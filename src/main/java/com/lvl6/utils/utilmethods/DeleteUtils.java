@@ -1,13 +1,14 @@
 package com.lvl6.utils.utilmethods;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 
 import com.lvl6.properties.DBConstants;
-import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.DBConnection;
 
@@ -150,12 +151,15 @@ public class DeleteUtils implements DeleteUtil {
     return false;
   }
   
-  public void deleteUserClanRequestsForUser(int userId) {
-    Map <String, Object> conditionParams = new HashMap<String, Object>();
-    conditionParams.put(DBConstants.USER_CLANS__USER_ID, userId);
-    conditionParams.put(DBConstants.USER_CLANS__STATUS, UserClanStatus.REQUESTING.getNumber());
-
-    DBConnection.get().deleteRows(DBConstants.TABLE_USER_CLANS, conditionParams, "and");
+  public void deleteUserClansForUserExceptSpecificClan(int userId, int clanId) {
+    String query = "delete from " + DBConstants.TABLE_USER_CLANS + " where " + DBConstants.USER_CLANS__USER_ID + "=? and " +
+        DBConstants.USER_CLANS__CLAN_ID + "!=?";
+    
+    List<Object> values = new ArrayList<Object>();
+    values.add(userId);
+    values.add(clanId);
+    
+    DBConnection.get().deleteDirectQueryNaive(query, values);
   }
   
   

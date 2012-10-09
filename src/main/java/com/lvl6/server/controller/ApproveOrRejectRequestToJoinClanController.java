@@ -98,7 +98,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (!UpdateUtils.get().updateUserClanStatus(requester.getId(), user.getClanId(), UserClanStatus.MEMBER)) {
         log.error("problem with updating user clan status to member for requester " + requester + " and clan id "+ user.getClanId());
       }
-      DeleteUtils.get().deleteUserClanRequestsForUser(requester.getId());
+      DeleteUtils.get().deleteUserClansForUserExceptSpecificClan(user.getId(), user.getClanId());
     } else {
       if (!DeleteUtils.get().deleteUserClan(requester.getId(), user.getClanId())) {
         log.error("problem with deleting user clan info for requester with id " + requester.getId() + " and clan id " + user.getClanId()); 

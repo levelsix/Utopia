@@ -68,6 +68,7 @@ import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto;
 import com.lvl6.proto.InfoProto.FullUserStructureProto;
+import com.lvl6.proto.InfoProto.GroupChatMessageProto;
 import com.lvl6.proto.InfoProto.LeaderboardType;
 import com.lvl6.proto.InfoProto.LocationProto;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
@@ -757,10 +758,10 @@ public class CreateInfoProtoUtils {
     return builder.build();
   }
 
-  public static ClanWallPostProto createClanWallPostProtoFromClanWallPost(
+  public static GroupChatMessageProto createGroupChatMessageProtoFromClanWallPost(
       ClanWallPost p, User user) {
-    return ClanWallPostProto.newBuilder().setClanWallPostId(p.getId()).setPoster(createMinimumUserProtoFromUser(user)).setClanId(user.getClanId())
-        .setTimeOfPost(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
+    return GroupChatMessageProto.newBuilder().setSender(createMinimumUserProtoFromUser(user))
+        .setTimeOfChat(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
   }
   
   public static FullUserClanProto createFullUserClanProtoFromUserClan(UserClan uc) {
