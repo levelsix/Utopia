@@ -171,8 +171,12 @@ public class SendGroupChatController extends EventController {
 			//add new message to front of list
 			chatMessages.add(0, CreateInfoProtoUtils.createGroupChatMessageProtoFromClanChatPost(time, chatProto.getSender(), chatProto.getChatMessage()));
 			//remove older messages
-			while(chatMessages.size() > CHAT_MESSAGES_MAX_SIZE) {
-				chatMessages.remove(CHAT_MESSAGES_MAX_SIZE);
+			try {
+				while(chatMessages.size() > CHAT_MESSAGES_MAX_SIZE) {
+					chatMessages.remove(CHAT_MESSAGES_MAX_SIZE);
+			}
+			}catch(Exception e) {
+				log.error(e);
 			}
 		}
 		for (ConnectedPlayer player : players) {
