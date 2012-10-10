@@ -1,5 +1,8 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -50,6 +53,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     PurchaseFromMarketplaceRequestProto reqProto = ((PurchaseFromMarketplaceRequestEvent)event).getPurchaseFromMarketplaceRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
+    Timestamp timeOfPurchaseRequest = new Timestamp(reqProto.getCurTime());
     int postId = reqProto.getMarketplacePostId();
     int sellerId = reqProto.getPosterId();
     int buyerId = senderProto.getUserId();
@@ -100,7 +104,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         resEvent2.setPurchaseFromMarketplaceResponseProto(resBuilder.build());  
         server.writeAPNSNotificationOrEvent(resEvent2);
         
-        writeChangesToDB(buyer, seller, mp);
+        writeChangesToDB(buyer, seller, mp, timeOfPurchaseRequest);
         UpdateClientUserResponseEvent resEventUpdate;
         if (buyer != null && seller != null && mp != null) {
           resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(buyer);
@@ -120,7 +124,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
 
 
-  private void writeChangesToDB(User buyer, User seller, MarketplacePost mp) {
+  private void writeChangesToDB(User buyer, User seller, MarketplacePost mp, Timestamp timeOfPurchaseRequest) {
     if (seller == null || buyer == null || mp == null) {
       log.error("parameter passed in is null. seller=" + seller + ", buyer=" + buyer + ", post=" + mp);
     }
@@ -129,11 +133,19 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     int totalBuyerDiamondChange = 0;
     int totalBuyerCoinChange = 0;
 
+    //MARKETPLACE LICENSE FEATURE:
+    //if the seller has a license, he gets full amount of money, range is from 0 to 1
+    double percentOfMoneyUserGets = 
+    		1 - ControllerConstants.PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN;
+    if(MiscMethods.validateMarketplaceLicense(seller, timeOfPurchaseRequest)){
+  	  percentOfMoneyUserGets = 1;
+    }
+    
     if (mp.getDiamondCost() > 0) {
-      totalSellerDiamondChange += (int)Math.floor((1-ControllerConstants.PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)*mp.getDiamondCost());
+      totalSellerDiamondChange += (int)Math.floor(percentOfMoneyUserGets*mp.getDiamondCost());
       totalBuyerDiamondChange -= mp.getDiamondCost();
     } else if (mp.getCoinCost() > 0) {
-      totalSellerCoinChange += (int)Math.floor((1-ControllerConstants.PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)*mp.getCoinCost());
+      totalSellerCoinChange += (int)Math.floor(percentOfMoneyUserGets*mp.getCoinCost());
       totalBuyerCoinChange -= mp.getCoinCost();      
     } else {
       log.error("marketplace post has no cost. mp=" + mp);
@@ -164,7 +176,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       log.error("problem with deleting marketplace post with id " + mp.getId());      
     }
   }
-
+  
   private boolean checkLegitPurchase(Builder resBuilder, MarketplacePost mp, User buyer, User seller, int postId) {
     if (mp == null) {
       resBuilder.setStatus(PurchaseFromMarketplaceStatus.POST_NO_LONGER_EXISTS);

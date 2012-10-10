@@ -204,6 +204,7 @@ public class ControllerConstants {
   
   //RETRACT MARKETPLACE POST
   public static final double RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN = .1;
+  public static final double RETRACT_MARKETPLACE_POST__MIN_NUM_DAYS_UNTIL_FREE_TO_RETRACT_ITEM = 7;
   
   //USE SKILL POINT
   public static final int USE_SKILL_POINT__MAX_STAT_GAIN = 1;

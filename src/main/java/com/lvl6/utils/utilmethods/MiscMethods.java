@@ -585,4 +585,54 @@ public class MiscMethods {
 
     return retEquipId;
   }
+  
+  /*
+   * Returns true if the user's (short or long) marketplace license is still in effect
+   */
+  public static boolean validateMarketplaceLicense(User aUser, Timestamp timeActionBegan) {
+	  Date longMarketplaceLicenseTimeOfPurchase = aUser.getLastLongLicensePurchaseTime();
+	  Date shortMarketplaceLicenseTimeOfPurchase = aUser.getLastShortLicensePurchaseTime();
+	  
+	  boolean longLicenseValid = false;
+	  boolean shortLicenseValid = false;
+	  
+	  int daysToMilliseconds = 24 * 60 * 60 * 1000;
+
+	  double startTime = timeActionBegan.getTime();
+	  
+	  //check if long license valid
+	  if (null != longMarketplaceLicenseTimeOfPurchase) {
+		  //time long license was bought
+		  double timeLicensePurchased = longMarketplaceLicenseTimeOfPurchase.getTime();
+		  double timeLongLicenseIsEffective = 
+				  ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_LONG_LICENSE *
+				  daysToMilliseconds;
+		  double timeLongLicenseEnds = timeLicensePurchased + timeLongLicenseIsEffective;
+		  
+		  if(startTime < timeLongLicenseEnds) {
+			  longLicenseValid = true;
+		  }
+	  }
+	  
+	  //check if short license valid
+	  if (null != shortMarketplaceLicenseTimeOfPurchase) {
+		  //time short license was bought
+		  double timeLicensePurchased = shortMarketplaceLicenseTimeOfPurchase.getTime();
+		  double timeShortLicenseIsEffective = 
+				  ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_SHORT_LICENSE *
+				  daysToMilliseconds;
+		  double timeShortLicenseEnds = timeLicensePurchased + timeShortLicenseIsEffective;
+		  
+		  if(startTime < timeShortLicenseEnds) {
+			  shortLicenseValid = true;
+		  }
+	  }	  
+	  
+	  if(longLicenseValid || shortLicenseValid) {
+		  return true;
+	  } else {
+		  return false;
+	  }
+  }
+  
 }
