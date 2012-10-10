@@ -6,14 +6,18 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
+import com.hazelcast.core.IList;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.StartupRequestEvent;
 import com.lvl6.events.response.RetrieveStaticDataResponseEvent;
@@ -52,6 +56,7 @@ import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
+import com.lvl6.proto.InfoProto.GroupChatMessageProto;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
 import com.lvl6.proto.InfoProto.MarketplaceSearchEquipProto;
 import com.lvl6.proto.InfoProto.UserType;
@@ -87,6 +92,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   public StartupController() {
     numAllocatedThreads = 3;
   }
+  
+  
+	@Resource(name = "globalChat")
+	protected IList<GroupChatMessageProto> chatMessages;
+
+	public IList<GroupChatMessageProto> getChatMessages() {
+		return chatMessages;
+	}
+
+	public void setChatMessages(IList<GroupChatMessageProto> chatMessages) {
+		this.chatMessages = chatMessages;
+	}
+
 
   @Override
   public RequestEvent createRequestEvent() {
@@ -159,7 +177,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           setLockBoxEvents(resBuilder, user);
           setMarketplaceSearchEquips(resBuilder);
           setChatMessages(resBuilder, user);
-
+          setGlobalChatMessages(resBuilder, user);
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
         } catch (Exception e) {
@@ -216,6 +234,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
+  
+  private void setGlobalChatMessages(StartupResponseProto.Builder resBuilder,  User user) {
+	  int start = 0;
+	  Iterator<GroupChatMessageProto> it = chatMessages.iterator();
+	  while(it.hasNext()) {
+	    resBuilder.setGlobalChats(start, it.next());
+	  start++;
+  		}
+	  }
+  
+  
   private void setMarketplaceSearchEquips(
       StartupResponseProto.Builder resBuilder) {
     Collection<Equipment> equips = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().values();
