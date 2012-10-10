@@ -765,7 +765,7 @@ public class CreateInfoProtoUtils {
         .setTimeOfChat(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
   }
 
-  public static GroupChatMessageProto createGroupChatMessageProtoFromClanChatPost(long time, MinimumUserProto user, String content) {
+  public static GroupChatMessageProto createGroupChatMessageProto(long time, MinimumUserProto user, String content) {
 	    return GroupChatMessageProto.newBuilder().setSender(user).setTimeOfChat(time).setContent(content).build();
   }
 

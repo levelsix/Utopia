@@ -2,6 +2,14 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+message GoldSaleProto {
+	optional int32 saleId = 1;
+	optional int64 startDate = 2;
+	optional int64 endDate = 3;
+	optional int64 imageName = 2;
+
+//-----------------------------------------------------------------------------------------
+
 message GroupChatMessageProto {
 	optional MinimumUserProto sender = 1;
 	optional int64 timeOfChat = 2;
