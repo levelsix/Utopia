@@ -13,11 +13,14 @@ public class GoldSale implements Serializable {
   private String package3SaleIdentifier;
   private String package4SaleIdentifier;
   private String package5SaleIdentifier;
+  private String goldShoppeImageName;
+  private String goldBarImageName;
   
   public GoldSale(int id, Date startDate, Date endDate,
       String package1SaleIdentifier, String package2SaleIdentifier,
       String package3SaleIdentifier, String package4SaleIdentifier,
-      String package5SaleIdentifier) {
+      String package5SaleIdentifier, String goldShoppeImageName,
+      String goldBarImageName) {
     super();
     this.id = id;
     this.startDate = startDate;
@@ -27,6 +30,8 @@ public class GoldSale implements Serializable {
     this.package3SaleIdentifier = package3SaleIdentifier;
     this.package4SaleIdentifier = package4SaleIdentifier;
     this.package5SaleIdentifier = package5SaleIdentifier;
+    this.goldShoppeImageName = goldShoppeImageName;
+    this.goldBarImageName = goldBarImageName;
   }
 
   public int getId() {
@@ -93,6 +98,22 @@ public class GoldSale implements Serializable {
     this.package5SaleIdentifier = package5SaleIdentifier;
   }
 
+  public String getGoldShoppeImageName() {
+    return goldShoppeImageName;
+  }
+
+  public void setGoldShoppeImageName(String goldShoppeImageName) {
+    this.goldShoppeImageName = goldShoppeImageName;
+  }
+
+  public String getGoldBarImageName() {
+    return goldBarImageName;
+  }
+
+  public void setGoldBarImageName(String goldBarImageName) {
+    this.goldBarImageName = goldBarImageName;
+  }
+
   @Override
   public String toString() {
     return "GoldSale [id=" + id + ", startDate=" + startDate + ", endDate="
@@ -100,6 +121,8 @@ public class GoldSale implements Serializable {
         + ", package2SaleIdentifier=" + package2SaleIdentifier
         + ", package3SaleIdentifier=" + package3SaleIdentifier
         + ", package4SaleIdentifier=" + package4SaleIdentifier
-        + ", package5SaleIdentifier=" + package5SaleIdentifier + "]";
+        + ", package5SaleIdentifier=" + package5SaleIdentifier
+        + ", goldShoppeImageName=" + goldShoppeImageName
+        + ", goldBarImageName=" + goldBarImageName + "]";
   }
 }

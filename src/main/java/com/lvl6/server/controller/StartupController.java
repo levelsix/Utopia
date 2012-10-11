@@ -28,6 +28,7 @@ import com.lvl6.info.City;
 import com.lvl6.info.ClanChatPost;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
+import com.lvl6.info.GoldSale;
 import com.lvl6.info.MarketplaceTransaction;
 import com.lvl6.info.NeutralCityElement;
 import com.lvl6.info.PlayerWallPost;
@@ -71,6 +72,7 @@ import com.lvl6.retrieveutils.UserLockBoxEventRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.GoldSaleRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
@@ -92,18 +94,18 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   public StartupController() {
     numAllocatedThreads = 3;
   }
-  
-  
-	@Resource(name = "globalChat")
-	protected IList<GroupChatMessageProto> chatMessages;
 
-	public IList<GroupChatMessageProto> getChatMessages() {
-		return chatMessages;
-	}
 
-	public void setChatMessages(IList<GroupChatMessageProto> chatMessages) {
-		this.chatMessages = chatMessages;
-	}
+  @Resource(name = "globalChat")
+  protected IList<GroupChatMessageProto> chatMessages;
+
+  public IList<GroupChatMessageProto> getChatMessages() {
+    return chatMessages;
+  }
+
+  public void setChatMessages(IList<GroupChatMessageProto> chatMessages) {
+    this.chatMessages = chatMessages;
+  }
 
 
   @Override
@@ -177,7 +179,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           setLockBoxEvents(resBuilder, user);
           setMarketplaceSearchEquips(resBuilder);
           setChatMessages(resBuilder, user);
-          setGlobalChatMessages(resBuilder, user);
+          setGoldSales(resBuilder);
+
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
         } catch (Exception e) {
@@ -198,13 +201,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     resEvent.setTag(event.getTag());
     resEvent.setStartupResponseProto(resProto);
 
-//    log.info("Sending struct");
-//    sendAllStructs(udid, user);
+    //    log.info("Sending struct");
+    //    sendAllStructs(udid, user);
 
     log.info("Writing event response: "+resEvent);
     server.writePreDBEvent(resEvent, udid);
     log.info("Wrote response event: "+resEvent);
-   
+
     //for things that client doesn't need
     log.info("After response tasks");
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);    
@@ -215,7 +218,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (user.getClanId() > 0) {
       List <ClanChatPost> activeClanChatPosts;
       activeClanChatPosts = ClanChatPostRetrieveUtils.getMostRecentClanChatPostsForClan(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, user.getClanId());
-        
+
       if (activeClanChatPosts != null) {
         if (activeClanChatPosts != null && activeClanChatPosts.size() > 0) {
           List <Integer> userIds = new ArrayList<Integer>();
@@ -232,19 +235,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
       }
     }
+
+    int start = 0;
+    Iterator<GroupChatMessageProto> it = chatMessages.iterator();
+    while(it.hasNext()) {
+      resBuilder.setGlobalChats(start, it.next());
+      start++;
+    }
   }
 
-  
-  private void setGlobalChatMessages(StartupResponseProto.Builder resBuilder,  User user) {
-	  int start = 0;
-	  Iterator<GroupChatMessageProto> it = chatMessages.iterator();
-	  while(it.hasNext()) {
-	    resBuilder.setGlobalChats(start, it.next());
-	  start++;
-  		}
-	  }
-  
-  
+
   private void setMarketplaceSearchEquips(
       StartupResponseProto.Builder resBuilder) {
     Collection<Equipment> equips = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().values();
@@ -265,14 +265,21 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-	protected void updateLeaderboard(String apsalarId, User user, Timestamp now,int newNumConsecutiveDaysLoggedIn) {
-		if (user != null) {
-	      log.info("Updating leaderboard for user "+user.getId());
-	      syncApsalaridLastloginConsecutivedaysloggedinResetBadges(user, apsalarId, now, newNumConsecutiveDaysLoggedIn);
-	      LeaderBoardUtil leaderboard = AppContext.getApplicationContext().getBean(LeaderBoardUtil.class);
-	      leaderboard.updateLeaderboardForUser(user);
-	    }
-	}
+  private void setGoldSales(StartupResponseProto.Builder resBuilder) {
+    List<GoldSale> sales = GoldSaleRetrieveUtils.getCurrentAndFutureGoldSales();
+    for (GoldSale sale : sales) {
+      resBuilder.addGoldSales(CreateInfoProtoUtils.createGoldSaleProtoFromGoldSale(sale));
+    }
+  }
+
+  protected void updateLeaderboard(String apsalarId, User user, Timestamp now,int newNumConsecutiveDaysLoggedIn) {
+    if (user != null) {
+      log.info("Updating leaderboard for user "+user.getId());
+      syncApsalaridLastloginConsecutivedaysloggedinResetBadges(user, apsalarId, now, newNumConsecutiveDaysLoggedIn);
+      LeaderBoardUtil leaderboard = AppContext.getApplicationContext().getBean(LeaderBoardUtil.class);
+      leaderboard.updateLeaderboardForUser(user);
+    }
+  }
 
   private void sendAllStructs(String udid, User user) {
     RetrieveStaticDataResponseEvent resEvent1 = new RetrieveStaticDataResponseEvent(0);
@@ -494,7 +501,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
     }
     if (clanChatPosts != null && clanChatPosts.size() > 0) {
-      
+
     }
   }
 

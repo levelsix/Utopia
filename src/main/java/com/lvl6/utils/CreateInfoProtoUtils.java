@@ -16,6 +16,7 @@ import com.lvl6.info.ClanChatPost;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
+import com.lvl6.info.GoldSale;
 import com.lvl6.info.Location;
 import com.lvl6.info.LockBoxEvent;
 import com.lvl6.info.LockBoxItem;
@@ -69,6 +70,7 @@ import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto;
 import com.lvl6.proto.InfoProto.FullUserStructureProto;
+import com.lvl6.proto.InfoProto.GoldSaleProto;
 import com.lvl6.proto.InfoProto.GroupChatMessageProto;
 import com.lvl6.proto.InfoProto.LeaderboardType;
 import com.lvl6.proto.InfoProto.LocationProto;
@@ -850,5 +852,13 @@ public class CreateInfoProtoUtils {
   public static UserLockBoxItemProto createUserLockBoxItemProto(int userId, int lockBoxItemId, int quantity) {
     return UserLockBoxItemProto.newBuilder().setUserId(userId).setLockBoxItemId(lockBoxItemId)
         .setQuantity(quantity).build();
+  }
+  
+  public static GoldSaleProto createGoldSaleProtoFromGoldSale(GoldSale sale) {
+    return GoldSaleProto.newBuilder().setSaleId(sale.getId()).setStartDate(sale.getStartDate().getTime()).setEndDate(sale.getEndDate().getTime())
+        .setPackage1SaleIdentifier(sale.getPackage1SaleIdentifier()).setPackage2SaleIdentifier(sale.getPackage2SaleIdentifier())
+        .setPackage3SaleIdentifier(sale.getPackage3SaleIdentifier()).setPackage4SaleIdentifier(sale.getPackage4SaleIdentifier())
+        .setPackage5SaleIdentifier(sale.getPackage5SaleIdentifier()).setGoldShoppeImageName(sale.getGoldShoppeImageName())
+        .setGoldBarImageName(sale.getGoldBarImageName()).build();
   }
 }

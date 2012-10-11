@@ -162,6 +162,8 @@ message StartupResponseProto {
 	repeated GroupChatMessageProto globalChats = 31;
 	repeated GroupChatMessageProto clanChats = 32;
 	
+	repeated GoldSaleProto goldSales = 33;
+	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
 		optional bool firstTimeToday = 2;
@@ -833,6 +835,7 @@ message LevelUpResponseProto {
 message InAppPurchaseRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional string receipt = 2;
+	optional int32 saleId = 3;
 }
 
 																						//DONE

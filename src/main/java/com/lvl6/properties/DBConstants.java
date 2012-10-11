@@ -54,6 +54,7 @@ public class DBConstants {
   public static final String TABLE_LOCK_BOX_ITEMS = "lock_box_items";
   public static final String TABLE_USER_LOCK_BOX_EVENTS = "user_lock_box_events";
   public static final String TABLE_USER_LOCK_BOX_ITEMS = "user_lock_box_items";
+  public static final String TABLE_GOLD_SALES = "gold_sales";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
