@@ -11,7 +11,6 @@ import org.apache.log4j.helpers.LogLog;
 import org.apache.log4j.spi.LoggingEvent;
 import org.elasticsearch.ElasticSearchException;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
-import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.support.replication.ReplicationType;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.unit.TimeValue;
@@ -41,7 +40,6 @@ public class Log4JElasticSearchIndexer {
 	public void indexEvent(LoggingEvent event, UUID key, String host,
 			Map<String, Object> mdccopy) {
 		Client client = search.getClient();
-		//BulkRequestBuilder bulk = getBulkRequest();
 		try {
 			XContentBuilder jsonBuilder = jsonBuilder();
 			jsonBuilder.startObject()
@@ -56,19 +54,10 @@ public class Log4JElasticSearchIndexer {
 			addPlayerId(mdccopy, jsonBuilder);
 			addUdid(mdccopy, jsonBuilder);
 			jsonBuilder.endObject();
-			//bulk.add(
 			client.prepareIndex(INDEX, TYPE, key.toString())
 					.setSource(jsonBuilder).setTimeout(timeout)
 					.setReplicationType(ReplicationType.ASYNC)
 					.execute().actionGet();
-			// LogLog.warn("Indexed log entry: "+key);
-			/*if(bulk.numberOfActions() > 99) {
-				BulkResponse response = bulk.execute().actionGet(timeout);
-				if(response.hasFailures()) {
-					LogLog.warn("Elasticsearch log4j bulk request has errors: \n"+response.buildFailureMessage());
-				}
-				bulkRequest = null;
-			}*/
 		} catch (ElasticSearchException e) {
 			LogLog.error(e.getDetailedMessage());
 			search.closeClient();
