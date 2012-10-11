@@ -19,7 +19,7 @@
 		<param name="elasticCluster" value="${lvl6.elastic.search.cluster.name}" />
 		<param name="elasticHosts" value="${lvl6.elastic.search.hosts}" />
 		<param name="replicationFactor" value="${lvl6.cassandra.replication.factor}" />
-		<param name="Threshold" value="INFO" />
+		<param name="Threshold" value="WARN" />
 	</appender>
 	
 	<appender name="EC2" class="org.apache.log4j.RollingFileAppender">
@@ -78,7 +78,7 @@
 -->	
 	<root>
 		<level value="info" />
-		<appender-ref ref="EC2" /> 
+		<!-- <appender-ref ref="EC2" />  -->
 		<appender-ref ref="cassandra" /> 
 		<appender-ref ref="${lvl6.server.log.appender}" />
 		<appender-ref ref="ERROR_LOG" />

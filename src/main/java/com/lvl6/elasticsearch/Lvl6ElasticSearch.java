@@ -34,8 +34,19 @@ public class Lvl6ElasticSearch implements InitializingBean {
 	protected TransportClient elasticSearchClient;
 	
 	public TransportClient getClient() {
+		if(elasticSearchClient == null) {
+			setup();
+		}
 		return elasticSearchClient;
 	}
+	
+	public void closeClient() {
+		if(elasticSearchClient != null) {
+			elasticSearchClient.close();
+		}
+		elasticSearchClient = null;
+	}
+	
 	
 	public String getHosts() {
 		return hosts;

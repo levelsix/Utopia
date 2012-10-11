@@ -40,11 +40,11 @@ public class ApplicationStats {
 		this.afterAppleTax = afterAppleTax;
 	}
 
-	public Integer getPercentageOfPlayersPaying() {
+	public Double getPercentageOfPlayersPaying() {
 		if (getTotalPlayersCount() == 0) {
-			return 0;
+			return 0d;
 		}
-		return ((Double) Math.floor(100 * (getTotalPayingPlayers().doubleValue() / getTotalPlayersCount().doubleValue()))).intValue();
+		return 100d * (getTotalPayingPlayers().doubleValue() / getTotalPlayersCount().doubleValue());
 	}
 
 	public void setPercentageOfPlayersPaying(Integer value) {

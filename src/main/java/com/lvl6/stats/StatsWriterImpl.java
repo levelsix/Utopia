@@ -133,7 +133,6 @@ public class StatsWriterImpl implements StatsWriter {
 		log.info("Setting stats for period: {} and time: {}", period, time);
 		List<RollupEntry> entries = new ArrayList<RollupEntry>();
 		ApplicationStats stats = getAppUtils().getStats();
-		@SuppressWarnings("unchecked")
 		Map<String, String> props;
 		try {
 			props = BeanUtils.describe(stats);
