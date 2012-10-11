@@ -10,6 +10,8 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.helpers.LogLog;
 import org.apache.log4j.spi.LoggingEvent;
 import org.elasticsearch.ElasticSearchException;
+import org.elasticsearch.action.bulk.BulkRequestBuilder;
+import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.support.replication.ReplicationType;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.unit.TimeValue;
@@ -26,7 +28,8 @@ public class Log4JElasticSearchIndexer {
 	protected String elasticSearchCluster;
 	protected String elasticSearchHosts;
 
-	public Log4JElasticSearchIndexer(String elasticSearchCluster,String elasticSearchHosts) {
+	public Log4JElasticSearchIndexer(String elasticSearchCluster,
+			String elasticSearchHosts) {
 		super();
 		this.elasticSearchCluster = elasticSearchCluster;
 		this.elasticSearchHosts = elasticSearchHosts;
@@ -34,48 +37,77 @@ public class Log4JElasticSearchIndexer {
 	}
 
 	TimeValue timeout = new TimeValue(500);
-	public void indexEvent(LoggingEvent event, UUID key, String host, Map<String, Object> mdccopy) {
+
+	public void indexEvent(LoggingEvent event, UUID key, String host,
+			Map<String, Object> mdccopy) {
 		Client client = search.getClient();
+		//BulkRequestBuilder bulk = getBulkRequest();
 		try {
 			XContentBuilder jsonBuilder = jsonBuilder();
 			jsonBuilder.startObject()
-			.field(Log4JConstants.TIME, event.getTimeStamp())
-			.field(Log4JConstants.HOST, host)
-			.field(Log4JConstants.MESSAGE, event.getMessage())
-			.field(Log4JConstants.LEVEL, event.getLevel() + "")
-			.field(Log4JConstants.NAME, event.getLoggerName())
-			.field(Log4JConstants.THREAD, event.getThreadName());
+					.field(Log4JConstants.TIME, event.getTimeStamp())
+					.field(Log4JConstants.HOST, host)
+					.field(Log4JConstants.MESSAGE, event.getMessage())
+					.field(Log4JConstants.LEVEL, event.getLevel() + "")
+					.field(Log4JConstants.NAME, event.getLoggerName())
+					.field(Log4JConstants.THREAD, event.getThreadName());
 			addStackTrace(event, jsonBuilder);
 			addProperties(event, jsonBuilder);
 			addPlayerId(mdccopy, jsonBuilder);
 			addUdid(mdccopy, jsonBuilder);
 			jsonBuilder.endObject();
+			//bulk.add(
 			client.prepareIndex(INDEX, TYPE, key.toString())
-			.setSource(jsonBuilder)
-			.setTimeout(timeout)
-			.setReplicationType(ReplicationType.ASYNC)
-			.execute()
-			.actionGet();
-			//LogLog.warn("Indexed log entry: "+key);
+					.setSource(jsonBuilder).setTimeout(timeout)
+					.setReplicationType(ReplicationType.ASYNC)
+					.execute().actionGet();
+			// LogLog.warn("Indexed log entry: "+key);
+			/*if(bulk.numberOfActions() > 99) {
+				BulkResponse response = bulk.execute().actionGet(timeout);
+				if(response.hasFailures()) {
+					LogLog.warn("Elasticsearch log4j bulk request has errors: \n"+response.buildFailureMessage());
+				}
+				bulkRequest = null;
+			}*/
 		} catch (ElasticSearchException e) {
 			LogLog.error(e.getDetailedMessage());
+			search.closeClient();
 		} catch (IOException e) {
 			LogLog.error(e.getMessage());
+			search.closeClient();
+		} finally {
+
 		}
 	}
 	
-	private void addUdid(Map<String, Object> mdccopy,XContentBuilder jsonBuilder) throws IOException {
-		if(mdccopy == null ) return;
+
+	
+	protected BulkRequestBuilder bulkRequest;
+
+	protected BulkRequestBuilder getBulkRequest() {
+		if (bulkRequest == null) {
+			Client client = search.getClient();
+			bulkRequest = client.prepareBulk();
+		}
+		return bulkRequest;
+	}
+
+	private void addUdid(Map<String, Object> mdccopy,
+			XContentBuilder jsonBuilder) throws IOException {
+		if (mdccopy == null)
+			return;
 		String udId = (String) mdccopy.get(MDCKeys.UDID);
 		if (udId != null && !udId.equals("")) {
 			jsonBuilder.field(Log4JConstants.UDID, udId.toString());
 		}
 	}
 
-	private void addPlayerId(Map<String, Object> mdccopy, XContentBuilder jsonBuilder) {
-		if(mdccopy == null ) return;
+	private void addPlayerId(Map<String, Object> mdccopy,
+			XContentBuilder jsonBuilder) {
+		if (mdccopy == null)
+			return;
 		Object pid;
-		pid =  mdccopy.get(MDCKeys.PLAYER_ID);
+		pid = mdccopy.get(MDCKeys.PLAYER_ID);
 		try {
 			if (pid != null) {
 				jsonBuilder.field(Log4JConstants.PLAYER_ID, pid.toString());
@@ -85,7 +117,8 @@ public class Log4JElasticSearchIndexer {
 		}
 	}
 
-	private void addProperties(LoggingEvent event,XContentBuilder jsonBuilder) throws IOException {
+	private void addProperties(LoggingEvent event, XContentBuilder jsonBuilder)
+			throws IOException {
 		@SuppressWarnings("rawtypes")
 		Map props = event.getProperties();
 		for (Object pkey : props.keySet()) {
@@ -93,9 +126,12 @@ public class Log4JElasticSearchIndexer {
 		}
 	}
 
-	private void addStackTrace(LoggingEvent event,XContentBuilder jsonBuilder) throws IOException {
-		if (event.getThrowableInformation() != null	&& event.getThrowableInformation().getThrowable() != null) {
-			String stacktrace = ExceptionUtils.getFullStackTrace(event.getThrowableInformation().getThrowable());
+	private void addStackTrace(LoggingEvent event, XContentBuilder jsonBuilder)
+			throws IOException {
+		if (event.getThrowableInformation() != null
+				&& event.getThrowableInformation().getThrowable() != null) {
+			String stacktrace = ExceptionUtils.getFullStackTrace(event
+					.getThrowableInformation().getThrowable());
 			jsonBuilder.field(Log4JConstants.STACK_TRACE, stacktrace);
 		}
 	}
