@@ -835,7 +835,6 @@ message LevelUpResponseProto {
 message InAppPurchaseRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional string receipt = 2;
-	optional int32 saleId = 3;
 }
 
 																						//DONE
