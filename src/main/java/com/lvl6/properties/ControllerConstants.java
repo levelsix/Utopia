@@ -100,6 +100,8 @@ public class ControllerConstants {
 
   public static final int BATTLE__MAX_NUM_TIMES_ATTACKED_BY_ONE_IN_PROTECTION_PERIOD = 10;
   public static final int BATTLE__HOURS_IN_ATTACKED_BY_ONE_PROTECTION_PERIOD = 8;
+  public static final int BATTLE__MAX_LEVEL_TO_STEAL = 4;
+  public static final int BATTLE__MAX_LEVEL_TO_STEAL_EPICS = 2;
   
   
   //--------------------------------------------------------------------------------------------------------------------------

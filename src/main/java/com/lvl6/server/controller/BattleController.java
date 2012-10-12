@@ -29,6 +29,7 @@ import com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus;
 import com.lvl6.proto.EventProto.BattleResponseProto.Builder;
 import com.lvl6.proto.InfoProto.BattleResult;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
+import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
@@ -435,7 +436,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         int equipId = defenderEquip.getEquipId();
         Equipment equip = equipmentIdsToEquipment.get(equipId);
         if (equip.getDiamondPrice() == Equipment.NOT_SET
-            && equip.getMinLevel() < defender.getLevel()) {
+            && equip.getMinLevel() < defender.getLevel() 
+            && defenderEquip.getLevel() < ControllerConstants.BATTLE__MAX_LEVEL_TO_STEAL
+            && ((equip.getRarity() == Rarity.EPIC && defenderEquip.getLevel() < ControllerConstants.BATTLE__MAX_LEVEL_TO_STEAL_EPICS) || equip.getRarity() != Rarity.EPIC)) {
           double rand = Math.random();
           if (rand <= equip.getChanceOfLoss() / defenderEquip.getLevel()) {
             potentialLosses.add(defenderEquip);
