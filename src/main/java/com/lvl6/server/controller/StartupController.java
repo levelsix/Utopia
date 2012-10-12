@@ -598,6 +598,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         if (!cityIdsToUserCityRanks.containsKey(city.getId())) {
           if (!UpdateUtils.get().incrementCityRankForUserCity(user.getId(), cityId, 1)) {
             log.error("problem with unlocking city for user, city Id is " + cityId + ", and user is " + user);
+          } else {
+            cityIdsToUserCityRanks = RetrieveUtils.userCityRetrieveUtils().getCityIdToUserCityRank(user.getId());
           }
         }
         int numTasksComplete = getNumTasksCompleteForUserCity(user, city, taskIdToNumTimesActedInRank);

@@ -182,7 +182,7 @@ public class TaskActionController extends EventController {
         } else {
           changeNumTimesUserActedInDB = false;
         }
-        
+
         if (lockBoxEventId != ControllerConstants.NOT_SET) {
           resBuilder.setEventIdOfLockBoxGained(lockBoxEventId);
         }
@@ -388,7 +388,7 @@ public class TaskActionController extends EventController {
           }
         }
       }
-      
+
       if (lockBoxEventId != ControllerConstants.NOT_SET) {
         if (!UpdateUtils.get().incrementNumberOfLockBoxesForLockBoxEvent(user.getId(), lockBoxEventId, 1))
           log.error("problem incrementing user lock boxes for user = "+user+" lock box event id ="+lockBoxEventId);
@@ -536,8 +536,10 @@ public class TaskActionController extends EventController {
       }
     }
 
-    float chanceToAttainBox = Math.min(ControllerConstants.LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_TASK_BASE*task.getEnergyCost(), ControllerConstants.LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_TASK_MAX);
-    if (Math.random() < chanceToAttainBox) return curEvent.getId();
+    if (curEvent != null) {
+      float chanceToAttainBox = Math.min(ControllerConstants.LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_TASK_BASE*task.getEnergyCost(), ControllerConstants.LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_TASK_MAX);
+      if (Math.random() < chanceToAttainBox) return curEvent.getId();
+    }
     return ControllerConstants.NOT_SET;
   }
 
