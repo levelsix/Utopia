@@ -20,11 +20,12 @@ public class MonteCard implements Serializable {
   private int mageEquipLevel = ControllerConstants.NOT_SET;
   private Date startDate;
   private MonteCardType cardType;
+  private int minLevel;
 
   public MonteCard(int id, int diamondCost, int coinCost, int warriorEquipId,
       int warriorEquipLevel, int archerEquipId, int archerEquipLevel,
       int mageEquipId, int mageEquipLevel, Date startDate,
-      MonteCardType cardType) {
+      MonteCardType cardType, int minLevel) {
     super();
     this.id = id;
     this.diamondGained = diamondCost;
@@ -37,6 +38,7 @@ public class MonteCard implements Serializable {
     this.mageEquipLevel = mageEquipLevel;
     this.startDate = startDate;
     this.cardType = cardType;
+    this.minLevel = minLevel;
   }
   
   public int getId() {
@@ -127,6 +129,14 @@ public class MonteCard implements Serializable {
     this.cardType = cardType;
   }
   
+  public int getMinLevel() {
+    return minLevel;
+  }
+
+  public void setMinLevel(int minLevel) {
+    this.minLevel = minLevel;
+  }
+  
   public int getEquipIdForUserType(UserType type) {
     if (type == UserType.GOOD_WARRIOR || type == UserType.BAD_WARRIOR) {
       return getWarriorEquipId();
@@ -145,7 +155,8 @@ public class MonteCard implements Serializable {
         + ", warriorEquipLevel=" + warriorEquipLevel + ", archerEquipId="
         + archerEquipId + ", archerEquipLevel=" + archerEquipLevel
         + ", mageEquipId=" + mageEquipId + ", mageEquipLevel=" + mageEquipLevel
-        + ", startDate=" + startDate + ", cardType=" + cardType + "]";
+        + ", startDate=" + startDate + ", cardType=" + cardType
+        + ", minLevel=" + minLevel + "]";
   }
 
   public int getEquipLevelForUserType(UserType type) {
