@@ -21,6 +21,7 @@ import com.lvl6.proto.EventProto.QuestRedeemRequestProto;
 import com.lvl6.proto.EventProto.QuestRedeemResponseProto;
 import com.lvl6.proto.EventProto.QuestRedeemResponseProto.Builder;
 import com.lvl6.proto.EventProto.QuestRedeemResponseProto.QuestRedeemStatus;
+import com.lvl6.proto.InfoProto.BattleResult;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -78,6 +79,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         inProgressAndRedeemedUserQuests = RetrieveUtils.userQuestRetrieveUtils().getUnredeemedAndRedeemedUserQuestsForUser(senderProto.getUserId());
         List<Integer> inProgressQuestIds = new ArrayList<Integer>();
         List<Integer> redeemedQuestIds = new ArrayList<Integer>();
+        
+        resBuilder.setShouldGiveKiipReward(checkIfUserGetsKiipReward());
 
         if (inProgressAndRedeemedUserQuests != null) {
           for (UserQuest uq : inProgressAndRedeemedUserQuests) {
@@ -186,6 +189,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     resBuilder.setStatus(QuestRedeemStatus.SUCCESS);
     return true;  
+  }
+
+  private boolean checkIfUserGetsKiipReward() {
+    if (Math.random() < ControllerConstants.CHANCE_TO_GET_KIIP_ON_QUEST_REDEEM) return true;
+    return false;
   }
 
 }

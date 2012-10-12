@@ -47,6 +47,8 @@ message BattleResponseProto {
     
     optional int32 eventIdOfLockBoxGained = 9;
     
+    optional bool shouldGiveKiipReward = 10;
+    
     enum BattleStatus {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
@@ -1166,6 +1168,8 @@ message QuestRedeemResponseProto {
      repeated FullQuestProto newlyAvailableQuests = 2;
      optional QuestRedeemStatus status = 3;    
      optional FullUserEquipProto equipRewardFromQuest = 4;
+     
+    optional bool shouldGiveKiipReward = 5;
 
      enum QuestRedeemStatus {
           SUCCESS = 0;

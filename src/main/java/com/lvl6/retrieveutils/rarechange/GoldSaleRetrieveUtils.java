@@ -36,7 +36,7 @@ import com.lvl6.utils.DBConnection;
   public static List<GoldSale> getCurrentAndFutureGoldSales() {
     log.debug("retrieve current and future gold sales");
     if (goldSaleIdsToGoldSales == null) {
-      setStaticGoldSaleIdsToGoldSales();      
+      setStaticGoldSaleIdsToGoldSales();
     }
     List<GoldSale> sales = new ArrayList<GoldSale>();
 

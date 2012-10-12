@@ -89,8 +89,13 @@ import com.lvl6.utils.RetrieveUtils;
       if (card.getCardType() == type && card.getStartDate().before(curDate)) {
         if (mostRecentCard == null || card.getStartDate().after(mostRecentCard.getStartDate())) {
           mostRecentCard = card;
-        } else if (card.getStartDate().equals(curDate) && mostRecentCard.getMinLevel() < card.getMinLevel() && card.getMinLevel() < level) {
+        } else if (card.getStartDate().equals(mostRecentCard.getStartDate()) && mostRecentCard.getMinLevel() < card.getMinLevel() && card.getMinLevel() < level) {
           mostRecentCard = card;
+        } else {
+          boolean x = card.getStartDate().equals(curDate);
+          boolean y = (mostRecentCard.getMinLevel() < card.getMinLevel());
+          boolean z = card.getMinLevel() < level;
+          log.info(x + " " + y + " " + z);
         }
       }
     }
