@@ -52,22 +52,22 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     PlayThreeCardMonteResponseProto.Builder resBuilder = PlayThreeCardMonteResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    MonteCard card = ThreeCardMonteRetrieveUtils.getMonteCardIdsToMonteCards().get(reqProto.getCardId());
-    int diamondsGained = card.getDiamondsGained();
-    int coinsGained = card.getCoinsGained();
-    int equipId = card.getEquipIdForUserType(senderProto.getUserType());
-    int equipLevel = card.getEquipLevelForUserType(senderProto.getUserType());
-
     server.lockPlayer(senderProto.getUserId());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      MonteCard card = ThreeCardMonteRetrieveUtils.getMonteCardIdsToMonteCards().get(reqProto.getCardId());
 
-      boolean legitPlay = checkLegitPlay(resBuilder, user);
+      boolean legitPlay = checkLegitPlay(resBuilder, user, card);
+
+      int diamondsGained = card.getDiamondsGained();
+      int coinsGained = card.getCoinsGained();
+      int equipId = card.getEquipIdForUserType(senderProto.getUserType());
+      int equipLevel = card.getEquipLevelForUserType(senderProto.getUserType());
       
       if (legitPlay) {
         if (equipId != ControllerConstants.NOT_SET && equipId > 0 && equipLevel > 0) {
           int newUserEquipId = InsertUtils.get().insertUserEquip(user.getId(), equipId, equipLevel);
-          if (newUserEquipId < 0) {
+          if (newUserEquipId     < 0) {
             resBuilder.setStatus(PlayThreeCardMonteStatus.OTHER_FAIL);
             log.error("problem with giving 1 of equip " + equipId + " to forger " + user.getId());
           } else {
@@ -99,10 +99,15 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     }
   }
 
-  private boolean checkLegitPlay(Builder resBuilder, User user) {
+  private boolean checkLegitPlay(Builder resBuilder, User user, MonteCard card) {
     if (user == null) {
       resBuilder.setStatus(PlayThreeCardMonteStatus.OTHER_FAIL);
       log.error("user is null");
+      return false;      
+    }
+    if (card == null) {
+      resBuilder.setStatus(PlayThreeCardMonteStatus.OTHER_FAIL);
+      log.error("card is null");
       return false;      
     }
     if (user.getDiamonds() < ControllerConstants.THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY) {

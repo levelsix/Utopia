@@ -47,6 +47,8 @@ message BattleResponseProto {
     
     optional int32 eventIdOfLockBoxGained = 9;
     
+    optional bool shouldGiveKiipReward = 10;
+    
     enum BattleStatus {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
@@ -161,6 +163,8 @@ message StartupResponseProto {
 	
 	repeated GroupChatMessageProto globalChats = 31;
 	repeated GroupChatMessageProto clanChats = 32;
+	
+	repeated GoldSaleProto goldSales = 33;
 	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
@@ -291,6 +295,16 @@ message StartupResponseProto {
 		optional GoldmineConstants goldmineConstants = 80;
 		optional LockBoxConstants lockBoxConstants = 81;
 		optional ExpansionConstants expansionConstants = 82;
+		optional DownloadableNibConstants downloadableNibConstants = 83;
+		
+		message DownloadableNibConstants {
+			optional string threeCardMonteNibName = 1;
+			optional string lockBoxNibName = 2;
+			optional string mapNibName = 3;
+			optional string goldMineNibName = 4;
+			optional string expansionNibName = 5;
+			optional string leaderboardNibName = 6;
+		}
 		
 		message ThreeCardMonteConstants {
 			optional int32 diamondCostToPlayThreeCardMonte = 1;
@@ -1164,6 +1178,8 @@ message QuestRedeemResponseProto {
      repeated FullQuestProto newlyAvailableQuests = 2;
      optional QuestRedeemStatus status = 3;    
      optional FullUserEquipProto equipRewardFromQuest = 4;
+     
+    optional bool shouldGiveKiipReward = 5;
 
      enum QuestRedeemStatus {
           SUCCESS = 0;

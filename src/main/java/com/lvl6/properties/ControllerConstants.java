@@ -100,6 +100,8 @@ public class ControllerConstants {
 
   public static final int BATTLE__MAX_NUM_TIMES_ATTACKED_BY_ONE_IN_PROTECTION_PERIOD = 10;
   public static final int BATTLE__HOURS_IN_ATTACKED_BY_ONE_PROTECTION_PERIOD = 8;
+  public static final int BATTLE__MAX_LEVEL_TO_STEAL = 4;
+  public static final int BATTLE__MAX_LEVEL_TO_STEAL_EPICS = 2;
   
   
   //--------------------------------------------------------------------------------------------------------------------------
@@ -365,8 +367,15 @@ public class ControllerConstants {
   public static final int[] STARTUP__LEVELS_THAT_TRIGGER_KIIP_REWARDS = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
     19, 20, 21, 23, 24, 25, 26};
   public static final int[] STARTUP__QUESTS_THAT_TRIGGER_KIIP_REWARDS_ON_REDEEM = {};
-  
-  
+  public static final float CHANCE_TO_GET_KIIP_ON_BATTLE_WIN = 1.f;
+  public static final float CHANCE_TO_GET_KIIP_ON_QUEST_REDEEM = 1.f;
+
+  public static final String NIB_NAME__THREE_CARD_MONTE = "ThreeCardMonte";
+  public static final String NIB_NAME__LOCK_BOX = "LockBox";
+  public static final String NIB_NAME__TRAVELING_MAP = "TravelingMap";
+  public static final String NIB_NAME__GOLD_MINE = "GoldMine";
+  public static final String NIB_NAME__EXPANSION = "Expansion";
+  public static final String NIB_NAME__LEADERBOARD = "Leaderboard";
   
   public static final int IDDICTION__EQUIP_ID = 282;
   public static final String IDDICTION__NOTICE = "FREE limited edition gold equip for joining today!";

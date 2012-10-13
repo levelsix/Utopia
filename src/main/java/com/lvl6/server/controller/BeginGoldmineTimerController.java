@@ -116,7 +116,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
   private void writeChangesToDB(User user, Timestamp curTime, boolean reset) {
     int goldCost = reset ? ControllerConstants.GOLDMINE__GOLD_COST_TO_RESTART : 0;
-    if (!user.updateLastGoldmineRetrieval(-goldCost, curTime)) {
+    Timestamp newStamp = reset ? null : curTime;
+    if (!user.updateLastGoldmineRetrieval(-goldCost, newStamp)) {
       log.error("problem with adding diamonds for goldmine, adding " + ControllerConstants.GOLDMINE__GOLD_AMOUNT_FROM_PICK_UP);
     }
   }

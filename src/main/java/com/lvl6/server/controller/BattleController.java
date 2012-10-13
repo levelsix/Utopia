@@ -18,7 +18,6 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.LockBoxEvent;
 import com.lvl6.info.Quest;
-import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
@@ -30,6 +29,7 @@ import com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus;
 import com.lvl6.proto.EventProto.BattleResponseProto.Builder;
 import com.lvl6.proto.InfoProto.BattleResult;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
+import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
@@ -51,7 +51,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-@Autowired
+  @Autowired
   protected InsertUtil insertUtils;
 
   public void setInsertUtils(InsertUtil insertUtils) {
@@ -128,15 +128,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           winner = defender;
           loser = attacker;
         }
-        
+
         Random random = new Random();
         lostCoins = calculateLostCoins(loser, random, (result == BattleResult.ATTACKER_FLEE));
         resBuilder.setCoinsGained(lostCoins);
-        
+
         lockBoxEventId = checkIfUserAcquiresLockBox(attacker, result, battleTime);
         if (lockBoxEventId != ControllerConstants.NOT_SET) {
           resBuilder.setEventIdOfLockBoxGained(lockBoxEventId);
         }
+
+        resBuilder.setShouldGiveKiipReward(checkIfUserGetsKiipReward(result));
 
         if (result == BattleResult.ATTACKER_WIN) {
           expGained = calculateExpGain(winner, loser);
@@ -154,7 +156,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         writeChangesToDB(stolenEquipIsLastOne, winner, loser, attacker,
             defender, expGained, lostCoins, battleTime, result==BattleResult.ATTACKER_FLEE,
             lockBoxEventId);
-        
+
         UpdateClientUserResponseEvent resEventAttacker = MiscMethods
             .createUpdateClientUserResponseEventAndUpdateLeaderboard(attacker);
         resEventAttacker.setTag(event.getTag());
@@ -229,13 +231,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private int calculateExpGain(User winner, User loser) {
-	  int baseExp = (int) (loser.getLevel()*ControllerConstants.BATTLE__EXP_BASE_MULTIPLIER);
-	  int levelDifference = (int) (baseExp * ((loser.getLevel() - winner.getLevel()) 
-			  * ControllerConstants.BATTLE__EXP_LEVEL_DIFF_WEIGHT));
-	  int randomness = (int)((Math.random() + 1.0) * (loser.getLevel() / 10));
-	  
-	  int expGain = Math.max(ControllerConstants.BATTLE__EXP_MIN, baseExp + levelDifference + randomness);
-	  return expGain;
+    int baseExp = (int) (loser.getLevel()*ControllerConstants.BATTLE__EXP_BASE_MULTIPLIER);
+    int levelDifference = (int) (baseExp * ((loser.getLevel() - winner.getLevel()) 
+        * ControllerConstants.BATTLE__EXP_LEVEL_DIFF_WEIGHT));
+    int randomness = (int)((Math.random() + 1.0) * (loser.getLevel() / 10));
+
+    int expGain = Math.max(ControllerConstants.BATTLE__EXP_MIN, baseExp + levelDifference + randomness);
+    return expGain;
   }
 
   private boolean checkLegitBattle(Builder resBuilder, BattleResult result, User attacker, User defender) {
@@ -282,7 +284,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
               }
               List<Integer> userCompletedDefeatTypeJobsForQuest = questIdToUserDefeatTypeJobsCompletedForQuestForUser.get(quest.getId());
               if (userCompletedDefeatTypeJobsForQuest == null) userCompletedDefeatTypeJobsForQuest = new ArrayList<Integer>();
-              
+
               List<Integer> defeatTypeJobsRemaining = new ArrayList<Integer>(defeatTypeJobsRequired);
               defeatTypeJobsRemaining.removeAll(userCompletedDefeatTypeJobsForQuest);
 
@@ -298,10 +300,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
                         questIdToDefeatTypeJobIdsToNumDefeated = UserQuestsDefeatTypeJobProgressRetrieveUtils.getQuestIdToDefeatTypeJobIdsToNumDefeated(userQuest.getUserId());
                       }
                       Map<Integer, Integer> userJobIdToNumDefeated = questIdToDefeatTypeJobIdsToNumDefeated.get(userQuest.getQuestId()); 
-                      
+
                       int numDefeatedForJob = (userJobIdToNumDefeated != null && userJobIdToNumDefeated.containsKey(remainingDTJ.getId())) ?
                           userJobIdToNumDefeated.get(remainingDTJ.getId()) : 0;
-                          
+
                           if (numDefeatedForJob + 1 >= remainingDTJ.getNumEnemiesToDefeat()) {
                             //TODO: note: not SUPER necessary to delete/update them, but they do capture wrong data if complete (the one that completes is not factored in)
                             if (insertUtils.insertCompletedDefeatTypeJobIdForUserQuest(attacker.getId(), remainingDTJ.getId(), quest.getId())) {
@@ -382,7 +384,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
       }
     }
-    
+
     if (lockBoxEventId != ControllerConstants.NOT_SET) {
       if (!UpdateUtils.get().incrementNumberOfLockBoxesForLockBoxEvent(attacker.getId(), lockBoxEventId, 1))
         log.error("problem incrementing user lock boxes for user = "+attacker+" lock box event id ="+lockBoxEventId);
@@ -396,7 +398,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
       return (int)(Math.random() * loser.getLevel() * ControllerConstants.BATTLE__FAKE_PLAYER_COIN_GAIN_MULTIPLIER);
     }
-    
+
     int lostCoins = (int) Math.rint(Math.min(loser.getCoins() * Math.random()
         * ControllerConstants.BATTLE__A, loser.getLevel()
         * ControllerConstants.BATTLE__B));
@@ -422,7 +424,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (Math.random() > ControllerConstants.BATTLE__CHANCE_OF_EQUIP_LOOT_INITIAL_WALL) {
       return null;
     }
-    
+
     List<UserEquip> potentialLosses = new ArrayList<UserEquip>();
     if (defenderEquips != null) {
       for (UserEquip defenderEquip : defenderEquips) {
@@ -434,7 +436,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         int equipId = defenderEquip.getEquipId();
         Equipment equip = equipmentIdsToEquipment.get(equipId);
         if (equip.getDiamondPrice() == Equipment.NOT_SET
-            && equip.getMinLevel() < defender.getLevel()) {
+            && equip.getMinLevel() < defender.getLevel() 
+            && defenderEquip.getLevel() < ControllerConstants.BATTLE__MAX_LEVEL_TO_STEAL
+            && ((equip.getRarity() == Rarity.EPIC && defenderEquip.getLevel() < ControllerConstants.BATTLE__MAX_LEVEL_TO_STEAL_EPICS) || equip.getRarity() != Rarity.EPIC)) {
           double rand = Math.random();
           if (rand <= equip.getChanceOfLoss() / defenderEquip.getLevel()) {
             potentialLosses.add(defenderEquip);
@@ -463,7 +467,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private int checkIfUserAcquiresLockBox(User user, BattleResult result, Timestamp curTime) {
     if (result != BattleResult.ATTACKER_WIN) return ControllerConstants.NOT_SET;
-    
+
     Map<Integer, LockBoxEvent> events = LockBoxEventRetrieveUtils.getLockBoxEventIdsToLockBoxEvents();
     LockBoxEvent curEvent = null;
     for (LockBoxEvent event : events.values()) {
@@ -473,8 +477,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
     }
 
-    float chanceToAttainBox = ControllerConstants.LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_BATTLE;
-    if (Math.random() < chanceToAttainBox) return curEvent.getId();
+    if (curEvent != null) {
+      float chanceToAttainBox = ControllerConstants.LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_BATTLE;
+      if (Math.random() < chanceToAttainBox) return curEvent.getId();
+    }
     return ControllerConstants.NOT_SET;
+  }
+
+  private boolean checkIfUserGetsKiipReward(BattleResult result) {
+    if (result != BattleResult.ATTACKER_WIN) return false;
+    if (Math.random() < ControllerConstants.CHANCE_TO_GET_KIIP_ON_BATTLE_WIN) return true;
+    return false;
   }
 }

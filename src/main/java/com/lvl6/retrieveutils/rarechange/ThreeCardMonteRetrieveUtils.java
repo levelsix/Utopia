@@ -91,6 +91,8 @@ import com.lvl6.utils.DBConnection;
   private static MonteCard convertRSRowToMonteCard(ResultSet rs) throws SQLException {
     int i = 1;
     int id = rs.getInt(i++);
+    int minLevel = rs.getInt(i++);
+    Date startDate = new Date(rs.getTimestamp(i++).getTime());
     int diamondsGained = rs.getInt(i++);
     if (diamondsGained == 0) diamondsGained = ControllerConstants.NOT_SET;
     int coinsGained = rs.getInt(i++);
@@ -107,9 +109,8 @@ import com.lvl6.utils.DBConnection;
     if (mageEquipId == 0) mageEquipId = ControllerConstants.NOT_SET;
     int mageEquipLevel = rs.getInt(i++);
     if (mageEquipLevel == 0) mageEquipLevel = ControllerConstants.NOT_SET;
-    Date startDate = new Date(rs.getTimestamp(i++).getTime());
     MonteCardType cardType = MonteCardType.valueOf(rs.getInt(i++));
 
-    return new MonteCard(id, diamondsGained, coinsGained, warriorEquipId, warriorEquipLevel, archerEquipId, archerEquipLevel, mageEquipId, mageEquipLevel, startDate, cardType);
+    return new MonteCard(id, diamondsGained, coinsGained, warriorEquipId, warriorEquipLevel, archerEquipId, archerEquipLevel, mageEquipId, mageEquipLevel, startDate, cardType, minLevel);
   }
 }

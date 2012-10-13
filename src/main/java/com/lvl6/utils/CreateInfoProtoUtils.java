@@ -16,6 +16,7 @@ import com.lvl6.info.ClanChatPost;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
+import com.lvl6.info.GoldSale;
 import com.lvl6.info.Location;
 import com.lvl6.info.LockBoxEvent;
 import com.lvl6.info.LockBoxItem;
@@ -69,6 +70,7 @@ import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto;
 import com.lvl6.proto.InfoProto.FullUserStructureProto;
+import com.lvl6.proto.InfoProto.GoldSaleProto;
 import com.lvl6.proto.InfoProto.GroupChatMessageProto;
 import com.lvl6.proto.InfoProto.LeaderboardType;
 import com.lvl6.proto.InfoProto.LocationProto;
@@ -121,7 +123,7 @@ public class CreateInfoProtoUtils {
     int size = (userClanMembersInClan != null) ? userClanMembersInClan.size() : 0;
     return FullClanProtoWithClanSize.newBuilder().setClan(clan).setClanSize(size).build();
   }
-  
+
   public static ReferralNotificationProto createReferralNotificationProtoFromReferral(
       Referral r, User newlyReferred) {
     return ReferralNotificationProto.newBuilder().setReferred(createMinimumUserProtoFromUser(newlyReferred))
@@ -171,12 +173,12 @@ public class CreateInfoProtoUtils {
     return MinimumUserProtoForClans.newBuilder().setMinUserProto(mup).setClanStatus(s).build();
   }
 
-  
+
   public static MinimumUserProtoWithLevelForLeaderboard createMinimumUserProtoWithLevelForLeaderboard(User u, LeaderboardType leaderboardType, int rank, double score) {
     MinimumUserProto mup = createMinimumUserProtoFromUser(u);
     return MinimumUserProtoWithLevelForLeaderboard.newBuilder().setMinUserProto(mup).setLevel(u.getLevel()).setLeaderboardType(leaderboardType).setLeaderboardRank(rank).setLeaderboardScore(score).build();
   }
-  
+
   public static MinimumUserProtoWithBattleHistory createMinimumUserProtoWithBattleHistory(User u) {
     MinimumUserProtoWithLevel mup = createMinimumUserProtoWithLevelFromUser(u);
     return MinimumUserProtoWithBattleHistory.newBuilder().setMinUserProtoWithLevel(mup).setBattlesWon(u.getBattlesWon()).setBattlesLost(u.getBattlesLost()).setBattlesFled(u.getFlees()).build();
@@ -408,11 +410,11 @@ public class CreateInfoProtoUtils {
     MinimumUserProto mup = createMinimumUserProtoFromUser(RetrieveUtils.userRetrieveUtils().getUserById(c.getOwnerId()));
     return FullClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwner(mup).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).setTag(c.getTag()).setIsGood(c.isGood()).build();
   }
-  
+
   public static MinimumClanProto createMinimumClanProtoFromClan(Clan c) {
     return MinimumClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwnerId(c.getOwnerId()).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).setTag(c.getTag()).build();
   }
-  
+
   public static FullUserEquipProto createFullUserEquipProtoFromUserEquip(UserEquip ue) {
     return FullUserEquipProto.newBuilder().setUserEquipId(ue.getId()).setUserId(ue.getUserId())
         .setEquipId(ue.getEquipId()).setLevel(ue.getLevel()).build();
@@ -747,15 +749,15 @@ public class CreateInfoProtoUtils {
     UnhandledBlacksmithAttemptProto.Builder builder = UnhandledBlacksmithAttemptProto.newBuilder().setBlacksmithId(ba.getId()).setUserId(ba.getUserId())
         .setEquipId(ba.getEquipId()).setGoalLevel(ba.getGoalLevel()).setGuaranteed(ba.isGuaranteed()).setStartTime(ba.getStartTime().getTime())
         .setAttemptComplete(ba.isAttemptComplete());
-    
+
     if (ba.getDiamondGuaranteeCost() > 0) {
       builder.setDiamondGuaranteeCost(ba.getDiamondGuaranteeCost());
     }
-    
+
     if (ba.getTimeOfSpeedup() != null) {
       builder.setTimeOfSpeedup(ba.getTimeOfSpeedup().getTime());
     }
-    
+
     return builder.build();
   }
 
@@ -765,90 +767,103 @@ public class CreateInfoProtoUtils {
         .setTimeOfChat(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
   }
 
-  public static GroupChatMessageProto createGroupChatMessageProtoFromClanChatPost(long time, MinimumUserProto user, String content) {
-	    return GroupChatMessageProto.newBuilder().setSender(user).setTimeOfChat(time).setContent(content).build();
+  public static GroupChatMessageProto createGroupChatMessageProto(long time, MinimumUserProto user, String content) {
+    return GroupChatMessageProto.newBuilder().setSender(user).setTimeOfChat(time).setContent(content).build();
   }
 
-  
+
   public static ClanBulletinPostProto createClanBulletinPostProtoFromClanBulletinPost(
       ClanBulletinPost p, User user) {
     return ClanBulletinPostProto.newBuilder().setClanBulletinPostId(p.getId()).setPoster(createMinimumUserProtoFromUser(user)).setClanId(user.getClanId())
         .setTimeOfPost(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
   }
-  
+
   public static FullUserClanProto createFullUserClanProtoFromUserClan(UserClan uc) {
     return FullUserClanProto.newBuilder().setClanId(uc.getClanId()).setUserId(uc.getUserId()).setStatus(uc.getStatus())
         .setRequestTime(uc.getRequestTime().getTime()).build();
   }
-  
+
   public static MonteCardProto createMonteCardProtoFromMonteCard(MonteCard mc, UserType type) {
     MonteCardProto.Builder b = MonteCardProto.newBuilder();
-    
+
     b.setCardId(mc.getId());
-    
+
     if (mc.getDiamondsGained() != ControllerConstants.NOT_SET) {
       b.setDiamondsGained(mc.getDiamondsGained());
     }
     if (mc.getCoinsGained() != ControllerConstants.NOT_SET) {
       b.setCoinsGained(mc.getCoinsGained());
     }
-    
+
     int equipGainedId = mc.getEquipIdForUserType(type);
     int equipGainedLevel = mc.getEquipLevelForUserType(type);
-    
+
     if (equipGainedId != ControllerConstants.NOT_SET) {
       b.setEquip(createFullEquipProtoFromEquip(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipGainedId)));
     }
     if (equipGainedLevel != ControllerConstants.NOT_SET) {
       b.setEquipLevel(equipGainedLevel);
     }
-    
+
     return b.build();
   }
-  
+
   public static LockBoxEventProto createLockBoxEventProtoFromLockBoxEvent(LockBoxEvent event, UserType type) {
     LockBoxEventProto.Builder b = LockBoxEventProto.newBuilder().setLockBoxEventId(event.getId())
         .setStartDate(event.getStartDate().getTime()).setEndDate(event.getEndDate().getTime())
         .setLockBoxImageName(event.getLockBoxImageName()).setEventName(event.getEventName());
-    
+
     b.setPrizeEquip(createFullEquipProtoFromEquip(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(event.getPrizeEquipId())));
-    
+
     List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(event.getId(), type);
-    
+
     for (LockBoxItem item : items) {
       b.addItems(createLockBoxItemProtoFromLockBoxItem(item));
     }
-    
+
     return b.build();
   }
-  
+
   public static LockBoxItemProto createLockBoxItemProtoFromLockBoxItem(LockBoxItem item) {
     LockBoxItemProto.Builder b = LockBoxItemProto.newBuilder().setLockBoxItemId(item.getId())
         .setLockBoxEventId(item.getLockBoxEventId()).setChanceToUnlock(item.getChanceToUnlock())
         .setImageName(item.getImageName()).setName(item.getName()).setType(item.getClassType());
-    
+
     return b.build();
   }
-  
+
   public static UserLockBoxEventProto createUserLockBoxEventProto(UserLockBoxEvent event, UserType type) {
     UserLockBoxEventProto.Builder b = UserLockBoxEventProto.newBuilder().setUserId(event.getUserId()).setLockBoxEventId(event.getLockBoxId())
         .setNumLockBoxes(event.getNumLockBoxes()).setNumTimesCompleted(event.getNumTimesCompleted()).setLastPickTime(event.getLastPickTime().getTime());
-    
+
     List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(event.getLockBoxId(), type);
     Map<Integer, Integer> userItems = UserLockBoxItemRetrieveUtils.getLockBoxItemIdsToQuantityForUser(event.getUserId());
-    
+
     for (LockBoxItem item : items) {
       Integer quantity = userItems.get(item.getId());
       if (quantity != null && quantity > 0) {
         b.addItems(createUserLockBoxItemProto(event.getUserId(), item.getId(), quantity));
       }
     }
-    
+
     return b.build();
   }
-  
+
   public static UserLockBoxItemProto createUserLockBoxItemProto(int userId, int lockBoxItemId, int quantity) {
     return UserLockBoxItemProto.newBuilder().setUserId(userId).setLockBoxItemId(lockBoxItemId)
         .setQuantity(quantity).build();
+  }
+
+  public static GoldSaleProto createGoldSaleProtoFromGoldSale(GoldSale sale) {
+    GoldSaleProto.Builder b = GoldSaleProto.newBuilder().setSaleId(sale.getId()).setStartDate(sale.getStartDate().getTime()).setEndDate(sale.getEndDate().getTime());
+
+    if (sale.getPackage1SaleIdentifier() != null) b.setPackage1SaleIdentifier(sale.getPackage1SaleIdentifier());
+    if (sale.getPackage2SaleIdentifier() != null) b.setPackage2SaleIdentifier(sale.getPackage2SaleIdentifier());
+    if (sale.getPackage3SaleIdentifier() != null) b.setPackage3SaleIdentifier(sale.getPackage3SaleIdentifier());
+    if (sale.getPackage4SaleIdentifier() != null) b.setPackage4SaleIdentifier(sale.getPackage4SaleIdentifier());
+    if (sale.getPackage5SaleIdentifier() != null) b.setPackage5SaleIdentifier(sale.getPackage5SaleIdentifier());
+    b.setGoldShoppeImageName(sale.getGoldShoppeImageName()).setGoldBarImageName(sale.getGoldBarImageName());
+
+    return b.build();
   }
 }
