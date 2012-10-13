@@ -105,6 +105,7 @@ public class HealthCheckImpl implements HealthCheck {
 	public boolean check() {
 		log.info("Running health check");
 		checkConnections();
+		checkNumberOfConnections();
 		sendToServer.send(gen.startup("Cluster Server Instance: "
 				+ server.serverId()));
 		// sendToServer.send(gen.userQuestDetails(user));
