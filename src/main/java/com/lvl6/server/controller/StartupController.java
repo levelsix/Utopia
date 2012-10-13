@@ -181,18 +181,18 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 //    log.info("Sending struct");
 //    sendAllStructs(udid, user);
 
-    log.info("Writing event response: "+resEvent);
+    log.debug("Writing event response: "+resEvent);
     server.writePreDBEvent(resEvent, udid);
-    log.info("Wrote response event: "+resEvent);
+    log.debug("Wrote response event: "+resEvent);
    
     //for things that client doesn't need
-    log.info("After response tasks");
+    log.debug("After response tasks");
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);    
   }
 
 	protected void updateLeaderboard(String apsalarId, User user, Timestamp now,int newNumConsecutiveDaysLoggedIn) {
 		if (user != null) {
-	      log.info("Updating leaderboard for user "+user.getId());
+	      log.debug("Updating leaderboard for user "+user.getId());
 	      syncApsalaridLastloginConsecutivedaysloggedinResetBadges(user, apsalarId, now, newNumConsecutiveDaysLoggedIn);
 	      LeaderBoardUtil leaderboard = AppContext.getApplicationContext().getBean(LeaderBoardUtil.class);
 	      leaderboard.updateLeaderboardForUser(user);

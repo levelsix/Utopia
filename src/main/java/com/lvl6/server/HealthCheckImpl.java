@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
 import org.springframework.integration.channel.QueueChannel;
+import org.springframework.integration.ip.tcp.connection.TcpNioClientConnectionFactory;
 import org.springframework.integration.ip.tcp.connection.TcpNioServerConnectionFactory;
 
 import com.lvl6.loadtesting.LoadTestEventGenerator;
@@ -21,7 +22,7 @@ import com.lvl6.utils.ClientAttachment;
 public class HealthCheckImpl implements HealthCheck {
 	
 	
-	private static final int ALERT_INTERVAL = 1000*60*5;
+	private static final int ALERT_INTERVAL = 1000*60*15;
 
 	private static Logger log = LoggerFactory.getLogger(HealthCheckImpl.class);
 
@@ -75,8 +76,27 @@ public class HealthCheckImpl implements HealthCheck {
 		this.serverConnectionFactory = serverConnectionFactory;
 	}
 
+	
+	
+	@Resource
+	protected TcpNioClientConnectionFactory clientConnectionFactory;
+		
+	
 
 	
+	public TcpNioClientConnectionFactory getClientConnectionFactory() {
+		return clientConnectionFactory;
+	}
+
+	public void setClientConnectionFactory(
+			TcpNioClientConnectionFactory clientConnectionFactory) {
+		this.clientConnectionFactory = clientConnectionFactory;
+	}
+
+	
+	
+	
+
 	@Resource
 	protected ServerInstance server;
 	
@@ -107,6 +127,7 @@ public class HealthCheckImpl implements HealthCheck {
 	@Override
 	public boolean check() {
 		log.info("Running health check");
+		checkConnections();
 		sendToServer.send(gen.startup("Cluster Server Instance: "+server.serverId()));
 		//sendToServer.send(gen.userQuestDetails(user));
 		return waitForMessage();
@@ -117,7 +138,7 @@ public class HealthCheckImpl implements HealthCheck {
 	protected boolean waitForMessage() {
 		Message<?> msg = serverResponses.receive(Globals.HEALTH_CHECK_TIMEOUT()*1000);
 		if(msg != null && msg.getHeaders() != null) {
-			log.info("Received response message...size: "+ ((byte[]) msg.getPayload()).length);
+			log.debug("Received response message...size: "+ ((byte[]) msg.getPayload()).length);
 			ClientAttachment attachment = new ClientAttachment();
 			attachment.readBuff = ByteBuffer.wrap((byte[]) msg.getPayload()).order(ByteOrder.LITTLE_ENDIAN);
 			while(attachment.eventReady()) {
@@ -126,15 +147,22 @@ public class HealthCheckImpl implements HealthCheck {
 				return true;
 			}
 		}
+		failsSinceLastSuccess++;
+		if(failsSinceLastSuccess > 5) {
+			sendAlertToAdmins();
+		}
+		return false;
+	}
+
+	protected void checkConnections() {
 		if(!serverConnectionFactory.isListening() || !serverConnectionFactory.isRunning()) {
 			log.warn("ServerConnectionFactory stopped running or listening... restarting");
 			serverConnectionFactory.run();
 		}
-		failsSinceLastSuccess++;
-		if(failsSinceLastSuccess > 4) {
-			sendAlertToAdmins();
+		if(!clientConnectionFactory.isRunning()) {
+			log.warn("ClientConnectionFactory stopped running ... restarting");
+			clientConnectionFactory.run();
 		}
-		return false;
 	}
 	
 	protected void sendAlertToAdmins() {
