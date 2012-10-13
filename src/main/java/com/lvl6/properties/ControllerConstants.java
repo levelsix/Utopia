@@ -369,8 +369,13 @@ public class ControllerConstants {
   public static final int[] STARTUP__QUESTS_THAT_TRIGGER_KIIP_REWARDS_ON_REDEEM = {};
   public static final float CHANCE_TO_GET_KIIP_ON_BATTLE_WIN = 1.f;
   public static final float CHANCE_TO_GET_KIIP_ON_QUEST_REDEEM = 1.f;
-  
-  
+
+  public static final String NIB_NAME__THREE_CARD_MONTE = "ThreeCardMonte";
+  public static final String NIB_NAME__LOCK_BOX = "LockBox";
+  public static final String NIB_NAME__TRAVELING_MAP = "TravelingMap";
+  public static final String NIB_NAME__GOLD_MINE = "GoldMine";
+  public static final String NIB_NAME__EXPANSION = "Expansion";
+  public static final String NIB_NAME__LEADERBOARD = "Leaderboard";
   
   public static final int IDDICTION__EQUIP_ID = 282;
   public static final String IDDICTION__NOTICE = "FREE limited edition gold equip for joining today!";

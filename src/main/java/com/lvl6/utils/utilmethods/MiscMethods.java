@@ -33,6 +33,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.CharacterModConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ClanConstants;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.DownloadableNibConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ExpansionConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ForgeConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants;
@@ -471,6 +472,17 @@ public class MiscMethods {
         .build();
     
     cb = cb.setThreeCardMonteConstants(tc);
+    
+    DownloadableNibConstants dnc = DownloadableNibConstants.newBuilder()
+        .setThreeCardMonteNibName(ControllerConstants.NIB_NAME__THREE_CARD_MONTE)
+        .setLockBoxNibName(ControllerConstants.NIB_NAME__LOCK_BOX)
+        .setMapNibName(ControllerConstants.NIB_NAME__TRAVELING_MAP)
+        .setGoldMineNibName(ControllerConstants.NIB_NAME__GOLD_MINE)
+        .setExpansionNibName(ControllerConstants.NIB_NAME__EXPANSION)
+        .setLeaderboardNibName(ControllerConstants.NIB_NAME__LEADERBOARD)
+        .build();
+    
+    cb = cb.setDownloadableNibConstants(dnc);
 
     for (int i = 0; i < IAPValues.packageNames.size(); i++) {
       cb.addProductIds(IAPValues.packageNames.get(i));
