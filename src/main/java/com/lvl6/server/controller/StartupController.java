@@ -204,17 +204,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     //    log.info("Sending struct");
     //    sendAllStructs(udid, user);
 
-    log.info("Writing event response: "+resEvent);
+    log.debug("Writing event response: "+resEvent);
     server.writePreDBEvent(resEvent, udid);
-    log.info("Wrote response event: "+resEvent);
-
+    log.debug("Wrote response event: "+resEvent);
     //for things that client doesn't need
-    log.info("After response tasks");
+    log.debug("After response tasks");
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);    
   }
 
-  private void setChatMessages(StartupResponseProto.Builder resBuilder,
-      User user) {
+  private void setChatMessages(StartupResponseProto.Builder resBuilder,      User user) {
     if (user.getClanId() > 0) {
       List <ClanChatPost> activeClanChatPosts;
       activeClanChatPosts = ClanChatPostRetrieveUtils.getMostRecentClanChatPostsForClan(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, user.getClanId());
@@ -280,6 +278,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       leaderboard.updateLeaderboardForUser(user);
     }
   }
+
 
   private void sendAllStructs(String udid, User user) {
     RetrieveStaticDataResponseEvent resEvent1 = new RetrieveStaticDataResponseEvent(0);

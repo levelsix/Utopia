@@ -141,7 +141,7 @@ public class StatsWriterImpl implements StatsWriter {
 					String statt = props.get(stat);
 					try {
 						//log.info("Attemping to save stat {}, {}", stat, statt);
-						RollupEntry rollupEntry = new RollupEntry(stat+":"+period, time, Long.valueOf(statt));
+						RollupEntry rollupEntry = new RollupEntry(stat+":"+period, time, (long) Double.parseDouble(statt));
 						log.info("Saving stat: \n{}", rollupEntry);
 						entries.add(rollupEntry);
 					} catch (IllegalArgumentException e) {
