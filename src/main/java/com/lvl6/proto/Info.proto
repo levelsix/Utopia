@@ -40,6 +40,9 @@ message LockBoxEventProto {
 	optional string eventName = 5;
 	optional FullEquipProto prizeEquip = 6;
 	repeated LockBoxItemProto items = 7;
+	optional string descriptionString = 8;
+	optional string descriptionImageName = 9;
+	optional string tagImageName = 10;
 }
 
 message LockBoxItemProto {

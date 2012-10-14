@@ -11,9 +11,14 @@ public class LockBoxEvent implements Serializable {
   private String lockBoxImageName;
   private String eventName;
   private int prizeEquipId;
+  private String descriptionString;
+  private String descriptionImageName;
+  private String tagImageName;
   
   public LockBoxEvent(int id, Date startDate, Date endDate,
-      String lockBoxImageName, String eventName, int prizeEquipId) {
+      String lockBoxImageName, String eventName, int prizeEquipId,
+      String descriptionString, String descriptionImageName,
+      String tagImageName) {
     super();
     this.id = id;
     this.startDate = startDate;
@@ -21,6 +26,33 @@ public class LockBoxEvent implements Serializable {
     this.lockBoxImageName = lockBoxImageName;
     this.eventName = eventName;
     this.prizeEquipId = prizeEquipId;
+    this.descriptionImageName = descriptionImageName;
+    this.descriptionString = descriptionString;
+    this.tagImageName = tagImageName;
+  }
+
+  public String getDescriptionString() {
+    return descriptionString;
+  }
+
+  public void setDescriptionString(String descriptionString) {
+    this.descriptionString = descriptionString;
+  }
+
+  public String getDescriptionImageName() {
+    return descriptionImageName;
+  }
+
+  public void setDescriptionImageName(String descriptionImageName) {
+    this.descriptionImageName = descriptionImageName;
+  }
+
+  public String getTagImageName() {
+    return tagImageName;
+  }
+
+  public void setTagImageName(String tagImageName) {
+    this.tagImageName = tagImageName;
   }
 
   public int getId() {
@@ -75,6 +107,8 @@ public class LockBoxEvent implements Serializable {
   public String toString() {
     return "LockBoxEvent [id=" + id + ", startDate=" + startDate + ", endDate="
         + endDate + ", lockBoxImageName=" + lockBoxImageName + ", eventName="
-        + eventName + ", prizeEquipId=" + prizeEquipId + "]";
+        + eventName + ", prizeEquipId=" + prizeEquipId + ", descriptionString="
+        + descriptionString + ", descriptionImageName=" + descriptionImageName
+        + ", tagImageName=" + tagImageName + "]";
   }
 }
