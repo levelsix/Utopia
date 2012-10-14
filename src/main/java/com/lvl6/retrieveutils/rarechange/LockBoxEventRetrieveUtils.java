@@ -95,8 +95,11 @@ import com.lvl6.utils.DBConnection;
     String lockBoxImageName = rs.getString(i++);
     String eventName = rs.getString(i++);
     int prizeEquipId = rs.getInt(i++);
+    String descriptionString = rs.getString(i++);
+    String descriptionImageName = rs.getString(i++);
+    String tagImageName = rs.getString(i++);
     
-    LockBoxEvent lockBoxEvent = new LockBoxEvent(id, startDate, endDate, lockBoxImageName, eventName, prizeEquipId);
+    LockBoxEvent lockBoxEvent = new LockBoxEvent(id, startDate, endDate, lockBoxImageName, eventName, prizeEquipId, descriptionString, descriptionImageName, tagImageName);
     return lockBoxEvent;
   }
 }

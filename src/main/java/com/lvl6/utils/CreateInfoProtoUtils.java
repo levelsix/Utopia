@@ -811,7 +811,9 @@ public class CreateInfoProtoUtils {
   public static LockBoxEventProto createLockBoxEventProtoFromLockBoxEvent(LockBoxEvent event, UserType type) {
     LockBoxEventProto.Builder b = LockBoxEventProto.newBuilder().setLockBoxEventId(event.getId())
         .setStartDate(event.getStartDate().getTime()).setEndDate(event.getEndDate().getTime())
-        .setLockBoxImageName(event.getLockBoxImageName()).setEventName(event.getEventName());
+        .setLockBoxImageName(event.getLockBoxImageName()).setEventName(event.getEventName())
+        .setDescriptionImageName(event.getDescriptionImageName()).setDescriptionString(event.getDescriptionString())
+        .setTagImageName(event.getTagImageName());
 
     b.setPrizeEquip(createFullEquipProtoFromEquip(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(event.getPrizeEquipId())));
 

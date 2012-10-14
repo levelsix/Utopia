@@ -297,6 +297,9 @@ message StartupResponseProto {
 		optional ExpansionConstants expansionConstants = 82;
 		optional DownloadableNibConstants downloadableNibConstants = 83;
 		
+		optional int32 numHoursBeforeReshowingGoldSale = 84;
+		optional int32 numHoursBeforeReshowingLockBox = 85;
+		
 		message DownloadableNibConstants {
 			optional string threeCardMonteNibName = 1;
 			optional string lockBoxNibName = 2;
