@@ -336,7 +336,6 @@ public class ControllerConstants {
   public static final String[] STARTUP__NOTICES_TO_PLAYERS = {
 //    "FREE limited edition gold equip for joining today!"
 //    "Forging Contest! 50 GOLD reward! Details at forum.lvl6.com"
-      "Due to technical complications, 5 day bonus is no longer offered. Sorry."
     };
   
   
