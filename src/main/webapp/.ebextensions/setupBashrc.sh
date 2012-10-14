@@ -2,7 +2,7 @@
 
 echo setting up .bashrc
 
-cat >> ./.bashrc <<EOF
+cat >> /home/ec2-user/.bashrc <<EOF
 
 alias taillog='sudo tail -n 100 -f /var/log/tomcat7/kingdom.log'
 alias taillogerror='sudo tail -n 100 -f /var/log/tomcat7/kingdom_errors.log'
