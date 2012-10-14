@@ -102,6 +102,8 @@
 		<lvl6.jedis.host>robot.lvl6.com</lvl6.jedis.host>
 		<lvl6.jedis.auth>L3v3lS!x_K!ngd0m$</lvl6.jedis.auth>
 		<ec2.instance.size>m1.medium</ec2.instance.size>
+		<ec2.instance.count.minimum>4</ec2.instance.count.minimum>
+		<ec2.instance.count.maximum>4</ec2.instance.count.maximum>
 		<ec2.tomcat.memory>3000m</ec2.tomcat.memory>
 		<spring.version>3.1.2.RELEASE</spring.version>
 		<spring.security.version>3.1.1.RELEASE</spring.security.version>
@@ -262,12 +264,12 @@
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
 							<optionName>MinSize</optionName>
-							<value>4</value>
+							<value>${ec2.instance.count.minimum}</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
 							<optionName>MaxSize</optionName>
-							<value>10</value>
+							<value>${ec2.instance.count.maximum}</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
