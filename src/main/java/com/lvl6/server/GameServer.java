@@ -20,6 +20,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
 import com.hazelcast.core.ILock;
+import com.hazelcast.core.IMap;
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -69,6 +70,22 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware{
 	public void setPlayersPreDatabaseByUDID(
 			Map<String, ConnectedPlayer> playersPreDatabaseByUDID) {
 		this.playersPreDatabaseByUDID = playersPreDatabaseByUDID;
+	}
+
+	
+	
+	@Resource(name="lockMap")
+	IMap<String, Object> lockMap;
+
+	
+	
+
+	public IMap<String, Object> getLockMap() {
+		return lockMap;
+	}
+
+	public void setLockMap(IMap<String, Object> lockMap) {
+		this.lockMap = lockMap;
 	}
 
 	@Resource(name="playersInAction")
@@ -280,15 +297,13 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware{
 
 	public void lockPlayer(int playerId) {
 		log.debug("Locking player: "+playerId);
-		Lock playerLock = hazel.getLock(playersInAction.lockName(playerId));
-		try {
-			playerLock.tryLock(LOCK_WAIT_SECONDS, TimeUnit.SECONDS);
+		//Lock playerLock = hazel.getLock(playersInAction.lockName(playerId));
+		if(lockMap.tryLock(playersInAction.lockName(playerId),LOCK_WAIT_SECONDS, TimeUnit.SECONDS)) {
 			log.debug("Got lock for player "+ playerId);
-		} catch (InterruptedException e) {
-			//log.error("Could not get lock before timeout for playerId: "+playerId, e);
-			throw new RuntimeException("Could not get lock before timeout for playerId: "+playerId, e);
+			playersInAction.addPlayer(playerId);
+		}else {
+			log.warn("failed to aquire lock for "+ playersInAction.lockName(playerId));
 		}
-		playersInAction.addPlayer(playerId);
 	}
 	
 
@@ -310,13 +325,12 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware{
 
 	public void unlockPlayer(int playerId) {
 		log.debug("Unlocking player: "+playerId);
-		ILock lock = hazel.getLock(playersInAction.lockName(playerId));
+		//ILock lock = hazel.getLock(playersInAction.lockName(playerId));
 		try {
-			if(lock.isLocked()){
-				lock.unlock();
+			if(lockMap.isLocked(playersInAction.lockName(playerId))){
+				lockMap.unlock(playersInAction.lockName(playerId));
 			}
 			log.debug("Unlocked player "+ playerId);
-			lock.destroy();
 			if (playersInAction.containsPlayer(playerId)) {
 				playersInAction.removePlayer(playerId);
 			}
