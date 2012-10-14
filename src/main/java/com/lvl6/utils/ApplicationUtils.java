@@ -1,12 +1,12 @@
 package com.lvl6.utils;
 
-import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.hazelcast.core.IMap;
 import com.lvl6.retrieveutils.StatisticsRetrieveUtil;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.ui.admin.components.ApplicationStats;
@@ -16,7 +16,7 @@ public class ApplicationUtils {
 	private static Logger log = LoggerFactory.getLogger(ApplicationUtils.class);
 	
 	@Resource(name = "playersByPlayerId")
-	protected Map<Integer, ConnectedPlayer> players;
+	protected IMap<Integer, ConnectedPlayer> players;
 	
 	@Resource
 	protected StatisticsRetrieveUtil statsUtil;
@@ -26,11 +26,11 @@ public class ApplicationUtils {
 	
 	
 
-	protected Map<Integer, ConnectedPlayer> getPlayers() {
+	protected IMap<Integer, ConnectedPlayer> getPlayers() {
 		return players;
 	}
 
-	public void setPlayers(Map<Integer, ConnectedPlayer> players) {
+	public void setPlayers(IMap<Integer, ConnectedPlayer> players) {
 		this.players = players;
 	}
 

@@ -7,18 +7,16 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hazelcast.core.IMap;
 import com.lvl6.events.PreDatabaseRequestEvent;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.server.GameServer;
 import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.ConnectedPlayer;
 
 public class GameEventHandler extends AbstractGameEventHandler {
-	private static final int DEFAULT_TTL = 3;
+	private static final int DEFAULT_TTL = 9;
 
 	static Logger log = Logger.getLogger(GameEventHandler.class);
 

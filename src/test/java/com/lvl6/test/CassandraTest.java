@@ -148,7 +148,7 @@ public class CassandraTest extends TestCase {
 	@Test
 	public void testRollups() {
 		long start = System.currentTimeMillis();
-		for(Long i=0l; i < 100; i++) {
+		for(Long i=0l; i < 2; i++) {
 			rollupUtil.addRollupEntry(new RollupEntry("unittest1", System.currentTimeMillis(), i));
 		}
 		long end = System.currentTimeMillis();

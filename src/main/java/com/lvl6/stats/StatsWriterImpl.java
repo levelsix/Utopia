@@ -133,7 +133,6 @@ public class StatsWriterImpl implements StatsWriter {
 		log.info("Setting stats for period: {} and time: {}", period, time);
 		List<RollupEntry> entries = new ArrayList<RollupEntry>();
 		ApplicationStats stats = getAppUtils().getStats();
-		@SuppressWarnings("unchecked")
 		Map<String, String> props;
 		try {
 			props = BeanUtils.describe(stats);
@@ -142,7 +141,7 @@ public class StatsWriterImpl implements StatsWriter {
 					String statt = props.get(stat);
 					try {
 						//log.info("Attemping to save stat {}, {}", stat, statt);
-						RollupEntry rollupEntry = new RollupEntry(stat+":"+period, time, Long.valueOf(statt));
+						RollupEntry rollupEntry = new RollupEntry(stat+":"+period, time, (long) Double.parseDouble(statt));
 						log.info("Saving stat: \n{}", rollupEntry);
 						entries.add(rollupEntry);
 					} catch (IllegalArgumentException e) {
