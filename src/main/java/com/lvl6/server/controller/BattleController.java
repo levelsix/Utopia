@@ -88,7 +88,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     List<FullUserEquipProto> oldDefenderUserEquipsList = reqProto.getDefenderUserEquipsList();
 
-    server.lockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
+   if( server.lockPlayers(attackerProto.getUserId(), defenderProto.getUserId())) {
 
     try {
       User attacker = RetrieveUtils.userRetrieveUtils().getUserById(attackerProto.getUserId());
@@ -197,6 +197,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } finally {
       server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
     }
+   }else {
+	   log.warn("Failed to obtain lock in BattleController processEvent");
+   }
   }
 
 

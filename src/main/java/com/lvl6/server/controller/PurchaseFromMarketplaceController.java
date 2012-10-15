@@ -67,7 +67,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       return;
     }
 
-    server.lockPlayers(sellerId, buyerId);
+    if(server.lockPlayers(sellerId, buyerId)) {
     try {
       MarketplacePost mp = MarketplacePostRetrieveUtils.getSpecificActiveMarketplacePost(postId);
       User buyer = RetrieveUtils.userRetrieveUtils().getUserById(buyerId);
@@ -116,6 +116,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       log.error("exception in PurchaseFromMarketplace processEvent", e);
     } finally {
       server.unlockPlayers(sellerId, buyerId);      
+    }
+    }else {
+    	log.warn("Unable to obtain lock in PurchaseFromMarketplaceController");
     }
   }
 
