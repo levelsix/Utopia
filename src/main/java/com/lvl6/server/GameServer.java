@@ -304,7 +304,7 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware{
 			return true;
 		}else {
 			log.warn("failed to aquire lock for "+ playersInAction.lockName(playerId));
-			return false;
+			throw new RuntimeException("Unable to obtain lock after "+LOCK_WAIT_SECONDS+" seconds");
 		}
 	}
 	
