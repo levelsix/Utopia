@@ -19,6 +19,7 @@ import com.lvl6.proto.EventProto.RequestJoinClanResponseProto;
 import com.lvl6.proto.EventProto.RequestJoinClanResponseProto.Builder;
 import com.lvl6.proto.EventProto.RequestJoinClanResponseProto.RequestJoinClanStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
@@ -26,6 +27,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
+import com.lvl6.utils.utilmethods.QuestUtils;
 
 @Component @DependsOn("gameServer") public class RequestJoinClanController extends EventController {
 
@@ -77,6 +79,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        
+        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.REQUEST_JOIN_CLAN, true);
       }
     } catch (Exception e) {
       log.error("exception in RequestJoinClan processEvent", e);
