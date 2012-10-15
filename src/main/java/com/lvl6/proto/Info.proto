@@ -685,6 +685,7 @@ message FullQuestProto {
      
      optional string questGiverName = 21;
      optional string questGiverImageSuffix = 23;
+     optional int32 priority = 24;
 }
 
 //------------------------------------------------------------------------------------------

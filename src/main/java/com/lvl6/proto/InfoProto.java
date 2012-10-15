@@ -37440,6 +37440,10 @@ public final class InfoProto {
     // optional string questGiverImageSuffix = 23;
     boolean hasQuestGiverImageSuffix();
     String getQuestGiverImageSuffix();
+    
+    // optional int32 priority = 24;
+    boolean hasPriority();
+    int getPriority();
   }
   public static final class FullQuestProto extends
       com.google.protobuf.GeneratedMessage
@@ -37837,6 +37841,16 @@ public final class InfoProto {
       }
     }
     
+    // optional int32 priority = 24;
+    public static final int PRIORITY_FIELD_NUMBER = 24;
+    private int priority_;
+    public boolean hasPriority() {
+      return ((bitField0_ & 0x00020000) == 0x00020000);
+    }
+    public int getPriority() {
+      return priority_;
+    }
+    
     private void initFields() {
       questId_ = 0;
       cityId_ = 0;
@@ -37861,6 +37875,7 @@ public final class InfoProto {
       acceptDialogue_ = com.lvl6.proto.InfoProto.DialogueProto.getDefaultInstance();
       questGiverName_ = "";
       questGiverImageSuffix_ = "";
+      priority_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -37942,6 +37957,9 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00010000) == 0x00010000)) {
         output.writeBytes(23, getQuestGiverImageSuffixBytes());
+      }
+      if (((bitField0_ & 0x00020000) == 0x00020000)) {
+        output.writeInt32(24, priority_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -38073,6 +38091,10 @@ public final class InfoProto {
       if (((bitField0_ & 0x00010000) == 0x00010000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(23, getQuestGiverImageSuffixBytes());
+      }
+      if (((bitField0_ & 0x00020000) == 0x00020000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(24, priority_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -38249,6 +38271,8 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00200000);
         questGiverImageSuffix_ = "";
         bitField0_ = (bitField0_ & ~0x00400000);
+        priority_ = 0;
+        bitField0_ = (bitField0_ & ~0x00800000);
         return this;
       }
       
@@ -38389,6 +38413,10 @@ public final class InfoProto {
           to_bitField0_ |= 0x00010000;
         }
         result.questGiverImageSuffix_ = questGiverImageSuffix_;
+        if (((from_bitField0_ & 0x00800000) == 0x00800000)) {
+          to_bitField0_ |= 0x00020000;
+        }
+        result.priority_ = priority_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -38515,6 +38543,9 @@ public final class InfoProto {
         }
         if (other.hasQuestGiverImageSuffix()) {
           setQuestGiverImageSuffix(other.getQuestGiverImageSuffix());
+        }
+        if (other.hasPriority()) {
+          setPriority(other.getPriority());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -38724,6 +38755,11 @@ public final class InfoProto {
             case 186: {
               bitField0_ |= 0x00400000;
               questGiverImageSuffix_ = input.readBytes();
+              break;
+            }
+            case 192: {
+              bitField0_ |= 0x00800000;
+              priority_ = input.readInt32();
               break;
             }
           }
@@ -39504,6 +39540,27 @@ public final class InfoProto {
         bitField0_ |= 0x00400000;
         questGiverImageSuffix_ = value;
         onChanged();
+      }
+      
+      // optional int32 priority = 24;
+      private int priority_ ;
+      public boolean hasPriority() {
+        return ((bitField0_ & 0x00800000) == 0x00800000);
+      }
+      public int getPriority() {
+        return priority_;
+      }
+      public Builder setPriority(int value) {
+        bitField0_ |= 0x00800000;
+        priority_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearPriority() {
+        bitField0_ = (bitField0_ & ~0x00800000);
+        priority_ = 0;
+        onChanged();
+        return this;
       }
       
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.FullQuestProto)
@@ -42614,7 +42671,7 @@ public final class InfoProto {
       "possessEquipJobId\030\003 \001(\005\022\027\n\017numEquipUserH" +
       "as\030\004 \001(\005\"W\n\024PossessEquipJobProto\022\031\n\021poss" +
       "essEquipJobId\030\001 \001(\005\022\017\n\007equipId\030\002 \001(\005\022\023\n\013",
-      "quantityReq\030\003 \001(\005\"\205\005\n\016FullQuestProto\022\017\n\007" +
+      "quantityReq\030\003 \001(\005\"\227\005\n\016FullQuestProto\022\017\n\007" +
       "questId\030\001 \001(\005\022\016\n\006cityId\030\002 \001(\005\022\014\n\004name\030\003 " +
       "\001(\t\022\023\n\013description\030\004 \001(\t\022\024\n\014doneResponse" +
       "\030\005 \001(\t\022\032\n\022assetNumWithinCity\030\007 \001(\005\022\023\n\013co" +
@@ -42630,62 +42687,62 @@ public final class InfoProto {
       "\030\022 \001(\005\022\033\n\023numComponentsForBad\030\023 \001(\005\0225\n\016a" +
       "cceptDialogue\030\024 \001(\0132\035.com.lvl6.proto.Dia" +
       "logueProto\022\026\n\016questGiverName\030\025 \001(\t\022\035\n\025qu" +
-      "estGiverImageSuffix\030\027 \001(\t\"\362\003\n\rDialoguePr" +
-      "oto\022G\n\rspeechSegment\030\001 \003(\01320.com.lvl6.pr" +
-      "oto.DialogueProto.SpeechSegmentProto\032\227\003\n" +
-      "\022SpeechSegmentProto\022Q\n\007speaker\030\001 \001(\0162@.c",
-      "om.lvl6.proto.DialogueProto.SpeechSegmen" +
-      "tProto.DialogueSpeaker\022\023\n\013speakerText\030\002 " +
-      "\001(\t\"\230\002\n\017DialogueSpeaker\022\017\n\013PLAYER_TYPE\020\001" +
-      "\022\020\n\014GOOD_WARRIOR\020\002\022\017\n\013GOOD_ARCHER\020\003\022\r\n\tG" +
-      "OOD_MAGE\020\004\022\017\n\013BAD_WARRIOR\020\005\022\016\n\nBAD_ARCHE" +
-      "R\020\006\022\014\n\010BAD_MAGE\020\007\022\026\n\022GOOD_TUTORIAL_GIRL\020" +
-      "\010\022\025\n\021BAD_TUTORIAL_GIRL\020\t\022\020\n\014QUESTGIVER_1" +
-      "\020\n\022\020\n\014QUESTGIVER_2\020\013\022\020\n\014QUESTGIVER_3\020\014\022\020" +
-      "\n\014QUESTGIVER_4\020\r\022\020\n\014QUESTGIVER_5\020\016\022\n\n\006BA" +
-      "ZAAR\020\031\"\233\001\n\023PlayerWallPostProto\022\030\n\020player",
-      "WallPostId\030\001 \001(\005\0220\n\006poster\030\002 \001(\0132 .com.l" +
-      "vl6.proto.MinimumUserProto\022\023\n\013wallOwnerI" +
-      "d\030\003 \001(\005\022\022\n\ntimeOfPost\030\004 \001(\003\022\017\n\007content\030\005" +
-      " \001(\t\"\340\001\n\037UnhandledBlacksmithAttemptProto" +
-      "\022\024\n\014blacksmithId\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\022\017" +
-      "\n\007equipId\030\003 \001(\005\022\021\n\tgoalLevel\030\004 \001(\003\022\022\n\ngu" +
-      "aranteed\030\005 \001(\010\022\021\n\tstartTime\030\006 \001(\003\022\034\n\024dia" +
-      "mondGuaranteeCost\030\010 \001(\005\022\025\n\rtimeOfSpeedup" +
-      "\030\t \001(\003\022\027\n\017attemptComplete\030\n \001(\010*C\n\016Equip" +
-      "ClassType\022\013\n\007WARRIOR\020\000\022\n\n\006ARCHER\020\001\022\010\n\004MA",
-      "GE\020\002\022\016\n\nALL_AMULET\020\003*,\n\016UserClanStatus\022\n" +
-      "\n\006MEMBER\020\000\022\016\n\nREQUESTING\020\002*@\n\016GroupChatS" +
-      "cope\022\n\n\006GLOBAL\020\000\022\014\n\010ALLIANCE\020\001\022\n\n\006LEGION" +
-      "\020\002\022\010\n\004CLAN\020\003*S\n\017LeaderboardType\022\024\n\020MOST_" +
-      "BATTLES_WON\020\002\022\016\n\nMOST_COINS\020\003\022\014\n\010MOST_EX" +
-      "P\020\004\022\014\n\010BEST_KDR\020\005*f\n\020CharacterModType\022\016\n" +
-      "\nNEW_PLAYER\020\001\022\026\n\022RESET_SKILL_POINTS\020\002\022\031\n" +
-      "\025CHANGE_CHARACTER_TYPE\020\003\022\017\n\013CHANGE_NAME\020" +
-      "\004*/\n\rAnimationType\022\022\n\016GENERIC_ACTION\020\001\022\n" +
-      "\n\006ATTACK\020\002*h\n\024EarnFreeDiamondsType\022\010\n\004KI",
-      "IP\020\001\022\014\n\010ADCOLONY\020\002\022\r\n\tFB_INVITE\020\003\022\n\n\006TAP" +
-      "JOY\020\004\022\020\n\014FLURRY_VIDEO\020\005\022\013\n\007TWITTER\020\006*\331\001\n" +
-      "\022SpecialQuestAction\022\030\n\024PURCHASE_FROM_ARM" +
-      "ORY\020\001\022\035\n\031PURCHASE_FROM_MARKETPLACE\020\002\022\022\n\016" +
-      "SELL_TO_ARMORY\020\003\022\027\n\023POST_TO_MARKETPLACE\020" +
-      "\004\022\024\n\020DEPOSIT_IN_VAULT\020\005\022\027\n\023WITHDRAW_FROM" +
-      "_VAULT\020\006\022\027\n\023WRITE_ON_ENEMY_WALL\020\007\022\025\n\021REQ" +
-      "UEST_JOIN_CLAN\020\010*k\n\010UserType\022\020\n\014GOOD_WAR" +
-      "RIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017" +
-      "\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_M",
-      "AGE\020\005*E\n\014BattleResult\022\020\n\014ATTACKER_WIN\020\000\022" +
-      "\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023" +
-      "MarketplacePostType\022\026\n\022PREMIUM_EQUIP_POS" +
-      "T\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035MarketplaceJ" +
-      "obRequirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016" +
-      "CritStructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020" +
-      "\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020" +
-      "\005\022\016\n\nBLACKSMITH\020\006*3\n\021StructOrientation\022\016" +
-      "\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001*P\n\022Expans" +
-      "ionDirection\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RIGHT\020",
-      "\001\022\r\n\tNEAR_LEFT\020\002\022\016\n\nNEAR_RIGHT\020\003B\013B\tInfo" +
-      "Proto"
+      "estGiverImageSuffix\030\027 \001(\t\022\020\n\010priority\030\030 " +
+      "\001(\005\"\362\003\n\rDialogueProto\022G\n\rspeechSegment\030\001" +
+      " \003(\01320.com.lvl6.proto.DialogueProto.Spee" +
+      "chSegmentProto\032\227\003\n\022SpeechSegmentProto\022Q\n",
+      "\007speaker\030\001 \001(\0162@.com.lvl6.proto.Dialogue" +
+      "Proto.SpeechSegmentProto.DialogueSpeaker" +
+      "\022\023\n\013speakerText\030\002 \001(\t\"\230\002\n\017DialogueSpeake" +
+      "r\022\017\n\013PLAYER_TYPE\020\001\022\020\n\014GOOD_WARRIOR\020\002\022\017\n\013" +
+      "GOOD_ARCHER\020\003\022\r\n\tGOOD_MAGE\020\004\022\017\n\013BAD_WARR" +
+      "IOR\020\005\022\016\n\nBAD_ARCHER\020\006\022\014\n\010BAD_MAGE\020\007\022\026\n\022G" +
+      "OOD_TUTORIAL_GIRL\020\010\022\025\n\021BAD_TUTORIAL_GIRL" +
+      "\020\t\022\020\n\014QUESTGIVER_1\020\n\022\020\n\014QUESTGIVER_2\020\013\022\020" +
+      "\n\014QUESTGIVER_3\020\014\022\020\n\014QUESTGIVER_4\020\r\022\020\n\014QU" +
+      "ESTGIVER_5\020\016\022\n\n\006BAZAAR\020\031\"\233\001\n\023PlayerWallP",
+      "ostProto\022\030\n\020playerWallPostId\030\001 \001(\005\0220\n\006po" +
+      "ster\030\002 \001(\0132 .com.lvl6.proto.MinimumUserP" +
+      "roto\022\023\n\013wallOwnerId\030\003 \001(\005\022\022\n\ntimeOfPost\030" +
+      "\004 \001(\003\022\017\n\007content\030\005 \001(\t\"\340\001\n\037UnhandledBlac" +
+      "ksmithAttemptProto\022\024\n\014blacksmithId\030\001 \001(\005" +
+      "\022\016\n\006userId\030\002 \001(\005\022\017\n\007equipId\030\003 \001(\005\022\021\n\tgoa" +
+      "lLevel\030\004 \001(\003\022\022\n\nguaranteed\030\005 \001(\010\022\021\n\tstar" +
+      "tTime\030\006 \001(\003\022\034\n\024diamondGuaranteeCost\030\010 \001(" +
+      "\005\022\025\n\rtimeOfSpeedup\030\t \001(\003\022\027\n\017attemptCompl" +
+      "ete\030\n \001(\010*C\n\016EquipClassType\022\013\n\007WARRIOR\020\000",
+      "\022\n\n\006ARCHER\020\001\022\010\n\004MAGE\020\002\022\016\n\nALL_AMULET\020\003*," +
+      "\n\016UserClanStatus\022\n\n\006MEMBER\020\000\022\016\n\nREQUESTI" +
+      "NG\020\002*@\n\016GroupChatScope\022\n\n\006GLOBAL\020\000\022\014\n\010AL" +
+      "LIANCE\020\001\022\n\n\006LEGION\020\002\022\010\n\004CLAN\020\003*S\n\017Leader" +
+      "boardType\022\024\n\020MOST_BATTLES_WON\020\002\022\016\n\nMOST_" +
+      "COINS\020\003\022\014\n\010MOST_EXP\020\004\022\014\n\010BEST_KDR\020\005*f\n\020C" +
+      "haracterModType\022\016\n\nNEW_PLAYER\020\001\022\026\n\022RESET" +
+      "_SKILL_POINTS\020\002\022\031\n\025CHANGE_CHARACTER_TYPE" +
+      "\020\003\022\017\n\013CHANGE_NAME\020\004*/\n\rAnimationType\022\022\n\016" +
+      "GENERIC_ACTION\020\001\022\n\n\006ATTACK\020\002*h\n\024EarnFree",
+      "DiamondsType\022\010\n\004KIIP\020\001\022\014\n\010ADCOLONY\020\002\022\r\n\t" +
+      "FB_INVITE\020\003\022\n\n\006TAPJOY\020\004\022\020\n\014FLURRY_VIDEO\020" +
+      "\005\022\013\n\007TWITTER\020\006*\331\001\n\022SpecialQuestAction\022\030\n" +
+      "\024PURCHASE_FROM_ARMORY\020\001\022\035\n\031PURCHASE_FROM" +
+      "_MARKETPLACE\020\002\022\022\n\016SELL_TO_ARMORY\020\003\022\027\n\023PO" +
+      "ST_TO_MARKETPLACE\020\004\022\024\n\020DEPOSIT_IN_VAULT\020" +
+      "\005\022\027\n\023WITHDRAW_FROM_VAULT\020\006\022\027\n\023WRITE_ON_E" +
+      "NEMY_WALL\020\007\022\025\n\021REQUEST_JOIN_CLAN\020\010*k\n\010Us" +
+      "erType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020" +
+      "\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD",
+      "_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResult\022" +
+      "\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rA" +
+      "TTACKER_FLEE\020\002*B\n\023MarketplacePostType\022\026\n" +
+      "\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_POST" +
+      "\020\002*2\n\035MarketplaceJobRequirementType\022\007\n\003B" +
+      "UY\020\000\022\010\n\004SELL\020\001*c\n\016CritStructType\022\n\n\006AVIA" +
+      "RY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY" +
+      "\020\004\022\017\n\013MARKETPLACE\020\005\022\016\n\nBLACKSMITH\020\006*3\n\021S" +
+      "tructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSI" +
+      "TION_2\020\001*P\n\022ExpansionDirection\022\014\n\010FAR_LE",
+      "FT\020\000\022\r\n\tFAR_RIGHT\020\001\022\r\n\tNEAR_LEFT\020\002\022\016\n\nNE" +
+      "AR_RIGHT\020\003B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -43065,7 +43122,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullQuestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullQuestProto_descriptor,
-              new java.lang.String[] { "QuestId", "CityId", "Name", "Description", "DoneResponse", "AssetNumWithinCity", "CoinsGained", "DiamondsGained", "ExpGained", "EquipIdGained", "QuestsRequiredForThis", "TaskReqs", "UpgradeStructJobsReqs", "BuildStructJobsReqs", "DefeatTypeReqs", "PossessEquipJobReqs", "CoinRetrievalReq", "SpecialQuestActionReq", "NumComponentsForGood", "NumComponentsForBad", "AcceptDialogue", "QuestGiverName", "QuestGiverImageSuffix", },
+              new java.lang.String[] { "QuestId", "CityId", "Name", "Description", "DoneResponse", "AssetNumWithinCity", "CoinsGained", "DiamondsGained", "ExpGained", "EquipIdGained", "QuestsRequiredForThis", "TaskReqs", "UpgradeStructJobsReqs", "BuildStructJobsReqs", "DefeatTypeReqs", "PossessEquipJobReqs", "CoinRetrievalReq", "SpecialQuestActionReq", "NumComponentsForGood", "NumComponentsForBad", "AcceptDialogue", "QuestGiverName", "QuestGiverImageSuffix", "Priority", },
               com.lvl6.proto.InfoProto.FullQuestProto.class,
               com.lvl6.proto.InfoProto.FullQuestProto.Builder.class);
           internal_static_com_lvl6_proto_DialogueProto_descriptor =
