@@ -1,0 +1,11 @@
+packages: 
+  rpm:
+    salt-minion
+    
+
+services:
+  sysvinit:
+    - salt-minion:
+        enabled: true
+        ensureRunning: true
+        

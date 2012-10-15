@@ -6,7 +6,6 @@ import java.nio.ByteOrder;
 import java.nio.channels.SocketChannel;
 import java.text.NumberFormat;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -105,7 +104,7 @@ public class HealthCheckImpl implements HealthCheck {
 	public boolean check() {
 		log.info("Running health check");
 		checkConnections();
-		checkNumberOfConnections();
+		//checkNumberOfConnections();
 		sendToServer.send(gen.startup("Cluster Server Instance: "
 				+ server.serverId()));
 		// sendToServer.send(gen.userQuestDetails(user));
