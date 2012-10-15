@@ -31,11 +31,9 @@
 	
 	<hz:map id="scheduleTasks" name="scheduledTasks" instance-ref="hazel"/>
 	
-<<<<<<< HEAD
 	<hz:list id="globalChat" name="globalChat" instance-ref="hazel"/>
-=======
+
 	<hz:map id="lockMap" name="lockMap" instance-ref="hazel"/>
->>>>>>> 1.30
 		
 		
 	<hz:topic id="serverEvents" name="serverEvents" instance-ref="hazel"/>
