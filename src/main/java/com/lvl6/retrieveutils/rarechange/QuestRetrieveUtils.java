@@ -243,6 +243,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     String goodQuestGiverImageSuffix = rs.getString(i++);
     String badQuestGiverImageSuffix = rs.getString(i++);
     
+    int priority = rs.getInt(i++);
+    
     Quest quest = new Quest(id, cityId, goodName, badName, goodDescription, badDescription, 
         goodDoneResponse, badDoneResponse,
         goodAcceptDialogue, badAcceptDialogue, assetNumWithinCity, 
@@ -250,7 +252,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
         tasksRequired, upgradeStructJobsRequired, 
         buildStructJobsRequired, defeatGoodGuysRequired, 
         defeatBadGuysRequired, possessEquipJobsRequired, coinRetrievalReq, sqaReq, 
-        goodQuestGiverImageSuffix, badQuestGiverImageSuffix);
+        goodQuestGiverImageSuffix, badQuestGiverImageSuffix, priority);
     return quest;
   }
 

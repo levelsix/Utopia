@@ -251,6 +251,9 @@ public class CreateInfoProtoUtils {
     if (quest.getSpecialQuestActionRequired() != null) {
       builder.setSpecialQuestActionReq(quest.getSpecialQuestActionRequired());
     }
+    if (quest.getPriority() > 0) {
+      builder.setPriority(quest.getPriority());
+    }
     return builder.build();
   }
 
