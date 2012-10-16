@@ -13,6 +13,7 @@ import com.lvl6.info.City;
 import com.lvl6.info.Clan;
 import com.lvl6.info.ClanBulletinPost;
 import com.lvl6.info.ClanChatPost;
+import com.lvl6.info.ClanTower;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
@@ -62,6 +63,7 @@ import com.lvl6.proto.InfoProto.FullQuestProto;
 import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullTaskProto.FullTaskEquipReqProto;
+import com.lvl6.proto.InfoProto.ClanTowerProto;
 import com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto;
 import com.lvl6.proto.InfoProto.FullUserCityProto;
 import com.lvl6.proto.InfoProto.FullUserClanProto;
@@ -869,6 +871,26 @@ public class CreateInfoProtoUtils {
     if (sale.getPackage5SaleIdentifier() != null) b.setPackage5SaleIdentifier(sale.getPackage5SaleIdentifier());
     b.setGoldShoppeImageName(sale.getGoldShoppeImageName()).setGoldBarImageName(sale.getGoldBarImageName());
 
+    return b.build();
+  }
+  
+  public static ClanTowerProto createClanTowerProtoFromClanTower(ClanTower tower) {
+    ClanTowerProto.Builder b = ClanTowerProto.newBuilder().setTowerId(tower.getId())
+        .setTowerImageName(tower.getTowerImageName()).setTowerName(tower.getTowerName())
+        .setSilverReward(tower.getSilverReward()).setGoldReward(tower.getGoldReward())
+        .setNumHoursToCollect(tower.getNumHoursToCollect());
+    
+    if (tower.getClanOwnerId() > 0) {
+      b.setClanOwnerId(tower.getClanOwnerId());
+      b.setOwnedStartTime(tower.getOwnedStartTime().getTime());
+    }
+    if (tower.getClanAttackerId() > 0) {
+      b.setClanAttackerId(tower.getClanAttackerId());
+      b.setAttackStartTime(tower.getAttackStartTime().getTime());
+      b.setOwnerBattlesWin(tower.getOwnerBattleWins());
+      b.setAttackerBattlesWin(tower.getAttackerBattleWins());
+    }
+    
     return b.build();
   }
 }

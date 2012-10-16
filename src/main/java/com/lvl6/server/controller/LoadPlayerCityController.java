@@ -68,6 +68,9 @@ import com.lvl6.utils.utilmethods.MiscMethods;
         resBuilder.setUserCityExpansionData(CreateInfoProtoUtils.createFullUserCityExpansionDataProtoFromUserCityExpansionData(userCityExpansionData));
       }
 
+      if (owner == null) {
+        log.error("owner is null for ownerId = "+cityOwnerId);
+      }
       resBuilder.setCityOwner(CreateInfoProtoUtils.createMinimumUserProtoFromUser(owner));
       
       boolean ownerIsGood = MiscMethods.checkIfGoodSide(owner.getType());

@@ -55,6 +55,8 @@ public class DBConstants {
   public static final String TABLE_USER_LOCK_BOX_EVENTS = "user_lock_box_events";
   public static final String TABLE_USER_LOCK_BOX_ITEMS = "user_lock_box_items";
   public static final String TABLE_GOLD_SALES = "gold_sales";
+  public static final String TABLE_CLAN_TOWERS = "clan_towers";
+  public static final String TABLE_CLAN_TOWERS_HISTORY = "clan_towers_history";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -358,4 +360,13 @@ public class DBConstants {
   public static final String EQUIPMENT__NAME = "name";
   public static final String EQUIPMENT__RARITY = "rarity";
   public static final String EQUIPMENT__TYPE = "type";
+  
+  /*CLAN TOWERS*/
+  public static final String CLAN_TOWERS__TOWER_ID = GENERIC__ID;
+  public static final String CLAN_TOWERS__CLAN_OWNER_ID = "clan_owner_id";
+  public static final String CLAN_TOWERS__OWNED_START_TIME = "owned_start_time";
+  public static final String CLAN_TOWERS__CLAN_ATTACKER_ID = "clan_attacker_id";
+  public static final String CLAN_TOWERS__ATTACK_START_TIME = "attack_start_time";
+  public static final String CLAN_TOWERS__OWNER_BATTLE_WINS = "owner_battle_wins";
+  public static final String CLAN_TOWERS__ATTACKER_BATTLE_WINS = "attacker_battle_wins";
 }
