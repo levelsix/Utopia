@@ -295,31 +295,30 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware{
 
 
 
-	public void lockPlayer(int playerId) {
+	public boolean lockPlayer(int playerId) {
 		log.debug("Locking player: "+playerId);
 		//Lock playerLock = hazel.getLock(playersInAction.lockName(playerId));
 		if(lockMap.tryLock(playersInAction.lockName(playerId),LOCK_WAIT_SECONDS, TimeUnit.SECONDS)) {
 			log.debug("Got lock for player "+ playerId);
 			playersInAction.addPlayer(playerId);
+			return true;
 		}else {
 			log.warn("failed to aquire lock for "+ playersInAction.lockName(playerId));
+			throw new RuntimeException("Unable to obtain lock after "+LOCK_WAIT_SECONDS+" seconds");
 		}
 	}
 	
 
 
-	public void lockPlayers(int playerId1, int playerId2) {
+	public boolean lockPlayers(int playerId1, int playerId2) {
 		log.info("Locking players: "+playerId1+", "+playerId2);
 		if (playerId1 == playerId2) {
-			lockPlayer(playerId1);
-			return;
+			return lockPlayer(playerId1);
 		}
 		if (playerId1 > playerId2) {
-			lockPlayer(playerId2);
-			lockPlayer(playerId1);
+			return lockPlayer(playerId2) && lockPlayer(playerId1);
 		} else {
-			lockPlayer(playerId1);
-			lockPlayer(playerId2);
+			return lockPlayer(playerId1) &&	lockPlayer(playerId2);
 		}
 	}
 
