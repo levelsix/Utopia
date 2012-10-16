@@ -234,11 +234,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
     }
 
-    int start = 0;
     Iterator<GroupChatMessageProto> it = chatMessages.iterator();
+    List<GroupChatMessageProto> globalChats = new ArrayList<GroupChatMessageProto>();
     while(it.hasNext()) {
-      resBuilder.setGlobalChats(start, it.next());
-      start++;
+      globalChats.add(it.next());
+    }
+    // Need to add them in reverse order
+    for (int i = globalChats.size()-1; i >= 0; i--) {
+      resBuilder.addGlobalChats(it.next());
     }
   }
 
