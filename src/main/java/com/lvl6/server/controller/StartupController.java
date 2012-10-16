@@ -241,7 +241,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     // Need to add them in reverse order
     for (int i = globalChats.size()-1; i >= 0; i--) {
-      resBuilder.addGlobalChats(it.next());
+      resBuilder.addGlobalChats(globalChats.get(i));
     }
   }
 
