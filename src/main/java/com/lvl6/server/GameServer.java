@@ -303,11 +303,12 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware{
 			return true;
 		}else {
 			log.warn("failed to aquire lock for "+ clanLockName(clanId));
-			throw new RuntimeException("Unable to obtain lock after "+LOCK_WAIT_SECONDS+" seconds");
+			return false;
+			//throw new RuntimeException("Unable to obtain lock after "+LOCK_WAIT_SECONDS+" seconds");
 		}
 	}
 	
-	public boolean unlockClan(int clanId) {
+	public void unlockClan(int clanId) {
 		log.debug("Unlocking clan: "+clanId);
 		try {
 			String clanLockName = clanLockName(clanId);
@@ -321,7 +322,6 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware{
 		}catch(Exception e) {
 			log.error("Error unlocking clan "+clanId, e);
 		}
-		return false;
 	}
 	
 	protected String clanLockName(int clanId) {
