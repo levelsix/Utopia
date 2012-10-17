@@ -226,7 +226,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           Map<Integer, User> usersByIds = null;
           if (userIds.size() > 0) {
             usersByIds = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
-            for (ClanChatPost pwp : activeClanChatPosts) {
+            for (int i = activeClanChatPosts.size()-1; i >= 0; i--) {
+              ClanChatPost pwp = activeClanChatPosts.get(i);
               resBuilder.addClanChats(CreateInfoProtoUtils.createGroupChatMessageProtoFromClanChatPost(pwp, usersByIds.get(pwp.getPosterId())));
             }
           }
