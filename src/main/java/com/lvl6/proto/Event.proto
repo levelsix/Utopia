@@ -300,6 +300,8 @@ message StartupResponseProto {
 		optional int32 numHoursBeforeReshowingGoldSale = 84;
 		optional int32 numHoursBeforeReshowingLockBox = 85;
 		
+		optional int32 levelToShowRateUsPopup = 86;
+		
 		message DownloadableNibConstants {
 			optional string threeCardMonteNibName = 1;
 			optional string lockBoxNibName = 2;
