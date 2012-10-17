@@ -147,6 +147,7 @@ message StartupResponseProto {
 	repeated UserLockBoxEventProto userLockBoxEvents = 29;
 	
 	optional string appStoreURL = 17;
+	optional string reviewPageURL = 34;
 	
 	repeated MinimumUserProtoWithLevel allies = 11;
 	
