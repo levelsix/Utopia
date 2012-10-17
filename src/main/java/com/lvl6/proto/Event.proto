@@ -2165,6 +2165,22 @@ message BossActionResponseProto {
 	} 
 }
 
+message BeginClanTowerWarRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 towerId = 2;
+}
+
+message BeginClanTowerWarResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional BeginClanTowerWarStatus status = 2;
+	
+	enum BeginClanTowerWarStatus {
+		SUCCESS = 0;
+		TOWER_ALREADY_IN_BATTLE = 1;
+		OTHER_FAIL = 2;
+	}
+}
+
 //if reset
 	//if owner, don't allow it
 	//else delete all user_clan stuff with that user_id
