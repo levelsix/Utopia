@@ -145,6 +145,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     resBuilder.setUpdateStatus(updateStatus);
     resBuilder.setAppStoreURL(Globals.APP_STORE_URL);
+    resBuilder.setReviewPageURL(Globals.REVIEW_PAGE_URL);
 
     User user = null;
 
