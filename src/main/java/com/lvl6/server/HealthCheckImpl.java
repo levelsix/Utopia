@@ -167,8 +167,7 @@ public class HealthCheckImpl implements HealthCheck {
 
 	protected void sendAlertToAdmins() {
 		if (devops.lastAlertSentToAdmins == null
-				|| new Date().getTime() > devops.getLastAlertSentToAdmins()
-						.getTime() + ALERT_INTERVAL) {
+				|| new Date().getTime() > devops.getLastAlertSentToAdmins().getTime() + ALERT_INTERVAL) {
 			log.warn("Contacting admins to notify of failed healthcheck");
 			devops.sendAlertToAdmins("Health check failed on a server");
 		} else {
@@ -186,12 +185,9 @@ public class HealthCheckImpl implements HealthCheck {
 		long freeMemory = runtime.freeMemory();
 		// long cpus = runtime.availableProcessors();
 		sb.append("free memory: " + format.format(freeMemory / 1024) + "\n");
-		sb.append("allocated memory: " + format.format(allocatedMemory / 1024)
-				+ "\n");
+		sb.append("allocated memory: " + format.format(allocatedMemory / 1024)+ "\n");
 		sb.append("max memory: " + format.format(maxMemory / 1024) + "\n");
-		sb.append("total free memory: "
-				+ format.format((freeMemory + (maxMemory - allocatedMemory)) / 1024)
-				+ "\n");
+		sb.append("total free memory: "	+ format.format((freeMemory + (maxMemory - allocatedMemory)) / 1024)+ "\n");
 		// sb.append("total cpus: " + cpus + "\n");
 		log.info("System info: {}", sb.toString());
 	}

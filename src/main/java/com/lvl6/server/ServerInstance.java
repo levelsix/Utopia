@@ -1,9 +1,7 @@
 package com.lvl6.server;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -85,15 +83,13 @@ public class ServerInstance implements InitializingBean, MessageListener<Message
 		File hostn = new File("/etc/hostname");
 		if(hostn.exists() && hostn.canRead()) {
 			try {
-				hostName = new Scanner(hostn).useDelimiter(
-				"\\Z").next();
+				hostName = new Scanner(hostn).useDelimiter("\\Z").next();
+				return;
 			} catch (FileNotFoundException e) {
 				log.error(e);
-	            log.error("Setting serverId to random UUID");
-	            hostName = UUID.randomUUID().toString();
 			}
 		}else {
-			try {
+			/*try {
 	            Runtime rt = Runtime.getRuntime();
 	            Process pr = rt.exec("hostname");
 	            BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
@@ -109,9 +105,10 @@ public class ServerInstance implements InitializingBean, MessageListener<Message
 	            }
 	        } catch(Exception e) {
 	            log.error(e);
-	            log.error("Setting serverId to random UUID");
-	            hostName = UUID.randomUUID().toString();
-	        }
+	            
+	        }*/
+			log.error("Setting serverId to random UUID");
+            hostName = UUID.randomUUID().toString();
 		}
 	}
 

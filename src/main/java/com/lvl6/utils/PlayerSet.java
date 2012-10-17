@@ -2,13 +2,14 @@ package com.lvl6.utils;
 
 import java.util.Date;
 
+import javax.annotation.Resource;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
-import com.hazelcast.core.ILock;
 import com.hazelcast.core.IMap;
 
 public class PlayerSet implements HazelcastInstanceAware {
@@ -28,6 +29,17 @@ public class PlayerSet implements HazelcastInstanceAware {
 		this.players = players;
 	}
 
+	
+	@Resource(name="lockMap")
+	IMap<String, Object> lockMap;
+
+	public IMap<String, Object> getLockMap() {
+		return lockMap;
+	}
+
+	public void setLockMap(IMap<String, Object> lockMap) {
+		this.lockMap = lockMap;
+	}
 	
 	/**
 	 * lock a player
@@ -61,8 +73,10 @@ public class PlayerSet implements HazelcastInstanceAware {
 				PlayerInAction play = players.get(player);
 				if(play != null && play.getLockTime() != null) {
 					if(now - play.getLockTime().getTime() > LOCK_TIMEOUT){
-						ILock playerLock = hazel.getLock(play.getPlayerId());
-						playerLock.forceUnlock();
+						String lockName = lockName(player);
+						if(lockMap.isLocked(lockName)) {
+							lockMap.forceUnlock(lockName);
+						}
 						removePlayer(player);
 						log.info("Automatically removing timed out lock for player: "+play.getPlayerId());
 					}
