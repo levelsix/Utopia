@@ -308,6 +308,7 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware{
 		}
 	}
 	
+	
 	public void unlockClan(int clanId) {
 		log.debug("Unlocking clan: "+clanId);
 		try {
