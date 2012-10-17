@@ -92,18 +92,17 @@ public class StatsWriterImpl implements StatsWriter {
 	protected void saveStats(String period) {
 		log.info("Saving stats for {}", period);
 		String key = "stats:"+period;
-		ILock lock = hazel.getLock(key);
-		if(lock.tryLock()) {
+		//ILock lock = hazel.getLock(key);
+		if(scheduledTasks.tryLock(key, 500, TimeUnit.MILLISECONDS)) {
 			ScheduledHazelcastTask task = (ScheduledHazelcastTask) scheduledTasks.get(key);
 			if(task == null) {
 				long time = System.currentTimeMillis();
 				stats(period, time);
-				scheduledTasks.put(key, new ScheduledHazelcastTask(key, time, true), 45, TimeUnit.SECONDS);
+				scheduledTasks.put(key, new ScheduledHazelcastTask(key, time, true), 245, TimeUnit.SECONDS);
 			}else {
 				log.info("Not saving stats for {}... already save on another node", period);
 			}
-			lock.unlock();
-			lock.destroy();
+			scheduledTasks.unlock(key);
 		}else {
 			log.info("Another node is already saving stats for {}", period);
 		}

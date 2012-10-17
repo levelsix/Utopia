@@ -6,7 +6,6 @@ import java.nio.ByteOrder;
 import java.nio.channels.SocketChannel;
 import java.text.NumberFormat;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -105,7 +104,7 @@ public class HealthCheckImpl implements HealthCheck {
 	public boolean check() {
 		log.info("Running health check");
 		checkConnections();
-		checkNumberOfConnections();
+		//checkNumberOfConnections();
 		sendToServer.send(gen.startup("Cluster Server Instance: "
 				+ server.serverId()));
 		// sendToServer.send(gen.userQuestDetails(user));
@@ -168,8 +167,7 @@ public class HealthCheckImpl implements HealthCheck {
 
 	protected void sendAlertToAdmins() {
 		if (devops.lastAlertSentToAdmins == null
-				|| new Date().getTime() > devops.getLastAlertSentToAdmins()
-						.getTime() + ALERT_INTERVAL) {
+				|| new Date().getTime() > devops.getLastAlertSentToAdmins().getTime() + ALERT_INTERVAL) {
 			log.warn("Contacting admins to notify of failed healthcheck");
 			devops.sendAlertToAdmins("Health check failed on a server");
 		} else {
@@ -187,12 +185,9 @@ public class HealthCheckImpl implements HealthCheck {
 		long freeMemory = runtime.freeMemory();
 		// long cpus = runtime.availableProcessors();
 		sb.append("free memory: " + format.format(freeMemory / 1024) + "\n");
-		sb.append("allocated memory: " + format.format(allocatedMemory / 1024)
-				+ "\n");
+		sb.append("allocated memory: " + format.format(allocatedMemory / 1024)+ "\n");
 		sb.append("max memory: " + format.format(maxMemory / 1024) + "\n");
-		sb.append("total free memory: "
-				+ format.format((freeMemory + (maxMemory - allocatedMemory)) / 1024)
-				+ "\n");
+		sb.append("total free memory: "	+ format.format((freeMemory + (maxMemory - allocatedMemory)) / 1024)+ "\n");
 		// sb.append("total cpus: " + cpus + "\n");
 		log.info("System info: {}", sb.toString());
 	}
