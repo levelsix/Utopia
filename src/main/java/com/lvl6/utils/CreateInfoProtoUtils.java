@@ -404,11 +404,11 @@ public class CreateInfoProtoUtils {
 
   public static FullClanProto createFullClanProtoFromClan(Clan c) {
     MinimumUserProto mup = createMinimumUserProtoFromUser(RetrieveUtils.userRetrieveUtils().getUserById(c.getOwnerId()));
-    return FullClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwner(mup).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).setTag(c.getTag()).setIsGood(c.isGood()).build();
+    return FullClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwner(mup).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).setTag(c.getTag()).setIsGood(c.isGood()).setTier(c.getCurrentTierLevel()).build();
   }
   
   public static MinimumClanProto createMinimumClanProtoFromClan(Clan c) {
-    return MinimumClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwnerId(c.getOwnerId()).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).setTag(c.getTag()).build();
+    return MinimumClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwnerId(c.getOwnerId()).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).setTag(c.getTag()).setTier(c.getCurrentTierLevel()).build();
   }
   
   public static FullUserEquipProto createFullUserEquipProtoFromUserEquip(UserEquip ue) {

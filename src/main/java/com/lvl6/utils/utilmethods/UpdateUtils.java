@@ -786,4 +786,25 @@ public class UpdateUtils implements UpdateUtil {
 	  return false; //something unexpected happened
   }
   
+  //incrementing the current tier level column in clans table
+  public boolean incrementCurrentTierLevelForClan(int clanId) {
+	  String tableName = DBConstants.TABLE_CLANS;
+	  
+	  Map<String, Object> relativeParams = new HashMap<String, Object>();
+	  //the level should increment by one only
+	  relativeParams.put(DBConstants.CLANS__CURRENT_TIER_LEVEL, 1);
+	  
+	  Map<String, Object> conditionParams = new HashMap<String, Object>();
+	  conditionParams.put(DBConstants.CLANS__ID, clanId);
+	  
+	  Map<String, Object> absoluteParams = null;
+	  String condDelim = "";
+	  
+	  int numUpdated = DBConnection.get().updateTableRows(tableName, relativeParams, absoluteParams, conditionParams, condDelim);
+	  if(1 == numUpdated) {
+		  return true;
+	  }
+	  return false;
+  }
+  
 }

@@ -53,6 +53,7 @@ public class DBConstants {
   public static final String TABLE_LOCK_BOX_ITEMS = "lock_box_items";
   public static final String TABLE_USER_LOCK_BOX_EVENTS = "user_lock_box_events";
   public static final String TABLE_USER_LOCK_BOX_ITEMS = "user_lock_box_items";
+  public static final String TABLE_CLAN_TIER_LEVELS = "clan_tier_levels";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -305,7 +306,13 @@ public class DBConstants {
   public static final String CLANS__DESCRIPTION = "description";
   public static final String CLANS__TAG = "tag";
   public static final String CLANS__IS_GOOD = "is_good";
+  public static final String CLANS__CURRENT_TIER_LEVEL = "current_tier_level";
 
+  /*CLAN TIER LEVELS*/
+  public static final String CLAN_TIER_LEVELS__TIER_LEVEL = "tier_level";
+  public static final String CLAN_TIER_LEVELS__MAX_CLAN_SIZE = "max_clan_size";
+  public static final String CLAN_TIER_LEVELS__GOLD_COST_TO_UPGRADE_TO_NEXT_TIER_LEVEL = "gold_cost_to_upgrade_to_next_tier_level";
+  
   /*USER CLANS*/
   public static final String USER_CLANS__USER_ID = "user_id";
   public static final String USER_CLANS__CLAN_ID = "clan_id";

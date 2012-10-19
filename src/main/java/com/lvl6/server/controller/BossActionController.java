@@ -2,10 +2,7 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
@@ -14,27 +11,18 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.BossActionRequestEvent;
 import com.lvl6.events.response.BossActionResponseEvent;
-//import com.lvl6.events.response.UpdateClientUserResponseEvent;
-//import com.lvl6.info.LockBoxEvent;
-//import com.lvl6.info.LockBoxItem;
 import com.lvl6.info.Boss;
 import com.lvl6.info.User;
 import com.lvl6.info.UserBoss;
-//import com.lvl6.info.UserEquip;
-//import com.lvl6.info.UserLockBoxEvent;
-import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.BossActionRequestProto;
 import com.lvl6.proto.EventProto.BossActionResponseProto;
 import com.lvl6.proto.EventProto.BossActionResponseProto.BossActionStatus;
 import com.lvl6.proto.EventProto.BossActionResponseProto.Builder;
-import com.lvl6.proto.EventProto.PickLockBoxResponseProto.PickLockBoxStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.UserBossRetrieveUtils;
-import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
