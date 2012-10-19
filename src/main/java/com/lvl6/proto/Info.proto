@@ -149,7 +149,7 @@ message FullClanProto {
 	optional string description = 5;
 	optional string tag = 6;
 	optional bool isGood = 7;
-	optional int32 tier = 8;
+	optional int32 currentTierLevel = 8;
 }
 
 message MinimumClanProto {
@@ -160,7 +160,7 @@ message MinimumClanProto {
 	optional string description = 5;
 	optional string tag = 6;
 	optional bool isGood = 7;
-	optional int32 tier = 8;
+	optional int32 currentTierLevel = 8;
 }
 
 //------------------------------------------------------------------------------------------
