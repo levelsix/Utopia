@@ -2180,7 +2180,8 @@ message BeginClanTowerWarResponseProto {
 	enum BeginClanTowerWarStatus {
 		SUCCESS = 0;
 		TOWER_ALREADY_IN_BATTLE = 1;
-		OTHER_FAIL = 2;
+		NOT_ENOUGH_CLAN_MEMBERS = 2;
+		OTHER_FAIL = 3;
 	}
 }
 
