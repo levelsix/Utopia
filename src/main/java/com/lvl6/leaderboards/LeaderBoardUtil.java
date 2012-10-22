@@ -16,6 +16,7 @@ public interface LeaderBoardUtil {
 	public abstract void setJedisPool(JedisPool jedis);
 
 	public abstract void setBattlesWonForUser(Integer userId, Double battlesWon);
+	public abstract void setBattlesWonForUser(Integer tournament, Integer userId, Double battlesWon);
 
 	public abstract void setBattlesWonOverTotalBattlesRatioForUser(	Integer userId, Double battlesWonOfTotalBattles);
 
@@ -32,7 +33,9 @@ public interface LeaderBoardUtil {
 	// Double incrementAmount);
 	//
 	public abstract double getBattlesWonForUser(Integer userId);
-
+	public abstract double getBattlesWonForUser(Integer tournament, Integer userId);
+	
+	
 	public abstract double getBattlesWonOverTotalBattlesRatioForUser(
 			Integer userId);
 
