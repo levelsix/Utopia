@@ -112,9 +112,7 @@
 		<lvl6.smtp.port>587</lvl6.smtp.port>
 		<lvl6.smtp.username>lvl6sender@gmail.com</lvl6.smtp.username>
 		<lvl6.smtp.password>robashen123</lvl6.smtp.password>
-		<lvl6.smtp.contact1>conrad@lvl6.com</lvl6.smtp.contact1>
-		<lvl6.smtp.contact2>5208206924@vtext.com</lvl6.smtp.contact2>
-		<lvl6.smtp.contact3>4088887199@txt.att.net</lvl6.smtp.contact3>
+		<lvl6.smtp.contact1>5208206924@vtext.com</lvl6.smtp.contact1>
 	</properties>
 
 	<profiles>

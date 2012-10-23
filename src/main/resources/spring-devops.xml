@@ -37,9 +37,9 @@
 	<bean id="devops" class="com.lvl6.server.DevOps">
 		<property name="adminEmails">
 			<list>
-				<!-- <value>${lvl6.smtp.contact1}</value> -->
-				<value>${lvl6.smtp.contact2}</value>
-				<value>${lvl6.smtp.contact3}</value>
+				<value>${lvl6.smtp.contact1}</value> 
+				<!-- <value>${lvl6.smtp.contact2}</value>
+				<value>${lvl6.smtp.contact3}</value> -->
 			</list>
 		</property>
 	</bean>
