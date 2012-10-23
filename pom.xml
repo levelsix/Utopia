@@ -272,7 +272,7 @@
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
 							<optionName>Availability Zones</optionName>
-							<value>Any 1</value>
+							<value>Any 2</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:trigger</namespace>
