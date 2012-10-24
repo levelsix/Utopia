@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.BeginClanTowerWarRequestEvent;
 import com.lvl6.events.response.BeginClanTowerWarResponseEvent;
-import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Clan;
+import com.lvl6.info.ClanTower;
 import com.lvl6.info.User;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.BeginClanTowerWarRequestProto;
@@ -21,8 +21,10 @@ import com.lvl6.proto.EventProto.BeginClanTowerWarResponseProto.Builder;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
+import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
+import com.lvl6.utils.utilmethods.UpdateUtils;
 
 @Component @DependsOn("gameServer") public class BeginClanTowerWarController extends EventController{
 
@@ -47,29 +49,32 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
     BeginClanTowerWarRequestProto reqProto = ((BeginClanTowerWarRequestEvent)event).getBeginClanTowerWarRequestProto();
 
+    //get the values sent by the client
     MinimumUserProto senderProto = reqProto.getSender();
-
+    int towerId = reqProto.getTowerId();
+    Timestamp curTime = new Timestamp(reqProto.getCurTime());
+    
+    //response to the request setup
     BeginClanTowerWarResponseProto.Builder resBuilder = BeginClanTowerWarResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
     
     Clan clan = ClanRetrieveUtils.getClanWithId(senderProto.getClan().getClanId());
-
+    ClanTower aTower = ClanTowerRetrieveUtils.getClanTower(towerId);
+    
     server.lockPlayer(senderProto.getUserId());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
-      boolean legit = checkLegit(resBuilder, user, curTime, reset);
-
+      boolean legit = checkLegitBeginClanTowerWarRequest(resBuilder, user, clan, aTower, curTime);
+      
       BeginClanTowerWarResponseEvent resEvent = new BeginClanTowerWarResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setBeginClanTowerWarResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
       if (legit) {
-        writeChangesToDB(user, curTime, reset);
-        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
-        resEventUpdate.setTag(event.getTag());
-        server.writeEvent(resEventUpdate);
+    	boolean isOwner = isUserOwnerOfTower(user, aTower);
+        writeChangesToDB(aTower, user, curTime, isOwner);
       }
     } catch (Exception e) {
       log.error("exception in BeginClanTowerWarController processEvent", e);
@@ -77,12 +82,26 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       server.unlockPlayer(senderProto.getUserId());      
     }
   }
+  
+  private boolean isUserOwnerOfTower(User aUser, ClanTower aClanTower) {
+	  return aUser.getId() == aClanTower.getClanOwnerId();
+  }
 
-  private boolean checkLegit(Builder resBuilder, User user, Timestamp curTime, boolean reset) {
+  //aTower can be modified to store some new data, as in an owner, or attacker id
+  private boolean checkLegitBeginClanTowerWarRequest(Builder resBuilder, 
+		  User user, Clan clan, ClanTower aTower, Timestamp curTime) {
     if (user == null) {
       resBuilder.setStatus(BeginClanTowerWarStatus.OTHER_FAIL);
       log.error("user is null");
       return false;
+    }
+
+    //check if the tower is valid
+    if (null == aTower) {
+    	//empty tower
+    	resBuilder.setStatus(BeginClanTowerWarStatus.OTHER_FAIL);
+    	log.error("tower requested is null.");
+    	return false;
     }
 
     if (!MiscMethods.checkClientTimeAroundApproximateNow(curTime)) {
@@ -91,36 +110,61 @@ import com.lvl6.utils.utilmethods.MiscMethods;
           + new Date());
       return false;
     }
-
-    Date lastGoldmineRetrieval = user.getLastGoldmineRetrieval();
-    if (lastGoldmineRetrieval == null && reset) {
-      resBuilder.setStatus(BeginClanTowerWarStatus.NOT_ENOUGH_DIAMONDS);
-      log.error("trying to reset goldmine when it has never been set");
-      return false;
+    
+    //check if the request sender is the clan leader or in a clan
+    if(null == clan || clan.getOwnerId() != user.getId()) {
+    	//non-clan-leader, non-clanned person sent request
+    	resBuilder.setStatus(BeginClanTowerWarStatus.NOT_CLAN_LEADER);
+    	log.error("user is not the clan leader or not in a clan. user=" + user);
+    	return false;
     }
-    if (lastGoldmineRetrieval != null && user.getDiamonds() < ControllerConstants.GOLDMINE__GOLD_COST_TO_RESTART) {
-      resBuilder.setStatus(BeginClanTowerWarStatus.NOT_ENOUGH_DIAMONDS);
-      log.error("not enough diamonds to restart goldmine. current diamonds = "+user.getDiamonds());
-      return false;
+    
+    int clanId = clan.getId();
+    //check if clan has enough members
+    if (ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER >
+        RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId).size() ){
+    	//not enough clan members
+    	resBuilder.setStatus(BeginClanTowerWarStatus.NOT_ENOUGH_CLAN_MEMBERS);
+    	log.error("clan does not have enough members. clan=" + clan);
+    	return false;
     }
-    if (lastGoldmineRetrieval != null) {
-      long collectTime = lastGoldmineRetrieval.getTime() + 3600000l*ControllerConstants.GOLDMINE__NUM_HOURS_BEFORE_RETRIEVAL;
-      if (!reset && collectTime < curTime.getTime()) {
-        resBuilder.setStatus(BeginClanTowerWarStatus.STILL_COLLECTING);
-        log.error("timer is not currently going. goldmine retrieval = "+lastGoldmineRetrieval);
-        return false;
-      }
+    
+    //check if the clan tower has an owner
+    if (ControllerConstants.NOT_SET == aTower.getClanOwnerId()) {
+    	///no owner for tower
+    	//TODO: FIGURE OUT WHAT TO RETURN WHEN SETTING THE OWNER OF A TOWER
+    	//logic here now will suffice
+    	resBuilder.setStatus(BeginClanTowerWarStatus.SUCCESS);
+    	aTower.setClanOwnerId(user.getId()); //set the owner id to use when writing to db
+    	return true;
     }
-
-    resBuilder.setStatus(BeginClanTowerWarStatus.SUCCESS);
-    return true;
+    
+    //check if there already is a clan attacking the tower
+    if (ControllerConstants.NOT_SET == aTower.getClanAttackerId()) {
+    	//no clan attacking tower
+    	//TODO: FIGURE OUT WHAT TO RETURN WHEN SETTING THE OWNER OF A TOWER
+    	//logic here now will suffice
+    	resBuilder.setStatus(BeginClanTowerWarStatus.SUCCESS);
+    	aTower.setClanAttackerId(user.getId());
+    	return true;
+    }
+    
+    //tower has an owner and an attacker, so deny request
+    resBuilder.setStatus(BeginClanTowerWarStatus.TOWER_ALREADY_IN_BATTLE);
+    return false;
   }
 
-  private void writeChangesToDB(User user, Timestamp curTime, boolean reset) {
-    int goldCost = reset ? ControllerConstants.GOLDMINE__GOLD_COST_TO_RESTART : 0;
-    Timestamp newStamp = reset ? null : curTime;
-    if (!user.updateLastGoldmineRetrieval(-goldCost, newStamp)) {
-      log.error("problem with adding diamonds for goldmine, adding " + ControllerConstants.GOLDMINE__GOLD_AMOUNT_FROM_PICK_UP);
-    }
+  private void writeChangesToDB(ClanTower aClanTower, User aUser, Timestamp curTime, boolean isOwner) {
+//    int goldCost = reset ? ControllerConstants.GOLDMINE__GOLD_COST_TO_RESTART : 0;
+//    Timestamp newStamp = reset ? null : curTime;
+//    if (!user.updateLastGoldmineRetrieval(-goldCost, newStamp)) {
+//      log.error("problem with adding diamonds for goldmine, adding " + ControllerConstants.GOLDMINE__GOLD_AMOUNT_FROM_PICK_UP);
+//    }
+	  if (!UpdateUtils.get().updateClanTowerOwnerOrAttackerId(aClanTower.getId(), aUser.getId(), curTime, isOwner)) {
+		  log.error("problem with updating a clan tower during a BeginClanTowerWarRequest." +
+				  " clan tower=" + aClanTower +
+				  " user=" + aUser +
+				  " time of request=" + curTime);
+	  }
   }
 }

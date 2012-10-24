@@ -766,4 +766,46 @@ public class UpdateUtils implements UpdateUtil {
     return true;
   }
 
+  /*
+   * This function serves two purposes, modifying the owner part or the attacker part of
+   * the table named clan_towers, since both parts are basically the same except in name.
+   */
+  public boolean updateClanTowerOwnerOrAttackerId(int clanTowerId, int playerId, Timestamp startTime,
+		  boolean isOwner) {
+	  String tablename = DBConstants.TABLE_CLAN_TOWERS;
+	  String ownerOrAttacker = "";
+	  String ownedOrAttackedStartTime = ""; 
+	  if(isOwner) {
+		  ownerOrAttacker = DBConstants.CLAN_TOWERS__CLAN_OWNER_ID;
+		  ownedOrAttackedStartTime = DBConstants.CLAN_TOWERS__OWNED_START_TIME;
+	  }
+	  else {
+		  ownerOrAttacker = DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID;
+		  ownedOrAttackedStartTime = DBConstants.CLAN_TOWERS__ATTACK_START_TIME;
+	  }
+	  
+	  //the fields to change
+	  Map<String, Object> absoluteParams = new HashMap<String,Object>();
+	  absoluteParams.put(ownerOrAttacker, playerId);
+	  absoluteParams.put(ownedOrAttackedStartTime, startTime);
+	  absoluteParams.put(DBConstants.CLAN_TOWERS__OWNER_BATTLE_WINS, 0);
+	  absoluteParams.put(DBConstants.CLAN_TOWERS__ATTACKER_BATTLE_WINS, 0);
+
+	  //the tower being modified
+	  Map<String, Object> conditionParams = new HashMap<String, Object>();
+	  conditionParams.put(DBConstants.CLAN_TOWERS__TOWER_ID, clanTowerId);
+	  
+	  Map<String, Object> relativeParams = null;
+	  String condDelim = "";
+	  
+	  int numUpdated = DBConnection.get().updateTableRows(tablename, relativeParams, 
+			  absoluteParams, conditionParams, condDelim);
+	  
+	  if (1 != numUpdated) {
+		  return false;
+	  }
+	  else {
+		  return true;
+	  }
+  }
 }
