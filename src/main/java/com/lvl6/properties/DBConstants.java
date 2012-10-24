@@ -369,4 +369,5 @@ public class DBConstants {
   public static final String CLAN_TOWERS__ATTACK_START_TIME = "attack_start_time";
   public static final String CLAN_TOWERS__OWNER_BATTLE_WINS = "owner_battle_wins";
   public static final String CLAN_TOWERS__ATTACKER_BATTLE_WINS = "attacker_battle_wins";
+  public static final String CLAN_TOWERS__LAST_REWARD_GIVEN = "last_reward_given";
 }
