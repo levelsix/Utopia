@@ -3,6 +3,8 @@ package com.lvl6.info;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 public class ClanTower implements Serializable {
   private static final long serialVersionUID = 1936952538114402802L;
   private int id;
@@ -17,11 +19,12 @@ public class ClanTower implements Serializable {
   private Date attackStartTime;
   private int ownerBattleWins;
   private int attackerBattleWins;
+  private Date lastRewardGiven;
   
   public ClanTower(int id, String towerName, String towerImageName,
       int clanOwnerId, Date ownedStartTime, int silverReward, int goldReward,
       int numHoursToCollect, int clanAttackerId, Date attackStartTime,
-      int ownerBattleWins, int attackerBattleWins) {
+      int ownerBattleWins, int attackerBattleWins, Date lastRewardGiven) {
     super();
     this.id = id;
     this.towerName = towerName;
@@ -35,6 +38,7 @@ public class ClanTower implements Serializable {
     this.attackStartTime = attackStartTime;
     this.ownerBattleWins = ownerBattleWins;
     this.attackerBattleWins = attackerBattleWins;
+    this.lastRewardGiven = lastRewardGiven;
   }
 
   public int getId() {
@@ -132,15 +136,26 @@ public class ClanTower implements Serializable {
   public void setAttackerBattleWins(int attackerBattleWins) {
     this.attackerBattleWins = attackerBattleWins;
   }
+  public Date getLastRewardGiven() {
+	  return lastRewardGiven;
+  }
+  
+  public void setLastRewardGiven(Date lastRewardGiven) {
+	  this.lastRewardGiven = lastRewardGiven;
+  }
 
   @Override
   public String toString() {
+	  return ToStringBuilder.reflectionToString(this);
+	  /*
     return "ClanTower [id=" + id + ", towerName=" + towerName
         + ", towerImageName=" + towerImageName + ", clanOwnerId=" + clanOwnerId
         + ", ownedStartTime=" + ownedStartTime + ", silverReward="
         + silverReward + ", goldReward=" + goldReward + ", numHoursToCollect="
         + numHoursToCollect + ", clanAttackerId=" + clanAttackerId
         + ", attackStartTime=" + attackStartTime + ", ownerBattleWins="
-        + ownerBattleWins + ", attackerBattleWins=" + attackerBattleWins + "]";
+        + ownerBattleWins + ", attackerBattleWins=" + attackerBattleWins 
+        + ", lastRewardGiven=" + lastRewardGiven +"]";*/
   }
+
 }
