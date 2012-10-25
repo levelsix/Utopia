@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent;
 import com.lvl6.events.response.RetrieveCurrentMarketplacePostsResponseEvent;
-import com.lvl6.info.Equipment;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
 import com.lvl6.leaderboards.LeaderBoardUtil;
@@ -28,16 +27,12 @@ import com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsRequestProto.Ret
 import com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsResponseProto.RetrieveCurrentMarketplacePostsStatus;
 import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
-import com.lvl6.proto.InfoProto.EquipClassType;
-import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
-import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.InsertUtils;
 
 @Component @DependsOn("gameServer") public class RetrieveCurrentMarketplacePostsController extends EventController{
 
@@ -138,7 +133,6 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   }
 
   /* Ordering by name always at the end.
-   * TODO:Order by marketplace.id (this is ordering by when people placed item on the market)
    */
   String getSortOrder (RetrieveCurrentMarketplacePostsSortingOrder sortOrder) {
     String sortingOrder = null;
@@ -200,6 +194,9 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     int maxForgeLevel = reqProto.getMaxForgeLevel();
     int searchEquipId = reqProto.getSpecificEquipId();
     RetrieveCurrentMarketplacePostsSortingOrder sortOrder = reqProto.getSortOrder();
+    
+    //account for posts with a timestamp in the future
+    Timestamp timeOfRequest = new Timestamp(new Date().getTime());
     //end market filter feature variable declarations
 
     RetrieveCurrentMarketplacePostsResponseProto.Builder resBuilder = RetrieveCurrentMarketplacePostsResponseProto.newBuilder();
@@ -230,49 +227,14 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
           List<Integer> activeEquipRarities = getActiveEquipmentRarities(commonEquips, uncommonEquips, rareEquips, epicEquips, legendaryEquips);
 
-          int characterClassType = getClassType(senderProto.getUserType(), myClassOnly);
+			String orderBySql = getSortOrder(sortOrder);
+    			
+			activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsByFilters(
+        		ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, currentNumOfEntries, 
+        		equipmentType, activeEquipRarities, characterClassType, levelRanges, orderBySql, searchEquipId,
+        		timeOfRequest);        
+    	}
 
-          Map<String, Integer> levelRanges = getLevelRanges(minEquipLevel, maxEquipLevel, minForgeLevel, maxForgeLevel);
-
-          String orderBySql = getSortOrder(sortOrder);
-
-          activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsByFilters(
-              ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, currentNumOfEntries, 
-              equipmentType, activeEquipRarities, characterClassType, levelRanges, orderBySql, searchEquipId);        
-        }
-        //        if (currentNumOfEntries > 0) {
-        //          if (forSender) {
-        //            activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsBeforePostIdForPoster(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, currentNumOfEntries, senderProto.getUserId());
-        //          } else {
-        //        	int equipmentType = getEquipType(marketEquipType);
-        //        	
-        //        	List<Integer> activeEquipRarities = getActiveEquipmentRarities(commonEquips, uncommonEquips, rareEquips, epicEquips, legendaryEquips);
-        //
-        //        	int characterClassType = getClassType(senderProto.getUserType(), myClassOnly);
-        //        	
-        //        	Map<String, Integer> levelRanges = getLevelRanges(minEquipLevel, maxEquipLevel, minForgeLevel, maxForgeLevel);
-        //
-        //        	String orderBySql = getSortOrder(sortOrder);
-        //        			
-        //            activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsByFilters(
-        //            		ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, currentNumOfEntries, 
-        //            		equipmentType, activeEquipRarities, characterClassType, levelRanges, orderBySql, searchString);        
-        //          }
-        //        } else {
-        //          if (forSender) {
-        //            activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsForPoster(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, senderProto.getUserId());
-        //          } else {
-        //            activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePosts(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP);
-        //            populateMarketplace = checkWhetherToPopulateMarketplace(activeMarketplacePosts, user);
-        //          }
-        //        }
-        //        int i = 0;
-        //        while (populateMarketplace && i < ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__MAX_NUM_POPULATE_RETRIES) {
-        //          populateMarketplaceWithPosts(user);
-        //          activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePosts(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP);
-        //          populateMarketplace = checkWhetherToPopulateMarketplace(activeMarketplacePosts, user);
-        //          i++;
-        //        }
         if (activeMarketplacePosts != null && activeMarketplacePosts.size() > 0) {
           List <Integer> userIds = new ArrayList<Integer>();
 

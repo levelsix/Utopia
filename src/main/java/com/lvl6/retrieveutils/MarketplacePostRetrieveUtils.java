@@ -3,6 +3,7 @@ package com.lvl6.retrieveutils;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -44,7 +45,7 @@ import com.lvl6.utils.DBConnection;
   //searchString currently not used
   public static List<MarketplacePost> getMostRecentActiveMarketplacePostsByFilters(int limit, int postId, int equipmentType, 
 		  List<Integer> activeEquipRarities, int characterClassType, Map<String, Integer> levelRanges, 
-		  String orderBySql, int specificEquipId) {
+		  String orderBySql, int specificEquipId, Timestamp timeOfRequest) {
     log.debug("retrieving up to " + limit + " marketplace posts before marketplace post id " + postId);
 
     //////////BEGIN SQL STATEMENT//////////
@@ -76,6 +77,7 @@ import com.lvl6.utils.DBConnection;
     	//needed to prevent "rarity in (0,)" case
     	String maybeComma = ",";
     	
+    	//TODO: replace this with a call to StringUtils.java
     	for(int i = 0; i < equipRaritiesCount; i++){
 	    	Integer rarityId = activeEquipRarities.get(i);
 	    	if(i+1 == equipRaritiesCount){
@@ -98,19 +100,23 @@ import com.lvl6.utils.DBConnection;
     }
     //end absolute condition params
     
-    //begin relative greater than condition params
+    //Begin relative greater than condition params
     Map<String, Object> relativeGreaterThanConditionParams = new HashMap<String, Object>();
     //subtract 1 to be >=
     relativeGreaterThanConditionParams.put(DBConstants.EQUIPMENT__MIN_LEVEL, levelRanges.get("minEquipLevel") - 1); 
     relativeGreaterThanConditionParams.put(DBConstants.MARKETPLACE__EQUIP_LEVEL, levelRanges.get("minForgeLevel") - 1);
-    //end relative greater than condition params
     
-    //begin relative less than condition params
+    //this will account for marketplace posts with a time_of_post value set in the future
+    //meaning, retain marketplace posts that have been posted before the current time (timeOfRequest)
+    relativeGreaterThanConditionParams.put(DBConstants.MARKETPLACE__TIME_OF_POST, timeOfRequest);
+    //End relative greater than condition params
+    
+    //Begin relative less than condition params
     Map<String, Object> relativeLessThanConditionParams = new HashMap<String, Object>();
     //add one to be <=
     relativeLessThanConditionParams.put(DBConstants.EQUIPMENT__MIN_LEVEL, levelRanges.get("maxEquipLevel") + 1); 
     relativeLessThanConditionParams.put(DBConstants.MARKETPLACE__EQUIP_LEVEL, levelRanges.get("maxForgeLevel") + 1);
-    //end relative less than condition params
+    //End relative less than condition params
     
     //ORDER BY CLAUSE
     String orderByColumn = orderBySql;

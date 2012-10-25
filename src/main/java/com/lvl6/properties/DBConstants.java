@@ -57,6 +57,7 @@ public class DBConstants {
   public static final String TABLE_GOLD_SALES = "gold_sales";
   public static final String TABLE_CLAN_TOWERS = "clan_towers";
   public static final String TABLE_CLAN_TOWERS_HISTORY = "clan_towers_history";
+  public static final String TABLE_CLAN_TIER_LEVELS = "clan_tier_levels";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -316,7 +317,13 @@ public class DBConstants {
   public static final String CLANS__DESCRIPTION = "description";
   public static final String CLANS__TAG = "tag";
   public static final String CLANS__IS_GOOD = "is_good";
+  public static final String CLANS__CURRENT_TIER_LEVEL = "current_tier_level";
 
+  /*CLAN TIER LEVELS*/
+  public static final String CLAN_TIER_LEVELS__TIER_LEVEL = "tier_level";
+  public static final String CLAN_TIER_LEVELS__MAX_CLAN_SIZE = "max_clan_size";
+  public static final String CLAN_TIER_LEVELS__GOLD_COST_TO_UPGRADE_TO_NEXT_TIER_LEVEL = "gold_cost_to_upgrade_to_next_tier_level";
+  
   /*USER CLANS*/
   public static final String USER_CLANS__USER_ID = "user_id";
   public static final String USER_CLANS__CLAN_ID = "clan_id";
@@ -339,6 +346,8 @@ public class DBConstants {
   public static final String USER_BOSSES__USER_ID = "user_id";
   public static final String USER_BOSSES__BOSS_ID = "boss_id";
   public static final String USER_BOSSES__START_TIME = "start_time";
+  public static final String USER_BOSSES__CUR_HEALTH = "cur_health";
+  public static final String USER_BOSSES__NUM_TIMES_KILLED = "num_times_killed";
 
   /*USER LOCK BOX EVENTS*/
   public static final String USER_LOCK_BOX_EVENTS__EVENT_ID = "lock_box_event_id";

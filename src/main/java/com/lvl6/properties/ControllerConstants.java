@@ -180,6 +180,8 @@ public class ControllerConstants {
   
   //POST TO MARKETPLACE
   public static final int POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER = 50;  
+  public static final int POST_TO_MARKETPLACE__MAX_MILLISECOND_DELAY_ADDED_TO_POST_TIME = 1800000;//30*60*1000; //30 minutes
+  public static final int POST_TO_MARKETPLACE__MIN_MILLISECOND_DELAY_ADDED_TO_POST_TIME =  600000;//10*60*1000; //10 minutes
   
   //PURCHASE FROM MARKETPLACE
   public static final double PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN = .30;
@@ -206,6 +208,7 @@ public class ControllerConstants {
   
   //RETRACT MARKETPLACE POST
   public static final double RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN = .1;
+  public static final double RETRACT_MARKETPLACE_POST__MIN_NUM_DAYS_UNTIL_FREE_TO_RETRACT_ITEM = 7;
   
   //USE SKILL POINT
   public static final int USE_SKILL_POINT__MAX_STAT_GAIN = 1;
@@ -305,6 +308,7 @@ public class ControllerConstants {
   public static final int CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_DESCRIPTION = 350;
   public static final int CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_TAG = 5;
   public static final int RETRIEVE_CLANS__NUM_CLANS_CAP = 50;
+  public static final int CREATE_CLAN__INITIAL_CLAN_LEVEL = 1;
   
   //THREE CARD MONTE
   public static final int THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY = 60;

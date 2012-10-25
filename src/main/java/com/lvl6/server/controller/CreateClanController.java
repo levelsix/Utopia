@@ -53,6 +53,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     MinimumUserProto senderProto = reqProto.getSender();
     String clanName = reqProto.getName();
     String tag = reqProto.getTag();
+    int initialClanLevel = ControllerConstants.CREATE_CLAN__INITIAL_CLAN_LEVEL; 
     
     CreateClanResponseProto.Builder resBuilder = CreateClanResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -72,7 +73,11 @@ import com.lvl6.utils.utilmethods.MiscMethods;
           legitCreate = false;
           resBuilder.setStatus(CreateClanStatus.OTHER_FAIL);
         } else {
-          resBuilder.setClanInfo(CreateInfoProtoUtils.createMinimumClanProtoFromClan(new Clan(clanId, clanName, user.getId(), createTime, description, tag, MiscMethods.checkIfGoodSide(user.getType()))));
+          resBuilder.setClanInfo(CreateInfoProtoUtils.createMinimumClanProtoFromClan(
+              new Clan(
+        		  clanId, clanName, user.getId(), createTime, description, tag, 
+        		  MiscMethods.checkIfGoodSide(user.getType()), initialClanLevel)
+              ));
         }
       }
       

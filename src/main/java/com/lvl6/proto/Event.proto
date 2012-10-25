@@ -967,6 +967,7 @@ message PostToMarketplaceResponseProto {
 message RetractMarketplacePostRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 marketplacePostId = 2;
+	optional int64 curTime = 3;
 }
 
 																						//DONE
@@ -992,6 +993,7 @@ message PurchaseFromMarketplaceRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 marketplacePostId = 2;
 	optional int32 posterId = 3;
+	optional int64 curTime = 4;
 }
 
 																						//DONE
@@ -1863,6 +1865,25 @@ message RetractRequestJoinClanResponseProto {
 	}	
 }	
 
+//------------------------------------------------------------------------------------------
+
+message UpgradeClanTierLevelRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 clanId = 2;
+}
+
+message UpgradeClanTierLevelResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional UpgradeClanTierLevelStatus status = 2;
+	
+	enum UpgradeClanTierLevelStatus {
+		SUCCESS = 0;
+		NOT_ENOUGH_GOLD = 1;
+		NOT_CLAN_LEADER = 2;
+		ALREADY_AT_MAX_TIER = 3;
+		OTHER_FAIL = 4;
+	}
+}
 
 //------------------------------------------------------------------------------------------
 
