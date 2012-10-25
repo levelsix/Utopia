@@ -1004,6 +1004,7 @@ message PurchaseFromMarketplaceResponseProto {
      optional int32 posterId = 2;
      optional FullMarketplacePostProto marketplacePost = 3;
      optional FullUserEquipProto fullUserEquipOfBoughtItem = 5;
+     optional bool sellerHadLicense = 6;
      
      optional PurchaseFromMarketplaceStatus status = 4;
 

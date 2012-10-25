@@ -84,6 +84,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
       if (legitPurchase) {
         resBuilder.setMarketplacePost(CreateInfoProtoUtils.createFullMarketplacePostProtoFromMarketplacePost(mp, seller));
+        resBuilder.setSellerHadLicense(MiscMethods.validateMarketplaceLicense(seller, timeOfPurchaseRequest));
         
         int userEquipId = InsertUtils.get().insertUserEquip(buyer.getId(), mp.getPostedEquipId(), mp.getEquipLevel());
         if (userEquipId < 0) {
