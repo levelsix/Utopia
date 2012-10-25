@@ -30,6 +30,32 @@ public class ClanTowersScheduledTasks {
 	@Resource
 	protected HazelcastInstance hazel;
 	
+	
+	
+	@Scheduled(fixedRate=300000)
+	public void checkForBattlesEnded() {
+		ILock battlesEndedLock = hazel.getLock("ClanTowersBattlesEndedScheduledTask");
+		if(battlesEndedLock.tryLock()) {
+			try {
+				List<ClanTower> clanTowers = ClanTowerRetrieveUtils.getAllClanTowers();
+				if(clanTowers == null) return;
+				for(ClanTower tower : clanTowers) {
+					//distributeRewardsForTower(tower);
+				}
+			}finally {
+				battlesEndedLock.unlock();
+			}
+		}		
+	}
+	
+	protected void checkBattleForTower(ClanTower tower) {
+		/*if(tower.) {
+			
+		}*/
+	}
+	
+	
+	
 	@Scheduled(fixedRate=300000)
 	public void distributeClanTowerRewards() {
 		ILock towerRewardsLock = hazel.getLock("ClanTowersRewardsScheduledTask");
