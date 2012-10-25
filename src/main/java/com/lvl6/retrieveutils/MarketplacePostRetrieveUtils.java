@@ -105,10 +105,6 @@ import com.lvl6.utils.DBConnection;
     //subtract 1 to be >=
     relativeGreaterThanConditionParams.put(DBConstants.EQUIPMENT__MIN_LEVEL, levelRanges.get("minEquipLevel") - 1); 
     relativeGreaterThanConditionParams.put(DBConstants.MARKETPLACE__EQUIP_LEVEL, levelRanges.get("minForgeLevel") - 1);
-    
-    //this will account for marketplace posts with a time_of_post value set in the future
-    //meaning, retain marketplace posts that have been posted before the current time (timeOfRequest)
-    relativeGreaterThanConditionParams.put(DBConstants.MARKETPLACE__TIME_OF_POST, timeOfRequest);
     //End relative greater than condition params
     
     //Begin relative less than condition params
@@ -116,6 +112,10 @@ import com.lvl6.utils.DBConnection;
     //add one to be <=
     relativeLessThanConditionParams.put(DBConstants.EQUIPMENT__MIN_LEVEL, levelRanges.get("maxEquipLevel") + 1); 
     relativeLessThanConditionParams.put(DBConstants.MARKETPLACE__EQUIP_LEVEL, levelRanges.get("maxForgeLevel") + 1);
+    
+    //this will account for marketplace posts with a time_of_post value set in the future
+    //meaning, retain marketplace posts that have been posted before the current time (timeOfRequest)
+    relativeLessThanConditionParams.put(DBConstants.MARKETPLACE__TIME_OF_POST, timeOfRequest);
     //End relative less than condition params
     
     //ORDER BY CLAUSE
