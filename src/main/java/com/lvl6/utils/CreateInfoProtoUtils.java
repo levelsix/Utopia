@@ -135,7 +135,8 @@ public class CreateInfoProtoUtils {
   public static MarketplacePostPurchasedNotificationProto createMarketplacePostPurchasedNotificationProtoFromMarketplaceTransaction(MarketplaceTransaction mt, User buyer, User seller) {
     FullMarketplacePostProto fmpp = createFullMarketplacePostProtoFromMarketplacePost(mt.getPost(), seller);
     return MarketplacePostPurchasedNotificationProto.newBuilder().setMarketplacePost(fmpp)
-        .setBuyer(createMinimumUserProtoFromUser(buyer)).setTimeOfPurchase(mt.getTimeOfPurchase().getTime()).build();
+        .setBuyer(createMinimumUserProtoFromUser(buyer)).setTimeOfPurchase(mt.getTimeOfPurchase().getTime())
+        .setSellerHadLicense(mt.getSellerHadLicense()).build();
   }
 
   public static AnimatedSpriteOffsetProto createAnimatedSpriteOffsetProtoFromAnimatedSpriteOffset(AnimatedSpriteOffset aso) {

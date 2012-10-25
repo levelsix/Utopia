@@ -79,7 +79,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     int range = max - min + 1; //rand.NextLong(x) generates a value from [0,x), so add 1 to make it [0,x]
     		
     long delayedTimeOfPost = rand.nextInt(range) + min;  
-    timeOfPost = new Timestamp(delayedTimeOfPost);
+    timeOfPost = new Timestamp(delayedTimeOfPost+timeOfPost.getTime());
 
     PostToMarketplaceResponseProto.Builder resBuilder = PostToMarketplaceResponseProto.newBuilder();
     resBuilder.setSender(senderProto);

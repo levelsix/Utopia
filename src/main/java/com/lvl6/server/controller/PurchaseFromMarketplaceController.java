@@ -135,12 +135,14 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     int totalSellerCoinChange = 0;
     int totalBuyerDiamondChange = 0;
     int totalBuyerCoinChange = 0;
+    
+    boolean sellerHasLicense = MiscMethods.validateMarketplaceLicense(seller, timeOfPurchaseRequest);
 
     //MARKETPLACE LICENSE FEATURE:
     //if the seller has a license, he gets full amount of money, range is from 0 to 1
     double percentOfMoneyUserGets = 
     		1 - ControllerConstants.PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN;
-    if(MiscMethods.validateMarketplaceLicense(seller, timeOfPurchaseRequest)){
+    if(sellerHasLicense){
   	  percentOfMoneyUserGets = 1;
     }
     
@@ -171,7 +173,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       }
     }
 
-    if (!InsertUtils.get().insertMarketplaceItemIntoHistory(mp, buyer.getId())) {
+    if (!InsertUtils.get().insertMarketplaceItemIntoHistory(mp, buyer.getId(), sellerHasLicense)) {
       log.error("problem with adding to marketplace history the post " + mp + " with buyer " + buyer.getId());
     }
 

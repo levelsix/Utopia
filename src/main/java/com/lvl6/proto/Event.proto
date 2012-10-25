@@ -178,6 +178,7 @@ message StartupResponseProto {
 		optional FullMarketplacePostProto marketplacePost = 1;
 		optional MinimumUserProto buyer = 2;
 		optional int64 timeOfPurchase = 3;
+		optional bool sellerHadLicense = 4;
 	}
 
 	message AttackedNotificationProto {
@@ -241,6 +242,7 @@ message StartupResponseProto {
 		optional int32 numDaysShortMarketplaceLicenseLastsFor = 44;
 		optional int32 diamondCostOfLongMarketplaceLicense = 45;
 		optional int32 diamondCostOfShortMarketplaceLicense = 46;
+		optional int32 numDaysUntilFreeRetract = 87;
 
 		optional int32 maxNumbersOfEnemiesToGenerateAtOnce = 4;
 		optional double percentReturnedToUserForSellingEquipInArmory = 5;

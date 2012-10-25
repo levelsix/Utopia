@@ -167,6 +167,7 @@ public class DBConstants {
   public static final String MARKETPLACE_TRANSACTION_HISTORY__DIAMOND_COST = "diamond_cost";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__COIN_COST = "coin_cost";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__EQUIP_LEVEL = "equip_level";
+  public static final String MARKETPLACE_TRANSACTION_HISTORY__SELLER_HAS_LICENSE = "seller_has_license";
   
   /*BLACKSMITH TABLE*/
   public static final String BLACKSMITH__ID = GENERIC__ID;

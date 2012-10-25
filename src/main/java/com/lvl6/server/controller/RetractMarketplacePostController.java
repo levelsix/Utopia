@@ -1,7 +1,6 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
@@ -22,7 +21,6 @@ import com.lvl6.proto.EventProto.RetractMarketplacePostResponseProto.RetractMark
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
