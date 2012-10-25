@@ -808,4 +808,42 @@ public class UpdateUtils implements UpdateUtil {
 		  return true;
 	  }
   }
+  
+  //either updates the battle_wins for the owner of a clan tower
+  //or the battle_wins for the attacker of a clan tower
+  public boolean updateClanTowerBattleWins(int clanTowerId, int ownerId, int attackerId,
+		  boolean ownerWon, int amountToIncrementBattleWinsBy) {
+	  String tableName = DBConstants.TABLE_CLAN_TOWERS;
+	  
+	  String ownerOrAttackerBattleWins = "";
+	  
+	  if (ownerWon) {
+		  ownerOrAttackerBattleWins = DBConstants.CLAN_TOWERS__OWNER_BATTLE_WINS;
+	  }
+	  else {
+		  ownerOrAttackerBattleWins = DBConstants.CLAN_TOWERS__ATTACKER_BATTLE_WINS;
+	  }
+	  
+	  Map<String, Object> relativeParams = new HashMap<String, Object>();
+	  relativeParams.put(ownerOrAttackerBattleWins, amountToIncrementBattleWinsBy);
+	  
+	  Map<String, Object> conditionParams = new HashMap<String, Object>();
+	  conditionParams.put(DBConstants.CLAN_TOWERS__TOWER_ID, clanTowerId);
+	  conditionParams.put(DBConstants.CLAN_TOWERS__CLAN_OWNER_ID, ownerId);
+	  conditionParams.put(DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID, attackerId);
+	  
+	  Map<String, Object> absoluteParams = null;
+	  String condDelim = "AND";
+	  
+	  int numUpdated = DBConnection.get().updateTableRows(tableName, relativeParams, 
+			  absoluteParams, conditionParams, condDelim);
+	  
+	  //a clan can own multiple towers with another clan being the same attacker for all of them
+	  if (0 == numUpdated) {
+		  return false; //there should be an owner and an attacker with the specified ids 
+	  }
+	  else {
+		  return true;
+	  }
+  }
 }

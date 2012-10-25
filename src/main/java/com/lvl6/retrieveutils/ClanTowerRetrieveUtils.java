@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -34,6 +36,28 @@ public class ClanTowerRetrieveUtils {
     List<ClanTower> clanTowers = convertRSToClanTowersList(rs);
     DBConnection.get().close(rs, null, conn);
     return clanTowers;
+  }
+  
+  public static List<ClanTower> getAllClanTowersWithSpecificOwnerAndAttackerId(
+		  int ownerId, int attackerId){
+	  Connection conn = DBConnection.get().getConnection();
+	  String tableName = DBConstants.TABLE_CLAN_TOWERS;
+	  
+	  //filter table by the columns: clan_owner_id=ownerId, clan_attacker_id=attackerId
+	  Map<String, Object> absoluteConditionParams = 
+			  new HashMap<String,Object>();
+	  absoluteConditionParams.put(
+			  DBConstants.CLAN_TOWERS__CLAN_OWNER_ID, ownerId);
+	  absoluteConditionParams.put(
+			  DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID, attackerId);
+	  
+	  //convert return values to objects
+	  ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(
+			  conn, absoluteConditionParams, tableName);
+	  List<ClanTower> clanTowers = convertRSToClanTowersList(rs);
+	  DBConnection.get().close(rs, null, conn);
+	  
+	  return clanTowers;
   }
   
   private static ClanTower convertRSToSingleClanTower(ResultSet rs) {

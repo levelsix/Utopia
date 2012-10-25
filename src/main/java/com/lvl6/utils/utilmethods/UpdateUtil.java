@@ -180,4 +180,6 @@ public interface UpdateUtil {
   public boolean decrementNumLockBoxesIncrementNumTimesCompletedForUser(int eventId, int userId, int decrement, boolean completed, Timestamp curTime);
 
   public boolean updateClanTowerOwnerOrAttackerId(int clanTowerId, int playerId, Timestamp startTime, boolean isOwner);
+  
+  public boolean updateClanTowerBattleWins(int clanTowerId, int ownerId, int attackerId, boolean ownerWon, int amountToIncrementBattleWinsBy);
 }
