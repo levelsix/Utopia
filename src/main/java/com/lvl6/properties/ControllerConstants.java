@@ -378,11 +378,11 @@ public class ControllerConstants {
   public static final float CHANCE_TO_GET_KIIP_ON_BATTLE_WIN = 1.f;
   public static final float CHANCE_TO_GET_KIIP_ON_QUEST_REDEEM = 1.f;
 
-  public static final String NIB_NAME__THREE_CARD_MONTE = "ThreeCardMonteBig";
-  public static final String NIB_NAME__LOCK_BOX = "LockBoxBig";
-  public static final String NIB_NAME__TRAVELING_MAP = "TravelingMapBig";
-  public static final String NIB_NAME__GOLD_MINE = "GoldMineBig";
-  public static final String NIB_NAME__EXPANSION = "ExpansionBig";
+  public static final String NIB_NAME__THREE_CARD_MONTE = "ThreeCardMonte.2";
+  public static final String NIB_NAME__LOCK_BOX = "LockBox.2";
+  public static final String NIB_NAME__TRAVELING_MAP = "TravelingMap.2";
+  public static final String NIB_NAME__GOLD_MINE = "GoldMine.2";
+  public static final String NIB_NAME__EXPANSION = "Expansion.2";
   public static final String NIB_NAME__LEADERBOARD = "Leaderboard";
   
   public static final int IDDICTION__EQUIP_ID = 282;
