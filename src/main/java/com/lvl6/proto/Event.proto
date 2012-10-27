@@ -887,8 +887,8 @@ message UpdateClientUserResponseProto {
 
 message RetrieveCurrentMarketplacePostsRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional bool fromSender = 2;
-	optional int32 currentNumOfEntries = 3;
+	optional int32 currentNumOfEntries = 2;
+	optional bool fromSender = 3;
 	optional RetrieveCurrentMarketplacePostsFilter filter = 4;
 	optional bool commonEquips = 5;
 	optional bool uncommonEquips = 6;
