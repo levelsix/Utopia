@@ -59,7 +59,6 @@ import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.GroupChatMessageProto;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
-import com.lvl6.proto.InfoProto.MarketplaceSearchEquipProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
@@ -252,7 +251,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       StartupResponseProto.Builder resBuilder) {
     Collection<Equipment> equips = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().values();
     for (Equipment equip : equips) {
-      resBuilder.addMktSearchEquips(MarketplaceSearchEquipProto.newBuilder().setEquipId(equip.getId()).setName(equip.getName()).build());
+      resBuilder.addMktSearchEquips(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equip));
     }
   }
 

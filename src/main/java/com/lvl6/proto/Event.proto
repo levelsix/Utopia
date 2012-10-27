@@ -160,7 +160,7 @@ message StartupResponseProto {
 	
 	repeated string noticesToPlayers = 24;
 		
-	repeated MarketplaceSearchEquipProto mktSearchEquips = 30;
+	repeated FullEquipProto mktSearchEquips = 30;
 	
 	repeated GroupChatMessageProto globalChats = 31;
 	repeated GroupChatMessageProto clanChats = 32;
