@@ -115,6 +115,8 @@ public class DBConstants {
   public static final String USER__NUM_GROUP_CHATS_REMAINING = "num_group_chats_remaining";
   public static final String USER__CLAN_ID = "clan_id";
   public static final String USER__LAST_GOLDMINE_RETRIEVAL = "last_goldmine_retrieval";
+  public static final String USER__LAST_MARKETPLACE_NOTIFICATION_TIME = "last_marketplace_notification_time";
+  public static final String USER__LAST_WALL_POST_NOTIFICATION_TIME = "last_wall_post_notification_time";
   
   /*USER EQUIP TABLE*/
   public static final String USER_EQUIP__ID = GENERIC__ID;

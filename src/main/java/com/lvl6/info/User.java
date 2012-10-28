@@ -69,6 +69,8 @@ public class User implements Serializable {
   private int numGroupChatsRemaining;
   private int clanId;
   private Date lastGoldmineRetrieval;
+  private Date lastMarketplaceNotificationTime;
+  private Date lastWallPostNotificationTime;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime, int energy,
@@ -86,7 +88,8 @@ public class User implements Serializable {
       boolean isFake, Date createTime, boolean isAdmin, String apsalarId,
       int numCoinsRetrievedFromStructs, int numAdColonyVideosWatched,
       int numTimesKiipRewarded, int numConsecutiveDaysPlayed,
-      int numGroupChatsRemaining, int clanId, Date lastGoldmineRetrieval) {
+      int numGroupChatsRemaining, int clanId, Date lastGoldmineRetrieval,
+      Date lastMarketplaceNotificationTime, Date lastWallPostNotificationTime) {
     super();
     this.id = id;
     this.name = name;
@@ -138,7 +141,9 @@ public class User implements Serializable {
     this.numConsecutiveDaysPlayed = numConsecutiveDaysPlayed;
     this.numGroupChatsRemaining = numGroupChatsRemaining;
     this.clanId = clanId;
-    this.setLastGoldmineRetrieval(lastGoldmineRetrieval);
+    this.lastGoldmineRetrieval = lastGoldmineRetrieval;
+    this.lastMarketplaceNotificationTime = lastMarketplaceNotificationTime;
+    this.lastWallPostNotificationTime = lastWallPostNotificationTime;
   }
 
 
@@ -351,7 +356,7 @@ public class User implements Serializable {
     return false;
   }
 
-  public boolean updateRelativeBadgeAbsoluteLastbattlenotificationtime(int badgeChange, Timestamp newLastBattleNotificationTime) {
+  public boolean updateRelativeBadgeAbsoluteLastBattleNotificationTime(int badgeChange, Timestamp newLastBattleNotificationTime) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -366,6 +371,46 @@ public class User implements Serializable {
     if (numUpdated == 1) {
       this.numBadges += badgeChange;
       this.lastBattleNotificationTime = newLastBattleNotificationTime;
+      return true;
+    }
+    return false;
+  }
+
+  public boolean updateRelativeBadgeAbsoluteLastMarketplaceNotificationTime(int badgeChange, Timestamp newLastMktNotificationTime) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER__LAST_MARKETPLACE_NOTIFICATION_TIME, newLastMktNotificationTime);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    relativeParams.put(DBConstants.USER__NUM_BADGES, badgeChange);
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.numBadges += badgeChange;
+      this.lastBattleNotificationTime = newLastMktNotificationTime;
+      return true;
+    }
+    return false;
+  }
+
+  public boolean updateRelativeBadgeAbsoluteLastWallPostNotificationTime(int badgeChange, Timestamp newLastWallNotificationTime) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER__LAST_WALL_POST_NOTIFICATION_TIME, newLastWallNotificationTime);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    relativeParams.put(DBConstants.USER__NUM_BADGES, badgeChange);
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.numBadges += badgeChange;
+      this.lastBattleNotificationTime = newLastWallNotificationTime;
       return true;
     }
     return false;
@@ -1303,6 +1348,14 @@ public class User implements Serializable {
     return clanId;
   }
 
+  public Date getLastMarketplaceNotificationTime() {
+    return lastMarketplaceNotificationTime;
+  }
+
+  public Date getLastWallPostNotificationTime() {
+    return lastWallPostNotificationTime;
+  }
+
   @Override
   public String toString() {
     return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="
@@ -1336,7 +1389,10 @@ public class User implements Serializable {
         + ", numTimesKiipRewarded=" + numTimesKiipRewarded
         + ", numConsecutiveDaysPlayed=" + numConsecutiveDaysPlayed
         + ", numGroupChatsRemaining=" + numGroupChatsRemaining + ", clanId="
-        + clanId + "]";
+        + clanId + ", lastGoldmineRetrieval=" + lastGoldmineRetrieval
+        + ", lastMarketplaceNotificationTime="
+        + lastMarketplaceNotificationTime + ", lastWallPostNotificationTime="
+        + lastWallPostNotificationTime + "]";
   }
 
 

@@ -428,6 +428,18 @@ import com.lvl6.utils.utilmethods.StringUtils;
     if (!rs.wasNull()) {
       lastGoldmineRetrieval = new Date(ts.getTime());
     }
+
+    Date lastMktNotificationTime = null;
+    ts = rs.getTimestamp(i++);
+    if (!rs.wasNull()) {
+      lastMktNotificationTime = new Date(ts.getTime());
+    }
+
+    Date lastWallNotificationTime = null;
+    ts = rs.getTimestamp(i++);
+    if (!rs.wasNull()) {
+      lastWallNotificationTime = new Date(ts.getTime());
+    }
     
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, energy, lastEnergyRefillTime, 
         skillPoints, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
@@ -436,7 +448,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
         weaponEquippedUserEquipId, armorEquippedUserEquipId, amuletEquippedUserEquipId, lastLoginTime, lastLogoutTime, deviceToken, 
         lastBattleNotificationTime, lastTimeAttacked, numBadges, lastShortLicensePurchaseTime, lastLongLicensePurchaseTime, isFake, userCreateTime, 
         isAdmin, apsalarId, numCoinsRetrievedFromStructs, numAdcolonyVideosWatched, numTimesKiipRewarded, numConsecutiveDaysPlayed, 
-        numGroupChatsRemaining, clanId, lastGoldmineRetrieval);
+        numGroupChatsRemaining, clanId, lastGoldmineRetrieval, lastMktNotificationTime, lastWallNotificationTime);
     return user;
   }
 }

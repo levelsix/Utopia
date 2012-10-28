@@ -1675,7 +1675,7 @@ message CollectForgeEquipsRequestProto {
 
 message CollectForgeEquipsResponseProto {
 	optional MinimumUserProto sender = 1;
-	repeated FullUserEquipProto newUserEquips = 2;
+	repeated FullUserEquipProto userEquips = 2;
 	
 	optional CollectForgeEquipsStatus status = 3;
 	
