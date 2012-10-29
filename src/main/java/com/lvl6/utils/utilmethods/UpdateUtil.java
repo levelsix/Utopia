@@ -179,4 +179,7 @@ public interface UpdateUtil {
   
   public boolean decrementNumLockBoxesIncrementNumTimesCompletedForUser(int eventId, int userId, int decrement, boolean completed, Timestamp curTime);
 
+  public boolean decrementUserBossHealthAndMaybeIncrementNumTimesKilled(int userId, int bossId, Date startTime, int currentHealth, int numTimesKilled);
+  
+  public boolean incrementCurrentTierLevelForClan(int clanId);
 }

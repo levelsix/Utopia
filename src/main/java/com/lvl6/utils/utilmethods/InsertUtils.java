@@ -417,7 +417,7 @@ public class InsertUtils implements InsertUtil{
    */
   @Override
   public boolean insertMarketplaceItemIntoHistory(MarketplacePost mp,
-      int buyerId) {
+      int buyerId, boolean sellerHasLicense) {
     Map<String, Object> insertParams = new HashMap<String, Object>();
 
     MarketplacePostType postType = mp.getPostType();
@@ -442,6 +442,9 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(
         DBConstants.MARKETPLACE_TRANSACTION_HISTORY__EQUIP_LEVEL, 
         mp.getEquipLevel());
+    insertParams.put(
+        DBConstants.MARKETPLACE_TRANSACTION_HISTORY__SELLER_HAS_LICENSE, 
+        sellerHasLicense);
 
     insertParams.put(
         DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_ID,

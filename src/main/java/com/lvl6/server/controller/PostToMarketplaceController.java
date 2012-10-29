@@ -3,6 +3,7 @@ package com.lvl6.server.controller;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,17 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     int diamondCost = reqProto.getDiamondCost();
     int coinCost = reqProto.getCoinCost();
     Timestamp timeOfPost = new Timestamp(new Date().getTime());
+    
+//    //delaying when the user posted the item in order to prevent shady dealings:
+//    //clan members posting items for cheap and then other clan members buying
+//    //them up quickly
+//    Random rand = new Random();
+//    int max = ControllerConstants.POST_TO_MARKETPLACE__MAX_MILLISECOND_DELAY_ADDED_TO_POST_TIME;
+//    int min = ControllerConstants.POST_TO_MARKETPLACE__MIN_MILLISECOND_DELAY_ADDED_TO_POST_TIME;
+//    int range = max - min + 1; //rand.NextLong(x) generates a value from [0,x), so add 1 to make it [0,x]
+//    		
+//    long delayedTimeOfPost = rand.nextInt(range) + min;  
+//    timeOfPost = new Timestamp(delayedTimeOfPost+timeOfPost.getTime());
 
     PostToMarketplaceResponseProto.Builder resBuilder = PostToMarketplaceResponseProto.newBuilder();
     resBuilder.setSender(senderProto);

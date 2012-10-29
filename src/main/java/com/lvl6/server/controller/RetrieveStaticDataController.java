@@ -222,6 +222,10 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     if (reqProto.getCurrentLockBoxEvents()) {
       resBuilder.addAllLockBoxEvents(MiscMethods.currentLockBoxEventsForUserType(type));
     }
+    
+    if (reqProto.getClanTierLevels()) {
+      resBuilder.addAllClanTierLevels(MiscMethods.getAllClanTierLevelProtos());
+    }
   }
 
 }

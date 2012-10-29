@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
+
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -50,7 +52,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
     MinimumUserProto senderProto = reqProto.getSender();
     int postId = reqProto.getMarketplacePostId();
-
+    Timestamp timeOfRetractionRequest = new Timestamp(reqProto.getCurTime());
+    	
     RetractMarketplacePostResponseProto.Builder resBuilder = RetractMarketplacePostResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
@@ -62,10 +65,25 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       int diamondCost = (mp == null) ? ControllerConstants.NOT_SET : mp.getDiamondCost();
       int coinCost = (mp == null) ? ControllerConstants.NOT_SET : mp.getCoinCost();
 
-      int diamondCut = Math.max(0, (int)(Math.ceil(diamondCost * ControllerConstants.RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)));
-      int coinCut = Math.max(0, (int)(Math.ceil(coinCost * ControllerConstants.RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)));
-      
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+
+      //BEGIN MARKETPLACE LICENSE FEATURE
+      //if user has license or if item has been on market past a certain amount of time, 
+      //then don't take a cut of their money,  
+      boolean hasMarketplacePostLicense = MiscMethods.validateMarketplaceLicense(user, timeOfRetractionRequest);
+      boolean passedTimeLimit = validateTimeItemHasBeenOnMarketplace(mp, timeOfRetractionRequest);
+      
+      int diamondCut;
+      int coinCut;
+      
+      if(hasMarketplacePostLicense || passedTimeLimit) {
+    	  diamondCut = 0;
+    	  coinCut = 0;
+      } else {
+    	  diamondCut = Math.max(0, (int)(Math.ceil(diamondCost * ControllerConstants.RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)));
+    	  coinCut = Math.max(0, (int)(Math.ceil(coinCost * ControllerConstants.RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)));
+      }
+      //END MARKETPLACE LICENSE FEATURE
 
       boolean legitRetract = checkLegitRetract(user, mp, resBuilder, 
           diamondCut, coinCut, postId);
@@ -129,9 +147,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       log.warn("problem with retracting marketplace post with id " + postId + " b/c no longer exists");      
       return false;
     }
-    if (diamondCut <= 0 && coinCut <= 0) {
+    if (diamondCut < 0 && coinCut < 0) { //either can be zero because of marketplace license feature
       resBuilder.setStatus(RetractMarketplacePostStatus.OTHER_FAIL);
-      log.error("diamond cut and coin cut <= 0 for marketplace post " + mp);      
+      log.error("diamond cut and coin cut < 0 for marketplace post " + mp);      
       return false;
     }
     if (user.getId() != mp.getPosterId()) {
@@ -153,4 +171,30 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     return true;
   }
 
+  /*
+   * Returns true if the item has been on the marketplace for longer than a certain amount of time.
+   * False otherwise.
+   */
+  private boolean validateTimeItemHasBeenOnMarketplace(MarketplacePost mp, Timestamp timeOfRetractionRequest) {
+	  int daysToMilliseconds = 24 * 60 * 60 * 1000;
+	  
+	  double minTimeItemNeedsToBeOnMarketplace = 
+			  ControllerConstants.RETRACT_MARKETPLACE_POST__MIN_NUM_DAYS_UNTIL_FREE_TO_RETRACT_ITEM *
+			  daysToMilliseconds;
+	  
+	  double timeItemPosted = mp.getTimeOfPost().getTime();
+	  
+	  //item needs to be after this time to be retracted for free
+	  double timeItemCanBeRetractedForFree = timeItemPosted + minTimeItemNeedsToBeOnMarketplace;
+	  
+	  double timeOfRetraction = timeOfRetractionRequest.getTime();
+	  
+	  if(timeItemCanBeRetractedForFree < timeOfRetraction) {
+		//item has been on marketplace for minimum required time to be retracted for free
+		  return true; 
+	  }	else {
+		  return false;
+	  }
+	  
+  }
 }

@@ -148,6 +148,7 @@ message StartupResponseProto {
 	
 	optional string appStoreURL = 17;
 	optional string reviewPageURL = 34;
+	optional string reviewPageConfirmationMessage = 35;
 	
 	repeated MinimumUserProtoWithLevel allies = 11;
 	
@@ -160,12 +161,14 @@ message StartupResponseProto {
 	
 	repeated string noticesToPlayers = 24;
 		
-	repeated MarketplaceSearchEquipProto mktSearchEquips = 30;
+	repeated FullEquipProto mktSearchEquips = 30;
 	
 	repeated GroupChatMessageProto globalChats = 31;
 	repeated GroupChatMessageProto clanChats = 32;
 	
 	repeated GoldSaleProto goldSales = 33;
+	
+	repeated ClanTierLevelProto clanTierLevels = 36;
 	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
@@ -178,6 +181,7 @@ message StartupResponseProto {
 		optional FullMarketplacePostProto marketplacePost = 1;
 		optional MinimumUserProto buyer = 2;
 		optional int64 timeOfPurchase = 3;
+		optional bool sellerHadLicense = 4;
 	}
 
 	message AttackedNotificationProto {
@@ -241,6 +245,7 @@ message StartupResponseProto {
 		optional int32 numDaysShortMarketplaceLicenseLastsFor = 44;
 		optional int32 diamondCostOfLongMarketplaceLicense = 45;
 		optional int32 diamondCostOfShortMarketplaceLicense = 46;
+		optional int32 numDaysUntilFreeRetract = 87;
 
 		optional int32 maxNumbersOfEnemiesToGenerateAtOnce = 4;
 		optional double percentReturnedToUserForSellingEquipInArmory = 5;
@@ -309,7 +314,7 @@ message StartupResponseProto {
 			optional string mapNibName = 3;
 			optional string goldMineNibName = 4;
 			optional string expansionNibName = 5;
-			optional string leaderboardNibName = 6;
+			optional string filtersNibName = 6;
 		}
 		
 		message ThreeCardMonteConstants {
@@ -885,8 +890,8 @@ message UpdateClientUserResponseProto {
 
 message RetrieveCurrentMarketplacePostsRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional bool fromSender = 2;
-	optional int32 currentNumOfEntries = 3;
+	optional int32 currentNumOfEntries = 2;
+	optional bool fromSender = 3;
 	optional RetrieveCurrentMarketplacePostsFilter filter = 4;
 	optional bool commonEquips = 5;
 	optional bool uncommonEquips = 6;
@@ -967,6 +972,7 @@ message PostToMarketplaceResponseProto {
 message RetractMarketplacePostRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 marketplacePostId = 2;
+	optional int64 curTime = 3;
 }
 
 																						//DONE
@@ -992,6 +998,7 @@ message PurchaseFromMarketplaceRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 marketplacePostId = 2;
 	optional int32 posterId = 3;
+	optional int64 curTime = 4;
 }
 
 																						//DONE
@@ -1000,6 +1007,7 @@ message PurchaseFromMarketplaceResponseProto {
      optional int32 posterId = 2;
      optional FullMarketplacePostProto marketplacePost = 3;
      optional FullUserEquipProto fullUserEquipOfBoughtItem = 5;
+     optional bool sellerHadLicense = 6;
      
      optional PurchaseFromMarketplaceStatus status = 4;
 
@@ -1234,6 +1242,7 @@ message RetrieveStaticDataRequestProto {
 	repeated int32 upgradeStructJobIds = 10;
 	optional int32 levelForExpRequiredRequest = 11;
 	optional bool currentLockBoxEvents = 12;
+	optional bool clanTierLevels = 13;
 }
 
 																						//DONE
@@ -1250,6 +1259,7 @@ message RetrieveStaticDataResponseProto {
 	repeated UpgradeStructJobProto upgradeStructJobs = 10;
 	optional int32 expRequiredForRequestedLevel = 11;
 	repeated LockBoxEventProto lockBoxEvents = 12;
+	repeated ClanTierLevelProto clanTierLevels = 14;
 	
 	optional RetrieveStaticDataStatus status = 13;
 	
@@ -1670,7 +1680,7 @@ message CollectForgeEquipsRequestProto {
 
 message CollectForgeEquipsResponseProto {
 	optional MinimumUserProto sender = 1;
-	repeated FullUserEquipProto newUserEquips = 2;
+	repeated FullUserEquipProto userEquips = 2;
 	
 	optional CollectForgeEquipsStatus status = 3;
 	
@@ -1863,6 +1873,27 @@ message RetractRequestJoinClanResponseProto {
 	}	
 }	
 
+//------------------------------------------------------------------------------------------
+
+message UpgradeClanTierLevelRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 clanId = 2;
+}
+
+message UpgradeClanTierLevelResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional UpgradeClanTierLevelStatus status = 2;
+	optional FullClanProtoWithClanSize fullClan = 3;
+	optional MinimumClanProto minClan = 4;
+	
+	enum UpgradeClanTierLevelStatus {
+		SUCCESS = 0;
+		NOT_ENOUGH_GOLD = 1;
+		NOT_CLAN_LEADER = 2;
+		ALREADY_AT_MAX_TIER = 3;
+		OTHER_FAIL = 4;
+	}
+}
 
 //------------------------------------------------------------------------------------------
 
@@ -1879,6 +1910,7 @@ message ApproveOrRejectRequestToJoinClanResponseProto {
 	optional int32 requesterId = 3;
 	optional bool accept = 4;
 	optional MinimumClanProto minClan = 5;
+	optional FullClanProtoWithClanSize fullClan = 6;
 	
 	enum ApproveOrRejectRequestToJoinClanStatus {
 		SUCCESS = 0;
