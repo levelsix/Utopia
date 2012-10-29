@@ -148,6 +148,7 @@ message StartupResponseProto {
 	
 	optional string appStoreURL = 17;
 	optional string reviewPageURL = 34;
+	optional string reviewPageConfirmationMessage = 35;
 	
 	repeated MinimumUserProtoWithLevel allies = 11;
 	
@@ -166,6 +167,8 @@ message StartupResponseProto {
 	repeated GroupChatMessageProto clanChats = 32;
 	
 	repeated GoldSaleProto goldSales = 33;
+	
+	repeated ClanTierLevelProto clanTierLevels = 36;
 	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
@@ -311,7 +314,7 @@ message StartupResponseProto {
 			optional string mapNibName = 3;
 			optional string goldMineNibName = 4;
 			optional string expansionNibName = 5;
-			optional string leaderboardNibName = 6;
+			optional string filtersNibName = 6;
 		}
 		
 		message ThreeCardMonteConstants {
@@ -1239,6 +1242,7 @@ message RetrieveStaticDataRequestProto {
 	repeated int32 upgradeStructJobIds = 10;
 	optional int32 levelForExpRequiredRequest = 11;
 	optional bool currentLockBoxEvents = 12;
+	optional bool clanTierLevels = 13;
 }
 
 																						//DONE
@@ -1255,6 +1259,7 @@ message RetrieveStaticDataResponseProto {
 	repeated UpgradeStructJobProto upgradeStructJobs = 10;
 	optional int32 expRequiredForRequestedLevel = 11;
 	repeated LockBoxEventProto lockBoxEvents = 12;
+	repeated ClanTierLevelProto clanTierLevels = 14;
 	
 	optional RetrieveStaticDataStatus status = 13;
 	
@@ -1878,6 +1883,8 @@ message UpgradeClanTierLevelRequestProto {
 message UpgradeClanTierLevelResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional UpgradeClanTierLevelStatus status = 2;
+	optional FullClanProtoWithClanSize fullClan = 3;
+	optional MinimumClanProto minClan = 4;
 	
 	enum UpgradeClanTierLevelStatus {
 		SUCCESS = 0;
@@ -1903,6 +1910,7 @@ message ApproveOrRejectRequestToJoinClanResponseProto {
 	optional int32 requesterId = 3;
 	optional bool accept = 4;
 	optional MinimumClanProto minClan = 5;
+	optional FullClanProtoWithClanSize fullClan = 6;
 	
 	enum ApproveOrRejectRequestToJoinClanStatus {
 		SUCCESS = 0;

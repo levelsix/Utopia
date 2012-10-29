@@ -16,6 +16,7 @@ import org.apache.log4j.MDC;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.City;
+import com.lvl6.info.ClanTierLevel;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Location;
@@ -42,6 +43,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewar
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.LockBoxConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ThreeCardMonteConstants;
 import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
+import com.lvl6.proto.InfoProto.ClanTierLevelProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.proto.InfoProto.EquipClassType;
@@ -51,6 +53,7 @@ import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.ClanTierLevelRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.GoldSaleRetrieveUtils;
@@ -483,7 +486,7 @@ public class MiscMethods {
         .setMapNibName(ControllerConstants.NIB_NAME__TRAVELING_MAP)
         .setGoldMineNibName(ControllerConstants.NIB_NAME__GOLD_MINE)
         .setExpansionNibName(ControllerConstants.NIB_NAME__EXPANSION)
-        .setLeaderboardNibName(ControllerConstants.NIB_NAME__LEADERBOARD)
+        .setFiltersNibName(ControllerConstants.NIB_NAME__MARKET_FILTERS)
         .build();
     
     cb = cb.setDownloadableNibConstants(dnc);
@@ -528,6 +531,7 @@ public class MiscMethods {
     LockBoxEventRetrieveUtils.reload();
     LockBoxItemRetrieveUtils.reload();
     GoldSaleRetrieveUtils.reload();
+    ClanTierLevelRetrieveUtils.reload();
   }
 
   public static UserType getUserTypeFromDefeatTypeJobUserType(
@@ -661,6 +665,15 @@ public class MiscMethods {
 	  } else {
 		  return false;
 	  }
+  }
+  
+  public static List<ClanTierLevelProto> getAllClanTierLevelProtos() {
+    ArrayList<ClanTierLevelProto> toRet = new ArrayList<ClanTierLevelProto>();
+    Map<Integer, ClanTierLevel> l = ClanTierLevelRetrieveUtils.getAllClanTierLevels();
+    for (ClanTierLevel t : l.values()) {
+      toRet.add(CreateInfoProtoUtils.createClanTierLevelProtoFromClanTierLevel(t));
+    }
+    return toRet;
   }
   
 }

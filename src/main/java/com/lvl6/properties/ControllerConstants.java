@@ -383,7 +383,7 @@ public class ControllerConstants {
   public static final String NIB_NAME__TRAVELING_MAP = "TravelingMap.2";
   public static final String NIB_NAME__GOLD_MINE = "GoldMine.2";
   public static final String NIB_NAME__EXPANSION = "Expansion.2";
-  public static final String NIB_NAME__LEADERBOARD = "Leaderboard";
+  public static final String NIB_NAME__MARKET_FILTERS = "MarketplaceFilters.2";
   
   public static final int IDDICTION__EQUIP_ID = 282;
   public static final String IDDICTION__NOTICE = "FREE limited edition gold equip for joining today!";

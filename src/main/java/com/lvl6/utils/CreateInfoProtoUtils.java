@@ -13,6 +13,7 @@ import com.lvl6.info.City;
 import com.lvl6.info.Clan;
 import com.lvl6.info.ClanBulletinPost;
 import com.lvl6.info.ClanChatPost;
+import com.lvl6.info.ClanTierLevel;
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Dialogue;
@@ -63,6 +64,7 @@ import com.lvl6.proto.InfoProto.FullQuestProto;
 import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullTaskProto.FullTaskEquipReqProto;
+import com.lvl6.proto.InfoProto.ClanTierLevelProto;
 import com.lvl6.proto.InfoProto.ClanTowerProto;
 import com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto;
 import com.lvl6.proto.InfoProto.FullUserCityProto;
@@ -419,6 +421,11 @@ public class CreateInfoProtoUtils {
 
   public static MinimumClanProto createMinimumClanProtoFromClan(Clan c) {
     return MinimumClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwnerId(c.getOwnerId()).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).setTag(c.getTag()).setCurrentTierLevel(c.getCurrentTierLevel()).build();
+  }
+  
+  public static ClanTierLevelProto createClanTierLevelProtoFromClanTierLevel(ClanTierLevel t) {
+    return ClanTierLevelProto.newBuilder().setTierLevel(t.getTierLevel()).setMaxSize(t.getMaxClanSize())
+        .setUpgradeCost(t.getGoldCostToUpgradeToNextTierLevel()).build();
   }
 
   public static FullUserEquipProto createFullUserEquipProtoFromUserEquip(UserEquip ue) {

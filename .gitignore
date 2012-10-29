@@ -30,7 +30,7 @@ target/
 *.swp
 *.out
 #*.p12
-*.log
+*log*
 
 ## 
 runOnTomcat.sh

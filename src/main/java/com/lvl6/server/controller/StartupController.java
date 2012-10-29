@@ -145,6 +145,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     resBuilder.setUpdateStatus(updateStatus);
     resBuilder.setAppStoreURL(Globals.APP_STORE_URL);
     resBuilder.setReviewPageURL(Globals.REVIEW_PAGE_URL);
+    resBuilder.setReviewPageConfirmationMessage(Globals.REVIEW_PAGE_CONFIRMATION_MESSAGE);
 
     User user = null;
 
@@ -180,6 +181,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           setMarketplaceSearchEquips(resBuilder);
           setChatMessages(resBuilder, user);
           setGoldSales(resBuilder);
+          resBuilder.addAllClanTierLevels(MiscMethods.getAllClanTierLevelProtos());
 
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
