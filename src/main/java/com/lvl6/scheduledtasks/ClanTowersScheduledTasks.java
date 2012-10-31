@@ -49,12 +49,15 @@ public class ClanTowersScheduledTasks {
 	}
 	
 	protected void checkBattleForTower(ClanTower tower) {
-		if(tower.getAttackStartTime() != null && tower.getAttackStartTime().getTime()+battle_length_milliseconds > System.currentTimeMillis()) {
+		if(tower.getAttackStartTime() != null && tower.getAttackStartTime().getTime()+tower.getNumHoursForBattle() * 3600000 > System.currentTimeMillis()) {
 			updateTowerHistory(tower);
 			//TODO: update clan_towers
+			//if(tower.getAttackerBattleWins() > tower.getOwnerBattleWins())
 			//jdbcTemplate.update("update "+DBConstants.TABLE_CLAN_TOWERS);
 		}
 	}
+	
+	
 
 	protected void updateTowerHistory(ClanTower tower) {
 		jdbcTemplate.execute("insert into "+DBConstants.TABLE_CLAN_TOWERS_HISTORY

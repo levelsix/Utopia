@@ -125,11 +125,12 @@ public class ClanTowerRetrieveUtils {
 
     int ownerBattleWins = rs.getInt(i++);
     int attackerBattleWins = rs.getInt(i++);
+    int numberOfHoursForBattle = rs.getInt(i++);
     Date lastRewardGiven = null;
     if (!rs.wasNull()) {
         lastRewardGiven = new Date(ts.getTime());
       }
 
-    return new ClanTower(id, towerName, towerImageName, clanOwnerId, ownedStartTime, silverReward, goldReward, numHrsToCollect, clanAttackerId, attackStartTime, ownerBattleWins, attackerBattleWins, lastRewardGiven);
+    return new ClanTower(id, towerName, towerImageName, clanOwnerId, ownedStartTime, silverReward, goldReward, numHrsToCollect, clanAttackerId, attackStartTime, ownerBattleWins, attackerBattleWins, numberOfHoursForBattle, lastRewardGiven);
   }
 }
