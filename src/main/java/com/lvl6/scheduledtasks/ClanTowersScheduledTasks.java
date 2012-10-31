@@ -30,7 +30,7 @@ public class ClanTowersScheduledTasks {
 	@Resource
 	protected HazelcastInstance hazel;
 	
-	
+	protected long battle_length_milliseconds = 6*3600000;
 	
 	@Scheduled(fixedRate=300000)
 	public void checkForBattlesEnded() {
@@ -49,9 +49,32 @@ public class ClanTowersScheduledTasks {
 	}
 	
 	protected void checkBattleForTower(ClanTower tower) {
-		/*if(tower.) {
-			
-		}*/
+		if(tower.getAttackStartTime() != null && tower.getAttackStartTime().getTime()+battle_length_milliseconds > System.currentTimeMillis()) {
+			updateTowerHistory(tower);
+			//TODO: update clan_towers
+			//jdbcTemplate.update("update "+DBConstants.TABLE_CLAN_TOWERS);
+		}
+	}
+
+	protected void updateTowerHistory(ClanTower tower) {
+		jdbcTemplate.execute("insert into "+DBConstants.TABLE_CLAN_TOWERS_HISTORY
+				+" ("
+				+DBConstants.CLAN_TOWERS_HISTORY__OWNER_CLAN_ID+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_CLAN_ID+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__TOWER_ID+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__ATTACK_START_TIME
+				+DBConstants.CLAN_TOWERS_HISTORY__WINNER_ID+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__OWNER_BATTLE_WINS+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_BATTLE_WINS
+				+") VALUES ("
+				+tower.getClanOwnerId()+", "
+				+tower.getClanAttackerId()+","
+				+tower.getId()+", "
+				+tower.getAttackStartTime()+", "
+				+(tower.getAttackerBattleWins() > tower.getOwnerBattleWins() ? tower.getClanAttackerId() : tower.getClanOwnerId())+","
+				+tower.getOwnerBattleWins()+", "
+				+tower.getAttackerBattleWins()+")"
+		);
 	}
 	
 	
