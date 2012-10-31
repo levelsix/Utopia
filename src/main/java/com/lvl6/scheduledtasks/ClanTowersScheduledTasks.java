@@ -40,21 +40,85 @@ public class ClanTowersScheduledTasks {
 				List<ClanTower> clanTowers = ClanTowerRetrieveUtils.getAllClanTowers();
 				if(clanTowers == null) return;
 				for(ClanTower tower : clanTowers) {
-					//distributeRewardsForTower(tower);
+					checkBattleForTower(tower);
 				}
-			}finally {
+			}catch(Exception e){
+				log.error("Error checking battles ended", e);
+			}
+			finally {
 				battlesEndedLock.unlock();
 			}
 		}		
 	}
 	
 	protected void checkBattleForTower(ClanTower tower) {
-		if(tower.getAttackStartTime() != null && tower.getAttackStartTime().getTime()+tower.getNumHoursForBattle() * 3600000 > System.currentTimeMillis()) {
-			updateTowerHistory(tower);
-			//TODO: update clan_towers
-			//if(tower.getAttackerBattleWins() > tower.getOwnerBattleWins())
-			//jdbcTemplate.update("update "+DBConstants.TABLE_CLAN_TOWERS);
+		try {
+			if(tower.getAttackStartTime() != null && tower.getAttackStartTime().getTime()+tower.getNumHoursForBattle() * 3600000 > System.currentTimeMillis()) {
+				updateTowerHistory(tower);
+				updateClanTower(tower);
+			}
+		}catch(Exception e) {
+			log.error("Error checking battle ended", e);
 		}
+	}
+
+	protected void updateClanTower(ClanTower tower) {
+		if(tower.getAttackerBattleWins() > tower.getOwnerBattleWins()) {
+			updateClanTowerAttackerWonBattle(tower);
+		}else {
+			updateClanTowerOwnerWonBattle(tower);
+		}
+	}
+
+	protected void updateClanTowerOwnerWonBattle(ClanTower tower) {
+		log.info("Updating clan tower {}. Owner won battle.");
+		jdbcTemplate.update("update "+DBConstants.TABLE_CLAN_TOWERS
+				+" SET "
+				+DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID
+				+"=NULL, "
+				+DBConstants.CLAN_TOWERS__ATTACK_START_TIME
+				+"=NULL, "
+				+DBConstants.CLAN_TOWERS__ATTACKER_BATTLE_WINS
+				+"=0, "
+				+DBConstants.CLAN_TOWERS__OWNER_BATTLE_WINS
+				+"=0 " +
+				"WHERE "
+				+DBConstants.CLAN_TOWERS__TOWER_ID
+				+"="
+				+tower.getId()						
+				);
+	}
+
+	protected void updateClanTowerAttackerWonBattle(ClanTower tower) {
+		log.info("Updating clan tower {}. Attacker won battle.");
+		jdbcTemplate.update("update "+DBConstants.TABLE_CLAN_TOWERS
+			+" SET "
+			+DBConstants.CLAN_TOWERS__CLAN_OWNER_ID
+			+"="
+			+tower.getClanAttackerId()
+			+", "
+			+DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID
+			+"=NULL, "
+			+", "
+			+DBConstants.CLAN_TOWERS__ATTACK_START_TIME
+			+"=NULL, "
+			+DBConstants.CLAN_TOWERS__ATTACKER_BATTLE_WINS
+			+"=0, "
+			+DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID
+			+"=NULL, "
+			+DBConstants.CLAN_TOWERS__LAST_REWARD_GIVEN
+			+"=NULL, "
+			+DBConstants.CLAN_TOWERS__OWNED_START_TIME
+			+"="
+			+new Timestamp(System.currentTimeMillis())
+			+", "
+			+DBConstants.CLAN_TOWERS__OWNER_BATTLE_WINS
+			+"=0 " +
+			"WHERE "
+			+DBConstants.CLAN_TOWERS__TOWER_ID
+			+"="
+			+tower.getId()						
+			);
 	}
 	
 	
