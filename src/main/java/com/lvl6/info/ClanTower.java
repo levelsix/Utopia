@@ -19,12 +19,13 @@ public class ClanTower implements Serializable {
   private Date attackStartTime;
   private int ownerBattleWins;
   private int attackerBattleWins;
+  private int numHoursForBattle;
   private Date lastRewardGiven;
   
   public ClanTower(int id, String towerName, String towerImageName,
       int clanOwnerId, Date ownedStartTime, int silverReward, int goldReward,
       int numHoursToCollect, int clanAttackerId, Date attackStartTime,
-      int ownerBattleWins, int attackerBattleWins, Date lastRewardGiven) {
+      int ownerBattleWins, int attackerBattleWins, int numHoursForBattle, Date lastRewardGiven) {
     super();
     this.id = id;
     this.towerName = towerName;
@@ -38,6 +39,7 @@ public class ClanTower implements Serializable {
     this.attackStartTime = attackStartTime;
     this.ownerBattleWins = ownerBattleWins;
     this.attackerBattleWins = attackerBattleWins;
+    this.numHoursForBattle = numHoursForBattle;
     this.lastRewardGiven = lastRewardGiven;
   }
 
@@ -157,5 +159,13 @@ public class ClanTower implements Serializable {
         + ownerBattleWins + ", attackerBattleWins=" + attackerBattleWins 
         + ", lastRewardGiven=" + lastRewardGiven +"]";*/
   }
+
+public int getNumHoursForBattle() {
+	return numHoursForBattle;
+}
+
+public void setNumHoursForBattle(int numHoursForBattle) {
+	this.numHoursForBattle = numHoursForBattle;
+}
 
 }

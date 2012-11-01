@@ -30,6 +30,122 @@ public class ClanTowersScheduledTasks {
 	@Resource
 	protected HazelcastInstance hazel;
 	
+	protected long battle_length_milliseconds = 6*3600000;
+	
+	@Scheduled(fixedRate=300000)
+	public void checkForBattlesEnded() {
+		ILock battlesEndedLock = hazel.getLock("ClanTowersBattlesEndedScheduledTask");
+		if(battlesEndedLock.tryLock()) {
+			try {
+				List<ClanTower> clanTowers = ClanTowerRetrieveUtils.getAllClanTowers();
+				if(clanTowers == null) return;
+				for(ClanTower tower : clanTowers) {
+					checkBattleForTower(tower);
+				}
+			}catch(Exception e){
+				log.error("Error checking battles ended", e);
+			}
+			finally {
+				battlesEndedLock.unlock();
+			}
+		}		
+	}
+	
+	protected void checkBattleForTower(ClanTower tower) {
+		try {
+			if(tower.getAttackStartTime() != null && tower.getAttackStartTime().getTime()+tower.getNumHoursForBattle() * 3600000 > System.currentTimeMillis()) {
+				updateTowerHistory(tower);
+				updateClanTower(tower);
+			}
+		}catch(Exception e) {
+			log.error("Error checking battle ended", e);
+		}
+	}
+
+	protected void updateClanTower(ClanTower tower) {
+		if(tower.getAttackerBattleWins() > tower.getOwnerBattleWins()) {
+			updateClanTowerAttackerWonBattle(tower);
+		}else {
+			updateClanTowerOwnerWonBattle(tower);
+		}
+	}
+
+	protected void updateClanTowerOwnerWonBattle(ClanTower tower) {
+		log.info("Updating clan tower {}. Owner won battle.");
+		jdbcTemplate.update("update "+DBConstants.TABLE_CLAN_TOWERS
+				+" SET "
+				+DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID
+				+"=NULL, "
+				+DBConstants.CLAN_TOWERS__ATTACK_START_TIME
+				+"=NULL, "
+				+DBConstants.CLAN_TOWERS__ATTACKER_BATTLE_WINS
+				+"=0, "
+				+DBConstants.CLAN_TOWERS__OWNER_BATTLE_WINS
+				+"=0 " +
+				"WHERE "
+				+DBConstants.CLAN_TOWERS__TOWER_ID
+				+"="
+				+tower.getId()						
+				);
+	}
+
+	protected void updateClanTowerAttackerWonBattle(ClanTower tower) {
+		log.info("Updating clan tower {}. Attacker won battle.");
+		jdbcTemplate.update("update "+DBConstants.TABLE_CLAN_TOWERS
+			+" SET "
+			+DBConstants.CLAN_TOWERS__CLAN_OWNER_ID
+			+"="
+			+tower.getClanAttackerId()
+			+", "
+			+DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID
+			+"=NULL, "
+			+", "
+			+DBConstants.CLAN_TOWERS__ATTACK_START_TIME
+			+"=NULL, "
+			+DBConstants.CLAN_TOWERS__ATTACKER_BATTLE_WINS
+			+"=0, "
+			+DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID
+			+"=NULL, "
+			+DBConstants.CLAN_TOWERS__LAST_REWARD_GIVEN
+			+"=NULL, "
+			+DBConstants.CLAN_TOWERS__OWNED_START_TIME
+			+"="
+			+new Timestamp(System.currentTimeMillis())
+			+", "
+			+DBConstants.CLAN_TOWERS__OWNER_BATTLE_WINS
+			+"=0 " +
+			"WHERE "
+			+DBConstants.CLAN_TOWERS__TOWER_ID
+			+"="
+			+tower.getId()						
+			);
+	}
+	
+	
+
+	protected void updateTowerHistory(ClanTower tower) {
+		jdbcTemplate.execute("insert into "+DBConstants.TABLE_CLAN_TOWERS_HISTORY
+				+" ("
+				+DBConstants.CLAN_TOWERS_HISTORY__OWNER_CLAN_ID+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_CLAN_ID+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__TOWER_ID+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__ATTACK_START_TIME
+				+DBConstants.CLAN_TOWERS_HISTORY__WINNER_ID+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__OWNER_BATTLE_WINS+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_BATTLE_WINS
+				+") VALUES ("
+				+tower.getClanOwnerId()+", "
+				+tower.getClanAttackerId()+","
+				+tower.getId()+", "
+				+tower.getAttackStartTime()+", "
+				+(tower.getAttackerBattleWins() > tower.getOwnerBattleWins() ? tower.getClanAttackerId() : tower.getClanOwnerId())+","
+				+tower.getOwnerBattleWins()+", "
+				+tower.getAttackerBattleWins()+")"
+		);
+	}
+	
+	
+	
 	@Scheduled(fixedRate=300000)
 	public void distributeClanTowerRewards() {
 		ILock towerRewardsLock = hazel.getLock("ClanTowersRewardsScheduledTask");
