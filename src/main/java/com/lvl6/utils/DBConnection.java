@@ -607,7 +607,8 @@ public class DBConnection {
 	  	
 	  	String query = "REPLACE INTO " + tableName 
 	  		+ "(" + StringUtils.getListInString(columns, ",") + ")"
-	  		+ " VALUE " + "( " + StringUtils.getListInString(questions, ",");
+	  		+ " VALUE " + "( " + StringUtils.getListInString(questions, ",") 
+	  		+ ")";
 	  	
 	  	Connection conn = null;
 	  	PreparedStatement stmt = null;
