@@ -770,26 +770,32 @@ public class UpdateUtils implements UpdateUtil {
    * This function serves two purposes, modifying the owner part or the attacker part of
    * the table named clan_towers, since both parts are basically the same except in name.
    */
-  public boolean updateClanTowerOwnerOrAttackerId(int clanTowerId, int playerId, Timestamp startTime,
-		  boolean isOwner) {
+  public boolean updateClanTowerOwnerAndOrAttacker(int clanTowerId, 
+		  int ownerId, Date ownedStartTime, int ownerBattleWins,
+		  int attackerId, Date attackStartTime, int attackerBattleWins,
+		  Date lastRewardGiven) {
 	  String tablename = DBConstants.TABLE_CLAN_TOWERS;
-	  String ownerOrAttacker = "";
-	  String ownedOrAttackedStartTime = ""; 
-	  if(isOwner) {
-		  ownerOrAttacker = DBConstants.CLAN_TOWERS__CLAN_OWNER_ID;
-		  ownedOrAttackedStartTime = DBConstants.CLAN_TOWERS__OWNED_START_TIME;
-	  }
-	  else {
-		  ownerOrAttacker = DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID;
-		  ownedOrAttackedStartTime = DBConstants.CLAN_TOWERS__ATTACK_START_TIME;
-	  }
+	  String owner = DBConstants.CLAN_TOWERS__CLAN_OWNER_ID;
+	  String ownedTime = DBConstants.CLAN_TOWERS__OWNED_START_TIME;
+	  String ownerWins = DBConstants.CLAN_TOWERS__OWNER_BATTLE_WINS;
 	  
+	  String attacker = DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID;
+	  String attackTime = DBConstants.CLAN_TOWERS__ATTACK_START_TIME;
+	  String attackerWins = DBConstants.CLAN_TOWERS__ATTACKER_BATTLE_WINS;
+	  
+	  String lastRewardTime = DBConstants.CLAN_TOWERS__LAST_REWARD_GIVEN;
+
 	  //the fields to change
 	  Map<String, Object> absoluteParams = new HashMap<String,Object>();
-	  absoluteParams.put(ownerOrAttacker, playerId);
-	  absoluteParams.put(ownedOrAttackedStartTime, startTime);
-	  absoluteParams.put(DBConstants.CLAN_TOWERS__OWNER_BATTLE_WINS, 0);
-	  absoluteParams.put(DBConstants.CLAN_TOWERS__ATTACKER_BATTLE_WINS, 0);
+	  absoluteParams.put(owner, ownerId);
+	  absoluteParams.put(ownedTime, ownedStartTime);
+	  absoluteParams.put(ownerWins, ownerBattleWins);
+	  
+	  absoluteParams.put(attacker, attackerId);
+	  absoluteParams.put(attackTime, attackStartTime);
+	  absoluteParams.put(attackerWins, attackerBattleWins);
+	  
+	  absoluteParams.put(lastRewardTime, lastRewardGiven);
 
 	  //the tower being modified
 	  Map<String, Object> conditionParams = new HashMap<String, Object>();
@@ -840,10 +846,74 @@ public class UpdateUtils implements UpdateUtil {
 	  
 	  //a clan can own multiple towers with another clan being the same attacker for all of them
 	  if (0 == numUpdated) {
-		  return false; //there should be an owner and an attacker with the specified ids 
+		  return false; //there should be a tower with an owner and an attacker with the specified ids 
 	  }
 	  else {
 		  return true;
 	  }
+  }
+  
+  public void resetClanTowerOwnerOrAttacker(int clanTowerOwnerOrAttackerId, boolean resetOwner) {
+	  String tableName = DBConstants.TABLE_CLAN_TOWERS;
+
+	  List<Object> values = new ArrayList<Object>();
+	  String ownerOrAttacker = "";
+	  String ownedStartTime = "";
+	  String ownerBattleWins = "";
+	  String attackStartTime = "";
+	  String attackerBattleWins = "";
+	  String lastRewardTime = "";
+	  String whereClause = "";
+	  if(resetOwner) {
+		  //if the clan_towers.clanOwnerId = (clan id of clan who lost a member) 
+		  //set the clanOwnerId to the clanAttackerId, regardless of whether it is set
+		  ownerOrAttacker = DBConstants.CLAN_TOWERS__CLAN_OWNER_ID + "=" +
+				  DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + ",";
+		  
+		  //changed ownership, reset time and battle wins
+		  ownedStartTime = " " + DBConstants.CLAN_TOWERS__OWNED_START_TIME + "=?,";
+		  //if there is no attacker to take ownership this should be null, but doesn't harm anything
+		  values.add(new Timestamp(new Date().getTime()));
+		  ownerBattleWins = " " + DBConstants.CLAN_TOWERS__OWNER_BATTLE_WINS + "=?,";
+		  values.add(0);
+
+		  attackStartTime = " " + DBConstants.CLAN_TOWERS__ATTACK_START_TIME + "=?,";
+		  values.add(null);
+		  attackerBattleWins = " " + DBConstants.CLAN_TOWERS__ATTACKER_BATTLE_WINS + "=?,";
+		  values.add(0);
+		  
+		  //reset last reward given
+		  lastRewardTime = " " + DBConstants.CLAN_TOWERS__LAST_REWARD_GIVEN + "=?";
+		  values.add(null);
+		  
+		  whereClause = " where " + DBConstants.CLAN_TOWERS__CLAN_OWNER_ID + "=?";
+		  values.add(clanTowerOwnerOrAttackerId);
+	  }
+	  else {
+		  ownerOrAttacker = DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + "=?,";
+		  values.add(null);
+		  
+		  //no attacker means reset battle wins
+		  ownerBattleWins = " " + DBConstants.CLAN_TOWERS__OWNER_BATTLE_WINS + "=?,";
+		  values.add(0);
+		  attackerBattleWins = " " + DBConstants.CLAN_TOWERS__ATTACKER_BATTLE_WINS + "=?,";
+		  values.add(0);
+		  
+		  attackStartTime = " " + DBConstants.CLAN_TOWERS__ATTACK_START_TIME + "=?";
+		  values.add(null);
+		  
+		  whereClause = " where " + DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + "=?";
+		  values.add(clanTowerOwnerOrAttackerId);
+	  }
+	  String query = "update " + DBConstants.TABLE_CLAN_TOWERS + " set "  
+			    + ownerOrAttacker
+		        + ownedStartTime + ownerBattleWins
+		        + attackStartTime + attackerBattleWins
+		        + lastRewardTime
+		        + whereClause ;
+	  
+	  int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
+	  //don't really care about the updates, because the desired rows affected
+	  //could be 0 or more. All that matters is that it happens.
   }
 }

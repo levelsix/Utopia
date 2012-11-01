@@ -177,9 +177,12 @@ public interface UpdateUtil {
   
   public abstract boolean decrementLockBoxItemsForUser(Map<Integer, Integer> itemIdsToQuantity, int userId, int decrement);
   
-  public boolean decrementNumLockBoxesIncrementNumTimesCompletedForUser(int eventId, int userId, int decrement, boolean completed, Timestamp curTime);
+  public abstract boolean decrementNumLockBoxesIncrementNumTimesCompletedForUser(int eventId, int userId, int decrement, boolean completed, Timestamp curTime);
 
-  public boolean updateClanTowerOwnerOrAttackerId(int clanTowerId, int playerId, Timestamp startTime, boolean isOwner);
+  public abstract boolean updateClanTowerOwnerAndOrAttacker(int clanTowerId, int ownerId, Date ownedStartTime, int ownerBattleWins, 
+		  int attackerId, Date attackStartTime, int attackerBattleWins, Date lastRewardGiven);
   
-  public boolean updateClanTowerBattleWins(int clanTowerId, int ownerId, int attackerId, boolean ownerWon, int amountToIncrementBattleWinsBy);
+  public abstract boolean updateClanTowerBattleWins(int clanTowerId, int ownerId, int attackerId, boolean ownerWon, int amountToIncrementBattleWinsBy);
+  
+  public abstract void resetClanTowerOwnerOrAttacker(int clanTowerOwnerOrAttackerId, boolean resetOwner);
 }

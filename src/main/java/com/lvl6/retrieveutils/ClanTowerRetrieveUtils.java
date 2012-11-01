@@ -38,22 +38,41 @@ public class ClanTowerRetrieveUtils {
     return clanTowers;
   }
   
-  public static List<ClanTower> getAllClanTowersWithSpecificOwnerAndAttackerId(
-		  int ownerId, int attackerId){
+  /*
+   * Gets all the towers with:
+   * 1) the specified owner and attacker id
+   * 2) the specified owner id
+   * 3) the specified attacker id
+   * 4) the specified owner id, and also include the towers with the specified
+   * attacker id
+   */
+  public static List<ClanTower> getAllClanTowersWithSpecificOwnerAndOrAttackerId(
+		  Integer ownerId, Integer attackerId, boolean ownerAndAttackerAreEnemies){
 	  Connection conn = DBConnection.get().getConnection();
 	  String tableName = DBConstants.TABLE_CLAN_TOWERS;
 	  
-	  //filter table by the columns: clan_owner_id=ownerId, clan_attacker_id=attackerId
 	  Map<String, Object> absoluteConditionParams = 
 			  new HashMap<String,Object>();
-	  absoluteConditionParams.put(
-			  DBConstants.CLAN_TOWERS__CLAN_OWNER_ID, ownerId);
-	  absoluteConditionParams.put(
-			  DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID, attackerId);
+	  
+	  if (null != ownerId) {
+		  absoluteConditionParams.put(
+				  DBConstants.CLAN_TOWERS__CLAN_OWNER_ID, ownerId);
+	  }
+	  if (null != attackerId) {
+		  absoluteConditionParams.put(
+				  DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID, attackerId);
+	  }	  
 	  
 	  //convert return values to objects
-	  ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(
-			  conn, absoluteConditionParams, tableName);
+	  ResultSet rs = null;
+	  if (ownerAndAttackerAreEnemies) {
+		  rs = DBConnection.get().selectRowsAbsoluteAnd(
+				  conn, absoluteConditionParams, tableName);
+	  }
+	  else {
+		  rs = DBConnection.get().selectRowsAbsoluteOr(
+				  conn, absoluteConditionParams, tableName);
+	  }
 	  List<ClanTower> clanTowers = convertRSToClanTowersList(rs);
 	  DBConnection.get().close(rs, null, conn);
 	  

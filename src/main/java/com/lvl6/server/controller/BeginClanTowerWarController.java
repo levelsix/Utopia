@@ -58,12 +58,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     BeginClanTowerWarResponseProto.Builder resBuilder = BeginClanTowerWarResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
     
-    Clan clan = ClanRetrieveUtils.getClanWithId(senderProto.getClan().getClanId());
-    ClanTower aTower = ClanTowerRetrieveUtils.getClanTower(towerId);
-    
     server.lockPlayer(senderProto.getUserId());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      
+      Clan clan = ClanRetrieveUtils.getClanWithId(senderProto.getClan().getClanId());
+      ClanTower aTower = ClanTowerRetrieveUtils.getClanTower(towerId);
 
       boolean legit = checkLegitBeginClanTowerWarRequest(resBuilder, user, clan, aTower, curTime);
       
@@ -73,8 +73,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
 
       if (legit) {
-    	boolean isOwner = isUserOwnerOfTower(user, aTower);
-        writeChangesToDB(aTower, user, curTime, isOwner);
+    	writeChangesToDB(aTower, clan, curTime);
       }
     } catch (Exception e) {
       log.error("exception in BeginClanTowerWarController processEvent", e);
@@ -82,12 +81,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.unlockPlayer(senderProto.getUserId());      
     }
   }
-  
-  private boolean isUserOwnerOfTower(User aUser, ClanTower aClanTower) {
-	  return aUser.getId() == aClanTower.getClanOwnerId();
-  }
 
   //aTower can be modified to store some new data, as in an owner, or attacker id
+  //to be used as a second return value
   private boolean checkLegitBeginClanTowerWarRequest(Builder resBuilder, 
 		  User user, Clan clan, ClanTower aTower, Timestamp curTime) {
     if (user == null) {
@@ -131,21 +127,33 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     
     //check if the clan tower has an owner
     if (ControllerConstants.NOT_SET == aTower.getClanOwnerId()) {
-    	///no owner for tower
+    	///no owner for tower, set owner and set empty attacker
     	//TODO: FIGURE OUT WHAT TO RETURN WHEN SETTING THE OWNER OF A TOWER
     	//logic here now will suffice
     	resBuilder.setStatus(BeginClanTowerWarStatus.SUCCESS);
-    	aTower.setClanOwnerId(user.getId()); //set the owner id to use when writing to db
+    	
+    	aTower.setClanOwnerId(clanId); //set the owner id to use when writing to db
+    	aTower.setOwnedStartTime(curTime);
+    	aTower.setOwnerBattleWins(0);
+    	
+    	aTower.setClanAttackerId(ControllerConstants.NOT_SET);
+    	aTower.setAttackStartTime(null);
+    	aTower.setAttackerBattleWins(0);
+    	
+    	aTower.setLastRewardGiven(null);
     	return true;
     }
     
     //check if there already is a clan attacking the tower
     if (ControllerConstants.NOT_SET == aTower.getClanAttackerId()) {
-    	//no clan attacking tower
-    	//TODO: FIGURE OUT WHAT TO RETURN WHEN SETTING THE OWNER OF A TOWER
+    	//no clan attacking tower, set only the attacker
+    	//TODO: FIGURE OUT WHAT TO RETURN WHEN SETTING THE ATTACKER OF A TOWER
     	//logic here now will suffice
     	resBuilder.setStatus(BeginClanTowerWarStatus.SUCCESS);
-    	aTower.setClanAttackerId(user.getId());
+    	
+    	aTower.setClanAttackerId(clanId);
+    	aTower.setAttackStartTime(curTime);
+    	aTower.setAttackerBattleWins(0);
     	return true;
     }
     
@@ -154,16 +162,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return false;
   }
 
-  private void writeChangesToDB(ClanTower aClanTower, User aUser, Timestamp curTime, boolean isOwner) {
-//    int goldCost = reset ? ControllerConstants.GOLDMINE__GOLD_COST_TO_RESTART : 0;
-//    Timestamp newStamp = reset ? null : curTime;
-//    if (!user.updateLastGoldmineRetrieval(-goldCost, newStamp)) {
-//      log.error("problem with adding diamonds for goldmine, adding " + ControllerConstants.GOLDMINE__GOLD_AMOUNT_FROM_PICK_UP);
-//    }
-	  if (!UpdateUtils.get().updateClanTowerOwnerOrAttackerId(aClanTower.getId(), aUser.getId(), curTime, isOwner)) {
+  private void writeChangesToDB(ClanTower aClanTower, Clan aClan, Timestamp curTime) {
+	  if (!UpdateUtils.get().updateClanTowerOwnerAndOrAttacker(
+			  aClanTower.getId(), 
+			  aClanTower.getClanOwnerId(), aClanTower.getOwnedStartTime(), aClanTower.getOwnerBattleWins(),
+			  aClanTower.getClanAttackerId(), aClanTower.getAttackStartTime(), aClanTower.getAttackerBattleWins(),
+			  aClanTower.getLastRewardGiven())) {
 		  log.error("problem with updating a clan tower during a BeginClanTowerWarRequest." +
 				  " clan tower=" + aClanTower +
-				  " user=" + aUser +
+				  " clan=" + aClan +
 				  " time of request=" + curTime);
 	  }
   }

@@ -349,15 +349,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
   
   //if incrementOwnerBattleWins is true then the the owner's battle wins is incremented
-  //else the attacker's battle wins is incremented
+  //else the attacker's battle wins is incremented, does nothing if list of towers is null/empty
   private void incrementBattleWins(List<ClanTower> towers, boolean incrementOwnerBattleWins) {
+	  String ownerOrAttacker = incrementOwnerBattleWins ? "owner" : "attacker";
 	  for(ClanTower aTower : towers) {
     	  if(!UpdateUtils.get().updateClanTowerBattleWins(
     			  aTower.getId(), aTower.getClanOwnerId(), aTower.getClanAttackerId(),
     			  incrementOwnerBattleWins, 1)) {
     		  log.error("(no rows updated) problem with updating tower's battle wins. " +
-    			  "tower=" + aTower + "It is " + incrementOwnerBattleWins + " that the " +
-    				  "owner's battle wins were incremented.");
+    			  "tower=" + aTower + "The " + ownerOrAttacker + "'s " +
+    			  "battle wins were not incremented.");
     	  }
       }
   }
@@ -368,14 +369,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     boolean simulateStaminaRefill = (attacker.getStamina() == attacker.getStaminaMax());
     
     //clan towers feature variables
-    int attackerId = attacker.getId();
-    int defenderId = defender.getId();
+    int attackerId = attacker.getClanId();
+    int defenderId = defender.getClanId();
+    boolean ownerAndAttackerAreEnemies = true;
     //attacker is owner of tower
-    List<ClanTower> attackerIsClanTowerOwner = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndAttackerId(
-    		attackerId, defenderId);    
+    List<ClanTower> attackerIsClanTowerOwner = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
+    		attackerId, defenderId, ownerAndAttackerAreEnemies);    
     //defender is owner of tower
-    List<ClanTower> defenderIsClanTowerOwner = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndAttackerId(
-    		defenderId, attackerId);
+    List<ClanTower> defenderIsClanTowerOwner = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
+    		defenderId, attackerId, ownerAndAttackerAreEnemies);
 
     if (winner == attacker) {
       if (!attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,

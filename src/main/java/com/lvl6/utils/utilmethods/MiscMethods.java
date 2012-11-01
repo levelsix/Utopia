@@ -16,6 +16,7 @@ import org.apache.log4j.MDC;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.City;
+import com.lvl6.info.Clan;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Location;
@@ -69,6 +70,7 @@ import com.lvl6.server.GameServer;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.RetrieveUtils;
 
 public class MiscMethods {
 
@@ -611,5 +613,21 @@ public class MiscMethods {
     } 
 
     return retEquipId;
+  }
+  
+  public static void updateClanTowers(Clan aClan) {
+	  int clanId = aClan.getId();
+	  int clanSize = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId).size();
+	  int minSize = ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER;
+	  
+	  if (clanSize < minSize) {
+		  //since member left,
+		  //need to see if clan loses the towers they own, making the attacker the new owner,
+		  //or make the tower unowned; and making the towers they are attacking, not have an attacker
+		  UpdateUtils.get().resetClanTowerOwnerOrAttacker(clanId, true); //reset the towers where this clan is the owner
+		  UpdateUtils.get().resetClanTowerOwnerOrAttacker(clanId, false);//reset the towers where this clan is the attacker
+		  //TODO: figure out a way to tell if something happened, or if it happened correctly
+	  }
+	  
   }
 }
