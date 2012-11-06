@@ -628,7 +628,7 @@ public class MiscMethods {
 	  boolean longLicenseValid = false;
 	  boolean shortLicenseValid = false;
 	  
-	  int daysToMilliseconds = 24 * 60 * 60 * 1000;
+	  double daysToMilliseconds = 24 * 60 * 60 * 1000;
 
 	  double startTime = timeActionBegan.getTime();
 	  

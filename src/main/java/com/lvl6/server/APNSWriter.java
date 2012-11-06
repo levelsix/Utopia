@@ -185,7 +185,7 @@ public class APNSWriter extends Wrap {
         }
         service = builder.build();
         service.start();
-      }else {
+      } else {
         log.error("Apns Certificate not found");
       }
     } catch (InvalidSSLConfig e) {
