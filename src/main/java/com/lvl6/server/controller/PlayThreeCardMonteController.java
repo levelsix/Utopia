@@ -59,8 +59,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
       boolean legitPlay = checkLegitPlay(resBuilder, user, card);
 
-      int diamondsGained = card.getDiamondsGained();
-      int coinsGained = card.getCoinsGained();
+      int diamondsGained = card.getDiamondsGained() != ControllerConstants.NOT_SET ? card.getDiamondsGained() : 0;
+      int coinsGained = card.getCoinsGained() != ControllerConstants.NOT_SET ? card.getCoinsGained() : 0;
       int equipId = card.getEquipIdForUserType(senderProto.getUserType());
       int equipLevel = card.getEquipLevelForUserType(senderProto.getUserType());
       

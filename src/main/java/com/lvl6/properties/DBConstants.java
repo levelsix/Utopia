@@ -57,6 +57,7 @@ public class DBConstants {
   public static final String TABLE_GOLD_SALES = "gold_sales";
   public static final String TABLE_CLAN_TOWERS = "clan_towers";
   public static final String TABLE_CLAN_TOWERS_HISTORY = "clan_towers_history";
+  public static final String TABLE_CLAN_TIER_LEVELS = "clan_tier_levels";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -114,6 +115,8 @@ public class DBConstants {
   public static final String USER__NUM_GROUP_CHATS_REMAINING = "num_group_chats_remaining";
   public static final String USER__CLAN_ID = "clan_id";
   public static final String USER__LAST_GOLDMINE_RETRIEVAL = "last_goldmine_retrieval";
+  public static final String USER__LAST_MARKETPLACE_NOTIFICATION_TIME = "last_marketplace_notification_time";
+  public static final String USER__LAST_WALL_POST_NOTIFICATION_TIME = "last_wall_post_notification_time";
   
   /*USER EQUIP TABLE*/
   public static final String USER_EQUIP__ID = GENERIC__ID;
@@ -166,6 +169,7 @@ public class DBConstants {
   public static final String MARKETPLACE_TRANSACTION_HISTORY__DIAMOND_COST = "diamond_cost";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__COIN_COST = "coin_cost";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__EQUIP_LEVEL = "equip_level";
+  public static final String MARKETPLACE_TRANSACTION_HISTORY__SELLER_HAS_LICENSE = "seller_has_license";
   
   /*BLACKSMITH TABLE*/
   public static final String BLACKSMITH__ID = GENERIC__ID;
@@ -316,7 +320,13 @@ public class DBConstants {
   public static final String CLANS__DESCRIPTION = "description";
   public static final String CLANS__TAG = "tag";
   public static final String CLANS__IS_GOOD = "is_good";
+  public static final String CLANS__CURRENT_TIER_LEVEL = "current_tier_level";
 
+  /*CLAN TIER LEVELS*/
+  public static final String CLAN_TIER_LEVELS__TIER_LEVEL = "tier_level";
+  public static final String CLAN_TIER_LEVELS__MAX_CLAN_SIZE = "max_clan_size";
+  public static final String CLAN_TIER_LEVELS__GOLD_COST_TO_UPGRADE_TO_NEXT_TIER_LEVEL = "gold_cost_to_upgrade_to_next_tier_level";
+  
   /*USER CLANS*/
   public static final String USER_CLANS__USER_ID = "user_id";
   public static final String USER_CLANS__CLAN_ID = "clan_id";
@@ -339,6 +349,8 @@ public class DBConstants {
   public static final String USER_BOSSES__USER_ID = "user_id";
   public static final String USER_BOSSES__BOSS_ID = "boss_id";
   public static final String USER_BOSSES__START_TIME = "start_time";
+  public static final String USER_BOSSES__CUR_HEALTH = "cur_health";
+  public static final String USER_BOSSES__NUM_TIMES_KILLED = "num_times_killed";
 
   /*USER LOCK BOX EVENTS*/
   public static final String USER_LOCK_BOX_EVENTS__EVENT_ID = "lock_box_event_id";

@@ -766,4 +766,45 @@ public class UpdateUtils implements UpdateUtil {
     return true;
   }
 
+  //updating user_boss table
+  public boolean decrementUserBossHealthAndMaybeIncrementNumTimesKilled(int userId, int bossId, Date startTime, 
+    int currentHealth, int numTimesKilled) { 
+	  String tableName = DBConstants.TABLE_USER_BOSSES;
+	  Map<String, Object> columnsAndValues = new HashMap<String, Object>();
+	  
+	  columnsAndValues.put(DBConstants.USER_BOSSES__USER_ID, userId);
+	  columnsAndValues.put(DBConstants.USER_BOSSES__BOSS_ID, bossId);
+	  columnsAndValues.put(DBConstants.USER_BOSSES__START_TIME, new Timestamp(startTime.getTime()));
+	  columnsAndValues.put(DBConstants.USER_BOSSES__CUR_HEALTH, currentHealth);
+	  columnsAndValues.put(DBConstants.USER_BOSSES__NUM_TIMES_KILLED, numTimesKilled);
+	  
+	  int numUpdated = DBConnection.get().replace(tableName, columnsAndValues);
+	  //1 means one row inserted, 2 means one row deleted and one row inserted 
+	  if (1 == numUpdated || 2 == numUpdated) {
+		  return true; //successful update
+	  }
+	  return false; //something unexpected happened
+  }
+  
+  //incrementing the current tier level column in clans table
+  public boolean incrementCurrentTierLevelForClan(int clanId) {
+	  String tableName = DBConstants.TABLE_CLANS;
+	  
+	  Map<String, Object> relativeParams = new HashMap<String, Object>();
+	  //the level should increment by one only
+	  relativeParams.put(DBConstants.CLANS__CURRENT_TIER_LEVEL, 1);
+	  
+	  Map<String, Object> conditionParams = new HashMap<String, Object>();
+	  conditionParams.put(DBConstants.CLANS__ID, clanId);
+	  
+	  Map<String, Object> absoluteParams = null;
+	  String condDelim = "";
+	  
+	  int numUpdated = DBConnection.get().updateTableRows(tableName, relativeParams, absoluteParams, conditionParams, condDelim);
+	  if(1 == numUpdated) {
+		  return true;
+	  }
+	  return false;
+  }
+  
 }

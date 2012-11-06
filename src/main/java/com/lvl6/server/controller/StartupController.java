@@ -59,7 +59,6 @@ import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.GroupChatMessageProto;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
-import com.lvl6.proto.InfoProto.MarketplaceSearchEquipProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
@@ -146,6 +145,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     resBuilder.setUpdateStatus(updateStatus);
     resBuilder.setAppStoreURL(Globals.APP_STORE_URL);
     resBuilder.setReviewPageURL(Globals.REVIEW_PAGE_URL);
+    resBuilder.setReviewPageConfirmationMessage(Globals.REVIEW_PAGE_CONFIRMATION_MESSAGE);
 
     User user = null;
 
@@ -181,6 +181,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           setMarketplaceSearchEquips(resBuilder);
           setChatMessages(resBuilder, user);
           setGoldSales(resBuilder);
+          resBuilder.addAllClanTierLevels(MiscMethods.getAllClanTierLevelProtos());
 
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
@@ -252,7 +253,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       StartupResponseProto.Builder resBuilder) {
     Collection<Equipment> equips = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().values();
     for (Equipment equip : equips) {
-      resBuilder.addMktSearchEquips(MarketplaceSearchEquipProto.newBuilder().setEquipId(equip.getId()).setName(equip.getName()).build());
+      resBuilder.addMktSearchEquips(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equip));
     }
   }
 

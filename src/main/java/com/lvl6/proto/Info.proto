@@ -42,13 +42,6 @@ message GroupChatMessageProto {
 
 //-------------------------------------------------------------------------------------
 
-message MarketplaceSearchEquipProto {
-	optional int32 equipId = 1;
-	optional string name = 2;
-}
-
-//-------------------------------------------------------------------------------------
-
 message LockBoxEventProto {
 	optional int32 lockBoxEventId = 1;
 	optional int64 startDate = 2;
@@ -133,6 +126,11 @@ message ClanBulletinPostProto {
 	optional string content = 4;
 }
 
+message ClanTierLevelProto {
+	optional int32 tierLevel = 1;
+	optional int32 maxSize = 2;
+	optional int32 upgradeCost = 3;
+}
 
 //------------------------------------------------------------------------------------------
 
@@ -192,6 +190,7 @@ message FullClanProto {
 	optional string description = 5;
 	optional string tag = 6;
 	optional bool isGood = 7;
+	optional int32 currentTierLevel = 8;
 }
 
 message MinimumClanProto {
@@ -202,6 +201,7 @@ message MinimumClanProto {
 	optional string description = 5;
 	optional string tag = 6;
 	optional bool isGood = 7;
+	optional int32 currentTierLevel = 8;
 }
 
 //------------------------------------------------------------------------------------------

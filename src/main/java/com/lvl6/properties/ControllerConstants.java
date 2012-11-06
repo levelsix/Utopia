@@ -180,6 +180,8 @@ public class ControllerConstants {
   
   //POST TO MARKETPLACE
   public static final int POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER = 50;  
+  public static final int POST_TO_MARKETPLACE__MAX_MILLISECOND_DELAY_ADDED_TO_POST_TIME = 1800000;//30*60*1000; //30 minutes
+  public static final int POST_TO_MARKETPLACE__MIN_MILLISECOND_DELAY_ADDED_TO_POST_TIME =  600000;//10*60*1000; //10 minutes
   
   //PURCHASE FROM MARKETPLACE
   public static final double PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN = .30;
@@ -206,6 +208,7 @@ public class ControllerConstants {
   
   //RETRACT MARKETPLACE POST
   public static final double RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN = .1;
+  public static final int RETRACT_MARKETPLACE_POST__MIN_NUM_DAYS_UNTIL_FREE_TO_RETRACT_ITEM = 7;
   
   //USE SKILL POINT
   public static final int USE_SKILL_POINT__MAX_STAT_GAIN = 1;
@@ -236,10 +239,10 @@ public class ControllerConstants {
   public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY = 3;
 
   //PURCHASE MARKETPLACE LICENSE
-  public static final int PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_LONG_LICENSE = 30;
-  public static final int PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_SHORT_LICENSE = 3;
+  public static final int PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_LONG_LICENSE = 15;
+  public static final int PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_SHORT_LICENSE = 15;
   public static final int PURCHASE_MARKETPLACE_LICENSE__LONG_DIAMOND_COST = 40;
-  public static final int PURCHASE_MARKETPLACE_LICENSE__SHORT_DIAMOND_COST = 5;
+  public static final int PURCHASE_MARKETPLACE_LICENSE__SHORT_DIAMOND_COST = 40;
 
   //USER CREATE 
   public static final int USER_CREATE__START_LEVEL = 2;
@@ -305,6 +308,7 @@ public class ControllerConstants {
   public static final int CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_DESCRIPTION = 350;
   public static final int CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_TAG = 5;
   public static final int RETRIEVE_CLANS__NUM_CLANS_CAP = 50;
+  public static final int CREATE_CLAN__INITIAL_CLAN_LEVEL = 1;
   
   //THREE CARD MONTE
   public static final int THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY = 60;
@@ -374,12 +378,12 @@ public class ControllerConstants {
   public static final float CHANCE_TO_GET_KIIP_ON_BATTLE_WIN = 1.f;
   public static final float CHANCE_TO_GET_KIIP_ON_QUEST_REDEEM = 1.f;
 
-  public static final String NIB_NAME__THREE_CARD_MONTE = "ThreeCardMonte";
-  public static final String NIB_NAME__LOCK_BOX = "LockBox";
-  public static final String NIB_NAME__TRAVELING_MAP = "TravelingMap";
-  public static final String NIB_NAME__GOLD_MINE = "GoldMine";
-  public static final String NIB_NAME__EXPANSION = "Expansion";
-  public static final String NIB_NAME__LEADERBOARD = "Leaderboard";
+  public static final String NIB_NAME__THREE_CARD_MONTE = "ThreeCardMonte.2";
+  public static final String NIB_NAME__LOCK_BOX = "LockBox.2";
+  public static final String NIB_NAME__TRAVELING_MAP = "TravelingMap.2";
+  public static final String NIB_NAME__GOLD_MINE = "GoldMine.2";
+  public static final String NIB_NAME__EXPANSION = "Expansion.2";
+  public static final String NIB_NAME__MARKET_FILTERS = "MarketplaceFilters.2";
   
   public static final int IDDICTION__EQUIP_ID = 282;
   public static final String IDDICTION__NOTICE = "FREE limited edition gold equip for joining today!";

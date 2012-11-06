@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -13,12 +15,13 @@ import com.lvl6.info.User;
 import com.lvl6.info.UserClan;
 import com.lvl6.proto.EventProto.ApproveOrRejectRequestToJoinClanRequestProto;
 import com.lvl6.proto.EventProto.ApproveOrRejectRequestToJoinClanResponseProto;
-import com.lvl6.proto.EventProto.ApproveOrRejectRequestToJoinClanResponseProto.Builder;
 import com.lvl6.proto.EventProto.ApproveOrRejectRequestToJoinClanResponseProto.ApproveOrRejectRequestToJoinClanStatus;
+import com.lvl6.proto.EventProto.ApproveOrRejectRequestToJoinClanResponseProto.Builder;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.ClanTierLevelRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
@@ -62,6 +65,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       User requester = RetrieveUtils.userRetrieveUtils().getUserById(requesterId);
 
       boolean legitDecision = checkLegitDecision(resBuilder, user, requester);
+      
+      if (legitDecision) {
+        Clan clan = ClanRetrieveUtils.getClanWithId(user.getClanId());
+        resBuilder.setMinClan(CreateInfoProtoUtils.createMinimumClanProtoFromClan(clan));
+        resBuilder.setFullClan(CreateInfoProtoUtils.createFullClanProtoWithClanSize(clan));
+      }
 
       ApproveOrRejectRequestToJoinClanResponseEvent resEvent = new ApproveOrRejectRequestToJoinClanResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
@@ -72,7 +81,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
         // Send message to the new guy
         ApproveOrRejectRequestToJoinClanResponseEvent resEvent2 = new ApproveOrRejectRequestToJoinClanResponseEvent(requesterId);
-        resBuilder.setMinClan(CreateInfoProtoUtils.createMinimumClanProtoFromClan(ClanRetrieveUtils.getClanWithId(user.getClanId())));
         resEvent2.setApproveOrRejectRequestToJoinClanResponseProto(resBuilder.build());
         server.writeEvent(resEvent2);
 
@@ -122,6 +130,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (uc == null || uc.getStatus() != UserClanStatus.REQUESTING) {
       resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.NOT_A_REQUESTER);
       log.error("requester has not requested for clan with id " + user.getClanId());
+      return false;
+    }
+    List<UserClan> ucs = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clan.getId());
+    int maxSize = ClanTierLevelRetrieveUtils.getClanTierLevel(clan.getCurrentTierLevel()).getMaxClanSize();
+    if (ucs.size() >= maxSize) {
+      resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.OTHER_FAIL);
+      log.error("trying to upgrade full clan with id " + user.getClanId());
       return false;      
     }
     resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.SUCCESS);

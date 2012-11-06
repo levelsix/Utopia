@@ -16,6 +16,7 @@ import org.apache.log4j.MDC;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.City;
+import com.lvl6.info.ClanTierLevel;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Location;
@@ -42,6 +43,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewar
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.LockBoxConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ThreeCardMonteConstants;
 import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
+import com.lvl6.proto.InfoProto.ClanTierLevelProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.proto.InfoProto.EquipClassType;
@@ -51,6 +53,7 @@ import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.ClanTierLevelRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.GoldSaleRetrieveUtils;
@@ -314,6 +317,7 @@ public class MiscMethods {
         .setNumDaysShortMarketplaceLicenseLastsFor(ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_SHORT_LICENSE)
         .setDiamondCostOfLongMarketplaceLicense(ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__LONG_DIAMOND_COST)
         .setDiamondCostOfShortMarketplaceLicense(ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__SHORT_DIAMOND_COST)
+        .setNumDaysUntilFreeRetract(ControllerConstants.RETRACT_MARKETPLACE_POST__MIN_NUM_DAYS_UNTIL_FREE_TO_RETRACT_ITEM)
         .setMaxNumbersOfEnemiesToGenerateAtOnce(ControllerConstants.GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX)
         .setPercentReturnedToUserForSellingEquipInArmory(ControllerConstants.ARMORY__SELL_RATIO)
         .setMaxCityRank(ControllerConstants.TASK_ACTION__MAX_CITY_RANK)
@@ -482,7 +486,7 @@ public class MiscMethods {
         .setMapNibName(ControllerConstants.NIB_NAME__TRAVELING_MAP)
         .setGoldMineNibName(ControllerConstants.NIB_NAME__GOLD_MINE)
         .setExpansionNibName(ControllerConstants.NIB_NAME__EXPANSION)
-        .setLeaderboardNibName(ControllerConstants.NIB_NAME__LEADERBOARD)
+        .setFiltersNibName(ControllerConstants.NIB_NAME__MARKET_FILTERS)
         .build();
     
     cb = cb.setDownloadableNibConstants(dnc);
@@ -527,6 +531,7 @@ public class MiscMethods {
     LockBoxEventRetrieveUtils.reload();
     LockBoxItemRetrieveUtils.reload();
     GoldSaleRetrieveUtils.reload();
+    ClanTierLevelRetrieveUtils.reload();
   }
 
   public static UserType getUserTypeFromDefeatTypeJobUserType(
@@ -612,4 +617,63 @@ public class MiscMethods {
 
     return retEquipId;
   }
+  
+  /*
+   * Returns true if the user's (short or long) marketplace license is still in effect
+   */
+  public static boolean validateMarketplaceLicense(User aUser, Timestamp timeActionBegan) {
+	  Date longMarketplaceLicenseTimeOfPurchase = aUser.getLastLongLicensePurchaseTime();
+	  Date shortMarketplaceLicenseTimeOfPurchase = aUser.getLastShortLicensePurchaseTime();
+	  
+	  boolean longLicenseValid = false;
+	  boolean shortLicenseValid = false;
+	  
+	  double daysToMilliseconds = 24 * 60 * 60 * 1000;
+
+	  double startTime = timeActionBegan.getTime();
+	  
+	  //check if long license valid
+	  if (null != longMarketplaceLicenseTimeOfPurchase) {
+		  //time long license was bought
+		  double timeLicensePurchased = longMarketplaceLicenseTimeOfPurchase.getTime();
+		  double timeLongLicenseIsEffective = 
+				  ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_LONG_LICENSE *
+				  daysToMilliseconds;
+		  double timeLongLicenseEnds = timeLicensePurchased + timeLongLicenseIsEffective;
+		  
+		  if(startTime < timeLongLicenseEnds) {
+			  longLicenseValid = true;
+		  }
+	  }
+	  
+	  //check if short license valid
+	  if (null != shortMarketplaceLicenseTimeOfPurchase) {
+		  //time short license was bought
+		  double timeLicensePurchased = shortMarketplaceLicenseTimeOfPurchase.getTime();
+		  double timeShortLicenseIsEffective = 
+				  ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_SHORT_LICENSE *
+				  daysToMilliseconds;
+		  double timeShortLicenseEnds = timeLicensePurchased + timeShortLicenseIsEffective;
+		  
+		  if(startTime < timeShortLicenseEnds) {
+			  shortLicenseValid = true;
+		  }
+	  }	  
+	  
+	  if(longLicenseValid || shortLicenseValid) {
+		  return true;
+	  } else {
+		  return false;
+	  }
+  }
+  
+  public static List<ClanTierLevelProto> getAllClanTierLevelProtos() {
+    ArrayList<ClanTierLevelProto> toRet = new ArrayList<ClanTierLevelProto>();
+    Map<Integer, ClanTierLevel> l = ClanTierLevelRetrieveUtils.getAllClanTierLevels();
+    for (ClanTierLevel t : l.values()) {
+      toRet.add(CreateInfoProtoUtils.createClanTierLevelProtoFromClanTierLevel(t));
+    }
+    return toRet;
+  }
+  
 }

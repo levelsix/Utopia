@@ -10,9 +10,10 @@ public class Clan {
   private String description;
   private String tag;
   private boolean isGood;
+  private int currentTierLevel;
   
   public Clan(int id, String name, int ownerId, Date createTime,
-      String description, String tag, boolean isGood) {
+      String description, String tag, boolean isGood, int tier) {
     this.id = id;
     this.name = name;
     this.ownerId = ownerId;
@@ -20,6 +21,7 @@ public class Clan {
     this.description = description;
     this.tag = tag;
     this.isGood = isGood;
+    this.currentTierLevel = tier;
   }
 
   public int getId() {
@@ -49,12 +51,16 @@ public class Clan {
   public boolean isGood() {
     return isGood;
   }
+  
+  public int getCurrentTierLevel() {
+	  return currentTierLevel;
+  }
 
   @Override
   public String toString() {
     return "Clan [id=" + id + ", name=" + name + ", ownerId=" + ownerId
         + ", createTime=" + createTime + ", description=" + description
-        + ", tag=" + tag + ", isGood=" + isGood + "]";
+        + ", tag=" + tag + ", isGood=" + isGood + "tier=" + currentTierLevel + "]";
   }
 
 }

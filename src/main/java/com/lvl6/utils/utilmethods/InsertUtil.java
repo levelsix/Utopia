@@ -81,7 +81,7 @@ public interface InsertUtil {
       int coinCost, Timestamp timeOfPost, int equipLevel);
 
   public abstract boolean insertMarketplaceItemIntoHistory(
-      MarketplacePost mp, int buyerId);
+      MarketplacePost mp, int buyerId, boolean sellerHasLicense);
 
   public abstract boolean insertReferral(int referrerId, int referredId,
       int coinsGivenToReferrer);

@@ -21,23 +21,23 @@ import com.lvl6.utils.DBConnection;
 
 @Component @DependsOn("gameServer") public class UserBossRetrieveUtils {
 
-  private Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  private final String TABLE_NAME = DBConstants.TABLE_USER_BOSSES;
+  private static final String TABLE_NAME = DBConstants.TABLE_USER_BOSSES;
 
-  public UserBoss getSpecificUserBoss(int userId, int bossId) {
+  public static UserBoss getSpecificUserBoss(int userId, int bossId) {
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_BOSSES__BOSS_ID, bossId);
     paramsToVals.put(DBConstants.USER_BOSSES__USER_ID, userId);
 
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
-    UserBoss userClan = grabUserBossFromRS(rs);
+    UserBoss userBoss = grabUserBossFromRS(rs);
     DBConnection.get().close(rs, null, conn);
-    return userClan;
+    return userBoss;
   }
 
-  public List<UserBoss> getUserBossesForUserId(int userId) {
+  public static List<UserBoss> getUserBossesForUserId(int userId) {
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_BOSSES__USER_ID, userId);
 
@@ -48,7 +48,7 @@ import com.lvl6.utils.DBConnection;
     return userBosses;
   }
 
-  public List<UserBoss> getActiveUserBossesForUserId(int userId) {
+  public static List<UserBoss> getActiveUserBossesForUserId(int userId) {
     List<UserBoss> userBosses = getUserBossesForUserId(userId);
     List<UserBoss> toReturn = new ArrayList<UserBoss>();
     
@@ -64,7 +64,7 @@ import com.lvl6.utils.DBConnection;
     return toReturn.size() > 0 ? toReturn : null;
   }
 
-  private UserBoss grabUserBossFromRS(ResultSet rs) {
+  private static UserBoss grabUserBossFromRS(ResultSet rs) {
     if (rs != null) {
       try {
         rs.last();
@@ -81,7 +81,7 @@ import com.lvl6.utils.DBConnection;
     return null;
   }
 
-  private List<UserBoss> grabUserBossesFromRS(ResultSet rs) {
+  private static List<UserBoss> grabUserBossesFromRS(ResultSet rs) {
     if (rs != null) {
       try {
         rs.last();
@@ -103,7 +103,7 @@ import com.lvl6.utils.DBConnection;
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
-  private UserBoss convertRSRowToUserBoss(ResultSet rs) throws SQLException {
+  private static UserBoss convertRSRowToUserBoss(ResultSet rs) throws SQLException {
     int i = 1;
     int userId = rs.getInt(i++);
     int bossId = rs.getInt(i++);
