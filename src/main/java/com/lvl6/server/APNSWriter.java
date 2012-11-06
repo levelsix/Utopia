@@ -1,5 +1,6 @@
 package com.lvl6.server;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -173,7 +174,11 @@ public class APNSWriter extends Wrap {
 
   protected void buildService() throws FileNotFoundException {
     log.info("Building ApnsService");
+    log.info(new File(".").getAbsolutePath());
+    log.info(new File(apnsProperties.pathToCert).getAbsolutePath());
     InputStream stream = ClassLoader.getSystemResourceAsStream(apnsProperties.pathToCert);
+    System.out.println(ClassLoader.getSystemResource(apnsProperties.pathToCert));
+    System.out.println(stream);
     try {
       if(stream != null && stream.available() > 0) {
         ApnsServiceBuilder builder = APNS.newService().withCert(stream, apnsProperties.certPassword).asNonBlocking();
