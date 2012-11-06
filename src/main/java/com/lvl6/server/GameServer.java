@@ -1,12 +1,12 @@
 package com.lvl6.server;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Lock;
 
 import javax.annotation.Resource;
 
@@ -16,22 +16,23 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
-import com.hazelcast.core.ILock;
 import com.hazelcast.core.IMap;
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.ConnectedPlayer;
+import com.lvl6.utils.PlayerInAction;
 import com.lvl6.utils.PlayerSet;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class GameServer implements InitializingBean, HazelcastInstanceAware{
 
-	
+	private static final int LOCK_TIMEOUT = 10000;
 	public static int LOCK_WAIT_SECONDS = 5;
 	
 	// Logger
@@ -75,16 +76,15 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware{
 	
 	
 	@Resource(name="lockMap")
-	IMap<String, Object> lockMap;
+	IMap<String, Date> lockMap;
 
-	
-	
 
-	public IMap<String, Object> getLockMap() {
+
+	public IMap<String, Date> getLockMap() {
 		return lockMap;
 	}
 
-	public void setLockMap(IMap<String, Object> lockMap) {
+	public void setLockMap(IMap<String, Date> lockMap) {
 		this.lockMap = lockMap;
 	}
 
@@ -294,7 +294,76 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware{
 	}
 
 
+	
+	public boolean lockClan(int clanId) {
+		log.debug("Locking clan: "+clanId);
+		if(lockMap.tryLock(clanLockName(clanId),LOCK_WAIT_SECONDS, TimeUnit.SECONDS)) {
+			log.debug("Got lock for clan "+ clanId);
+			lockMap.put(clanLockName(clanId), new Date());
+			return true;
+		}else {
+			log.warn("failed to aquire lock for "+ clanLockName(clanId));
+			return false;
+			//throw new RuntimeException("Unable to obtain lock after "+LOCK_WAIT_SECONDS+" seconds");
+		}
+	}
+	
+	
+	public void unlockClan(int clanId) {
+		log.debug("Unlocking clan: "+clanId);
+		try {
+			String clanLockName = clanLockName(clanId);
+			if(lockMap.isLocked(clanLockName)){
+				lockMap.unlock(clanLockName);
+			}
+			log.debug("Unlocked clan "+ clanId);
+			if (lockMap.containsKey(clanLockName)) {
+				lockMap.remove(clanLockName);
+			}
+		}catch(Exception e) {
+			log.error("Error unlocking clan "+clanId, e);
+		}
+	}
+	
+	protected String clanLockName(int clanId) {
+		return "ClanLock: "+clanId;
+	}
 
+	
+	
+	
+	//TODO: refactor this into a lockmap wrapper class and make it work for any lock
+	//also consider refactoring playerLocks to use it
+	@Scheduled(fixedDelay=LOCK_TIMEOUT)
+	public void clearOldLocks(){
+		long now = new Date().getTime();
+		log.debug("Removing stale clan locks");
+		for(String key : lockMap.keySet()){
+			try {
+				if(key != null && key.contains("ClanLock")) {
+					long lockTime = lockMap.get(key).getTime(); 
+					if(now - lockTime > LOCK_TIMEOUT){
+						if(lockMap.isLocked(key)) {
+							lockMap.forceUnlock(key);
+						}
+						lockMap.remove(key);
+						log.info("Automatically removing timed out lock: "+key);
+					}
+				}else {
+				}
+			}catch(Exception e) {
+				log.error("Error removing stale lock for clan "+ key, e);
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	public boolean lockPlayer(int playerId) {
 		log.debug("Locking player: "+playerId);
 		//Lock playerLock = hazel.getLock(playersInAction.lockName(playerId));
