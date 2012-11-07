@@ -216,7 +216,8 @@ public class APNSWriter extends Wrap {
 					content += "...";
 				}
 			}
-			pb.alertBody("[" + post.getPoster().getClan().getTag() + "] " + post.getPoster().getName()
+			String clan = post.getPoster().hasClan() ? "[" + post.getPoster().getClan().getTag() + "] " : "";
+			pb.alertBody(clan + post.getPoster().getName()
 					+ " just posted on your wall: " + content);
 
 			if (!pb.isTooLong()) {
@@ -240,7 +241,8 @@ public class APNSWriter extends Wrap {
 				&& (lastMarketplaceNotificationTime == null || now.getTime()
 						- lastMarketplaceNotificationTime.getTime() > 60000 * MIN_MINUTES_BETWEEN_MARKETPLACE_NOTIFICATIONS)) {
 			PurchaseFromMarketplaceResponseProto p = event.getPurchaseFromMarketplaceResponseProto();
-			String text = "[" + p.getPurchaser().getClan().getTag() + "] " + p.getPurchaser().getName()
+            String clan = p.getPurchaser().hasClan() ? "[" + p.getPurchaser().getClan().getTag() + "] " : "";
+			String text = clan + p.getPurchaser().getName()
 					+ " has purchased your Level " + p.getMarketplacePost().getEquipLevel() + " "
 					+ p.getMarketplacePost().getPostedEquip().getName()
 					+ " in The Marketplace. Redeem your earnings!";
@@ -280,7 +282,9 @@ public class APNSWriter extends Wrap {
 				equipStolen = true;
 			}
 			MinimumUserProto att = battleResponseProto.getAttacker();
-			String attacker = (att.hasName()) ? "[" + att.getClan().getTag() + "] " + att.getName() : "";
+
+            String clan = att.hasClan() ? "[" + att.getClan().getTag() + "] " : "";
+			String attacker = (att.hasName()) ? clan + att.getName() : "";
 			BattleResult battleResult = battleResponseProto.getBattleResult();
 
 			String alertBody = null;

@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -214,7 +216,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);    
   }
 
-  private void setChatMessages(StartupResponseProto.Builder resBuilder,      User user) {
+  private void setChatMessages(StartupResponseProto.Builder resBuilder, User user) {
     if (user.getClanId() > 0) {
       List <ClanChatPost> activeClanChatPosts;
       activeClanChatPosts = ClanChatPostRetrieveUtils.getMostRecentClanChatPostsForClan(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, user.getClanId());
@@ -242,8 +244,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     while(it.hasNext()) {
       globalChats.add(it.next());
     }
+
+    Comparator<GroupChatMessageProto> c = new Comparator<GroupChatMessageProto> () {
+      @Override
+      public int compare(GroupChatMessageProto o1, GroupChatMessageProto o2) {
+        if (o1.getTimeOfChat() < o2.getTimeOfChat()) {
+          return -1;
+        } else if (o1.getTimeOfChat() > o2.getTimeOfChat()) {
+          return 1;
+        } else {
+          return 0;
+        }
+      }
+    };
+    Collections.sort(globalChats, c);
     // Need to add them in reverse order
-    for (int i = globalChats.size()-1; i >= 0; i--) {
+    for (int i = 0; i < globalChats.size(); i++) {
       resBuilder.addGlobalChats(globalChats.get(i));
     }
   }
