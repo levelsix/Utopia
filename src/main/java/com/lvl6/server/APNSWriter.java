@@ -2,8 +2,6 @@ package com.lvl6.server;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
@@ -34,7 +32,6 @@ import com.notnoop.apns.APNS;
 import com.notnoop.apns.ApnsService;
 import com.notnoop.apns.ApnsServiceBuilder;
 import com.notnoop.apns.PayloadBuilder;
-import com.notnoop.exceptions.InvalidSSLConfig;
 
 public class APNSWriter extends Wrap {
 	// reference to game server
@@ -216,7 +213,7 @@ public class APNSWriter extends Wrap {
 					content += "...";
 				}
 			}
-			String clan = post.getPoster().hasClan() ? "[" + post.getPoster().getClan().getTag() + "] " : "";
+			String clan = post.getPoster().getClan().getClanId() > 0 ? "[" + post.getPoster().getClan().getTag() + "] " : "";
 			pb.alertBody(clan + post.getPoster().getName()
 					+ " just posted on your wall: " + content);
 
@@ -241,7 +238,7 @@ public class APNSWriter extends Wrap {
 				&& (lastMarketplaceNotificationTime == null || now.getTime()
 						- lastMarketplaceNotificationTime.getTime() > 60000 * MIN_MINUTES_BETWEEN_MARKETPLACE_NOTIFICATIONS)) {
 			PurchaseFromMarketplaceResponseProto p = event.getPurchaseFromMarketplaceResponseProto();
-            String clan = p.getPurchaser().hasClan() ? "[" + p.getPurchaser().getClan().getTag() + "] " : "";
+            String clan = p.getPurchaser().getClan().getClanId() > 0 ? "[" + p.getPurchaser().getClan().getTag() + "] " : "";
 			String text = clan + p.getPurchaser().getName()
 					+ " has purchased your Level " + p.getMarketplacePost().getEquipLevel() + " "
 					+ p.getMarketplacePost().getPostedEquip().getName()
@@ -283,7 +280,7 @@ public class APNSWriter extends Wrap {
 			}
 			MinimumUserProto att = battleResponseProto.getAttacker();
 
-            String clan = att.hasClan() ? "[" + att.getClan().getTag() + "] " : "";
+            String clan = att.getClan().getClanId() > 0 ? "[" + att.getClan().getTag() + "] " : "";
 			String attacker = (att.hasName()) ? clan + att.getName() : "";
 			BattleResult battleResult = battleResponseProto.getBattleResult();
 
