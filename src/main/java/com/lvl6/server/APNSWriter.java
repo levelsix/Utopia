@@ -37,289 +37,289 @@ import com.notnoop.apns.PayloadBuilder;
 import com.notnoop.exceptions.InvalidSSLConfig;
 
 public class APNSWriter extends Wrap {
-  // reference to game server
+	// reference to game server
 
-  @Autowired
-  private GameServer server;
+	@Autowired
+	private GameServer server;
 
-  private static Logger log = LoggerFactory.getLogger(APNSWriter.class);
+	private static Logger log = LoggerFactory.getLogger(APNSWriter.class);
 
-  private static final int SOFT_MAX_NOTIFICATION_BADGES = 20;
+	private static final int SOFT_MAX_NOTIFICATION_BADGES = 20;
 
-  private static final int MIN_MINUTES_BETWEEN_BATTLE_NOTIFICATIONS = 180; // 3 hours
-  private static final int MIN_MINUTES_BETWEEN_MARKETPLACE_NOTIFICATIONS = 30;
-  private static final int MIN_MINUTES_BETWEEN_WALL_POST_NOTIFICATIONS = 15;
+	private static final int MIN_MINUTES_BETWEEN_BATTLE_NOTIFICATIONS = 180; // 3
+																				// hours
+	private static final int MIN_MINUTES_BETWEEN_MARKETPLACE_NOTIFICATIONS = 30;
+	private static final int MIN_MINUTES_BETWEEN_WALL_POST_NOTIFICATIONS = 15;
 
-  private static final int MAX_NUM_CHARACTERS_TO_SEND_FOR_WALL_POST = 120;
+	private static final int MAX_NUM_CHARACTERS_TO_SEND_FOR_WALL_POST = 120;
 
-  // 3 days
-  private static final long MINUTES_BETWEEN_INACTIVE_DEVICE_TOKEN_FLUSH = 60 * 24 * 3;
-  private static Date LAST_NULLIFY_INACTIVE_DEVICE_TOKEN_TIME = new Date();
+	// 3 days
+	private static final long MINUTES_BETWEEN_INACTIVE_DEVICE_TOKEN_FLUSH = 60 * 24 * 3;
+	private static Date LAST_NULLIFY_INACTIVE_DEVICE_TOKEN_TIME = new Date();
 
-  @Autowired
-  protected APNSProperties apnsProperties;
+	@Autowired
+	protected APNSProperties apnsProperties;
 
-  public void setApnsProperties(APNSProperties apnsProperties) {
-    this.apnsProperties = apnsProperties;
-  }
+	public void setApnsProperties(APNSProperties apnsProperties) {
+		this.apnsProperties = apnsProperties;
+	}
 
-  /**
-   * constructor.
-   */
-  public APNSWriter() {
+	/**
+	 * constructor.
+	 */
+	public APNSWriter() {
 
-  }
+	}
 
-  public void setServer(GameServer server) {
-    this.server = server;
-  }
+	public void setServer(GameServer server) {
+		this.server = server;
+	}
 
-  /**
-   * note we override the Wrap's run method here doing essentially the same
-   * thing, but first we allocate a ByteBuffer for this thread to use
-   */
-  public void run() {
+	/**
+	 * note we override the Wrap's run method here doing essentially the same
+	 * thing, but first we allocate a ByteBuffer for this thread to use
+	 */
+	public void run() {
 
-  }
+	}
 
-  /** unused */
-  protected void processEvent(GameEvent event) {
-    if (event instanceof NormalResponseEvent)
-      processResponseEvent((NormalResponseEvent) event);
+	/** unused */
+	protected void processEvent(GameEvent event) {
+		if (event instanceof NormalResponseEvent)
+			processResponseEvent((NormalResponseEvent) event);
 
-  }
+	}
 
-  /**
-   * our own version of processEvent that takes the additional parameter of
-   * the writeBuffer
-   */
-  protected void processResponseEvent(NormalResponseEvent event) {
-    int playerId = event.getPlayerId();
-    ConnectedPlayer connectedPlayer = server.getPlayerById(playerId);
-    if (connectedPlayer != null) {
-      log.info("wrote a response event to connected player with id "
-          + playerId + " instead of sending APNS message");
-      server.writeEvent(event);
-    } else {
-      log.info("received APNS notification to send to player with id "+ playerId);
-      User user = RetrieveUtils.userRetrieveUtils().getUserById(playerId);
-      if (user != null && user.getDeviceToken() != null
-          && user.getDeviceToken().length() > 0) {
-        try {
-          ApnsService service = getApnsService();
-          //service.start();
-          Date now = new Date();
-          if (LAST_NULLIFY_INACTIVE_DEVICE_TOKEN_TIME.getTime()
-              + 60000
-              * MINUTES_BETWEEN_INACTIVE_DEVICE_TOKEN_FLUSH < now
-              .getTime()) {
-            LAST_NULLIFY_INACTIVE_DEVICE_TOKEN_TIME = now;
-            Map<String, Date> inactiveDevices = service
-                .getInactiveDevices();
-            UpdateUtils.get().updateNullifyDeviceTokens(
-                inactiveDevices.keySet());
-          }
+	/**
+	 * our own version of processEvent that takes the additional parameter of
+	 * the writeBuffer
+	 */
+	protected void processResponseEvent(NormalResponseEvent event) {
+		int playerId = event.getPlayerId();
+		ConnectedPlayer connectedPlayer = server.getPlayerById(playerId);
+		if (connectedPlayer != null) {
+			log.info("wrote a response event to connected player with id " + playerId
+					+ " instead of sending APNS message");
+			server.writeEvent(event);
+		} else {
+			log.info("received APNS notification to send to player with id " + playerId);
+			User user = RetrieveUtils.userRetrieveUtils().getUserById(playerId);
+			if (user != null && user.getDeviceToken() != null && user.getDeviceToken().length() > 0) {
+				try {
+					ApnsService service = getApnsService();
+					if (service != null) {
+						// service.start();
+						Date now = new Date();
+						if (LAST_NULLIFY_INACTIVE_DEVICE_TOKEN_TIME.getTime() + 60000
+								* MINUTES_BETWEEN_INACTIVE_DEVICE_TOKEN_FLUSH < now.getTime()) {
+							LAST_NULLIFY_INACTIVE_DEVICE_TOKEN_TIME = now;
+							Map<String, Date> inactiveDevices = service.getInactiveDevices();
+							UpdateUtils.get().updateNullifyDeviceTokens(inactiveDevices.keySet());
+						}
 
-          if (BattleResponseEvent.class.isInstance(event)) {
-            handleBattleNotification(service,
-                (BattleResponseEvent) event, user,
-                user.getDeviceToken());
-          }
+						if (BattleResponseEvent.class.isInstance(event)) {
+							handleBattleNotification(service, (BattleResponseEvent) event, user,
+									user.getDeviceToken());
+						}
 
-          if (PurchaseFromMarketplaceResponseEvent.class
-              .isInstance(event)) {
-            handlePurchaseFromMarketplaceNotification(service,
-                (PurchaseFromMarketplaceResponseEvent) event,
-                user, user.getDeviceToken());
-          }
+						if (PurchaseFromMarketplaceResponseEvent.class.isInstance(event)) {
+							handlePurchaseFromMarketplaceNotification(service,
+									(PurchaseFromMarketplaceResponseEvent) event, user, user.getDeviceToken());
+						}
 
-          if (PostOnPlayerWallResponseEvent.class.isInstance(event)) {
-            handlePostOnPlayerWallNotification(service,
-                (PostOnPlayerWallResponseEvent) event, user,
-                user.getDeviceToken());
-          }
+						if (PostOnPlayerWallResponseEvent.class.isInstance(event)) {
+							handlePostOnPlayerWallNotification(service,
+									(PostOnPlayerWallResponseEvent) event, user, user.getDeviceToken());
+						}
 
-          // if
-          // (ReferralCodeUsedResponseEvent.class.isInstance(event)) {
-          // handleReferralCodeUsedNotification(service,
-          // (ReferralCodeUsedResponseEvent)event, user,
-          // user.getDeviceToken());
-          // }
+						// if
+						// (ReferralCodeUsedResponseEvent.class.isInstance(event))
+						// {
+						// handleReferralCodeUsedNotification(service,
+						// (ReferralCodeUsedResponseEvent)event, user,
+						// user.getDeviceToken());
+						// }
 
-          //service.stop();
-        } catch (FileNotFoundException e) {
-          log.error("File not found", e);
-        }
-      } else {
-        log.warn("could not send push notification because user "
-            + user + " has no device token");
-      }
-    }
-  }
+						// service.stop();
+					}else {
+						log.warn("Apns service is null");
+					}
+					
+				} catch (FileNotFoundException e) {
+					log.error("File not found", e);
+				}
+			} else {
+				log.warn("could not send push notification because user " + user + " has no device token");
+			}
+		}
+	}
 
-  protected ApnsService service;
+	protected ApnsService service;
 
-  public ApnsService getApnsService() throws FileNotFoundException {
-    if (service == null) {
-      log.info("Apns Service null... building new");
-      buildService();
-    }
-    try {
-      log.info("Testing APNS connection");
-      service.testConnection();
-    } catch (Throwable e) {
-      log.info("ApnsService connection test failed... building again");
-    }
-    return service;
-  }
+	public ApnsService getApnsService() throws FileNotFoundException {
+		if (service == null) {
+			log.info("Apns Service null... building new");
+			buildService();
+		}
+		try {
+			log.info("Testing APNS connection");
+			service.testConnection();
+		} catch (Throwable e) {
+			log.info("ApnsService connection test failed... building again");
+		}
+		return service;
+	}
 
-  protected void buildService() throws FileNotFoundException {
-    log.info("Building ApnsService");
-    log.info(new File(".").getAbsolutePath());
-    log.info(new File(apnsProperties.pathToCert).getAbsolutePath());
-    File certFile = new File(apnsProperties.pathToCert);
-    try {
-      if(certFile.exists() && certFile.canRead()) {
-        ApnsServiceBuilder builder = APNS.newService().withCert(apnsProperties.pathToCert, apnsProperties.certPassword).asNonBlocking();
-        if (Globals.IS_SANDBOX()) {
-          log.info("Building apns with sandbox=true");
-          builder.withSandboxDestination();
-        } else {
-          builder.withProductionDestination();
-        }
-        service = builder.build();
-        service.start();
-      } else {
-        log.error("Apns Certificate exists: {}  can read: ", certFile.exists(), certFile.canRead());
-      }
-    } catch (Exception e) {
-      log.error("Error getting apns cert.. Invalid SSL Config Exception", e);
-    }
-  }
+	protected void buildService() throws FileNotFoundException {
+		log.info("Building ApnsService");
+		log.info(new File(".").getAbsolutePath());
+		log.info(new File(apnsProperties.pathToCert).getAbsolutePath());
+		File certFile = new File(apnsProperties.pathToCert);
+		try {
+			if (certFile.exists() && certFile.canRead()) {
+				ApnsServiceBuilder builder = APNS.newService()
+						.withCert(apnsProperties.pathToCert, apnsProperties.certPassword).asNonBlocking();
+				if (Globals.IS_SANDBOX()) {
+					log.info("Building apns with sandbox=true");
+					builder.withSandboxDestination();
+				} else {
+					builder.withProductionDestination();
+				}
+				service = builder.build();
+				service.start();
+			} else {
+				log.error("Apns Certificate exists: {}  can read: ", certFile.exists(), certFile.canRead());
+			}
+		} catch (Exception e) {
+			log.error("Error getting apns cert.. Invalid SSL Config Exception", e);
+		}
+	}
 
-  private void handlePostOnPlayerWallNotification(ApnsService service,
-      PostOnPlayerWallResponseEvent event, User user, String token) {
-    Date lastWallPostNotificationTime = user.getLastWallPostNotificationTime();
-    Date now = new Date();
-    if (user.getNumBadges() < SOFT_MAX_NOTIFICATION_BADGES && (lastWallPostNotificationTime == null || now
-        .getTime() - lastWallPostNotificationTime.getTime() > 60000 * MIN_MINUTES_BETWEEN_WALL_POST_NOTIFICATIONS)) {
-      PayloadBuilder pb = APNS.newPayload().actionKey("View").badge(1);
-      log.info("PostOnPlayerWallNotification for user: "+user.getId());
-      PostOnPlayerWallResponseProto resProto = event.getPostOnPlayerWallResponseProto();
-      PlayerWallPostProto post = resProto.getPost();
+	private void handlePostOnPlayerWallNotification(ApnsService service, PostOnPlayerWallResponseEvent event,
+			User user, String token) {
+		Date lastWallPostNotificationTime = user.getLastWallPostNotificationTime();
+		Date now = new Date();
+		if (user.getNumBadges() < SOFT_MAX_NOTIFICATION_BADGES
+				&& (lastWallPostNotificationTime == null || now.getTime()
+						- lastWallPostNotificationTime.getTime() > 60000 * MIN_MINUTES_BETWEEN_WALL_POST_NOTIFICATIONS)) {
+			PayloadBuilder pb = APNS.newPayload().actionKey("View").badge(1);
+			log.info("PostOnPlayerWallNotification for user: " + user.getId());
+			PostOnPlayerWallResponseProto resProto = event.getPostOnPlayerWallResponseProto();
+			PlayerWallPostProto post = resProto.getPost();
 
-      String content = post.getContent();
-      if (content.length() > MAX_NUM_CHARACTERS_TO_SEND_FOR_WALL_POST) {
-        content = content.substring(0, MAX_NUM_CHARACTERS_TO_SEND_FOR_WALL_POST);
-        int index = content.lastIndexOf(" ");
-        if (index > 0) {
-          content = content.substring(0, index);
-          content += "...";
-        }
-      }
-      pb.alertBody("["+post.getPoster().getClan().getTag()+"] "+post.getPoster().getName() + " just posted on your wall: " + content);
+			String content = post.getContent();
+			if (content.length() > MAX_NUM_CHARACTERS_TO_SEND_FOR_WALL_POST) {
+				content = content.substring(0, MAX_NUM_CHARACTERS_TO_SEND_FOR_WALL_POST);
+				int index = content.lastIndexOf(" ");
+				if (index > 0) {
+					content = content.substring(0, index);
+					content += "...";
+				}
+			}
+			pb.alertBody("[" + post.getPoster().getClan().getTag() + "] " + post.getPoster().getName()
+					+ " just posted on your wall: " + content);
 
-      if (!pb.isTooLong()) {
-        log.info("Pushing apns message");
-        service.push(token, pb.build());
-        if (!user.updateRelativeBadgeAbsoluteLastWallPostNotificationTime(0, new Timestamp(now.getTime()))) {
-          log.error("problem with updating wall post notification time for user "
-              + user);
-        }
-      } else {
-        log.error("PlayloadBuilder isTooLong to send apns message");
-      }
-    }
-  }
+			if (!pb.isTooLong()) {
+				log.info("Pushing apns message");
+				service.push(token, pb.build());
+				if (!user.updateRelativeBadgeAbsoluteLastWallPostNotificationTime(0,
+						new Timestamp(now.getTime()))) {
+					log.error("problem with updating wall post notification time for user " + user);
+				}
+			} else {
+				log.error("PlayloadBuilder isTooLong to send apns message");
+			}
+		}
+	}
 
-  private void handlePurchaseFromMarketplaceNotification(ApnsService service,
-      PurchaseFromMarketplaceResponseEvent event, User user, String token) {
-    Date lastMarketplaceNotificationTime = user.getLastMarketplaceNotificationTime();
-    Date now = new Date();
-    if (user.getNumBadges() < SOFT_MAX_NOTIFICATION_BADGES && (lastMarketplaceNotificationTime == null || now
-        .getTime() - lastMarketplaceNotificationTime.getTime() > 60000 * MIN_MINUTES_BETWEEN_MARKETPLACE_NOTIFICATIONS)) {
-      PurchaseFromMarketplaceResponseProto p = event.getPurchaseFromMarketplaceResponseProto();
-      String text = "["+p.getPurchaser().getClan().getTag()+"] "+p.getPurchaser().getName() + " has purchased your Level " + p.getMarketplacePost().getEquipLevel() + " " 
-          + p.getMarketplacePost().getPostedEquip().getName() + " in The Marketplace. Redeem your earnings!";
-      PayloadBuilder pb = APNS
-          .newPayload()
-          .actionKey("Redeem")
-          .badge(1)
-          .alertBody(text);
-      log.info("PurchaseFromMarketplaceNotification for user: "+user.getId());
-      if (!pb.isTooLong()) {
-        log.info("Pushing apns message");
-        service.push(token, pb.build());
-        if (!user.updateRelativeBadgeAbsoluteLastMarketplaceNotificationTime(0, new Timestamp(now.getTime()))) {
-          log.error("problem with updating marketplace notification time for user "
-              + user);
-        }
-      } else {
-        log.error("PlayloadBuilder isTooLong to send apns message");
-      }
-    }
-  }
+	private void handlePurchaseFromMarketplaceNotification(ApnsService service,
+			PurchaseFromMarketplaceResponseEvent event, User user, String token) {
+		Date lastMarketplaceNotificationTime = user.getLastMarketplaceNotificationTime();
+		Date now = new Date();
+		if (user.getNumBadges() < SOFT_MAX_NOTIFICATION_BADGES
+				&& (lastMarketplaceNotificationTime == null || now.getTime()
+						- lastMarketplaceNotificationTime.getTime() > 60000 * MIN_MINUTES_BETWEEN_MARKETPLACE_NOTIFICATIONS)) {
+			PurchaseFromMarketplaceResponseProto p = event.getPurchaseFromMarketplaceResponseProto();
+			String text = "[" + p.getPurchaser().getClan().getTag() + "] " + p.getPurchaser().getName()
+					+ " has purchased your Level " + p.getMarketplacePost().getEquipLevel() + " "
+					+ p.getMarketplacePost().getPostedEquip().getName()
+					+ " in The Marketplace. Redeem your earnings!";
+			PayloadBuilder pb = APNS.newPayload().actionKey("Redeem").badge(1).alertBody(text);
+			log.info("PurchaseFromMarketplaceNotification for user: " + user.getId());
+			if (!pb.isTooLong()) {
+				log.info("Pushing apns message");
+				service.push(token, pb.build());
+				if (!user.updateRelativeBadgeAbsoluteLastMarketplaceNotificationTime(0,
+						new Timestamp(now.getTime()))) {
+					log.error("problem with updating marketplace notification time for user " + user);
+				}
+			} else {
+				log.error("PlayloadBuilder isTooLong to send apns message");
+			}
+		}
+	}
 
-  private void handleBattleNotification(ApnsService service,
-      BattleResponseEvent event, User user, String token) {
-    Date lastBattleNotificationTime = user.getLastBattleNotificationTime();
-    Date now = new Date();
-    log.info("BattleNotification for user: "+user.getId());
-    if (user.getNumBadges() < SOFT_MAX_NOTIFICATION_BADGES && (lastBattleNotificationTime == null || now
-        .getTime() - lastBattleNotificationTime.getTime() > 60000 * MIN_MINUTES_BETWEEN_BATTLE_NOTIFICATIONS)) {
+	private void handleBattleNotification(ApnsService service, BattleResponseEvent event, User user,
+			String token) {
+		Date lastBattleNotificationTime = user.getLastBattleNotificationTime();
+		Date now = new Date();
+		log.info("BattleNotification for user: " + user.getId());
+		if (user.getNumBadges() < SOFT_MAX_NOTIFICATION_BADGES
+				&& (lastBattleNotificationTime == null || now.getTime()
+						- lastBattleNotificationTime.getTime() > 60000 * MIN_MINUTES_BETWEEN_BATTLE_NOTIFICATIONS)) {
 
-      // PayloadBuilder pb =
-      // APNS.newPayload().actionKey("Retaliate").badge(user.getNumBadges()+1);
-      PayloadBuilder pb = APNS.newPayload().actionKey("Retaliate")
-          .badge(1);
+			// PayloadBuilder pb =
+			// APNS.newPayload().actionKey("Retaliate").badge(user.getNumBadges()+1);
+			PayloadBuilder pb = APNS.newPayload().actionKey("Retaliate").badge(1);
 
-      BattleResponseProto battleResponseProto = event
-          .getBattleResponseProto();
+			BattleResponseProto battleResponseProto = event.getBattleResponseProto();
 
-      boolean equipStolen = false;
-      if (battleResponseProto.hasUserEquipGained() && battleResponseProto.getUserEquipGained().getEquipId() > 0) {
-        equipStolen = true;
-      }
-      MinimumUserProto att = battleResponseProto.getAttacker();
-      String attacker = (att.hasName()) ? "["+att.getClan().getTag()+"] "+att.getName() : "";
-          BattleResult battleResult = battleResponseProto.getBattleResult();
+			boolean equipStolen = false;
+			if (battleResponseProto.hasUserEquipGained()
+					&& battleResponseProto.getUserEquipGained().getEquipId() > 0) {
+				equipStolen = true;
+			}
+			MinimumUserProto att = battleResponseProto.getAttacker();
+			String attacker = (att.hasName()) ? "[" + att.getClan().getTag() + "] " + att.getName() : "";
+			BattleResult battleResult = battleResponseProto.getBattleResult();
 
-          String alertBody = null;
+			String alertBody = null;
 
-          if (battleResult == BattleResult.ATTACKER_WIN) {
-            alertBody = attacker;
-            if (equipStolen) {
-              alertBody += " has stolen your Level " + battleResponseProto.getUserEquipGained().getLevel() + " " 
-                  + battleResponseProto.getEquipGained().getName() + ". Fight back strong!";
-            } else {
-              alertBody += " just humiliated you in battle. Fight back and defend your honor!";
-            }
-          } else if (battleResult == BattleResult.ATTACKER_FLEE) {
-            alertBody = attacker
-                + " has just fled from you after initiating battle. Chase the coward down!";
-          } else {
-            alertBody = attacker
-                + " attacked you, but you won the fight. Come back and train before your skills get rusty!";
-          }
+			if (battleResult == BattleResult.ATTACKER_WIN) {
+				alertBody = attacker;
+				if (equipStolen) {
+					alertBody += " has stolen your Level "
+							+ battleResponseProto.getUserEquipGained().getLevel() + " "
+							+ battleResponseProto.getEquipGained().getName() + ". Fight back strong!";
+				} else {
+					alertBody += " just humiliated you in battle. Fight back and defend your honor!";
+				}
+			} else if (battleResult == BattleResult.ATTACKER_FLEE) {
+				alertBody = attacker
+						+ " has just fled from you after initiating battle. Chase the coward down!";
+			} else {
+				alertBody = attacker
+						+ " attacked you, but you won the fight. Come back and train before your skills get rusty!";
+			}
 
-          pb.alertBody(alertBody);
+			pb.alertBody(alertBody);
 
-          // TODO: trigger button to bring up something on application
+			// TODO: trigger button to bring up something on application
 
-          if (!pb.isTooLong()) {
-            log.info("Pushing apns message");
-            service.push(token, pb.build());
-            // if
-            // (!user.updateRelativeBadgeAbsoluteLastbattlenotificationtime(1,
-            // new Timestamp(now.getTime()))) {
-            if (!user.updateRelativeBadgeAbsoluteLastBattleNotificationTime(0, new Timestamp(now.getTime()))) {
-              log.error("problem with updating battle notification time for user "
-                  + user);
-            }
-          } else {
-            log.error("PayloadBuilder isTooLong to send apns message");
-          }
-    }
-  }
+			if (!pb.isTooLong()) {
+				log.info("Pushing apns message");
+				service.push(token, pb.build());
+				// if
+				// (!user.updateRelativeBadgeAbsoluteLastbattlenotificationtime(1,
+				// new Timestamp(now.getTime()))) {
+				if (!user.updateRelativeBadgeAbsoluteLastBattleNotificationTime(0,
+						new Timestamp(now.getTime()))) {
+					log.error("problem with updating battle notification time for user " + user);
+				}
+			} else {
+				log.error("PayloadBuilder isTooLong to send apns message");
+			}
+		}
+	}
 
 }// APNSWriter
