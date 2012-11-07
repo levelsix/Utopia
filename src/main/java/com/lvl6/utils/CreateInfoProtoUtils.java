@@ -331,11 +331,10 @@ public class CreateInfoProtoUtils {
         .setNumCoinsRetrievedFromStructs(u.getNumCoinsRetrievedFromStructs())
         .setNumAdColonyVideosWatched(u.getNumAdColonyVideosWatched())
         .setNumGroupChatsRemaining(u.getNumGroupChatsRemaining());
-
-    int equipmentLevel = (u.getLevel() > ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER)
-        ? ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER : u.getLevel();
-
+    
     if (u.isFake()) {
+      int equipmentLevel = u.getLevel();
+      
       UserEquip weaponUserEquip = null;
       UserEquip armorUserEquip = null;
       UserEquip amuletUserEquip = null;

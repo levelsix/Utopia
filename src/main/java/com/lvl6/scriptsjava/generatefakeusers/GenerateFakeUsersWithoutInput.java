@@ -20,8 +20,8 @@ public class GenerateFakeUsersWithoutInput {
 
   private static String nameRulesFile = "src/main/java/com/lvl6/scriptsjava/generatefakeusers/namerulesElven.txt";
   private static int numEnemiesToCreatePerLevel = 300;
-  private static int minLevel = 31;
-  private static int maxLevel = ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER;
+  private static int minLevel = 41;
+  private static int maxLevel = 50;
 
   private static int syllablesInName1 = 2;
   private static int syllablesInName2 = 3;
@@ -38,6 +38,7 @@ public class GenerateFakeUsersWithoutInput {
       e.printStackTrace();
     }
     if (nameGenerator != null) {
+      System.out.println("beginning!");
       DBConnection.get().init();
       for (int i = minLevel; i <= maxLevel; i++){
         for (int j = 0; j < numEnemiesToCreatePerLevel; j++) {
@@ -81,6 +82,8 @@ public class GenerateFakeUsersWithoutInput {
         attack, defense, 0, 0, 0, 0, 0, null, null, null, true, ControllerConstants.PURCHASE_GROUP_CHAT__NUM_CHATS_GIVEN_FOR_PACKAGE) < 0) {
       System.out.println("error in creating user");
     }
+
+    System.out.println("created "+name);
   }
   
   public static int[] initializeFakePlayerStats(UserType type, int level) {
