@@ -8,7 +8,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lvl6.events.GameEvent;
@@ -41,7 +42,7 @@ public class APNSWriter extends Wrap {
   @Autowired
   private GameServer server;
 
-  private static Logger log = Logger.getLogger(APNSWriter.class);
+  private static Logger log = LoggerFactory.getLogger(APNSWriter.class);
 
   private static final int SOFT_MAX_NOTIFICATION_BADGES = 20;
 
@@ -147,7 +148,7 @@ public class APNSWriter extends Wrap {
 
           //service.stop();
         } catch (FileNotFoundException e) {
-          log.error(e);
+          log.error("File not found", e);
         }
       } else {
         log.warn("could not send push notification because user "
@@ -189,7 +190,7 @@ public class APNSWriter extends Wrap {
         service = builder.build();
         service.start();
       } else {
-        log.error("Apns Certificate not found");
+        log.error("Apns Certificate exists: {}  can read: ", certFile.exists(), certFile.canRead());
       }
     } catch (Exception e) {
       log.error("Error getting apns cert.. Invalid SSL Config Exception", e);
