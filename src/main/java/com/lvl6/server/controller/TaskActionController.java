@@ -283,7 +283,7 @@ public class TaskActionController extends EventController {
                         .get(remainingTask.getId()) != null
                         && taskIdToNumTimesActed
                         .get(remainingTask
-                            .getId()) + 1 == remainingTask
+                            .getId()) + 1 >= remainingTask
                             .getNumForCompletion()) {
                       // TODO: note: not SUPER necessary
                       // to delete/update them, but they
