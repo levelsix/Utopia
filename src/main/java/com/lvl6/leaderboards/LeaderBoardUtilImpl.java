@@ -184,16 +184,6 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 		return new HashSet<Tuple>();
 	}
 
-	// @Override
-	// public void incrementBattlesWonForUser(Integer userId) {
-	// jedis.zincrby(LeaderBoardConstants.BATTLES_WON, 1d, userId.toString());
-	// }
-	// @Override
-	// public void incrementBattlesWonOverTotalBattlesRatioForUser(Integer
-	// userId) {
-	// jedis.zincrby(LeaderBoardConstants.BATTLES_WON_TO_TOTAL_BATTLES_RATIO,
-	// 1d, userId.toString());
-	// }
 
 	@Override
 	public void setTotalCoinValueForUser(Integer userId, Double coinWorth) {
@@ -330,49 +320,6 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 		return userIds;
 	}
 
-	// @Override
-	// public void updateLeaderboardForUser(Integer userId) {
-	// try {
-	// List<UserLeaderBoardStats> stats = jdbc.query("select " +
-	// DBConstants.USER__COINS + ", " + DBConstants.USER__VAULT_BALANCE + ", " +
-	// DBConstants.USER__BATTLES_WON + ", " + DBConstants.USER__EXPERIENCE +
-	// ", " +
-	// DBConstants.USER__BATTLES_LOST + " from " + DBConstants.TABLE_USER +
-	// " where " + DBConstants.USER__ID + " = " + userId,
-	// new RowMapper<UserLeaderBoardStats>() {
-	// @Override
-	// public UserLeaderBoardStats mapRow(ResultSet rs, int rowNum)
-	// throws SQLException {
-	// UserLeaderBoardStats stats = new UserLeaderBoardStats();
-	// stats.setBattles_lost(rs.getInt(DBConstants.USER__BATTLES_LOST));
-	// stats.setBattles_won(rs.getInt(DBConstants.USER__BATTLES_WON));
-	// stats.setTotalCoinValue(rs.getInt(DBConstants.USER__COINS));
-	// stats.setVault_balance(rs.getInt(DBConstants.USER__VAULT_BALANCE));
-	// stats.setExperience(rs.getInt(DBConstants.USER__EXPERIENCE));
-	// return stats;
-	// }
-	//
-	// });
-	// UserLeaderBoardStats stat = stats.get(0);
-	//
-	// if(stat != null) {
-	// setBattlesWonForUser(userId, stat.getBattles_won().doubleValue());
-	// if(stat.battles_lost+stat.battles_won >
-	// ControllerConstants.LEADERBOARD__MIN_BATTLES_REQUIRED_FOR_KDR_CONSIDERATION)
-	// {
-	// setBattlesWonOverTotalBattlesRatioForUser(userId,
-	// stat.battlesWonOfTotalBattles());
-	// } else {
-	// setBattlesWonOverTotalBattlesRatioForUser(userId, 0.0);
-	// }
-	// setTotalCoinValueForUser(userId, (double) stat.getTotalCoinValue());
-	// }
-	//
-	// }catch(Exception e) {
-	// log.error("Error updating leaderboard for user: "+userId, e);
-	// }
-	// }
-
 	@Override
 	public void updateLeaderboardForUser(User user) {
 		if (user != null) {
@@ -401,69 +348,31 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 		}
 	}
 
-	// @Override
-	// public void updateLeaderboardTotalCoinValueForUser(Integer userId) {
-	// try {
-	// Long coins = jdbc.queryForLong("select " + DBConstants.USER__COINS +
-	// " from user where id = ?", userId);
-	// if(coins != null) {
-	// setTotalCoinValueForUser(userId, coins.doubleValue());
-	// }
-	// }catch(Exception e) {
-	// log.error("Error updating leaderboard coins for user: "+userId, e);
-	// }
-	// }
-	//
-	// protected class UserLeaderBoardStats{
-	// int coins;
-	// int vault_balance;
-	// Integer battles_won;
-	// Integer battles_lost;
-	// Integer experience;
-	//
-	// public int getTotalCoinValue() {
-	// return coins;
-	// }
-	// public void setTotalCoinValue(int coins) {
-	// this.coins = coins;
-	// }
-	//
-	// public Integer getBattles_won() {
-	// return battles_won;
-	// }
-	// public void setBattles_won(Integer battles_won) {
-	// this.battles_won = battles_won;
-	// }
-	//
-	// public Integer getBattles_lost() {
-	// return battles_lost;
-	// }
-	// public void setBattles_lost(Integer battles_lost) {
-	// this.battles_lost = battles_lost;
-	// }
-	//
-	// public int getVault_balance() {
-	// return vault_balance;
-	// }
-	// public void setVault_balance(int vault_balance) {
-	// this.vault_balance = vault_balance;
-	// }
-	//
-	// public int getTotalCoinWorth() {
-	// return this.coins + this.vault_balance;
-	// }
-	//
-	// public Double battlesWonOfTotalBattles() {
-	// return
-	// battles_won.doubleValue()/(battles_lost.doubleValue()+battles_won);
-	// }
-	//
-	// public Integer getExperience() {
-	// return experience;
-	// }
-	// public void setExperience(Integer experience) {
-	// this.experience = experience;
-	// }
-	// }
+	@Override
+	public void setBattlesWonForUser(Integer tournament, Integer userId,Double battlesWon) {
+		Jedis jedis = jedisPool.getResource();
+		try {
+			jedis.zadd(LeaderBoardConstants.BATTLES_WON_FOR_TOURNAMENT(tournament), battlesWon,	userId.toString());
+		} catch (Exception e) {
+			log.error("Error in jedis pool", e);
+		} finally {
+			if (jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+	}
+
+	@Override
+	public double getBattlesWonForUser(Integer tournament, Integer userId) {
+		Jedis jedis = jedisPool.getResource();
+		try {
+			return jedis.zscore(LeaderBoardConstants.BATTLES_WON_FOR_TOURNAMENT(tournament), userId.toString());
+		} catch (Exception e) {
+			log.error("Error in jedis pool", e);
+		} finally {
+			if (jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return 0;
+	}
 
 }
