@@ -49,17 +49,17 @@ public class ApnsTests {
 
 	@Test
 	public void testApnsCertLocation() throws IOException{
-		log.info("Looking for cert: "+props.pathToCert);
+/*		log.info("Looking for cert: "+props.pathToCert);
 		getClass().getClassLoader();
 		InputStream stream = ClassLoader.getSystemResourceAsStream(props.pathToCert);
 		if(stream != null && stream.available() > 0) {
 			log.info("Apns Cert found");
-		}
+		}*/
 	}
 	
 	@Test
 	public void testApnsWriter() throws FileNotFoundException {
-		writer.getApnsService();
+		//writer.getApnsService();
 	}
 	
 }
