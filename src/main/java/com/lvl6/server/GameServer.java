@@ -33,7 +33,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 public class GameServer implements InitializingBean, HazelcastInstanceAware{
 
 	private static final int LOCK_TIMEOUT = 10000;
-	public static int LOCK_WAIT_SECONDS = 5;
+	public static int LOCK_WAIT_SECONDS = 60;
 	
 	// Logger
 	private static Logger log = Logger.getLogger(new Object() {
