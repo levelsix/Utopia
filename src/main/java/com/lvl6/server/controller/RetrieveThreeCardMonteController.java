@@ -20,7 +20,6 @@ import com.lvl6.proto.EventProto.RetrieveThreeCardMonteResponseProto.RetrieveThr
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.ThreeCardMonteRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
@@ -86,10 +85,10 @@ import com.lvl6.utils.RetrieveUtils;
     Date curDate = new Date();
     for (Integer i : map.keySet()) {
       MonteCard card = map.get(i);
-      if (card.getCardType() == type && card.getStartDate().before(curDate)) {
+      if (card.getCardType() == type && card.getStartDate().before(curDate) && card.getMinLevel() <= level) {
         if (mostRecentCard == null || card.getStartDate().after(mostRecentCard.getStartDate())) {
           mostRecentCard = card;
-        } else if (card.getStartDate().equals(mostRecentCard.getStartDate()) && mostRecentCard.getMinLevel() < card.getMinLevel() && card.getMinLevel() < level) {
+        } else if (card.getStartDate().equals(mostRecentCard.getStartDate()) && mostRecentCard.getMinLevel() < card.getMinLevel() && card.getMinLevel() <= level) {
           mostRecentCard = card;
         } else {
           boolean x = card.getStartDate().equals(curDate);
