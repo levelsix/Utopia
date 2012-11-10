@@ -1770,6 +1770,7 @@ message ReceivedGroupChatResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional string chatMessage = 2;
 	optional GroupChatScope scope = 3;
+	optional bool isAdmin = 4;
 }
 
 message PurchaseGroupChatRequestProto {

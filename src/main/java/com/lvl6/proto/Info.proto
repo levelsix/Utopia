@@ -38,6 +38,7 @@ message GroupChatMessageProto {
 	optional MinimumUserProto sender = 1;
 	optional int64 timeOfChat = 2;
 	optional string content = 3;
+	optional bool isAdmin = 4;
 }
 
 //-------------------------------------------------------------------------------------

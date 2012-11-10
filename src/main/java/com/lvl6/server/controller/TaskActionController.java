@@ -508,8 +508,10 @@ public class TaskActionController extends EventController {
       for (Integer userEquipId : userEquips.keySet()) {
         List<UserEquip> userEquipsForEquipId = userEquips
             .get(userEquipId);
-        int numOfEquipUserHas = (userEquipsForEquipId != null) ? userEquipsForEquipId
-            .size() : 0;
+        int numOfEquipUserHas = 0;
+            for (UserEquip ue : userEquipsForEquipId) {
+              numOfEquipUserHas += Math.pow(2, ue.getLevel()-1);
+            }
             Integer quantityReq = equipIdsToQuantityReq.get(userEquipId);
             if (quantityReq != null && quantityReq <= numOfEquipUserHas) {
               numReqEquipsWithoutQuantityReqFulfilled--;

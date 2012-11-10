@@ -136,13 +136,14 @@ public class SendGroupChatController extends EventController {
 				chatProto.setChatMessage(chatMessage);
 				chatProto.setSender(senderProto);
 				chatProto.setScope(scope);
+				chatProto.setIsAdmin(user.isAdmin());
 				// send messages in background so sending player can unlock
 				executor.execute(new Runnable() {
 					@Override
 					public void run() {
 						sendChatMessageToConnectedPlayers(chatProto,
 								event.getTag(), timeOfPost.getTime(), scope == GroupChatScope.CLAN,
-								user.getClanId());
+								user.getClanId(), user.isAdmin());
 					}
 				});
 			}
@@ -153,9 +154,9 @@ public class SendGroupChatController extends EventController {
 		}
 	}
 
-	protected void sendChatMessageToConnectedPlayers(
+	protected void sendChatMessageToConnectedPlayers (
 			ReceivedGroupChatResponseProto.Builder chatProto, int tag, long time,
-			boolean forClan, int clanId) {
+			boolean forClan, int clanId, boolean isAdmin) {
 		Collection<ConnectedPlayer> players = new ArrayList<ConnectedPlayer>();
 		if (forClan) {
 			List<UserClan> clanMembers = RetrieveUtils.userClanRetrieveUtils()
@@ -169,7 +170,7 @@ public class SendGroupChatController extends EventController {
 		} else {
 			players = playersByPlayerId.values();
 			//add new message to front of list
-			chatMessages.add(0, CreateInfoProtoUtils.createGroupChatMessageProto(time, chatProto.getSender(), chatProto.getChatMessage()));
+			chatMessages.add(0, CreateInfoProtoUtils.createGroupChatMessageProto(time, chatProto.getSender(), chatProto.getChatMessage(), isAdmin));
 			//remove older messages
 			try {
 				while(chatMessages.size() > CHAT_MESSAGES_MAX_SIZE) {
