@@ -258,7 +258,7 @@ public class ControllerConstants {
   
   //LEVEL UP
   public static final int LEVEL_UP__SKILL_POINTS_GAINED = 3;
-  public static final int LEVEL_UP__MAX_LEVEL_FOR_USER = 40; //add level up equipment for fake players if increasing
+  public static final int LEVEL_UP__MAX_LEVEL_FOR_USER = 50; //add level up equipment for fake players if increasing
 //  public static final double LEVEL_UP_HEALTH_GAINED = 5.0;
   public static final double LEVEL_UP_ATTACK_GAINED = 2.0;
   public static final double LEVEL_UP_DEFENSE_GAINED = 2.0;
@@ -397,7 +397,7 @@ public class ControllerConstants {
   public static final String[] STARTUP__NOTICES_TO_PLAYERS = {
 //    "FREE limited edition gold equip for joining today!"
 //    "Forging Contest! 50 GOLD reward! Details at forum.lvl6.com"
-      "We have awarded everyone 50 gold for your patience with the bugs!"
+//      "We have awarded everyone 50 gold for your patience with the bugs!"
     };
   
   

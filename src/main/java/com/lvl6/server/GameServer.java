@@ -26,7 +26,6 @@ import com.lvl6.properties.Globals;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.ConnectedPlayer;
-import com.lvl6.utils.PlayerInAction;
 import com.lvl6.utils.PlayerSet;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
