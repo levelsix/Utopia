@@ -9,6 +9,7 @@ import com.lvl6.events.request.RefillStatWithDiamondsRequestEvent;
 import com.lvl6.events.response.RefillStatWithDiamondsResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.RefillStatWithDiamondsRequestProto;
 import com.lvl6.proto.EventProto.RefillStatWithDiamondsRequestProto.StatType;
@@ -18,7 +19,6 @@ import com.lvl6.proto.EventProto.RefillStatWithDiamondsResponseProto.RefillStatS
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Component @DependsOn("gameServer") public class RefillStatWithDiamondsController extends EventController{
 

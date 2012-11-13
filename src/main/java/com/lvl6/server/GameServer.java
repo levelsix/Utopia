@@ -22,12 +22,12 @@ import com.hazelcast.core.HazelcastInstanceAware;
 import com.hazelcast.core.ILock;
 import com.hazelcast.core.IMap;
 import com.lvl6.events.ResponseEvent;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.PlayerSet;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class GameServer implements InitializingBean, HazelcastInstanceAware{
 

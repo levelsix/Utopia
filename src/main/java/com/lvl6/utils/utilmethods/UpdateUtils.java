@@ -11,11 +11,15 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
+import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.lvl6.info.ClanTower;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
 import com.lvl6.info.UserStruct;
+import com.lvl6.misc.MiscMethods;
+import com.lvl6.misc.Notification;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.ExpansionDirection;
 import com.lvl6.proto.InfoProto.StructOrientation;
@@ -916,4 +920,31 @@ public class UpdateUtils implements UpdateUtil {
 	  //don't really care about the updates, because the desired rows affected
 	  //could be 0 or more. All that matters is that it happens.
   }
+  
+  protected void updateTowerHistory(JdbcTemplate jdbcTemplate, ClanTower tower) {
+		jdbcTemplate.execute("insert into "+DBConstants.TABLE_CLAN_TOWERS_HISTORY
+				+" ("
+				+DBConstants.CLAN_TOWERS_HISTORY__OWNER_CLAN_ID+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_CLAN_ID+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__TOWER_ID+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__ATTACK_START_TIME
+				+DBConstants.CLAN_TOWERS_HISTORY__WINNER_ID+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__OWNER_BATTLE_WINS+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_BATTLE_WINS+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__NUM_HOURS_FOR_BATTLE+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__LAST_REWARD_GIVEN+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__REASON_FOR_ENTRY+", "
+				+") VALUES ("
+				+tower.getClanOwnerId()+", "
+				+tower.getClanAttackerId()+","
+				+tower.getId()+", "
+				+tower.getAttackStartTime()+", "
+				+(tower.getAttackerBattleWins() > tower.getOwnerBattleWins() ? tower.getClanAttackerId() : tower.getClanOwnerId())+","
+				+tower.getOwnerBattleWins()+", "
+				+tower.getAttackerBattleWins()+", "
+				+tower.getNumHoursForBattle()+", "
+				+tower.getLastRewardGiven()+", "
+				+Notification.BATTLE_ENDED+")"
+		);
+	}
 }

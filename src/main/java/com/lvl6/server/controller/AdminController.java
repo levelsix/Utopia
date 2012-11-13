@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.AdminChangeRequestEvent;
 import com.lvl6.events.response.PurgeClientStaticDataResponseEvent;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.proto.AdminProto.AdminChangeRequestProto;
 import com.lvl6.proto.EventProto.PurgeClientStaticDataResponseProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -24,7 +25,6 @@ import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Component @DependsOn("gameServer") public class AdminController extends EventController {
 

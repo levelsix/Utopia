@@ -12,6 +12,7 @@ import com.lvl6.events.request.BeginGoldmineTimerRequestEvent;
 import com.lvl6.events.response.BeginGoldmineTimerResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.BeginGoldmineTimerRequestProto;
 import com.lvl6.proto.EventProto.BeginGoldmineTimerResponseProto;
@@ -20,7 +21,6 @@ import com.lvl6.proto.EventProto.BeginGoldmineTimerResponseProto.BeginGoldmineTi
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
 @Component @DependsOn("gameServer") public class BeginGoldmineTimerController extends EventController{
 

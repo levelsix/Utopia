@@ -160,12 +160,18 @@ public class ClanTower implements Serializable {
         + ", lastRewardGiven=" + lastRewardGiven +"]";*/
   }
 
-public int getNumHoursForBattle() {
-	return numHoursForBattle;
-}
+	public int getNumHoursForBattle() {
+		return numHoursForBattle;
+	}
+	
+	public void setNumHoursForBattle(int numHoursForBattle) {
+		this.numHoursForBattle = numHoursForBattle;
+	}
 
-public void setNumHoursForBattle(int numHoursForBattle) {
-	this.numHoursForBattle = numHoursForBattle;
-}
-
+	public ClanTower copy() {
+		return new ClanTower(
+			   id, towerName, towerImageName, clanOwnerId, ownedStartTime, silverReward, goldReward,
+			   numHoursToCollect, clanAttackerId, attackStartTime, ownerBattleWins, attackerBattleWins,
+			   numHoursForBattle, lastRewardGiven);
+	}
 }

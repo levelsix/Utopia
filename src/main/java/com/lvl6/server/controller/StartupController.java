@@ -26,6 +26,7 @@ import com.lvl6.info.BattleDetails;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.City;
 import com.lvl6.info.ClanChatPost;
+import com.lvl6.info.ClanTower;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.GoldSale;
@@ -41,6 +42,7 @@ import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserLockBoxEvent;
 import com.lvl6.info.UserQuest;
 import com.lvl6.leaderboards.LeaderBoardUtil;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto;
@@ -64,6 +66,7 @@ import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
 import com.lvl6.retrieveutils.ClanChatPostRetrieveUtils;
+import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.retrieveutils.IAPHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
 import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
@@ -83,7 +86,6 @@ import com.lvl6.spring.AppContext;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
@@ -181,6 +183,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           setMarketplaceSearchEquips(resBuilder);
           setChatMessages(resBuilder, user);
           setGoldSales(resBuilder);
+          setClanTowers(resBuilder);
 
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
@@ -211,6 +214,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     //for things that client doesn't need
     log.debug("After response tasks");
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);    
+  }
+  
+  private void setClanTowers(StartupResponseProto.Builder resBuilder) {
+	  List<ClanTower> towers = ClanTowerRetrieveUtils.getAllClanTowers();
+	  for (ClanTower aTower : towers) {
+		  resBuilder.addClanTowers(CreateInfoProtoUtils
+				  .createClanTowerProtoFromClanTower(aTower));
+	  }
   }
 
   private void setChatMessages(StartupResponseProto.Builder resBuilder,      User user) {

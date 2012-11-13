@@ -10,12 +10,12 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import com.lvl6.events.GameEvent;
 import com.lvl6.events.RequestEvent;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.Wrap;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
 @Component
 @DependsOn("gameServer")

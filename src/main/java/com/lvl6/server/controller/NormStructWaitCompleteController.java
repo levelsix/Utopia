@@ -15,6 +15,7 @@ import com.lvl6.events.request.NormStructWaitCompleteRequestEvent;
 import com.lvl6.events.response.NormStructWaitCompleteResponseEvent;
 import com.lvl6.info.Structure;
 import com.lvl6.info.UserStruct;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.proto.EventProto.NormStructWaitCompleteRequestProto;
 import com.lvl6.proto.EventProto.NormStructWaitCompleteResponseProto;
 import com.lvl6.proto.EventProto.NormStructWaitCompleteResponseProto.Builder;
@@ -24,7 +25,6 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 

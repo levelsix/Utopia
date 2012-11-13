@@ -167,6 +167,8 @@ message StartupResponseProto {
 	
 	repeated GoldSaleProto goldSales = 33;
 	
+	repeated ClanTowerProto clanTowers = 35;
+	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
 		optional bool firstTimeToday = 2;
@@ -2186,6 +2188,31 @@ message BeginClanTowerWarResponseProto {
 		CLIENT_TOO_APART_FROM_SERVER_TIME = 4;
 		OTHER_FAIL = 5;
 	}
+}
+
+message ConcedeClanTowerWarRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 towerId = 2;
+	optional int64 curTime = 3;
+}
+
+message ConcedeClanTowerWarResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional ConcedeClanTowerWarStatus status = 2;
+	
+	enum ConcedeClanTowerWarStatus {
+		SUCCESS = 0;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 1;
+		NOT_CLAN_TOWER_WAR_PARTICIPANT = 2;
+		NOT_CLAN_LEADER = 3;
+		OTHER_FAIL = 4;
+	}
+}
+
+message GeneralNotificationResponseProto {
+	optional string title = 1;
+	optional string subtitle = 2;
+	optional NotificationTitleColorProto rgb = 3;
 }
 
 //if reset

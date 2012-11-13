@@ -12,6 +12,7 @@ import com.lvl6.events.request.RetrieveStaticDataForShopRequestEvent;
 import com.lvl6.events.response.RetrieveStaticDataForShopResponseEvent;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Structure;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.proto.EventProto.RetrieveStaticDataForShopRequestProto;
 import com.lvl6.proto.EventProto.RetrieveStaticDataForShopRequestProto.RetrieveForShopType;
 import com.lvl6.proto.EventProto.RetrieveStaticDataForShopResponseProto;
@@ -23,7 +24,6 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Component @DependsOn("gameServer") public class RetrieveStaticDataForShopController extends EventController{
 

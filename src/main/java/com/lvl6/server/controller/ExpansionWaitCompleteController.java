@@ -11,6 +11,7 @@ import com.lvl6.events.request.ExpansionWaitCompleteRequestEvent;
 import com.lvl6.events.response.ExpansionWaitCompleteResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.info.UserCityExpansionData;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.ExpansionWaitCompleteRequestProto;
 import com.lvl6.proto.EventProto.ExpansionWaitCompleteResponseProto;
@@ -21,7 +22,6 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserCityExpansionRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 /*

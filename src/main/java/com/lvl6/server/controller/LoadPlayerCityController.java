@@ -13,6 +13,7 @@ import com.lvl6.events.response.LoadPlayerCityResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.info.UserCityExpansionData;
 import com.lvl6.info.UserStruct;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.LoadPlayerCityRequestProto;
 import com.lvl6.proto.EventProto.LoadPlayerCityResponseProto;
@@ -24,7 +25,6 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserCityExpansionRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Component @DependsOn("gameServer") public class LoadPlayerCityController extends EventController {
 

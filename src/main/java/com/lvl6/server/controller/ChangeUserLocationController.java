@@ -11,6 +11,7 @@ import com.lvl6.events.response.ChangeUserLocationResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Location;
 import com.lvl6.info.User;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.ChangeUserLocationRequestProto;
 import com.lvl6.proto.EventProto.ChangeUserLocationResponseProto;
@@ -20,7 +21,6 @@ import com.lvl6.proto.InfoProto.LocationProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Component @DependsOn("gameServer") public class ChangeUserLocationController extends EventController {
 

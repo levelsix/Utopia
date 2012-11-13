@@ -13,6 +13,7 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.proto.EventProto.EquipEquipmentRequestProto;
 import com.lvl6.proto.EventProto.EquipEquipmentResponseProto;
 import com.lvl6.proto.EventProto.EquipEquipmentResponseProto.Builder;
@@ -22,7 +23,6 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Component @DependsOn("gameServer") public class EquipEquipmentController extends EventController {
 

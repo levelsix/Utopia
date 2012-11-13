@@ -16,6 +16,7 @@ import com.lvl6.events.request.PostOnPlayerWallRequestEvent;
 import com.lvl6.events.response.PostOnPlayerWallResponseEvent;
 import com.lvl6.info.PlayerWallPost;
 import com.lvl6.info.User;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.PostOnPlayerWallRequestProto;
 import com.lvl6.proto.EventProto.PostOnPlayerWallResponseProto;
@@ -28,7 +29,6 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
-import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 
   @Component @DependsOn("gameServer") public class PostOnPlayerWallController extends EventController {

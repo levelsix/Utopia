@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.lvl6.info.Location;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.AvailableReferralCodeRetrieveUtils;
@@ -14,7 +15,6 @@ import com.lvl6.spring.AppContext;
 import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class GenerateFakeUsersWithoutInput {
 

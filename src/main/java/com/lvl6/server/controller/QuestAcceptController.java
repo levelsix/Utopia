@@ -14,6 +14,7 @@ import com.lvl6.events.response.QuestAcceptResponseEvent;
 import com.lvl6.info.Quest;
 import com.lvl6.info.User;
 import com.lvl6.info.UserQuest;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.proto.EventProto.QuestAcceptRequestProto;
 import com.lvl6.proto.EventProto.QuestAcceptResponseProto;
 import com.lvl6.proto.EventProto.QuestAcceptResponseProto.Builder;
@@ -23,7 +24,6 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
-import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 
   @Component @DependsOn("gameServer") public class QuestAcceptController extends EventController {

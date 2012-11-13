@@ -9,6 +9,7 @@ import com.lvl6.events.request.RedeemMarketplaceEarningsRequestEvent;
 import com.lvl6.events.response.RedeemMarketplaceEarningsResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.proto.EventProto.RedeemMarketplaceEarningsRequestProto;
 import com.lvl6.proto.EventProto.RedeemMarketplaceEarningsResponseProto;
 import com.lvl6.proto.EventProto.RedeemMarketplaceEarningsResponseProto.Builder;
@@ -16,7 +17,6 @@ import com.lvl6.proto.EventProto.RedeemMarketplaceEarningsResponseProto.RedeemMa
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Component @DependsOn("gameServer") public class RedeemMarketplaceEarningsController extends EventController {
 

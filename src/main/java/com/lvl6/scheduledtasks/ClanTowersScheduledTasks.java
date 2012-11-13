@@ -1,6 +1,7 @@
 package com.lvl6.scheduledtasks;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -14,6 +15,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.ILock;
 import com.lvl6.info.ClanTower;
+import com.lvl6.misc.Notification;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 
@@ -65,11 +67,22 @@ public class ClanTowersScheduledTasks {
 	protected void updateClanTower(ClanTower tower) {
 		if(tower.getAttackerBattleWins() > tower.getOwnerBattleWins()) {
 			updateClanTowerAttackerWonBattle(tower);
+			
+			//sendGeneralNotification(tower, true);
 		}else {
 			updateClanTowerOwnerWonBattle(tower);
+			
+			//sendGeneralNotification(tower, false);
 		}
 	}
-
+	/*
+	protected void sendGeneralNotification(ClanTower tower, boolean attackerWon) {
+		Notification clanTowerWarEnded = new Notification(server, allOnlinePlayers);
+		
+		clanTowerWarEnded.setNotificationAsClanTowerWarEnded(
+				clanTowerOwnerName, clanTowerAttackerName, towerName, attackerWon);
+	}*/
+	
 	protected void updateClanTowerOwnerWonBattle(ClanTower tower) {
 		log.info("Updating clan tower {}. Owner won battle.");
 		jdbcTemplate.update("update "+DBConstants.TABLE_CLAN_TOWERS
@@ -132,7 +145,10 @@ public class ClanTowersScheduledTasks {
 				+DBConstants.CLAN_TOWERS_HISTORY__ATTACK_START_TIME
 				+DBConstants.CLAN_TOWERS_HISTORY__WINNER_ID+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__OWNER_BATTLE_WINS+", "
-				+DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_BATTLE_WINS
+				+DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_BATTLE_WINS+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__NUM_HOURS_FOR_BATTLE+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__LAST_REWARD_GIVEN+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__REASON_FOR_ENTRY+", "
 				+") VALUES ("
 				+tower.getClanOwnerId()+", "
 				+tower.getClanAttackerId()+","
@@ -140,7 +156,10 @@ public class ClanTowersScheduledTasks {
 				+tower.getAttackStartTime()+", "
 				+(tower.getAttackerBattleWins() > tower.getOwnerBattleWins() ? tower.getClanAttackerId() : tower.getClanOwnerId())+","
 				+tower.getOwnerBattleWins()+", "
-				+tower.getAttackerBattleWins()+")"
+				+tower.getAttackerBattleWins()+", "
+				+tower.getNumHoursForBattle()+", "
+				+tower.getLastRewardGiven()+", "
+				+Notification.BATTLE_ENDED+")"
 		);
 	}
 	

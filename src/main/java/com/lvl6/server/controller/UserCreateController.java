@@ -22,6 +22,7 @@ import com.lvl6.info.Location;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.leaderboards.LeaderBoardUtil;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.EventProto.ReferralCodeUsedResponseProto;
@@ -45,7 +46,6 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
-import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 @Component @DependsOn("gameServer") public class UserCreateController extends EventController {
