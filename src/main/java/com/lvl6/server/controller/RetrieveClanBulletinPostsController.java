@@ -20,8 +20,8 @@ import com.lvl6.proto.EventProto.RetrieveClanBulletinPostsResponseProto;
 import com.lvl6.proto.EventProto.RetrieveClanBulletinPostsResponseProto.RetrieveClanBulletinPostsStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanBulletinPostRetrieveUtils;
+import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 

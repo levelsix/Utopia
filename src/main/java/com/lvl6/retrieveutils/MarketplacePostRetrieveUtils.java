@@ -20,7 +20,6 @@ import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
-import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.utils.DBConnection;
 
 @Component @DependsOn("gameServer") public class MarketplacePostRetrieveUtils {

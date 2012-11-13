@@ -12,7 +12,6 @@ import org.springframework.cache.annotation.Caching;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Task;
 import com.lvl6.info.UserStruct;
-import com.lvl6.proto.InfoProto.CritStructType;
 import com.lvl6.proto.InfoProto.ExpansionDirection;
 import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.proto.InfoProto.UserClanStatus;

@@ -4,15 +4,9 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.wicket.ajax.AbstractAjaxTimerBehavior;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.AbstractItem;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
-import org.apache.wicket.model.Model;
-import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.util.time.Duration;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +14,7 @@ import org.slf4j.LoggerFactory;
 import com.googlecode.wicketcharts.highcharts.HighChartContainer;
 import com.lvl6.cassandra.RollupEntry;
 import com.lvl6.cassandra.RollupUtil;
-import com.lvl6.retrieveutils.StatisticsRetrieveUtil;
 import com.lvl6.spring.AppContext;
-import com.lvl6.utils.RetrieveUtils;
 
 public class StatsGraphsPanel extends Panel {
 

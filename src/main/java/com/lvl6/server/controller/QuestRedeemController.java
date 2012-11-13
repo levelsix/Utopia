@@ -21,7 +21,6 @@ import com.lvl6.proto.EventProto.QuestRedeemRequestProto;
 import com.lvl6.proto.EventProto.QuestRedeemResponseProto;
 import com.lvl6.proto.EventProto.QuestRedeemResponseProto.Builder;
 import com.lvl6.proto.EventProto.QuestRedeemResponseProto.QuestRedeemStatus;
-import com.lvl6.proto.InfoProto.BattleResult;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;

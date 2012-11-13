@@ -1,12 +1,9 @@
 package com.lvl6.ui.admin.components;
 
 import org.apache.wicket.extensions.yui.calendar.DateTimeField;
-import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
-
-import com.lvl6.cassandra.log4j.Log4jElasticSearchQuery;
 
 public class LogSearchForm extends Form<LogSearchInputModel> {
 

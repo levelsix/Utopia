@@ -1,12 +1,10 @@
 package com.lvl6.leaderboards;
 
-import java.util.List;
 import java.util.Set;
 
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Tuple;
 
-import com.lvl6.proto.InfoProto.LeaderboardType;
 import com.lvl6.info.User;
 
 public interface LeaderBoardUtil {

@@ -43,7 +43,6 @@ import com.lvl6.cassandra.CassandraUtil;
 import com.lvl6.cassandra.CassandraUtilImpl;
 import com.lvl6.cassandra.RollupEntry;
 import com.lvl6.cassandra.RollupUtil;
-import com.lvl6.cassandra.log4j.Log4jAppender;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
