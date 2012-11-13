@@ -60,6 +60,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     resBuilder.setAccept(accept);
 
     server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(requesterId);
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       User requester = RetrieveUtils.userRetrieveUtils().getUserById(requesterId);
@@ -94,6 +95,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } catch (Exception e) {
       log.error("exception in ApproveOrRejectRequestToJoinClan processEvent", e);
     } finally {
+      server.unlockPlayer(requesterId);
       server.unlockPlayer(senderProto.getUserId());
     }
   }
@@ -106,7 +108,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (!UpdateUtils.get().updateUserClanStatus(requester.getId(), user.getClanId(), UserClanStatus.MEMBER)) {
         log.error("problem with updating user clan status to member for requester " + requester + " and clan id "+ user.getClanId());
       }
-      DeleteUtils.get().deleteUserClansForUserExceptSpecificClan(user.getId(), user.getClanId());
+      DeleteUtils.get().deleteUserClansForUserExceptSpecificClan(requester.getId(), user.getClanId());
     } else {
       if (!DeleteUtils.get().deleteUserClan(requester.getId(), user.getClanId())) {
         log.error("problem with deleting user clan info for requester with id " + requester.getId() + " and clan id " + user.getClanId()); 
