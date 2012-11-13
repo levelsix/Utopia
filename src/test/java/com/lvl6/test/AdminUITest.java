@@ -1,5 +1,7 @@
 package com.lvl6.test;
 
+import junit.framework.TestCase;
+
 import org.apache.wicket.util.tester.WicketTester;
 import org.elasticsearch.action.search.SearchResponse;
 import org.junit.Test;
@@ -18,8 +20,6 @@ import com.lvl6.ui.admin.pages.HealthCheckPage;
 import com.lvl6.ui.admin.pages.LogViewerPage;
 import com.lvl6.ui.admin.pages.MainPage;
 import com.lvl6.ui.admin.pages.StatsGraphsPage;
-
-import junit.framework.TestCase;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

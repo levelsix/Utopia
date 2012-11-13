@@ -23,6 +23,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.jayway.awaitility.Awaitility;
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.events.response.StartupResponseEvent;
 import com.lvl6.loadtesting.BasicUser;
@@ -32,8 +33,6 @@ import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.server.HealthCheck;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.ClientAttachment;
-import com.jayway.awaitility.Awaitility;
-import com.jayway.awaitility.Awaitility.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test-spring-application-context.xml")

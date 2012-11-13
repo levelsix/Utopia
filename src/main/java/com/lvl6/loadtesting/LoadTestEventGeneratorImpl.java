@@ -5,8 +5,6 @@ import java.nio.ByteBuffer;
 import org.springframework.integration.Message;
 import org.springframework.integration.message.GenericMessage;
 
-import com.lvl6.events.request.UserQuestDetailsRequestEvent;
-import com.lvl6.proto.EventProto.RetrieveStaticDataRequestProto;
 import com.lvl6.proto.EventProto.StartupRequestProto;
 import com.lvl6.proto.EventProto.StartupRequestProto.Builder;
 import com.lvl6.proto.EventProto.UserCreateRequestProto;

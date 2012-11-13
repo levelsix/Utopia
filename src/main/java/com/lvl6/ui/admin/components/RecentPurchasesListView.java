@@ -8,7 +8,6 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 
 import com.lvl6.stats.InAppPurchase;
-import com.lvl6.stats.Spender;
 
 public class RecentPurchasesListView extends ListView<InAppPurchase> {
 

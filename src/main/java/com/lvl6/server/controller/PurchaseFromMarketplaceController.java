@@ -1,7 +1,6 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;

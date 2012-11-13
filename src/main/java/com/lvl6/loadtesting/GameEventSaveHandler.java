@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lvl6.eventhandlers.AbstractGameEventHandler;
-import com.lvl6.eventhandlers.GameEventHandler;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 
