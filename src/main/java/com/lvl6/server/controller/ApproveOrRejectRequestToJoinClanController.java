@@ -126,6 +126,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("clan owner isn't this guy, clan owner id is " + clan.getOwnerId());
       return false;      
     }
+    //check if requester is already in a clan
+    if (0 < requester.getClanId()) {
+    	resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.ALREADY_IN_A_CLAN);
+    	log.error("trying to accept a user that is already in a clan");
+    	//the other requests in user_clans table that have a status of 2 (requesting to join clan)
+    	//are deleted later on in writeChangesToDB
+    	return false;
+    }
     UserClan uc = RetrieveUtils.userClanRetrieveUtils().getSpecificUserClan(requester.getId(), clan.getId());
     if (uc == null || uc.getStatus() != UserClanStatus.REQUESTING) {
       resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.NOT_A_REQUESTER);
@@ -138,14 +146,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.OTHER_FAIL);
       log.error("trying to upgrade full clan with id " + user.getClanId());
       return false;      
-    }
-    //check if requester is already in a clan
-    if (0 < requester.getClanId()) {
-    	resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.ALREADY_IN_A_CLAN);
-    	log.error("trying to accept a user that is already in a clan");
-    	//the other requests in user_clans table that have a status of 2 (requesting to join clan)
-    	//are deleted later on in writeChangesToDB
-    	return false;
     }
     resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.SUCCESS);
     return true;
