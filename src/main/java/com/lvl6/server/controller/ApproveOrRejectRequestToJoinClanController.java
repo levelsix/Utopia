@@ -139,8 +139,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("trying to upgrade full clan with id " + user.getClanId());
       return false;      
     }
+    //check if requester is already in a clan
+    if (0 < requester.getClanId()) {
+    	resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.ALREADY_IN_A_CLAN);
+    	log.error("trying to accept a user that is already in a clan");
+    	//the other requests in user_clans table that have a status of 2 (requesting to join clan)
+    	//are deleted later on in writeChangesToDB
+    	return false;
+    }
     resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.SUCCESS);
     return true;
   }
+
 
 }
