@@ -1,4 +1,4 @@
-package com.lvl6.cassandra.log4j;
+package com.lvl6.elasticsearch;
 
 import java.util.Date;
 
@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.lvl6.elasticsearch.Lvl6ElasticSearch;
+import com.lvl6.cassandra.log4j.Log4JConstants;
 
 
 public class Log4jElasticSearchQuery {

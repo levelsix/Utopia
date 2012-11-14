@@ -1,4 +1,4 @@
-package com.lvl6.cassandra.log4j;
+package com.lvl6.elasticsearch;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
@@ -16,7 +16,7 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 
-import com.lvl6.elasticsearch.Lvl6ElasticSearch;
+import com.lvl6.cassandra.log4j.Log4JConstants;
 import com.lvl6.properties.MDCKeys;
 
 public class Log4JElasticSearchIndexer {
@@ -27,8 +27,7 @@ public class Log4JElasticSearchIndexer {
 	protected String elasticSearchCluster;
 	protected String elasticSearchHosts;
 
-	public Log4JElasticSearchIndexer(String elasticSearchCluster,
-			String elasticSearchHosts) {
+	public Log4JElasticSearchIndexer(String elasticSearchCluster, String elasticSearchHosts) {
 		super();
 		this.elasticSearchCluster = elasticSearchCluster;
 		this.elasticSearchHosts = elasticSearchHosts;
@@ -37,27 +36,26 @@ public class Log4JElasticSearchIndexer {
 
 	TimeValue timeout = new TimeValue(500);
 
-	public void indexEvent(LoggingEvent event, UUID key, String host,
-			Map<String, Object> mdccopy) {
+	public void indexEvent(LoggingEvent event, UUID key, String host, Map<String, Object> mdccopy) {
 		Client client = search.getClient();
 		try {
 			XContentBuilder jsonBuilder = jsonBuilder();
 			jsonBuilder.startObject()
-					.field(Log4JConstants.TIME, event.getTimeStamp())
-					.field(Log4JConstants.HOST, host)
-					.field(Log4JConstants.MESSAGE, event.getMessage())
-					.field(Log4JConstants.LEVEL, event.getLevel() + "")
-					.field(Log4JConstants.NAME, event.getLoggerName())
-					.field(Log4JConstants.THREAD, event.getThreadName());
+				.field(Log4JConstants.TIME, event.getTimeStamp())
+				.field(Log4JConstants.HOST, host)
+				.field(Log4JConstants.MESSAGE, event.getMessage())
+				.field(Log4JConstants.LEVEL, event.getLevel() + "")
+				.field(Log4JConstants.NAME, event.getLoggerName())
+				.field(Log4JConstants.THREAD, event.getThreadName());
 			addStackTrace(event, jsonBuilder);
 			addProperties(event, jsonBuilder);
 			addPlayerId(mdccopy, jsonBuilder);
 			addUdid(mdccopy, jsonBuilder);
 			jsonBuilder.endObject();
 			client.prepareIndex(INDEX, TYPE, key.toString())
-					.setSource(jsonBuilder).setTimeout(timeout)
-					.setReplicationType(ReplicationType.ASYNC)
-					.execute().actionGet();
+				.setSource(jsonBuilder).setTimeout(timeout)
+				.setReplicationType(ReplicationType.ASYNC)
+				.execute().actionGet();
 		} catch (ElasticSearchException e) {
 			LogLog.error(e.getDetailedMessage());
 			search.closeClient();
@@ -81,8 +79,7 @@ public class Log4JElasticSearchIndexer {
 		return bulkRequest;
 	}
 
-	private void addUdid(Map<String, Object> mdccopy,
-			XContentBuilder jsonBuilder) throws IOException {
+	private void addUdid(Map<String, Object> mdccopy, XContentBuilder jsonBuilder) throws IOException {
 		if (mdccopy == null)
 			return;
 		String udId = (String) mdccopy.get(MDCKeys.UDID);
@@ -91,8 +88,7 @@ public class Log4JElasticSearchIndexer {
 		}
 	}
 
-	private void addPlayerId(Map<String, Object> mdccopy,
-			XContentBuilder jsonBuilder) {
+	private void addPlayerId(Map<String, Object> mdccopy, XContentBuilder jsonBuilder) {
 		if (mdccopy == null)
 			return;
 		Object pid;
@@ -106,8 +102,7 @@ public class Log4JElasticSearchIndexer {
 		}
 	}
 
-	private void addProperties(LoggingEvent event, XContentBuilder jsonBuilder)
-			throws IOException {
+	private void addProperties(LoggingEvent event, XContentBuilder jsonBuilder)	throws IOException {
 		@SuppressWarnings("rawtypes")
 		Map props = event.getProperties();
 		for (Object pkey : props.keySet()) {
@@ -115,8 +110,7 @@ public class Log4JElasticSearchIndexer {
 		}
 	}
 
-	private void addStackTrace(LoggingEvent event, XContentBuilder jsonBuilder)
-			throws IOException {
+	private void addStackTrace(LoggingEvent event, XContentBuilder jsonBuilder)	throws IOException {
 		if (event.getThrowableInformation() != null
 				&& event.getThrowableInformation().getThrowable() != null) {
 			String stacktrace = ExceptionUtils.getFullStackTrace(event

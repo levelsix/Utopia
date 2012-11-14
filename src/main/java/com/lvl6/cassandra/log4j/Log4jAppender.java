@@ -37,6 +37,7 @@ import org.slf4j.MDC;
 
 import com.lvl6.cassandra.CassandraUtil;
 import com.lvl6.cassandra.CassandraUtilImpl;
+import com.lvl6.elasticsearch.Log4JElasticSearchIndexer;
 import com.lvl6.properties.MDCKeys;
 
 public class Log4jAppender extends AppenderSkeleton {

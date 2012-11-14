@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.lvl6.cassandra.log4j.Log4JConstants;
-import com.lvl6.cassandra.log4j.Log4jElasticSearchQuery;
+import com.lvl6.elasticsearch.Log4jElasticSearchQuery;
 import com.lvl6.spring.AppContext;
 import com.lvl6.ui.admin.components.LogSearchForm;
 import com.lvl6.ui.admin.components.LogSearchInputModel;

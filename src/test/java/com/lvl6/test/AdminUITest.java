@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.lvl6.cassandra.log4j.Log4jElasticSearchQuery;
+import com.lvl6.elasticsearch.Log4jElasticSearchQuery;
 import com.lvl6.server.DevOps;
 import com.lvl6.spring.AppContext;
 import com.lvl6.ui.admin.components.StatsPanel;
