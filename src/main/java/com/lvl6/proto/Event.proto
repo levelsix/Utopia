@@ -1918,6 +1918,7 @@ message ApproveOrRejectRequestToJoinClanResponseProto {
 		OTHER_FAIL = 1;
 		NOT_OWNER = 2;
 		NOT_A_REQUESTER = 3;
+		ALREADY_IN_A_CLAN = 4;
 	}	
 }
 
