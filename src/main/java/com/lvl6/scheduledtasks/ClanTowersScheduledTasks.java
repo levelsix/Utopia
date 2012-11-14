@@ -102,11 +102,11 @@ public class ClanTowersScheduledTasks {
 		if(tower.getAttackerBattleWins() > tower.getOwnerBattleWins()) {
 			updateClanTowerAttackerWonBattle(tower);
 			
-			sendGeneralNotification(tower, true);
+			//sendGeneralNotification(tower, true);
 		}else {
 			updateClanTowerOwnerWonBattle(tower);
 			
-			sendGeneralNotification(tower, false);
+			//sendGeneralNotification(tower, false);
 		}
 	}
 	
