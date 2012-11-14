@@ -1,14 +1,16 @@
 package com.lvl6.scheduledtasks;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -17,7 +19,10 @@ import com.hazelcast.core.ILock;
 import com.lvl6.info.ClanTower;
 import com.lvl6.misc.Notification;
 import com.lvl6.properties.DBConstants;
+import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
+import com.lvl6.server.GameServer;
+import com.lvl6.utils.ConnectedPlayer;
 
 public class ClanTowersScheduledTasks {
 	private static Logger log = LoggerFactory.getLogger(ClanTowersScheduledTasks.class);
@@ -28,6 +33,35 @@ public class ClanTowersScheduledTasks {
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
+
+	//For sending messages to online people, NOTIFICATION FEATURE
+	@Resource(name = "outgoingGameEventsHandlerExecutor")
+	protected TaskExecutor executor;
+	public TaskExecutor getExecutor() {
+		return executor;
+	}	
+	public void setExecutor(TaskExecutor executor) {
+		this.executor = executor;
+	}
+	@Resource(name = "playersByPlayerId")
+	protected Map<Integer, ConnectedPlayer> playersByPlayerId;
+	public Map<Integer, ConnectedPlayer> getPlayersByPlayerId() {
+		return playersByPlayerId;
+	}
+	public void setPlayersByPlayerId(
+		Map<Integer, ConnectedPlayer> playersByPlayerId) {
+		this.playersByPlayerId = playersByPlayerId;
+	}
+	
+	@Autowired
+	protected GameServer server;
+	protected void setServer(GameServer server) {
+		this.server = server;
+	}
+	protected GameServer getServer() {
+		return server;
+	}
+	
 	
 	@Resource
 	protected HazelcastInstance hazel;
@@ -68,20 +102,24 @@ public class ClanTowersScheduledTasks {
 		if(tower.getAttackerBattleWins() > tower.getOwnerBattleWins()) {
 			updateClanTowerAttackerWonBattle(tower);
 			
-			//sendGeneralNotification(tower, true);
+			sendGeneralNotification(tower, true);
 		}else {
 			updateClanTowerOwnerWonBattle(tower);
 			
-			//sendGeneralNotification(tower, false);
+			sendGeneralNotification(tower, false);
 		}
 	}
-	/*
+	
 	protected void sendGeneralNotification(ClanTower tower, boolean attackerWon) {
-		Notification clanTowerWarEnded = new Notification(server, allOnlinePlayers);
+		Notification clanTowerWarEnded = new Notification(server, playersByPlayerId.values());
+		String clanTowerOwnerName = ClanRetrieveUtils.getClanWithId(tower.getClanOwnerId()).getName();
+		String clanTowerAttackerName = ClanRetrieveUtils.getClanWithId(tower.getClanAttackerId()).getName();
+		String towerName = tower.getTowerName();
 		
 		clanTowerWarEnded.setNotificationAsClanTowerWarEnded(
 				clanTowerOwnerName, clanTowerAttackerName, towerName, attackerWon);
-	}*/
+		executor.execute(clanTowerWarEnded);
+	}
 	
 	protected void updateClanTowerOwnerWonBattle(ClanTower tower) {
 		log.info("Updating clan tower {}. Owner won battle.");
