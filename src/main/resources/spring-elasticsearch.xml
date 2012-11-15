@@ -16,6 +16,6 @@
 		<property name="clusterName" value="${lvl6.elastic.search.cluster.name}" />
 	</bean>
 	
-	<bean id="log4jSearch" class="com.lvl6.cassandra.log4j.Log4jElasticSearchQuery" scope="prototype" />
+	<bean id="log4jSearch" class="com.lvl6.elasticsearch.Log4jElasticSearchQuery" scope="prototype" />
 	
 </beans>

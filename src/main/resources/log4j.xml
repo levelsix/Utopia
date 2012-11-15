@@ -11,14 +11,9 @@
 	</appender> -->
 
 
-<!--  	<appender name="cassandra" class="com.lvl6.cassandra.log4j.Log4jAppender">
-		<param name="hosts" value="${lvl6.cassandra.hosts}" />
-		<param name="keyspace" value="${lvl6.cassandra.keyspace}" />
-		<param name="columnFamily" value="${lvl6.cassandra.column.family}" />
-		<param name="clusterName" value="${lvl6.cassandra.cluster.name}" />
+  	<appender name="elasticSearch" class="com.lvl6.elasticsearch.Log4jElasticSearchAppender">
 		<param name="elasticCluster" value="${lvl6.elastic.search.cluster.name}" />
 		<param name="elasticHosts" value="${lvl6.elastic.search.hosts}" />
-		<param name="replicationFactor" value="${lvl6.cassandra.replication.factor}" />
 		<param name="Threshold" value="WARN" />
 	</appender> -->
 	
@@ -79,7 +74,7 @@
 	<root>
 		<level value="info" />
 		<!-- <appender-ref ref="EC2" />  -->
-		<!-- <appender-ref ref="cassandra" />  -->
+		<appender-ref ref="elasticsearch" />
 		<appender-ref ref="${lvl6.server.log.appender}" />
 		<appender-ref ref="ERROR_LOG" />
 	</root>
