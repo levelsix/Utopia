@@ -339,7 +339,7 @@ public class ControllerConstants {
   public static final int CREATE_CLAN__INITIAL_CLAN_LEVEL = 1;
   
   //THREE CARD MONTE
-  public static final int THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY = 60;
+  public static final int THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY = 20;
   public static final int THREE_CARD_MONTE__MIN_LEVEL = 5;
   public static final float THREE_CARD_MONTE__BAD_PERCENTAGE = 0.55f;
   public static final float THREE_CARD_MONTE__MEDIUM_PERCENTAGE = 0.25f;
