@@ -61,6 +61,7 @@ import com.lvl6.utils.utilmethods.InsertUtil;
     MinimumUserProto senderProto = reqProto.getSender();
     String content = (reqProto.hasContent()) ? reqProto.getContent() : "";
 
+    int senderId = senderProto.getUserId();
     PostOnClanBulletinResponseProto.Builder resBuilder = PostOnClanBulletinResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
@@ -69,7 +70,7 @@ import com.lvl6.utils.utilmethods.InsertUtil;
     
     boolean legitPost = checkLegitPost(resBuilder, user, clan, content);
 
-    PostOnClanBulletinResponseEvent resEvent = new PostOnClanBulletinResponseEvent(senderProto.getUserId());
+    PostOnClanBulletinResponseEvent resEvent = new PostOnClanBulletinResponseEvent(senderId);
     resEvent.setTag(event.getTag());
 
     if (legitPost) {
@@ -80,16 +81,21 @@ import com.lvl6.utils.utilmethods.InsertUtil;
         resBuilder.setStatus(PostOnClanBulletinStatus.OTHER_FAIL);
         log.error("problem with inserting clan wall post into db. posterId=" + user.getId() + ", clanid="
             + clan.getId() + ", content=" + content + ", timeOfPost=" + timeOfPost);
+        
+        resEvent.setPostOnClanBulletinResponseProto(resBuilder.build());
+        server.writeEvent(resEvent); //tell person, who tried to post, that posting failed
       } else {
         ClanBulletinPost cwp =  new ClanBulletinPost(wallPostId, user.getId(), clan.getId(), timeOfPost, content);
         ClanBulletinPostProto cwpp = CreateInfoProtoUtils.createClanBulletinPostProtoFromClanBulletinPost(cwp, user);
         resBuilder.setPost(cwpp);
+
+        resEvent.setPostOnClanBulletinResponseProto(resBuilder.build());
+        server.writeApnsClanEvent(resEvent, clan.getId()); //writes to online and offline people
       }
-      resEvent.setPostOnClanBulletinResponseProto(resBuilder.build());
-      server.writeClanEvent(resEvent, clan.getId());
+
     }else {
 	    resEvent.setPostOnClanBulletinResponseProto(resBuilder.build());
-	    server.writeEvent(resEvent);
+	    server.writeEvent(resEvent);//tell person, who tried to post, that posting failed
     }
   }
 
