@@ -19,7 +19,6 @@ import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
 import com.lvl6.info.UserStruct;
 import com.lvl6.misc.MiscMethods;
-import com.lvl6.misc.Notification;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.ExpansionDirection;
 import com.lvl6.proto.InfoProto.StructOrientation;
@@ -909,7 +908,7 @@ public class UpdateUtils implements UpdateUtil {
 		  whereClause = " where " + DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + "=?";
 		  values.add(clanTowerOwnerOrAttackerId);
 	  }
-	  String query = "update " + DBConstants.TABLE_CLAN_TOWERS + " set "  
+	  String query = "update " + tableName + " set "  
 			    + ownerOrAttacker
 		        + ownedStartTime + ownerBattleWins
 		        + attackStartTime + attackerBattleWins
@@ -921,7 +920,7 @@ public class UpdateUtils implements UpdateUtil {
 	  //could be 0 or more. All that matters is that it happens.
   }
   
-  protected void updateTowerHistory(JdbcTemplate jdbcTemplate, ClanTower tower) {
+  public void updateTowerHistory(JdbcTemplate jdbcTemplate, ClanTower tower, String reasonForEntry) {
 		jdbcTemplate.execute("insert into "+DBConstants.TABLE_CLAN_TOWERS_HISTORY
 				+" ("
 				+DBConstants.CLAN_TOWERS_HISTORY__OWNER_CLAN_ID+", "
@@ -944,7 +943,7 @@ public class UpdateUtils implements UpdateUtil {
 				+tower.getAttackerBattleWins()+", "
 				+tower.getNumHoursForBattle()+", "
 				+tower.getLastRewardGiven()+", "
-				+Notification.BATTLE_ENDED+")"
+				+reasonForEntry+")"
 		);
 	}
 }

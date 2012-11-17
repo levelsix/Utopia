@@ -204,8 +204,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
    }
   }
 
-
-
   private UserEquip setLostEquip(BattleResponseProto.Builder resBuilder,
       UserEquip lostEquip, User winner, User loser) {
     if (!loser.isFake()) { //real, unequip and transfer

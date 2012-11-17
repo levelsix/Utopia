@@ -5,10 +5,12 @@ import java.util.Date;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
@@ -55,6 +57,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 	  this.playersByPlayerId = playersByPlayerId;
   }
  
+  //copy pasted from ClanTowersScheduledTasks.java
+  private JdbcTemplate jdbcTemplate;
+	@Resource
+  public void setDataSource(DataSource dataSource) {
+      this.jdbcTemplate = new JdbcTemplate(dataSource);
+  }
   
   public BeginClanTowerWarController() {
     numAllocatedThreads = 4;
@@ -104,13 +112,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
 
       if (legit) {
-    	writeChangesToDB(newTower, oldTower, clan, curTime);
-    	
     	int ownerIdAfter = newTower.getClanOwnerId();
     	int attackerIdAfter = newTower.getClanAttackerId();
     	
-//    	sendGeneralNotification(ownerIdBefore, ownerIdAfter,
-//    		attackerIdBefore, attackerIdAfter, clan, newTower);
+    	writeChangesToDB(newTower, oldTower, clan, curTime);
+    	
+    	sendGeneralNotification(ownerIdBefore, ownerIdAfter,
+    		attackerIdBefore, attackerIdAfter, clan, newTower);
       }
     } catch (Exception e) {
       log.error("exception in BeginClanTowerWarController processEvent", e);
@@ -200,6 +208,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private void writeChangesToDB(ClanTower newClanTower, ClanTower oldClanTower, Clan aClan, Timestamp curTime) {
+	  //TODO: write to clan tower history table
+	  
+	  UpdateUtils.get().updateTowerHistory(jdbcTemplate, oldClanTower, Notification.BATTLE_ENDED);
+	  
 	  if (!UpdateUtils.get().updateClanTowerOwnerAndOrAttacker(
 			  newClanTower.getId(), 
 			  newClanTower.getClanOwnerId(), newClanTower.getOwnedStartTime(), newClanTower.getOwnerBattleWins(),
@@ -211,9 +223,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 				  " time of request=" + curTime);
 	  }
 	  
-	  //TODO: write to clan tower history table
   }
   
+  /**
+   * Determines which type of tower notification (tower status changed or tower war began) to send.
+   * @param ownerBefore - Owner of tower before processing request.
+   * @param ownerAfter - Owner of tower after processing request.
+   * @param attackerBefore - Attacker of tower before processing request.
+   * @param attackerAfter - Attacker of tower after processing request.
+   * @param aClan - Need name of tower attacker.
+   * @param aTower - Need name of tower.
+   */
   private void sendGeneralNotification(
 		  int ownerBefore, int ownerAfter, int attackerBefore, int attackerAfter,
 		  Clan aClan, ClanTower aTower) {
