@@ -208,6 +208,10 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware{
 		eventWriter.handleClanEvent(e, clanId);
 	}
 	
+	public void writeApnsClanEvent (ResponseEvent e, int clanId){
+		apnsWriter.handleClanEvent(e, clanId);
+		eventWriter.handleClanEvent(e, clanId);
+	}
 	
 	  public String serverId() {
 		  return getServerInstance().serverId();

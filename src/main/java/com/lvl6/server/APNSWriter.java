@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,18 +15,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lvl6.events.GameEvent;
 import com.lvl6.events.NormalResponseEvent;
+import com.lvl6.events.ResponseEvent;
 import com.lvl6.events.response.BattleResponseEvent;
+import com.lvl6.events.response.PostOnClanBulletinResponseEvent;
 import com.lvl6.events.response.PostOnPlayerWallResponseEvent;
 import com.lvl6.events.response.PurchaseFromMarketplaceResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.info.UserClan;
 import com.lvl6.properties.APNSProperties;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.EventProto.BattleResponseProto;
+import com.lvl6.proto.EventProto.PostOnClanBulletinResponseProto;
 import com.lvl6.proto.EventProto.PostOnPlayerWallResponseProto;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto;
 import com.lvl6.proto.InfoProto.BattleResult;
+import com.lvl6.proto.InfoProto.ClanBulletinPostProto;
+import com.lvl6.proto.InfoProto.MinimumClanProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.PlayerWallPostProto;
+import com.lvl6.retrieveutils.UserClanRetrieveUtils;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.Wrap;
@@ -36,6 +46,29 @@ import com.notnoop.apns.PayloadBuilder;
 public class APNSWriter extends Wrap {
 	// reference to game server
 
+	@Autowired
+	UserClanRetrieveUtils userClanRetrieveUtil;
+	
+	public UserClanRetrieveUtils getUserClanRetrieveUtil() {
+		return userClanRetrieveUtil;
+	}
+	
+	public void setUserClanRetrieveUtil(UserClanRetrieveUtils userClanRetrieveUtil) {
+		this.userClanRetrieveUtil = userClanRetrieveUtil;
+	}
+	
+	public Map<Integer, ConnectedPlayer> getPlayersByPlayerId() {
+		return playersByPlayerId;
+	}
+	
+	public void setPlayersByPlayerId(Map<Integer, ConnectedPlayer> playersByPlayerId) {
+		this.playersByPlayerId = playersByPlayerId;
+	}
+
+	@Resource(name="playersByPlayerId")
+	protected Map<Integer, ConnectedPlayer> playersByPlayerId;
+
+	
 	@Autowired
 	private GameServer server;
 
@@ -128,7 +161,7 @@ public class APNSWriter extends Wrap {
 							handlePostOnPlayerWallNotification(service,
 									(PostOnPlayerWallResponseEvent) event, user, user.getDeviceToken());
 						}
-
+						
 						// if
 						// (ReferralCodeUsedResponseEvent.class.isInstance(event))
 						// {
@@ -169,9 +202,8 @@ public class APNSWriter extends Wrap {
 
 	protected void buildService() throws FileNotFoundException {
 		log.info("Building ApnsService");
-		log.info(new File(".").getAbsolutePath());
-		log.info(new File(apnsProperties.pathToCert).getAbsolutePath());
 		File certFile = new File(apnsProperties.pathToCert);
+		log.info(certFile.getAbsolutePath());
 		try {
 			if (certFile.exists() && certFile.canRead()) {
 				ApnsServiceBuilder builder = APNS.newService()
@@ -192,6 +224,96 @@ public class APNSWriter extends Wrap {
 		}
 	}
 
+	/**
+	 * send apns to the given playerId
+	 */
+	private void handlePostOnClanBulletinApnsNotification(ApnsService service, PostOnClanBulletinResponseEvent event,
+			User user, String token) {
+		if (user.getNumBadges() < SOFT_MAX_NOTIFICATION_BADGES) {
+			//no time check since only leader can post and leader most likely won't spam messages
+			PayloadBuilder pb = APNS.newPayload().actionKey("View").badge(1);
+			
+			log.info("PostOnClanBulletinNotification for user: " + user.getId());
+			PostOnClanBulletinResponseProto resProto = event.getPostOnClanBulletinResponseProto();
+			ClanBulletinPostProto post = resProto.getPost();
+
+			String content = post.getContent();
+			if (content.length() > MAX_NUM_CHARACTERS_TO_SEND_FOR_WALL_POST) {
+				content = content.substring(0, MAX_NUM_CHARACTERS_TO_SEND_FOR_WALL_POST);
+				int index = content.lastIndexOf(" ");
+				if (index > 0) {
+					content = content.substring(0, index);
+					content += "...";
+				}
+
+			}
+
+			MinimumUserProto poster = post.getPoster();
+			MinimumClanProto clanOfPoster = poster.getClan();
+			
+			String clanName = clanOfPoster.getClanId() > 0 ? "[" + clanOfPoster.getTag() + "] " : "";
+			pb.alertBody(clanName + poster.getName()
+					+ " just posted on the clan bulletin: " + content);
+			
+			if (!pb.isTooLong()) {
+				log.info("Pushing clan bulletin apns message");
+				service.push(token, pb.build());
+
+			} else {
+				log.error("PlayloadBuilder isTooLong to send apns message");
+			}
+		}
+	}
+
+	private void determineEvent(ResponseEvent event, User user, String deviceToken) {
+		try {
+			ApnsService service = getApnsService();
+			if (service != null) {
+				
+				if (PostOnClanBulletinResponseEvent.class.isInstance(event)) {
+					handlePostOnClanBulletinApnsNotification(service, 
+							(PostOnClanBulletinResponseEvent) event, user, deviceToken);
+				}
+			}else {
+				log.warn("Apns service is null");
+			}
+			
+		} catch (FileNotFoundException e) {
+			log.error("File not found", e);
+		}
+	}
+
+	/**
+	 * sends to offline people
+	 * @param event
+	 * @param playerId - person to send event to
+	 */
+	protected void sendApnsNotificationToPlayer(ResponseEvent event, int playerId) {
+		ConnectedPlayer player = playersByPlayerId.get(playerId);
+		if(player == null){ 
+			log.info("sending apns with type=" + event.getEventType()+ " to player with id " + playerId + ", event=" + event);
+			
+			User user = RetrieveUtils.userRetrieveUtils().getUserById(playerId);
+			String deviceToken = user.getDeviceToken();
+			if (user != null && deviceToken != null && deviceToken.length() > 0) {
+				determineEvent(event, user, deviceToken);
+			} else {
+				log.warn("could not send push notification because user " + user + " has no device token");
+			}
+		}
+	}
+	
+	// copied from EventWriter.processClanResponseEvent
+	public void processClanResponseEvent(GameEvent event, int clanId) {
+		log.debug("apnsWriter received clan event=" + event);
+		ResponseEvent e = (ResponseEvent) event;
+		List<UserClan> playersInClan = userClanRetrieveUtil.getUserClanMembersInClan(clanId);
+		for (UserClan uc: playersInClan) {
+			log.info("Sending apns to clan: {} member: {}", uc.getClanId(), uc.getUserId());
+			sendApnsNotificationToPlayer(e, uc.getUserId());
+		}
+	}
+	
 	private void handlePostOnPlayerWallNotification(ApnsService service, PostOnPlayerWallResponseEvent event,
 			User user, String token) {
 		Date lastWallPostNotificationTime = user.getLastWallPostNotificationTime();
