@@ -181,6 +181,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           setUserClanInfos(resBuilder, user);
           setLockBoxEvents(resBuilder, user);
           setMarketplaceSearchEquips(resBuilder);
+          setStaticEquipsAndStructs(resBuilder);
           setChatMessages(resBuilder, user);
           setGoldSales(resBuilder);
           resBuilder.addAllClanTierLevels(MiscMethods.getAllClanTierLevelProtos());
@@ -270,6 +271,18 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     Collection<Equipment> equips = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().values();
     for (Equipment equip : equips) {
       resBuilder.addMktSearchEquips(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equip));
+    }
+  }
+
+  private void setStaticEquipsAndStructs(StartupResponseProto.Builder resBuilder) {
+    Collection<Equipment> equips = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().values();
+    for (Equipment equip : equips) {
+      resBuilder.addStaticEquips(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equip));
+    }
+
+    Collection<Structure> structs = StructureRetrieveUtils.getStructIdsToStructs().values();
+    for (Structure struct : structs) {
+      resBuilder.addStaticStructs(CreateInfoProtoUtils.createFullStructureProtoFromStructure(struct));
     }
   }
 
