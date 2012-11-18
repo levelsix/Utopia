@@ -55,7 +55,7 @@ public class EventWriterAmqp extends EventWriter {
 		MessageProperties msgProps = new MessageProperties();
 		log.info("writing predb event with type=" + event.getEventType() + " to player with udid " + udid
 				+ ", event=" + event);
-		clientsTemplate.send(udid, new Message(buff, msgProps));
+		clientsTemplate.send("client_udid_" + udid, new Message(buff, msgProps));
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class EventWriterAmqp extends EventWriter {
 	}
 
 	protected void sendMessageToPlayer(byte[] buff, MessageProperties msgProps, int playerId) {
-		clientsTemplate.send("" + playerId, new Message(buff, msgProps));
+		clientsTemplate.send("client_userid_" + playerId, new Message(buff, msgProps));
 	}
 
 	public void processClanResponseEvent(GameEvent event, int clanId) {
