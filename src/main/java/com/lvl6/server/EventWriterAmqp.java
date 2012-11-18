@@ -21,7 +21,7 @@ import com.lvl6.utils.NIOUtils;
 public class EventWriterAmqp extends EventWriter {
 
 	@Resource(name = "clientMessagesTemplate")
-	RabbitTemplate	clientsTemplate;
+	RabbitTemplate clientsTemplate;
 
 	public RabbitTemplate getClientsTemplate() {
 		return clientsTemplate;
@@ -32,7 +32,7 @@ public class EventWriterAmqp extends EventWriter {
 	}
 
 	@Autowired
-	UserClanRetrieveUtils	userClanRetrieveUtil;
+	UserClanRetrieveUtils userClanRetrieveUtil;
 
 	public UserClanRetrieveUtils getUserClanRetrieveUtil() {
 		return userClanRetrieveUtil;
@@ -42,7 +42,7 @@ public class EventWriterAmqp extends EventWriter {
 		this.userClanRetrieveUtil = userClanRetrieveUtil;
 	}
 
-	private static org.slf4j.Logger	log	= LoggerFactory.getLogger(EventWriterAmqp.class);
+	private static org.slf4j.Logger log = LoggerFactory.getLogger(EventWriterAmqp.class);
 
 	protected void processEvent(GameEvent event) {
 		if (event instanceof ResponseEvent)
@@ -51,11 +51,11 @@ public class EventWriterAmqp extends EventWriter {
 	}
 
 	public void processPreDBResponseEvent(ResponseEvent event, String udid) {
-		ByteBuffer buff = getBytes(event);
+		byte[] buff = getByteArray(event);
 		MessageProperties msgProps = new MessageProperties();
 		log.info("writing predb event with type=" + event.getEventType() + " to player with udid " + udid
 				+ ", event=" + event);
-		clientsTemplate.send(udid, new Message(buff.duplicate().array(), msgProps));
+		clientsTemplate.send(udid, new Message(buff, msgProps));
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class EventWriterAmqp extends EventWriter {
 	 */
 	public void processResponseEvent(ResponseEvent event) {
 		log.debug("writer received event=" + event);
-		ByteBuffer buff = getBytes(event);
+		byte[] buff = getByteArray(event);
 		MessageProperties msgProps = new MessageProperties();
 		if (BroadcastResponseEvent.class.isInstance(event)) {
 			int[] recipients = ((BroadcastResponseEvent) event).getRecipients();
@@ -85,8 +85,8 @@ public class EventWriterAmqp extends EventWriter {
 		}
 	}
 
-	protected void sendMessageToPlayer(ByteBuffer buff, MessageProperties msgProps, int playerId) {
-		clientsTemplate.send("" + playerId, new Message(buff.duplicate().array(), msgProps));
+	protected void sendMessageToPlayer(byte[] buff, MessageProperties msgProps, int playerId) {
+		clientsTemplate.send("" + playerId, new Message(buff, msgProps));
 	}
 
 	public void processClanResponseEvent(GameEvent event, int clanId) {
@@ -106,6 +106,14 @@ public class EventWriterAmqp extends EventWriter {
 		ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
 		NIOUtils.prepBuffer(event, writeBuffer);
 		return writeBuffer;
+	}
+
+	protected byte[] getByteArray(ResponseEvent event) {
+		ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
+		NIOUtils.prepBuffer(event, writeBuffer);
+		byte[] b = new byte[writeBuffer.remaining()];
+		writeBuffer.get(b);
+		return b;
 	}
 
 }// EventWriter
