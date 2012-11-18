@@ -68,7 +68,7 @@
 
 	<rabbit:listener-container	connection-factory="amqpConnectionFactory">
 		<rabbit:listener 
-			queues="${amqp.client.messages.routing.key}" 
+			queues="clientMessages" 
 			ref="clientEventHandler"
 			method="onMessage" />
 	</rabbit:listener-container>
