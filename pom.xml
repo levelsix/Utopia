@@ -120,6 +120,7 @@
 		<amqp.pass>devserver</amqp.pass>
 		<amqp.vhost>devageofchaos</amqp.vhost>
 		<amqp.exchange>gamemessages</amqp.exchange>
+		<amqp.chat.exchange>chatmessages</amqp.chat.exchange>
 		<amqp.client.messages.routing.key>messagesFromPlayers</amqp.client.messages.routing.key>
 	</properties>
 
