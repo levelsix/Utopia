@@ -93,8 +93,10 @@
 		<lvl6.cassandra.column.family>DevLogs</lvl6.cassandra.column.family>
 		<lvl6.cassandra.cluster.name>Test Cluster</lvl6.cassandra.cluster.name>
 		<lvl6.cassandra.replication.factor>1</lvl6.cassandra.replication.factor>
+		
 		<lvl6.elastic.search.cluster.name>lvl6_robot</lvl6.elastic.search.cluster.name>
 		<lvl6.elastic.search.hosts>robot.lvl6.com</lvl6.elastic.search.hosts>
+		
 		<maven.build.timestamp.format>yyyy-MM-dd-HH-mm-ss</maven.build.timestamp.format>
 		<beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
 		<application.release.name>Kingdom</application.release.name>
@@ -153,7 +155,7 @@
 				<hazelcast.pass>lvl6</hazelcast.pass>
 				<hazelcast.config>dev</hazelcast.config>
 				<hazelcast.port>6702</hazelcast.port>
-				<hazelcast.dev.ips>192.168.13.105</hazelcast.dev.ips>
+				<hazelcast.dev.ips>192.168.13.143</hazelcast.dev.ips>
 			</properties>
 		</profile>
 		<profile>

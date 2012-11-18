@@ -73,6 +73,6 @@
 			method="onMessage" />
 	</rabbit:listener-container>
 	
-	
+	<bean id="clientEventHandler" class="com.lvl6.eventhandlers.AmqpGameEventHandler" />
 
 </beans>

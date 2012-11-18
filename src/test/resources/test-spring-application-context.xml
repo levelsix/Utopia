@@ -17,6 +17,7 @@
 	<bean id="contextApplicationContextProvider" class="com.lvl6.spring.ApplicationContextProvider" />
 
 	<import resource="classpath:spring-redis.xml" />
+	<import resource="classpath:spring-amqp.xml" />
 	<import resource="classpath:spring-elasticsearch.xml" />
 	<import resource="classpath:spring-devops.xml" />
 	<import resource="classpath:spring-cassandra.xml" />
