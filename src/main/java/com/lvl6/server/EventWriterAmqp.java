@@ -53,9 +53,10 @@ public class EventWriterAmqp extends EventWriter {
 	public void processPreDBResponseEvent(ResponseEvent event, String udid) {
 		byte[] buff = getByteArray(event);
 		MessageProperties msgProps = new MessageProperties();
-		log.info("writing predb event with type=" + event.getEventType() + " to player with udid " + udid
-				+ ", event=" + event);
-		clientsTemplate.send("client_udid_" + udid, new Message(buff, msgProps));
+		String routingKey = "client_udid_" + udid;
+		log.info("writing predb event with type=" + event.getEventType() + " to player with routingKey "
+				+ routingKey + ", event=" + event);
+		clientsTemplate.send(routingKey, new Message(buff, msgProps));
 	}
 
 	/**
@@ -70,23 +71,25 @@ public class EventWriterAmqp extends EventWriter {
 			int[] recipients = ((BroadcastResponseEvent) event).getRecipients();
 			for (int i = 0; i < recipients.length; i++) {
 				if (recipients[i] > 0) {
+					String routingKey = "client_userid_" + recipients[i];
 					log.info("writing broadcast event with type=" + event.getEventType()
-							+ " to players with ids " + recipients[i]);
-					sendMessageToPlayer(buff, msgProps, recipients[i]);
+							+ " to players with routingKey " + routingKey);
+					sendMessageToPlayer(buff, msgProps, routingKey);
 				}
 			}
 		}
 		// Otherwise this is just a normal message, send response to sender.
 		else {
 			int playerId = ((NormalResponseEvent) event).getPlayerId();
-			log.info("writing normal event with type=" + event.getEventType() + " to player with id "
-					+ playerId + ", event=" + event);
-			sendMessageToPlayer(buff, msgProps, playerId);
+			String routingKey = "client_userid_" + playerId;
+			log.info("writing normal event with type=" + event.getEventType() + " to player with routingKey "
+					+ routingKey + ", event=" + event);
+			sendMessageToPlayer(buff, msgProps, routingKey);
 		}
 	}
 
-	protected void sendMessageToPlayer(byte[] buff, MessageProperties msgProps, int playerId) {
-		clientsTemplate.send("client_userid_" + playerId, new Message(buff, msgProps));
+	protected void sendMessageToPlayer(byte[] buff, MessageProperties msgProps, String routingKey) {
+		clientsTemplate.send(routingKey, new Message(buff, msgProps));
 	}
 
 	public void processClanResponseEvent(GameEvent event, int clanId) {
