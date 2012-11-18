@@ -51,7 +51,7 @@
 		auto-delete="false" 
 		durable="true">
 		<rabbit:bindings>
-			<rabbit:binding queue="${amqp.client.messages.routing.key}" />
+			<rabbit:binding queue="clientMessages" key="${amqp.client.messages.routing.key}" />
 		</rabbit:bindings>
 	</rabbit:direct-exchange>
 	
@@ -61,7 +61,7 @@
 	</rabbit:topic-exchange>
 
 	<rabbit:queue id="clientMessages" 
-		name="${amqp.client.messages.routing.key}"
+		name="clientMessages"
 		durable="true" 
 		auto-delete="false" />
 

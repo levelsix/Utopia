@@ -17,11 +17,10 @@ public class AmqpGameEventHandler extends AbstractGameEventHandler implements Me
 
 	static Logger log = LoggerFactory.getLogger(GameEventHandler.class);
 
-	
 	@Override
 	public void onMessage(Message msg) {
-		log.info("Received message");
-		if(msg != null) {
+		if (msg != null) {
+			log.info("Received message", msg.getMessageProperties().getMessageId());
 			Attachment attachment = new Attachment();
 			byte[] payload = (byte[]) msg.getBody();
 			attachment.readBuff = ByteBuffer.wrap(payload);
@@ -29,12 +28,11 @@ public class AmqpGameEventHandler extends AbstractGameEventHandler implements Me
 				processAttachment(attachment);
 				attachment.reset();
 			}
-		}else {
+		} else {
 			throw new RuntimeException("Message was null or missing headers");
 		}
 	}
 
-	
 	protected void processAttachment(Attachment attachment) {
 		ByteBuffer bb = ByteBuffer.wrap(Arrays.copyOf(attachment.payload, attachment.payloadSize));
 		EventController ec = getServer().getEventControllerByEventType(attachment.eventType);
@@ -42,7 +40,7 @@ public class AmqpGameEventHandler extends AbstractGameEventHandler implements Me
 			log.error("No event controller found in controllerMap for {}", attachment.eventType);
 			return;
 		}
-		RequestEvent  event = ec.createRequestEvent();
+		RequestEvent event = ec.createRequestEvent();
 		event.setTag(attachment.tag);
 		event.read(bb);
 		log.debug("Received event from client: " + event.getPlayerId());
@@ -50,8 +48,8 @@ public class AmqpGameEventHandler extends AbstractGameEventHandler implements Me
 	}
 
 	@Override
-	protected void delegateEvent(byte[] bytes, RequestEvent event,
-			String ip_connection_id, EventProtocolRequest eventType) {
+	protected void delegateEvent(byte[] bytes, RequestEvent event, String ip_connection_id,
+			EventProtocolRequest eventType) {
 		if (event != null && eventType.getNumber() < 0) {
 			log.error("the event type is < 0");
 			return;
@@ -63,7 +61,5 @@ public class AmqpGameEventHandler extends AbstractGameEventHandler implements Me
 		}
 		ec.handleEvent(event);
 	}
-
-	
 
 }
