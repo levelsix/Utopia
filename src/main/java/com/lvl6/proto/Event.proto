@@ -170,6 +170,9 @@ message StartupResponseProto {
 	
 	repeated ClanTierLevelProto clanTierLevels = 36;
 	
+	repeated FullStructureProto staticStructs = 37;
+	repeated FullEquipProto staticEquips = 38;
+	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
 		optional bool firstTimeToday = 2;

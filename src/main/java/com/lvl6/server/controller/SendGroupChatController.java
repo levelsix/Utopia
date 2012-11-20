@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -108,7 +109,7 @@ public class SendGroupChatController extends EventController {
 		MinimumUserProto senderProto = reqProto.getSender();
 		final GroupChatScope scope = reqProto.getScope();
 		String chatMessage = reqProto.getChatMessage();
-		final Timestamp timeOfPost = new Timestamp(reqProto.getClientTime());
+		final Timestamp timeOfPost = new Timestamp(new Date().getTime());
 
 		SendGroupChatResponseProto.Builder resBuilder = SendGroupChatResponseProto.newBuilder();
 		resBuilder.setSender(senderProto);
