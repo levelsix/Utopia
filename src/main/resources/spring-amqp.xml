@@ -33,15 +33,6 @@
 		channel-cache-size="5" />
 
 
-	<rabbit:template id="clientMessagesTemplate"
-		connection-factory="amqpConnectionFactory" 
-		channel-transacted="true"
-		exchange="${amqp.exchange}" />
-
-	<rabbit:template id="chatMessagesTemplate"
-		connection-factory="amqpConnectionFactory" 
-		channel-transacted="true"
-		exchange="${amqp.chat.exchange}" />
 
 
 
@@ -73,6 +64,16 @@
 			method="onMessage" />
 	</rabbit:listener-container>
 	
+	<rabbit:template id="clientMessagesTemplate"
+		connection-factory="amqpConnectionFactory" 
+		channel-transacted="true"
+		exchange="${amqp.exchange}" />
+
+	<rabbit:template id="chatMessagesTemplate"
+		connection-factory="amqpConnectionFactory" 
+		channel-transacted="true"
+		exchange="${amqp.chat.exchange}" />
+
 	<bean id="clientEventHandler" class="com.lvl6.eventhandlers.AmqpGameEventHandler" />
 
 </beans>

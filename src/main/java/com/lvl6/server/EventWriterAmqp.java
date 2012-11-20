@@ -20,6 +20,17 @@ import com.lvl6.utils.NIOUtils;
 
 public class EventWriterAmqp extends EventWriter {
 
+	@Resource(name = "chatMessagesTemplate")
+	RabbitTemplate chatTemplate;
+
+	public RabbitTemplate getChatTemplate() {
+		return chatTemplate;
+	}
+
+	public void setChatTemplate(RabbitTemplate chatTemplate) {
+		this.chatTemplate = chatTemplate;
+	}
+
 	@Resource(name = "clientMessagesTemplate")
 	RabbitTemplate clientsTemplate;
 
@@ -83,7 +94,7 @@ public class EventWriterAmqp extends EventWriter {
 			int playerId = ((NormalResponseEvent) event).getPlayerId();
 			String routingKey = "client_userid_" + playerId;
 			log.info("writing normal event with type=" + event.getEventType() + " to player with routingKey "
-					+ routingKey + ", event=" + event);
+					+ routingKey + " event=" + event.getClass().getSimpleName());
 			sendMessageToPlayer(buff, msgProps, routingKey);
 		}
 	}
@@ -92,17 +103,14 @@ public class EventWriterAmqp extends EventWriter {
 		clientsTemplate.send(routingKey, new Message(buff, msgProps));
 	}
 
-	public void processClanResponseEvent(GameEvent event, int clanId) {
-		/*
-		 * log.debug("writer received clan event=" + event); ResponseEvent e =
-		 * (ResponseEvent) event; ByteBuffer buff = getBytes(e); List<UserClan>
-		 * playersInClan =
-		 * userClanRetrieveUtil.getUserClanMembersInClan(clanId); for (UserClan
-		 * uc : playersInClan) {
-		 * log.info("Sending response to clan: {}  member: {}"
-		 * ,uc.getClanId(),uc.getUserId()); //sendMessageToPlayer(e,
-		 * buff.duplicate(), uc.getUserId()); }
-		 */
+	public void processClanResponseEvent(ResponseEvent event, int clanId) {
+		log.debug("writer received clan event=" + event);
+		chatTemplate.send("clan_" + clanId, new Message(getByteArray(event), null));
+	}
+
+	public void processGlobalChatResponseEvent(ResponseEvent event) {
+		log.debug("writer received clan event=" + event);
+		chatTemplate.send("chat_global", new Message(getByteArray(event), null));
 	}
 
 	protected ByteBuffer getBytes(ResponseEvent event) {

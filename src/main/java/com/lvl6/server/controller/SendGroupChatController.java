@@ -1,9 +1,6 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -20,7 +17,6 @@ import com.lvl6.events.response.ReceivedGroupChatResponseEvent;
 import com.lvl6.events.response.SendGroupChatResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
-import com.lvl6.info.UserClan;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.ReceivedGroupChatResponseProto;
 import com.lvl6.proto.EventProto.SendGroupChatRequestProto;
@@ -31,8 +27,8 @@ import com.lvl6.proto.InfoProto.GroupChatMessageProto;
 import com.lvl6.proto.InfoProto.GroupChatScope;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.server.EventWriter;
 import com.lvl6.utils.ConnectedPlayer;
-import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
@@ -44,9 +40,8 @@ public class SendGroupChatController extends EventController {
 	private static Logger log = Logger.getLogger(new Object() {
 	}.getClass().getEnclosingClass());
 
-	
 	public static int CHAT_MESSAGES_MAX_SIZE = 20;
-	
+
 	@Resource(name = "outgoingGameEventsHandlerExecutor")
 	protected TaskExecutor executor;
 
@@ -76,9 +71,19 @@ public class SendGroupChatController extends EventController {
 		return playersByPlayerId;
 	}
 
-	public void setPlayersByPlayerId(
-			Map<Integer, ConnectedPlayer> playersByPlayerId) {
+	public void setPlayersByPlayerId(Map<Integer, ConnectedPlayer> playersByPlayerId) {
 		this.playersByPlayerId = playersByPlayerId;
+	}
+
+	@Resource
+	protected EventWriter eventWriter;
+
+	public EventWriter getEventWriter() {
+		return eventWriter;
+	}
+
+	public void setEventWriter(EventWriter eventWriter) {
+		this.eventWriter = eventWriter;
 	}
 
 	public SendGroupChatController() {
@@ -96,8 +101,7 @@ public class SendGroupChatController extends EventController {
 	}
 
 	@Override
-	protected void processRequestEvent(final RequestEvent event)
-			throws Exception {
+	protected void processRequestEvent(final RequestEvent event) throws Exception {
 		final SendGroupChatRequestProto reqProto = ((SendGroupChatRequestEvent) event)
 				.getSendGroupChatRequestProto();
 
@@ -106,20 +110,16 @@ public class SendGroupChatController extends EventController {
 		String chatMessage = reqProto.getChatMessage();
 		final Timestamp timeOfPost = new Timestamp(reqProto.getClientTime());
 
-		SendGroupChatResponseProto.Builder resBuilder = SendGroupChatResponseProto
-				.newBuilder();
+		SendGroupChatResponseProto.Builder resBuilder = SendGroupChatResponseProto.newBuilder();
 		resBuilder.setSender(senderProto);
 
 		server.lockPlayer(senderProto.getUserId());
 		try {
-			final User user = RetrieveUtils.userRetrieveUtils().getUserById(
-					senderProto.getUserId());
+			final User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
-			boolean legitSend = checkLegitSend(resBuilder, user, scope,
-					chatMessage);
+			boolean legitSend = checkLegitSend(resBuilder, user, scope, chatMessage);
 
-			SendGroupChatResponseEvent resEvent = new SendGroupChatResponseEvent(
-					senderProto.getUserId());
+			SendGroupChatResponseEvent resEvent = new SendGroupChatResponseEvent(senderProto.getUserId());
 			resEvent.setTag(event.getTag());
 			resEvent.setSendGroupChatResponseProto(resBuilder.build());
 			server.writeEvent(resEvent);
@@ -137,15 +137,17 @@ public class SendGroupChatController extends EventController {
 				chatProto.setSender(senderProto);
 				chatProto.setScope(scope);
 				chatProto.setIsAdmin(user.isAdmin());
+				sendChatMessage(senderProto.getUserId(), chatProto, event.getTag(),
+						scope == GroupChatScope.CLAN, user.getClanId(), user.isAdmin());
 				// send messages in background so sending player can unlock
-				executor.execute(new Runnable() {
-					@Override
-					public void run() {
-						sendChatMessageToConnectedPlayers(chatProto,
-								event.getTag(), timeOfPost.getTime(), scope == GroupChatScope.CLAN,
-								user.getClanId(), user.isAdmin());
-					}
-				});
+				/*
+				 * executor.execute(new Runnable() {
+				 * 
+				 * @Override public void run() {
+				 * sendChatMessageToConnectedPlayers(chatProto, event.getTag(),
+				 * timeOfPost.getTime(), scope == GroupChatScope.CLAN,
+				 * user.getClanId(), user.isAdmin()); } });
+				 */
 			}
 		} catch (Exception e) {
 			log.error("exception in SendGroupChat processEvent", e);
@@ -154,65 +156,55 @@ public class SendGroupChatController extends EventController {
 		}
 	}
 
-	protected void sendChatMessageToConnectedPlayers (
-			ReceivedGroupChatResponseProto.Builder chatProto, int tag, long time,
-			boolean forClan, int clanId, boolean isAdmin) {
-		Collection<ConnectedPlayer> players = new ArrayList<ConnectedPlayer>();
-		if (forClan) {
-			List<UserClan> clanMembers = RetrieveUtils.userClanRetrieveUtils()
-					.getUserClanMembersInClan(clanId);
-			for (UserClan uc : clanMembers) {
-				ConnectedPlayer cp = playersByPlayerId.get(uc.getUserId());
-				if (cp != null) {
-					players.add(cp);
-				}
-			}
+	protected void sendChatMessage(int senderId, ReceivedGroupChatResponseProto.Builder chatProto, int tag,
+			boolean isForClan, int clanId, boolean isAdmin) {
+		ReceivedGroupChatResponseEvent ce = new ReceivedGroupChatResponseEvent(senderId);
+		ce.setReceivedGroupChatResponseProto(chatProto.build());
+		ce.setTag(tag);
+		if (isForClan) {
+			eventWriter.handleClanEvent(ce, clanId);
 		} else {
-			players = playersByPlayerId.values();
-			//add new message to front of list
-			chatMessages.add(0, CreateInfoProtoUtils.createGroupChatMessageProto(time, chatProto.getSender(), chatProto.getChatMessage(), isAdmin));
-			//remove older messages
-			try {
-				while(chatMessages.size() > CHAT_MESSAGES_MAX_SIZE) {
-					chatMessages.remove(CHAT_MESSAGES_MAX_SIZE);
-			}
-			}catch(Exception e) {
-				log.error(e);
-			}
-		}
-		for (ConnectedPlayer player : players) {
-			log.info("Sending chat message to player: " + player.getPlayerId());
-			ReceivedGroupChatResponseEvent ce = new ReceivedGroupChatResponseEvent(
-					player.getPlayerId());
-			ce.setReceivedGroupChatResponseProto(chatProto.build());
-			ce.setTag(tag);
-			try {
-				server.writeEvent(ce);
-			} catch (Exception e) {
-				log.error(e);
-			}
+			eventWriter.processGlobalChatResponseEvent(ce);
 		}
 	}
 
-	private void writeChangesToDB(User user, GroupChatScope scope,
-			String content, Timestamp timeOfPost) {
+	/*
+	 * protected void
+	 * sendChatMessageToConnectedPlayers(ReceivedGroupChatResponseProto.Builder
+	 * chatProto, int tag, long time, boolean forClan, int clanId, boolean
+	 * isAdmin) { Collection<ConnectedPlayer> players = new
+	 * ArrayList<ConnectedPlayer>(); if (forClan) { List<UserClan> clanMembers =
+	 * RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan( clanId);
+	 * for (UserClan uc : clanMembers) { ConnectedPlayer cp =
+	 * playersByPlayerId.get(uc.getUserId()); if (cp != null) { players.add(cp);
+	 * } } } else { players = playersByPlayerId.values(); // add new message to
+	 * front of list chatMessages.add( 0,
+	 * CreateInfoProtoUtils.createGroupChatMessageProto(time,
+	 * chatProto.getSender(), chatProto.getChatMessage(), isAdmin)); // remove
+	 * older messages try { while (chatMessages.size() > CHAT_MESSAGES_MAX_SIZE)
+	 * { chatMessages.remove(CHAT_MESSAGES_MAX_SIZE); } } catch (Exception e) {
+	 * log.error(e); } } for (ConnectedPlayer player : players) {
+	 * log.info("Sending chat message to player: " + player.getPlayerId());
+	 * ReceivedGroupChatResponseEvent ce = new
+	 * ReceivedGroupChatResponseEvent(player.getPlayerId());
+	 * ce.setReceivedGroupChatResponseProto(chatProto.build()); ce.setTag(tag);
+	 * try { server.writeEvent(ce); } catch (Exception e) { log.error(e); } } }
+	 */
+
+	private void writeChangesToDB(User user, GroupChatScope scope, String content, Timestamp timeOfPost) {
 		// if (!user.updateRelativeNumGroupChatsRemainingAndDiamonds(-1, 0)) {
 		// log.error("problem with decrementing a global chat");
 		// }
 
 		if (scope == GroupChatScope.CLAN) {
-			InsertUtils.get().insertClanChatPost(user.getId(),
-					user.getClanId(), content, timeOfPost);
+			InsertUtils.get().insertClanChatPost(user.getId(), user.getClanId(), content, timeOfPost);
 		}
 	}
 
-	private boolean checkLegitSend(Builder resBuilder, User user,
-			GroupChatScope scope, String chatMessage) {
-		if (user == null || scope == null || chatMessage == null
-				|| chatMessage.length() == 0) {
+	private boolean checkLegitSend(Builder resBuilder, User user, GroupChatScope scope, String chatMessage) {
+		if (user == null || scope == null || chatMessage == null || chatMessage.length() == 0) {
 			resBuilder.setStatus(SendGroupChatStatus.OTHER_FAIL);
-			log.error("user is " + user + ", scope is " + scope
-					+ ", chatMessage=" + chatMessage);
+			log.error("user is " + user + ", scope is " + scope + ", chatMessage=" + chatMessage);
 			return false;
 		}
 
@@ -233,9 +225,8 @@ public class SendGroupChatController extends EventController {
 		if (chatMessage.length() > ControllerConstants.SEND_GROUP_CHAT__MAX_LENGTH_OF_CHAT_STRING) {
 			resBuilder.setStatus(SendGroupChatStatus.TOO_LONG);
 			log.error("chat message is too long. allowed is "
-					+ ControllerConstants.SEND_GROUP_CHAT__MAX_LENGTH_OF_CHAT_STRING
-					+ ", length is " + chatMessage.length()
-					+ ", chatMessage is " + chatMessage);
+					+ ControllerConstants.SEND_GROUP_CHAT__MAX_LENGTH_OF_CHAT_STRING + ", length is "
+					+ chatMessage.length() + ", chatMessage is " + chatMessage);
 			return false;
 		}
 

@@ -9,5 +9,7 @@ public abstract class EventWriter extends Wrap {
 		super();
 	}
 
+	public abstract void processGlobalChatResponseEvent(ResponseEvent event);
+
 	public abstract void processPreDBResponseEvent(ResponseEvent event, String udid);
 }
