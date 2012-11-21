@@ -126,6 +126,7 @@ public class SendGroupChatController extends EventController {
 			server.writeEvent(resEvent);
 
 			if (legitSend) {
+				log.info("Group chat message is legit... sending to group");
 				writeChangesToDB(user, scope, chatMessage, timeOfPost);
 
 				UpdateClientUserResponseEvent resEventUpdate = MiscMethods
@@ -163,8 +164,10 @@ public class SendGroupChatController extends EventController {
 		ce.setReceivedGroupChatResponseProto(chatProto.build());
 		ce.setTag(tag);
 		if (isForClan) {
+			log.info("Sending event to clan "+ clanId);
 			eventWriter.handleClanEvent(ce, clanId);
 		} else {
+			log.info("Sending global chat ");
 			eventWriter.processGlobalChatResponseEvent(ce);
 		}
 	}
