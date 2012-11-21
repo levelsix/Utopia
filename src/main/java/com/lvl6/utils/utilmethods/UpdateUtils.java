@@ -11,7 +11,6 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.CoordinatePair;
@@ -856,9 +855,12 @@ public class UpdateUtils implements UpdateUtil {
 	  }
   }
   
-  public void resetClanTowerOwnerOrAttacker(int clanTowerOwnerOrAttackerId, boolean resetOwner) {
+  public boolean resetClanTowerOwnerOrAttacker(List<Integer> clanTowerOwnerOrAttackerIds, boolean resetOwner) {
+	  if(clanTowerOwnerOrAttackerIds.isEmpty()) {
+		  return true;
+	  }
 	  String tableName = DBConstants.TABLE_CLAN_TOWERS;
-
+	  
 	  List<Object> values = new ArrayList<Object>();
 	  String ownerOrAttacker = "";
 	  String ownedStartTime = "";
@@ -867,6 +869,14 @@ public class UpdateUtils implements UpdateUtil {
 	  String attackerBattleWins = "";
 	  String lastRewardTime = "";
 	  String whereClause = "";
+	  
+	  String delimiter = ", ";
+	  String listOfIds = "";
+	  for(Integer i : clanTowerOwnerOrAttackerIds) {
+		  listOfIds += i + delimiter;
+	  }
+	  listOfIds = listOfIds.substring(0, listOfIds.length() - delimiter.length());
+	  
 	  if(resetOwner) {
 		  //if the clan_towers.clanOwnerId = (clan id of clan who lost a member) 
 		  //set the clanOwnerId to the clanAttackerId, regardless of whether it is set
@@ -889,8 +899,8 @@ public class UpdateUtils implements UpdateUtil {
 		  lastRewardTime = " " + DBConstants.CLAN_TOWERS__LAST_REWARD_GIVEN + "=?";
 		  values.add(null);
 		  
-		  whereClause = " where " + DBConstants.CLAN_TOWERS__CLAN_OWNER_ID + "=?";
-		  values.add(clanTowerOwnerOrAttackerId);
+		  whereClause = " where " + DBConstants.CLAN_TOWERS__CLAN_OWNER_ID + "in (" +
+				  listOfIds + ")";
 	  }
 	  else {
 		  ownerOrAttacker = DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + "=?,";
@@ -905,8 +915,8 @@ public class UpdateUtils implements UpdateUtil {
 		  attackStartTime = " " + DBConstants.CLAN_TOWERS__ATTACK_START_TIME + "=?";
 		  values.add(null);
 		  
-		  whereClause = " where " + DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + "=?";
-		  values.add(clanTowerOwnerOrAttackerId);
+		  whereClause = " where " + DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + "in (" +
+				  listOfIds + ")";
 	  }
 	  String query = "update " + tableName + " set "  
 			    + ownerOrAttacker
@@ -916,34 +926,56 @@ public class UpdateUtils implements UpdateUtil {
 		        + whereClause ;
 	  
 	  int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
-	  //don't really care about the updates, because the desired rows affected
-	  //could be 0 or more. All that matters is that it happens.
+	  if (clanTowerOwnerOrAttackerIds.size() != numUpdated) {
+		  return false;
+	  }
+	  else {
+		  return true;
+	  }
+	  
   }
   
-  public void updateTowerHistory(JdbcTemplate jdbcTemplate, ClanTower tower, String reasonForEntry) {
-		jdbcTemplate.execute("insert into "+DBConstants.TABLE_CLAN_TOWERS_HISTORY
+  public boolean updateTowerHistory(List<ClanTower> towers, String reasonForEntry) {
+	  if (towers.isEmpty()) {
+		  return true;
+	  }
+	  
+	  String tableName = DBConstants.TABLE_CLAN_TOWERS_HISTORY;
+	  String query = "insert into" + tableName 
 				+" ("
 				+DBConstants.CLAN_TOWERS_HISTORY__OWNER_CLAN_ID+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_CLAN_ID+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__TOWER_ID+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__ATTACK_START_TIME
-				+DBConstants.CLAN_TOWERS_HISTORY__WINNER_ID+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__OWNER_BATTLE_WINS+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_BATTLE_WINS+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__NUM_HOURS_FOR_BATTLE+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__LAST_REWARD_GIVEN+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__REASON_FOR_ENTRY+", "
-				+") VALUES ("
-				+tower.getClanOwnerId()+", "
-				+tower.getClanAttackerId()+","
-				+tower.getId()+", "
-				+tower.getAttackStartTime()+", "
-				+(tower.getAttackerBattleWins() > tower.getOwnerBattleWins() ? tower.getClanAttackerId() : tower.getClanOwnerId())+","
-				+tower.getOwnerBattleWins()+", "
-				+tower.getAttackerBattleWins()+", "
-				+tower.getNumHoursForBattle()+", "
-				+tower.getLastRewardGiven()+", "
-				+reasonForEntry+")"
-		);
+				+") VALUES";
+	  for(ClanTower tower: towers) {
+		  query += "(" 
+		  +tower.getClanOwnerId()+", "
+	      +tower.getClanAttackerId()+","
+	      +tower.getId()+", "
+	      +tower.getAttackStartTime()+", "
+	      +tower.getOwnerBattleWins()+", "
+	      +tower.getAttackerBattleWins()+", "
+	      +tower.getNumHoursForBattle()+", "
+	      +tower.getLastRewardGiven()+", "
+	      +reasonForEntry+"), ";
+	  }
+	  int commaEnding = 2;
+	  query = query.substring(0, query.length()-commaEnding);
+	  log.info("the query to write to clan_towers_history table is: \n" + query);
+	  
+	  int numUpdated = DBConnection.get().updateDirectQueryNaive(query, null);
+	  if(towers.size() != numUpdated) {
+		  return false;
+	  }
+	  else {
+		  return true;
+	  }
+	  
 	}
 }

@@ -1,16 +1,16 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.task.TaskExecutor;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
@@ -55,13 +55,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   public void setPlayersByPlayerId(
 		  Map<Integer, ConnectedPlayer> playersByPlayerId) {
 	  this.playersByPlayerId = playersByPlayerId;
-  }
- 
-  //copy pasted from ClanTowersScheduledTasks.java
-  private JdbcTemplate jdbcTemplate;
-	@Resource
-  public void setDataSource(DataSource dataSource) {
-      this.jdbcTemplate = new JdbcTemplate(dataSource);
   }
   
   public BeginClanTowerWarController() {
@@ -208,9 +201,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private void writeChangesToDB(ClanTower newClanTower, ClanTower oldClanTower, Clan aClan, Timestamp curTime) {
-	  //TODO: write to clan tower history table
-	  
-	  UpdateUtils.get().updateTowerHistory(jdbcTemplate, oldClanTower, Notification.BATTLE_ENDED);
+	  List<ClanTower> tList = new ArrayList<ClanTower>();
+	  tList.add(oldClanTower);
+	  UpdateUtils.get().updateTowerHistory(tList, Notification.CLAN_TOWER_WAR_ENDED);
 	  
 	  if (!UpdateUtils.get().updateClanTowerOwnerAndOrAttacker(
 			  newClanTower.getId(), 

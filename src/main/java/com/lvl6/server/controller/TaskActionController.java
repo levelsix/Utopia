@@ -443,23 +443,27 @@ public class TaskActionController extends EventController {
             + ", simulateEnergyRefill="
             + simulateEnergyRefill + ", user=" + user);
       }
-      /*
+      
       //NOTIFICATION FEATURE: for when user gets an epic equip
-      //TODO: get equip, check if epic, if so get name of epic,
-      //create function to send notification to all online players
-      List<Integer> equipIds = new ArrayList<Integer>();
-      equipIds.add(lootEquipId);
-      Map<Integer, Equipment> gear = EquipmentRetrieveUtils.getEquipmentIdsToEquipment(equipIds);
-      if (1 != gear.size()) {
-    	  log.error("Equipments retrieved from db should have been 1.");
+      if (ControllerConstants.NOT_SET != lootEquipId) {
+    	  Map<Integer, Equipment> gear = getEquip(lootEquipId);
+    	  if (1 != gear.size()) {
+    		  log.error("Equipments retrieved from db should have been 1.");
+    	  }
+    	  else {
+    		  int cityId = task.getCityId();
+    		  City aCity = CityRetrieveUtils.getCityForCityId(cityId);
+    		  sendGeneralNotification(gear.get(0), user.getName(), aCity.getName());
+    	  }
       }
-      else {
-    	  int cityId = task.getCityId();
-    	  City aCity = CityRetrieveUtils.getCityForCityId(cityId);
-    	  sendGeneralNotification(gear.get(0), user.getName(), aCity.getName());
-      }
-      */
+      
     }
+  }
+  
+  private Map<Integer, Equipment> getEquip(int equipId){
+	  List<Integer> equipIds = new ArrayList<Integer>();
+	  equipIds.add(equipId);
+	  return EquipmentRetrieveUtils.getEquipmentIdsToEquipment(equipIds); 
   }
 
   private boolean checkCityRankup(

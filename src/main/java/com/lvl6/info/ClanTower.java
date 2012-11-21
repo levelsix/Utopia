@@ -21,7 +21,7 @@ public class ClanTower implements Serializable {
   private int attackerBattleWins;
   private int numHoursForBattle;
   private Date lastRewardGiven;
-  
+  //if a new property is added, make sure all files referencing ClanTower objects, tables reflect the change.
   public ClanTower(int id, String towerName, String towerImageName,
       int clanOwnerId, Date ownedStartTime, int silverReward, int goldReward,
       int numHoursToCollect, int clanAttackerId, Date attackStartTime,

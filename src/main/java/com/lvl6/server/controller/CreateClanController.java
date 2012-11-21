@@ -111,7 +111,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        //sendGeneralNotification(clanName);
+        sendGeneralNotification(clanName);
       }
     } catch (Exception e) {
       log.error("exception in CreateClan processEvent", e);

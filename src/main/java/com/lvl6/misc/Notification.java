@@ -21,10 +21,11 @@ public class Notification implements Runnable {
 	  private Collection<ConnectedPlayer> allOnlinePlayers;
 	  private Map<String, Object> keysAndValues;
 	  
-	  public static final String BATTLE_ENDED = "battle ended";
 	  public static final String ATTACKER_CONCEDED = "attacker conceded";
-	  public static final String OWNER_CONCEDED = "owner conceded";
 	  public static final String ATTACKER_NOT_ENOUGH_MEMBERS = "attacker does not have enough members";
+	  public static final String CLAN_TOWER_WAR_ENDED = "battle ended";
+	  public static final String FOUND_AN_EPIC = "found an epic";
+	  public static final String OWNER_CONCEDED = "owner conceded";
 	  public static final String OWNER_NOT_ENOUGH_MEMBERS = "owner does not have enough members";
 	  
 	  //TODO: Determine the amount of time in between periodic notifications
@@ -74,6 +75,10 @@ public class Notification implements Runnable {
 		  return notificationProto;
 	  }
 	  
+	  public void setNotificationAsAttackerConceded () {
+		  
+	  }
+	  
 	  public void setNotificationAsClanTowerStatus(){
 		  
 	  }
@@ -99,5 +104,9 @@ public class Notification implements Runnable {
 	  public void setNotificationAsEpicWeaponDropped (
 			  String userName, String equipName, String townName) {
 		//TODO: write logic for this function
+	  }
+	  
+	  public void setNotificationAsOwnerConceded () {
+		  
 	  }
 }

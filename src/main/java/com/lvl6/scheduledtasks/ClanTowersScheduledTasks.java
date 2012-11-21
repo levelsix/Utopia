@@ -102,11 +102,11 @@ public class ClanTowersScheduledTasks {
 		if(tower.getAttackerBattleWins() > tower.getOwnerBattleWins()) {
 			updateClanTowerAttackerWonBattle(tower);
 			
-			//sendGeneralNotification(tower, true);
+			sendGeneralNotification(tower, true);
 		}else {
 			updateClanTowerOwnerWonBattle(tower);
 			
-			//sendGeneralNotification(tower, false);
+			sendGeneralNotification(tower, false);
 		}
 	}
 	
@@ -197,7 +197,7 @@ public class ClanTowersScheduledTasks {
 				+tower.getAttackerBattleWins()+", "
 				+tower.getNumHoursForBattle()+", "
 				+tower.getLastRewardGiven()+", "
-				+Notification.BATTLE_ENDED+")"
+				+Notification.CLAN_TOWER_WAR_ENDED+")"
 		);
 	}
 	

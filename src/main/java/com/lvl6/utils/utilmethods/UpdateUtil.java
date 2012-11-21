@@ -8,7 +8,6 @@ import java.util.Set;
 
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.CoordinatePair;
@@ -186,7 +185,7 @@ public interface UpdateUtil {
   
   public abstract boolean updateClanTowerBattleWins(int clanTowerId, int ownerId, int attackerId, boolean ownerWon, int amountToIncrementBattleWinsBy);
   
-  public abstract void resetClanTowerOwnerOrAttacker(int clanTowerOwnerOrAttackerId, boolean resetOwner);
+  public abstract boolean resetClanTowerOwnerOrAttacker(List<Integer> clanTowerOwnerOrAttackerIds, boolean resetOwner);
   
-  public abstract void updateTowerHistory(JdbcTemplate jdbcTemplate, ClanTower tower, String reasonFoEntry);
+  public abstract boolean updateTowerHistory(List<ClanTower> towers, String reasonForEntry);
 }

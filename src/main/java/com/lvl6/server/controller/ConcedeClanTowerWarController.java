@@ -1,16 +1,16 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.task.TaskExecutor;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
@@ -23,7 +23,6 @@ import com.lvl6.info.User;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.misc.Notification;
 import com.lvl6.properties.ControllerConstants;
-import com.lvl6.proto.EventProto.BeginClanTowerWarResponseProto.BeginClanTowerWarStatus;
 import com.lvl6.proto.EventProto.ConcedeClanTowerWarRequestProto;
 import com.lvl6.proto.EventProto.ConcedeClanTowerWarResponseProto;
 import com.lvl6.proto.EventProto.ConcedeClanTowerWarResponseProto.Builder;
@@ -39,14 +38,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 @Component @DependsOn("gameServer") public class ConcedeClanTowerWarController extends EventController{
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
-  
-  private JdbcTemplate jdbcTemplate;
 
-  @Resource
-  public void setDataSource(DataSource dataSource) {
-      this.jdbcTemplate = new JdbcTemplate(dataSource);
-  }
-  
   //For sending messages to online people, NOTIFICATION FEATURE
   @Resource(name = "outgoingGameEventsHandlerExecutor")
   protected TaskExecutor executor;
@@ -100,12 +92,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       
-      ClanTower aTower = ClanTowerRetrieveUtils.getClanTower(towerId);
-      Clan clanTowerAttacker = ClanRetrieveUtils.getClanWithId(aTower.getClanAttackerId());
-      Clan clanTowerOwner = ClanRetrieveUtils.getClanWithId(aTower.getClanOwnerId());
+      ClanTower oldTower = ClanTowerRetrieveUtils.getClanTower(towerId);
+      ClanTower newTower = oldTower.copy();
+      Clan clanTowerAttacker = ClanRetrieveUtils.getClanWithId(newTower.getClanAttackerId());
+      Clan clanTowerOwner = ClanRetrieveUtils.getClanWithId(newTower.getClanOwnerId());
       
       boolean legit = checkLegitConcedeClanTowerWarRequest(
-    		  resBuilder, user, clanTowerAttacker, clanTowerOwner, aTower, curTime);
+    		  resBuilder, user, clanTowerAttacker, clanTowerOwner, newTower, curTime);
       
       ConcedeClanTowerWarResponseEvent resEvent = new ConcedeClanTowerWarResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
@@ -113,10 +106,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
 
       if (legit) {
-    	writeChangesToDB(aTower, curTime, user);
+    	writeChangesToDB(oldTower, newTower, curTime, user);
     	
-    	//sendGeneralNotification(ownerIdBefore, ownerIdAfter,
-    	//	attackerIdBefore, attackerIdAfter, clan, aTower);
+    	sendGeneralNotification(oldTower.getClanOwnerId(), newTower.getClanAttackerId());
       }
     } catch (Exception e) {
       log.error("exception in BeginClanTowerWarController processEvent", e);
@@ -182,8 +174,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     	aTower.setOwnerBattleWins(0);
     	
     	aTower.setClanAttackerId(ControllerConstants.NOT_SET);
-    	aTower.setAttackStartTime(null);
     	aTower.setAttackerBattleWins(0);
+    	aTower.setAttackStartTime(null);
+    	aTower.setLastRewardGiven(null);
     	resBuilder.setStatus(ConcedeClanTowerWarStatus.SUCCESS);
     	return true;
     }
@@ -192,43 +185,44 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return false;
   }
 
-  private void writeChangesToDB(ClanTower aClanTower, Timestamp curTime, User sender) {
+  private void writeChangesToDB(ClanTower oldTower, ClanTower newTower, Timestamp curTime, User sender) {
+	  //write changes to clan_tower_history
+	  int oldOwnerId = oldTower.getClanOwnerId();
+	  int newOwnerId = newTower.getClanOwnerId();
+	  String reasonForEntry = "";
+
+	  if(oldOwnerId == newOwnerId) { //attacker conceded
+		  reasonForEntry = Notification.ATTACKER_CONCEDED;
+	  }
+	  else { //owner conceded
+		  reasonForEntry = Notification.OWNER_CONCEDED;
+	  }
+	  List<ClanTower> tList = new ArrayList<ClanTower>();
+	  tList.add(oldTower);
+	  UpdateUtils.get().updateTowerHistory(tList, reasonForEntry);
+
+	  //write changes to clan_towers table
 	  if (!UpdateUtils.get().updateClanTowerOwnerAndOrAttacker(
-			  aClanTower.getId(), 
-			  aClanTower.getClanOwnerId(), aClanTower.getOwnedStartTime(), aClanTower.getOwnerBattleWins(),
-			  aClanTower.getClanAttackerId(), aClanTower.getAttackStartTime(), aClanTower.getAttackerBattleWins(),
-			  aClanTower.getLastRewardGiven())) {
+			  newTower.getId(), 
+			  newTower.getClanOwnerId(), newTower.getOwnedStartTime(), newTower.getOwnerBattleWins(),
+			  newTower.getClanAttackerId(), newTower.getAttackStartTime(), newTower.getAttackerBattleWins(),
+			  newTower.getLastRewardGiven())) {
 		  log.error("problem with updating a clan tower during a ConcedeClanTowerWarRequest." +
-				  " clan tower=" + aClanTower +
+				  " old tower=" + oldTower +
+				  " new tower=" + newTower +
 				  " user=" + sender + 
 				  " time of request=" + curTime);
 	  }
-	  //TODO: write changes to clan_tower_history
 	  
   }
   
-  private void sendGeneralNotification(
-		  int ownerBefore, int ownerAfter, int attackerBefore, int attackerAfter,
-		  Clan aClan, ClanTower aTower) {
+  private void sendGeneralNotification(int ownerBefore, int ownerAfter) {
 	  Notification clanTowerWarNotification = new Notification (server, playersByPlayerId.values());
-	  if (ownerBefore != ownerAfter) {
-		  clanTowerWarNotification.setNotificationAsClanTowerStatus();
-	  }
-	  else if (attackerBefore != attackerAfter) {
-		  //attackers should be different
-		  
-		  //another db call just for a name...maybe there's a better way to get clan name
-		  String clanTowerOwnerName = ClanRetrieveUtils.getClanWithId(ownerAfter).getName();
-		  String clanTowerAttackerName = aClan.getName();
-		  String towerName = aTower.getTowerName();
-		  
-		  clanTowerWarNotification.setNotificationAsClanTowerWarStarted(clanTowerOwnerName, 
-				  clanTowerAttackerName, towerName);
+	  if (ownerBefore == ownerAfter) {
+		  clanTowerWarNotification.setNotificationAsAttackerConceded();
 	  }
 	  else  {
-		  log.error("clan tower owner or attacker stayed the same. One of them" +
-				  	"should have been different.");
-		  return;
+		  clanTowerWarNotification.setNotificationAsOwnerConceded();
 	  }
 	  executor.execute(clanTowerWarNotification);
   }

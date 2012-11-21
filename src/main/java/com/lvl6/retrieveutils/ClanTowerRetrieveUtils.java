@@ -13,6 +13,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import com.lvl6.info.ClanTower;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
@@ -47,18 +48,17 @@ public class ClanTowerRetrieveUtils {
    * attacker id
    */
   public static List<ClanTower> getAllClanTowersWithSpecificOwnerAndOrAttackerId(
-		  Integer ownerId, Integer attackerId, boolean ownerAndAttackerAreEnemies){
+		  int ownerId, int attackerId, boolean ownerAndAttackerAreEnemies){
 	  Connection conn = DBConnection.get().getConnection();
-	  String tableName = DBConstants.TABLE_CLAN_TOWERS;
 	  
 	  Map<String, Object> absoluteConditionParams = 
 			  new HashMap<String,Object>();
 	  
-	  if (null != ownerId) {
+	  if (ControllerConstants.NOT_SET != ownerId) {
 		  absoluteConditionParams.put(
 				  DBConstants.CLAN_TOWERS__CLAN_OWNER_ID, ownerId);
 	  }
-	  if (null != attackerId) {
+	  if (ControllerConstants.NOT_SET != attackerId) {
 		  absoluteConditionParams.put(
 				  DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID, attackerId);
 	  }	  
@@ -67,11 +67,11 @@ public class ClanTowerRetrieveUtils {
 	  ResultSet rs = null;
 	  if (ownerAndAttackerAreEnemies) {
 		  rs = DBConnection.get().selectRowsAbsoluteAnd(
-				  conn, absoluteConditionParams, tableName);
+				  conn, absoluteConditionParams, TABLE_NAME);
 	  }
 	  else {
 		  rs = DBConnection.get().selectRowsAbsoluteOr(
-				  conn, absoluteConditionParams, tableName);
+				  conn, absoluteConditionParams, TABLE_NAME);
 	  }
 	  List<ClanTower> clanTowers = convertRSToClanTowersList(rs);
 	  DBConnection.get().close(rs, null, conn);

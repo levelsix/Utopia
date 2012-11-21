@@ -24,7 +24,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
 @Component @DependsOn("gameServer") public class BootPlayerFromClanController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
-
+  
   public BootPlayerFromClanController() {
     numAllocatedThreads = 4;
   }
@@ -117,6 +117,6 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
     
     //after user is disassociated with his clan, see if the clan's towers (if any) should be opened to
     //new ownership or to be attacked
-    MiscMethods.updateClanTowers(aClan);
+    MiscMethods.updateClanTowersAfterClanSizeDecrease(aClan);
   }
 }

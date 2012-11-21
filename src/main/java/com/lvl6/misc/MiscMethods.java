@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,12 +12,12 @@ import java.util.StringTokenizer;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
-import org.springframework.core.task.TaskExecutor;
 
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.City;
 import com.lvl6.info.Clan;
+import com.lvl6.info.ClanTower;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Location;
@@ -32,7 +31,6 @@ import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.properties.MDCKeys;
-import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.CharacterModConstants;
@@ -51,8 +49,8 @@ import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker
 import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
-import com.lvl6.proto.InfoProto.NotificationTitleColorProto;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
@@ -620,7 +618,11 @@ public class MiscMethods {
     return retEquipId;
   }
   
-  public static void updateClanTowers(Clan aClan) {
+  //Makes 6 db calls:
+  //Two to retrieve the towers the clan owns and is attacking
+  //Two to write to the clan_towers_history table: towers the clan owns and is attacking
+  //Two to write to the clan_towers table
+  public static void updateClanTowersAfterClanSizeDecrease(Clan aClan) {
 	  int clanId = aClan.getId();
 	  int clanSize = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId).size();
 	  int minSize = ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER;
@@ -629,9 +631,40 @@ public class MiscMethods {
 		  //since member left,
 		  //need to see if clan loses the towers they own, making the attacker the new owner,
 		  //or make the tower unowned; and making the towers they are attacking, not have an attacker
-		  UpdateUtils.get().resetClanTowerOwnerOrAttacker(clanId, true); //reset the towers where this clan is the owner
-		  UpdateUtils.get().resetClanTowerOwnerOrAttacker(clanId, false);//reset the towers where this clan is the attacker
-		  //TODO: figure out a way to tell if something happened, or if it happened correctly
+		  
+		  List<ClanTower> towersOwned = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
+				  clanId, ControllerConstants.NOT_SET, false);
+		  List<ClanTower> towersAttacked = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
+				  ControllerConstants.NOT_SET, clanId, false);
+		  
+		  List<Integer> ownedIds = new ArrayList<Integer>();
+		  List<Integer> attackedIds = new ArrayList<Integer>();
+		  for(ClanTower ct: towersOwned) {
+			  ownedIds.add(ct.getId());
+		  }
+		  for(ClanTower ct: towersAttacked) {
+			  attackedIds.add(ct.getId());
+		  }
+
+		  //update clan_towers_history table
+		  if(!UpdateUtils.get().updateTowerHistory(towersOwned, Notification.OWNER_CONCEDED)) {
+			  log.error("Added more/less towers than the clan owned to clan_towers_history table, when clan " +
+			  		"size decreased below the minimum limit. clan=" + aClan + " towersOwned=" + towersOwned);
+		  }
+		  if(!UpdateUtils.get().updateTowerHistory(towersAttacked, Notification.ATTACKER_CONCEDED)) {
+			  log.error("Added more/less towers than the clan attacked to clan_towers_history table, when clan " +
+			  		"size decreased below the minimum limit. clan=" + aClan + " towersAttacked=" + towersAttacked);
+		  }
+		  
+		  //update clan_towers table
+		  if(!UpdateUtils.get().resetClanTowerOwnerOrAttacker(ownedIds, true)) { //reset the towers where this clan is the owner
+			  log.error("reset more/less towers than the clan owned in clan_towers table. clan=" + 
+					  aClan + "towersOwned=" + towersOwned);
+		  }
+		  if(!UpdateUtils.get().resetClanTowerOwnerOrAttacker(attackedIds, false)) {//reset the towers where this clan is the attacker
+			  log.error("reset more/less towers than the clan attacked in clan_towers table. clan=" + 
+					  aClan + "towersAttacked=" + towersAttacked);
+		  }
 	  }
 	  
   }
