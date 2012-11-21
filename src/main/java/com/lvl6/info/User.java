@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.mortbay.log.Log;
+
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.EventProto.RefillStatWithDiamondsRequestProto.StatType;
@@ -238,6 +240,7 @@ public class User implements Serializable {
 
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
         conditionParams, "and");
+    Log.info("				The number of rows updated: " + numUpdated);
     if (numUpdated == 1) {
       if (isWeapon) {
         this.weaponEquippedUserEquipId = ControllerConstants.NOT_SET;
@@ -249,6 +252,9 @@ public class User implements Serializable {
         this.amuletEquippedUserEquipId = ControllerConstants.NOT_SET;
       }
       return true;
+    }
+    else if(0 == numUpdated && !(isWeapon || isArmor || isAmulet)) {
+    	return true;
     }
     return false;
   }

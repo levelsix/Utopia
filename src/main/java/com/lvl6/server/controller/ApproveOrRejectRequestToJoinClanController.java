@@ -65,7 +65,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       User requester = RetrieveUtils.userRetrieveUtils().getUserById(requesterId);
 
-      boolean legitDecision = checkLegitDecision(resBuilder, user, requester);
+      boolean legitDecision = checkLegitDecision(resBuilder, user, requester, accept);
       
       if (legitDecision) {
         Clan clan = ClanRetrieveUtils.getClanWithId(user.getClanId());
@@ -116,7 +116,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private boolean checkLegitDecision(Builder resBuilder, User user, User requester) {
+  private boolean checkLegitDecision(Builder resBuilder, User user, User requester, boolean accept) {
     if (user == null || requester == null) {
       resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.OTHER_FAIL);
       log.error("user is " + user + ", requester is " + requester);
@@ -144,7 +144,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     List<UserClan> ucs = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clan.getId());
     int maxSize = ClanTierLevelRetrieveUtils.getClanTierLevel(clan.getCurrentTierLevel()).getMaxClanSize();
-    if (ucs.size() >= maxSize) {
+    if (ucs.size() >= maxSize && accept) {
       resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.OTHER_FAIL);
       log.error("trying to upgrade full clan with id " + user.getClanId());
       return false;      
