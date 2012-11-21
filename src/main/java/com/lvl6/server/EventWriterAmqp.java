@@ -105,12 +105,14 @@ public class EventWriterAmqp extends EventWriter {
 
 	public void processClanResponseEvent(ResponseEvent event, int clanId) {
 		log.debug("writer received clan event=" + event);
-		chatTemplate.send("clan_" + clanId, new Message(getByteArray(event), null));
+		MessageProperties msgProps = new MessageProperties();
+		chatTemplate.send("clan_" + clanId, new Message(getByteArray(event), msgProps));
 	}
 
 	public void processGlobalChatResponseEvent(ResponseEvent event) {
 		log.debug("writer received clan event=" + event);
-		chatTemplate.send("chat_global", new Message(getByteArray(event), null));
+		MessageProperties msgProps = new MessageProperties();
+		chatTemplate.send("chat_global", new Message(getByteArray(event), msgProps));
 	}
 
 	protected ByteBuffer getBytes(ResponseEvent event) {
