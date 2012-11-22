@@ -37,6 +37,7 @@ public abstract class Wrap {
 
 	protected abstract void processEvent(GameEvent event) throws Exception;
 
-	public void processClanResponseEvent(GameEvent event, int clanId) {
+	public void processClanResponseEvent(ResponseEvent event, int clanId) {
+		
 	}
 }

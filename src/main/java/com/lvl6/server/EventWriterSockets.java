@@ -139,7 +139,7 @@ public class EventWriterSockets extends EventWriter implements HazelcastInstance
 		}
 	}
 
-	public void processClanResponseEvent(GameEvent event, int clanId) {
+	public void processClanResponseEvent(ResponseEvent event, int clanId) {
 		log.debug("writer received clan event=" + event);
 		ResponseEvent e = (ResponseEvent) event;
 		ByteBuffer buff = getBytes(e);
@@ -229,5 +229,6 @@ public class EventWriterSockets extends EventWriter implements HazelcastInstance
 		// TODO Auto-generated method stub
 
 	}
+
 
 }// EventWriter

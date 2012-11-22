@@ -103,6 +103,7 @@ public class EventWriterAmqp extends EventWriter {
 		clientsTemplate.send(routingKey, new Message(buff, msgProps));
 	}
 
+	@Override
 	public void processClanResponseEvent(ResponseEvent event, int clanId) {
 		MessageProperties msgProps = new MessageProperties();
 		String clanIdString = "clan_" + clanId;
@@ -130,5 +131,6 @@ public class EventWriterAmqp extends EventWriter {
 		writeBuffer.get(b);
 		return b;
 	}
+
 
 }// EventWriter
