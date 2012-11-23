@@ -20,6 +20,9 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import com.hazelcast.core.IList;
+import com.kabam.apiclient.KabamApi;
+import com.kabam.apiclient.RegisterGuestResponse;
+import com.kabam.apiclient.ResponseCode;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.StartupRequestEvent;
 import com.lvl6.events.response.RetrieveStaticDataResponseEvent;
@@ -214,7 +217,40 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     log.debug("Wrote response event: "+resEvent);
     //for things that client doesn't need
     log.debug("After response tasks");
+
+    retrieveKabamNaid(user);
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);    
+  }
+
+  private void retrieveKabamNaid(User user) {
+    if (user != null) {
+      String host;
+      int port = 443;
+      int clientId;
+      String secret;
+      if (Globals.IS_SANDBOX()) {
+        host = "https://api-sandbox.kabam.com";
+        clientId = 1089;
+        secret = "6592a1780e6d15e9135dc662c3c7a563";
+      } else {
+        host = "https://api.kabam.com";
+        clientId = 56;
+        secret = "07933877e5ae98a9b3297ed1ebb661cd";
+      }
+
+      KabamApi kabamApi = new KabamApi(host, port, secret);
+      String deviceId = user.getUdid();
+      String network = "iphone";
+      RegisterGuestResponse guest = kabamApi.mobileRegisterGuest(deviceId, clientId, network);
+      if (guest.getReturnCode() == ResponseCode.Success) {
+        System.out.println("access token: " + guest.getAccessToken());
+        System.out.println("naid: " + guest.getNaid());
+        
+        user.updateSetKabamNaid(guest.getNaid());
+      } else {
+        System.out.println("Error: " + guest.getReturnCode());
+      }
+    }
   }
 
   private void setChatMessages(StartupResponseProto.Builder resBuilder, User user) {
@@ -759,6 +795,4 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     resBuilder.setTutorialConstants(builder.build());
   }
-
-
 }

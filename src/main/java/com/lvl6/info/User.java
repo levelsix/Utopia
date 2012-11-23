@@ -73,6 +73,7 @@ public class User implements Serializable {
   private Date lastGoldmineRetrieval;
   private Date lastMarketplaceNotificationTime;
   private Date lastWallPostNotificationTime;
+  private int kabamNaid;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime, int energy,
@@ -91,7 +92,8 @@ public class User implements Serializable {
       int numCoinsRetrievedFromStructs, int numAdColonyVideosWatched,
       int numTimesKiipRewarded, int numConsecutiveDaysPlayed,
       int numGroupChatsRemaining, int clanId, Date lastGoldmineRetrieval,
-      Date lastMarketplaceNotificationTime, Date lastWallPostNotificationTime) {
+      Date lastMarketplaceNotificationTime, Date lastWallPostNotificationTime,
+      int kabamNaid) {
     super();
     this.id = id;
     this.name = name;
@@ -146,8 +148,8 @@ public class User implements Serializable {
     this.lastGoldmineRetrieval = lastGoldmineRetrieval;
     this.lastMarketplaceNotificationTime = lastMarketplaceNotificationTime;
     this.lastWallPostNotificationTime = lastWallPostNotificationTime;
+    this.kabamNaid = kabamNaid;
   }
-
 
   public boolean updateAbsoluteUserLocation(Location location) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
@@ -301,6 +303,22 @@ public class User implements Serializable {
         conditionParams, "and");
     if (numUpdated == 1) {
       this.deviceToken = deviceToken;
+      return true;
+    }
+    return false;
+  }
+
+  public boolean updateSetKabamNaid(int kabamNaid) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER__KABAM_NAID, kabamNaid);
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.kabamNaid = kabamNaid;
       return true;
     }
     return false;
@@ -1362,6 +1380,10 @@ public class User implements Serializable {
     return lastWallPostNotificationTime;
   }
 
+  public int getKabamNaid() {
+    return kabamNaid;
+  }
+
   @Override
   public String toString() {
     return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="
@@ -1398,7 +1420,7 @@ public class User implements Serializable {
         + clanId + ", lastGoldmineRetrieval=" + lastGoldmineRetrieval
         + ", lastMarketplaceNotificationTime="
         + lastMarketplaceNotificationTime + ", lastWallPostNotificationTime="
-        + lastWallPostNotificationTime + "]";
+        + lastWallPostNotificationTime + ", kabamNaid=" + kabamNaid + "]";
   }
 
 
