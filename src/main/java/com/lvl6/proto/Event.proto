@@ -861,6 +861,9 @@ message LevelUpResponseProto {
 message InAppPurchaseRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional string receipt = 2;
+	optional string localcents = 3;
+	optional string localcurrency = 4;
+	optional string locale = 5;
 }
 
 																						//DONE
