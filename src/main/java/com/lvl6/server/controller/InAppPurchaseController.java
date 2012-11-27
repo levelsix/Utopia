@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.http.Consts;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -213,7 +214,7 @@ public class InAppPurchaseController extends EventController {
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost("http://payv2beta.kabam.com/api/paymentlog");
 		try {
-			post.setEntity(new UrlEncodedFormEntity(queryParams));
+			post.setEntity(new UrlEncodedFormEntity(queryParams, Consts.UTF_8));
 			HttpResponse response = client.execute(post);
 			BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 			StringBuffer buff = new StringBuffer();
