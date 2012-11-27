@@ -229,25 +229,22 @@ public class InAppPurchaseController extends EventController {
 		}
 	}
 
-	private List<NameValuePair> getKabamQueryParams(String receipt, User user, JSONObject logJson)
-			throws NoSuchAlgorithmException {
+	private List<NameValuePair> getKabamQueryParams(String receipt, User user, JSONObject logJson)throws NoSuchAlgorithmException {
 		log.info("Generating Post parameters");
+		long time = new Date().getTime() / 1000;
 		List<NameValuePair> queryParams = new ArrayList<NameValuePair>();
 		queryParams.add(new BasicNameValuePair("gameid", "1089"));
-		queryParams.add(new BasicNameValuePair("mobileid", user.getUdid()));
-		queryParams.add(new BasicNameValuePair("userid", "" + user.getKabamNaid()));
-		queryParams.add(new BasicNameValuePair("receipt", receipt));
 		queryParams.add(new BasicNameValuePair("log", logJson.toString()));
-
-		long time = new Date().getTime() / 1000;
+		queryParams.add(new BasicNameValuePair("mobileid", user.getUdid()));
+		queryParams.add(new BasicNameValuePair("receipt", receipt));
 		queryParams.add(new BasicNameValuePair("timestamp", "" + time));
-
+		queryParams.add(new BasicNameValuePair("userid", "" + user.getKabamNaid()));
 		String str = "";
 		for (NameValuePair key : queryParams) {
 			str += key.getName() + key.getValue();
 		}
 		str += "6592a1780e6d15e9135dc662c3c7a563";
-
+		log.info("Signature for reciept: \n " + str);
 		queryParams.add(new BasicNameValuePair("sig", sha1(str)));
 		return queryParams;
 	}
