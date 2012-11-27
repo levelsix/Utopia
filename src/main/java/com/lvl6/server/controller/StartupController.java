@@ -243,12 +243,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       String network = "iphone";
       RegisterGuestResponse guest = kabamApi.mobileRegisterGuest(deviceId, clientId, network);
       if (guest.getReturnCode() == ResponseCode.Success) {
-        System.out.println("access token: " + guest.getAccessToken());
-        System.out.println("naid: " + guest.getNaid());
-        
         user.updateSetKabamNaid(guest.getNaid());
       } else {
-        System.out.println("Error: " + guest.getReturnCode());
+        log.error("Error retrieving kabam naid: " + guest.getReturnCode());
       }
     }
   }
