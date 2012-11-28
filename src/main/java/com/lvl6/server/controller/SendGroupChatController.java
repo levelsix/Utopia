@@ -30,6 +30,7 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.EventWriter;
 import com.lvl6.utils.ConnectedPlayer;
+import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
@@ -140,7 +141,7 @@ public class SendGroupChatController extends EventController {
 				chatProto.setScope(scope);
 				chatProto.setIsAdmin(user.isAdmin());
 				sendChatMessage(senderProto.getUserId(), chatProto, event.getTag(),
-						scope == GroupChatScope.CLAN, user.getClanId(), user.isAdmin());
+						scope == GroupChatScope.CLAN, user.getClanId(), user.isAdmin(), timeOfPost.getTime());
 				// send messages in background so sending player can unlock
 				/*
 				 * executor.execute(new Runnable() {
@@ -159,7 +160,7 @@ public class SendGroupChatController extends EventController {
 	}
 
 	protected void sendChatMessage(int senderId, ReceivedGroupChatResponseProto.Builder chatProto, int tag,
-			boolean isForClan, int clanId, boolean isAdmin) {
+			boolean isForClan, int clanId, boolean isAdmin, long time) {
 		ReceivedGroupChatResponseEvent ce = new ReceivedGroupChatResponseEvent(senderId);
 		ce.setReceivedGroupChatResponseProto(chatProto.build());
 		ce.setTag(tag);
@@ -168,6 +169,16 @@ public class SendGroupChatController extends EventController {
 			eventWriter.handleClanEvent(ce, clanId);
 		} else {
 			log.info("Sending global chat ");
+			//add new message to front of list
+			chatMessages.add(0, CreateInfoProtoUtils.createGroupChatMessageProto(time, chatProto.getSender(), chatProto.getChatMessage(), isAdmin));
+			//remove older messages
+			try {
+				while(chatMessages.size() > CHAT_MESSAGES_MAX_SIZE) {
+					chatMessages.remove(CHAT_MESSAGES_MAX_SIZE);
+			}
+			}catch(Exception e) {
+				log.error(e);
+			}
 			eventWriter.processGlobalChatResponseEvent(ce);
 		}
 	}
