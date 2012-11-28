@@ -140,7 +140,7 @@ public class EventWriterAmqp extends EventWriter {
 		for(int i=0;i < 50; i++) {
 			buf.append(i);
 			buf.append(": ");
-			buf.append(bytes[i]);
+			buf.append(Integer.toHexString(bytes[i]));
 			buf.append("\n");
 		}
 		log.info("First 50 bytes:\n{}", buf.toString());
@@ -148,7 +148,7 @@ public class EventWriterAmqp extends EventWriter {
 		for(int i=bytes.length-51;i < bytes.length; i++) {
 			buf.append(i);
 			buf.append(": ");
-			buf.append(bytes[i]);
+			buf.append(Integer.toHexString(bytes[i]));
 			buf.append("\n");
 		}
 		log.info("Last 50 bytes:\n{}", buf.toString());
