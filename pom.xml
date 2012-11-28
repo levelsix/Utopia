@@ -260,7 +260,7 @@
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:application</namespace>
 							<optionName>Application Healthcheck URL</optionName>
-							<value>/health</value>
+							<value>/index.html</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
