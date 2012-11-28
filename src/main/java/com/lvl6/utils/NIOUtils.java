@@ -28,18 +28,21 @@ public class NIOUtils {
 		writeBuffer.clear();
 
 		int type = event.getEventType().getNumber();
+		log.info("Setting eventType in writeBuffer to "+type);
 		writeBuffer.put((byte) (type & 0xFF));
 		writeBuffer.put((byte) ((type & 0xFF00) >> 8));
 		writeBuffer.put((byte) ((type & 0xFF0000) >> 16));
 		writeBuffer.put((byte) ((type & 0xFF000000) >> 24));
 		
 		int tag = event.getTag();
+		log.info("Setting tag in writeBuffer to "+tag);
 		writeBuffer.put((byte) (tag & 0xFF));
 		writeBuffer.put((byte) ((tag & 0xFF00) >> 8));
 		writeBuffer.put((byte) ((tag & 0xFF0000) >> 16));
 		writeBuffer.put((byte) ((tag & 0xFF000000) >> 24));
 
 		int sizePos = writeBuffer.position();
+		log.info("Setting placeHolder for size in writeBuffer at "+sizePos);
 		writeBuffer.putInt(0); // placeholder for payload size
 		int size = event.write(writeBuffer);
 		log.info("Prepped buffer size: "+(size+12));

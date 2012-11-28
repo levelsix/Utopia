@@ -2,6 +2,8 @@ package com.lvl6.events;
 
 import java.nio.ByteBuffer;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+
 import com.lvl6.proto.ProtocolsProto.EventProtocolResponse;
 
 /**
@@ -31,4 +33,8 @@ public abstract class ResponseEvent extends GameEvent{
 		this.tag = tag;
 	}
 
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.toString(this);
+	}
 }// GameEvent

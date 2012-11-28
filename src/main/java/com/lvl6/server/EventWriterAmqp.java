@@ -62,6 +62,7 @@ public class EventWriterAmqp extends EventWriter {
 	}
 
 	public void processPreDBResponseEvent(ResponseEvent event, String udid) {
+		log.info("writer received predb event=\n"+event.toString());
 		byte[] buff = getByteArray(event);
 		MessageProperties msgProps = new MessageProperties();
 		String routingKey = "client_udid_" + udid;
@@ -74,7 +75,7 @@ public class EventWriterAmqp extends EventWriter {
 	 * the writeBuffer
 	 */
 	public void processResponseEvent(ResponseEvent event) {
-		log.debug("writer received event=" + event);
+		log.debug("writer received event=\n" + event.toString());
 		byte[] buff = getByteArray(event);
 		MessageProperties msgProps = new MessageProperties();
 		if (BroadcastResponseEvent.class.isInstance(event)) {
