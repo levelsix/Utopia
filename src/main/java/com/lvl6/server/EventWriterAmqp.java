@@ -65,9 +65,8 @@ public class EventWriterAmqp extends EventWriter {
 		byte[] buff = getByteArray(event);
 		MessageProperties msgProps = new MessageProperties();
 		String routingKey = "client_udid_" + udid;
-		log.info("writing predb event with type=" + event.getEventType() + " to player with routingKey "
-				+ routingKey + ", event=" + event);
-		clientsTemplate.send(routingKey, new Message(buff, msgProps));
+		log.info("writing predb event with type=" + event.getEventType() + " to player with routingKey "+ routingKey + ", event=" + event);
+		sendMessageToPlayer(buff, msgProps, routingKey);
 	}
 
 	/**
@@ -127,7 +126,9 @@ public class EventWriterAmqp extends EventWriter {
 	protected byte[] getByteArray(ResponseEvent event) {
 		ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
 		NIOUtils.prepBuffer(event, writeBuffer);
-		byte[] b = new byte[writeBuffer.remaining()];
+		int remaining = writeBuffer.remaining();
+		log.info("Got byte[] of size: {}", remaining);
+		byte[] b = new byte[remaining];
 		writeBuffer.get(b);
 		return b;
 	}
