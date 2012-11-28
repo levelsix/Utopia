@@ -33,22 +33,20 @@ import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.RetrieveUtils;
 
 public class ServerAdmin implements MessageListener<ServerMessage> {
-	
+
 	Logger log = LoggerFactory.getLogger(getClass());
-	
+
 	protected JdbcTemplate jdbc;
-	
+
 	@Resource
-    public void setDataSource(DataSource dataSource) {
+	public void setDataSource(DataSource dataSource) {
 		log.info("Setting datasource and creating jdbcTemplate");
-        this.jdbc = new JdbcTemplate(dataSource);
-    }
-	
-	
-	@Resource(name="controllersExecutor")
+		this.jdbc = new JdbcTemplate(dataSource);
+	}
+
+	@Resource(name = "controllersExecutor")
 	protected TaskExecutor executor;
 
-	
 	public TaskExecutor getExecutor() {
 		return executor;
 	}
@@ -56,7 +54,6 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 	public void setExecutor(TaskExecutor executor) {
 		this.executor = executor;
 	}
-
 
 	@Autowired
 	protected LeaderBoardUtil leaderboard;
@@ -69,24 +66,21 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 		this.leaderboard = leaderboard;
 	}
 
-
-	@Resource(name="playersByPlayerId")
+	@Resource(name = "playersByPlayerId")
 	Map<Integer, ConnectedPlayer> players;
 
-	@Resource(name="serverEvents")
+	@Resource(name = "serverEvents")
 	protected ITopic<ServerMessage> serverEvents;
-	
-	@Resource(name="staticDataReloadDone")
+
+	@Resource(name = "staticDataReloadDone")
 	protected ITopic<ServerMessage> staticDataReloadDone;
-	
-	@Resource(name="eventWriter")
+
+	@Resource(name = "eventWriter")
 	protected EventWriter writer;
 
 	@Autowired
 	protected HazelcastInstance hazel;
-	
-	
-	
+
 	public HazelcastInstance getHazel() {
 		return hazel;
 	}
@@ -102,7 +96,7 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 	public void setStaticDataReloadDone(ITopic<ServerMessage> staticDataReloadDone) {
 		this.staticDataReloadDone = staticDataReloadDone;
 	}
-	
+
 	public Map<Integer, ConnectedPlayer> getPlayers() {
 		return players;
 	}
@@ -118,26 +112,23 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 	public void setServerEvents(ITopic<ServerMessage> serverEvents) {
 		this.serverEvents = serverEvents;
 	}
-	
-
-
 
 	public EventWriter getWriter() {
 		return writer;
 	}
 
-	public void setWriter(EventWriter writer) {
+	public void setWriter(EventWriterSockets writer) {
 		this.writer = writer;
 	}
 
-	
 	protected Integer instanceCountForDataReload = 0;
 	protected Integer instancesDoneReloadingCount = 0;
 	protected ILock instancesReloadingLock;
+
 	public void reloadAllStaticData() {
 		instancesDoneReloadingCount = 0;
 		instanceCountForDataReload = getHazel().getCluster().getMembers().size();
-		log.info("Reloading all static data for cluster instances: "+instanceCountForDataReload);
+		log.info("Reloading all static data for cluster instances: " + instanceCountForDataReload);
 		instancesReloadingLock = hazel.getLock(ServerMessage.RELOAD_STATIC_DATA);
 		try {
 			instancesReloadingLock.tryLock(20, TimeUnit.SECONDS);
@@ -147,55 +138,56 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 			log.error("Could not obtain lock for reloading instances", e);
 		}
 	}
-	
-	
+
 	public void reloadLeaderboard() {
 		UserRetrieveUtils uru = RetrieveUtils.userRetrieveUtils();
 		int count = uru.countUsers(false);
 		log.info("Loading leaderboard stats for {} users", count);
-		List<Integer> ids = jdbc.query("select "+DBConstants.USER__ID+" from "+DBConstants.TABLE_USER+" where "+DBConstants.USER__IS_FAKE +"=0", new RowMapper<Integer>(){
+		List<Integer> ids = jdbc.query("select " + DBConstants.USER__ID + " from " + DBConstants.TABLE_USER
+				+ " where " + DBConstants.USER__IS_FAKE + "=0", new RowMapper<Integer>() {
 			@Override
-			public Integer mapRow(ResultSet rs, int rowNum)
-					throws SQLException {
+			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
 				return rs.getInt(DBConstants.USER__ID);
 			}
 		});
 		Map<Integer, User> users = uru.getUsersByIds(ids);
-		for(final User usr : users.values()) {
+		for (final User usr : users.values()) {
 			executor.execute(new Runnable() {
 				@Override
 				public void run() {
 					try {
 						leaderboard.updateLeaderboardForUser(usr);
-					}catch(Exception e) {
+					} catch (Exception e) {
 						log.error("Error updating leaderboard for user: {}", usr.getId(), e);
 					}
 				}
 			});
 		}
 	}
-	
-	
+
 	protected void sendPurgeStaticDataNotificationToAllClients() {
 		Set<Integer> keySet = players.keySet();
-		if(keySet != null) {
+		if (keySet != null) {
 			Iterator<Integer> playas = keySet.iterator();
-			log.info("Sending purge static data notification to clients: "+keySet.size());
-			while(playas.hasNext()) {
+			log.info("Sending purge static data notification to clients: " + keySet.size());
+			while (playas.hasNext()) {
 				Integer playa = playas.next();
 				PurgeClientStaticDataResponseEvent pcsd = new PurgeClientStaticDataResponseEvent(playa);
-				pcsd.setPurgeClientStaticDataResponseProto(PurgeClientStaticDataResponseProto.newBuilder().setSenderId(playa).build());
-				writer.processResponseEvent(pcsd);
+				pcsd.setPurgeClientStaticDataResponseProto(PurgeClientStaticDataResponseProto.newBuilder()
+						.setSenderId(playa).build());
+				writer.handleEvent(pcsd);
 			}
 		}
 	}
 
 	@Override
 	public void onMessage(Message<ServerMessage> msg) {
-		if(msg.getMessageObject().equals(ServerMessage.DONE_RELOADING_STATIC_DATA)) {
+		if (msg.getMessageObject().equals(ServerMessage.DONE_RELOADING_STATIC_DATA)) {
 			instancesDoneReloadingCount++;
-			log.info("Instance done reloading static data: {}/{}", instancesDoneReloadingCount, instanceCountForDataReload);
-			if(instancesDoneReloadingCount >= instanceCountForDataReload || instancesDoneReloadingCount >= getHazel().getCluster().getMembers().size()) {
+			log.info("Instance done reloading static data: {}/{}", instancesDoneReloadingCount,
+					instanceCountForDataReload);
+			if (instancesDoneReloadingCount >= instanceCountForDataReload
+					|| instancesDoneReloadingCount >= getHazel().getCluster().getMembers().size()) {
 				log.info("All instances done reloading static data");
 				getStaticDataReloadDone().removeMessageListener(this);
 				sendPurgeStaticDataNotificationToAllClients();
@@ -204,5 +196,5 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 			}
 		}
 	}
-	
+
 }

@@ -78,15 +78,7 @@ public class ReconnectController extends EventController {
 		resBuilder.setSender(senderProto);
 		resBuilder.setIncomingResponseMessages(false);
 		Integer userId = event.getPlayerId();
-		if(messagesForDisconnectedPlayers.containsKey(userId)) {
-			List<Message<?>> userPendingMessages = messagesForDisconnectedPlayers.get(userId); 
-			log.info("Reconnected player "+userId+" has "+userPendingMessages.size()+" pending messages");
-			for(Message<?> message:userPendingMessages) {
-				eventWriter.sendMessageToPlayer(message, userId);
-			}
-			userPendingMessages.clear();
-			resBuilder.setIncomingResponseMessages(true);
-		}
+		
 		ReconnectResponseProto resProto = resBuilder.build();
 		ReconnectResponseEvent resEvent = new ReconnectResponseEvent(
 				senderProto.getUserId());
