@@ -131,7 +131,27 @@ public class EventWriterAmqp extends EventWriter {
 		log.info("Got byte[] of size: {}", remaining);
 		byte[] b = new byte[remaining];
 		writeBuffer.get(b);
+		traceByteArray(b);
 		return b;
+	}
+	
+	protected void traceByteArray(byte[] bytes) {
+		StringBuffer buf = new StringBuffer();
+		for(int i=0;i < 50; i++) {
+			buf.append(i);
+			buf.append(": ");
+			buf.append(bytes[i]);
+			buf.append("\n");
+		}
+		log.info("First 50 bytes:\n{}", buf.toString());
+		buf = new StringBuffer();
+		for(int i=bytes.length-51;i < bytes.length; i++) {
+			buf.append(i);
+			buf.append(": ");
+			buf.append(bytes[i]);
+			buf.append("\n");
+		}
+		log.info("Last 50 bytes:\n{}", buf.toString());
 	}
 
 
