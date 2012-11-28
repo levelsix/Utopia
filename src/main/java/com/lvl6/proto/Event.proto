@@ -864,6 +864,7 @@ message InAppPurchaseRequestProto {
 	optional string localcents = 3;
 	optional string localcurrency = 4;
 	optional string locale = 5;
+	optional string ipaddr = 6;
 }
 
 																						//DONE
