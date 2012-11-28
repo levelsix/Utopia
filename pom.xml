@@ -93,8 +93,10 @@
 		<lvl6.cassandra.column.family>DevLogs</lvl6.cassandra.column.family>
 		<lvl6.cassandra.cluster.name>Test Cluster</lvl6.cassandra.cluster.name>
 		<lvl6.cassandra.replication.factor>1</lvl6.cassandra.replication.factor>
+		
 		<lvl6.elastic.search.cluster.name>lvl6_robot</lvl6.elastic.search.cluster.name>
 		<lvl6.elastic.search.hosts>robot.lvl6.com</lvl6.elastic.search.hosts>
+		
 		<maven.build.timestamp.format>yyyy-MM-dd-HH-mm-ss</maven.build.timestamp.format>
 		<beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
 		<application.release.name>Kingdom</application.release.name>
@@ -114,6 +116,14 @@
 		<lvl6.smtp.username>lvl6sender@gmail.com</lvl6.smtp.username>
 		<lvl6.smtp.password>robashen123</lvl6.smtp.password>
 		<lvl6.smtp.contact1>5208206924@vtext.com</lvl6.smtp.contact1>
+		
+		<amqp.host>robot.lvl6.com</amqp.host>
+		<amqp.user>lvl6server</amqp.user>
+		<amqp.pass>devserver</amqp.pass>
+		<amqp.vhost>devageofchaos</amqp.vhost>
+		<amqp.exchange>gamemessages</amqp.exchange>
+		<amqp.chat.exchange>chatmessages</amqp.chat.exchange>
+		<amqp.client.messages.routing.key>messagesFromPlayers</amqp.client.messages.routing.key>
 	</properties>
 
 	<profiles>
@@ -145,7 +155,7 @@
 				<hazelcast.pass>lvl6</hazelcast.pass>
 				<hazelcast.config>dev</hazelcast.config>
 				<hazelcast.port>6702</hazelcast.port>
-				<hazelcast.dev.ips>192.168.13.105</hazelcast.dev.ips>
+				<hazelcast.dev.ips>192.168.13.143</hazelcast.dev.ips>
 			</properties>
 		</profile>
 		<profile>
@@ -250,7 +260,7 @@
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:application</namespace>
 							<optionName>Application Healthcheck URL</optionName>
-							<value>/health</value>
+							<value>/index.html</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
@@ -390,6 +400,11 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.springframework.integration</groupId>
+				<artifactId>spring-integration-amqp</artifactId>
+				<version>2.1.3.RELEASE</version>
+			</dependency>
 			<dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
@@ -843,6 +858,10 @@
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-amqp</artifactId>
 		</dependency>
 		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-aop</artifactId> 
 			</dependency> <dependency> <groupId>org.aspectj</groupId> <artifactId>aspectjrt</artifactId> 

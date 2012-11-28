@@ -36,7 +36,8 @@
 	<bean id="apnsWriter" class="com.lvl6.server.APNSWriter" />
 
 
-	<bean id="eventWriter" class="com.lvl6.server.EventWriter" />
+	<!-- bean id="eventWriter" class="com.lvl6.server.EventWriter" /-->
+	<bean id="eventWriter" class="com.lvl6.server.EventWriterAmqp" />
 	
 	<bean id="serverAdmin" class="com.lvl6.server.ServerAdmin" />
 	

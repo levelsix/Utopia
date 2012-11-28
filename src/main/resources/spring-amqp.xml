@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xmlns:int-amqp="http://www.springframework.org/schema/integration/amqp"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/data/jpa
+    	http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+    	http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/rabbit
+        http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd
+        http://www.springframework.org/schema/integration/amqp 
+        http://www.springframework.org/schema/integration/amqp/spring-integration-amqp.xsd
+        http://www.springframework.org/schema/integration/stream 
+        http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+		">
+
+
+
+
+	<rabbit:connection-factory id="amqpConnectionFactory"
+		host="${amqp.host}" 
+		username="${amqp.user}" 
+		password="${amqp.pass}"
+		virtual-host="${amqp.vhost}"
+		channel-cache-size="5" />
+
+
+
+
+
+	<rabbit:admin id="rabbitAdmin" connection-factory="amqpConnectionFactory" />
+
+	<rabbit:direct-exchange name="${amqp.exchange}"
+		auto-delete="false" 
+		durable="true">
+		<rabbit:bindings>
+			<rabbit:binding queue="clientMessages" key="${amqp.client.messages.routing.key}" />
+		</rabbit:bindings>
+	</rabbit:direct-exchange>
+	
+	<rabbit:topic-exchange name="${amqp.chat.exchange}"
+		auto-delete="false"
+		durable="true">
+	</rabbit:topic-exchange>
+
+	<rabbit:queue id="clientMessages" 
+		name="clientMessages"
+		durable="true" 
+		auto-delete="false" />
+
+
+	<rabbit:listener-container	connection-factory="amqpConnectionFactory">
+		<rabbit:listener 
+			queues="clientMessages" 
+			ref="clientEventHandler"
+			method="onMessage" />
+	</rabbit:listener-container>
+	
+	<rabbit:template id="clientMessagesTemplate"
+		connection-factory="amqpConnectionFactory" 
+		channel-transacted="true"
+		exchange="${amqp.exchange}" />
+
+	<rabbit:template id="chatMessagesTemplate"
+		connection-factory="amqpConnectionFactory" 
+		channel-transacted="true"
+		exchange="${amqp.chat.exchange}" />
+
+	<bean id="clientEventHandler" class="com.lvl6.eventhandlers.AmqpGameEventHandler" />
+
+</beans>
