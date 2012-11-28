@@ -62,12 +62,12 @@ public class EventWriterAmqp extends EventWriter {
 	}
 
 	public void processPreDBResponseEvent(ResponseEvent event, String udid) {
+		log.info("writer received predb event=\n"+event.toString());
 		byte[] buff = getByteArray(event);
 		MessageProperties msgProps = new MessageProperties();
 		String routingKey = "client_udid_" + udid;
-		log.info("writing predb event with type=" + event.getEventType() + " to player with routingKey "
-				+ routingKey + ", event=" + event);
-		clientsTemplate.send(routingKey, new Message(buff, msgProps));
+		log.info("writing predb event with type=" + event.getEventType() + " to player with routingKey "+ routingKey + ", event=" + event);
+		sendMessageToPlayer(buff, msgProps, routingKey);
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class EventWriterAmqp extends EventWriter {
 	 * the writeBuffer
 	 */
 	public void processResponseEvent(ResponseEvent event) {
-		log.debug("writer received event=" + event);
+		log.debug("writer received event=\n" + event.toString());
 		byte[] buff = getByteArray(event);
 		MessageProperties msgProps = new MessageProperties();
 		if (BroadcastResponseEvent.class.isInstance(event)) {
@@ -127,9 +127,31 @@ public class EventWriterAmqp extends EventWriter {
 	protected byte[] getByteArray(ResponseEvent event) {
 		ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
 		NIOUtils.prepBuffer(event, writeBuffer);
-		byte[] b = new byte[writeBuffer.remaining()];
+		int remaining = writeBuffer.remaining();
+		log.info("Got byte[] of size: {}", remaining);
+		byte[] b = new byte[remaining];
 		writeBuffer.get(b);
+		traceByteArray(b);
 		return b;
+	}
+	
+	protected void traceByteArray(byte[] bytes) {
+		StringBuffer buf = new StringBuffer();
+		for(int i=0;i < 50; i++) {
+			buf.append(i);
+			buf.append(": ");
+			buf.append(Integer.toHexString(bytes[i]));
+			buf.append("\n");
+		}
+		log.info("First 50 bytes:\n{}", buf.toString());
+		buf = new StringBuffer();
+		for(int i=bytes.length-51;i < bytes.length; i++) {
+			buf.append(i);
+			buf.append(": ");
+			buf.append(Integer.toHexString(bytes[i]));
+			buf.append("\n");
+		}
+		log.info("Last 50 bytes:\n{}", buf.toString());
 	}
 
 

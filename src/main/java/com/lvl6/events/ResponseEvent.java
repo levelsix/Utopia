@@ -31,4 +31,8 @@ public abstract class ResponseEvent extends GameEvent{
 		this.tag = tag;
 	}
 
+//	@Override
+//	public String toString() {
+//		return ReflectionToStringBuilder.toString(this);
+//	}
 }// GameEvent
