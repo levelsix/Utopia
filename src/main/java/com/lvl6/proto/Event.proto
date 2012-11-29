@@ -1498,6 +1498,12 @@ message PurgeClientStaticDataResponseProto {
      optional int32 senderId = 1;
 }
 
+																						//DONE
+message SendAdminMessageResponseProto {
+     optional int32 senderId = 1;
+     optional string message = 2;
+}
+
 //------------------------------------------------------------------------------------------
 
 																						//DONE

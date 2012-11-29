@@ -131,7 +131,6 @@ public class EventWriterAmqp extends EventWriter {
 		//log.info("Got byte[] of size: {}", remaining);
 		byte[] b = new byte[remaining];
 		writeBuffer.get(b);
-		//traceByteArray(b);
 		return b;
 	}
 	

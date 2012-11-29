@@ -42,7 +42,7 @@ public class SendGroupChatController extends EventController {
 	private static Logger log = Logger.getLogger(new Object() {
 	}.getClass().getEnclosingClass());
 
-	public static int CHAT_MESSAGES_MAX_SIZE = 20;
+	public static int CHAT_MESSAGES_MAX_SIZE = 50;
 
 	@Resource(name = "outgoingGameEventsHandlerExecutor")
 	protected TaskExecutor executor;
