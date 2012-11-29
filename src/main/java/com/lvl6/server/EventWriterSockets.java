@@ -230,5 +230,11 @@ public class EventWriterSockets extends EventWriter implements HazelcastInstance
 
 	}
 
+	@Override
+	public void sendAdminMessage(String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }// EventWriter

@@ -13,8 +13,15 @@
 			<td>
 				<a wicket:id="reloadStaticDataLink">Reload static data</a><br/>
 				<a wicket:id="reloadLeaderboardLink">Reload leaderboard</a><br/>
+				Contact site admins:<br/>
 				<form wicket:id="contactAdmins">
 					<input wicket:id="message" ></input>
+					<input type="submit" value="submit" />
+				</form>
+				
+				Send message to all clients:<br/>
+				<form wicket:id="adminMessageForm">
+					<input wicket:id="adminMessageToClients" ></input>
 					<input type="submit" value="submit" />
 				</form>
 			</td>

@@ -17,6 +17,7 @@ import com.lvl6.ui.admin.components.ReloadLeaderboardLink;
 import com.lvl6.ui.admin.components.ReloadStaticDataLink;
 import com.lvl6.ui.admin.components.StatsPanel;
 import com.lvl6.ui.admin.components.TopSpendersPanel;
+import com.lvl6.utils.MessagingUtil;
 
 public class AdminPage extends TemplatePage {
 
@@ -37,6 +38,7 @@ public class AdminPage extends TemplatePage {
 		setTopSpenders();
 		setRecentPurchases();
 		setContactAdmins();
+		setSendAdminMessage();
 		setupGraphs();
 	}
 	
@@ -79,6 +81,27 @@ public class AdminPage extends TemplatePage {
 		contact.setOutputMarkupId(true);
 		add(contact);
 	}
+	
+	
+	
+
+	protected void setSendAdminMessage() {
+		final TextField<String> message = new TextField<String>("adminMessageToClients", new Model<String>());
+		Form<String> contact = new Form<String>("adminMessageForm") {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void onSubmit() {
+				super.onSubmit();
+				MessagingUtil util = AppContext.getApplicationContext().getBean(MessagingUtil.class);
+				util.sendAdminMessage(message.getModelObject());
+				message.setModelObject("Admin message sent");
+			}
+		};
+		contact.add(message);
+		contact.setOutputMarkupId(true);
+		add(contact);
+	}
+	
 	
 	
 	protected void setupGraphs() {
