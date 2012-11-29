@@ -62,7 +62,7 @@ public class EventWriterAmqp extends EventWriter {
 	}
 
 	public void processPreDBResponseEvent(ResponseEvent event, String udid) {
-		log.info("writer received predb event=\n"+event.toString());
+		//log.info("writer received predb event=\n"+event.toString());
 		byte[] buff = getByteArray(event);
 		MessageProperties msgProps = new MessageProperties();
 		String routingKey = "client_udid_" + udid;
@@ -75,7 +75,7 @@ public class EventWriterAmqp extends EventWriter {
 	 * the writeBuffer
 	 */
 	public void processResponseEvent(ResponseEvent event) {
-		log.debug("writer received event=\n" + event.toString());
+		//log.debug("writer received event=\n" + event.toString());
 		byte[] buff = getByteArray(event);
 		MessageProperties msgProps = new MessageProperties();
 		if (BroadcastResponseEvent.class.isInstance(event)) {
@@ -128,10 +128,10 @@ public class EventWriterAmqp extends EventWriter {
 		ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
 		NIOUtils.prepBuffer(event, writeBuffer);
 		int remaining = writeBuffer.remaining();
-		log.info("Got byte[] of size: {}", remaining);
+		//log.info("Got byte[] of size: {}", remaining);
 		byte[] b = new byte[remaining];
 		writeBuffer.get(b);
-		traceByteArray(b);
+		//traceByteArray(b);
 		return b;
 	}
 	
@@ -152,6 +152,12 @@ public class EventWriterAmqp extends EventWriter {
 			buf.append("\n");
 		}
 		log.info("Last 50 bytes:\n{}", buf.toString());
+	}
+
+	@Override
+	public void sendAdminMessage(String message) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

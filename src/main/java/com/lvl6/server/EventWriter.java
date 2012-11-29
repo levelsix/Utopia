@@ -28,5 +28,6 @@ public abstract class EventWriter extends Wrap {
 
 	public abstract void processClanResponseEvent(ResponseEvent event, int clanId);
 	
+	public abstract void sendAdminMessage(String message);
 	
 }
