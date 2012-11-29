@@ -172,6 +172,8 @@ message StartupResponseProto {
 	
 	repeated FullStructureProto staticStructs = 37;
 	repeated FullEquipProto staticEquips = 38;
+		
+	repeated ClanTowerProto clanTowers = 39;
 	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;

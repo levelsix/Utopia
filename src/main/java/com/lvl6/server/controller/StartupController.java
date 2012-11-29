@@ -31,6 +31,7 @@ import com.lvl6.info.BattleDetails;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.City;
 import com.lvl6.info.ClanChatPost;
+import com.lvl6.info.ClanTower;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.GoldSale;
@@ -69,6 +70,7 @@ import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
 import com.lvl6.retrieveutils.ClanChatPostRetrieveUtils;
+import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.retrieveutils.IAPHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
 import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
@@ -189,6 +191,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           setChatMessages(resBuilder, user);
           setGoldSales(resBuilder);
           resBuilder.addAllClanTierLevels(MiscMethods.getAllClanTierLevelProtos());
+          setClanTowers(resBuilder);
 
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
@@ -221,6 +224,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     retrieveKabamNaid(user);
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);    
+  }
+
+  private void setClanTowers(StartupResponseProto.Builder resBuilder) {
+    List<ClanTower> towers = ClanTowerRetrieveUtils.getAllClanTowers();
+    
+    for (ClanTower tower : towers) {
+      resBuilder.addClanTowers(CreateInfoProtoUtils.createClanTowerProtoFromClanTower(tower));
+    }
   }
 
   private void retrieveKabamNaid(User user) {
