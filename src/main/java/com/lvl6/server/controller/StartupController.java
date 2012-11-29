@@ -48,6 +48,7 @@ import com.lvl6.info.UserQuest;
 import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
+import com.lvl6.properties.KabamProperties;
 import com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto;
 import com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto.RetrieveStaticDataStatus;
 import com.lvl6.proto.EventProto.StartupRequestProto;
@@ -229,13 +230,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int clientId;
       String secret;
       if (Globals.IS_SANDBOX()) {
-        host = "https://api-sandbox.kabam.com";
-        clientId = 1089;
-        secret = "6592a1780e6d15e9135dc662c3c7a563";
+        host = KabamProperties.SANDBOX_API_URL;
+        clientId = KabamProperties.SANDBOX_CLIENT_ID;
+        secret = KabamProperties.SANDBOX_SECRET;
       } else {
-        host = "https://api.kabam.com";
-        clientId = 56;
-        secret = "07933877e5ae98a9b3297ed1ebb661cd";
+        host = KabamProperties.PRODUCTION_API_URL;
+        clientId = KabamProperties.PRODUCTION_CLIENT_ID;
+        secret = KabamProperties.PRODUCTION_SECRET;
       }
 
       KabamApi kabamApi = new KabamApi(host, port, secret);
