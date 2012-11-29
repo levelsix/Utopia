@@ -38,6 +38,7 @@ public class AdminPage extends TemplatePage {
 		setTopSpenders();
 		setRecentPurchases();
 		setContactAdmins();
+		setSendAdminMessage();
 		setupGraphs();
 	}
 	
