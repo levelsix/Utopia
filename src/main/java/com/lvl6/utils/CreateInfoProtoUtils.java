@@ -512,7 +512,7 @@ public class CreateInfoProtoUtils {
     List<Boss> bosses = BossRetrieveUtils.getAllBossesForCityId(c.getId());
     if (bosses != null) {
       for (Boss b : bosses) {
-        builder.addTaskIds(b.getId());
+        builder.addBossIds(b.getId());
       }
     }
     
