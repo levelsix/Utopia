@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrieveStaticDataRequestEvent;
 import com.lvl6.events.response.RetrieveStaticDataResponseEvent;
+import com.lvl6.info.Boss;
 import com.lvl6.info.City;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Quest;
@@ -27,6 +28,7 @@ import com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto.RetrieveStaticD
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
@@ -225,6 +227,20 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     
     if (reqProto.getClanTierLevels()) {
       resBuilder.addAllClanTierLevels(MiscMethods.getAllClanTierLevelProtos());
+    }
+
+    List <Integer> bossIds = reqProto.getBossIdsList();
+    if (bossIds != null && bossIds.size() > 0) {
+      Map<Integer, Boss> bosses = BossRetrieveUtils.getBossIdsToBosses();
+      for (Integer bossId :  bossIds) {
+        Boss boss = bosses.get(bossId);
+        if (boss != null) {
+          resBuilder.addBosses(CreateInfoProtoUtils.createFullBossProtoFromBoss(boss));
+        } else {
+          resBuilder.setStatus(RetrieveStaticDataStatus.SOME_FAIL);
+          log.error("problem with retrieving boss with id " + boss);
+        }
+      }
     }
   }
 

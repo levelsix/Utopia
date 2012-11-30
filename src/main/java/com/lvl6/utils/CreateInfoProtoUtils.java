@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.BattleDetails;
 import com.lvl6.info.BlacksmithAttempt;
+import com.lvl6.info.Boss;
 import com.lvl6.info.City;
 import com.lvl6.info.Clan;
 import com.lvl6.info.ClanBulletinPost;
@@ -32,6 +33,7 @@ import com.lvl6.info.Referral;
 import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.info.UserBoss;
 import com.lvl6.info.UserCityExpansionData;
 import com.lvl6.info.UserClan;
 import com.lvl6.info.UserCritstruct;
@@ -57,6 +59,7 @@ import com.lvl6.proto.InfoProto.DefeatTypeJobProto;
 import com.lvl6.proto.InfoProto.DialogueProto;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
+import com.lvl6.proto.InfoProto.FullBossProto;
 import com.lvl6.proto.InfoProto.FullCityProto;
 import com.lvl6.proto.InfoProto.FullClanProto;
 import com.lvl6.proto.InfoProto.FullClanProtoWithClanSize;
@@ -66,6 +69,7 @@ import com.lvl6.proto.InfoProto.FullQuestProto;
 import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullTaskProto.FullTaskEquipReqProto;
+import com.lvl6.proto.InfoProto.FullUserBossProto;
 import com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto;
 import com.lvl6.proto.InfoProto.FullUserCityProto;
 import com.lvl6.proto.InfoProto.FullUserClanProto;
@@ -106,6 +110,7 @@ import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.UserLockBoxItemRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsTaskProgressRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
@@ -504,6 +509,13 @@ public class CreateInfoProtoUtils {
         builder.addTaskIds(t.getId());
       }
     }
+    List<Boss> bosses = BossRetrieveUtils.getAllBossesForCityId(c.getId());
+    if (bosses != null) {
+      for (Boss b : bosses) {
+        builder.addTaskIds(b.getId());
+      }
+    }
+    
     return builder.build();
   }
 
@@ -903,5 +915,19 @@ public class CreateInfoProtoUtils {
     }
     
     return b.build();
+  }
+  
+  public static FullBossProto createFullBossProtoFromBoss(Boss boss) {
+    return FullBossProto.newBuilder().setBossId(boss.getId()).setBaseHealth(boss.getBaseHealth())
+        .setMinDamage(boss.getMinDamage()).setMaxDamage(boss.getMaxDamage()).setMinutesToKill(boss.getMinutesToKill())
+        .setMinutesToRespawn(boss.getMinutesToRespawn()).setExperienceGained(boss.getExpGained())
+        .setCityId(boss.getCityId()).setAssetNumWithinCity(boss.getAssetNumberWithinCity())
+        .setStaminaCost(boss.getStaminaCost()).build();
+  }
+  
+  public static FullUserBossProto createFullUserBossProtoFromUserBoss(UserBoss b) {
+    return FullUserBossProto.newBuilder().setBossId(b.getBossId()).setUserId(b.getUserId())
+        .setCurHealth(b.getCurrentHealth()).setNumTimesKilled(b.getNumTimesKilled())
+        .setStartTime(b.getStartTime().getTime()).build();
   }
 }
