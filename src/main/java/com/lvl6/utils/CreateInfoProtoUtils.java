@@ -336,10 +336,10 @@ public class CreateInfoProtoUtils {
         .setNumCoinsRetrievedFromStructs(u.getNumCoinsRetrievedFromStructs())
         .setNumAdColonyVideosWatched(u.getNumAdColonyVideosWatched())
         .setNumGroupChatsRemaining(u.getNumGroupChatsRemaining());
-    
+
     if (u.isFake()) {
       int equipmentLevel = u.getLevel();
-      
+
       UserEquip weaponUserEquip = null;
       UserEquip armorUserEquip = null;
       UserEquip amuletUserEquip = null;
@@ -426,7 +426,7 @@ public class CreateInfoProtoUtils {
   public static MinimumClanProto createMinimumClanProtoFromClan(Clan c) {
     return MinimumClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwnerId(c.getOwnerId()).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).setTag(c.getTag()).setCurrentTierLevel(c.getCurrentTierLevel()).build();
   }
-  
+
   public static ClanTierLevelProto createClanTierLevelProtoFromClanTierLevel(ClanTierLevel t) {
     return ClanTierLevelProto.newBuilder().setTierLevel(t.getTierLevel()).setMaxSize(t.getMaxClanSize())
         .setUpgradeCost(t.getGoldCostToUpgradeToNextTierLevel()).build();
@@ -515,7 +515,7 @@ public class CreateInfoProtoUtils {
         builder.addBossIds(b.getId());
       }
     }
-    
+
     return builder.build();
   }
 
@@ -861,7 +861,7 @@ public class CreateInfoProtoUtils {
   public static UserLockBoxEventProto createUserLockBoxEventProto(UserLockBoxEvent event, UserType type) {
     UserLockBoxEventProto.Builder b = UserLockBoxEventProto.newBuilder().setUserId(event.getUserId()).setLockBoxEventId(event.getLockBoxId())
         .setNumLockBoxes(event.getNumLockBoxes()).setNumTimesCompleted(event.getNumTimesCompleted());
-    
+
     if (event.getLastPickTime() != null) {
       b.setLastPickTime(event.getLastPickTime().getTime());
     }
@@ -896,13 +896,13 @@ public class CreateInfoProtoUtils {
 
     return b.build();
   }
-  
+
   public static ClanTowerProto createClanTowerProtoFromClanTower(ClanTower tower) {
     ClanTowerProto.Builder b = ClanTowerProto.newBuilder().setTowerId(tower.getId())
         .setTowerImageName(tower.getTowerImageName()).setTowerName(tower.getTowerName())
         .setSilverReward(tower.getSilverReward()).setGoldReward(tower.getGoldReward())
         .setNumHoursToCollect(tower.getNumHoursToCollect());
-    
+
     if (tower.getClanOwnerId() > 0) {
       b.setClanOwnerId(tower.getClanOwnerId());
       b.setOwnedStartTime(tower.getOwnedStartTime().getTime());
@@ -913,10 +913,10 @@ public class CreateInfoProtoUtils {
       b.setOwnerBattlesWin(tower.getOwnerBattleWins());
       b.setAttackerBattlesWin(tower.getAttackerBattleWins());
     }
-    
+
     return b.build();
   }
-  
+
   public static FullBossProto createFullBossProtoFromBoss(Boss boss) {
     return FullBossProto.newBuilder().setBossId(boss.getId()).setBaseHealth(boss.getBaseHealth())
         .setMinDamage(boss.getMinDamage()).setMaxDamage(boss.getMaxDamage()).setMinutesToKill(boss.getMinutesToKill())
@@ -924,10 +924,14 @@ public class CreateInfoProtoUtils {
         .setCityId(boss.getCityId()).setAssetNumWithinCity(boss.getAssetNumberWithinCity())
         .setStaminaCost(boss.getStaminaCost()).build();
   }
-  
+
   public static FullUserBossProto createFullUserBossProtoFromUserBoss(UserBoss b) {
-    return FullUserBossProto.newBuilder().setBossId(b.getBossId()).setUserId(b.getUserId())
-        .setCurHealth(b.getCurrentHealth()).setNumTimesKilled(b.getNumTimesKilled())
-        .setStartTime(b.getStartTime().getTime()).build();
+    FullUserBossProto.Builder bu = FullUserBossProto.newBuilder().setBossId(b.getBossId()).setUserId(b.getUserId())
+        .setCurHealth(b.getCurrentHealth()).setNumTimesKilled(b.getNumTimesKilled());
+
+    if (b.getStartTime() != null) {
+      bu.setStartTime(b.getStartTime().getTime());
+    }
+    return bu.build();
   }
 }
