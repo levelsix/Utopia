@@ -57,7 +57,7 @@
 		auto-delete="false" />
 
 
-	<rabbit:listener-container	connection-factory="amqpConnectionFactory">
+	<rabbit:listener-container	connection-factory="amqpConnectionFactory" concurrency="50" >
 		<rabbit:listener 
 			queues="clientMessages" 
 			ref="clientEventHandler"
