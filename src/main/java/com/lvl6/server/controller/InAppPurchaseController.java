@@ -34,7 +34,9 @@ import com.lvl6.events.request.InAppPurchaseRequestEvent;
 import com.lvl6.events.response.InAppPurchaseResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
+import com.lvl6.properties.KabamProperties;
 import com.lvl6.proto.EventProto.InAppPurchaseRequestProto;
 import com.lvl6.proto.EventProto.InAppPurchaseResponseProto;
 import com.lvl6.proto.EventProto.InAppPurchaseResponseProto.InAppPurchaseStatus;
@@ -211,8 +213,9 @@ public class InAppPurchaseController extends EventController {
 
   private void doKabamPost(List<NameValuePair> queryParams, int numTries) {
     log.info("Posting to Kabam");
+    String host = Globals.IS_SANDBOX() ? KabamProperties.SANDBOX_PAYMENT_URL : KabamProperties.PRODUCTION_PAYMENT_URL;
     HttpClient client = new DefaultHttpClient();
-    HttpPost post = new HttpPost("http://payv2beta.kabam.com/api/paymentlog");
+    HttpPost post = new HttpPost(host);
     try {
       log.info ("Sending post query: " + queryParams);
       post.setEntity(new UrlEncodedFormEntity(queryParams, Consts.UTF_8));
@@ -241,9 +244,11 @@ public class InAppPurchaseController extends EventController {
 
   private List<NameValuePair> getKabamQueryParams(String receipt, User user, JSONObject logJson)throws NoSuchAlgorithmException {
     log.info("Generating Post parameters");
+    int gameid = Globals.IS_SANDBOX() ? KabamProperties.SANDBOX_CLIENT_ID : KabamProperties.PRODUCTION_CLIENT_ID;
+    String secret = Globals.IS_SANDBOX() ? KabamProperties.SANDBOX_SECRET : KabamProperties.PRODUCTION_SECRET;
     long time = new Date().getTime() / 1000;
     List<NameValuePair> queryParams = new ArrayList<NameValuePair>();
-    queryParams.add(new BasicNameValuePair("gameid", "1089"));
+    queryParams.add(new BasicNameValuePair("gameid", ""+gameid));
     queryParams.add(new BasicNameValuePair("log", logJson.toString()));
     queryParams.add(new BasicNameValuePair("mobileid", user.getUdid()));
     queryParams.add(new BasicNameValuePair("receipt", receipt));
@@ -253,7 +258,7 @@ public class InAppPurchaseController extends EventController {
     for (NameValuePair key : queryParams) {
       str += key.getName() + key.getValue();
     }
-    str += "6592a1780e6d15e9135dc662c3c7a563";
+    str += secret;
     queryParams.add(new BasicNameValuePair("sig", sha1(str)));
     return queryParams;
   }

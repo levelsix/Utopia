@@ -523,6 +523,7 @@ message NeutralCityElementProto {
 		BUILDING = 1;
 		DECORATION = 2;
 		PERSON_NEUTRAL_ENEMY = 3;
+		BOSS = 4;
 	}
 }
 

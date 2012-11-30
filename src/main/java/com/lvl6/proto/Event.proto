@@ -172,6 +172,8 @@ message StartupResponseProto {
 	
 	repeated FullStructureProto staticStructs = 37;
 	repeated FullEquipProto staticEquips = 38;
+		
+	repeated ClanTowerProto clanTowers = 39;
 	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
@@ -2218,6 +2220,7 @@ message BossActionResponseProto {
 message BeginClanTowerWarRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 towerId = 2;
+	optional bool claiming = 3;
 }
 
 message BeginClanTowerWarResponseProto {
@@ -2228,6 +2231,7 @@ message BeginClanTowerWarResponseProto {
 		SUCCESS = 0;
 		TOWER_ALREADY_IN_BATTLE = 1;
 		OTHER_FAIL = 2;
+		TOWER_ALREADY_CLAIMED = 3;
 	}
 }
 
