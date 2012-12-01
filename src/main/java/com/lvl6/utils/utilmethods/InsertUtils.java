@@ -1,12 +1,15 @@
 package com.lvl6.utils.utilmethods;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.mortbay.log.Log;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 
@@ -109,6 +112,22 @@ public class InsertUtils implements InsertUtil{
     int userEquipId = DBConnection.get().insertIntoTableBasicReturnId(
         DBConstants.TABLE_USER_EQUIP, insertParams);
     return userEquipId;
+  }
+  
+  public List<Integer> insertUserEquips(int userId, List<Integer> equipIds, List<Integer> levels) {
+	  String tableName = DBConstants.TABLE_USER_EQUIP;
+	  List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
+	  for(int i = 0; i < equipIds.size(); i++){
+		  Map<String, Object> row = new HashMap<String, Object>();
+		  row.put(DBConstants.USER_EQUIP__USER_ID, userId);
+		  row.put(DBConstants.USER_EQUIP__EQUIP_ID, equipIds.get(i));
+		  row.put(DBConstants.USER_EQUIP__LEVEL, levels.get(i));
+		  
+		  newRows.add(row);
+	  }
+	  List<Integer> userEquipIds = DBConnection.get().insertIntoTableBasicReturnIds(tableName, newRows);
+	  Log.info("userEquipIds= " + userEquipIds);
+	  return userEquipIds;
   }
 
   public int insertForgeAttemptIntoBlacksmith(int userId, int equipId,

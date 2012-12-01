@@ -1,7 +1,11 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.apache.log4j.Logger;
@@ -13,23 +17,33 @@ import com.lvl6.events.request.BossActionRequestEvent;
 import com.lvl6.events.response.BossActionResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Boss;
+import com.lvl6.info.BossReward;
 import com.lvl6.info.User;
 import com.lvl6.info.UserBoss;
+import com.lvl6.info.UserEquip;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.BossActionRequestProto;
 import com.lvl6.proto.EventProto.BossActionResponseProto;
 import com.lvl6.proto.EventProto.BossActionResponseProto.BossActionStatus;
 import com.lvl6.proto.EventProto.BossActionResponseProto.Builder;
+import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserBossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.BossRewardRetrieveUtils;
+import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 @Component @DependsOn("gameServer") public class BossActionController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  
+  private static String silver = "silver";
+  private static String gold = "gold";
 
   public BossActionController() {
     numAllocatedThreads = 4;
@@ -58,6 +72,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     //set some values to send to the client (the response proto)
     BossActionResponseProto.Builder resBuilder = BossActionResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
+    resBuilder.setBossId(bossId);
     
     server.lockPlayer(senderProto.getUserId());
     try {
@@ -75,12 +90,31 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     		//set the BossActionStatus to return. Determine if user can attack
     		boolean userCanAttack = canAttack(resBuilder, aUserBoss, aUser, aBoss, curTime);
     		    		
-    		if(userCanAttack) {    		
-    			//this also determines the loot the user gets and updates the user boss after an attack
-    			updateUserBoss(resBuilder, aUserBoss, aUser, aBoss);
+    		if(userCanAttack) {    	
+    			int damageDone = attackBoss(resBuilder, aUserBoss, aUser, aBoss);
+    			resBuilder.setDamageDone(damageDone);
     			
-    			//update user's stamina
-    			aUser.updateStaminaAfterAttackingBoss(-aBoss.getStaminaCost());
+    			List<BossReward> brList = determineLoot(aUserBoss);
+
+    			List<Integer> allSilver = new ArrayList<Integer>();
+    			List<Integer> allGold = new ArrayList<Integer>();
+    			List<Integer> allEquipIds = new ArrayList<Integer>();
+    			Map<String, Integer> money = new HashMap<String, Integer>();
+    			List<Integer> allUserEquipIds = new ArrayList<Integer>();
+
+    			//set silver, gold, equips
+    			separateSilverGoldAndEquips(resBuilder, brList, allSilver, allGold, allEquipIds, money);
+    			resBuilder.addAllCoinsGained(allSilver);
+    			resBuilder.addAllDiamondsGained(allGold);
+    			
+    			//generate levels for each equip
+    			List<Integer> levels = generateLevelsForEquips(allEquipIds);
+
+    			writeChangesToDB(resBuilder, aUserBoss, aUser, aBoss, money, allEquipIds, levels, allUserEquipIds);
+    			//send stuff back to client
+    			List<FullUserEquipProto> ueList = setUserEquipRewards(
+    					resBuilder, allUserEquipIds, aUser.getId(), allEquipIds, levels);
+    			resBuilder.addAllLootUserEquip(ueList);
     		}
     	}
     	BossActionResponseEvent resEvent = new BossActionResponseEvent(userId);
@@ -98,7 +132,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.unlockPlayer(senderProto.getUserId());
     }
   }
-
+  
   /* 
    * Return true if user has stamina >= to stamina cost to attack boss
    */
@@ -107,7 +141,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 	  int bossStaminaCost = b.getStaminaCost();
 	  return userStamina >= bossStaminaCost;
   }
-  
+
   /*
    * Make a new UserBoss: full health, 0 for numTimesKilled, now for startTime.
    */
@@ -155,7 +189,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 		  boolean bossHasHealth = (aUserBoss.getCurrentHealth() > 0);
 		  
 		  if(bossHasHealth) {
-			  //user can attack, update cur_health and maybe num_times_killed
+			  //user can attack
 			  resBuilder.setStatus(BossActionStatus.SUCCESS);
 			  return true;
 		  }   else {
@@ -190,11 +224,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   
   
   /*
-   * Since user "attacked," change the user_boss to reflect it.
+   * Since user "attacked," change the user_boss object to reflect it. 
    */
-  private void updateUserBoss(Builder resBuilder, UserBoss aUserBoss, User aUser, Boss aBoss) {
-	  int damageTaken = generateDamage(aBoss);
-	  resBuilder.setDamageDone(damageTaken);
+	private int attackBoss(Builder resBuilder, UserBoss aUserBoss, User aUser, Boss aBoss) {
+	  int damageTaken = generateNumInRange(aBoss.getMinDamage(), aBoss.getMaxDamage());
 	  
 	  int currentHealth = aUserBoss.getCurrentHealth() - damageTaken;
 	  int numTimesKilled = aUserBoss.getNumTimesKilled();
@@ -202,31 +235,248 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 		  //boss killed
 		  currentHealth = 0;
 		  numTimesKilled++;
-		  
-		  //determine what user gets for killing boss
-		  giveLoot(resBuilder, aUserBoss);
 	  }
-	  //TODO: call method to update the database, create method to update the database
-	  if (!UpdateUtils.get().decrementUserBossHealthAndMaybeIncrementNumTimesKilled(
-		aUser.getId(), aBoss.getId(), aUserBoss.getStartTime(), currentHealth, numTimesKilled)) {
-		  log.error("either updated no rows after boss attack or updated more than expected");
-	  }
+	  
+	  aUserBoss.setCurrentHealth(currentHealth);
+	  aUserBoss.setNumTimesKilled(numTimesKilled);
+	  return damageTaken;
   }
   
+	
   /*
-   * determine how much damage user dealt to boss
+   * generate a random number in specified range, ends are inclusive
    */
-  private int generateDamage(Boss aBoss) {
-	  int maxPossibleDamage = aBoss.getMaxDamage();
-	  int minPossibleDamage = aBoss.getMinDamage();
-	  
+  private int generateNumInRange(int lowerBound, int upperBound) {
 	  Random rand = new Random();
-	  return rand.nextInt(maxPossibleDamage - minPossibleDamage + 1) + minPossibleDamage;
+	  return rand.nextInt(upperBound - lowerBound + 1) + lowerBound;
   }
   
-  //TODO: FIGURE OUT WHAT REWARDS TO GIVE FOR KILLING BOSS
-  private void giveLoot(Builder resBuilder, UserBoss aUserBoss) { 
+  private List<BossReward> determineLoot(UserBoss aUserBoss) { 
+	  List<BossReward> rewardsAwarded = new ArrayList<BossReward>();
+
+	  if (aUserBoss.getCurrentHealth() <= 0) {
+		  //get the BossRewards related to boss id
+		  List<BossReward> brList = BossRewardRetrieveUtils.getAllBossRewardsForBossId(aUserBoss.getBossId());
+		  
+		  Map<Integer, List<BossReward>> groupedBR = groupByRewardGroup(brList);
+		  
+		  //process reward group 0, the special group where all rewards are possible to be awarded
+		  pickLootFromSpecialRewardGroup(groupedBR.remove(0), rewardsAwarded);
+		  
+		  //process the other reward groups
+		  pickLootFromRewardGroups(groupedBR, rewardsAwarded);
+	  }
+	  log.info("boss's health=" + aUserBoss.getCurrentHealth() + ", ");
+	  return rewardsAwarded;
+  }
+  
+ 
+  
+  private Map<Integer, List<BossReward>> groupByRewardGroup(List<BossReward> brList) {
+	  Map<Integer, List<BossReward>> groupedBRList = new HashMap<Integer, List<BossReward>>();
+	  for(BossReward br : brList) {
+		  int rewardGroup = br.getRewardGroup();
+		  if(!groupedBRList.containsKey(rewardGroup)) {
+			  groupedBRList.put(rewardGroup, new ArrayList<BossReward>());
+		  }
+		  groupedBRList.get(rewardGroup).add(br);
+	  }
+	  return groupedBRList;
+  }
+  
+  /**
+   * Every BossReward can be awarded.
+   * @param brList - all BossRewards with the same and specific reward group
+   * @param rewards - contains the BossRewards that have been awarded
+   */
+  private void pickLootFromSpecialRewardGroup(List<BossReward> brList,
+		  List<BossReward> rewards) {
+	  Random rand = new Random();
+	  for(BossReward br: brList) {
+		  float percent = rand.nextFloat();
+		  float rewardPercent = br.getProbabilityToBeAwarded();
+		  if(percent < rewardPercent) {
+			  rewards.add(br);
+		  }
+	  }
+  }
+  
+  private void pickLootFromRewardGroups(Map<Integer, List<BossReward>> groupedBR,
+		  List<BossReward> rewards) {
+	  for(List<BossReward> brList: groupedBR.values()) {
+		  float sumOfProbabilities = sumProbabilities(brList);
+		  log.info("sum of percent_chance_to_drop: " + sumOfProbabilities);
+		  
+		  if(0 >= sumOfProbabilities) {
+			  //choose one of the rewards, all with equal probability to be chosen
+			  BossReward reward = fairlyPickReward(brList); 
+			  rewards.add(reward);
+		  } else {
+			  BossReward reward = unfairlyPickReward(
+					  brList, sumOfProbabilities);
+			  rewards.add(reward);
+		  }
+		  
+	  }
+  }
+  
+  private float sumProbabilities(List<BossReward> brList) {
+	  float returnValue = 0.0f;
+	  for(BossReward br : brList) {
+		  returnValue += br.getProbabilityToBeAwarded();
+	  }
+	  return returnValue;
+  }
+  
+  // all rewards have an equal chance of being selected
+  private BossReward fairlyPickReward(List<BossReward> brList) {
+	  int numRewards = brList.size();
+	  Random rand = new Random();
+	  int rewardIndex = rand.nextInt(numRewards);
+	  return brList.get(rewardIndex);
+  }
+  
+  //each reward has it's own probability to be selected, so normalize then pick
+  private BossReward unfairlyPickReward(List<BossReward> brList, float highestProbability){
+	  Random rand = new Random();
+	  float f = rand.nextFloat();
+	  
+	  float probabilitySoFar = 0.0f; 
+	  float bound = 0.0f; 
+	  
+	  //for each reward, calculate its normalized probability and 
+	  //determine if it is the reward to be returned 
+	  for(int index = 0; index < brList.size(); index++) {
+		  BossReward br = brList.get(index);
+		  probabilitySoFar += br.getProbabilityToBeAwarded();
+		  bound = probabilitySoFar / highestProbability;
+		  
+		  if (f < bound) {
+			  log.info("brList=" + brList + ", index=" + index + ", f=" + f + ",");
+			  return br;
+		  }
+	  }
+	  return null;
+  }
+  
+  private void separateSilverGoldAndEquips(Builder resBuilder, List<BossReward> brList, List<Integer> allSilver,
+		  List<Integer> allGold, List<Integer> allEquipIds, Map<String, Integer> money) {
+	  int silverTotal = 0;
+	  int goldTotal = 0;
+	  
+	  for(BossReward reward: brList) {
+		  if(isSilverReward(reward)) {
+			  int minSilver = reward.getMinSilver();
+			  int maxSilver = reward.getMaxSilver();
+			  int silverGenerated = generateNumInRange(minSilver, maxSilver);
+			  
+			  allSilver.add(silverGenerated);
+			  silverTotal += silverGenerated;
+		  }
+		  else if(isGoldReward(reward)) {
+			  int minGold = reward.getMinGold();
+			  int maxGold = reward.getMaxGold();
+			  int goldGenerated = generateNumInRange(minGold, maxGold);
+			  
+			  allGold.add(goldGenerated);
+			  goldTotal += goldGenerated;
+		  } 
+		  else if(isEquipReward(reward)) {
+			  allEquipIds.add(reward.getEquipId());
+		  }
+	  }
+	  
+	  money.put(silver, silverTotal);
+	  money.put(gold, goldTotal);
+  }
+  
+  private boolean isSilverReward(BossReward br) {
+	  int minSilver = br.getMinSilver();
+	  int maxSilver = br.getMaxSilver();
+	  if(ControllerConstants.NOT_SET == minSilver || -1 >= minSilver
+	     || ControllerConstants.NOT_SET == maxSilver || minSilver > maxSilver) {
+		  log.info("BossReward is not silver reward. br=" + br);
+		  return false;
+	  }
+	  else {
+		  return true;
+	  }	  
+  }
+
+  private boolean isGoldReward(BossReward br) {
+	  int minGold = br.getMinGold();
+	  int maxGold = br.getMaxGold();
+	  if(ControllerConstants.NOT_SET == minGold || -1 >= minGold
+		 || ControllerConstants.NOT_SET == maxGold || minGold > maxGold) {
+		  log.info("BossReward is not gold reward. br=" + br);
+		  return false;
+	  }
+	  else {
+		  return true;
+	  }	
+  }
+  
+  private boolean isEquipReward(BossReward br) {
+	  int equipId = br.getEquipId();
+	  if(ControllerConstants.NOT_SET == equipId || -1 >= equipId) {
+		  log.info("BossReward is not equip reward. br=" + br);
+		  return false;
+	  }
+	  else {
+		  return true;
+	  }
+  }
+  
+  private List<Integer> generateLevelsForEquips(List<Integer> allEquips) {
+	  //just make the equips level 1
+	  List<Integer> levels = new ArrayList<Integer>();
+	  int defaultEquipLevel = 1;
+	  for(int i = 0; i < allEquips.size(); i++) {
+		  levels.add(defaultEquipLevel);
+	  }
+	  return levels;
+  }
+  
+  private void writeChangesToDB(Builder resBuilder, UserBoss aUserBoss, User aUser, Boss aBoss,
+		  Map<String, Integer> money, List<Integer> allEquipIds, List<Integer> levels,
+		  List<Integer> allUserEquipIds) {
+	  //update user_boss table
+	  if (!UpdateUtils.get().decrementUserBossHealthAndMaybeIncrementNumTimesKilled(
+			  aUserBoss.getUserId(), aUserBoss.getBossId(), aUserBoss.getStartTime(), aUserBoss.getCurrentHealth(), 
+			  aUserBoss.getNumTimesKilled())) {
+		  log.error("either updated no rows after boss attack or updated more than expected");
+		  return;
+	  }
+	  int silverChange = money.get(silver);
+	  int goldChange = money.get(gold);
+	  
+	  //update users table regarding silver and gold
+	  if(!aUser.updateUserAfterAttackingBoss(-aBoss.getStaminaCost(), silverChange, goldChange) ){
+		  log.error("Error in updating user after attacking a boss.");
+		  return;
+	  }
+	  
+	  //update user_equips table with equipment rewards.
+	  List<Integer> createdUserEquipIds = InsertUtils.get().insertUserEquips(
+			  aUser.getId(), allEquipIds, levels);
+	  
+	  allUserEquipIds.addAll(createdUserEquipIds);
 	  
   }
   
+  private List<FullUserEquipProto> setUserEquipRewards(BossActionResponseProto.Builder resBuilder,
+		  List<Integer> allUserEquipIds, int userId, List<Integer> allEquipIds, List<Integer> levels) {
+	  List<FullUserEquipProto> fullUserEquipProtos = new ArrayList<FullUserEquipProto>();
+	  
+	  for(int i = 0; i < allEquipIds.size(); i++) {
+		  int userEquipId = allUserEquipIds.get(i);
+		  int equipId = allEquipIds.get(i);
+		  int level = levels.get(i);
+		  UserEquip ue = new UserEquip(userEquipId, userId, equipId, level);
+		  FullUserEquipProto fuep = CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(ue);
+		  fullUserEquipProtos.add(fuep);
+	  }
+	  
+	  return fullUserEquipProtos;
+  }
 }
