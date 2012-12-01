@@ -1252,6 +1252,7 @@ message RetrieveStaticDataRequestProto {
 	optional int32 levelForExpRequiredRequest = 11;
 	optional bool currentLockBoxEvents = 12;
 	optional bool clanTierLevels = 13;
+	repeated int32 bossIds = 14;
 }
 
 																						//DONE
@@ -1269,6 +1270,7 @@ message RetrieveStaticDataResponseProto {
 	optional int32 expRequiredForRequestedLevel = 11;
 	repeated LockBoxEventProto lockBoxEvents = 12;
 	repeated ClanTierLevelProto clanTierLevels = 14;
+	repeated FullBossProto bosses = 15;
 	
 	optional RetrieveStaticDataStatus status = 13;
 	
@@ -1470,6 +1472,8 @@ message LoadNeutralCityResponseProto {
      repeated NeutralCityElementProto cityElements = 5;
      optional int32 cityId = 6;
      repeated FullUserQuestDataLargeProto inProgressUserQuestDataInCity = 7;
+     
+     repeated FullUserBossProto userBosses = 8;
      
      enum LoadNeutralCityStatus {
      	SUCCESS = 0;

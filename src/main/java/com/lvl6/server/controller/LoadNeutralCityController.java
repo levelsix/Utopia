@@ -13,11 +13,13 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.LoadNeutralCityRequestEvent;
 import com.lvl6.events.response.LoadNeutralCityResponseEvent;
+import com.lvl6.info.Boss;
 import com.lvl6.info.City;
 import com.lvl6.info.NeutralCityElement;
 import com.lvl6.info.Quest;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.info.UserBoss;
 import com.lvl6.info.UserQuest;
 import com.lvl6.info.jobs.DefeatTypeJob;
 import com.lvl6.proto.EventProto.LoadNeutralCityRequestProto;
@@ -28,7 +30,9 @@ import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.UserBossRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
@@ -88,6 +92,15 @@ import com.lvl6.utils.utilmethods.MiscMethods;
         List<Task> tasks = TaskRetrieveUtils.getAllTasksForCityId(cityId);
         if (tasks != null && tasks.size() > 0) {
           setResponseUserTaskInfos(resBuilder, tasks, user.getId(), senderProto.getUserType());
+        }
+        
+        List<Boss> bosses = BossRetrieveUtils.getAllBossesForCityId(cityId);
+        if (bosses != null && bosses.size() > 0) {
+          List<Integer> bossIds = new ArrayList<Integer>();
+          for (Boss b : bosses) {
+            bossIds.add(b.getId());
+          }
+          setResponseUserBossInfos(resBuilder, bossIds, user.getId());
         }
 
         List<Quest> questsInCity = QuestRetrieveUtils.getQuestsInCity(cityId);
@@ -205,6 +218,15 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     for (Task t : tasks) {
       int numTimesUserActed = (taskIdToNumTimesActedInRankForUser.containsKey(t.getId())) ? taskIdToNumTimesActedInRankForUser.get(t.getId()) : 0;
       resBuilder.addUserTasksInfo(CreateInfoProtoUtils.createMinimumUserTaskProto(userType, userId, t.getId(), numTimesUserActed));
+    }
+  }
+
+  private void setResponseUserBossInfos(Builder resBuilder, List<Integer> bossIds, int userId) {
+    List<UserBoss> userBosses = UserBossRetrieveUtils.getUserBossesForUserId(userId);
+    for (UserBoss b : userBosses) {
+      if (bossIds.contains(b.getBossId())) {
+        resBuilder.addUserBosses(CreateInfoProtoUtils.createFullUserBossProtoFromUserBoss(b));
+      }
     }
   }
 

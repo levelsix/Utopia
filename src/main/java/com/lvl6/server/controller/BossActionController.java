@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.BossActionRequestEvent;
 import com.lvl6.events.response.BossActionResponseEvent;
+import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Boss;
 import com.lvl6.info.User;
 import com.lvl6.info.UserBoss;
@@ -68,7 +69,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     		UserBoss aUserBoss = UserBossRetrieveUtils.getSpecificUserBoss(userId, bossId);
     		
     		if(null == aUserBoss) {
-    			aUserBoss = createUserBoss(aUser, aBoss);
+    			aUserBoss = createUserBoss(aUser, aBoss, curTime);
     		}
     		
     		//set the BossActionStatus to return. Determine if user can attack
@@ -79,14 +80,18 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     			updateUserBoss(resBuilder, aUserBoss, aUser, aBoss);
     			
     			//update user's stamina
-    			aUser.updateStaminaAfterAttackingBoss(aBoss.getStaminaCost());
+    			aUser.updateStaminaAfterAttackingBoss(-aBoss.getStaminaCost());
     		}
     	}
     	BossActionResponseEvent resEvent = new BossActionResponseEvent(userId);
     	resEvent.setTag(event.getTag());
     	resEvent.setBossActionResponseProto(resBuilder.build());
     	server.writeEvent(resEvent);
-    	
+
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods
+            .createUpdateClientUserResponseEventAndUpdateLeaderboard(aUser);
+        resEventUpdate.setTag(event.getTag());
+        server.writeEvent(resEventUpdate);
     } catch (Exception e) {
       log.error("exception in BossActionController processEvent", e);
     } finally {
@@ -106,12 +111,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   /*
    * Make a new UserBoss: full health, 0 for numTimesKilled, now for startTime.
    */
-  private UserBoss createUserBoss(User u, Boss b) {
+  private UserBoss createUserBoss(User u, Boss b, Timestamp curTime) {
 	  int userId = u.getId();
 	  int bossId = b.getId();
 	  int currentHealth = b.getBaseHealth();
 	  int numTimesKilled = 0;
-	  Date now = new Date();
+	  Date now = new Date(curTime.getTime());
 	  return new UserBoss(userId, bossId, currentHealth, numTimesKilled, now);
   }
 
@@ -189,6 +194,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
    */
   private void updateUserBoss(Builder resBuilder, UserBoss aUserBoss, User aUser, Boss aBoss) {
 	  int damageTaken = generateDamage(aBoss);
+	  resBuilder.setDamageDone(damageTaken);
 	  
 	  int currentHealth = aUserBoss.getCurrentHealth() - damageTaken;
 	  int numTimesKilled = aUserBoss.getNumTimesKilled();

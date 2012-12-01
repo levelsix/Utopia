@@ -77,6 +77,7 @@ import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
 import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
 import com.lvl6.retrieveutils.UserLockBoxEventRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.GoldSaleRetrieveUtils;

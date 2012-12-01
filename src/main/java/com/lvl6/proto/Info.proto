@@ -99,8 +99,6 @@ message FullBossProto {
 	optional int32 experienceGained = 7;
 	optional int32 cityId = 8;
 	optional int32 assetNumWithinCity = 9;
-	optional string goodName = 10;
-	optional string badName = 11;
 	optional int32 staminaCost = 12;
 }
 
@@ -459,6 +457,7 @@ message FullCityProto {
 	optional CoordinateProto center = 7;
 	
 	repeated int32 taskIds = 10;
+	repeated int32 bossIds = 11;
 }
 
 //------------------------------------------------------------------------------------------

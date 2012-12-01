@@ -515,7 +515,7 @@ public class User implements Serializable {
 	  String condDelim = "";
 	  
 	  int numUpdated = DBConnection.get().updateTableRows(tableName, 
-			  null, relativeParams, conditionParams, condDelim);
+	      relativeParams, null, conditionParams, condDelim);
 	  if (1 == numUpdated) {
 		  //should be one since id is unique
 		  //need to update object since updated database
