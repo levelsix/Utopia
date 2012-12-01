@@ -105,8 +105,8 @@ import com.lvl6.utils.DBConnection;
    */
   private static UserBoss convertRSRowToUserBoss(ResultSet rs) throws SQLException {
     int i = 1;
-    int userId = rs.getInt(i++);
     int bossId = rs.getInt(i++);
+    int userId = rs.getInt(i++);
 
     Date startTime = null;
     Timestamp ts = rs.getTimestamp(i++);
