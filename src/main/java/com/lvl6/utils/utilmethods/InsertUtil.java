@@ -2,6 +2,7 @@ package com.lvl6.utils.utilmethods;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import org.json.JSONObject;
 import org.springframework.cache.annotation.CacheEvict;
@@ -124,4 +125,6 @@ public interface InsertUtil {
 
   public abstract int insertClanChatPost(int userId, int clanId, String content,
       Timestamp timeOfPost);
+  
+  public abstract List<Integer> insertUserEquips(int userId, List<Integer> equipIds, List<Integer> levels);
 }

@@ -50,6 +50,8 @@ public class DBConstants {
   public static final String TABLE_THREE_CARD_MONTE = "three_card_monte";
   public static final String TABLE_BOSSES = "bosses";
   public static final String TABLE_USER_BOSSES = "user_bosses";
+  public static final String TABLE_BOSS_EVENTS = "boss_events";
+  public static final String TABLE_BOSS_REWARDS = "boss_rewards";
   public static final String TABLE_LOCK_BOX_EVENTS = "lock_box_events";
   public static final String TABLE_LOCK_BOX_ITEMS = "lock_box_items";
   public static final String TABLE_USER_LOCK_BOX_EVENTS = "user_lock_box_events";
@@ -345,6 +347,18 @@ public class DBConstants {
   public static final String STAT_REFILL_HISTORY__DIAMONDS_SPENT = "diamonds_spent";
   public static final String STAT_REFILL_HISTORY__REFILL_TIME = "refill_time";
   
+  /*BOSSES*/
+  public static final String BOSSES__ID = GENERIC__USER_ID;
+  public static final String BOSSES__CITY_ID = "city_id";
+  public static final String BOSSES__ASSET_NUM_WITHIN_CITY = "asset_num_within_city";
+  public static final String BOSSES__BASE_HP = "base_hp";
+  public static final String BOSSES__STAMIN_COST = "stamina_cost";
+  public static final String BOSSES__MIN_ATTACK = "min_attack";
+  public static final String BOSSES__MAX_ATTACK = "max_attack";
+  public static final String BOSSES__MINUTES_TO_KILL = "minutes_to_kill";
+  public static final String BOSSES__MINUTES_TO_RESPAWN = "minutes_to_respawn";
+  public static final String BOSSES__EXPERIENCE_GAINED = "experience_gained";
+  
   /*USER BOSSES*/
   public static final String USER_BOSSES__USER_ID = "user_id";
   public static final String USER_BOSSES__BOSS_ID = "boss_id";
@@ -352,6 +366,31 @@ public class DBConstants {
   public static final String USER_BOSSES__CUR_HEALTH = "cur_health";
   public static final String USER_BOSSES__NUM_TIMES_KILLED = "num_times_killed";
 
+  /*BOSS EVENTS*/
+  public static final String BOSS_EVENTS__ID = GENERIC__USER_ID;
+  public static final String BOSS_EVENTS__BOSS_ID = "boss_id";
+  public static final String BOSS_EVENTS__START_TIME = "start_time";
+  public static final String BOSS_EVENTS__END_TIME = "end_time";
+  public static final String BOSS_EVENTS__BOSS_IMAGE_NAME = "boss_image_name";
+  public static final String BOSS_EVENTS__EVENT_NAME = "event_name";
+  public static final String BOSS_EVENTS__DESCRIPTION_STRING = "description_string";
+  public static final String BOSS_EVENTS__DESCRIPTION_IMAGE_NAME = "description_image_name";
+  public static final String BOSS_EVENTS__TAG_IMAGE_NAME = "tag_image_name";
+  public static final String BOSS_EVENTS__CHANCE_OF_EQUIP_LOOT = "chance_of_equip_loot";
+  public static final String BOSS_EVENTS__POTENTIAL_LOOT_EQUIP_IDS = "potential_loot_equip_ids";
+  
+  /*BOSS REWARDS*/
+  public static final String BOSS_REWARDS__ID = GENERIC__USER_ID;
+  public static final String BOSS_REWARDS__BOSS_ID = "boss_id";
+  public static final String BOSS_REWARDS__MIN_SILVER = "min_silver";
+  public static final String BOSS_REWARDS__MAX_SILVER = "max_silver";
+  public static final String BOSS_REWARDS__MIN_GOLD = "min_gold";
+  public static final String BOSS_REWARDS__MAX_GOLD = "max_gold";
+  public static final String BOSS_REWARDS__EQUIP_ID = "equip_id";
+  public static final String BOSS_REWARDS__PROBABILITY_TO_BE_REWARDED = "probability_to_be_rewarded";
+  public static final String BOSS_REWARDS__REWARD_GROUP = "reward_group";
+  
+		  
   /*USER LOCK BOX EVENTS*/
   public static final String USER_LOCK_BOX_EVENTS__EVENT_ID = "lock_box_event_id";
   public static final String USER_LOCK_BOX_EVENTS__USER_ID = "user_id";

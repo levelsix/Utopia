@@ -779,6 +779,7 @@ public class UpdateUtils implements UpdateUtil {
 	  columnsAndValues.put(DBConstants.USER_BOSSES__NUM_TIMES_KILLED, numTimesKilled);
 	  
 	  int numUpdated = DBConnection.get().replace(tableName, columnsAndValues);
+	  log.info("number of rows updated in " + tableName + ": " + numUpdated);
 	  //1 means one row inserted, 2 means one row deleted and one row inserted 
 	  if (1 == numUpdated || 2 == numUpdated) {
 		  return true; //successful update

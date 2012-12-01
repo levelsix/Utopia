@@ -479,15 +479,17 @@ public class User implements Serializable {
   }
   
   /*
-   * used for reducing stamina after attacking a boss
+   * used for reducing stamina and increasing silver and gold after attacking a boss
    */
-  public boolean updateStaminaAfterAttackingBoss(int staminaChange) {
+  public boolean updateUserAfterAttackingBoss(int staminaChange, int silverChange, int goldChange) {
 	  String tableName = DBConstants.TABLE_USER;
 	  
 	  //the columns that are going to change, "relative params" because 
 	  //column changing is relative to itself
 	  Map<String, Object> relativeParams = new HashMap<String, Object>();
 	  relativeParams.put(DBConstants.USER__STAMINA, staminaChange);
+	  relativeParams.put(DBConstants.USER__COINS, silverChange);
+	  relativeParams.put(DBConstants.USER__DIAMONDS, goldChange);
 	 
 	  //WHERE clause 
 	  Map<String, Object> conditionParams = new HashMap<String, Object>();
@@ -502,6 +504,8 @@ public class User implements Serializable {
 		  //should be one since id is unique
 		  //need to update object since updated database
 		  this.stamina += staminaChange;
+		  this.coins += silverChange;
+		  this.diamonds += goldChange;
 		  return true;
 	  }
 	  return false;
