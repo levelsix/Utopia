@@ -905,11 +905,15 @@ public class CreateInfoProtoUtils {
 
     if (tower.getClanOwnerId() > 0) {
       b.setClanOwnerId(tower.getClanOwnerId());
-      b.setOwnedStartTime(tower.getOwnedStartTime().getTime());
+      if(null != tower.getOwnedStartTime()) {
+    	  b.setOwnedStartTime(tower.getOwnedStartTime().getTime());
+      }
     }
     if (tower.getClanAttackerId() > 0) {
       b.setClanAttackerId(tower.getClanAttackerId());
-      b.setAttackStartTime(tower.getAttackStartTime().getTime());
+      if(null != tower.getAttackStartTime()) {
+    	  b.setAttackStartTime(tower.getAttackStartTime().getTime());
+      }
       b.setOwnerBattlesWin(tower.getOwnerBattleWins());
       b.setAttackerBattlesWin(tower.getAttackerBattleWins());
     }
