@@ -395,7 +395,6 @@ public class DBConstants {
   public static final String BOSS_REWARDS__REWARD_GROUP = "reward_group";
   
   /*BOSS EQUIP DROP HISTORY*/
-  public static final String BOSS_EQUIP_DROP_HISTORY__ID = GENERIC__USER_ID;
   public static final String BOSS_EQUIP_DROP_HISTORY__BOSS_REWARD_DROP_HISTORY_ID = "boss_reward_drop_history_id";
   public static final String BOSS_EQUIP_DROP_HISTORY__EQUIP_ID = "equip_id";
   public static final String BOSS_EQUIP_DROP_HISTORY__QUANTITY = "quantity";

@@ -749,6 +749,7 @@ public class InsertUtils implements InsertUtil{
       
       if(null == quantity) {
         equipIdsAndQuantities.put(equipId, 0);
+        quantity = 0;
       }
       equipIdsAndQuantities.put(equipId, quantity+1);
     }
