@@ -2,19 +2,19 @@ package com.lvl6.ui.admin.components;
 
 public class ApplicationStats {
 
-	protected Integer connectedPlayersCount = 0;
-	protected Integer totalPlayersCount = 0;
-	protected Integer loggedInToday = 0;
-	protected Integer loggedInThisWeek = 0;
-	protected Integer totalPayingPlayers = 0;
-	protected Long totalInAppPurchases = 0l;
-	protected Long sumOfInAppPurchases = 0l;
-	protected Long afterAppleTax = 0l;
-	protected Long countNumberKiipRewardsRedeemed = 0l;
-	protected Long countMarketplaceTransactions = 0l;
-	protected Long countMarketplacePosts = 0l;
-	protected Long sumOfSilverInWorld = 0l;
-	protected Long sumOfDiamondsInWorld = 0l;
+	public  Integer connectedPlayersCount = 0;
+	public  Integer totalPlayersCount = 0;
+	public  Integer loggedInToday = 0;
+	public  Integer loggedInThisWeek = 0;
+	public  Integer totalPayingPlayers = 0;
+	public  Long totalInAppPurchases = 0l;
+	public  Long sumOfInAppPurchases = 0l;
+	public  Long afterAppleTax = 0l;
+	public  Long countNumberKiipRewardsRedeemed = 0l;
+	public  Long countMarketplaceTransactions = 0l;
+	public  Long countMarketplacePosts = 0l;
+	public  Long sumOfSilverInWorld = 0l;
+	public  Long sumOfDiamondsInWorld = 0l;
 
 	public Integer getLoggedInThisWeek() {
 		return loggedInThisWeek;
