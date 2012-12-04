@@ -193,7 +193,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           setGoldSales(resBuilder);
           resBuilder.addAllClanTierLevels(MiscMethods.getAllClanTierLevelProtos());
           setClanTowers(resBuilder);
-
+          
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
         } catch (Exception e) {
