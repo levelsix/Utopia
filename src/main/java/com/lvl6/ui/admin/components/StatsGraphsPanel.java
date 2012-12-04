@@ -15,13 +15,19 @@ import com.googlecode.wicketcharts.highcharts.HighChartContainer;
 import com.lvl6.cassandra.RollupEntry;
 import com.lvl6.cassandra.RollupUtil;
 import com.lvl6.spring.AppContext;
+import com.lvl6.ui.admin.pages.AdminPage;
 
 public class StatsGraphsPanel extends Panel {
 
 	private static Logger log = LoggerFactory.getLogger(StatsGraphsPanel.class);
+	protected String statsField;
 	
-	public StatsGraphsPanel(String id) {
+	public StatsGraphsPanel(String id, String statsField) {
 		super(id);
+		this.statsField = statsField;
+		if(statsField == null || statsField.equals("")) {
+			setResponsePage(AdminPage.class);
+		}
 		setupPanel();
 	}
 	
@@ -49,11 +55,13 @@ public class StatsGraphsPanel extends Panel {
 		long now = System.currentTimeMillis();
 		for(int i = 0; i < fieldList.length; i++) {
 			Field field = fieldList[i];
-			String key = field.getName()+":hour";
-			List<RollupEntry> entries = rolo.findEntries(key, twoWeeksAgo, now);
-			if(entries != null && !entries.isEmpty()) {
-				log.info("Adding {} size: {}", key, entries.size());
-				graphs.add(entries);
+			if(field.getName().equals(statsField)) {
+				String key = field.getName()+":hour";
+				List<RollupEntry> entries = rolo.findEntries(key, twoWeeksAgo, now);
+				if(entries != null && !entries.isEmpty()) {
+					log.info("Adding {} size: {}", key, entries.size());
+					graphs.add(entries);
+				}
 			}
 		}
 		return graphs;

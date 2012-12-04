@@ -33,8 +33,8 @@ public class StatsPanel extends Panel {
 	protected PropertyModel<Long> sumOfDiamondsInWorldPM = new PropertyModel<Long>(stats, "sumOfDiamondsInWorld");
 	protected PropertyModel<Long> averageSilverPerPlayerPM = new PropertyModel<Long>(stats, "averageSilverPerPlayer");
 	protected PropertyModel<Long> percentageOfPlayersPayingPM = new PropertyModel<Long>(stats, "percentageOfPlayersPaying");
-	
-	
+
+
 	protected Label cplayersLabel = new Label("connectedPlayers", cplayers);
 	protected Label tplayersLabel = new Label("totalPlayers", tplayers);
 	protected Label totalPayingPlayersLabel = new Label("totalPayingPlayers", totalPayingPlayersPM);
