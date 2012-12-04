@@ -169,11 +169,10 @@ message StartupResponseProto {
 	repeated GoldSaleProto goldSales = 33;
 	
 	repeated ClanTierLevelProto clanTierLevels = 36;
+	repeated ClanTowerProto clanTowers = 39;
 	
 	repeated FullStructureProto staticStructs = 37;
 	repeated FullEquipProto staticEquips = 38;
-		
-	repeated ClanTowerProto clanTowers = 39;
 	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
@@ -312,6 +311,9 @@ message StartupResponseProto {
 		optional int32 numHoursBeforeReshowingLockBox = 85;
 		
 		optional int32 levelToShowRateUsPopup = 86;
+		
+		optional int32 bossEventNumberOfAttacksUntilSuperAttack = 88;
+		optional double bossEventSuperAttack = 89;
 		
 		message DownloadableNibConstants {
 			optional string threeCardMonteNibName = 1;
