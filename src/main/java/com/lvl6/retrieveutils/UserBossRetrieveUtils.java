@@ -117,7 +117,13 @@ import com.lvl6.utils.DBConnection;
     int curHealth = rs.getInt(i++);
     int numTimesKilled = rs.getInt(i++);
 
-    return new UserBoss(userId, bossId, curHealth, numTimesKilled, startTime);
+    Date lastTimeKilled = null;
+    ts = rs.getTimestamp(i++);
+    if(!rs.wasNull()) {
+      lastTimeKilled = new Date(ts.getTime());
+    }
+    
+    return new UserBoss(userId, bossId, curHealth, numTimesKilled, startTime, lastTimeKilled);
   }
 
 }

@@ -10,14 +10,17 @@ public class UserBoss implements Serializable {
   private int currentHealth;
   private int numTimesKilled;
   private Date startTime;
+  private Date lastTimeKilled;
 
-  public UserBoss(int userId, int bossId, int currentHealth, int numTimesKilled, Date startTime) {
+  public UserBoss(int userId, int bossId, int currentHealth, int numTimesKilled, Date startTime,
+      Date lastTimeKilled) {
     super();
     this.userId = userId;
     this.bossId = bossId;
     this.currentHealth = currentHealth;
     this.numTimesKilled = numTimesKilled;
     this.startTime = startTime;
+    this.lastTimeKilled = lastTimeKilled;
   }
   
   public Date getStartTime() {
@@ -52,10 +55,17 @@ public class UserBoss implements Serializable {
   public void setNumTimesKilled(int numTimesKilled) {
     this.numTimesKilled = numTimesKilled;
   }
+  public Date getLastTimeKilled() {
+    return lastTimeKilled;
+  }
+  public void setLastTimeKilled(Date lastTimeKilled) {
+    this.lastTimeKilled = lastTimeKilled;
+  }
   @Override
   public String toString() {
     return "UserBoss [userId=" + userId + ", bossId=" + bossId
         + ", currentHealth=" + currentHealth + ", numTimesKilled="
-        + numTimesKilled + ", startTime=" + startTime + "]";
+        + numTimesKilled + ", startTime=" + startTime 
+        + "lastTimeKilled" + lastTimeKilled+ "]";
   }
 }

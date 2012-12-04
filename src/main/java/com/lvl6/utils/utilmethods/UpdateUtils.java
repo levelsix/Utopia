@@ -768,7 +768,7 @@ public class UpdateUtils implements UpdateUtil {
 
   //updating user_boss table
   public boolean decrementUserBossHealthAndMaybeIncrementNumTimesKilled(int userId, int bossId, Date startTime, 
-    int currentHealth, int numTimesKilled) { 
+    int currentHealth, int numTimesKilled, Date lastTimeKilled) { 
 	  String tableName = DBConstants.TABLE_USER_BOSSES;
 	  Map<String, Object> columnsAndValues = new HashMap<String, Object>();
 	  
@@ -777,6 +777,7 @@ public class UpdateUtils implements UpdateUtil {
 	  columnsAndValues.put(DBConstants.USER_BOSSES__START_TIME, new Timestamp(startTime.getTime()));
 	  columnsAndValues.put(DBConstants.USER_BOSSES__CUR_HEALTH, currentHealth);
 	  columnsAndValues.put(DBConstants.USER_BOSSES__NUM_TIMES_KILLED, numTimesKilled);
+	  columnsAndValues.put(DBConstants.USER_BOSSES__LAST_TIME_KILLED, lastTimeKilled);
 	  
 	  int numUpdated = DBConnection.get().replace(tableName, columnsAndValues);
 	  

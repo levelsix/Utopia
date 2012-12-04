@@ -91,7 +91,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         boolean userCanAttack = canAttack(resBuilder, aUserBoss, aUser, aBoss, curTime);
 
         if(userCanAttack) {    	
-          int damageDone = attackBoss(resBuilder, aUserBoss, aUser, aBoss);
+          int damageDone = attackBoss(resBuilder, aUserBoss, aUser, aBoss, curTime);
           resBuilder.setDamageDone(damageDone);
 
           List<BossReward> brList = determineLoot(aUserBoss);
@@ -151,7 +151,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int currentHealth = b.getBaseHealth();
     int numTimesKilled = 0;
     Date now = new Date(curTime.getTime());
-    return new UserBoss(userId, bossId, currentHealth, numTimesKilled, now);
+    return new UserBoss(userId, bossId, currentHealth, numTimesKilled, now, null);
   }
 
   /*
@@ -174,17 +174,38 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return false;
     } 
 
-
-    //CHECK IF USER CAN ATTACK BOSS. DETERMINED BY THE TIME INTERVAL: 
-    // - start_time in kingdom.user_bosses table 
+    //CHECK IF USER CAN ATTACK BOSS. DETERMINED BY THE TIME INTERVALS:
+    // case 1:
+    // - start_time or last_killed_time in kingdom.user_bosses table 
     // - minutes_to_kill in kingdom.bosses table
-    // so time interval is [start_time, start_time + minutes_to_kill]
+    // so time interval is [start_time, start_time + minutes_to_kill] or
+    //case 2:
+    // let start_time2 = last_killed_time + minutes_to_respawn
+    // [start_time2, start_time2 + minutes_to_kill] 
+
+    long timeAllocatedToKill = 60000*aBoss.getMinutesToKill();
+    long timeAllocatedToRespawn = 60000*aBoss.getMinutesToRespawn();
+    
+    //case 1
     long startTime = aUserBoss.getStartTime().getTime(); //the time the user initially attacked boss
-    long lastPossibleTimeToAttack = startTime + 60000*aBoss.getMinutesToKill(); //the last possible time user can attack boss
+    long lastPossibleTimeToAttack = startTime + timeAllocatedToKill; //the last possible time user can attack boss
     long timeOfAttack = curTime.getTime();
+    long timeBossRespawns = lastPossibleTimeToAttack + timeAllocatedToRespawn;
 
-    long timeBossRespawns = startTime + 60000*aBoss.getMinutesToRespawn();
+    //case 2
+    Date lastKilledTime = aUserBoss.getLastTimeKilled();
+    if(null != lastKilledTime) {
+      //user killed boss 
+      long lastKilledTimeMilliseconds = lastKilledTime.getTime();
 
+      startTime = lastKilledTimeMilliseconds; //doesn't matter what this value is
+      lastPossibleTimeToAttack = lastKilledTimeMilliseconds; //time should be a value before curTime
+      
+      timeBossRespawns = lastKilledTimeMilliseconds + timeAllocatedToRespawn;
+      
+      //values are set like this to ensure "boss needs to respawn" or "boss has respawned" case executes
+    }
+    
     if (startTime <= timeOfAttack && timeOfAttack < lastPossibleTimeToAttack) {
       boolean bossHasHealth = (aUserBoss.getCurrentHealth() > 0);
 
@@ -193,28 +214,28 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         resBuilder.setStatus(BossActionStatus.SUCCESS);
         return true;
       }   else {
-        //boss is already dead
-        log.error("client is attacking a dead boss. \n" + 
-            "time user launched attack = " + curTime + ". \n" +
-            "user is " + aUser + ". \n" +
-            "boss is " + aBoss + ". \n " + 
-            "user_boss is " + aUserBoss + ". \n");
+        //can't attack because boss is already dead
+        log.error("client is attacking a dead boss. \n" 
+            + "time user launched attack = " + curTime + ". \n" + "user is " + aUser + ". \n"
+            + "boss is " + aBoss + ". \n " + "user_boss is " + aUserBoss + ". \n");
         resBuilder.setStatus(BossActionStatus.BOSS_HAS_NOT_SPAWNED);
         return false;
       }
 
     }	else if (lastPossibleTimeToAttack <= timeOfAttack && timeOfAttack < timeBossRespawns) {
-      //user can't attack
+      //user can't attack because boss needs to respawn
       log.error("boss has not respawned yet. time boss first attacked = " +  aUserBoss.getStartTime()
           + "; last possible time to attack boss = " + new Date(lastPossibleTimeToAttack)
       + "; time user launched attack = " + curTime);
       resBuilder.setStatus(BossActionStatus.BOSS_HAS_NOT_SPAWNED);
       return false;
     } else if (timeBossRespawns <= timeOfAttack) {
-      //boss has respawned, update UserBoss: start_time and cur_health
+      //boss has respawned
       resBuilder.setStatus(BossActionStatus.SUCCESS);
       aUserBoss.setCurrentHealth(aBoss.getBaseHealth());
-      aUserBoss.setStartTime(new Date());
+      aUserBoss.setStartTime(new Date(curTime.getTime()));
+      
+      aUserBoss.setLastTimeKilled(null);
       return true;
     }
 
@@ -226,19 +247,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   /*
    * Since user "attacked," change the user_boss object to reflect it. 
    */
-  private int attackBoss(Builder resBuilder, UserBoss aUserBoss, User aUser, Boss aBoss) {
+  private int attackBoss(Builder resBuilder, UserBoss aUserBoss, User aUser, Boss aBoss, Timestamp curTime) {
     int damageTaken = generateNumInRange(aBoss.getMinDamage(), aBoss.getMaxDamage());
 
     int currentHealth = aUserBoss.getCurrentHealth() - damageTaken;
     int numTimesKilled = aUserBoss.getNumTimesKilled();
+    Date lastTimeKilled = aUserBoss.getLastTimeKilled();
     if (0 >= currentHealth) {
       //boss killed
       currentHealth = 0;
       numTimesKilled++;
+      lastTimeKilled = new Date(curTime.getTime());
     }
 
     aUserBoss.setCurrentHealth(currentHealth);
     aUserBoss.setNumTimesKilled(numTimesKilled);
+    aUserBoss.setLastTimeKilled(lastTimeKilled);
     return damageTaken;
   }
 
@@ -443,7 +467,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     //update user_boss table
     if (!UpdateUtils.get().decrementUserBossHealthAndMaybeIncrementNumTimesKilled(
         aUserBoss.getUserId(), aUserBoss.getBossId(), aUserBoss.getStartTime(), aUserBoss.getCurrentHealth(), 
-        aUserBoss.getNumTimesKilled())) {
+        aUserBoss.getNumTimesKilled(), aUserBoss.getLastTimeKilled())) {
       log.error("either updated no rows after boss attack or updated more than expected");
       return;
     }
