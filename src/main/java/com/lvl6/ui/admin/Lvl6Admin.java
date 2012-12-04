@@ -18,7 +18,7 @@ public class Lvl6Admin extends WebApplication{
 		mountPage("/admin", AdminPage.class);
 		mountPage("/health", HealthCheckPage.class);
 		mountPage("/logs", LogViewerPage.class);
-		mountPage("/stats", StatsGraphsPage.class);
+		mountPage("/stats/${statsField}", StatsGraphsPage.class);
 	}
 
 	@Override
