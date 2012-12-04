@@ -938,6 +938,9 @@ public class CreateInfoProtoUtils {
     if (b.getStartTime() != null) {
       bu.setStartTime(b.getStartTime().getTime());
     }
+    if (b.getLastTimeKilled() != null) {
+      bu.setLastKilledTime(b.getLastTimeKilled().getTime());
+    }
     return bu.build();
   }
   
