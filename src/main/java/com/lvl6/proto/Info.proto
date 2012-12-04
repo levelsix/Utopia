@@ -116,6 +116,7 @@ message FullUserBossProto {
 	optional int32 curHealth = 3;
 	optional int32 numTimesKilled = 4;
 	optional int64 startTime = 5;
+	optional int64 lastKilledTime = 6;
 }
 
 //------------------------------------------------------------------------------------------
