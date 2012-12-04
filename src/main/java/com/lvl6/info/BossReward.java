@@ -63,13 +63,14 @@ public class BossReward implements Serializable {
   public int getRewardGroup() {
 	  return rewardGroup;
   }
-  
+
   @Override
   public String toString() {
-    return "UserEquip [id=" + id + ", bossId=" + bossId + ", minSilver="
+    return "BossReward [id=" + id + ", bossId=" + bossId + ", minSilver="
         + minSilver + ", maxSilver=" + maxSilver + ", minGold=" + minGold
-        + "maxGold" + maxGold + ", equipId" + equipId + ", probabilityToBeAwarded="
-        + probabilityToBeAwarded + ", rewardGroup=" + rewardGroup + "]";
+        + ", maxGold=" + maxGold + ", equipId=" + equipId
+        + ", probabilityToBeAwarded=" + probabilityToBeAwarded
+        + ", rewardGroup=" + rewardGroup + "]";
   }
 
 }

@@ -256,7 +256,7 @@ public class User implements Serializable {
       return true;
     }
     else if(0 == numUpdated && !(isWeapon || isArmor || isAmulet)) {
-    	return true;
+      return true;
     }
     return false;
   }
@@ -495,38 +495,48 @@ public class User implements Serializable {
     }
     return false;
   }
-  
+
   /*
    * used for reducing stamina and increasing silver and gold after attacking a boss
    */
-  public boolean updateUserAfterAttackingBoss(int staminaChange, int silverChange, int goldChange) {
-	  String tableName = DBConstants.TABLE_USER;
-	  
-	  //the columns that are going to change, "relative params" because 
-	  //column changing is relative to itself
-	  Map<String, Object> relativeParams = new HashMap<String, Object>();
-	  relativeParams.put(DBConstants.USER__STAMINA, staminaChange);
-	  relativeParams.put(DBConstants.USER__COINS, silverChange);
-	  relativeParams.put(DBConstants.USER__DIAMONDS, goldChange);
-	 
-	  //WHERE clause 
-	  Map<String, Object> conditionParams = new HashMap<String, Object>();
-	  conditionParams.put(DBConstants.USER__ID, id);
-	  
-	  //the delimiter to separate the condition tests in the WHERE clause
-	  String condDelim = "";
-	  
-	  int numUpdated = DBConnection.get().updateTableRows(tableName, 
-	      relativeParams, null, conditionParams, condDelim);
-	  if (1 == numUpdated) {
-		  //should be one since id is unique
-		  //need to update object since updated database
-		  this.stamina += staminaChange;
-		  this.coins += silverChange;
-		  this.diamonds += goldChange;
-		  return true;
-	  }
-	  return false;
+  public boolean updateUserAfterAttackingBoss(int staminaChange, int silverChange, int goldChange, 
+      boolean simulateStaminaRefill, Timestamp clientTime) {
+    String tableName = DBConstants.TABLE_USER;
+
+    //the columns that are going to change, "relative params" because 
+    //column changing is relative to itself
+    Map<String, Object> relativeParams = new HashMap<String, Object>();
+    relativeParams.put(DBConstants.USER__STAMINA, staminaChange);
+    if (silverChange != 0) relativeParams.put(DBConstants.USER__COINS, silverChange);
+    if (goldChange != 0) relativeParams.put(DBConstants.USER__DIAMONDS, goldChange);
+
+    //WHERE clause 
+    Map<String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> absoluteParams = null;
+    if (simulateStaminaRefill) {
+      absoluteParams = new HashMap<String, Object>();
+      absoluteParams.put(DBConstants.USER__LAST_STAMINA_REFILL_TIME, clientTime);
+    }
+
+    //the delimiter to separate the condition tests in the WHERE clause
+    String condDelim = "";
+
+    int numUpdated = DBConnection.get().updateTableRows(tableName, 
+        relativeParams, absoluteParams, conditionParams, condDelim);
+    if (1 == numUpdated) {
+      //should be one since id is unique
+      //need to update object since updated database
+      if (simulateStaminaRefill) {
+        this.lastStaminaRefillTime = clientTime;
+      }
+      this.stamina += staminaChange;
+      this.coins += silverChange;
+      this.diamonds += goldChange;
+      return true;
+    }
+    return false;
   }
 
   /*

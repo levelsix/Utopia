@@ -13,6 +13,7 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import com.lvl6.info.BossReward;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
@@ -62,7 +63,7 @@ import com.lvl6.utils.DBConnection;
   }
 
   private static void setStaticBossIdsToBossRewards() {
-    log.debug("setting static map of cityId to bosses");
+    log.debug("setting static map of bossId to bossRewards");
 
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
@@ -134,11 +135,17 @@ import com.lvl6.utils.DBConnection;
     int id = rs.getInt(i++);
     int bossId = rs.getInt(i++);
     int minSilver = rs.getInt(i++);
+    if (minSilver == 0) minSilver = ControllerConstants.NOT_SET;
     int maxSilver = rs.getInt(i++);
+    if (maxSilver == 0) maxSilver = ControllerConstants.NOT_SET;
     int minGold = rs.getInt(i++);
+    if (minGold == 0) minGold = ControllerConstants.NOT_SET;
     int maxGold = rs.getInt(i++);
+    if (maxGold == 0) maxGold = ControllerConstants.NOT_SET;
     int equipId = rs.getInt(i++);
-    int probabilityToBeAwarded = rs.getInt(i++);
+    if (equipId == 0) equipId = ControllerConstants.NOT_SET;
+    float probabilityToBeAwarded = rs.getFloat(i++);
+    if (probabilityToBeAwarded == 0) probabilityToBeAwarded = ControllerConstants.NOT_SET;
     int rewardGroup = rs.getInt(i++);
     
     BossReward br = new BossReward(id, bossId, minSilver, maxSilver, minGold, maxGold, equipId, probabilityToBeAwarded, rewardGroup);

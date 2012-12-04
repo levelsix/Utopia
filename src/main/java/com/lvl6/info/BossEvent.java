@@ -71,10 +71,11 @@ public class BossEvent implements Serializable {
   public void setEventName(String eventName) {
     this.eventName = eventName;
   }
+
   @Override
   public String toString() {
-    return "LockBoxEvent [id=" + id + ", bossId=" + bossId + ", startDate=" 
-    	+ startDate + ", endDate=" + endDate + ", bossImageName=" + bossImageName
-    	+ ", eventName=" + eventName + "]";
+    return "BossEvent [id=" + id + ", bossId=" + bossId + ", startDate="
+        + startDate + ", endDate=" + endDate + ", bossImageName="
+        + bossImageName + ", eventName=" + eventName + "]";
   }
 }
