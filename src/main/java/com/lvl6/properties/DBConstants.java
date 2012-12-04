@@ -52,6 +52,8 @@ public class DBConstants {
   public static final String TABLE_USER_BOSSES = "user_bosses";
   public static final String TABLE_BOSS_EVENTS = "boss_events";
   public static final String TABLE_BOSS_REWARDS = "boss_rewards";
+  public static final String TABLE_BOSS_EQUIP_DROP_HISTORY = "boss_equip_drop_history";
+  public static final String TABLE_BOSS_REWARD_DROP_HISTORY = "boss_reward_drop_history";
   public static final String TABLE_LOCK_BOX_EVENTS = "lock_box_events";
   public static final String TABLE_LOCK_BOX_ITEMS = "lock_box_items";
   public static final String TABLE_USER_LOCK_BOX_EVENTS = "user_lock_box_events";
@@ -392,6 +394,19 @@ public class DBConstants {
   public static final String BOSS_REWARDS__PROBABILITY_TO_BE_REWARDED = "probability_to_be_rewarded";
   public static final String BOSS_REWARDS__REWARD_GROUP = "reward_group";
   
+  /*BOSS EQUIP DROP HISTORY*/
+  public static final String BOSS_EQUIP_DROP_HISTORY__ID = GENERIC__USER_ID;
+  public static final String BOSS_EQUIP_DROP_HISTORY__BOSS_REWARD_DROP_HISTORY_ID = "boss_reward_drop_history_id";
+  public static final String BOSS_EQUIP_DROP_HISTORY__EQUIP_ID = "equip_id";
+  public static final String BOSS_EQUIP_DROP_HISTORY__QUANTITY = "quantity";
+  
+  /*BOSS REWARD DROP HISTORY*/
+  public static final String BOSS_REWARD_DROP_HISTORY__ID = GENERIC__USER_ID;
+  public static final String BOSS_REWARD_DROP_HISTORY__BOSS_ID = "boss_id";
+  public static final String BOSS_REWARD_DROP_HISTORY__USER_ID = "user_id";
+  public static final String BOSS_REWARD_DROP_HISTORY__SILVER = "silver";
+  public static final String BOSS_REWARD_DROP_HISTORY__GOLD = "gold";
+  public static final String BOSS_REWARD_DROP_HISTORY__TIME_OF_DROP = "time_of_drop";
 		  
   /*USER LOCK BOX EVENTS*/
   public static final String USER_LOCK_BOX_EVENTS__EVENT_ID = "lock_box_event_id";

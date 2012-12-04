@@ -405,6 +405,12 @@ public class DBConnection {
 
   /*
    * assumes every list for each column is numRows length
+   * insertParams: key, value pair follows this format
+   * 	columnName1->list(row1ValueForColumn1, row2ValueForColumn2,...);
+   * 	columnName2->List(row1ValueForColumn2, row2ValueForColumn2,...);
+   *  	.
+   *  	.
+   *  	.
    */
   public int insertIntoTableMultipleRows(String tablename,
       Map<String, List<Object>> insertParams, int numRows) {
@@ -513,7 +519,8 @@ public class DBConnection {
     return generatedKey;
   }
 
-  //newRows should contain maps that are different only by the value in the key, value pair.
+  //newRows should contain maps that are different only by the value in the key, value pair, i.e. 
+  //each map in newRows is the new row to be inserted
   public List<Integer> insertIntoTableBasicReturnIds(String tableName, List<Map<String, Object>> newRows) {
     List<String> questions = new LinkedList<String>();
     List<String> columns = new LinkedList<String>();

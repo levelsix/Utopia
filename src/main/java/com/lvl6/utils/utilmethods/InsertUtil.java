@@ -127,4 +127,8 @@ public interface InsertUtil {
       Timestamp timeOfPost);
   
   public abstract List<Integer> insertUserEquips(int userId, List<Integer> equipIds, List<Integer> levels);
+  
+  public abstract int insertIntoBossRewardDropHistoryReturnId(int bossId, int userId, int silverDropped, int goldDropped, Timestamp timeOfDrop);
+  
+  public abstract int insertIntoBossEquipDropHistory(int bossRewardDropHistoryId, List<Integer> equipIds);
 }

@@ -697,4 +697,62 @@ public class InsertUtils implements InsertUtil{
         DBConstants.TABLE_CLAN_WALL_POSTS, insertParams);
     return wallPostId;
   }
+  
+  public int insertIntoBossRewardDropHistoryReturnId(int bossId, int userId, int silverDropped, int goldDropped, Timestamp timeOfDrop) {
+	  String tableName = DBConstants.TABLE_BOSS_REWARD_DROP_HISTORY;
+	  Map<String, Object> insertParams = new HashMap<String, Object>();
+	  
+	  insertParams.put(DBConstants.BOSS_REWARD_DROP_HISTORY__BOSS_ID, bossId);
+	  insertParams.put(DBConstants.BOSS_REWARD_DROP_HISTORY__USER_ID, userId);
+	  insertParams.put(DBConstants.BOSS_REWARD_DROP_HISTORY__SILVER, silverDropped);
+	  insertParams.put(DBConstants.BOSS_REWARD_DROP_HISTORY__GOLD, goldDropped);
+	  insertParams.put(DBConstants.BOSS_REWARD_DROP_HISTORY__TIME_OF_DROP, timeOfDrop);
+	  
+	  int anId = DBConnection.get().insertIntoTableBasicReturnId(tableName, insertParams);
+	  return anId;
+  }
+  
+  public int insertIntoBossEquipDropHistory(int bossRewardDropHistoryId, List<Integer> equipIds) {
+	  String tableName = DBConstants.TABLE_BOSS_EQUIP_DROP_HISTORY;
+	  Map<String, List<Object>> insertParams = new HashMap<String, List<Object>>();
+	  
+	  Map<Integer, Integer> equipIdsAndQuantities = generateEquipIdAndQuantitiesMap(equipIds);
+	  
+	  List<Object> bossRewardDropHistoryIds = new ArrayList<Object>();
+	  List<Object> distinctEquipIds = new ArrayList<Object>();
+	  
+	  for(Integer distinctEquipId: equipIdsAndQuantities.keySet()) {
+	    bossRewardDropHistoryIds.add(bossRewardDropHistoryId);
+	    distinctEquipIds.add(distinctEquipId);
+	  }
+	  
+	  List<Object> quantities = new ArrayList<Object>();
+	  for(Object equipId : distinctEquipIds) {
+	    quantities.add(equipIdsAndQuantities.get((Integer) equipId));
+	  }
+	  
+	  int numRows = bossRewardDropHistoryIds.size();
+	  
+	  insertParams.put(DBConstants.BOSS_EQUIP_DROP_HISTORY__BOSS_REWARD_DROP_HISTORY_ID, bossRewardDropHistoryIds);
+	  insertParams.put(DBConstants.BOSS_EQUIP_DROP_HISTORY__EQUIP_ID, distinctEquipIds);
+	  insertParams.put(DBConstants.BOSS_EQUIP_DROP_HISTORY__QUANTITY, quantities);
+	  
+	  int numUpdated = DBConnection.get().insertIntoTableMultipleRows(tableName, insertParams, numRows);
+	  return numUpdated;
+	  
+  }
+  
+  private Map<Integer, Integer> generateEquipIdAndQuantitiesMap(List<Integer> equipIds) {
+    Map<Integer, Integer> equipIdsAndQuantities = new HashMap<Integer, Integer>();
+    for(Integer equipId: equipIds) {
+      Integer quantity = equipIdsAndQuantities.get(equipId);
+      
+      if(null == quantity) {
+        equipIdsAndQuantities.put(equipId, 0);
+      }
+      equipIdsAndQuantities.put(equipId, quantity+1);
+    }
+    return equipIdsAndQuantities;
+  }
+  
 }

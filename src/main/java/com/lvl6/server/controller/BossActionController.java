@@ -464,9 +464,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private void writeChangesToDB(Builder resBuilder, UserBoss aUserBoss, User aUser, Boss aBoss,
       Map<String, Integer> money, List<Integer> allEquipIds, List<Integer> levels,
       List<Integer> allUserEquipIds, Timestamp clientTime) {
+    
+    int bossId = aUserBoss.getBossId();
+    int userId = aUserBoss.getUserId();
     //update user_boss table
     if (!UpdateUtils.get().decrementUserBossHealthAndMaybeIncrementNumTimesKilled(
-        aUserBoss.getUserId(), aUserBoss.getBossId(), aUserBoss.getStartTime(), aUserBoss.getCurrentHealth(), 
+        userId, bossId, aUserBoss.getStartTime(), aUserBoss.getCurrentHealth(), 
         aUserBoss.getNumTimesKilled(), aUserBoss.getLastTimeKilled())) {
       log.error("either updated no rows after boss attack or updated more than expected");
       return;
@@ -489,6 +492,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       allUserEquipIds.addAll(createdUserEquipIds);
     }
 
+    //boss reward history stuff
+    if(0 >= aUserBoss.getCurrentHealth()) {
+      //boss died so record the rewards
+      int bossRewardDropHistoryId = InsertUtils.get()
+          .insertIntoBossRewardDropHistoryReturnId(bossId, userId, silverChange, goldChange, clientTime);
+      log.info("id of new boss reward drop history row: " + bossRewardDropHistoryId);
+      int numUpdated = InsertUtils.get().insertIntoBossEquipDropHistory(bossRewardDropHistoryId, allEquipIds);
+      log.info("number of distinct equips boss dropped=" + numUpdated + ". The equips are: " + allEquipIds);
+    }
   }
 
   private List<FullUserEquipProto> setUserEquipRewards(BossActionResponseProto.Builder resBuilder,
