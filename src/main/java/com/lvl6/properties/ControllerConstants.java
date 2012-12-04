@@ -369,6 +369,7 @@ public class ControllerConstants {
   //TIME BEFORE RESHOWING MENUS
   public static final int NUM_HOURS_BEFORE_RESHOWING_GOLD_SALE = 24;
   public static final int NUM_HOURS_BEFORE_RESHOWING_LOCK_BOX = 24;
+  public static final int NUM_HOURS_BEFORE_RESHOWING_BOSS_EVENT = 24;
   public static final int LEVEL_TO_SHOW_RATE_US_POPUP = 8;
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 

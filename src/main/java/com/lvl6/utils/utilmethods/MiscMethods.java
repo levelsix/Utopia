@@ -15,6 +15,7 @@ import org.apache.log4j.MDC;
 
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.AnimatedSpriteOffset;
+import com.lvl6.info.BossEvent;
 import com.lvl6.info.City;
 import com.lvl6.info.ClanTierLevel;
 import com.lvl6.info.Dialogue;
@@ -43,6 +44,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewar
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.LockBoxConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ThreeCardMonteConstants;
 import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
+import com.lvl6.proto.InfoProto.BossEventProto;
 import com.lvl6.proto.InfoProto.ClanTierLevelProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
@@ -50,7 +52,9 @@ import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.retrieveutils.rarechange.BossEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.BossRewardRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.ClanTierLevelRetrieveUtils;
@@ -344,6 +348,7 @@ public class MiscMethods {
         .setDiamondPriceForGroupChatPurchasePackage(ControllerConstants.PURCHASE_GROUP_CHAT__DIAMOND_PRICE_FOR_PACKAGE)
         .setNumHoursBeforeReshowingGoldSale(ControllerConstants.NUM_HOURS_BEFORE_RESHOWING_GOLD_SALE)
         .setNumHoursBeforeReshowingLockBox(ControllerConstants.NUM_HOURS_BEFORE_RESHOWING_LOCK_BOX)
+        .setNumHoursBeforeReshowingBossEvent(ControllerConstants.NUM_HOURS_BEFORE_RESHOWING_BOSS_EVENT)
         .setLevelToShowRateUsPopup(ControllerConstants.LEVEL_TO_SHOW_RATE_US_POPUP)
         .setBossEventNumberOfAttacksUntilSuperAttack(ControllerConstants.BOSS_EVENT__NUMBER_OF_ATTACKS_UNTIL_SUPER_ATTACK)
         .setBossEventSuperAttack(ControllerConstants.BOSS_EVENT__SUPER_ATTACK);
@@ -513,6 +518,20 @@ public class MiscMethods {
     }
     return toReturn;
   }
+  
+  public static List<BossEventProto> currentBossEvents() {
+    Map<Integer, BossEvent> events = BossEventRetrieveUtils.getIdsToBossEvents();
+    long curTime = new Date().getTime();
+    List<BossEventProto> toReturn = new ArrayList<BossEventProto>();
+    
+    for (BossEvent event : events.values()) {
+      // Send all events that are not yet over
+      if (event.getEndDate().getTime() > curTime) {
+        toReturn.add(CreateInfoProtoUtils.createBossEventProtoFromBossEvent(event));
+      }
+    }
+    return toReturn;
+  }
 
   public static void reloadAllRareChangeStaticData() {
     log.info("Reloading rare change static data");
@@ -534,6 +553,8 @@ public class MiscMethods {
     LockBoxItemRetrieveUtils.reload();
     GoldSaleRetrieveUtils.reload();
     ClanTierLevelRetrieveUtils.reload();
+    BossEventRetrieveUtils.reload();
+    BossRewardRetrieveUtils.reload();
   }
 
   public static UserType getUserTypeFromDefeatTypeJobUserType(

@@ -229,6 +229,10 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       resBuilder.addAllClanTierLevels(MiscMethods.getAllClanTierLevelProtos());
     }
 
+    if (reqProto.getClanTierLevels()) {
+      resBuilder.addAllBossEvents(MiscMethods.currentBossEvents());
+    }
+
     List <Integer> bossIds = reqProto.getBossIdsList();
     if (bossIds != null && bossIds.size() > 0) {
       Map<Integer, Boss> bosses = BossRetrieveUtils.getBossIdsToBosses();

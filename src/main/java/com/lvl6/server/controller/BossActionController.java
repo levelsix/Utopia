@@ -251,10 +251,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 	private int attackBoss(Builder resBuilder, UserBoss aUserBoss, User aUser, 
 			Boss aBoss, Timestamp curTime, boolean isSuperAttack) {
 		int damageGenerated = 0;
-		if(isSuperAttack) {
+		if (isSuperAttack) {
 			damageGenerated = generateSuperAttack(aBoss.getMinDamage(), aBoss.getMaxDamage());
-		}
-		else {
+		} else {
 			damageGenerated += 
 					generateNumInRange(aBoss.getMinDamage(), aBoss.getMaxDamage());
 		}
@@ -266,7 +265,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 			//boss killed
 			currentHealth = 0;
 			numTimesKilled++;
-			lastTimeKilled = new Date(curTime.getTime());
+			lastTimeKilled = curTime;
 		}
 	  
 		aUserBoss.setCurrentHealth(currentHealth);
@@ -317,7 +316,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       //process the other reward groups
       pickLootFromRewardGroups(groupedBR, rewardsAwarded);
     }
-    log.info("boss's health=" + aUserBoss.getCurrentHealth());
     return rewardsAwarded;
   }
 
@@ -356,7 +354,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       List<BossReward> rewards) {
     for(List<BossReward> brList: groupedBR.values()) {
       float sumOfProbabilities = sumProbabilities(brList);
-      log.info("sum of percent_chance_to_drop: " + sumOfProbabilities);
 
       if(0 >= sumOfProbabilities) {
         //choose one of the rewards, all with equal probability to be chosen
@@ -446,7 +443,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int maxSilver = br.getMaxSilver();
     if(ControllerConstants.NOT_SET == minSilver || -1 >= minSilver
         || ControllerConstants.NOT_SET == maxSilver || minSilver > maxSilver) {
-      log.info("BossReward is not silver reward. br=" + br);
       return false;
     }
     else {
@@ -459,7 +455,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int maxGold = br.getMaxGold();
     if(ControllerConstants.NOT_SET == minGold || -1 >= minGold
         || ControllerConstants.NOT_SET == maxGold || minGold > maxGold) {
-      log.info("BossReward is not gold reward. br=" + br);
       return false;
     }
     else {
@@ -470,7 +465,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private boolean isEquipReward(BossReward br) {
     int equipId = br.getEquipId();
     if(ControllerConstants.NOT_SET == equipId || -1 >= equipId) {
-      log.info("BossReward is not equip reward. br=" + br);
       return false;
     }
     else {

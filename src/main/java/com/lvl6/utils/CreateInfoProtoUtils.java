@@ -10,6 +10,7 @@ import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.BattleDetails;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.Boss;
+import com.lvl6.info.BossEvent;
 import com.lvl6.info.City;
 import com.lvl6.info.Clan;
 import com.lvl6.info.ClanBulletinPost;
@@ -50,6 +51,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.AttackedNotificationProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNotificationProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.AnimatedSpriteOffsetProto;
+import com.lvl6.proto.InfoProto.BossEventProto;
 import com.lvl6.proto.InfoProto.BuildStructJobProto;
 import com.lvl6.proto.InfoProto.ClanBulletinPostProto;
 import com.lvl6.proto.InfoProto.ClanTierLevelProto;
@@ -937,5 +939,18 @@ public class CreateInfoProtoUtils {
       bu.setStartTime(b.getStartTime().getTime());
     }
     return bu.build();
+  }
+  
+  public static BossEventProto createBossEventProtoFromBossEvent(BossEvent e) {
+    BossEventProto.Builder b = BossEventProto.newBuilder().setBossId(e.getBossId()).setStartDate(e.getStartDate().getTime())
+    .setEndDate(e.getEndDate().getTime()).setEventName(e.getEventName()).setHeaderImage(e.getHeaderImage())
+    .setLeftTagImage(e.getLeftTag()).setMiddleTagImage(e.getMiddleTag()).setRightTagImage(e.getRightTag());
+    
+    Map<Integer, Equipment> equips = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
+    b.setLeftEquip(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equips.get(e.getLeftEquipId())));
+    b.setMiddleEquip(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equips.get(e.getMiddleEquipId())));
+    b.setRightEquip(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equips.get(e.getRightEquipId())));
+    
+    return b.build();
   }
 }

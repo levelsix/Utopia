@@ -6,8 +6,14 @@ message BossEventProto {
 	optional int32 bossId = 1;
 	optional int64 startDate = 2;
 	optional int64 endDate = 3;
-	optional string bossImageName = 4;
-	optional string eventName = 5;
+	optional string eventName = 4;
+	optional string headerImage = 5;
+	optional FullEquipProto leftEquip = 6;
+	optional string leftTagImage = 7;
+	optional FullEquipProto middleEquip = 8;
+	optional string middleTagImage = 9;
+	optional FullEquipProto rightEquip = 10;
+	optional string rightTagImage = 11;
 }
 
 message ClanTowerProto {

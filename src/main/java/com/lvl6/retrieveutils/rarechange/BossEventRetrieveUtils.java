@@ -136,10 +136,16 @@ import com.lvl6.utils.DBConnection;
     int bossId = rs.getInt(i++);
     Date startDate = new Date(rs.getTimestamp(i++).getTime());
     Date endDate = new Date(rs.getTimestamp(i++).getTime());
-    String bossImageName = rs.getString(i++);
     String eventName = rs.getString(i++);
+    String headerImage = rs.getString(i++);
+    int leftEquipId = rs.getInt(i++);
+    String leftTag = rs.getString(i++);
+    int rightEquipId = rs.getInt(i++);
+    String rightTag = rs.getString(i++);
+    int middleEquipId = rs.getInt(i++);
+    String middleTag = rs.getString(i++);
     
-    BossEvent be = new BossEvent(id, bossId, startDate, endDate, bossImageName, eventName);
+    BossEvent be = new BossEvent(id, bossId, startDate, endDate, eventName, headerImage, leftEquipId, leftTag, middleEquipId, middleTag, rightEquipId, rightTag);
     return be;
   }
 }
