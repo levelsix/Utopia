@@ -51,13 +51,13 @@ public class StatsGraphsPanel extends Panel {
 		List<List<RollupEntry>> graphs = new ArrayList<List<RollupEntry>>();
 		Class<ApplicationStats> statsClass = ApplicationStats.class;
 		Field[] fieldList = statsClass.getDeclaredFields();
-		long twoWeeksAgo = new DateTime().minusDays(14).getMillis();
+		long weeksAgo = new DateTime().minusDays(30).getMillis();
 		long now = System.currentTimeMillis();
 		for(int i = 0; i < fieldList.length; i++) {
 			Field field = fieldList[i];
 			if(field.getName().equals(statsField)) {
-				String key = field.getName()+":hour";
-				List<RollupEntry> entries = rolo.findEntries(key, twoWeeksAgo, now);
+				String key = field.getName()+":six_hour";
+				List<RollupEntry> entries = rolo.findEntries(key, weeksAgo, now);
 				if(entries != null && !entries.isEmpty()) {
 					log.info("Adding {} size: {}", key, entries.size());
 					graphs.add(entries);

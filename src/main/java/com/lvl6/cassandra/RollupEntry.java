@@ -1,5 +1,8 @@
 package com.lvl6.cassandra;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class RollupEntry {
 	@Override
 	public String toString() {
@@ -36,5 +39,14 @@ public class RollupEntry {
 	}
 	public void setValue(Long value) {
 		this.value = value;
+	}
+	
+	
+	SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+	
+	
+	public String getColumnDisplayName() {
+		Date dt = new Date(getColumn());
+		return format.format(dt);
 	}
 }

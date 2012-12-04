@@ -56,6 +56,7 @@ public class StatsPanelDynamic extends Panel {
 				log.error("Error reflecting on fields", e);
 			}
 			itm.setOutputMarkupId(true);
+			rv.add(itm);
 		}
 		add(rv);
 	}

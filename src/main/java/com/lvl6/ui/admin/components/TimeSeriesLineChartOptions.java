@@ -21,7 +21,7 @@ public class TimeSeriesLineChartOptions extends Options {
 		List<String> times = new ArrayList<String>();
 		List<Number> values = new ArrayList<Number>();
 		for(RollupEntry ent : entries) {
-			times.add(ent.getColumn().toString());
+			times.add(ent.getColumnDisplayName());
 			values.add(ent.getValue());
 		}
 		setTitle(new Title(title));
