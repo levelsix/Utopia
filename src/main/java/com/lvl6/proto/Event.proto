@@ -2201,6 +2201,7 @@ message BossActionRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 bossId = 2;
 	optional int64 curTime = 3;
+	optional bool is_super_attack = 4;
 }
 
 message BossActionResponseProto {

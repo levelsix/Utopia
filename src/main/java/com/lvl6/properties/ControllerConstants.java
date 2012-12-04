@@ -77,6 +77,8 @@ public class ControllerConstants {
   public static final double BATTLE__FAKE_PLAYER_COIN_GAIN_MULTIPLIER = 3;
   public static final double BATTLE__CHANCE_OF_ZERO_GAIN_FOR_SILVER = .2;
   
+  public static final double BOSS_EVENT__SUPER_ATTACK = 3.0;
+  
   public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.5;
   
   public static final double HEALTH__FORMULA_EXPONENT_BASE = 1.18;

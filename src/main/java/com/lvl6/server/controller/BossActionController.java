@@ -68,7 +68,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int userId = senderProto.getUserId();
     int bossId = reqProto.getBossId();
     Timestamp curTime = new Timestamp(reqProto.getCurTime());
-
+    boolean isSuperAttack = reqProto.getIsSuperAttack();
+    		
     //set some values to send to the client (the response proto)
     BossActionResponseProto.Builder resBuilder = BossActionResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -91,7 +92,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         boolean userCanAttack = canAttack(resBuilder, aUserBoss, aUser, aBoss, curTime);
 
         if(userCanAttack) {    	
-          int damageDone = attackBoss(resBuilder, aUserBoss, aUser, aBoss, curTime);
+          int damageDone = attackBoss(resBuilder, aUserBoss, aUser, aBoss, curTime, isSuperAttack);
           resBuilder.setDamageDone(damageDone);
 
           List<BossReward> brList = determineLoot(aUserBoss);
@@ -112,7 +113,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
           writeChangesToDB(resBuilder, aUserBoss, aUser, aBoss, money, allEquipIds, levels, allUserEquipIds, curTime);
           //send stuff back to client
-          List<FullUserEquipProto> ueList = setUserEquipRewards(
+          List<FullUserEquipProto> ueList = getFullUserEquipProtosForClient(
               resBuilder, allUserEquipIds, aUser.getId(), allEquipIds, levels);
           resBuilder.addAllLootUserEquip(ueList);
         }
@@ -247,23 +248,31 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   /*
    * Since user "attacked," change the user_boss object to reflect it. 
    */
-  private int attackBoss(Builder resBuilder, UserBoss aUserBoss, User aUser, Boss aBoss, Timestamp curTime) {
-    int damageTaken = generateNumInRange(aBoss.getMinDamage(), aBoss.getMaxDamage());
-
-    int currentHealth = aUserBoss.getCurrentHealth() - damageTaken;
-    int numTimesKilled = aUserBoss.getNumTimesKilled();
-    Date lastTimeKilled = aUserBoss.getLastTimeKilled();
-    if (0 >= currentHealth) {
-      //boss killed
-      currentHealth = 0;
-      numTimesKilled++;
-      lastTimeKilled = new Date(curTime.getTime());
-    }
-
-    aUserBoss.setCurrentHealth(currentHealth);
-    aUserBoss.setNumTimesKilled(numTimesKilled);
-    aUserBoss.setLastTimeKilled(lastTimeKilled);
-    return damageTaken;
+	private int attackBoss(Builder resBuilder, UserBoss aUserBoss, User aUser, 
+			Boss aBoss, Timestamp curTime, boolean isSuperAttack) {
+		int damageGenerated = 0;
+		if(isSuperAttack) {
+			damageGenerated = generateSuperAttack(aBoss.getMinDamage(), aBoss.getMaxDamage());
+		}
+		else {
+			damageGenerated += 
+					generateNumInRange(aBoss.getMinDamage(), aBoss.getMaxDamage());
+		}
+		
+		int currentHealth = aUserBoss.getCurrentHealth() - damageGenerated;
+		int numTimesKilled = aUserBoss.getNumTimesKilled();
+		Date lastTimeKilled = aUserBoss.getLastTimeKilled();
+		if (0 >= currentHealth) {
+			//boss killed
+			currentHealth = 0;
+			numTimesKilled++;
+			lastTimeKilled = new Date(curTime.getTime());
+		}
+	  
+		aUserBoss.setCurrentHealth(currentHealth);
+		aUserBoss.setNumTimesKilled(numTimesKilled);
+		aUserBoss.setLastTimeKilled(lastTimeKilled);
+		return damageGenerated;
   }
 
 
@@ -274,7 +283,25 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     Random rand = new Random();
     return rand.nextInt(upperBound - lowerBound + 1) + lowerBound;
   }
-
+  
+  private int generateSuperAttack(int minDamage, int maxDamage) {
+	  int damageGenerated = 0;
+	  double superAttack = ControllerConstants.BOSS_EVENT__SUPER_ATTACK;
+	  int integerPart = (int) superAttack;
+	  double fractionalPart = superAttack - integerPart;
+		
+	  for(int i = 0; i < integerPart; i++) {
+		  damageGenerated += generateNumInRange(minDamage, maxDamage);
+	  }
+		
+	  //this should account for when the superAttack value is a non-whole number
+	  if(superAttack != integerPart) {
+		  damageGenerated += generateNumInRange(minDamage, maxDamage)
+				* fractionalPart;
+	  }
+	  return damageGenerated;
+  }
+  
   private List<BossReward> determineLoot(UserBoss aUserBoss) { 
     List<BossReward> rewardsAwarded = new ArrayList<BossReward>();
 
@@ -503,7 +530,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private List<FullUserEquipProto> setUserEquipRewards(BossActionResponseProto.Builder resBuilder,
+  private List<FullUserEquipProto> getFullUserEquipProtosForClient(BossActionResponseProto.Builder resBuilder,
       List<Integer> allUserEquipIds, int userId, List<Integer> allEquipIds, List<Integer> levels) {
     List<FullUserEquipProto> fullUserEquipProtos = new ArrayList<FullUserEquipProto>();
 
