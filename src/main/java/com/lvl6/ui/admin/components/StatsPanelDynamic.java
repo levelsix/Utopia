@@ -47,7 +47,8 @@ public class StatsPanelDynamic extends Panel {
 			BookmarkablePageLink<StatsGraphsPage> bookmarkablePageLink = new BookmarkablePageLink<StatsGraphsPage>("statGraphLink", StatsGraphsPage.class, params);
 			//bookmarkablePageLink.setOutputMarkupId(true);
 			itm.add(bookmarkablePageLink);
-			itm.add(new Label("statDisplayName", StringUtils.displayName(field.getName())));
+			Label displayNameLabel = new Label("statDisplayName", StringUtils.displayName(field.getName()));
+			bookmarkablePageLink.add(displayNameLabel);
 			try {
 				Label label = new Label("statValue", field.get(statsModel.getObject()).toString());
 				label.setOutputMarkupId(true);
