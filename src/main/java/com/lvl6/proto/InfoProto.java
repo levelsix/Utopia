@@ -1133,9 +1133,9 @@ public final class InfoProto {
   public interface BossEventProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // optional int32 bossId = 1;
-    boolean hasBossId();
-    int getBossId();
+    // optional int32 cityId = 1;
+    boolean hasCityId();
+    int getCityId();
     
     // optional int64 startDate = 2;
     boolean hasStartDate();
@@ -1209,14 +1209,14 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // optional int32 bossId = 1;
-    public static final int BOSSID_FIELD_NUMBER = 1;
-    private int bossId_;
-    public boolean hasBossId() {
+    // optional int32 cityId = 1;
+    public static final int CITYID_FIELD_NUMBER = 1;
+    private int cityId_;
+    public boolean hasCityId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    public int getBossId() {
-      return bossId_;
+    public int getCityId() {
+      return cityId_;
     }
     
     // optional int64 startDate = 2;
@@ -1439,7 +1439,7 @@ public final class InfoProto {
     }
     
     private void initFields() {
-      bossId_ = 0;
+      cityId_ = 0;
       startDate_ = 0L;
       endDate_ = 0L;
       eventName_ = "";
@@ -1464,7 +1464,7 @@ public final class InfoProto {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(1, bossId_);
+        output.writeInt32(1, cityId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeInt64(2, startDate_);
@@ -1507,7 +1507,7 @@ public final class InfoProto {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, bossId_);
+          .computeInt32Size(1, cityId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
@@ -1676,7 +1676,7 @@ public final class InfoProto {
       
       public Builder clear() {
         super.clear();
-        bossId_ = 0;
+        cityId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
         startDate_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -1751,7 +1751,7 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.bossId_ = bossId_;
+        result.cityId_ = cityId_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
@@ -1820,8 +1820,8 @@ public final class InfoProto {
       
       public Builder mergeFrom(com.lvl6.proto.InfoProto.BossEventProto other) {
         if (other == com.lvl6.proto.InfoProto.BossEventProto.getDefaultInstance()) return this;
-        if (other.hasBossId()) {
-          setBossId(other.getBossId());
+        if (other.hasCityId()) {
+          setCityId(other.getCityId());
         }
         if (other.hasStartDate()) {
           setStartDate(other.getStartDate());
@@ -1886,7 +1886,7 @@ public final class InfoProto {
             }
             case 8: {
               bitField0_ |= 0x00000001;
-              bossId_ = input.readInt32();
+              cityId_ = input.readInt32();
               break;
             }
             case 16: {
@@ -1957,23 +1957,23 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // optional int32 bossId = 1;
-      private int bossId_ ;
-      public boolean hasBossId() {
+      // optional int32 cityId = 1;
+      private int cityId_ ;
+      public boolean hasCityId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public int getBossId() {
-        return bossId_;
+      public int getCityId() {
+        return cityId_;
       }
-      public Builder setBossId(int value) {
+      public Builder setCityId(int value) {
         bitField0_ |= 0x00000001;
-        bossId_ = value;
+        cityId_ = value;
         onChanged();
         return this;
       }
-      public Builder clearBossId() {
+      public Builder clearCityId() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        bossId_ = 0;
+        cityId_ = 0;
         onChanged();
         return this;
       }
@@ -44993,7 +44993,7 @@ public final class InfoProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\nInfo.proto\022\016com.lvl6.proto\"\315\002\n\016BossEve" +
-      "ntProto\022\016\n\006bossId\030\001 \001(\005\022\021\n\tstartDate\030\002 \001" +
+      "ntProto\022\016\n\006cityId\030\001 \001(\005\022\021\n\tstartDate\030\002 \001" +
       "(\003\022\017\n\007endDate\030\003 \001(\003\022\021\n\teventName\030\004 \001(\t\022\023" +
       "\n\013headerImage\030\005 \001(\t\0221\n\tleftEquip\030\006 \001(\0132\036" +
       ".com.lvl6.proto.FullEquipProto\022\024\n\014leftTa" +
@@ -45343,7 +45343,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_BossEventProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_BossEventProto_descriptor,
-              new java.lang.String[] { "BossId", "StartDate", "EndDate", "EventName", "HeaderImage", "LeftEquip", "LeftTagImage", "MiddleEquip", "MiddleTagImage", "RightEquip", "RightTagImage", },
+              new java.lang.String[] { "CityId", "StartDate", "EndDate", "EventName", "HeaderImage", "LeftEquip", "LeftTagImage", "MiddleEquip", "MiddleTagImage", "RightEquip", "RightTagImage", },
               com.lvl6.proto.InfoProto.BossEventProto.class,
               com.lvl6.proto.InfoProto.BossEventProto.Builder.class);
           internal_static_com_lvl6_proto_ClanTowerProto_descriptor =

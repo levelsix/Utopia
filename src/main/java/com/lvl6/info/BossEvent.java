@@ -6,7 +6,7 @@ import java.util.Date;
 public class BossEvent implements Serializable {
   private static final long serialVersionUID = 828184315386406610L;
   private int id;
-  private int bossId;
+  private int cityId;
   private Date startDate;
   private Date endDate;
   private String eventName;
@@ -18,12 +18,12 @@ public class BossEvent implements Serializable {
   private int rightEquipId;
   private String rightTag;
   
-  public BossEvent(int id, int bossId, Date startDate, Date endDate,
+  public BossEvent(int id, int cityId, Date startDate, Date endDate,
       String eventName, String headerImage, int leftEquipId, String leftTag,
       int middleEquipId, String middleTag, int rightEquipId, String rightTag) {
     super();
     this.id = id;
-    this.bossId = bossId;
+    this.cityId = cityId;
     this.startDate = startDate;
     this.endDate = endDate;
     this.eventName = eventName;
@@ -41,11 +41,11 @@ public class BossEvent implements Serializable {
   public void setId(int id) {
     this.id = id;
   }
-  public int getBossId() {
-    return bossId;
+  public int getCityId() {
+    return cityId;
   }
-  public void setBossId(int bossId) {
-    this.bossId = bossId;
+  public void setCityId(int cityId) {
+    this.cityId = cityId;
   }
   public Date getStartDate() {
     return startDate;
@@ -112,7 +112,7 @@ public class BossEvent implements Serializable {
   }
   @Override
   public String toString() {
-    return "BossEvent [id=" + id + ", bossId=" + bossId + ", startDate="
+    return "BossEvent [id=" + id + ", cityId=" + cityId + ", startDate="
         + startDate + ", endDate=" + endDate + ", eventName=" + eventName
         + ", headerImage=" + headerImage + ", leftEquipId=" + leftEquipId
         + ", leftTag=" + leftTag + ", middleEquipId=" + middleEquipId

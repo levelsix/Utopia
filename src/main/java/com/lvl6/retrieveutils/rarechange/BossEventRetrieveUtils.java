@@ -21,7 +21,6 @@ import com.lvl6.utils.DBConnection;
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  private static Map<Integer, List<BossEvent>> bossIdsToBossEvents;
   private static Map<Integer, BossEvent> idsToBossEvents;
 
   private static final String TABLE_NAME = DBConstants.TABLE_BOSS_EVENTS;
@@ -54,46 +53,6 @@ import com.lvl6.utils.DBConnection;
     return toreturn;
   }
 
-  public static List<BossEvent> getAllBossEventsForBossId(int bossId) {
-    log.debug("retrieving all bossEvents for bossId " + bossId);
-    if (bossIdsToBossEvents == null) {
-      setStaticBossIdsToBossEvents();
-    }
-    return bossIdsToBossEvents.get(bossId);
-  }
-
-  private static void setStaticBossIdsToBossEvents() {
-    log.debug("setting static map of bossId to bossEvents");
-
-    Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = null;
-    if (conn != null) {
-      rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
-      if (rs != null) {
-        try {
-          rs.last();
-          rs.beforeFirst();
-          Map<Integer, List<BossEvent>> bossIdsToBossEventsTemp = new HashMap<Integer, List<BossEvent>>();
-          while(rs.next()) {  
-            BossEvent be = convertRSRowToBossEvent(rs);
-            if (be != null) {
-              int bid = be.getBossId();
-              if (bossIdsToBossEventsTemp.get(bid) == null) {
-            	  bossIdsToBossEventsTemp.put(bid, new ArrayList<BossEvent>());
-              }
-              bossIdsToBossEventsTemp.get(bid).add(be);
-            }
-          }
-          bossIdsToBossEvents = bossIdsToBossEventsTemp;
-        } catch (SQLException e) {
-          log.error("problem with database call.");
-          log.error(e);
-        }
-      }    
-    }
-    DBConnection.get().close(rs, null, conn);
-  }
-
   private static void setStaticIdsToBossEvents() {
     log.debug("setting static map of ids to bossEvents");
 
@@ -123,7 +82,6 @@ import com.lvl6.utils.DBConnection;
   }
 
   public static void reload() {
-    setStaticBossIdsToBossEvents();
     setStaticIdsToBossEvents();
   }
 
@@ -133,7 +91,7 @@ import com.lvl6.utils.DBConnection;
   private static BossEvent convertRSRowToBossEvent(ResultSet rs) throws SQLException {
     int i = 1;
     int id = rs.getInt(i++);
-    int bossId = rs.getInt(i++);
+    int cityId = rs.getInt(i++);
     Date startDate = new Date(rs.getTimestamp(i++).getTime());
     Date endDate = new Date(rs.getTimestamp(i++).getTime());
     String eventName = rs.getString(i++);
@@ -145,7 +103,7 @@ import com.lvl6.utils.DBConnection;
     int middleEquipId = rs.getInt(i++);
     String middleTag = rs.getString(i++);
     
-    BossEvent be = new BossEvent(id, bossId, startDate, endDate, eventName, headerImage, leftEquipId, leftTag, middleEquipId, middleTag, rightEquipId, rightTag);
+    BossEvent be = new BossEvent(id, cityId, startDate, endDate, eventName, headerImage, leftEquipId, leftTag, middleEquipId, middleTag, rightEquipId, rightTag);
     return be;
   }
 }

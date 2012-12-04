@@ -3,7 +3,7 @@ package com.lvl6.proto;
 option java_outer_classname = "InfoProto";
 
 message BossEventProto {
-	optional int32 bossId = 1;
+	optional int32 cityId = 1;
 	optional int64 startDate = 2;
 	optional int64 endDate = 3;
 	optional string eventName = 4;

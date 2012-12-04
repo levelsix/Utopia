@@ -942,7 +942,7 @@ public class CreateInfoProtoUtils {
   }
   
   public static BossEventProto createBossEventProtoFromBossEvent(BossEvent e) {
-    BossEventProto.Builder b = BossEventProto.newBuilder().setBossId(e.getBossId()).setStartDate(e.getStartDate().getTime())
+    BossEventProto.Builder b = BossEventProto.newBuilder().setCityId(e.getCityId()).setStartDate(e.getStartDate().getTime())
     .setEndDate(e.getEndDate().getTime()).setEventName(e.getEventName()).setHeaderImage(e.getHeaderImage())
     .setLeftTagImage(e.getLeftTag()).setMiddleTagImage(e.getMiddleTag()).setRightTagImage(e.getRightTag());
     
