@@ -947,7 +947,8 @@ public class CreateInfoProtoUtils {
   public static BossEventProto createBossEventProtoFromBossEvent(BossEvent e) {
     BossEventProto.Builder b = BossEventProto.newBuilder().setCityId(e.getCityId()).setStartDate(e.getStartDate().getTime())
     .setEndDate(e.getEndDate().getTime()).setEventName(e.getEventName()).setHeaderImage(e.getHeaderImage())
-    .setLeftTagImage(e.getLeftTag()).setMiddleTagImage(e.getMiddleTag()).setRightTagImage(e.getRightTag());
+    .setLeftTagImage(e.getLeftTag()).setMiddleTagImage(e.getMiddleTag()).setRightTagImage(e.getRightTag())
+    .setInfoDescription(e.getInfoDescription());
     
     Map<Integer, Equipment> equips = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
     b.setLeftEquip(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equips.get(e.getLeftEquipId())));

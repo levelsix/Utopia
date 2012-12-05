@@ -102,8 +102,9 @@ import com.lvl6.utils.DBConnection;
     String rightTag = rs.getString(i++);
     int middleEquipId = rs.getInt(i++);
     String middleTag = rs.getString(i++);
+    String infoDescription = rs.getString(i++);
     
-    BossEvent be = new BossEvent(id, cityId, startDate, endDate, eventName, headerImage, leftEquipId, leftTag, middleEquipId, middleTag, rightEquipId, rightTag);
+    BossEvent be = new BossEvent(id, cityId, startDate, endDate, eventName, headerImage, leftEquipId, leftTag, middleEquipId, middleTag, rightEquipId, rightTag, infoDescription);
     return be;
   }
 }
