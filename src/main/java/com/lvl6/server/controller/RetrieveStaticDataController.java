@@ -229,7 +229,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       resBuilder.addAllClanTierLevels(MiscMethods.getAllClanTierLevelProtos());
     }
 
-    if (reqProto.getClanTierLevels()) {
+    if (reqProto.getCurrentBossEvents()) {
       resBuilder.addAllBossEvents(MiscMethods.currentBossEvents());
     }
 
