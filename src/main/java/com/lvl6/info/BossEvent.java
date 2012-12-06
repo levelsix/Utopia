@@ -17,10 +17,12 @@ public class BossEvent implements Serializable {
   private String middleTag;
   private int rightEquipId;
   private String rightTag;
+  private String infoDescription;
   
   public BossEvent(int id, int cityId, Date startDate, Date endDate,
       String eventName, String headerImage, int leftEquipId, String leftTag,
-      int middleEquipId, String middleTag, int rightEquipId, String rightTag) {
+      int middleEquipId, String middleTag, int rightEquipId, String rightTag,
+      String infoDescription) {
     super();
     this.id = id;
     this.cityId = cityId;
@@ -34,6 +36,7 @@ public class BossEvent implements Serializable {
     this.middleTag = middleTag;
     this.rightEquipId = rightEquipId;
     this.rightTag = rightTag;
+    this.infoDescription = infoDescription;
   }
   public int getId() {
     return id;
@@ -107,8 +110,11 @@ public class BossEvent implements Serializable {
   public void setRightTag(String rightTag) {
     this.rightTag = rightTag;
   }
-  public static long getSerialversionuid() {
-    return serialVersionUID;
+  public String getInfoDescription() {
+    return infoDescription;
+  }
+  public void setInfoDescription(String infoDescription) {
+    this.infoDescription = infoDescription;
   }
   @Override
   public String toString() {
@@ -117,6 +123,7 @@ public class BossEvent implements Serializable {
         + ", headerImage=" + headerImage + ", leftEquipId=" + leftEquipId
         + ", leftTag=" + leftTag + ", middleEquipId=" + middleEquipId
         + ", middleTag=" + middleTag + ", rightEquipId=" + rightEquipId
-        + ", rightTag=" + rightTag + "]";
+        + ", rightTag=" + rightTag + ", infoDescription=" + infoDescription 
+        + "]";
   }
 }
