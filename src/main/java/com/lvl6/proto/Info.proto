@@ -21,12 +21,12 @@ message ClanTowerProto {
 	optional int32 towerId = 1;
 	optional string towerName = 2;
 	optional string towerImageName = 3;
-	optional int32 clanOwnerId = 4;
+	optional MinimumClanProto towerOwner = 4;
 	optional int64 ownedStartTime = 5;
 	optional int32 silverReward = 6;
 	optional int32 goldReward = 7;
 	optional int32 numHoursToCollect = 8;
-	optional int32 clanAttackerId = 9;
+	optional MinimumClanProto towerAttacker = 9;
 	optional int64 attackStartTime = 10;
 	optional int32 ownerBattlesWin = 11;
 	optional int32 attackerBattlesWin = 12;

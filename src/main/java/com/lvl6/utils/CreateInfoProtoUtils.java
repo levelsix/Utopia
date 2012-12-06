@@ -906,13 +906,13 @@ public class CreateInfoProtoUtils {
         .setNumHoursToCollect(tower.getNumHoursToCollect());
 
     if (tower.getClanOwnerId() > 0) {
-      b.setClanOwnerId(tower.getClanOwnerId());
+      b.setTowerOwner(createMinimumClanProtoFromClan(ClanRetrieveUtils.getClanWithId(tower.getClanOwnerId())));
       if(null != tower.getOwnedStartTime()) {
     	  b.setOwnedStartTime(tower.getOwnedStartTime().getTime());
       }
     }
     if (tower.getClanAttackerId() > 0) {
-      b.setClanAttackerId(tower.getClanAttackerId());
+      b.setTowerAttacker(createMinimumClanProtoFromClan(ClanRetrieveUtils.getClanWithId(tower.getClanAttackerId())));
       if(null != tower.getAttackStartTime()) {
     	  b.setAttackStartTime(tower.getAttackStartTime().getTime());
       }
