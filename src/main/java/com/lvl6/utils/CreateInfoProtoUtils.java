@@ -926,7 +926,7 @@ public class CreateInfoProtoUtils {
   public static FullBossProto createFullBossProtoFromBoss(Boss boss) {
     return FullBossProto.newBuilder().setBossId(boss.getId()).setBaseHealth(boss.getBaseHealth())
         .setMinDamage(boss.getMinDamage()).setMaxDamage(boss.getMaxDamage()).setMinutesToKill(boss.getMinutesToKill())
-        .setMinutesToRespawn(boss.getMinutesToRespawn()).setExperienceGained(boss.getExpGained())
+        .setMinutesToRespawn(boss.getMinutesToRespawn()).setMinExp(boss.getMinExp()).setMaxExp(boss.getMaxExp())
         .setCityId(boss.getCityId()).setAssetNumWithinCity(boss.getAssetNumberWithinCity())
         .setStaminaCost(boss.getStaminaCost()).build();
   }

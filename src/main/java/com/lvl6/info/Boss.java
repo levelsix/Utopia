@@ -13,11 +13,12 @@ public class Boss implements Serializable {
   private int minutesToKill;
   private int minutesToRespawn;
   private int baseHealth;
-  private int expGained;
+  private int minExp;
+  private int maxExp;
 
   public Boss(int id, int cityId,
       int assetNumberWithinCity, int staminaCost, int minDamage, int maxDamage,
-      int minutesToKill, int minutesToRespawn, int baseHealth, int expGained) {
+      int minutesToKill, int minutesToRespawn, int baseHealth, int minExp, int maxExp) {
     super();
     this.id = id;
     this.cityId = cityId;
@@ -28,7 +29,8 @@ public class Boss implements Serializable {
     this.minutesToKill = minutesToKill;
     this.minutesToRespawn = minutesToRespawn;
     this.baseHealth = baseHealth;
-    this.expGained = expGained;
+    this.minExp = minExp;
+    this.maxExp = maxExp;
   }
 
   public int getId() {
@@ -72,12 +74,20 @@ public class Boss implements Serializable {
     this.maxDamage = maxDamage;
   }
   
-  public int getExpGained() {
-    return expGained;
+  public int getMinExp() {
+    return minExp;
   }
   
-  public void setExpGained(int expGained) {
-    this.expGained = expGained;
+  public void setMinExp(int minExp) {
+    this.minExp = minExp;
+  }
+  
+  public int getMaxExp() {
+    return maxExp;
+  }
+  
+  public void setMaxExp(int maxExp) {
+    this.maxExp = maxExp;
   }
   
   public int getMinutesToKill() {
@@ -111,8 +121,8 @@ public class Boss implements Serializable {
         + assetNumberWithinCity + ", staminaCost=" + staminaCost
         + ", minDamage=" + minDamage + ", maxDamage=" + maxDamage
         + ", minutesToKill=" + minutesToKill + ", minutesToRespawn="
-        + minutesToRespawn + ", baseHealth=" + baseHealth + ", expGained="
-        + expGained + "]";
+        + minutesToRespawn + ", baseHealth=" + baseHealth + ", minExp="
+        + minExp + ", maxExp=" + maxExp + "]";
   }
 
 }

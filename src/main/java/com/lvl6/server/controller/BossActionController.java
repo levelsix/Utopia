@@ -44,6 +44,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private static String silver = "silver";
   private static String gold = "gold";
+  private static String damage = "damage";
+  private static String experience = "experience";
 
   public BossActionController() {
     numAllocatedThreads = 4;
@@ -92,7 +94,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         boolean userCanAttack = canAttack(resBuilder, aUserBoss, aUser, aBoss, curTime);
 
         if(userCanAttack) {    	
-          int damageDone = attackBoss(resBuilder, aUserBoss, aUser, aBoss, curTime, isSuperAttack);
+          Map<String, Integer> damageExp = 
+              attackBoss(resBuilder, aUserBoss, aUser, aBoss, curTime, isSuperAttack);
+          int damageDone = damageExp.get(damage);
+          int expGained = damageExp.get(experience);
           resBuilder.setDamageDone(damageDone);
 
           List<BossReward> brList = determineLoot(aUserBoss);
@@ -111,7 +116,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           //generate levels for each equip
           List<Integer> levels = generateLevelsForEquips(allEquipIds);
 
-          writeChangesToDB(resBuilder, aUserBoss, aUser, aBoss, money, allEquipIds, levels, allUserEquipIds, curTime);
+          writeChangesToDB(resBuilder, aUserBoss, aUser, aBoss, money, 
+              allEquipIds, levels, allUserEquipIds, curTime, expGained);
           //send stuff back to client
           List<FullUserEquipProto> ueList = getFullUserEquipProtosForClient(
               resBuilder, allUserEquipIds, aUser.getId(), allEquipIds, levels);
@@ -246,17 +252,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 
   /*
-   * Since user "attacked," change the user_boss object to reflect it. 
+   * Since user "attacked," change the user_boss object to reflect it,
+   * Return map to reflecting the amount of damage user did and exp gained from attacking. 
    */
-	private int attackBoss(Builder resBuilder, UserBoss aUserBoss, User aUser, 
+	private Map<String, Integer> attackBoss(Builder resBuilder, UserBoss aUserBoss, User aUser, 
 			Boss aBoss, Timestamp curTime, boolean isSuperAttack) {
 		int damageGenerated = 0;
-		if (isSuperAttack) {
-			damageGenerated = generateSuperAttack(aBoss.getMinDamage(), aBoss.getMaxDamage());
-		} else {
-			damageGenerated += 
-					generateNumInRange(aBoss.getMinDamage(), aBoss.getMaxDamage());
-		}
+		List<Integer> individualDamages = new ArrayList<Integer>(); //records the damages generated
+		int expGained = 0;
+		
+		damageGenerated = generateDamage(aBoss, isSuperAttack, individualDamages);
+		expGained = generateExpGained(aBoss, isSuperAttack, individualDamages);
 		
 		int currentHealth = aUserBoss.getCurrentHealth() - damageGenerated;
 		int numTimesKilled = aUserBoss.getNumTimesKilled();
@@ -271,7 +277,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 		aUserBoss.setCurrentHealth(currentHealth);
 		aUserBoss.setNumTimesKilled(numTimesKilled);
 		aUserBoss.setLastTimeKilled(lastTimeKilled);
-		return damageGenerated;
+		
+		Map<String, Integer> damageExp = new HashMap<String, Integer>();
+		damageExp.put(damage, damageGenerated);
+		damageExp.put(experience, expGained);
+		
+		return damageExp;
   }
 
 
@@ -283,22 +294,82 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return rand.nextInt(upperBound - lowerBound + 1) + lowerBound;
   }
   
-  private int generateSuperAttack(int minDamage, int maxDamage) {
+  private int generateDamage(Boss aBoss, boolean isSuperAttack, List<Integer> individualDamages) {
+    int minDamage = aBoss.getMinDamage();
+    int maxDamage = aBoss.getMaxDamage();
 	  int damageGenerated = 0;
-	  double superAttack = ControllerConstants.BOSS_EVENT__SUPER_ATTACK;
-	  int integerPart = (int) superAttack;
-	  double fractionalPart = superAttack - integerPart;
-		
-	  for(int i = 0; i < integerPart; i++) {
-		  damageGenerated += generateNumInRange(minDamage, maxDamage);
+
+	  if(isSuperAttack) {
+  	  double superAttack = ControllerConstants.BOSS_EVENT__SUPER_ATTACK;
+  	  int integerPart = (int) superAttack;
+  	  double fractionalPart = superAttack - integerPart;
+  		
+  	  for(int i = 0; i < integerPart; i++) {
+  	    int dmg = generateNumInRange(minDamage, maxDamage);
+  		  damageGenerated += dmg;
+  		  individualDamages.add(dmg);
+  	  }
+  		
+  	  //this should account for when the superAttack value is a non-whole number
+  	  if(superAttack != integerPart) { //3.0 does equal 3 
+  	    int dmg = generateNumInRange(minDamage, maxDamage);
+  		  damageGenerated += dmg * fractionalPart; //damages are not rounded
+  	    individualDamages.add(dmg);
+  	  }
+  	  
+	  } else {
+	    //not super attack
+	    int dmg = generateNumInRange(minDamage, maxDamage);
+	    damageGenerated += dmg;
+	    individualDamages.add(dmg);
 	  }
-		
-	  //this should account for when the superAttack value is a non-whole number
-	  if(superAttack != integerPart) {
-		  damageGenerated += generateNumInRange(minDamage, maxDamage)
-				* fractionalPart;
-	  }
+	  
 	  return damageGenerated;
+  }
+  
+//  user's experience based on the attack
+//  The formula is:
+//  (minExp) + ((dmgDone - minDmg)/(maxDmg - minDmg)) * (maxExp - minExp)
+  private int generateExpGained(Boss aBoss, boolean isSuperAttack, List<Integer> individualDamages) {
+    int expGained = 0;
+
+    if(isSuperAttack) {
+      double superAttack = ControllerConstants.BOSS_EVENT__SUPER_ATTACK;
+      int integerPart = (int) superAttack;
+      double fractionalPart = superAttack - integerPart;
+      
+      int indexOfLastDamage = individualDamages.size() - 1;
+      for(int i = 0; i < indexOfLastDamage; i++) {
+        int dmgDone = individualDamages.get(i);
+        expGained += calculateExpGained(aBoss, dmgDone);
+      }
+      
+      if(superAttack != integerPart) {
+        int lastDmgDone = individualDamages.get(indexOfLastDamage);
+        expGained += calculateExpGained(aBoss, lastDmgDone) * fractionalPart;
+      }
+      
+    } else {
+      int dmgDone = individualDamages.get(0);
+      expGained += calculateExpGained(aBoss, dmgDone);
+    }
+    
+    return expGained;
+  }
+  
+  private int calculateExpGained(Boss aBoss, int dmgDone) {
+    int minDmg = aBoss.getMinDamage();
+    int maxDmg = aBoss.getMaxDamage();
+    int maxMinDmgDifference = maxDmg - minDmg;
+    
+    int minExp = aBoss.getMinExp();
+    int maxExp = aBoss.getMaxExp();
+    int maxMinExpDifference = maxExp - minExp;
+    
+    int dmgDoneMinDmgDifference = (dmgDone - minDmg);
+    int differencesRatio = dmgDoneMinDmgDifference/maxMinDmgDifference;
+    
+    return minExp + differencesRatio*maxMinExpDifference;
   }
   
   private List<BossReward> determineLoot(UserBoss aUserBoss) { 
@@ -484,7 +555,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private void writeChangesToDB(Builder resBuilder, UserBoss aUserBoss, User aUser, Boss aBoss,
       Map<String, Integer> money, List<Integer> allEquipIds, List<Integer> levels,
-      List<Integer> allUserEquipIds, Timestamp clientTime) {
+      List<Integer> allUserEquipIds, Timestamp clientTime, int expChange) {
     
     int bossId = aUserBoss.getBossId();
     int userId = aUserBoss.getUserId();
@@ -500,7 +571,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     //update users table regarding silver and gold
     boolean simulateStaminaRefill = aUser.getStamina() == aUser.getStaminaMax();
-    if(!aUser.updateUserAfterAttackingBoss(-aBoss.getStaminaCost(), silverChange, goldChange, simulateStaminaRefill, clientTime) ){
+    if(!aUser.updateUserAfterAttackingBoss(-aBoss.getStaminaCost(), silverChange, 
+        goldChange, simulateStaminaRefill, clientTime, expChange) ){
       log.error("Error in updating user after attacking a boss.");
       return;
     }

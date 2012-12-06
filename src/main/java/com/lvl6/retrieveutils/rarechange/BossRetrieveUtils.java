@@ -139,9 +139,11 @@ import com.lvl6.utils.DBConnection;
     int maxDamage = rs.getInt(i++);
     int minutesToKill = rs.getInt(i++);
     int minutesToRespawn = rs.getInt(i++);
-    int experienceGained = rs.getInt(i++);
+    int minExp = rs.getInt(i++);
+    int maxExp = rs.getInt(i++);
     
-    Boss boss = new Boss(id, cityId, assetNumWithinCity, staminaCost, minDamage, maxDamage, minutesToKill, minutesToRespawn, baseHealth, experienceGained);
+    Boss boss = new Boss(id, cityId, assetNumWithinCity, staminaCost, minDamage, 
+        maxDamage, minutesToKill, minutesToRespawn, baseHealth, minExp, maxExp);
     return boss;
   }
 }
