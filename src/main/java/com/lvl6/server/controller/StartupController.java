@@ -15,13 +15,14 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import com.hazelcast.core.IList;
 import com.kabam.apiclient.KabamApi;
-import com.kabam.apiclient.RegisterGuestResponse;
+import com.kabam.apiclient.MobileNaidResponse;
 import com.kabam.apiclient.ResponseCode;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.StartupRequestEvent;
@@ -77,7 +78,6 @@ import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
 import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
 import com.lvl6.retrieveutils.UserLockBoxEventRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
-import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.GoldSaleRetrieveUtils;
@@ -224,7 +224,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     //for things that client doesn't need
     log.debug("After response tasks");
 
-    retrieveKabamNaid(user);
+    retrieveKabamNaid(user, reqProto.getIOS5Udid(), reqProto.getMacAddress());
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);    
   }
 
@@ -236,7 +236,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private void retrieveKabamNaid(User user) {
+  private void retrieveKabamNaid(User user, String udid, String mac) {
     if (user != null) {
       String host;
       int port = 443;
@@ -253,13 +253,29 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
 
       KabamApi kabamApi = new KabamApi(host, port, secret);
-      String deviceId = user.getUdid();
-      String network = "iphone";
-      RegisterGuestResponse guest = kabamApi.mobileRegisterGuest(deviceId, clientId, network);
-      if (guest.getReturnCode() == ResponseCode.Success) {
-        user.updateSetKabamNaid(guest.getNaid());
+      String userId = user.getUdid();
+      String platform = "iphone";
+      
+      String biParams = "{\"open_udid\":\"" + userId +
+          "\",\"udid\":\"" + udid +
+          "\",\"mac\":\"" + mac +
+          "\",\"mac_hash\":\"" + DigestUtils.md5Hex(mac) +
+          "\",\"advertiser_id\":\"" + "TEST_ADVERTISER_ID" +
+          "\"}";
+      
+      MobileNaidResponse naidResponse;
+      try {
+        naidResponse = kabamApi.mobileGetNaid(userId, clientId, platform, biParams);
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+        return;
+      }
+      
+      if (naidResponse.getReturnCode() == ResponseCode.Success) {
+        user.updateSetKabamNaid(naidResponse.getNaid());
       } else {
-        log.error("Error retrieving kabam naid: " + guest.getReturnCode());
+        log.error("Error retrieving kabam naid: " + naidResponse.getReturnCode());
       }
     }
   }
