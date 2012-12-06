@@ -111,7 +111,8 @@ message FullBossProto {
 	optional int32 maxDamage = 4;
 	optional int32 minutesToKill = 5;
 	optional int32 minutesToRespawn = 6;
-	optional int32 experienceGained = 7;
+	optional int32 minExp = 7;
+	optional int32 maxExp = 13;
 	optional int32 cityId = 8;
 	optional int32 assetNumWithinCity = 9;
 	optional int32 staminaCost = 12;
