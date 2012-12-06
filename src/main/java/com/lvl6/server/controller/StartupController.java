@@ -224,7 +224,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     //for things that client doesn't need
     log.debug("After response tasks");
 
-    retrieveKabamNaid(user, reqProto.getIOS5Udid(), reqProto.getMacAddress());
+    retrieveKabamNaid(user, reqProto.getIOS5Udid(), reqProto.getMacAddress(), reqProto.getAdvertiserId());
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);    
   }
 
@@ -236,7 +236,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private void retrieveKabamNaid(User user, String udid, String mac) {
+  private void retrieveKabamNaid(User user, String udid, String mac, String advertiserId) {
     if (user != null) {
       String host;
       int port = 443;
@@ -260,7 +260,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           "\",\"udid\":\"" + udid +
           "\",\"mac\":\"" + mac +
           "\",\"mac_hash\":\"" + DigestUtils.md5Hex(mac) +
-          "\",\"advertiser_id\":\"" + "TEST_ADVERTISER_ID" +
+          "\",\"advertiser_id\":\"" + advertiserId +
           "\"}";
       
       MobileNaidResponse naidResponse;

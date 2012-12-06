@@ -119,6 +119,7 @@ message StartupRequestProto {				//client will also send ChangeUserLocationReque
      optional string apsalarId = 3;
      optional string iOS5Udid = 4;
      optional string macAddress = 5;
+     optional string advertiserId = 6;
 }
 
 message StartupResponseProto {
