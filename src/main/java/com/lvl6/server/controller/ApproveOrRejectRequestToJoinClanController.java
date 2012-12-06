@@ -83,7 +83,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         // Send message to the new guy
         ApproveOrRejectRequestToJoinClanResponseEvent resEvent2 = new ApproveOrRejectRequestToJoinClanResponseEvent(requesterId);
         resEvent2.setApproveOrRejectRequestToJoinClanResponseProto(resBuilder.build());
-        server.writeEvent(resEvent2);
+        //in case user is not online write an apns
+        server.writeAPNSNotificationOrEvent(resEvent2);
+        //server.writeEvent(resEvent2);
 
         writeChangesToDB(user, requester, accept);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);

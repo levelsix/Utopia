@@ -70,7 +70,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       RequestJoinClanResponseEvent resEvent = new RequestJoinClanResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setRequestJoinClanResponseProto(resBuilder.build());
-      server.writeEvent(resEvent);
+      //in case user is not online write an apns
+      server.writeAPNSNotificationOrEvent(resEvent);
+      //server.writeEvent(resEvent);
 
       if (legitRequest) {
         server.writeClanEvent(resEvent, clan.getId());
