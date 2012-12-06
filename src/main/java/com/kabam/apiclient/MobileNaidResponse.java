@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class RegisterGuestResponse extends Response {
+public class MobileNaidResponse extends Response {
 
     @JsonProperty("naid")
     private Integer naid;
