@@ -140,7 +140,9 @@ public class SendGroupChatController extends EventController {
 				chatProto.setChatMessage(chatMessage);
 				chatProto.setSender(senderProto);
 				chatProto.setScope(scope);
+				if (scope == GroupChatScope.GLOBAL) {
 				chatProto.setIsAdmin(user.isAdmin());
+				}
 				sendChatMessage(senderProto.getUserId(), chatProto, event.getTag(),
 						scope == GroupChatScope.CLAN, user.getClanId(), user.isAdmin(), timeOfPost.getTime());
 				// send messages in background so sending player can unlock
