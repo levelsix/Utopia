@@ -7,9 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
@@ -17,31 +20,36 @@ import com.lvl6.events.request.TaskActionRequestEvent;
 import com.lvl6.events.response.TaskActionResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.City;
+import com.lvl6.info.Equipment;
 import com.lvl6.info.LockBoxEvent;
 import com.lvl6.info.Quest;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
+import com.lvl6.misc.MiscMethods;
+import com.lvl6.misc.Notification;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.TaskActionRequestProto;
 import com.lvl6.proto.EventProto.TaskActionResponseProto;
 import com.lvl6.proto.EventProto.TaskActionResponseProto.Builder;
 import com.lvl6.proto.EventProto.TaskActionResponseProto.TaskActionStatus;
+import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserQuestsTaskProgressRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LockBoxEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
+import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.InsertUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
@@ -59,6 +67,28 @@ public class TaskActionController extends EventController {
     this.insertUtils = insertUtils;
   }
 
+  @Resource(name = "outgoingGameEventsHandlerExecutor")
+  protected TaskExecutor executor;
+  
+  public TaskExecutor getExecutor() {
+	  return executor;
+  }
+  
+  public void setExecutor(TaskExecutor executor) {
+	  this.executor = executor;
+  }
+  
+  @Resource(name = "playersByPlayerId")
+  protected Map<Integer, ConnectedPlayer> playersByPlayerId;
+  public Map<Integer, ConnectedPlayer> getPlayersByPlayerId() {
+	  return playersByPlayerId;
+  }
+  
+  public void setPlayersByPlayerId(
+		  Map<Integer, ConnectedPlayer> playersByPlayerId) {
+	  this.playersByPlayerId = playersByPlayerId;
+  }
+  
   public TaskActionController() {
     numAllocatedThreads = 20;
   }
@@ -413,7 +443,27 @@ public class TaskActionController extends EventController {
             + ", simulateEnergyRefill="
             + simulateEnergyRefill + ", user=" + user);
       }
+      
+      //NOTIFICATION FEATURE: for when user gets an epic equip
+      if (ControllerConstants.NOT_SET != lootEquipId) {
+    	  Map<Integer, Equipment> gear = getEquip(lootEquipId);
+    	  if (1 != gear.size()) {
+    		  log.error("Equipments retrieved from db should have been 1.");
+    	  }
+    	  else {
+    		  int cityId = task.getCityId();
+    		  City aCity = CityRetrieveUtils.getCityForCityId(cityId);
+    		  sendGeneralNotification(gear.get(0), user.getName(), aCity.getName());
+    	  }
+      }
+      
     }
+  }
+  
+  private Map<Integer, Equipment> getEquip(int equipId){
+	  List<Integer> equipIds = new ArrayList<Integer>();
+	  equipIds.add(equipId);
+	  return EquipmentRetrieveUtils.getEquipmentIdsToEquipment(equipIds); 
   }
 
   private boolean checkCityRankup(
@@ -545,4 +595,13 @@ public class TaskActionController extends EventController {
     return ControllerConstants.NOT_SET;
   }
 
+  private void sendGeneralNotification (Equipment equip, String userName, String townName) {
+	  if (Rarity.EPIC == equip.getRarity()) {
+		  //send a notification
+		  String equipName = equip.getName();
+		  Notification foundEpicNotification = new Notification (server, playersByPlayerId.values());
+		  foundEpicNotification.setNotificationAsEpicWeaponDropped(userName, equipName, townName);
+		  executor.execute(foundEpicNotification);
+	  }
+  }
 }

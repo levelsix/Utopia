@@ -14,6 +14,7 @@ import com.lvl6.events.response.ForgeAttemptWaitCompleteResponseEvent;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.proto.EventProto.ForgeAttemptWaitCompleteRequestProto;
 import com.lvl6.proto.EventProto.ForgeAttemptWaitCompleteResponseProto;
 import com.lvl6.proto.EventProto.ForgeAttemptWaitCompleteResponseProto.Builder;
@@ -23,7 +24,6 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 @Component @DependsOn("gameServer") public class ForgeAttemptWaitCompleteController extends EventController{

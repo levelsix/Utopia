@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Quest;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.QuestGraph;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
 @Component @DependsOn("gameServer") public class QuestRetrieveUtils {
 

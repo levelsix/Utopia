@@ -11,6 +11,7 @@ import com.lvl6.events.request.PurchaseMarketplaceLicenseRequestEvent;
 import com.lvl6.events.response.PurchaseMarketplaceLicenseResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto;
 import com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.LicenseType;
@@ -20,7 +21,6 @@ import com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.Purchas
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
 /*
  * NOT READY/BEING USED YET

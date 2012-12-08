@@ -48,6 +48,7 @@ import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserLockBoxEvent;
 import com.lvl6.info.UserQuest;
 import com.lvl6.leaderboards.LeaderBoardUtil;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
 import com.lvl6.properties.KabamProperties;
@@ -91,7 +92,6 @@ import com.lvl6.spring.AppContext;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
@@ -226,6 +226,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     retrieveKabamNaid(user, reqProto.getIOS5Udid(), reqProto.getMacAddress(), reqProto.getAdvertiserId());
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);    
+  }
+  
+  private void setClanTowers(StartupResponseProto.Builder resBuilder) {
+	  List<ClanTower> towers = ClanTowerRetrieveUtils.getAllClanTowers();
+	  for (ClanTower aTower : towers) {
+		  resBuilder.addClanTowers(CreateInfoProtoUtils
+				  .createClanTowerProtoFromClanTower(aTower));
+	  }
   }
 
   private void setClanTowers(StartupResponseProto.Builder resBuilder) {

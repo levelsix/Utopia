@@ -18,6 +18,7 @@ import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Structure;
 import com.lvl6.info.User;
 import com.lvl6.info.UserStruct;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.PurchaseNormStructureRequestProto;
 import com.lvl6.proto.EventProto.PurchaseNormStructureResponseProto;
@@ -28,7 +29,6 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Component @DependsOn("gameServer") public class PurchaseNormStructureController extends EventController {
 

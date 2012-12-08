@@ -9,6 +9,7 @@ import com.lvl6.events.request.PurchaseGroupChatRequestEvent;
 import com.lvl6.events.response.PurchaseGroupChatResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.PurchaseGroupChatRequestProto;
 import com.lvl6.proto.EventProto.PurchaseGroupChatResponseProto;
@@ -17,7 +18,6 @@ import com.lvl6.proto.EventProto.PurchaseGroupChatResponseProto.PurchaseGroupCha
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
 @Component @DependsOn("gameServer") public class PurchaseGroupChatController extends EventController {
 

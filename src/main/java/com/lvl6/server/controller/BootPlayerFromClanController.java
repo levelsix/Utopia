@@ -10,6 +10,7 @@ import com.lvl6.events.response.BootPlayerFromClanResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Clan;
 import com.lvl6.info.User;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.proto.EventProto.BootPlayerFromClanRequestProto;
 import com.lvl6.proto.EventProto.BootPlayerFromClanResponseProto;
 import com.lvl6.proto.EventProto.BootPlayerFromClanResponseProto.BootPlayerFromClanStatus;
@@ -19,12 +20,11 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
 @Component @DependsOn("gameServer") public class BootPlayerFromClanController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
-
+  
   public BootPlayerFromClanController() {
     numAllocatedThreads = 4;
   }
@@ -54,7 +54,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       User playerToBoot = RetrieveUtils.userRetrieveUtils().getUserById(playerToBootId);
-
+      
       boolean legitBoot = checkLegitBoot(resBuilder, user, playerToBoot);
 
       BootPlayerFromClanResponseEvent resEvent = new BootPlayerFromClanResponseEvent(senderProto.getUserId());
@@ -62,9 +62,16 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       resEvent.setBootPlayerFromClanResponseProto(resBuilder.build()); 
 
       if (legitBoot) { 
+    	//clan tower war feature  
+    	Clan aClan = ClanRetrieveUtils.getClanWithId(user.getClanId());
+    	
         server.writeClanEvent(resEvent, user.getClanId());
         
-        writeChangesToDB(user, playerToBoot);
+        BootPlayerFromClanResponseEvent resEvent2 = new BootPlayerFromClanResponseEvent(playerToBootId);
+        resEvent.setBootPlayerFromClanResponseProto(resBuilder.build());
+        server.writeEvent(resEvent2);
+        
+        writeChangesToDB(user, playerToBoot, aClan);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
@@ -100,12 +107,16 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     return true;
   }
 
-  private void writeChangesToDB(User user, User playerToBoot) {
+  private void writeChangesToDB(User user, User playerToBoot, Clan aClan) {
     if (!DeleteUtils.get().deleteUserClan(playerToBoot.getId(), playerToBoot.getClanId())) {
       log.error("problem with deleting user clan info for playerToBoot with id " + playerToBoot.getId() + " and clan id " + playerToBoot.getClanId()); 
     }
     if (!playerToBoot.updateRelativeDiamondsAbsoluteClan(0, null)) {
       log.error("problem with change playerToBoot " + playerToBoot + " clan id to nothing");
     }
+    
+    //after user is disassociated with his clan, see if the clan's towers (if any) should be opened to
+    //new ownership or to be attacked
+    MiscMethods.updateClanTowersAfterClanSizeDecrease(aClan);
   }
 }

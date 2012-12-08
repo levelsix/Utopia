@@ -20,6 +20,7 @@ import com.lvl6.info.jobs.BuildStructJob;
 import com.lvl6.info.jobs.DefeatTypeJob;
 import com.lvl6.info.jobs.PossessEquipJob;
 import com.lvl6.info.jobs.UpgradeStructJob;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.RetrieveStaticDataRequestProto;
 import com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto;
@@ -40,7 +41,6 @@ import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Component @DependsOn("gameServer") public class RetrieveStaticDataController extends EventController{
 

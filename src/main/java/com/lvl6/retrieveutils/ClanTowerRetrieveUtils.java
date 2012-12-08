@@ -6,11 +6,14 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 import com.lvl6.info.ClanTower;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
@@ -34,6 +37,46 @@ public class ClanTowerRetrieveUtils {
     List<ClanTower> clanTowers = convertRSToClanTowersList(rs);
     DBConnection.get().close(rs, null, conn);
     return clanTowers;
+  }
+  
+  /*
+   * Gets all the towers with:
+   * 1) the specified owner and attacker id
+   * 2) the specified owner id
+   * 3) the specified attacker id
+   * 4) the specified owner id, and also include the towers with the specified
+   * attacker id
+   */
+  public static List<ClanTower> getAllClanTowersWithSpecificOwnerAndOrAttackerId(
+		  int ownerId, int attackerId, boolean ownerAndAttackerAreEnemies){
+	  Connection conn = DBConnection.get().getConnection();
+	  
+	  Map<String, Object> absoluteConditionParams = 
+			  new HashMap<String,Object>();
+	  
+	  if (ControllerConstants.NOT_SET != ownerId) {
+		  absoluteConditionParams.put(
+				  DBConstants.CLAN_TOWERS__CLAN_OWNER_ID, ownerId);
+	  }
+	  if (ControllerConstants.NOT_SET != attackerId) {
+		  absoluteConditionParams.put(
+				  DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID, attackerId);
+	  }	  
+	  
+	  //convert return values to objects
+	  ResultSet rs = null;
+	  if (ownerAndAttackerAreEnemies) {
+		  rs = DBConnection.get().selectRowsAbsoluteAnd(
+				  conn, absoluteConditionParams, TABLE_NAME);
+	  }
+	  else {
+		  rs = DBConnection.get().selectRowsAbsoluteOr(
+				  conn, absoluteConditionParams, TABLE_NAME);
+	  }
+	  List<ClanTower> clanTowers = convertRSToClanTowersList(rs);
+	  DBConnection.get().close(rs, null, conn);
+	  
+	  return clanTowers;
   }
   
   private static ClanTower convertRSToSingleClanTower(ResultSet rs) {
@@ -101,7 +144,12 @@ public class ClanTowerRetrieveUtils {
 
     int ownerBattleWins = rs.getInt(i++);
     int attackerBattleWins = rs.getInt(i++);
+    int numberOfHoursForBattle = rs.getInt(i++);
+    Date lastRewardGiven = null;
+    if (!rs.wasNull()) {
+        lastRewardGiven = new Date(ts.getTime());
+      }
 
-    return new ClanTower(id, towerName, towerImageName, clanOwnerId, ownedStartTime, silverReward, goldReward, numHrsToCollect, clanAttackerId, attackStartTime, ownerBattleWins, attackerBattleWins);
+    return new ClanTower(id, towerName, towerImageName, clanOwnerId, ownedStartTime, silverReward, goldReward, numHrsToCollect, clanAttackerId, attackStartTime, ownerBattleWins, attackerBattleWins, numberOfHoursForBattle, lastRewardGiven);
   }
 }

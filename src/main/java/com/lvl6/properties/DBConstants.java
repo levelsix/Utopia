@@ -436,4 +436,18 @@ public class DBConstants {
   public static final String CLAN_TOWERS__ATTACK_START_TIME = "attack_start_time";
   public static final String CLAN_TOWERS__OWNER_BATTLE_WINS = "owner_battle_wins";
   public static final String CLAN_TOWERS__ATTACKER_BATTLE_WINS = "attacker_battle_wins";
+  public static final String CLAN_TOWERS__LAST_REWARD_GIVEN = "last_reward_given";
+  
+  
+  public static final String CLAN_TOWERS_HISTORY__OWNER_CLAN_ID = "owner_clan_id";
+  public static final String CLAN_TOWERS_HISTORY__ATTACKER_CLAN_ID = "attacker_clan_id";
+  public static final String CLAN_TOWERS_HISTORY__TOWER_ID = "tower_clan_id";
+  public static final String CLAN_TOWERS_HISTORY__WINNER_ID = "winner_id";
+  public static final String CLAN_TOWERS_HISTORY__OWNER_BATTLE_WINS = "owner_battle_wins";
+  public static final String CLAN_TOWERS_HISTORY__ATTACKER_BATTLE_WINS = "attacker_battle_wins";
+  public static final String CLAN_TOWERS_HISTORY__ATTACK_START_TIME = "attack_start_time";
+  public static final String CLAN_TOWERS_HISTORY__NUM_HOURS_FOR_BATTLE = "num_hours_for_battle";
+  public static final String CLAN_TOWERS_HISTORY__LAST_REWARD_GIVEN = "last_reward_given";
+  public static final String CLAN_TOWERS_HISTORY__REASON_FOR_ENTRY = "reason_for_entry";
+  
 }

@@ -22,6 +22,7 @@ import com.lvl6.info.User;
 import com.lvl6.info.UserBoss;
 import com.lvl6.info.UserQuest;
 import com.lvl6.info.jobs.DefeatTypeJob;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.proto.EventProto.LoadNeutralCityRequestProto;
 import com.lvl6.proto.EventProto.LoadNeutralCityResponseProto;
 import com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.Builder;
@@ -40,7 +41,6 @@ import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Component @DependsOn("gameServer") public class LoadNeutralCityController extends EventController {
 

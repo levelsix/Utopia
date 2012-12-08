@@ -9,6 +9,7 @@ import java.util.Set;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 
+import com.lvl6.info.ClanTower;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Task;
 import com.lvl6.info.UserStruct;
@@ -176,10 +177,18 @@ public interface UpdateUtil {
   
   public abstract boolean decrementLockBoxItemsForUser(Map<Integer, Integer> itemIdsToQuantity, int userId, int decrement);
   
-  public boolean decrementNumLockBoxesIncrementNumTimesCompletedForUser(int eventId, int userId, int decrement, boolean completed, Timestamp curTime);
+  public abstract boolean decrementNumLockBoxesIncrementNumTimesCompletedForUser(int eventId, int userId, int decrement, boolean completed, Timestamp curTime);
 
   public boolean decrementUserBossHealthAndMaybeIncrementNumTimesKilled(int userId, int bossId, Date startTime, int currentHealth, 
       int numTimesKilled, Date lastTimeKilled);
   
   public boolean incrementCurrentTierLevelForClan(int clanId);
+  public abstract boolean updateClanTowerOwnerAndOrAttacker(int clanTowerId, int ownerId, Date ownedStartTime, int ownerBattleWins, 
+		  int attackerId, Date attackStartTime, int attackerBattleWins, Date lastRewardGiven);
+  
+  public abstract boolean updateClanTowerBattleWins(int clanTowerId, int ownerId, int attackerId, boolean ownerWon, int amountToIncrementBattleWinsBy);
+  
+  public abstract boolean resetClanTowerOwnerOrAttacker(List<Integer> clanTowerOwnerOrAttackerIds, boolean resetOwner);
+  
+  public abstract boolean updateTowerHistory(List<ClanTower> towers, String reasonForEntry);
 }

@@ -8,8 +8,8 @@ import org.springframework.beans.factory.InitializingBean;
 import com.hazelcast.core.ITopic;
 import com.hazelcast.core.Message;
 import com.hazelcast.core.MessageListener;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.server.ServerMessage;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class ServerEventHandler implements MessageListener<ServerMessage>, InitializingBean {
 	

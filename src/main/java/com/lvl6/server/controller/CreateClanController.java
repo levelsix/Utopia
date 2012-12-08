@@ -2,9 +2,13 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
@@ -13,6 +17,8 @@ import com.lvl6.events.response.CreateClanResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Clan;
 import com.lvl6.info.User;
+import com.lvl6.misc.MiscMethods;
+import com.lvl6.misc.Notification;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.CreateClanRequestProto;
 import com.lvl6.proto.EventProto.CreateClanResponseProto;
@@ -22,16 +28,35 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
+import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
 @Component @DependsOn("gameServer") public class CreateClanController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  //For sending messages to online people, NOTIFICATION FEATURE
+  @Resource(name = "outgoingGameEventsHandlerExecutor")
+  protected TaskExecutor executor;
+  public TaskExecutor getExecutor() {
+	  return executor;
+  }
+  public void setExecutor(TaskExecutor executor) {
+	  this.executor = executor;
+  }
+  @Resource(name = "playersByPlayerId")
+  protected Map<Integer, ConnectedPlayer> playersByPlayerId;
+  public Map<Integer, ConnectedPlayer> getPlayersByPlayerId() {
+	  return playersByPlayerId;
+  }
+  public void setPlayersByPlayerId(
+		  Map<Integer, ConnectedPlayer> playersByPlayerId) {
+	  this.playersByPlayerId = playersByPlayerId;
+  }
+  
   public CreateClanController() {
     numAllocatedThreads = 4;
   }
@@ -85,12 +110,13 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       resEvent.setTag(event.getTag());
       resEvent.setCreateClanResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
-
       if (legitCreate) {
         writeChangesToDB(user, clanId);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        
+        sendGeneralNotification(clanName);
       }
     } catch (Exception e) {
       log.error("exception in CreateClan processEvent", e);
@@ -152,5 +178,11 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     }
     resBuilder.setStatus(CreateClanStatus.SUCCESS);
     return true;
+  }
+  
+  private void sendGeneralNotification (String clanName) {
+	  Notification createClanNotification = new Notification (server, playersByPlayerId.values());
+	  createClanNotification.setNotificationAsClanCreated(clanName);
+	  executor.execute(createClanNotification);
   }
 }

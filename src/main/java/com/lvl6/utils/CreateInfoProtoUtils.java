@@ -46,6 +46,7 @@ import com.lvl6.info.jobs.BuildStructJob;
 import com.lvl6.info.jobs.DefeatTypeJob;
 import com.lvl6.info.jobs.PossessEquipJob;
 import com.lvl6.info.jobs.UpgradeStructJob;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.AttackedNotificationProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNotificationProto;
@@ -122,7 +123,6 @@ import com.lvl6.retrieveutils.rarechange.PossessEquipJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class CreateInfoProtoUtils {
 
@@ -903,13 +903,15 @@ public class CreateInfoProtoUtils {
     ClanTowerProto.Builder b = ClanTowerProto.newBuilder().setTowerId(tower.getId())
         .setTowerImageName(tower.getTowerImageName()).setTowerName(tower.getTowerName())
         .setSilverReward(tower.getSilverReward()).setGoldReward(tower.getGoldReward())
-        .setNumHoursToCollect(tower.getNumHoursToCollect());
-
+        .setNumHoursToCollect(tower.getNumHoursToCollect())
+        .setNumHoursForBattle(tower.getNumHoursForBattle());
+    
     if (tower.getClanOwnerId() > 0) {
       b.setTowerOwner(createMinimumClanProtoFromClan(ClanRetrieveUtils.getClanWithId(tower.getClanOwnerId())));
       if(null != tower.getOwnedStartTime()) {
     	  b.setOwnedStartTime(tower.getOwnedStartTime().getTime());
       }
+      b.setLastRewardGiven(tower.getLastRewardGiven().getTime());
     }
     if (tower.getClanAttackerId() > 0) {
       b.setTowerAttacker(createMinimumClanProtoFromClan(ClanRetrieveUtils.getClanWithId(tower.getClanAttackerId())));

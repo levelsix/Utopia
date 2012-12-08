@@ -2236,6 +2236,7 @@ message BeginClanTowerWarRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 towerId = 2;
 	optional bool claiming = 3;
+	optional int64 curTime = 4;
 }
 
 message BeginClanTowerWarResponseProto {
@@ -2245,9 +2246,37 @@ message BeginClanTowerWarResponseProto {
 	enum BeginClanTowerWarStatus {
 		SUCCESS = 0;
 		TOWER_ALREADY_IN_BATTLE = 1;
-		OTHER_FAIL = 2;
-		TOWER_ALREADY_CLAIMED = 3;
+		NOT_CLAN_LEADER = 2;
+		NOT_ENOUGH_CLAN_MEMBERS = 3;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 4;
+		OTHER_FAIL = 5;
+		TOWER_ALREADY_CLAIMED = 6;
 	}
+}
+
+message ConcedeClanTowerWarRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 towerId = 2;
+	optional int64 curTime = 3;
+}
+
+message ConcedeClanTowerWarResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional ConcedeClanTowerWarStatus status = 2;
+	
+	enum ConcedeClanTowerWarStatus {
+		SUCCESS = 0;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 1;
+		NOT_CLAN_TOWER_WAR_PARTICIPANT = 2;
+		NOT_CLAN_LEADER = 3;
+		OTHER_FAIL = 4;
+	}
+}
+
+message GeneralNotificationResponseProto {
+	optional string title = 1;
+	optional string subtitle = 2;
+	optional NotificationTitleColorProto rgb = 3;
 }
 
 //if reset

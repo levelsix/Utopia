@@ -13,6 +13,7 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Clan;
 import com.lvl6.info.User;
 import com.lvl6.info.UserClan;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.proto.EventProto.LeaveClanRequestProto;
 import com.lvl6.proto.EventProto.LeaveClanResponseProto;
 import com.lvl6.proto.EventProto.LeaveClanResponseProto.Builder;
@@ -22,7 +23,6 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
 @Component @DependsOn("gameServer") public class LeaveClanController extends EventController {
 
@@ -77,17 +77,25 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     }
   }
 
+
   private void writeChangesToDB(User user, Clan clan) {
-    if (user.getId() == clan.getOwnerId()) {
-      List<Integer> userIds = RetrieveUtils.userClanRetrieveUtils().getUserIdsRelatedToClan(clan.getId());
+	int userId = user.getId();
+	int clanId = clan.getId();
+	
+    if (userId == clan.getOwnerId()) {
+      List<Integer> userIds = RetrieveUtils.userClanRetrieveUtils().getUserIdsRelatedToClan(clanId);
       deleteClan(clan, userIds, user);
     } else {
-      if (!DeleteUtils.get().deleteUserClan(user.getId(), clan.getId())) {
+      if (!DeleteUtils.get().deleteUserClan(userId, clanId)) {
         log.error("problem with deleting user clan for " + user + " and clan " + clan);
       }
       if (!user.updateRelativeDiamondsAbsoluteClan(0, null)) {
         log.error("problem with making clanid for user null");
       }
+      
+      //clan tower war feature,
+      MiscMethods.updateClanTowersAfterClanSizeDecrease(clan);
+      
     }
   }
 

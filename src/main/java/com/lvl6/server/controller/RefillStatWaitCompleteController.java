@@ -12,6 +12,7 @@ import com.lvl6.events.request.RefillStatWaitCompleteRequestEvent;
 import com.lvl6.events.response.RefillStatWaitCompleteResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.RefillStatWaitCompleteRequestProto;
 import com.lvl6.proto.EventProto.RefillStatWaitCompleteRequestProto.RefillStatWaitCompleteType;
@@ -21,7 +22,6 @@ import com.lvl6.proto.EventProto.RefillStatWaitCompleteResponseProto.RefillStatW
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Component @DependsOn("gameServer") public class RefillStatWaitCompleteController extends EventController{
 

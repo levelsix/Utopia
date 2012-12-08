@@ -15,6 +15,7 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.BattleRequestEvent;
 import com.lvl6.events.response.BattleResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
+import com.lvl6.info.ClanTower;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.LockBoxEvent;
 import com.lvl6.info.Quest;
@@ -22,6 +23,7 @@ import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
 import com.lvl6.info.jobs.DefeatTypeJob;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.BattleRequestProto;
 import com.lvl6.proto.EventProto.BattleResponseProto;
@@ -34,6 +36,7 @@ import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
@@ -43,7 +46,6 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.InsertUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
@@ -202,8 +204,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
    }
   }
 
-
-
   private UserEquip setLostEquip(BattleResponseProto.Builder resBuilder,
       UserEquip lostEquip, User winner, User loser) {
     if (!loser.isFake()) { //real, unequip and transfer
@@ -348,11 +348,37 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
 
   }
-
+  
+  //if incrementOwnerBattleWins is true then the the owner's battle wins is incremented
+  //else the attacker's battle wins is incremented, does nothing if list of towers is null/empty
+  private void incrementBattleWins(List<ClanTower> towers, boolean incrementOwnerBattleWins) {
+	  String ownerOrAttacker = incrementOwnerBattleWins ? "owner" : "attacker";
+	  for(ClanTower aTower : towers) {
+    	  if(!UpdateUtils.get().updateClanTowerBattleWins(
+    			  aTower.getId(), aTower.getClanOwnerId(), aTower.getClanAttackerId(),
+    			  incrementOwnerBattleWins, 1)) {
+    		  log.error("(no rows updated) problem with updating tower's battle wins. " +
+    			  "tower=" + aTower + "The " + ownerOrAttacker + "'s " +
+    			  "battle wins were not incremented.");
+    	  }
+      }
+  }
+  
   private void writeChangesToDB(boolean stolenEquipIsLastOne, User winner, User loser, User attacker, User defender, int expGained,
       int lostCoins, Timestamp battleTime, boolean isFlee, int lockBoxEventId) {
 
     boolean simulateStaminaRefill = (attacker.getStamina() == attacker.getStaminaMax());
+    
+    //clan towers feature variables
+    int attackerId = attacker.getClanId();
+    int defenderId = defender.getClanId();
+    boolean ownerAndAttackerAreEnemies = true;
+    //attacker is owner of tower
+    List<ClanTower> attackerIsClanTowerOwner = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
+    		attackerId, defenderId, ownerAndAttackerAreEnemies);    
+    //defender is owner of tower
+    List<ClanTower> defenderIsClanTowerOwner = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
+    		defenderId, attackerId, ownerAndAttackerAreEnemies);
 
     if (winner == attacker) {
       if (!attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
@@ -365,6 +391,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         log.error("problem with updating info for defender/loser " + defender.getId() + " in battle at " 
             + battleTime + " vs " + winner.getId());
       }
+      
+      //clan tower war feature
+      incrementBattleWins(attackerIsClanTowerOwner, true);//increment clan tower's owner battle wins
+      incrementBattleWins(defenderIsClanTowerOwner, false);//increment clan tower's attacker battle wins
+
+      
     } else if (winner == defender) {
       if (isFlee) {
         if (!attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
@@ -389,12 +421,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
               + battleTime + " vs " + loser.getId());
         }
       }
+      
+      //clan tower war feature
+      incrementBattleWins(defenderIsClanTowerOwner, true);//increment clan tower's owner battle wins
+      incrementBattleWins(attackerIsClanTowerOwner, false);//increment clan tower's attacker battle wins
     }
 
     if (lockBoxEventId != ControllerConstants.NOT_SET) {
       if (!UpdateUtils.get().incrementNumberOfLockBoxesForLockBoxEvent(attacker.getId(), lockBoxEventId, 1))
         log.error("problem incrementing user lock boxes for user = "+attacker+" lock box event id ="+lockBoxEventId);
     }
+    
   }
 
   private int calculateLostCoins(User loser, Random random, boolean isFlee) {

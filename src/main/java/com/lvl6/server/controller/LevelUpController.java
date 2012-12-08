@@ -18,6 +18,7 @@ import com.lvl6.info.City;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Structure;
 import com.lvl6.info.User;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.LevelUpRequestProto;
 import com.lvl6.proto.EventProto.LevelUpResponseProto;
@@ -31,7 +32,6 @@ import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
   @Component @DependsOn("gameServer") public class LevelUpController extends EventController {
