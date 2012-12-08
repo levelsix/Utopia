@@ -227,14 +227,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     retrieveKabamNaid(user, reqProto.getIOS5Udid(), reqProto.getMacAddress(), reqProto.getAdvertiserId());
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);    
   }
-  
-  private void setClanTowers(StartupResponseProto.Builder resBuilder) {
-	  List<ClanTower> towers = ClanTowerRetrieveUtils.getAllClanTowers();
-	  for (ClanTower aTower : towers) {
-		  resBuilder.addClanTowers(CreateInfoProtoUtils
-				  .createClanTowerProtoFromClanTower(aTower));
-	  }
-  }
 
   private void setClanTowers(StartupResponseProto.Builder resBuilder) {
     List<ClanTower> towers = ClanTowerRetrieveUtils.getAllClanTowers();

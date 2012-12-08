@@ -21,6 +21,7 @@ import com.lvl6.info.BossReward;
 import com.lvl6.info.User;
 import com.lvl6.info.UserBoss;
 import com.lvl6.info.UserEquip;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.BossActionRequestProto;
 import com.lvl6.proto.EventProto.BossActionResponseProto;
@@ -35,7 +36,6 @@ import com.lvl6.retrieveutils.rarechange.BossRewardRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 @Component @DependsOn("gameServer") public class BossActionController extends EventController {

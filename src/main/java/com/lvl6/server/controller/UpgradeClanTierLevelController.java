@@ -11,6 +11,7 @@ import com.lvl6.events.response.UpgradeClanTierLevelResponseEvent;
 import com.lvl6.info.Clan;
 import com.lvl6.info.ClanTierLevel;
 import com.lvl6.info.User;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.proto.EventProto.UpgradeClanTierLevelRequestProto;
 import com.lvl6.proto.EventProto.UpgradeClanTierLevelResponseProto;
 import com.lvl6.proto.EventProto.UpgradeClanTierLevelResponseProto.Builder;
@@ -21,7 +22,6 @@ import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.ClanTierLevelRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 @Component @DependsOn("gameServer") public class UpgradeClanTierLevelController extends EventController {
