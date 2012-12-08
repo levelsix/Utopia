@@ -93,10 +93,10 @@
 		<lvl6.cassandra.column.family>DevLogs</lvl6.cassandra.column.family>
 		<lvl6.cassandra.cluster.name>Test Cluster</lvl6.cassandra.cluster.name>
 		<lvl6.cassandra.replication.factor>1</lvl6.cassandra.replication.factor>
-		
+
 		<lvl6.elastic.search.cluster.name>lvl6_robot</lvl6.elastic.search.cluster.name>
 		<lvl6.elastic.search.hosts>robot.lvl6.com</lvl6.elastic.search.hosts>
-		
+
 		<maven.build.timestamp.format>yyyy-MM-dd-HH-mm-ss</maven.build.timestamp.format>
 		<beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
 		<application.release.name>Kingdom</application.release.name>
@@ -116,7 +116,7 @@
 		<lvl6.smtp.username>lvl6sender@gmail.com</lvl6.smtp.username>
 		<lvl6.smtp.password>robashen123</lvl6.smtp.password>
 		<lvl6.smtp.contact1>5208206924@vtext.com</lvl6.smtp.contact1>
-		
+
 		<amqp.host>robot.lvl6.com</amqp.host>
 		<amqp.user>lvl6server</amqp.user>
 		<amqp.pass>devserver</amqp.pass>
@@ -642,6 +642,11 @@
 				<version>3.1.2.RELEASE</version>
 			</dependency>
 			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>3.1.2.RELEASE</version>
+			</dependency>
+			<dependency>
 				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjrt</artifactId>
 				<version>1.7.0</version>
@@ -742,6 +747,10 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>

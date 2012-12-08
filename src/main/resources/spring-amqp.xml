@@ -57,7 +57,7 @@
 		auto-delete="false" />
 
 
-	<rabbit:listener-container	connection-factory="amqpConnectionFactory" concurrency="50" >
+	<rabbit:listener-container	connection-factory="amqpConnectionFactory" concurrency="30" error-handler="amqpErrorHandler">
 		<rabbit:listener 
 			queues="clientMessages" 
 			ref="clientEventHandler"
@@ -75,5 +75,6 @@
 		exchange="${amqp.chat.exchange}" />
 
 	<bean id="clientEventHandler" class="com.lvl6.eventhandlers.AmqpGameEventHandler" />
+	<bean id="amqpErrorHandler" class="com.lvl6.eventhandlers.AmqpErrorHandler" />
 
 </beans>
