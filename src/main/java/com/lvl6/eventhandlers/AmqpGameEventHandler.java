@@ -50,6 +50,7 @@ public class AmqpGameEventHandler extends AbstractGameEventHandler implements Me
 
 	@Override
 	public void onMessage(Message msg) {
+		try {
 		if (msg != null) {
 			log.info("Received message", msg.getMessageProperties().getMessageId());
 			Attachment attachment = new Attachment();
@@ -61,6 +62,9 @@ public class AmqpGameEventHandler extends AbstractGameEventHandler implements Me
 			}
 		} else {
 			throw new RuntimeException("Message was null or missing headers");
+		}
+		}catch(Exception e) {
+			log.error("Error in amqpGameEventHandler", e);
 		}
 	}
 
