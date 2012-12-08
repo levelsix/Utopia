@@ -18,7 +18,6 @@ import com.lvl6.events.response.ReceivedGroupChatResponseEvent;
 import com.lvl6.events.response.SendGroupChatResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
-import com.lvl6.info.UserClan;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.ReceivedGroupChatResponseProto;
@@ -141,7 +140,7 @@ public class SendGroupChatController extends EventController {
 				chatProto.setSender(senderProto);
 				chatProto.setScope(scope);
 				if (scope == GroupChatScope.GLOBAL) {
-				chatProto.setIsAdmin(user.isAdmin());
+				  chatProto.setIsAdmin(user.isAdmin());
 				}
 				sendChatMessage(senderProto.getUserId(), chatProto, event.getTag(),
 						scope == GroupChatScope.CLAN, user.getClanId(), user.isAdmin(), timeOfPost.getTime());

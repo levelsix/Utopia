@@ -145,7 +145,9 @@ public class ClanTowerRetrieveUtils {
     int ownerBattleWins = rs.getInt(i++);
     int attackerBattleWins = rs.getInt(i++);
     int numberOfHoursForBattle = rs.getInt(i++);
+    
     Date lastRewardGiven = null;
+    ts = rs.getTimestamp(i++);
     if (!rs.wasNull()) {
         lastRewardGiven = new Date(ts.getTime());
       }
