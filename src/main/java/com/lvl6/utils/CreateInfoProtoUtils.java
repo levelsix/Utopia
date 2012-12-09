@@ -911,7 +911,9 @@ public class CreateInfoProtoUtils {
       if(null != tower.getOwnedStartTime()) {
     	  b.setOwnedStartTime(tower.getOwnedStartTime().getTime());
       }
-      b.setLastRewardGiven(tower.getLastRewardGiven().getTime());
+      if (null != tower.getLastRewardGiven()) {
+        b.setLastRewardGiven(tower.getLastRewardGiven().getTime());
+      }
     }
     if (tower.getClanAttackerId() > 0) {
       b.setTowerAttacker(createMinimumClanProtoFromClan(ClanRetrieveUtils.getClanWithId(tower.getClanAttackerId())));
