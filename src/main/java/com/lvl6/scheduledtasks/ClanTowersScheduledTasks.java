@@ -1,6 +1,7 @@
 package com.lvl6.scheduledtasks;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,8 +18,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.ILock;
 import com.lvl6.info.ClanTower;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.misc.Notification;
 import com.lvl6.properties.DBConstants;
+import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowerChange;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.server.GameServer;
@@ -70,21 +73,25 @@ public class ClanTowersScheduledTasks {
 	
 	@Scheduled(fixedRate=300000)
 	public void checkForBattlesEnded() {
-		ILock battlesEndedLock = hazel.getLock("ClanTowersBattlesEndedScheduledTask");
-		if(battlesEndedLock.tryLock()) {
-			try {
-				List<ClanTower> clanTowers = ClanTowerRetrieveUtils.getAllClanTowers();
-				if(clanTowers == null) return;
-				for(ClanTower tower : clanTowers) {
-					checkBattleForTower(tower);
-				}
-			}catch(Exception e){
-				log.error("Error checking battles ended", e);
-			}
-			finally {
-				battlesEndedLock.unlock();
-			}
-		}		
+	  //ILock battlesEndedLock = hazel.getLock("ClanTowersBattlesEndedScheduledTask");
+	  //if(battlesEndedLock.tryLock()) {
+	  if(server.lockClanTowersTable()) {
+	    try {
+
+	      List<ClanTower> clanTowers = ClanTowerRetrieveUtils.getAllClanTowers();
+	      if(clanTowers == null) return;
+	      for(ClanTower tower : clanTowers) {
+	        checkBattleForTower(tower);
+	      }
+
+	    }catch(Exception e){
+	      log.error("Error checking battles ended", e);
+	    }
+	    finally {
+	      server.unlockClanTowersTable();
+	      //battlesEndedLock.unlock();
+	    }
+	  }		
 	}
 	
 	protected void checkBattleForTower(ClanTower tower) {
@@ -99,13 +106,20 @@ public class ClanTowersScheduledTasks {
 	}
 
 	protected void updateClanTower(ClanTower tower) {
-		if(tower.getAttackerBattleWins() > tower.getOwnerBattleWins()) {
+	  List<ClanTower> changedTowers = new ArrayList<ClanTower>();
+	  changedTowers.add(tower);
+
+	  if(tower.getAttackerBattleWins() > tower.getOwnerBattleWins()) {
 			updateClanTowerAttackerWonBattle(tower);
 			
+			MiscMethods.sendClanTowerProtosToClient(changedTowers, server, 
+			    ReasonForClanTowerChange.ATTACKER_WON);
 			sendGeneralNotification(tower, true);
 		}else {
 			updateClanTowerOwnerWonBattle(tower);
-			
+		
+			MiscMethods.sendClanTowerProtosToClient(changedTowers, server, 
+          ReasonForClanTowerChange.OWNER_WON);
 			sendGeneralNotification(tower, false);
 		}
 	}

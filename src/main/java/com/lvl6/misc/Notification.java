@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import com.lvl6.events.response.GeneralNotificationResponseEvent;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
-import com.lvl6.proto.InfoProto.NotificationTitleColorProto;
+import com.lvl6.proto.InfoProto.ColorProto;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.ConnectedPlayer;
 
@@ -20,6 +20,7 @@ public class Notification implements Runnable {
 	  private GameServer server;
 	  private Collection<ConnectedPlayer> allOnlinePlayers;
 	  private Map<String, Object> keysAndValues;
+	  private ColorProto.Builder clr;
 	  
 	  public static final String ATTACKER_CONCEDED = "attacker conceded";
 	  public static final String ATTACKER_NOT_ENOUGH_MEMBERS = "attacker does not have enough members";
@@ -47,6 +48,7 @@ public class Notification implements Runnable {
 		  this.server = server;
 		  this.allOnlinePlayers = allOnlinePlayers;
 		  this.keysAndValues = new HashMap<String, Object>();
+		  this.clr = ColorProto.newBuilder();
 	  }
 	  
 	  public void run () {
@@ -70,7 +72,7 @@ public class Notification implements Runnable {
 				  GeneralNotificationResponseProto.newBuilder();
 		  notificationProto.setTitle((String)keysAndValues.get("title"));
 		  notificationProto.setSubtitle((String)keysAndValues.get("subtitle"));
-		  notificationProto.setRgb((NotificationTitleColorProto)keysAndValues.get("rgb"));
+		  notificationProto.setRgb((ColorProto)keysAndValues.get("rgb"));
 		  
 		  return notificationProto;
 	  }
@@ -108,5 +110,12 @@ public class Notification implements Runnable {
 	  
 	  public void setNotificationAsOwnerConceded () {
 		  
+	  }
+	  
+	  public void setAsClanTowerWarClanNotEnoughMembers(String clanTag, 
+	      String clanName, String towerName, boolean isTowerOwner) {
+	    String title = "";
+	    String subtitle = "";
+	    
 	  }
 }

@@ -13,7 +13,7 @@ public class ConcedeClanTowerWarResponseEvent extends NormalResponseEvent {
   
   public ConcedeClanTowerWarResponseEvent(int playerId){
     super(playerId);
-    eventType = EventProtocolResponse.S_CONCEDE_CLAN_TOWER_WAR;
+    eventType = EventProtocolResponse.S_CONCEDE_CLAN_TOWER_WAR_EVENT;
   }
   
   @Override

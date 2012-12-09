@@ -38,7 +38,26 @@ public class ClanTowerRetrieveUtils {
     DBConnection.get().close(rs, null, conn);
     return clanTowers;
   }
-  
+
+  public static Map<Integer, ClanTower> getClanTowersForClanTowerIds(List<Integer> ids) {
+    if(null != ids && 0 < ids.size()) {
+      Connection conn = DBConnection.get().getConnection();
+      Map<String, Object> absoluteConditionParams = new HashMap<String, Object>();
+      String tablename = DBConstants.TABLE_CLAN_TOWERS;
+
+      for(Integer id : ids) {
+        absoluteConditionParams.put(DBConstants.CLAN_TOWERS__TOWER_ID, id);
+      }
+
+      ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(
+          conn, absoluteConditionParams, tablename);
+      Map<Integer, ClanTower> clanTowerIdsToClanTowers = convertRSToClanTowerIdsToClanTowers(rs);
+      DBConnection.get().close(rs, null, conn);
+      return clanTowerIdsToClanTowers;
+    }
+    return null;
+  }
+
   /*
    * Gets all the towers with:
    * 1) the specified owner and attacker id
@@ -48,37 +67,36 @@ public class ClanTowerRetrieveUtils {
    * attacker id
    */
   public static List<ClanTower> getAllClanTowersWithSpecificOwnerAndOrAttackerId(
-		  int ownerId, int attackerId, boolean ownerAndAttackerAreEnemies){
-	  Connection conn = DBConnection.get().getConnection();
-	  
-	  Map<String, Object> absoluteConditionParams = 
-			  new HashMap<String,Object>();
-	  
-	  if (ControllerConstants.NOT_SET != ownerId) {
-		  absoluteConditionParams.put(
-				  DBConstants.CLAN_TOWERS__CLAN_OWNER_ID, ownerId);
-	  }
-	  if (ControllerConstants.NOT_SET != attackerId) {
-		  absoluteConditionParams.put(
-				  DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID, attackerId);
-	  }	  
-	  
-	  //convert return values to objects
-	  ResultSet rs = null;
-	  if (ownerAndAttackerAreEnemies) {
-		  rs = DBConnection.get().selectRowsAbsoluteAnd(
-				  conn, absoluteConditionParams, TABLE_NAME);
-	  }
-	  else {
-		  rs = DBConnection.get().selectRowsAbsoluteOr(
-				  conn, absoluteConditionParams, TABLE_NAME);
-	  }
-	  List<ClanTower> clanTowers = convertRSToClanTowersList(rs);
-	  DBConnection.get().close(rs, null, conn);
-	  
-	  return clanTowers;
+      int ownerId, int attackerId, boolean ownerAndAttackerAreEnemies){
+    Connection conn = DBConnection.get().getConnection();
+
+    Map<String, Object> absoluteConditionParams = new HashMap<String,Object>();
+
+    if (ControllerConstants.NOT_SET != ownerId) {
+      absoluteConditionParams.put(
+          DBConstants.CLAN_TOWERS__CLAN_OWNER_ID, ownerId);
+    }
+    if (ControllerConstants.NOT_SET != attackerId) {
+      absoluteConditionParams.put(
+          DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID, attackerId);
+    }	  
+
+    //convert return values to objects
+    ResultSet rs = null;
+    if (ownerAndAttackerAreEnemies) {
+      rs = DBConnection.get().selectRowsAbsoluteAnd(
+          conn, absoluteConditionParams, TABLE_NAME);
+    }
+    else {
+      rs = DBConnection.get().selectRowsAbsoluteOr(
+          conn, absoluteConditionParams, TABLE_NAME);
+    }
+    List<ClanTower> clanTowers = convertRSToClanTowersList(rs);
+    DBConnection.get().close(rs, null, conn);
+
+    return clanTowers;
   }
-  
+
   private static ClanTower convertRSToSingleClanTower(ResultSet rs) {
     if (rs != null) {
       try {
@@ -95,7 +113,7 @@ public class ClanTowerRetrieveUtils {
     }
     return null;
   }
-  
+
   private static List<ClanTower> convertRSToClanTowersList(ResultSet rs) {
     if (rs != null) {
       try {
@@ -107,6 +125,30 @@ public class ClanTowerRetrieveUtils {
           clanTowersList.add(clanTower);
         }
         return clanTowersList;
+      } catch (SQLException e) {
+        log.error("problem with database call.");
+        log.error(e);
+      }
+    }
+    return null;
+  }
+
+  private static Map<Integer, ClanTower> convertRSToClanTowerIdsToClanTowers(ResultSet rs) {
+    if (rs != null) {
+      try {
+        rs.last();
+        rs.beforeFirst();
+        Map<Integer, ClanTower> clanIdsToClanTowers = new HashMap<Integer, ClanTower>();
+        while(rs.next()) {
+          ClanTower clanTower = convertRSToSingleClanTower(rs);
+          int clanTowerId = clanTower.getId();
+          if (!clanIdsToClanTowers.containsKey(clanTowerId) ) {
+            clanIdsToClanTowers.put(clanTowerId, clanTower);
+          } else {
+            log.error("more than one clan tower for an id");
+          }
+        }
+        return clanIdsToClanTowers;
       } catch (SQLException e) {
         log.error("problem with database call.");
         log.error(e);
@@ -147,9 +189,15 @@ public class ClanTowerRetrieveUtils {
     int numberOfHoursForBattle = rs.getInt(i++);
     Date lastRewardGiven = null;
     if (!rs.wasNull()) {
-        lastRewardGiven = new Date(ts.getTime());
-      }
+      lastRewardGiven = new Date(ts.getTime());
+    }
 
-    return new ClanTower(id, towerName, towerImageName, clanOwnerId, ownedStartTime, silverReward, goldReward, numHrsToCollect, clanAttackerId, attackStartTime, ownerBattleWins, attackerBattleWins, numberOfHoursForBattle, lastRewardGiven);
+    int blue = rs.getInt(i++);
+    int green = rs.getInt(i++);
+    int red = rs.getInt(i++);
+
+    return new ClanTower(id, towerName, towerImageName, clanOwnerId, ownedStartTime, silverReward, 
+        goldReward, numHrsToCollect, clanAttackerId, attackStartTime, ownerBattleWins, attackerBattleWins, 
+        numberOfHoursForBattle, lastRewardGiven, blue, green, red);
   }
 }

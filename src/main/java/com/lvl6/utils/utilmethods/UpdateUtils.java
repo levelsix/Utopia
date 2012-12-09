@@ -925,6 +925,8 @@ public class UpdateUtils implements UpdateUtil {
 		  //set the clanOwnerId to the clanAttackerId, regardless of whether it is set
 		  ownerOrAttacker = DBConstants.CLAN_TOWERS__CLAN_OWNER_ID + "=" +
 				  DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + ",";
+		  ownerOrAttacker += DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + "=?,";
+		  values.add(null);
 		  
 		  //changed ownership, reset time and battle wins
 		  ownedStartTime = " " + DBConstants.CLAN_TOWERS__OWNED_START_TIME + "=?,";

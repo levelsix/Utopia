@@ -4,7 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -12,13 +14,15 @@ import java.util.StringTokenizer;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
+import org.springframework.core.task.TaskExecutor;
 
+import com.lvl6.events.response.ChangedClanTowerResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.BossEvent;
 import com.lvl6.info.City;
-import com.lvl6.info.ClanTierLevel;
 import com.lvl6.info.Clan;
+import com.lvl6.info.ClanTierLevel;
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
@@ -33,6 +37,8 @@ import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.properties.MDCKeys;
+import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto;
+import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowerChange;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.CharacterModConstants;
@@ -48,14 +54,15 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ThreeCard
 import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
 import com.lvl6.proto.InfoProto.BossEventProto;
 import com.lvl6.proto.InfoProto.ClanTierLevelProto;
+import com.lvl6.proto.InfoProto.ClanTowerProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
 import com.lvl6.proto.InfoProto.UserType;
-import com.lvl6.retrieveutils.rarechange.BossEventRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.BossEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRewardRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
@@ -86,6 +93,8 @@ public class MiscMethods {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  public static final String clanTowersClanAttacked = "clanTowersClanAttacked";
+  public static final String clanTowersClanOwned = "clanTowersClanOwned";
 
   public static int calculateMinutesToFinishForgeAttempt(Equipment equipment, int goalLevel) {
     return (int)
@@ -704,12 +713,13 @@ public class MiscMethods {
     return toRet;
   }
   
-  
-  //Makes 6 db calls:
+  //Makes 7 db calls:
+  //One to retrieve clan size
   //Two to retrieve the towers the clan owns and is attacking
   //Two to write to the clan_towers_history table: towers the clan owns and is attacking
   //Two to write to the clan_towers table
-  public static void updateClanTowersAfterClanSizeDecrease(Clan aClan) {
+  //returns ids of clan towers that the clan owned and attacked
+  public static Map<String, List<Integer>> updateClanTowersAfterClanSizeDecrease(Clan aClan) {
 	  int clanId = aClan.getId();
 	  int clanSize = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId).size();
 	  int minSize = ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER;
@@ -752,9 +762,85 @@ public class MiscMethods {
 			  log.error("reset more/less towers than the clan attacked in clan_towers table. clan=" + 
 					  aClan + "towersAttacked=" + towersAttacked);
 		  }
+		  
+		  //return clan towers that changed
+		  Map<String, List<Integer>> towersBeforeUpdate = new HashMap<String, List<Integer>>();
+		  towersBeforeUpdate.put(clanTowersClanOwned, ownedIds);
+		  towersBeforeUpdate.put(clanTowersClanAttacked, attackedIds);
+		  return towersBeforeUpdate;
 	  }
+	  return null;
 	  
   }
   
+  //returns the clan towers that changed
+  public static void sendClanTowerWarNotEnoughMembersNotification(
+      Map<Integer, ClanTower> clanTowerIdsToClanTowers, List<Integer> towersAttacked,
+      List<Integer> towersOwned, Clan aClan, TaskExecutor executor, 
+      Collection<ConnectedPlayer> onlinePlayers, GameServer server) {
+
+    if(null != clanTowerIdsToClanTowers && !clanTowerIdsToClanTowers.isEmpty()) {
+
+      List<Notification> notificationsToSend = new ArrayList<Notification>();
+      //make notifications for the towers the clan was attacking
+      boolean attackerWon = false;
+      generateClanTowerNotEnoughMembersNotification(aClan, towersAttacked, clanTowerIdsToClanTowers, 
+          notificationsToSend, attackerWon, onlinePlayers, server);
+
+      //make notifications for the towers the clan owned
+      attackerWon = true;
+      generateClanTowerNotEnoughMembersNotification(aClan, towersOwned, clanTowerIdsToClanTowers,
+          notificationsToSend, attackerWon, onlinePlayers, server);
+      
+      for(Notification n: notificationsToSend) {
+        executor.execute(n);
+      }
+      return;
+    }
+    log.info("no towers changed");
+    return;
+  }
+  
+  private static void generateClanTowerNotEnoughMembersNotification(Clan aClan, List<Integer> towerIds, 
+      Map<Integer, ClanTower> clanTowerIdsToClanTowers, List<Notification> notificationsToSend,
+      boolean isTowerOwner, Collection<ConnectedPlayer> onlinePlayers, GameServer server) {
+    
+    String clanTag = aClan.getTag();
+    String clanName = aClan.getName();
+    
+    //for each tower make a notification for it
+    for(Integer towerId: towerIds) {
+      ClanTower aTower = clanTowerIdsToClanTowers.get(towerId);
+      String towerName = aTower.getTowerName();
+      Notification clanTowerWarNotification = new Notification (server, onlinePlayers);
+      
+      clanTowerWarNotification.setAsClanTowerWarClanNotEnoughMembers(clanTag,
+          clanName, towerName, isTowerOwner);
+      notificationsToSend.add(clanTowerWarNotification);
+    }
+  }
+
+  //converts the ClanTower objects into ClanTowerProto objects,
+  //then sends them all to the client
+  public static void sendClanTowerProtosToClient(Collection<ClanTower> changedTowers,
+      GameServer server, ReasonForClanTowerChange reason) {
+    if(null != changedTowers && 0 < changedTowers.size()) {
+      ArrayList<ClanTowerProto> toSend = new ArrayList<ClanTowerProto>();
+      for(ClanTower tower: changedTowers) {
+        ClanTowerProto towerProto = 
+            CreateInfoProtoUtils.createClanTowerProtoFromClanTower(tower);
+        toSend.add(towerProto);
+      }
+      
+      ChangedClanTowerResponseProto.Builder t = ChangedClanTowerResponseProto.newBuilder();
+      t.addAllClanTowers(toSend);
+      t.setReason(reason);
+
+      ChangedClanTowerResponseEvent e = new ChangedClanTowerResponseEvent(0);
+      e.setChangedClanTowerResponseProto(t.build());
+      
+      server.writeEvent(e);
+    }
+  }
   
 }

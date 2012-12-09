@@ -782,8 +782,8 @@ message UnhandledBlacksmithAttemptProto {
 
 //------------------------------------------------------------------------------------------
 
-message NotificationTitleColorProto {
-	optional int64 red = 1;
-	optional int64 green = 2;
-	optional int64 blue = 3;
+message ColorProto {
+	optional int32 red = 1;
+	optional int32 green = 2;
+	optional int32 blue = 3;
 }

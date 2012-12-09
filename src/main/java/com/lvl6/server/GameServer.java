@@ -261,6 +261,43 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware {
 		return playersPreDatabaseByUDID.get(id);
 	}
 
+	//locking all clan towers because don't know which tower to modify
+	//when clan loses members that makes them forfeit towers. If this case
+	//was not here, then the lock would have been for individual towers.
+	public boolean lockClanTowersTable() {
+	  log.debug("Locking all clan towers");
+	  String lockName = clanTowersTableLockName();
+	  if(lockMap.tryLock(lockName, LOCK_WAIT_SECONDS, TimeUnit.SECONDS)) {
+	    log.debug("Got lock for all clan towers.");
+	    lockMap.put(lockName, new Date());
+	    return true;
+	  } else {
+	    log.warn("Failed to acquire lock for all clan towers");
+	    return false;
+	  }
+	}
+	
+	//don't know if the try catch is needed...
+	public void unlockClanTowersTable() {
+	  log.debug("Unlocking all clan towers");
+	  try {
+	    String lockName = clanTowersTableLockName();
+	    if(lockMap.isLocked(lockName)) {
+	      lockMap.unlock(lockName);
+	    }
+	    log.debug("Unlocked all clan towers");
+	    if (lockMap.containsKey(lockName)) {
+	      lockMap.remove(lockName);
+	    }
+	  } catch (Exception e) {
+	    log.error("Error unlocking all clan towers.");
+	  }
+	}
+	
+	protected String clanTowersTableLockName() {
+	  return "ClanTowersTableLock";
+	}
+	
 	public boolean lockClan(int clanId) {
 		log.debug("Locking clan: " + clanId);
 		if (lockMap.tryLock(clanLockName(clanId), LOCK_WAIT_SECONDS, TimeUnit.SECONDS)) {

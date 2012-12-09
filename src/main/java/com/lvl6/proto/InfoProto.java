@@ -45158,84 +45158,84 @@ public final class InfoProto {
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.UnhandledBlacksmithAttemptProto)
   }
   
-  public interface NotificationTitleColorProtoOrBuilder
+  public interface ColorProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // optional int64 red = 1;
+    // optional int32 red = 1;
     boolean hasRed();
-    long getRed();
+    int getRed();
     
-    // optional int64 green = 2;
+    // optional int32 green = 2;
     boolean hasGreen();
-    long getGreen();
+    int getGreen();
     
-    // optional int64 blue = 3;
+    // optional int32 blue = 3;
     boolean hasBlue();
-    long getBlue();
+    int getBlue();
   }
-  public static final class NotificationTitleColorProto extends
+  public static final class ColorProto extends
       com.google.protobuf.GeneratedMessage
-      implements NotificationTitleColorProtoOrBuilder {
-    // Use NotificationTitleColorProto.newBuilder() to construct.
-    private NotificationTitleColorProto(Builder builder) {
+      implements ColorProtoOrBuilder {
+    // Use ColorProto.newBuilder() to construct.
+    private ColorProto(Builder builder) {
       super(builder);
     }
-    private NotificationTitleColorProto(boolean noInit) {}
+    private ColorProto(boolean noInit) {}
     
-    private static final NotificationTitleColorProto defaultInstance;
-    public static NotificationTitleColorProto getDefaultInstance() {
+    private static final ColorProto defaultInstance;
+    public static ColorProto getDefaultInstance() {
       return defaultInstance;
     }
     
-    public NotificationTitleColorProto getDefaultInstanceForType() {
+    public ColorProto getDefaultInstanceForType() {
       return defaultInstance;
     }
     
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_NotificationTitleColorProto_descriptor;
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_ColorProto_descriptor;
     }
     
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_NotificationTitleColorProto_fieldAccessorTable;
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_ColorProto_fieldAccessorTable;
     }
     
     private int bitField0_;
-    // optional int64 red = 1;
+    // optional int32 red = 1;
     public static final int RED_FIELD_NUMBER = 1;
-    private long red_;
+    private int red_;
     public boolean hasRed() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    public long getRed() {
+    public int getRed() {
       return red_;
     }
     
-    // optional int64 green = 2;
+    // optional int32 green = 2;
     public static final int GREEN_FIELD_NUMBER = 2;
-    private long green_;
+    private int green_;
     public boolean hasGreen() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public long getGreen() {
+    public int getGreen() {
       return green_;
     }
     
-    // optional int64 blue = 3;
+    // optional int32 blue = 3;
     public static final int BLUE_FIELD_NUMBER = 3;
-    private long blue_;
+    private int blue_;
     public boolean hasBlue() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
-    public long getBlue() {
+    public int getBlue() {
       return blue_;
     }
     
     private void initFields() {
-      red_ = 0L;
-      green_ = 0L;
-      blue_ = 0L;
+      red_ = 0;
+      green_ = 0;
+      blue_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -45250,13 +45250,13 @@ public final class InfoProto {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt64(1, red_);
+        output.writeInt32(1, red_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt64(2, green_);
+        output.writeInt32(2, green_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt64(3, blue_);
+        output.writeInt32(3, blue_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -45269,15 +45269,15 @@ public final class InfoProto {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, red_);
+          .computeInt32Size(1, red_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, green_);
+          .computeInt32Size(2, green_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(3, blue_);
+          .computeInt32Size(3, blue_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -45291,41 +45291,41 @@ public final class InfoProto {
       return super.writeReplace();
     }
     
-    public static com.lvl6.proto.InfoProto.NotificationTitleColorProto parseFrom(
+    public static com.lvl6.proto.InfoProto.ColorProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.NotificationTitleColorProto parseFrom(
+    public static com.lvl6.proto.InfoProto.ColorProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.NotificationTitleColorProto parseFrom(byte[] data)
+    public static com.lvl6.proto.InfoProto.ColorProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.NotificationTitleColorProto parseFrom(
+    public static com.lvl6.proto.InfoProto.ColorProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.NotificationTitleColorProto parseFrom(java.io.InputStream input)
+    public static com.lvl6.proto.InfoProto.ColorProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.NotificationTitleColorProto parseFrom(
+    public static com.lvl6.proto.InfoProto.ColorProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.NotificationTitleColorProto parseDelimitedFrom(java.io.InputStream input)
+    public static com.lvl6.proto.InfoProto.ColorProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       Builder builder = newBuilder();
       if (builder.mergeDelimitedFrom(input)) {
@@ -45334,7 +45334,7 @@ public final class InfoProto {
         return null;
       }
     }
-    public static com.lvl6.proto.InfoProto.NotificationTitleColorProto parseDelimitedFrom(
+    public static com.lvl6.proto.InfoProto.ColorProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -45345,12 +45345,12 @@ public final class InfoProto {
         return null;
       }
     }
-    public static com.lvl6.proto.InfoProto.NotificationTitleColorProto parseFrom(
+    public static com.lvl6.proto.InfoProto.ColorProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.NotificationTitleColorProto parseFrom(
+    public static com.lvl6.proto.InfoProto.ColorProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -45360,7 +45360,7 @@ public final class InfoProto {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.lvl6.proto.InfoProto.NotificationTitleColorProto prototype) {
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.ColorProto prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -45373,18 +45373,18 @@ public final class InfoProto {
     }
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.lvl6.proto.InfoProto.NotificationTitleColorProtoOrBuilder {
+       implements com.lvl6.proto.InfoProto.ColorProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_NotificationTitleColorProto_descriptor;
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_ColorProto_descriptor;
       }
       
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_NotificationTitleColorProto_fieldAccessorTable;
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_ColorProto_fieldAccessorTable;
       }
       
-      // Construct using com.lvl6.proto.InfoProto.NotificationTitleColorProto.newBuilder()
+      // Construct using com.lvl6.proto.InfoProto.ColorProto.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -45403,11 +45403,11 @@ public final class InfoProto {
       
       public Builder clear() {
         super.clear();
-        red_ = 0L;
+        red_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        green_ = 0L;
+        green_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        blue_ = 0L;
+        blue_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
@@ -45418,24 +45418,24 @@ public final class InfoProto {
       
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.lvl6.proto.InfoProto.NotificationTitleColorProto.getDescriptor();
+        return com.lvl6.proto.InfoProto.ColorProto.getDescriptor();
       }
       
-      public com.lvl6.proto.InfoProto.NotificationTitleColorProto getDefaultInstanceForType() {
-        return com.lvl6.proto.InfoProto.NotificationTitleColorProto.getDefaultInstance();
+      public com.lvl6.proto.InfoProto.ColorProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.ColorProto.getDefaultInstance();
       }
       
-      public com.lvl6.proto.InfoProto.NotificationTitleColorProto build() {
-        com.lvl6.proto.InfoProto.NotificationTitleColorProto result = buildPartial();
+      public com.lvl6.proto.InfoProto.ColorProto build() {
+        com.lvl6.proto.InfoProto.ColorProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
       
-      private com.lvl6.proto.InfoProto.NotificationTitleColorProto buildParsed()
+      private com.lvl6.proto.InfoProto.ColorProto buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
-        com.lvl6.proto.InfoProto.NotificationTitleColorProto result = buildPartial();
+        com.lvl6.proto.InfoProto.ColorProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(
             result).asInvalidProtocolBufferException();
@@ -45443,8 +45443,8 @@ public final class InfoProto {
         return result;
       }
       
-      public com.lvl6.proto.InfoProto.NotificationTitleColorProto buildPartial() {
-        com.lvl6.proto.InfoProto.NotificationTitleColorProto result = new com.lvl6.proto.InfoProto.NotificationTitleColorProto(this);
+      public com.lvl6.proto.InfoProto.ColorProto buildPartial() {
+        com.lvl6.proto.InfoProto.ColorProto result = new com.lvl6.proto.InfoProto.ColorProto(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -45465,16 +45465,16 @@ public final class InfoProto {
       }
       
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lvl6.proto.InfoProto.NotificationTitleColorProto) {
-          return mergeFrom((com.lvl6.proto.InfoProto.NotificationTitleColorProto)other);
+        if (other instanceof com.lvl6.proto.InfoProto.ColorProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.ColorProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
       
-      public Builder mergeFrom(com.lvl6.proto.InfoProto.NotificationTitleColorProto other) {
-        if (other == com.lvl6.proto.InfoProto.NotificationTitleColorProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.ColorProto other) {
+        if (other == com.lvl6.proto.InfoProto.ColorProto.getDefaultInstance()) return this;
         if (other.hasRed()) {
           setRed(other.getRed());
         }
@@ -45517,17 +45517,17 @@ public final class InfoProto {
             }
             case 8: {
               bitField0_ |= 0x00000001;
-              red_ = input.readInt64();
+              red_ = input.readInt32();
               break;
             }
             case 16: {
               bitField0_ |= 0x00000002;
-              green_ = input.readInt64();
+              green_ = input.readInt32();
               break;
             }
             case 24: {
               bitField0_ |= 0x00000004;
-              blue_ = input.readInt64();
+              blue_ = input.readInt32();
               break;
             }
           }
@@ -45536,15 +45536,15 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // optional int64 red = 1;
-      private long red_ ;
+      // optional int32 red = 1;
+      private int red_ ;
       public boolean hasRed() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public long getRed() {
+      public int getRed() {
         return red_;
       }
-      public Builder setRed(long value) {
+      public Builder setRed(int value) {
         bitField0_ |= 0x00000001;
         red_ = value;
         onChanged();
@@ -45552,20 +45552,20 @@ public final class InfoProto {
       }
       public Builder clearRed() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        red_ = 0L;
+        red_ = 0;
         onChanged();
         return this;
       }
       
-      // optional int64 green = 2;
-      private long green_ ;
+      // optional int32 green = 2;
+      private int green_ ;
       public boolean hasGreen() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public long getGreen() {
+      public int getGreen() {
         return green_;
       }
-      public Builder setGreen(long value) {
+      public Builder setGreen(int value) {
         bitField0_ |= 0x00000002;
         green_ = value;
         onChanged();
@@ -45573,20 +45573,20 @@ public final class InfoProto {
       }
       public Builder clearGreen() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        green_ = 0L;
+        green_ = 0;
         onChanged();
         return this;
       }
       
-      // optional int64 blue = 3;
-      private long blue_ ;
+      // optional int32 blue = 3;
+      private int blue_ ;
       public boolean hasBlue() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public long getBlue() {
+      public int getBlue() {
         return blue_;
       }
-      public Builder setBlue(long value) {
+      public Builder setBlue(int value) {
         bitField0_ |= 0x00000004;
         blue_ = value;
         onChanged();
@@ -45594,20 +45594,20 @@ public final class InfoProto {
       }
       public Builder clearBlue() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        blue_ = 0L;
+        blue_ = 0;
         onChanged();
         return this;
       }
       
-      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.NotificationTitleColorProto)
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.ColorProto)
     }
     
     static {
-      defaultInstance = new NotificationTitleColorProto(true);
+      defaultInstance = new ColorProto(true);
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:com.lvl6.proto.NotificationTitleColorProto)
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.ColorProto)
   }
   
   private static com.google.protobuf.Descriptors.Descriptor
@@ -45876,10 +45876,10 @@ public final class InfoProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_lvl6_proto_NotificationTitleColorProto_descriptor;
+    internal_static_com_lvl6_proto_ColorProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_lvl6_proto_NotificationTitleColorProto_fieldAccessorTable;
+      internal_static_com_lvl6_proto_ColorProto_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -46200,42 +46200,41 @@ public final class InfoProto {
       "goalLevel\030\004 \001(\003\022\022\n\nguaranteed\030\005 \001(\010\022\021\n\ts" +
       "tartTime\030\006 \001(\003\022\034\n\024diamondGuaranteeCost\030\010",
       " \001(\005\022\025\n\rtimeOfSpeedup\030\t \001(\003\022\027\n\017attemptCo" +
-      "mplete\030\n \001(\010\"G\n\033NotificationTitleColorPr" +
-      "oto\022\013\n\003red\030\001 \001(\003\022\r\n\005green\030\002 \001(\003\022\014\n\004blue\030" +
-      "\003 \001(\003*C\n\016EquipClassType\022\013\n\007WARRIOR\020\000\022\n\n\006" +
-      "ARCHER\020\001\022\010\n\004MAGE\020\002\022\016\n\nALL_AMULET\020\003*,\n\016Us" +
-      "erClanStatus\022\n\n\006MEMBER\020\000\022\016\n\nREQUESTING\020\002" +
-      "*@\n\016GroupChatScope\022\n\n\006GLOBAL\020\000\022\014\n\010ALLIAN" +
-      "CE\020\001\022\n\n\006LEGION\020\002\022\010\n\004CLAN\020\003*S\n\017Leaderboar" +
-      "dType\022\024\n\020MOST_BATTLES_WON\020\002\022\016\n\nMOST_COIN" +
-      "S\020\003\022\014\n\010MOST_EXP\020\004\022\014\n\010BEST_KDR\020\005*f\n\020Chara",
-      "cterModType\022\016\n\nNEW_PLAYER\020\001\022\026\n\022RESET_SKI" +
-      "LL_POINTS\020\002\022\031\n\025CHANGE_CHARACTER_TYPE\020\003\022\017" +
-      "\n\013CHANGE_NAME\020\004*/\n\rAnimationType\022\022\n\016GENE" +
-      "RIC_ACTION\020\001\022\n\n\006ATTACK\020\002*h\n\024EarnFreeDiam" +
-      "ondsType\022\010\n\004KIIP\020\001\022\014\n\010ADCOLONY\020\002\022\r\n\tFB_I" +
-      "NVITE\020\003\022\n\n\006TAPJOY\020\004\022\020\n\014FLURRY_VIDEO\020\005\022\013\n" +
-      "\007TWITTER\020\006*\371\001\n\022SpecialQuestAction\022\030\n\024PUR" +
-      "CHASE_FROM_ARMORY\020\001\022\035\n\031PURCHASE_FROM_MAR" +
-      "KETPLACE\020\002\022\022\n\016SELL_TO_ARMORY\020\003\022\027\n\023POST_T" +
-      "O_MARKETPLACE\020\004\022\024\n\020DEPOSIT_IN_VAULT\020\005\022\027\n",
-      "\023WITHDRAW_FROM_VAULT\020\006\022\027\n\023WRITE_ON_ENEMY" +
-      "_WALL\020\007\022\025\n\021REQUEST_JOIN_CLAN\020\010\022\036\n\032SUCCES" +
-      "SFULLY_FORGE_AN_ITEM\020\t*k\n\010UserType\022\020\n\014GO" +
-      "OD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MA" +
-      "GE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n" +
-      "\010BAD_MAGE\020\005*E\n\014BattleResult\022\020\n\014ATTACKER_" +
-      "WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTACKER_FLEE" +
-      "\020\002*B\n\023MarketplacePostType\022\026\n\022PREMIUM_EQU" +
-      "IP_POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035Market" +
-      "placeJobRequirementType\022\007\n\003BUY\020\000\022\010\n\004SELL",
-      "\020\001*c\n\016CritStructType\022\n\n\006AVIARY\020\000\022\r\n\tCARP" +
-      "ENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKET" +
-      "PLACE\020\005\022\016\n\nBLACKSMITH\020\006*3\n\021StructOrienta" +
-      "tion\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001*P\n\022" +
-      "ExpansionDirection\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_" +
-      "RIGHT\020\001\022\r\n\tNEAR_LEFT\020\002\022\016\n\nNEAR_RIGHT\020\003B\013" +
-      "B\tInfoProto"
+      "mplete\030\n \001(\010\"6\n\nColorProto\022\013\n\003red\030\001 \001(\005\022" +
+      "\r\n\005green\030\002 \001(\005\022\014\n\004blue\030\003 \001(\005*C\n\016EquipCla" +
+      "ssType\022\013\n\007WARRIOR\020\000\022\n\n\006ARCHER\020\001\022\010\n\004MAGE\020" +
+      "\002\022\016\n\nALL_AMULET\020\003*,\n\016UserClanStatus\022\n\n\006M" +
+      "EMBER\020\000\022\016\n\nREQUESTING\020\002*@\n\016GroupChatScop" +
+      "e\022\n\n\006GLOBAL\020\000\022\014\n\010ALLIANCE\020\001\022\n\n\006LEGION\020\002\022" +
+      "\010\n\004CLAN\020\003*S\n\017LeaderboardType\022\024\n\020MOST_BAT" +
+      "TLES_WON\020\002\022\016\n\nMOST_COINS\020\003\022\014\n\010MOST_EXP\020\004" +
+      "\022\014\n\010BEST_KDR\020\005*f\n\020CharacterModType\022\016\n\nNE",
+      "W_PLAYER\020\001\022\026\n\022RESET_SKILL_POINTS\020\002\022\031\n\025CH" +
+      "ANGE_CHARACTER_TYPE\020\003\022\017\n\013CHANGE_NAME\020\004*/" +
+      "\n\rAnimationType\022\022\n\016GENERIC_ACTION\020\001\022\n\n\006A" +
+      "TTACK\020\002*h\n\024EarnFreeDiamondsType\022\010\n\004KIIP\020" +
+      "\001\022\014\n\010ADCOLONY\020\002\022\r\n\tFB_INVITE\020\003\022\n\n\006TAPJOY" +
+      "\020\004\022\020\n\014FLURRY_VIDEO\020\005\022\013\n\007TWITTER\020\006*\371\001\n\022Sp" +
+      "ecialQuestAction\022\030\n\024PURCHASE_FROM_ARMORY" +
+      "\020\001\022\035\n\031PURCHASE_FROM_MARKETPLACE\020\002\022\022\n\016SEL" +
+      "L_TO_ARMORY\020\003\022\027\n\023POST_TO_MARKETPLACE\020\004\022\024" +
+      "\n\020DEPOSIT_IN_VAULT\020\005\022\027\n\023WITHDRAW_FROM_VA",
+      "ULT\020\006\022\027\n\023WRITE_ON_ENEMY_WALL\020\007\022\025\n\021REQUES" +
+      "T_JOIN_CLAN\020\010\022\036\n\032SUCCESSFULLY_FORGE_AN_I" +
+      "TEM\020\t*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013G" +
+      "OOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRI" +
+      "OR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014Ba" +
+      "ttleResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDER" +
+      "_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023Marketplace" +
+      "PostType\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NORM" +
+      "_EQUIP_POST\020\002*2\n\035MarketplaceJobRequireme" +
+      "ntType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritStructT",
+      "ype\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020" +
+      "\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005\022\016\n\nBLACKS" +
+      "MITH\020\006*3\n\021StructOrientation\022\016\n\nPOSITION_" +
+      "1\020\000\022\016\n\nPOSITION_2\020\001*P\n\022ExpansionDirectio" +
+      "n\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001\022\r\n\tNEAR_L" +
+      "EFT\020\002\022\016\n\nNEAR_RIGHT\020\003B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -46666,14 +46665,14 @@ public final class InfoProto {
               new java.lang.String[] { "BlacksmithId", "UserId", "EquipId", "GoalLevel", "Guaranteed", "StartTime", "DiamondGuaranteeCost", "TimeOfSpeedup", "AttemptComplete", },
               com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto.class,
               com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto.Builder.class);
-          internal_static_com_lvl6_proto_NotificationTitleColorProto_descriptor =
+          internal_static_com_lvl6_proto_ColorProto_descriptor =
             getDescriptor().getMessageTypes().get(51);
-          internal_static_com_lvl6_proto_NotificationTitleColorProto_fieldAccessorTable = new
+          internal_static_com_lvl6_proto_ColorProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_lvl6_proto_NotificationTitleColorProto_descriptor,
+              internal_static_com_lvl6_proto_ColorProto_descriptor,
               new java.lang.String[] { "Red", "Green", "Blue", },
-              com.lvl6.proto.InfoProto.NotificationTitleColorProto.class,
-              com.lvl6.proto.InfoProto.NotificationTitleColorProto.Builder.class);
+              com.lvl6.proto.InfoProto.ColorProto.class,
+              com.lvl6.proto.InfoProto.ColorProto.Builder.class);
           return null;
         }
       };

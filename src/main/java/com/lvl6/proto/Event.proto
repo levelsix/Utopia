@@ -2251,6 +2251,7 @@ message BeginClanTowerWarResponseProto {
 		CLIENT_TOO_APART_FROM_SERVER_TIME = 4;
 		OTHER_FAIL = 5;
 		TOWER_ALREADY_CLAIMED = 6;
+		SAME_SIDE = 7;
 	}
 }
 
@@ -2270,13 +2271,30 @@ message ConcedeClanTowerWarResponseProto {
 		NOT_CLAN_TOWER_WAR_PARTICIPANT = 2;
 		NOT_CLAN_LEADER = 3;
 		OTHER_FAIL = 4;
+		NO_ATTACKER = 5;
 	}
+}
+
+message ChangedClanTowerResponseProto {
+	repeated ClanTowerProto clanTowers = 1;
+	optional ReasonForClanTowerChange reason = 2;
+	
+	enum ReasonForClanTowerChange {
+		ATTACKER_CONCEDED = 0;
+		OWNER_CONCEDED = 1;
+		ATTACKER_WON = 2;
+		OWNER_WON = 3;
+		ATTACKER_FOR_TOWER_SET = 4;
+		OWNER_FOR_TOWER_SET = 5;
+		NOT_ENOUGH_MEMBERS = 6;
+	}
+	
 }
 
 message GeneralNotificationResponseProto {
 	optional string title = 1;
 	optional string subtitle = 2;
-	optional NotificationTitleColorProto rgb = 3;
+	optional ColorProto rgb = 3;
 }
 
 //if reset
