@@ -1,6 +1,6 @@
-package com.lvl6.cassandra.log4j;
+package com.lvl6.elasticsearch;
 
-public class Log4JConstants {
+public class LoggingConstants {
 	public static String TIME = "time";
 	public static String HOST = "host";
 	public static String MESSAGE = "message";

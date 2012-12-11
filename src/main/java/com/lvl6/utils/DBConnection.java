@@ -13,8 +13,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import com.lvl6.properties.DBConstants;
@@ -28,12 +28,11 @@ public class DBConnection {
     return (DBConnection) AppContext.getApplicationContext().getBean("dbConnection");
   }
 
-  protected Logger log = Logger.getLogger(new Object() {
-  }.getClass().getEnclosingClass());
+  private static final Logger log = LoggerFactory.getLogger(DBConnection.class);
 
 
   // private final Level MCHANGE_LOG_LEVEL = Level.DEBUG;
-  private final Level MCHANGE_LOG_LEVEL = Level.INFO;
+  //private final Level MCHANGE_LOG_LEVEL = Level.INFO;
 
   private final int SELECT_LIMIT_NOT_SET = -1;
 
@@ -69,7 +68,7 @@ public class DBConnection {
             + ds.getNumIdleConnectionsDefaultUser());
       }
     } catch (Exception e) {
-      log.error(e);
+      log.error("Error printing connectionInfoDebug", e);
     }
   }
 
@@ -98,7 +97,7 @@ public class DBConnection {
   }
 
   public void init() {
-    Logger.getLogger("com.mchange.v2").setLevel(MCHANGE_LOG_LEVEL);
+    //Logger.getLogger("com.mchange.v2").setLevel(MCHANGE_LOG_LEVEL);
     //
     //		if (Globals.IS_SANDBOX()) {
     //			dataSource = new ComboPooledDataSource();

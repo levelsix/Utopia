@@ -3,7 +3,8 @@ package com.lvl6.utils.utilmethods;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lvl6.events.response.QuestCompleteResponseEvent;
 import com.lvl6.info.NeutralCityElement;
@@ -29,8 +30,9 @@ import com.lvl6.utils.RetrieveUtils;
 
 public class QuestUtils {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+	private static final Logger log = LoggerFactory.getLogger(QuestUtils.class);
+	
   public static void checkAndSendQuestsCompleteBasic(GameServer server, int userId, MinimumUserProto senderProto, 
       SpecialQuestAction justCompletedSpecialQuestAction, boolean checkOnlySpecialQuests) {
     List<UserQuest> inProgressUserQuests = RetrieveUtils.userQuestRetrieveUtils().getIncompleteUserQuestsForUser(userId);

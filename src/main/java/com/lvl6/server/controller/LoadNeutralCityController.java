@@ -6,11 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent;
+import com.lvl6.events.RequestEvent; import org.slf4j.*;
 import com.lvl6.events.request.LoadNeutralCityRequestEvent;
 import com.lvl6.events.response.LoadNeutralCityResponseEvent;
 import com.lvl6.info.Boss;
@@ -44,7 +43,7 @@ import com.lvl6.utils.RetrieveUtils;
 
   @Component @DependsOn("gameServer") public class LoadNeutralCityController extends EventController {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public LoadNeutralCityController() {
     numAllocatedThreads = 3;

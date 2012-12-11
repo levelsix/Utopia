@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.*;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +17,7 @@ import com.lvl6.utils.DBConnection;
 
 @Component @DependsOn("gameServer") public class CityRetrieveUtils {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static Map<Integer, City> cityIdToCity;
 
@@ -56,8 +56,8 @@ import com.lvl6.utils.DBConnection;
         }
         cityIdToCity = cityIdToCityTemp;
       } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
+        log.error("problem with database call.", e);
+        
       }
     }
     DBConnection.get().close(rs, null, conn);

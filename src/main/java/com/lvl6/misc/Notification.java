@@ -4,7 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lvl6.events.response.GeneralNotificationResponseEvent;
 import com.lvl6.properties.ControllerConstants;
@@ -15,8 +16,8 @@ import com.lvl6.utils.ConnectedPlayer;
 
 public class Notification implements Runnable {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+	private static final Logger log = LoggerFactory.getLogger(Notification.class);
   private GameServer server;
   private Collection<ConnectedPlayer> allOnlinePlayers;
   private Map<String, Object> keysAndValues;
@@ -62,7 +63,7 @@ public class Notification implements Runnable {
       try {
         server.writeEvent(aNotification);
       } catch (Exception e) {
-        log.error(e);
+        log.error("Error running Notification", e);
       }
     }
   }

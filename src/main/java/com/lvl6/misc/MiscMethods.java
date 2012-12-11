@@ -12,8 +12,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.StringTokenizer;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.MDC;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.core.task.TaskExecutor;
 
 import com.lvl6.events.response.ChangedClanTowerResponseEvent;
@@ -92,8 +93,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class MiscMethods {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+	private static final Logger log = LoggerFactory.getLogger(MiscMethods.class);
   public static final String clanTowersClanAttacked = "clanTowersClanAttacked";
   public static final String clanTowersClanOwned = "clanTowersClanOwned";
 
@@ -141,8 +142,7 @@ public class MiscMethods {
           }
         }
       } catch (Exception e) {
-        log.error("problem with creating dialogue object for this dialogueblob: " + dialogueBlob);
-        log.error(e);
+        log.error("problem with creating dialogue object for this dialogueblob: {}", dialogueBlob, e);
       }
       return new Dialogue(speakers, speakerTexts);
     }
@@ -189,7 +189,7 @@ public class MiscMethods {
     purgeMDCProperties();
     if (udid != null) MDC.put(MDCKeys.UDID, udid);
     if (ip != null) MDC.put(MDCKeys.IP, ip);
-    if (playerId != null && playerId > 0) MDC.put(MDCKeys.PLAYER_ID, playerId);
+    if (playerId != null && playerId > 0) MDC.put(MDCKeys.PLAYER_ID.toString(), playerId.toString());
   }
 
   public static int calculateCoinsGivenToReferrer(User referrer) {

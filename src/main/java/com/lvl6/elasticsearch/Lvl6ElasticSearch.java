@@ -1,6 +1,5 @@
 package com.lvl6.elasticsearch;
 
-import org.apache.log4j.helpers.LogLog;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.Settings;
@@ -72,7 +71,7 @@ public class Lvl6ElasticSearch implements InitializingBean {
 
 	public void setup() {
 		if(!getHosts().equals("")) {
-			LogLog.warn("Setting up elastic search with hosts: "+ hosts);
+			//LogLog.warn("Setting up elastic search with hosts: "+ hosts);
 			Settings.Builder settings = ImmutableSettings.settingsBuilder().put("cluster.name", getClusterName());
 			elasticSearchClient = new TransportClient(settings);
 			String[] hostz = hosts.split(",");
@@ -81,7 +80,7 @@ public class Lvl6ElasticSearch implements InitializingBean {
 				try {
 					elasticSearchClient.addTransportAddress(new InetSocketTransportAddress(hostz[i], 9300));
 				}catch(Exception e) {
-					LogLog.error("Error adding host "+hostz[i]+" to elastic search client: "+e.getMessage());
+					//LogLog.error("Error adding host "+hostz[i]+" to elastic search client: "+e.getMessage());
 				}
 			}
 		}else {

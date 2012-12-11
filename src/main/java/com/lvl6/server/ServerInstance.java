@@ -7,7 +7,8 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
@@ -21,8 +22,8 @@ import com.hazelcast.core.MessageListener;
 
 public class ServerInstance implements InitializingBean, MessageListener<Message<?>>, HazelcastInstanceAware  {
 
-	protected static Logger log = Logger.getLogger(ServerInstance.class);
 	
+	private static final Logger log = LoggerFactory.getLogger(ServerInstance.class);
 	protected static String outboundMessagesTopicPostFix = "OutboundMessages";
 
 	
@@ -86,7 +87,7 @@ public class ServerInstance implements InitializingBean, MessageListener<Message
 				hostName = new Scanner(hostn).useDelimiter("\\Z").next();
 				return;
 			} catch (FileNotFoundException e) {
-				log.error(e);
+				log.error("Could not read /etc/hostname", e);
 			}
 		}else {
 			/*try {

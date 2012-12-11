@@ -16,12 +16,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.lvl6.cassandra.log4j.Log4JConstants;
 
 
-public class Log4jElasticSearchQuery {
+public class LoggingElasticSearchQuery {
 	
-	private static Logger log = LoggerFactory.getLogger(Log4jElasticSearchQuery.class);
+	private static Logger log = LoggerFactory.getLogger(LoggingElasticSearchQuery.class);
 	
 	@Autowired
 	Lvl6ElasticSearch search;
@@ -48,12 +47,12 @@ public class Log4jElasticSearchQuery {
 	
 	public SearchResponse search() {
 		Client client = getSearch().getClient();
-		SearchRequestBuilder request = client.prepareSearch(Log4JElasticSearchIndexer.INDEX)
-		.setTypes(Log4JElasticSearchIndexer.TYPE)
+		SearchRequestBuilder request = client.prepareSearch(LoggingElasticSearchIndexer.INDEX)
+		.setTypes(LoggingElasticSearchIndexer.TYPE)
 		.setQuery(buildQuery())
 		.setFrom(offset)
 		.setSize(limit)
-		.addSort(Log4JConstants.TIME, SortOrder.DESC);
+		.addSort(LoggingConstants.TIME, SortOrder.DESC);
 		log.info("Performing search: \n{}", request.toString());
 		return request.execute().actionGet();
 	}
@@ -76,7 +75,7 @@ public class Log4jElasticSearchQuery {
 	}
 
 	private RangeFilterBuilder getDateFilter() {
-		RangeFilterBuilder dateFilter = FilterBuilders.rangeFilter(Log4JConstants.TIME);
+		RangeFilterBuilder dateFilter = FilterBuilders.rangeFilter(LoggingConstants.TIME);
 		if(startDate != null) {
 			dateFilter.from(startDate.getTime());
 		}
@@ -87,16 +86,16 @@ public class Log4jElasticSearchQuery {
 	}
 
 	protected QueryBuilder getLevelQuery() {
-		return QueryBuilders.fieldQuery(Log4JConstants.LEVEL, level);
+		return QueryBuilders.fieldQuery(LoggingConstants.LEVEL, level);
 	}
 	
 	protected QueryBuilder getPlayerIdQuery() {
-		return QueryBuilders.fieldQuery(Log4JConstants.PLAYER_ID, playerId);
+		return QueryBuilders.fieldQuery(LoggingConstants.PLAYER_ID, playerId);
 	}
 	
 	
 	protected QueryBuilder getSearchQuery() {
-		QueryBuilder matchQuery = QueryBuilders.fieldQuery(Log4JConstants.MESSAGE, message);
+		QueryBuilder matchQuery = QueryBuilders.fieldQuery(LoggingConstants.MESSAGE, message);
 		return matchQuery;
 	}
 	

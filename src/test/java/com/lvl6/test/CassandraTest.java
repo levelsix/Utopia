@@ -50,7 +50,6 @@ import com.lvl6.cassandra.RollupUtil;
 public class CassandraTest extends TestCase {
 
 	Logger log = LoggerFactory.getLogger(getClass());
-	org.apache.log4j.Logger alog = org.apache.log4j.Logger.getLogger(getClass());
 
 	
 	@Autowired

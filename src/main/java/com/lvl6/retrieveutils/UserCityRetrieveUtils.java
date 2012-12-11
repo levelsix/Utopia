@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.apache.log4j.Logger;
+import org.slf4j.*;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,7 @@ import com.lvl6.utils.DBConnection;
 
   private final int NOT_SET = -1;
   
-  private Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
   
   private final String TABLE_NAME = DBConstants.TABLE_USER_CITIES;
   
@@ -62,8 +62,8 @@ import com.lvl6.utils.DBConnection;
           return currentRank;
         }
       } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
+        log.error("problem with database call.", e);
+        
       }
     }
     return NOT_SET;
@@ -82,8 +82,8 @@ import com.lvl6.utils.DBConnection;
         }
         return cityIdToCityRankMap;
       } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
+        log.error("problem with database call.", e);
+        
       }
     }
     return cityIdToCityRankMap;

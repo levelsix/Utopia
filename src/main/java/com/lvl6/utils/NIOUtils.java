@@ -4,7 +4,8 @@ import java.nio.ByteBuffer;
 import java.nio.channels.ClosedChannelException;
 import java.nio.channels.SocketChannel;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.Globals;
@@ -16,8 +17,8 @@ import com.lvl6.properties.Globals;
  */
 public class NIOUtils {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
   
+	private static final Logger log = LoggerFactory.getLogger(NIOUtils.class);
 	/** 
 	 * first, writes the header, then the 
 	 * event into the given ByteBuffer

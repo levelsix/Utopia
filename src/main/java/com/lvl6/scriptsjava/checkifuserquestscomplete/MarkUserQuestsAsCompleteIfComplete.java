@@ -3,8 +3,6 @@ package com.lvl6.scriptsjava.checkifuserquestscomplete;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.BasicConfigurator;
-
 import com.lvl6.info.Quest;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
@@ -23,7 +21,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 public class MarkUserQuestsAsCompleteIfComplete {
 
   public static void main(String[] args) {
-    BasicConfigurator.configure();
+    //BasicConfigurator.configure();
     DBConnection.get().init();
     List<UserQuest> userQuests = RetrieveUtils.userQuestRetrieveUtils().getUnredeemedIncompleteUserQuests();
     for (UserQuest userQuest : userQuests) {

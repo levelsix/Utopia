@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent;
+import com.lvl6.events.RequestEvent; import org.slf4j.*;
 import com.lvl6.events.request.UserQuestDetailsRequestEvent;
 import com.lvl6.events.response.UserQuestDetailsResponseEvent;
 import com.lvl6.info.Quest;
@@ -26,7 +25,7 @@ import com.lvl6.utils.RetrieveUtils;
 
   @Component @DependsOn("gameServer") public class UserQuestDetailsController extends EventController {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
   
   public UserQuestDetailsController() {
     numAllocatedThreads = 8;

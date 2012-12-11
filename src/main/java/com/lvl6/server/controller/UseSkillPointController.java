@@ -1,10 +1,9 @@
 package com.lvl6.server.controller;
 
-import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent;
+import com.lvl6.events.RequestEvent; import org.slf4j.*;
 import com.lvl6.events.request.UseSkillPointRequestEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.events.response.UseSkillPointResponseEvent;
@@ -22,7 +21,7 @@ import com.lvl6.utils.RetrieveUtils;
 
   @Component @DependsOn("gameServer") public class UseSkillPointController extends EventController {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public UseSkillPointController() {
     numAllocatedThreads = 4;

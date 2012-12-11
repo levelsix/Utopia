@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import org.apache.log4j.Logger;
+import org.slf4j.*;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +21,7 @@ import com.lvl6.utils.DBConnection;
 
 @Component @DependsOn("gameServer") public class TaskRetrieveUtils {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static Map<Integer, List<Task>> cityIdsToTasks;
   private static Map<Integer, Task> taskIdsToTasks;
@@ -87,8 +87,8 @@ import com.lvl6.utils.DBConnection;
           }
           cityIdsToTasks = cityIdToTasksTemp;
         } catch (SQLException e) {
-          log.error("problem with database call.");
-          log.error(e);
+          log.error("problem with database call.", e);
+          
         }
       }    
     }
@@ -115,8 +115,8 @@ import com.lvl6.utils.DBConnection;
           }
           taskIdsToTasks = taskIdsToTasksTemp;
         } catch (SQLException e) {
-          log.error("problem with database call.");
-          log.error(e);
+          log.error("problem with database call.", e);
+          
         }
       }    
     }
