@@ -155,7 +155,7 @@
 				<hazelcast.pass>lvl6</hazelcast.pass>
 				<hazelcast.config>dev</hazelcast.config>
 				<hazelcast.port>6702</hazelcast.port>
-				<hazelcast.dev.ips>192.168.13.143</hazelcast.dev.ips>
+				<hazelcast.dev.ips>192.168.5.101</hazelcast.dev.ips>
 			</properties>
 		</profile>
 		<profile>
@@ -838,6 +838,16 @@
 					<groupId>org.slf4j</groupId>
 				</exclusion>
 			</exclusions> -->
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-log4j12</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-log4j12</artifactId> 
 			</dependency> -->
