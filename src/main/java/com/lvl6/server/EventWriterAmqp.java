@@ -114,7 +114,7 @@ public class EventWriterAmqp extends EventWriter {
 	public void processGlobalChatResponseEvent(ResponseEvent event) {
 		MessageProperties msgProps = new MessageProperties();
 		String chatGlobalRoutingKey = "chat_global";
-		log.info("Sending group chat");
+    log.info("Sending global event with type="+event.getEventType()+" with routing key:" + chatGlobalRoutingKey);
 		chatTemplate.send(chatGlobalRoutingKey, new Message(getByteArray(event), msgProps));
 	}
 

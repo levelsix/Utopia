@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.hazelcast.core.IList;
+import com.lvl6.events.ResponseEvent;
 import com.lvl6.events.response.ReceivedGroupChatResponseEvent;
 import com.lvl6.events.response.SendAdminMessageResponseEvent;
 import com.lvl6.info.User;
@@ -24,11 +25,7 @@ import com.lvl6.server.EventWriter;
 
 @Component
 public class MessagingUtil {
-
-	
-	
 	private static final Logger log = LoggerFactory.getLogger(MessagingUtil.class);
-	
 	
 	@Autowired
 	EventWriter eventWriter;
@@ -91,4 +88,7 @@ public class MessagingUtil {
 		eventWriter.processGlobalChatResponseEvent(ce);
 	}
 	
+	public void sendGlobalMessage(ResponseEvent re) {
+	  eventWriter.processGlobalChatResponseEvent(re);
+	}
 }

@@ -199,7 +199,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     //check if there already is a clan attacking the tower
     if (ControllerConstants.NOT_SET == aTower.getClanAttackerId() || 
-        0 > aTower.getClanAttackerId()) {
+        0 >= aTower.getClanAttackerId()) {
       Clan clanForTower = ClanRetrieveUtils.getClanWithId(aTower.getClanOwnerId());
       boolean towerOwnerClanGood = clanForTower.isGood();
       boolean requesterClanGood = clanOfRequester.isGood();
@@ -225,7 +225,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         } 
       } else {
         resBuilder.setStatus(BeginClanTowerWarStatus.SAME_SIDE);
-        log.info("clans are on the same side (both alliance or both legion");
+        log.error("clans are on the same side (both alliance or both legion");
         return false;
       }
       

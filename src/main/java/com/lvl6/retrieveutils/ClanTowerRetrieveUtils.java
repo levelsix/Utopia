@@ -169,6 +169,9 @@ public class ClanTowerRetrieveUtils {
     int goldReward = rs.getInt(i++);
     int numHrsToCollect = rs.getInt(i++);
     int clanOwnerId = rs.getInt(i++);
+    if (clanOwnerId == 0) {
+      clanOwnerId = ControllerConstants.NOT_SET;
+    }
 
     Date ownedStartTime = null;
     Timestamp ts = rs.getTimestamp(i++);
@@ -177,6 +180,9 @@ public class ClanTowerRetrieveUtils {
     }
 
     int clanAttackerId = rs.getInt(i++);
+    if (clanAttackerId == 0) {
+      clanAttackerId = ControllerConstants.NOT_SET;
+    }
 
     Date attackStartTime = null;
     ts = rs.getTimestamp(i++);

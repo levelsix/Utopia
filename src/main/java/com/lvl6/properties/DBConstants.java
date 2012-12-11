@@ -441,7 +441,7 @@ public class DBConstants {
   
   public static final String CLAN_TOWERS_HISTORY__OWNER_CLAN_ID = "owner_clan_id";
   public static final String CLAN_TOWERS_HISTORY__ATTACKER_CLAN_ID = "attacker_clan_id";
-  public static final String CLAN_TOWERS_HISTORY__TOWER_ID = "tower_clan_id";
+  public static final String CLAN_TOWERS_HISTORY__TOWER_ID = "tower_id";
   public static final String CLAN_TOWERS_HISTORY__WINNER_ID = "winner_id";
   public static final String CLAN_TOWERS_HISTORY__OWNER_BATTLE_WINS = "owner_battle_wins";
   public static final String CLAN_TOWERS_HISTORY__ATTACKER_BATTLE_WINS = "attacker_battle_wins";
