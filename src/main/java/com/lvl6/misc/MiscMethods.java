@@ -86,6 +86,7 @@ import com.lvl6.server.GameServer;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.MessagingUtil;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
@@ -839,7 +840,8 @@ public class MiscMethods {
       ChangedClanTowerResponseEvent e = new ChangedClanTowerResponseEvent(0);
       e.setChangedClanTowerResponseProto(t.build());
       
-      server.writeEvent(e);
+      MessagingUtil msgUtil = AppContext.getApplicationContext().getBean(MessagingUtil.class);
+      msgUtil.sendGlobalMessage(e);
     }
   }
   

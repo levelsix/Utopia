@@ -986,18 +986,18 @@ public class UpdateUtils implements UpdateUtil {
 	  }
 	  
 	  String tableName = DBConstants.TABLE_CLAN_TOWERS_HISTORY;
-	  String query = "insert into" + tableName 
+	  String query = "insert into " + tableName 
 				+" ("
 				+DBConstants.CLAN_TOWERS_HISTORY__OWNER_CLAN_ID+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_CLAN_ID+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__TOWER_ID+", "
-				+DBConstants.CLAN_TOWERS_HISTORY__ATTACK_START_TIME
+				+DBConstants.CLAN_TOWERS_HISTORY__ATTACK_START_TIME+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__OWNER_BATTLE_WINS+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_BATTLE_WINS+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__NUM_HOURS_FOR_BATTLE+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__LAST_REWARD_GIVEN+", "
-				+DBConstants.CLAN_TOWERS_HISTORY__REASON_FOR_ENTRY+", "
-				+") VALUES";
+				+DBConstants.CLAN_TOWERS_HISTORY__REASON_FOR_ENTRY
+				+") VALUES ";
 	  for(ClanTower tower: towers) {
 		  query += "(" 
 		  +tower.getClanOwnerId()+", "
@@ -1008,7 +1008,7 @@ public class UpdateUtils implements UpdateUtil {
 	      +tower.getAttackerBattleWins()+", "
 	      +tower.getNumHoursForBattle()+", "
 	      +tower.getLastRewardGiven()+", "
-	      +reasonForEntry+"), ";
+	      +"\""+reasonForEntry+"\"), ";
 	  }
 	  int commaEnding = 2;
 	  query = query.substring(0, query.length()-commaEnding);

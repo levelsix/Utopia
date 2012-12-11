@@ -2287,6 +2287,7 @@ message ChangedClanTowerResponseProto {
 		ATTACKER_FOR_TOWER_SET = 4;
 		OWNER_FOR_TOWER_SET = 5;
 		NOT_ENOUGH_MEMBERS = 6;
+		NUM_BATTLE_WINS_CHANGED = 7;
 	}
 	
 }

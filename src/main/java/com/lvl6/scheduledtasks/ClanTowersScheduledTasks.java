@@ -2,6 +2,7 @@ package com.lvl6.scheduledtasks;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import com.hazelcast.core.ILock;
 import com.lvl6.info.ClanTower;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.misc.Notification;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowerChange;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
@@ -69,15 +71,12 @@ public class ClanTowersScheduledTasks {
 	@Resource
 	protected HazelcastInstance hazel;
 	
-	protected long battle_length_milliseconds = 6*3600000;
-	
-	@Scheduled(fixedRate=300000)
+	@Scheduled(fixedRate=1000)
 	public void checkForBattlesEnded() {
 	  //ILock battlesEndedLock = hazel.getLock("ClanTowersBattlesEndedScheduledTask");
 	  //if(battlesEndedLock.tryLock()) {
 	  if(server.lockClanTowersTable()) {
 	    try {
-
 	      List<ClanTower> clanTowers = ClanTowerRetrieveUtils.getAllClanTowers();
 	      if(clanTowers == null) return;
 	      for(ClanTower tower : clanTowers) {
@@ -96,7 +95,7 @@ public class ClanTowersScheduledTasks {
 	
 	protected void checkBattleForTower(ClanTower tower) {
 		try {
-			if(tower.getAttackStartTime() != null && tower.getAttackStartTime().getTime()+tower.getNumHoursForBattle() * 3600000 > System.currentTimeMillis()) {
+			if(tower.getAttackStartTime() != null && tower.getAttackStartTime().getTime()+tower.getNumHoursForBattle() * 3600000 < new Date().getTime()) {
 				updateTowerHistory(tower);
 				updateClanTower(tower);
 			}
@@ -110,17 +109,17 @@ public class ClanTowersScheduledTasks {
 	  changedTowers.add(tower);
 
 	  if(tower.getAttackerBattleWins() > tower.getOwnerBattleWins()) {
+      sendGeneralNotification(tower, true);
 			updateClanTowerAttackerWonBattle(tower);
 			
 			MiscMethods.sendClanTowerProtosToClient(changedTowers, server, 
 			    ReasonForClanTowerChange.ATTACKER_WON);
-			sendGeneralNotification(tower, true);
 		}else {
+      sendGeneralNotification(tower, false);
 			updateClanTowerOwnerWonBattle(tower);
 		
 			MiscMethods.sendClanTowerProtosToClient(changedTowers, server, 
           ReasonForClanTowerChange.OWNER_WON);
-			sendGeneralNotification(tower, false);
 		}
 	}
 	
@@ -136,7 +135,7 @@ public class ClanTowersScheduledTasks {
 	}
 	
 	protected void updateClanTowerOwnerWonBattle(ClanTower tower) {
-		log.info("Updating clan tower {}. Owner won battle.");
+		log.info("Owner won battle. Updating clan tower "+tower+".");
 		jdbcTemplate.update("update "+DBConstants.TABLE_CLAN_TOWERS
 				+" SET "
 				+DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID
@@ -152,10 +151,16 @@ public class ClanTowersScheduledTasks {
 				+"="
 				+tower.getId()						
 				);
+
+    tower.setClanAttackerId(ControllerConstants.NOT_SET);
+    tower.setAttackStartTime(null);
+    tower.setAttackerBattleWins(0);
+    tower.setOwnerBattleWins(0);
 	}
 
 	protected void updateClanTowerAttackerWonBattle(ClanTower tower) {
-		log.info("Updating clan tower {}. Attacker won battle.");
+    log.info("Attacker won battle. Updating clan tower "+tower+".");
+    Timestamp t = new Timestamp(new Date().getTime());
 		jdbcTemplate.update("update "+DBConstants.TABLE_CLAN_TOWERS
 			+" SET "
 			+DBConstants.CLAN_TOWERS__CLAN_OWNER_ID
@@ -164,19 +169,14 @@ public class ClanTowersScheduledTasks {
 			+", "
 			+DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID
 			+"=NULL, "
-			+", "
 			+DBConstants.CLAN_TOWERS__ATTACK_START_TIME
 			+"=NULL, "
 			+DBConstants.CLAN_TOWERS__ATTACKER_BATTLE_WINS
 			+"=0, "
-			+DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID
-			+"=NULL, "
 			+DBConstants.CLAN_TOWERS__LAST_REWARD_GIVEN
 			+"=NULL, "
 			+DBConstants.CLAN_TOWERS__OWNED_START_TIME
-			+"="
-			+new Timestamp(System.currentTimeMillis())
-			+", "
+			+"="+t+", "
 			+DBConstants.CLAN_TOWERS__OWNER_BATTLE_WINS
 			+"=0 " +
 			"WHERE "
@@ -184,6 +184,13 @@ public class ClanTowersScheduledTasks {
 			+"="
 			+tower.getId()						
 			);
+		
+		tower.setClanOwnerId(tower.getClanAttackerId());
+		tower.setClanAttackerId(ControllerConstants.NOT_SET);
+		tower.setAttackStartTime(null);
+		tower.setAttackerBattleWins(0);
+		tower.setOwnedStartTime(new Date(t.getTime()));
+		tower.setOwnerBattleWins(0);
 	}
 	
 	
@@ -194,30 +201,30 @@ public class ClanTowersScheduledTasks {
 				+DBConstants.CLAN_TOWERS_HISTORY__OWNER_CLAN_ID+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_CLAN_ID+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__TOWER_ID+", "
-				+DBConstants.CLAN_TOWERS_HISTORY__ATTACK_START_TIME
+				+DBConstants.CLAN_TOWERS_HISTORY__ATTACK_START_TIME+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__WINNER_ID+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__OWNER_BATTLE_WINS+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_BATTLE_WINS+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__NUM_HOURS_FOR_BATTLE+", "
 				+DBConstants.CLAN_TOWERS_HISTORY__LAST_REWARD_GIVEN+", "
-				+DBConstants.CLAN_TOWERS_HISTORY__REASON_FOR_ENTRY+", "
+				+DBConstants.CLAN_TOWERS_HISTORY__REASON_FOR_ENTRY
 				+") VALUES ("
 				+tower.getClanOwnerId()+", "
 				+tower.getClanAttackerId()+","
 				+tower.getId()+", "
-				+tower.getAttackStartTime()+", "
+				+"\""+new Timestamp(tower.getAttackStartTime().getTime())+"\", "
 				+(tower.getAttackerBattleWins() > tower.getOwnerBattleWins() ? tower.getClanAttackerId() : tower.getClanOwnerId())+","
 				+tower.getOwnerBattleWins()+", "
 				+tower.getAttackerBattleWins()+", "
 				+tower.getNumHoursForBattle()+", "
 				+tower.getLastRewardGiven()+", "
-				+Notification.CLAN_TOWER_WAR_ENDED+")"
+				+"\""+Notification.CLAN_TOWER_WAR_ENDED+"\")"
 		);
 	}
 	
 	
 	
-	@Scheduled(fixedRate=300000)
+	@Scheduled(fixedRate=1000)
 	public void distributeClanTowerRewards() {
 		ILock towerRewardsLock = hazel.getLock("ClanTowersRewardsScheduledTask");
 		if(towerRewardsLock.tryLock()) {
