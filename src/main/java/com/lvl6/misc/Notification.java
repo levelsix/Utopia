@@ -114,7 +114,7 @@ public class Notification implements Runnable {
     
     keysAndValues.put("title", title);
     keysAndValues.put("subtitle", subtitle);
-    keysAndValues.put("rgb", rgb);
+    keysAndValues.put("rgb", rgb.build());
   }
   
   public void setAsClanTowerWarAttackerOwnerDetermined (String attacker, String owner, String towerName, boolean ownerDetermined) {
