@@ -73,7 +73,7 @@ public class ClanTowersScheduledTasks {
   @Resource
   protected HazelcastInstance hazel;
 
-  @Scheduled(fixedRate=1000)
+  @Scheduled(fixedRate=10000)
   public void checkForBattlesEnded() {
     //ILock battlesEndedLock = hazel.getLock("ClanTowersBattlesEndedScheduledTask");
     //if(battlesEndedLock.tryLock()) {
@@ -199,6 +199,8 @@ public class ClanTowersScheduledTasks {
 
 
   protected void updateTowerHistory(ClanTower tower) {
+    String attStart = tower.getAttackStartTime() == null ? "null" : "\""+new Timestamp(tower.getAttackStartTime().getTime())+"\"";
+    String lastReward = tower.getLastRewardGiven() == null ? "null" : "\""+new Timestamp(tower.getLastRewardGiven().getTime())+"\"";
     jdbcTemplate.execute("insert into "+DBConstants.TABLE_CLAN_TOWERS_HISTORY
         +" ("
         +DBConstants.CLAN_TOWERS_HISTORY__OWNER_CLAN_ID+", "
@@ -215,19 +217,19 @@ public class ClanTowersScheduledTasks {
         +tower.getClanOwnerId()+", "
         +tower.getClanAttackerId()+","
         +tower.getId()+", "
-        +"\""+new Timestamp(tower.getAttackStartTime().getTime())+"\", "
+        +attStart+", "
         +(tower.getAttackerBattleWins() > tower.getOwnerBattleWins() ? tower.getClanAttackerId() : tower.getClanOwnerId())+","
         +tower.getOwnerBattleWins()+", "
         +tower.getAttackerBattleWins()+", "
         +tower.getNumHoursForBattle()+", "
-        +tower.getLastRewardGiven()+", "
+        +lastReward+", "
         +"\""+Notification.CLAN_TOWER_WAR_ENDED+"\")"
         );
   }
 
 
 
-  @Scheduled(fixedRate=1000)
+  @Scheduled(fixedRate=10000)
   public void distributeClanTowerRewards() {
     ILock towerRewardsLock = hazel.getLock("ClanTowersRewardsScheduledTask");
     if(towerRewardsLock.tryLock()) {

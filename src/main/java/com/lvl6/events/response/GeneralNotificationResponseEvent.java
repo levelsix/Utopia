@@ -13,10 +13,10 @@ public class GeneralNotificationResponseEvent extends NormalResponseEvent {
 
   //The input argument is not used.
   public GeneralNotificationResponseEvent(int playerId){
-	super(0);  //0 used, just because
+    super(0);  //0 used, just because
     eventType = EventProtocolResponse.S_GENERAL_NOTIFICATION_EVENT;
   }
-  
+
   @Override
   public int write(ByteBuffer bb) {
     ByteString b = generalNotificationResponseProto.toByteString();
@@ -25,7 +25,7 @@ public class GeneralNotificationResponseEvent extends NormalResponseEvent {
   }
 
   public void setGeneralNotificationResponseProto(
-		  GeneralNotificationResponseProto generalNotificationResponseProto) {
+      GeneralNotificationResponseProto generalNotificationResponseProto) {
     this.generalNotificationResponseProto = generalNotificationResponseProto;
   }
 
