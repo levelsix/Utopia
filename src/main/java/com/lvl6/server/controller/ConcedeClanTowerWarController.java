@@ -96,11 +96,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
         ClanTower oldTower = ClanTowerRetrieveUtils.getClanTower(towerId);
         ClanTower newTower = oldTower.copy();
-        Clan clanTowerAttacker = ClanRetrieveUtils.getClanWithId(newTower.getClanAttackerId());
-        Clan clanTowerOwner = ClanRetrieveUtils.getClanWithId(newTower.getClanOwnerId());
+        Clan oldClanTowerAttacker = 
+            ClanRetrieveUtils.getClanWithId(newTower.getClanAttackerId()); //newTower, oldTower doesn't matter
+        Clan oldClanTowerOwner = 
+            ClanRetrieveUtils.getClanWithId(newTower.getClanOwnerId()); //newTower, oldTower doesn't matter
 
         boolean legit = checkLegitConcedeClanTowerWarRequest(
-            resBuilder, user, clanTowerAttacker, clanTowerOwner, newTower, curTime);
+            resBuilder, user, oldClanTowerAttacker, oldClanTowerOwner, newTower, curTime);
 
         ConcedeClanTowerWarResponseEvent resEvent = new ConcedeClanTowerWarResponseEvent(senderProto.getUserId());
         resEvent.setTag(event.getTag());
@@ -110,7 +112,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         if (legit) {
           writeChangesToDB(oldTower, newTower, curTime, user);
 
-          sendTowersAndNotifications(oldTower.getClanOwnerId(), newTower.getClanAttackerId(), newTower);
+          sendTowersAndNotifications(oldTower.getClanOwnerId(), newTower.getClanAttackerId(), 
+              newTower, oldClanTowerAttacker, oldClanTowerOwner);
         }
       }
     } catch (Exception e) {
@@ -124,7 +127,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   //aTower can be modified to store some new data, as in an owner, or attacker id
   //to be used as a second return value
   private boolean checkLegitConcedeClanTowerWarRequest(Builder resBuilder, User user, 
-      Clan clanTowerAttacker, Clan clanTowerOwner, ClanTower aTower, Timestamp curTime) {
+      Clan oldClanTowerAttacker, Clan oldClanTowerOwner, ClanTower aTower, Timestamp curTime) {
     if (user == null) {
       resBuilder.setStatus(ConcedeClanTowerWarStatus.OTHER_FAIL);
       log.error("user is null");
@@ -132,11 +135,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
 
     //check if the tower is valid
-    if (null == aTower || null == clanTowerOwner || null == clanTowerAttacker) {
+    if (null == aTower || null == oldClanTowerOwner || null == oldClanTowerAttacker) {
       //empty tower
       resBuilder.setStatus(ConcedeClanTowerWarStatus.OTHER_FAIL);
       log.error("tower requested is null, or clan tower owner or attacker is null. aTower=" +
-          aTower + " clanTowerOwner=" + clanTowerOwner + " clanTowerAttacker=" + clanTowerAttacker);
+          aTower + " oldClanTowerOwner=" + oldClanTowerOwner + " oldClanTowerAttacker=" + oldClanTowerAttacker);
       return false;
     }
 
@@ -149,20 +152,20 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     int clanOfUser = user.getClanId();
     //check if user is in clan owning or attacking the tower
-    if (clanTowerAttacker.getId() != clanOfUser &&
-        clanTowerOwner.getId() != clanOfUser) {
+    if (oldClanTowerAttacker.getId() != clanOfUser &&
+        oldClanTowerOwner.getId() != clanOfUser) {
       //user is not owner or attacker
       resBuilder.setStatus(ConcedeClanTowerWarStatus.NOT_CLAN_TOWER_WAR_PARTICIPANT);
       log.error("user is not a clan tower owner or attacker.");
       return false;
     }
 
-    int clanTowerOwnerClanOwnerId = clanTowerOwner.getOwnerId();
-    int clanTowerAttackerClanOwnerId = clanTowerAttacker.getOwnerId();
+    int oldClanTowerOwnerClanOwnerId = oldClanTowerOwner.getOwnerId();
+    int oldClanTowerAttackerClanOwnerId = oldClanTowerAttacker.getOwnerId();
     int userId = user.getId();
 
     //check if the request sender is the clan leader
-    if(clanTowerAttackerClanOwnerId == userId) {
+    if(oldClanTowerAttackerClanOwnerId == userId) {
       //tower owner wins
       aTower.setClanAttackerId(ControllerConstants.NOT_SET);
       aTower.setAttackerBattleWins(0);
@@ -171,9 +174,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return true;
     }
 
-    if(clanTowerOwnerClanOwnerId == userId) {
-      if (0 < clanTowerAttackerClanOwnerId || 
-          ControllerConstants.NOT_SET == clanTowerAttackerClanOwnerId) {
+    if(oldClanTowerOwnerClanOwnerId == userId) {
+      if (0 < oldClanTowerAttackerClanOwnerId || 
+          ControllerConstants.NOT_SET == oldClanTowerAttackerClanOwnerId) {
         //don't let the clan give up the tower since there's no attacker
         resBuilder.setStatus(ConcedeClanTowerWarStatus.NO_ATTACKER);
         return false;
@@ -227,23 +230,31 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   }
 
-  private void sendTowersAndNotifications(int ownerBefore, int ownerAfter, ClanTower tower) {
+  private void sendTowersAndNotifications(int ownerBefore, int ownerAfter, ClanTower tower,
+      Clan oldClanTowerAttacker, Clan oldClanTowerOwner) {
     Notification clanTowerWarNotification = new Notification (server, playersByPlayerId.values());
     List<ClanTower> changedTowers = new ArrayList<ClanTower>();
     changedTowers.add(tower);
     
+    String losingClan = "";
+    String winningClan = "";
     if (ownerBefore == ownerAfter) {
       MiscMethods.sendClanTowerProtosToClient(changedTowers, 
           server, ReasonForClanTowerChange.ATTACKER_CONCEDED);
       
-      clanTowerWarNotification.setNotificationAsAttackerConceded();
+      losingClan = oldClanTowerAttacker.getName();
+      winningClan = oldClanTowerOwner.getName();
+      
     }
     else  {
       MiscMethods.sendClanTowerProtosToClient(changedTowers, 
           server, ReasonForClanTowerChange.OWNER_CONCEDED);
-      
-      clanTowerWarNotification.setNotificationAsOwnerConceded();
+
+      losingClan = oldClanTowerOwner.getName();
+      winningClan = oldClanTowerAttacker.getName();
     }
+    clanTowerWarNotification.setAsClanTowerWarClanConceded(
+        losingClan, winningClan, tower.getTowerName());
     executor.execute(clanTowerWarNotification);
   }
 }
