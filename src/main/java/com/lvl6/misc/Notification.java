@@ -97,7 +97,7 @@ public class Notification implements Runnable {
     
     keysAndValues.put("title", title);
     keysAndValues.put("subtitle", subtitle);
-    keysAndValues.put("rgb", rgb);
+    keysAndValues.put("rgb", rgb.build());
   }
   
   public void setAsClanTowerWarClanWon (String clanTowerAttackerName, String clanTowerOwnerName, 
@@ -143,7 +143,7 @@ public class Notification implements Runnable {
       keysAndValues.put("title", title);
     }
 
-    keysAndValues.put("rgb", rgb);
+    keysAndValues.put("rgb", rgb.build());
 
   }
   
