@@ -61,6 +61,7 @@ import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
@@ -811,17 +812,28 @@ public class MiscMethods {
       Map<Integer, ClanTower> clanTowerIdsToClanTowers, List<Notification> notificationsToSend,
       boolean isTowerOwner, Collection<ConnectedPlayer> onlinePlayers, GameServer server) {
     
-    String clanTag = aClan.getTag();
-    String clanName = aClan.getName();
-    
     //for each tower make a notification for it
     for(Integer towerId: towerIds) {
       ClanTower aTower = clanTowerIdsToClanTowers.get(towerId);
       String towerName = aTower.getTowerName();
       Notification clanTowerWarNotification = new Notification (server, onlinePlayers);
+      Clan losingClan;
+      Clan winningClan;
+      String losingClanName;
+      String winningClanName;
       
-      clanTowerWarNotification.setAsClanTowerWarClanNotEnoughMembers(clanTag,
-          clanName, towerName, isTowerOwner);
+      if(isTowerOwner) {
+        losingClan = aClan;
+        winningClan = ClanRetrieveUtils.getClanWithId(aTower.getClanAttackerId());
+      } else {
+        losingClan = ClanRetrieveUtils.getClanWithId(aTower.getClanOwnerId());
+        winningClan = aClan;
+      }
+      
+      losingClanName = losingClan.getName();
+      winningClanName = winningClan.getName();
+      clanTowerWarNotification.setAsClanTowerWarClanConceded(
+          losingClanName, winningClanName, towerName);
       notificationsToSend.add(clanTowerWarNotification);
     }
   }

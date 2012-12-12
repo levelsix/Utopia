@@ -146,13 +146,6 @@ public class Notification implements Runnable {
     keysAndValues.put("rgb", rgb.build());
 
   }
-  
-  public void setAsClanTowerWarClanNotEnoughMembers(String clanTag, 
-		  String clanName, String towerName, boolean isTowerOwner) {
-	  String title = "";
-	  String subtitle = "";
-	  
-  }
 
   public void setNotificationAsClanCreated (String clanName) {
     //TODO: write logic for this function
