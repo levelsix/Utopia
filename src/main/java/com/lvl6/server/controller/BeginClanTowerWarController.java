@@ -221,6 +221,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           aTower.setClanAttackerId(clanId);
           aTower.setAttackStartTime(curTime);
           aTower.setAttackerBattleWins(0);
+          aTower.setOwnerBattleWins(0);
           return true;
         } 
       } else {
