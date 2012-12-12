@@ -128,6 +128,7 @@ public class InAppPurchaseController extends EventController {
       response = new JSONObject(responseString);
 
       if (response.getInt(IAPValues.STATUS) == 21007 || response.getInt(IAPValues.STATUS) == 21008) {
+        log.info("Response failed. Trying sandbox url.");
         wr.close();
         rd.close();
         url = new URL(SANDBOX_URL);
