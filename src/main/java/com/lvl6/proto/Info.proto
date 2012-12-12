@@ -32,6 +32,9 @@ message ClanTowerProto {
 	optional int32 attackerBattlesWin = 12;
 	optional int32 numHoursForBattle = 13;
 	optional int64 lastRewardGiven = 14;
+	optional int32 blue = 15;
+	optional int32 green = 16;
+	optional int32 red = 17;
 }
 
 //---------------------------------------------------------------------------------------

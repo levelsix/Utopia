@@ -904,7 +904,8 @@ public class CreateInfoProtoUtils {
         .setTowerImageName(tower.getTowerImageName()).setTowerName(tower.getTowerName())
         .setSilverReward(tower.getSilverReward()).setGoldReward(tower.getGoldReward())
         .setNumHoursToCollect(tower.getNumHoursToCollect())
-        .setNumHoursForBattle(tower.getNumHoursForBattle());
+        .setNumHoursForBattle(tower.getNumHoursForBattle())
+        .setBlue(tower.getBlue()).setGreen(tower.getGreen()).setRed(tower.getRed());
     
     if (tower.getClanOwnerId() > 0) {
       b.setTowerOwner(createMinimumClanProtoFromClan(ClanRetrieveUtils.getClanWithId(tower.getClanOwnerId())));
