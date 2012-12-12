@@ -124,14 +124,15 @@ public class ClanTowersScheduledTasks {
   }
 
   protected void sendGeneralNotification(ClanTower tower, boolean attackerWon) {
-    Notification clanTowerWarEnded = new Notification(server, playersByPlayerId.values());
+    Notification clanTowerWarEnded = new Notification();
     String clanTowerOwnerName = ClanRetrieveUtils.getClanWithId(tower.getClanOwnerId()).getName();
     String clanTowerAttackerName = ClanRetrieveUtils.getClanWithId(tower.getClanAttackerId()).getName();
     String towerName = tower.getTowerName();
 
     clanTowerWarEnded.setAsClanTowerWarClanWon(
         clanTowerAttackerName, clanTowerOwnerName, towerName, attackerWon);
-    executor.execute(clanTowerWarEnded);
+    
+    MiscMethods.writeGlobalNotification(clanTowerWarEnded, server);
   }
 
   protected void updateClanTowerOwnerWonBattle(ClanTower tower) {

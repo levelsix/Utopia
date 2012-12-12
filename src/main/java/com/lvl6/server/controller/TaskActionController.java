@@ -599,9 +599,10 @@ public class TaskActionController extends EventController {
 	  if (Rarity.EPIC == equip.getRarity()) {
 		  //send a notification
 		  String equipName = equip.getName();
-		  Notification foundEpicNotification = new Notification (server, playersByPlayerId.values());
+		  Notification foundEpicNotification = new Notification ();
 		  foundEpicNotification.setNotificationAsEpicWeaponDropped(userName, equipName, townName);
-		  executor.execute(foundEpicNotification);
+		  
+		  MiscMethods.writeGlobalNotification(foundEpicNotification, server);
 	  }
   }
 }
