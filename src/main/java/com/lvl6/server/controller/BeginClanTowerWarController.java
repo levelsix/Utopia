@@ -271,7 +271,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     List<ClanTower> changedTowers = new ArrayList<ClanTower>();
     changedTowers.add(aTower);
 
-    Notification clanTowerWarNotification = new Notification (server, playersByPlayerId.values());
+    Notification clanTowerWarNotification = new Notification ();
     if (ownerBefore != ownerAfter) {//clan tower owner changed (initialized)
 
       MiscMethods.sendClanTowerProtosToClient(changedTowers, 
@@ -305,6 +305,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           "should have been different.");
       return;
     }
-    executor.execute(clanTowerWarNotification);
+    
+    MiscMethods.writeGlobalNotification(clanTowerWarNotification, server);
+    
   }
 }

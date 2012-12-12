@@ -14,7 +14,6 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
-import com.lvl6.events.request.BeginClanTowerWarRequestEvent;
 import com.lvl6.events.request.ConcedeClanTowerWarRequestEvent;
 import com.lvl6.events.response.ConcedeClanTowerWarResponseEvent;
 import com.lvl6.info.Clan;
@@ -232,7 +231,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private void sendTowersAndNotifications(int ownerBefore, int ownerAfter, ClanTower tower,
       Clan oldClanTowerAttacker, Clan oldClanTowerOwner) {
-    Notification clanTowerWarNotification = new Notification (server, playersByPlayerId.values());
+    Notification clanTowerWarNotification = new Notification ();
     List<ClanTower> changedTowers = new ArrayList<ClanTower>();
     changedTowers.add(tower);
     
@@ -255,6 +254,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     clanTowerWarNotification.setAsClanTowerWarClanConceded(
         losingClan, winningClan, tower.getTowerName());
-    executor.execute(clanTowerWarNotification);
+    
+    MiscMethods.writeGlobalNotification(clanTowerWarNotification, server);
   }
 }

@@ -17,6 +17,7 @@ import org.apache.log4j.MDC;
 import org.springframework.core.task.TaskExecutor;
 
 import com.lvl6.events.response.ChangedClanTowerResponseEvent;
+import com.lvl6.events.response.GeneralNotificationResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.BossEvent;
@@ -38,6 +39,7 @@ import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.properties.MDCKeys;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto;
+import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowerChange;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
@@ -800,7 +802,7 @@ public class MiscMethods {
           notificationsToSend, attackerWon, onlinePlayers, server);
       
       for(Notification n: notificationsToSend) {
-        executor.execute(n);
+        writeGlobalNotification(n, server);
       }
       return;
     }
@@ -816,7 +818,7 @@ public class MiscMethods {
     for(Integer towerId: towerIds) {
       ClanTower aTower = clanTowerIdsToClanTowers.get(towerId);
       String towerName = aTower.getTowerName();
-      Notification clanTowerWarNotification = new Notification (server, onlinePlayers);
+      Notification clanTowerWarNotification = new Notification ();
       Clan losingClan;
       Clan winningClan;
       String losingClanName;
@@ -862,4 +864,12 @@ public class MiscMethods {
     }
   }
   
+  public static void writeGlobalNotification(Notification n, GameServer server) {
+    GeneralNotificationResponseProto.Builder notificationProto = 
+        n.generateNotificationBuilder();
+    
+    GeneralNotificationResponseEvent aNotification = new GeneralNotificationResponseEvent(0);
+    aNotification.setGeneralNotificationResponseProto(notificationProto.build());
+    server.writeGlobalEvent(aNotification);
+  }
 }
