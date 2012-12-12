@@ -277,7 +277,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       MiscMethods.sendClanTowerProtosToClient(changedTowers, 
           server, ReasonForClanTowerChange.OWNER_FOR_TOWER_SET);
 
-      clanTowerWarNotification.setNotificationAsClanTowerStatus();
+      String clanTowerAttackerName = "";
+      String clanTowerOwnerName = aClan.getName();
+      String towerName = aTower.getTowerName();
+      boolean ownerDetermined = true;
+      
+      clanTowerWarNotification.setAsClanTowerWarAttackerOwnerDetermined( 
+          clanTowerAttackerName, clanTowerOwnerName, towerName, ownerDetermined);
     }
     else if (attackerBefore != attackerAfter) {//clan tower attacker changed (initialized)
       //attackers should be different
@@ -286,12 +292,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           server, ReasonForClanTowerChange.ATTACKER_FOR_TOWER_SET);
 
       //another db call just for a name...maybe there's a better way to get clan name
-      String clanTowerOwnerName = ClanRetrieveUtils.getClanWithId(ownerAfter).getName();
       String clanTowerAttackerName = aClan.getName();
+      String clanTowerOwnerName = ClanRetrieveUtils.getClanWithId(ownerAfter).getName();
       String towerName = aTower.getTowerName();
+      boolean ownerDetermined = false;
 
-      clanTowerWarNotification.setNotificationAsClanTowerWarStarted(clanTowerOwnerName, 
-          clanTowerAttackerName, towerName);
+      clanTowerWarNotification.setAsClanTowerWarAttackerOwnerDetermined( 
+          clanTowerAttackerName, clanTowerOwnerName, towerName, ownerDetermined);
     }
     else  {
       log.error("clan tower owner or attacker stayed the same. One of them" +

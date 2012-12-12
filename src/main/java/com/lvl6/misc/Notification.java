@@ -100,11 +100,17 @@ public class Notification implements Runnable {
     keysAndValues.put("rgb", rgb);
   }
   
-  public void setAsClanTowerWarClanWon (String losingClan, String winningClan, String towerName) {
+  public void setAsClanTowerWarClanWon (String clanTowerAttackerName, String clanTowerOwnerName, 
+      String towerName, boolean attackerWon) {
     MessageFormat formatTitle = new MessageFormat(NotificationConstants.CLAN_WON__TITLE);
     MessageFormat formatSubtitle = new MessageFormat(NotificationConstants.CLAN_WON__SUBTITLE);
     
-    Object[] arguments = { winningClan, losingClan, towerName };
+    Object[] arguments;
+    if(attackerWon) {
+      arguments = new Object[]{ clanTowerAttackerName, clanTowerOwnerName, towerName};
+    } else {
+      arguments = new Object[]{ clanTowerOwnerName, clanTowerAttackerName, towerName};
+    }
     
     String title = formatTitle.format(arguments);
     String subtitle = formatSubtitle.format(arguments);
@@ -118,34 +124,26 @@ public class Notification implements Runnable {
   }
   
   public void setAsClanTowerWarAttackerOwnerDetermined (String attacker, String owner, String towerName, boolean ownerDetermined) {
-    MessageFormat formatTitle;
-    MessageFormat formatSubtitle;
-    String title;
-    String subtitle;
-    
-    Object[] arguments;
     if(ownerDetermined) {
-      arguments = new Object[]{ owner, towerName };
-      
-      formatTitle = new MessageFormat(NotificationConstants.CLAN_TOWER_OWNER_DETERMINED__TITLE);
-      formatSubtitle = new MessageFormat(NotificationConstants.CLAN_TOWER_OWNER_DETERMINED__SUBTITLE);
-      title = formatTitle.format(arguments);
-      subtitle = formatTitle.format(arguments);
-    }  else {
-      
-    }
-    
-  }
-  
-//  public void setNotificationAsAttackerConceded () {
-//
-//  }
-//  
-//  public void setNotificationAsOwnerConceded () {
-//	  
-//  }
+      Object[] arguments = { owner, towerName };
 
-  public void setNotificationAsClanTowerStatus(){
+      MessageFormat formatTitle = new MessageFormat(NotificationConstants.CLAN_TOWER_OWNER_DETERMINED__TITLE);
+      MessageFormat formatSubtitle = new MessageFormat(NotificationConstants.CLAN_TOWER_OWNER_DETERMINED__SUBTITLE);
+      String title = formatTitle.format(arguments);
+      String subtitle = formatSubtitle.format(arguments);
+
+      keysAndValues.put("title", title);
+      keysAndValues.put("subtitle", subtitle);
+    }  else {
+      Object[] arguments = { attacker, owner, towerName };
+
+      MessageFormat formatTitle = new MessageFormat(NotificationConstants.CLAN_TOWER_ATTACKER_DETERMINED__TITLE);
+      String title = formatTitle.format(arguments);
+
+      keysAndValues.put("title", title);
+    }
+
+    keysAndValues.put("rgb", rgb);
 
   }
   
@@ -154,20 +152,6 @@ public class Notification implements Runnable {
 	  String title = "";
 	  String subtitle = "";
 	  
-  }
-
-  public void setNotificationAsClanTowerWarStarted (String clanTowerOwnerName, 
-      String clanTowerAttackerName, String towerName) {
-
-    //TODO: write logic for this function, store to keysAndValues
-    //ex: keysAndValues.put("title", "clan tower war started");
-    //    keysAndValues.put("subtitle", "whatever"); and so on
-
-  }
-
-  public void setNotificationAsClanTowerWarEnded (String clanTowerOwnerName, 
-      String clanTowerAttackerName, String towerName, boolean attackerWon) {
-    //TODO: write logic for this function
   }
 
   public void setNotificationAsClanCreated (String clanName) {

@@ -129,8 +129,8 @@ public class ClanTowersScheduledTasks {
     String clanTowerAttackerName = ClanRetrieveUtils.getClanWithId(tower.getClanAttackerId()).getName();
     String towerName = tower.getTowerName();
 
-    clanTowerWarEnded.setNotificationAsClanTowerWarEnded(
-        clanTowerOwnerName, clanTowerAttackerName, towerName, attackerWon);
+    clanTowerWarEnded.setAsClanTowerWarClanWon(
+        clanTowerAttackerName, clanTowerOwnerName, towerName, attackerWon);
     executor.execute(clanTowerWarEnded);
   }
 
