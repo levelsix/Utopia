@@ -122,6 +122,30 @@ public class Notification {
 
   }
 
+  public void setAsClanTowerWarDistributeRewards(String towerName, int silverReward, int goldReward) {
+    String silver = "";
+    String conjunction = "";
+    String gold = "";
+    
+    if(0 < silverReward) {
+      silver = silverReward + " silver";
+    }
+    if(0 < goldReward) {
+      conjunction += " and";
+      gold += goldReward + " gold.";
+    }
+    
+    Object[] arguments = { towerName };
+    MessageFormat formatTitle = new MessageFormat(NotificationConstants.CLAN_TOWER_DISTRIBUTE_REWARDS__TITLE);
+    
+    String title = formatTitle.format(arguments);
+    String subtitle = NotificationConstants.CLAN_TOWER_DISTRIBUTE_REWARDS__SUBTITLE;
+    subtitle += silver + conjunction + gold;
+    
+    keysAndValues.put("title", title);
+    keysAndValues.put("subtitle", subtitle);
+  }
+  
   public void setNotificationAsClanCreated (String clanName) {
     //TODO: write logic for this function
   }

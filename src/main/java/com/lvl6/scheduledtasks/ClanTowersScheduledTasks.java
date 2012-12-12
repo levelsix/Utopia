@@ -18,11 +18,13 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.ILock;
+import com.lvl6.events.response.GeneralNotificationResponseEvent;
 import com.lvl6.info.ClanTower;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.misc.Notification;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
+import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowerChange;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
@@ -257,6 +259,7 @@ public class ClanTowersScheduledTasks {
       if(currentTimeMillis > tower.getLastRewardGiven().getTime() + millisecondsToCollect) {
         giveRewardsToClanMembers(tower);
         updateLastRewardTimeForClanTower(tower, currentTimeMillis);
+        sendNotificationForRewardDistribution(tower, tower.getClanOwnerId());
       }
     } catch(Exception e) {
       log.error("Error distributing tower rewards", e);
@@ -296,6 +299,22 @@ public class ClanTowersScheduledTasks {
         ,tower.getGoldReward());
   }
 
+  public void sendNotificationForRewardDistribution(ClanTower aTower, int clanId) {
+    Notification n = new Notification();
+    String towerName = aTower.getTowerName();
+    int silverReward = aTower.getSilverReward();
+    int goldReward = aTower.getGoldReward();
+    
+    n.setAsClanTowerWarDistributeRewards(towerName, silverReward, goldReward);
+    
+    GeneralNotificationResponseProto.Builder notificationProto = 
+        n.generateNotificationBuilder();
+    
+    GeneralNotificationResponseEvent aNotification = new GeneralNotificationResponseEvent(0);
+    aNotification.setGeneralNotificationResponseProto(notificationProto.build());
+    server.writeClanEvent(aNotification, clanId);
+  }
+  
   public HazelcastInstance getHazel() {
     return hazel;
   }
