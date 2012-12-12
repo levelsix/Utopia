@@ -167,6 +167,10 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware {
 	public void writeEvent(ResponseEvent e) {
 		eventWriter.handleEvent(e);
 	}
+	
+	public void writeGlobalEvent(ResponseEvent e) {
+	  eventWriter.processGlobalChatResponseEvent(e);
+	}
 
 	/**
 	 * pass the clan event on to the EventWriter
