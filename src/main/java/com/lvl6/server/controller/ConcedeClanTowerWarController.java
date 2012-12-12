@@ -67,7 +67,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   @Override
   public RequestEvent createRequestEvent() {
-    return new BeginClanTowerWarRequestEvent();
+    return new ConcedeClanTowerWarRequestEvent();
   }
 
   @Override
