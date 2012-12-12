@@ -99,10 +99,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
 
         //clan tower stuff
         if(server.lockClanTowersTable()) {
-
-          if(user.getId() != clan.getOwnerId()) {
-            sendTowersAndNotifications(clan);
-          }
+          sendTowersAndNotifications(clan);
         }
 
       }
