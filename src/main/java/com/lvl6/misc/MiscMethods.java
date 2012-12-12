@@ -721,57 +721,62 @@ public class MiscMethods {
   //Two to write to the clan_towers table
   //returns ids of clan towers that the clan owned and attacked
   public static Map<String, List<Integer>> updateClanTowersAfterClanSizeDecrease(Clan aClan) {
-	  int clanId = aClan.getId();
-	  int clanSize = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId).size();
-	  int minSize = ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER;
-	  
-	  if (clanSize < minSize) {
-		  //since member left,
-		  //need to see if clan loses the towers they own, making the attacker the new owner,
-		  //or make the tower unowned; and making the towers they are attacking, not have an attacker
-		  
-		  List<ClanTower> towersOwned = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
-				  clanId, ControllerConstants.NOT_SET, false);
-		  List<ClanTower> towersAttacked = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
-				  ControllerConstants.NOT_SET, clanId, false);
-		  
-		  List<Integer> ownedIds = new ArrayList<Integer>();
-		  List<Integer> attackedIds = new ArrayList<Integer>();
-		  for(ClanTower ct: towersOwned) {
-			  ownedIds.add(ct.getId());
-		  }
-		  for(ClanTower ct: towersAttacked) {
-			  attackedIds.add(ct.getId());
-		  }
+    int clanId = aClan.getId();
+    int clanSize = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId).size();
+    int minSize = ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER;
 
-		  //update clan_towers_history table
-		  if(!UpdateUtils.get().updateTowerHistory(towersOwned, Notification.OWNER_CONCEDED)) {
-			  log.error("Added more/less towers than the clan owned to clan_towers_history table, when clan " +
-			  		"size decreased below the minimum limit. clan=" + aClan + " towersOwned=" + towersOwned);
-		  }
-		  if(!UpdateUtils.get().updateTowerHistory(towersAttacked, Notification.ATTACKER_CONCEDED)) {
-			  log.error("Added more/less towers than the clan attacked to clan_towers_history table, when clan " +
-			  		"size decreased below the minimum limit. clan=" + aClan + " towersAttacked=" + towersAttacked);
-		  }
-		  
-		  //update clan_towers table
-		  if(!UpdateUtils.get().resetClanTowerOwnerOrAttacker(ownedIds, true)) { //reset the towers where this clan is the owner
-			  log.error("reset more/less towers than the clan owned in clan_towers table. clan=" + 
-					  aClan + "towersOwned=" + towersOwned);
-		  }
-		  if(!UpdateUtils.get().resetClanTowerOwnerOrAttacker(attackedIds, false)) {//reset the towers where this clan is the attacker
-			  log.error("reset more/less towers than the clan attacked in clan_towers table. clan=" + 
-					  aClan + "towersAttacked=" + towersAttacked);
-		  }
-		  
-		  //return clan towers that changed
-		  Map<String, List<Integer>> towersBeforeUpdate = new HashMap<String, List<Integer>>();
-		  towersBeforeUpdate.put(clanTowersClanOwned, ownedIds);
-		  towersBeforeUpdate.put(clanTowersClanAttacked, attackedIds);
-		  return towersBeforeUpdate;
-	  }
-	  return null;
-	  
+    if (clanSize < minSize) {
+      //since member left,
+      //need to see if clan loses the towers they own, making the attacker the new owner,
+      //or make the tower owner-less; and making the towers they are attacking, attacker-less
+
+      List<ClanTower> towersOwned = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
+          clanId, ControllerConstants.NOT_SET, false);
+      List<ClanTower> towersAttacked = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
+          ControllerConstants.NOT_SET, clanId, false);
+
+      //return value
+      Map<String, List<Integer>> towersBeforeUpdate = new HashMap<String, List<Integer>>();
+
+      //if the clan has towers do something.
+      if(0 < towersOwned.size() || 0 < towersAttacked.size()) {
+        List<Integer> ownedIds = new ArrayList<Integer>();
+        List<Integer> attackedIds = new ArrayList<Integer>();
+        for(ClanTower ct: towersOwned) {
+          ownedIds.add(ct.getId());
+        }
+        for(ClanTower ct: towersAttacked) {
+          attackedIds.add(ct.getId());
+        }
+
+        //update clan_towers_history table
+        if(!UpdateUtils.get().updateTowerHistory(towersOwned, Notification.OWNER_CONCEDED)) {
+          log.error("Added more/less towers than the clan owned to clan_towers_history table, when clan " +
+              "size decreased below the minimum limit. clan=" + aClan + " towersOwned=" + towersOwned);
+        }
+        if(!UpdateUtils.get().updateTowerHistory(towersAttacked, Notification.ATTACKER_CONCEDED)) {
+          log.error("Added more/less towers than the clan attacked to clan_towers_history table, when clan " +
+              "size decreased below the minimum limit. clan=" + aClan + " towersAttacked=" + towersAttacked);
+        }
+
+        //update clan_towers table
+        if(!UpdateUtils.get().resetClanTowerOwnerOrAttacker(ownedIds, true)) { //reset the towers where this clan is the owner
+          log.error("reset more/less towers than the clan owned in clan_towers table. clan=" + 
+              aClan + "towersOwned=" + towersOwned);
+        }
+        if(!UpdateUtils.get().resetClanTowerOwnerOrAttacker(attackedIds, false)) {//reset the towers where this clan is the attacker
+          log.error("reset more/less towers than the clan attacked in clan_towers table. clan=" + 
+              aClan + "towersAttacked=" + towersAttacked);
+        }
+
+        //return clan towers that changed
+        towersBeforeUpdate.put(clanTowersClanOwned, ownedIds);
+        towersBeforeUpdate.put(clanTowersClanAttacked, attackedIds);
+      }
+      return towersBeforeUpdate;
+    }
+    return null;
+
   }
   
   //returns the clan towers that changed
