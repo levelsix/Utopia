@@ -857,8 +857,7 @@ public class MiscMethods {
       ChangedClanTowerResponseEvent e = new ChangedClanTowerResponseEvent(0);
       e.setChangedClanTowerResponseProto(t.build());
       
-      MessagingUtil msgUtil = AppContext.getApplicationContext().getBean(MessagingUtil.class);
-      msgUtil.sendGlobalMessage(e);
+      server.writeGlobalEvent(e);
     }
   }
   
