@@ -348,13 +348,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         log.info("damage=" + dmgDone + ", exp=" + exp);
       }
       
+      int lastDmgDone = individualDamages.get(indexOfLastDamage);
+      int lastExp = calculateExpGained(aBoss, lastDmgDone); 
       if(superAttack != integerPart) {
-        int lastDmgDone = individualDamages.get(indexOfLastDamage);
-        int exp = (int) (calculateExpGained(aBoss, lastDmgDone) * fractionalPart);
-        expGained += exp;
-        
-        log.info("last damage=" + lastDmgDone + ", exp=" + exp);
+        lastExp = (int) (lastExp * fractionalPart); //truncating some values
+        log.info("super attack not a whole number.");
       }
+      log.debug("the last exp gained=" + lastExp);
+      expGained += lastExp;  
       
     } else {
       int dmgDone = individualDamages.get(0);
@@ -377,9 +378,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int maxMinExpDifference = maxExp - minExp;
     
     int dmgDoneMinDmgDifference = (dmgDone - minDmg);
-    int differencesRatio = dmgDoneMinDmgDifference/maxMinDmgDifference;
+    double differencesRatio = dmgDoneMinDmgDifference/maxMinDmgDifference;
     
-    return minExp + differencesRatio*maxMinExpDifference;
+    log.debug("differencesRatio=" + differencesRatio);
+    return minExp + (int) (differencesRatio*maxMinExpDifference);
   }
   
   private List<BossReward> determineLoot(UserBoss aUserBoss) { 
