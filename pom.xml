@@ -149,7 +149,7 @@
 		<profile>
 			<id>kellylocal</id>
 			<properties>
-				<lvl6.server.log.location>~/Desktop/kingdom</lvl6.server.log.location>
+				<lvl6.server.log.location>/tmp/kingdom</lvl6.server.log.location>
 				<server.port>10001</server.port>
 				<hazelcast.group>kelly1</hazelcast.group>
 				<hazelcast.pass>lvl6</hazelcast.pass>
@@ -198,6 +198,32 @@
 		</pluginManagement>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.4.2</version>
+				<executions>
+					<execution>
+						<id>default-copy-resources</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<overwrite>true</overwrite>
+							<outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/WEB-INF/classes</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/src/main/resources/</directory>
+									<includes>
+										<include>logback.xml</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<source>1.6</source>
@@ -211,12 +237,6 @@
 					<includes>
 						<include>**/test/*.java</include>
 					</includes>
-					<systemproperties>
-						<property>
-							<name>log4j.configuration</name>
-							<value>log4j.xml</value>
-						</property>
-					</systemproperties>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -828,16 +848,9 @@
 		<dependency>
 			<groupId>org.hectorclient</groupId>
 			<artifactId>hector-core</artifactId>
-<!-- 			<exclusions>
-				<exclusion>
-					<artifactId>log4j</artifactId>
-					<groupId>log4j</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>slf4j-log4j12</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions> -->
+			<!-- <exclusions> <exclusion> <artifactId>log4j</artifactId> <groupId>log4j</groupId> 
+				</exclusion> <exclusion> <artifactId>slf4j-log4j12</artifactId> <groupId>org.slf4j</groupId> 
+				</exclusion> </exclusions> -->
 			<exclusions>
 				<exclusion>
 					<artifactId>slf4j-log4j12</artifactId>
