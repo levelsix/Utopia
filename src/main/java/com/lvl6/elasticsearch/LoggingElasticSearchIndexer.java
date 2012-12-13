@@ -55,11 +55,9 @@ public class LoggingElasticSearchIndexer {
 				.setReplicationType(ReplicationType.ASYNC)
 				.execute().actionGet();
 		} catch (ElasticSearchException e) {
-			//LogLog.error(e.getDetailedMessage());
-			//search.closeClient();
+			System.out.println("Error indexing log item: "+e.getMessage());
 		} catch (IOException e) {
-			//LogLog.error(e.getMessage());
-			//search.closeClient();
+			System.out.println("Error indexing log item: "+e.getMessage());
 		} finally {
 			search.closeClient();
 		}
