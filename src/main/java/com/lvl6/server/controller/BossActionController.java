@@ -334,6 +334,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int expGained = 0;
 
     if(isSuperAttack) {
+      log.info("superattack");
       double superAttack = ControllerConstants.BOSS_EVENT__SUPER_ATTACK;
       int integerPart = (int) superAttack;
       double fractionalPart = superAttack - integerPart;
@@ -341,35 +342,46 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int indexOfLastDamage = individualDamages.size() - 1;
       for(int i = 0; i < indexOfLastDamage; i++) {
         int dmgDone = individualDamages.get(i);
-        expGained += calculateExpGained(aBoss, dmgDone);
+        int exp = calculateExpGained(aBoss, dmgDone);
+        expGained += exp;
+        
+        log.info("damage=" + dmgDone + ", exp=" + exp);
       }
       
+      int lastDmgDone = individualDamages.get(indexOfLastDamage);
+      int lastExp = calculateExpGained(aBoss, lastDmgDone); 
       if(superAttack != integerPart) {
-        int lastDmgDone = individualDamages.get(indexOfLastDamage);
-        expGained += calculateExpGained(aBoss, lastDmgDone) * fractionalPart;
+        lastExp = (int) (lastExp * fractionalPart); //truncating some values
+        log.info("super attack not a whole number.");
       }
+      log.debug("lastDmgDone=" + lastDmgDone + ", the last exp gained=" + lastExp);
+      expGained += lastExp;  
       
     } else {
       int dmgDone = individualDamages.get(0);
-      expGained += calculateExpGained(aBoss, dmgDone);
+      int exp = calculateExpGained(aBoss, dmgDone);
+      expGained += exp;
+      
+      log.info("damage=" + dmgDone + ", exp=" + exp);
     }
     
     return expGained;
   }
   
   private int calculateExpGained(Boss aBoss, int dmgDone) {
-    int minDmg = aBoss.getMinDamage();
-    int maxDmg = aBoss.getMaxDamage();
-    int maxMinDmgDifference = maxDmg - minDmg;
+    double minDmg = aBoss.getMinDamage();
+    double maxDmg = aBoss.getMaxDamage();
+    double maxMinDmgDifference = maxDmg - minDmg;
     
-    int minExp = aBoss.getMinExp();
-    int maxExp = aBoss.getMaxExp();
-    int maxMinExpDifference = maxExp - minExp;
+    double minExp = aBoss.getMinExp();
+    double maxExp = aBoss.getMaxExp();
+    double maxMinExpDifference = maxExp - minExp;
     
-    int dmgDoneMinDmgDifference = (dmgDone - minDmg);
-    int differencesRatio = dmgDoneMinDmgDifference/maxMinDmgDifference;
+    double dmgDoneMinDmgDifference = (dmgDone - minDmg);
+    double differencesRatio = dmgDoneMinDmgDifference/maxMinDmgDifference;
     
-    return minExp + differencesRatio*maxMinExpDifference;
+    log.debug("differencesRatio=" + differencesRatio);
+    return (int) (minExp + differencesRatio*maxMinExpDifference);
   }
   
   private List<BossReward> determineLoot(UserBoss aUserBoss) { 
