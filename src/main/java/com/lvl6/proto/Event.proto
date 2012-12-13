@@ -2222,6 +2222,7 @@ message BossActionResponseProto {
 	repeated int32 coinsGained = 6;
 	repeated int32 diamondsGained = 7;
 	optional int32 bossId = 8;
+	optional int32 expGained = 9;
 	
 	enum BossActionStatus {
 		SUCCESS = 0; 

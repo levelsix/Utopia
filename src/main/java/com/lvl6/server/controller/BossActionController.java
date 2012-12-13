@@ -99,6 +99,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           int damageDone = damageExp.get(damage);
           int expGained = damageExp.get(experience);
           resBuilder.setDamageDone(damageDone);
+          resBuilder.setExpGained(expGained);
 
           List<BossReward> brList = determineLoot(aUserBoss);
 
