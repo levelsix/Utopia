@@ -369,7 +369,9 @@ public class MiscMethods {
         .setNumHoursBeforeReshowingBossEvent(ControllerConstants.NUM_HOURS_BEFORE_RESHOWING_BOSS_EVENT)
         .setLevelToShowRateUsPopup(ControllerConstants.LEVEL_TO_SHOW_RATE_US_POPUP)
         .setBossEventNumberOfAttacksUntilSuperAttack(ControllerConstants.BOSS_EVENT__NUMBER_OF_ATTACKS_UNTIL_SUPER_ATTACK)
-        .setBossEventSuperAttack(ControllerConstants.BOSS_EVENT__SUPER_ATTACK);
+        .setBossEventSuperAttack(ControllerConstants.BOSS_EVENT__SUPER_ATTACK)
+        .setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA);
+ 
 
     if (ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS != null) {
       for (int i = 0; i < ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS.length; i++) {
