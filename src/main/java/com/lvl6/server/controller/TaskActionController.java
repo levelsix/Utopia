@@ -453,7 +453,7 @@ public class TaskActionController extends EventController {
     	  else {
     		  int cityId = task.getCityId();
     		  City aCity = CityRetrieveUtils.getCityForCityId(cityId);
-    		  sendGeneralNotification(gear.get(0), user.getName(), aCity.getName());
+    		  sendGeneralNotification(gear.get(lootEquipId), user.getName(), aCity.getName());
     	  }
       }
       
