@@ -64,7 +64,7 @@ public class EventWriterAmqp extends EventWriter {
 	public void processPreDBResponseEvent(ResponseEvent event, String udid) {
 		//log.info("writer received predb event=\n"+event.toString());
 		byte[] buff = getByteArray(event);
-		MessageProperties msgProps = new MessageProperties();
+		MessageProperties msgProps = getProps();
 		String routingKey = "client_udid_" + udid;
 		log.debug("writing predb event with type=" + event.getEventType() + " to player with routingKey "+ routingKey + ", event=" + event);
 		sendMessageToPlayer(buff, msgProps, routingKey);
@@ -77,7 +77,7 @@ public class EventWriterAmqp extends EventWriter {
 	public void processResponseEvent(ResponseEvent event) {
 		//log.debug("writer received event=\n" + event.toString());
 		byte[] buff = getByteArray(event);
-		MessageProperties msgProps = new MessageProperties();
+		MessageProperties msgProps = getProps();
 		if (BroadcastResponseEvent.class.isInstance(event)) {
 			int[] recipients = ((BroadcastResponseEvent) event).getRecipients();
 			for (int i = 0; i < recipients.length; i++) {
@@ -99,20 +99,26 @@ public class EventWriterAmqp extends EventWriter {
 		}
 	}
 
+	protected MessageProperties getProps() {
+		MessageProperties msgProps = new MessageProperties();
+		msgProps.setHeader("x-message-ttl", 360000);
+		return msgProps;
+	}
+
 	protected void sendMessageToPlayer(byte[] buff, MessageProperties msgProps, String routingKey) {
 		clientsTemplate.send(routingKey, new Message(buff, msgProps));
 	}
 
 	@Override
 	public void processClanResponseEvent(ResponseEvent event, int clanId) {
-		MessageProperties msgProps = new MessageProperties();
+		MessageProperties msgProps = getProps();
 		String clanIdString = "clan_" + clanId;
 		log.info("Sending clan response event with routing key:" + clanIdString);
 		chatTemplate.send(clanIdString, new Message(getByteArray(event), msgProps));
 	}
 
 	public void processGlobalChatResponseEvent(ResponseEvent event) {
-		MessageProperties msgProps = new MessageProperties();
+		MessageProperties msgProps = getProps();
 		String chatGlobalRoutingKey = "chat_global";
     log.info("Sending global event with type="+event.getEventType()+" with routing key:" + chatGlobalRoutingKey);
 		chatTemplate.send(chatGlobalRoutingKey, new Message(getByteArray(event), msgProps));
