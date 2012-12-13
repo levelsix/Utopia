@@ -892,6 +892,9 @@ public class UpdateUtils implements UpdateUtil {
 	  int numUpdated = DBConnection.get().updateTableRows(tableName, relativeParams, 
 			  absoluteParams, conditionParams, condDelim);
 	  
+	  log.debug("after a battle in a clan tower war. numUpdated=" + numUpdated);
+	  log.debug("clanTowerId=" + clanTowerId + ", ownerId=" + ownerId + ", attackerId=" + attackerId
+	      + ", ownerWon=" + ownerWon + ", amountToIncrementBattleWinsBy=" + amountToIncrementBattleWinsBy);
 	  //a clan can own multiple towers with another clan being the same attacker for all of them
 	  if (0 == numUpdated) {
 		  return false; //there should be a tower with an owner and an attacker with the specified ids 
