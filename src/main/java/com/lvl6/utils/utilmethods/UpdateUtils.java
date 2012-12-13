@@ -892,8 +892,8 @@ public class UpdateUtils implements UpdateUtil {
 	  int numUpdated = DBConnection.get().updateTableRows(tableName, relativeParams, 
 			  absoluteParams, conditionParams, condDelim);
 	  
-	  log.debug("after a battle in a clan tower war. numUpdated=" + numUpdated);
-	  log.debug("clanTowerId=" + clanTowerId + ", ownerId=" + ownerId + ", attackerId=" + attackerId
+	  log.info("after a battle in a clan tower war. numUpdated=" + numUpdated);
+	  log.info("clanTowerId=" + clanTowerId + ", ownerId=" + ownerId + ", attackerId=" + attackerId
 	      + ", ownerWon=" + ownerWon + ", amountToIncrementBattleWinsBy=" + amountToIncrementBattleWinsBy);
 	  //a clan can own multiple towers with another clan being the same attacker for all of them
 	  if (0 == numUpdated) {
@@ -931,7 +931,7 @@ public class UpdateUtils implements UpdateUtil {
 		  //set the clanOwnerId to the clanAttackerId, regardless of whether it is set
 		  ownerOrAttacker = DBConstants.CLAN_TOWERS__CLAN_OWNER_ID + "=" +
 				  DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + ",";
-		  ownerOrAttacker += DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + "=?,";
+		  ownerOrAttacker += " " + DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + "=?,";
 		  values.add(null);
 		  
 		  //changed ownership, reset time and battle wins
@@ -950,7 +950,7 @@ public class UpdateUtils implements UpdateUtil {
 		  lastRewardTime = " " + DBConstants.CLAN_TOWERS__LAST_REWARD_GIVEN + "=?";
 		  values.add(null);
 		  
-		  whereClause = " where " + DBConstants.CLAN_TOWERS__CLAN_OWNER_ID + "in (" +
+		  whereClause = " where " + DBConstants.CLAN_TOWERS__CLAN_OWNER_ID + " in (" +
 				  listOfIds + ")";
 	  }
 	  else {
@@ -966,7 +966,7 @@ public class UpdateUtils implements UpdateUtil {
 		  attackStartTime = " " + DBConstants.CLAN_TOWERS__ATTACK_START_TIME + "=?";
 		  values.add(null);
 		  
-		  whereClause = " where " + DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + "in (" +
+		  whereClause = " where " + DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + " in (" +
 				  listOfIds + ")";
 	  }
 	  String query = "update " + tableName + " set "  
@@ -976,8 +976,11 @@ public class UpdateUtils implements UpdateUtil {
 		        + lastRewardTime
 		        + whereClause ;
 	  
+	  int numTowers = clanTowerOwnerOrAttackerIds.size();
 	  int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
-	  if (clanTowerOwnerOrAttackerIds.size() != numUpdated) {
+	  log.info("~~~~~~~~~~~~~~~~~~~~~~resetClanTowerOwnerOrAttacker: num towers updated=" + numUpdated + " \n "
+	      + "The number of towers=" + numTowers + ". The towers=" + clanTowerOwnerOrAttackerIds);
+	  if (numTowers != numUpdated) {
 		  return false;
 	  }
 	  else {

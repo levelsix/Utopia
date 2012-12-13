@@ -428,6 +428,7 @@ public class CreateInfoProtoUtils {
   }
 
   public static MinimumClanProto createMinimumClanProtoFromClan(Clan c) {
+    log.info("clan=" + c);//I think it's the getCreateTime.getTime()
     return MinimumClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwnerId(c.getOwnerId()).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).setTag(c.getTag()).setIsGood(c.isGood()).setCurrentTierLevel(c.getCurrentTierLevel()).build();
   }
 
@@ -912,9 +913,12 @@ public class CreateInfoProtoUtils {
         .setGreen(tower.getGreen()).setRed(tower.getRed());
     
     b.setTitleColor(clrB);
+    log.info("!!!!!!!!!!!!!!!!!!!!!!createClanTowerProto: tower=" + tower);
     
     if (tower.getClanOwnerId() > 0) {
-      b.setTowerOwner(createMinimumClanProtoFromClan(ClanRetrieveUtils.getClanWithId(tower.getClanOwnerId())));
+      Clan c = ClanRetrieveUtils.getClanWithId(tower.getClanOwnerId());
+      log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@clanTowerOwner=" + c);
+      b.setTowerOwner(createMinimumClanProtoFromClan(c));
       if(null != tower.getOwnedStartTime()) {
     	  b.setOwnedStartTime(tower.getOwnedStartTime().getTime());
       }
@@ -923,7 +927,9 @@ public class CreateInfoProtoUtils {
       }
     }
     if (tower.getClanAttackerId() > 0) {
-      b.setTowerAttacker(createMinimumClanProtoFromClan(ClanRetrieveUtils.getClanWithId(tower.getClanAttackerId())));
+      Clan c = ClanRetrieveUtils.getClanWithId(tower.getClanOwnerId());
+      log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@clanTowerAttacker=" + c);
+      b.setTowerAttacker(createMinimumClanProtoFromClan(c));
       if(null != tower.getAttackStartTime()) {
     	  b.setAttackStartTime(tower.getAttackStartTime().getTime());
       }

@@ -354,7 +354,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         lastExp = (int) (lastExp * fractionalPart); //truncating some values
         log.info("super attack not a whole number.");
       }
-      log.debug("lastDmgDone=" + lastDmgDone + ", the last exp gained=" + lastExp);
+      log.info("lastDmgDone=" + lastDmgDone + ", the last exp gained=" + lastExp);
       expGained += lastExp;  
       
     } else {
@@ -380,7 +380,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     double dmgDoneMinDmgDifference = (dmgDone - minDmg);
     double differencesRatio = dmgDoneMinDmgDifference/maxMinDmgDifference;
     
-    log.debug("differencesRatio=" + differencesRatio);
+    log.info("differencesRatio=" + differencesRatio);
     return (int) (minExp + differencesRatio*maxMinExpDifference);
   }
   

@@ -93,7 +93,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
         server.writeClanEvent(resEvent, user.getClanId());
 
         BootPlayerFromClanResponseEvent resEvent2 = new BootPlayerFromClanResponseEvent(playerToBootId);
-        resEvent.setBootPlayerFromClanResponseProto(resBuilder.build());
+        resEvent2.setBootPlayerFromClanResponseProto(resBuilder.build()); //I think this is supposed to be resEvent2 not resEvent
         server.writeEvent(resEvent2);
 
         writeChangesToDB(user, playerToBoot);

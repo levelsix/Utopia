@@ -69,38 +69,39 @@ import com.lvl6.utils.RetrieveUtils;
 
       if (owner == null) {
         log.error("owner is null for ownerId = "+cityOwnerId);
-      }
-      resBuilder.setCityOwner(CreateInfoProtoUtils.createMinimumUserProtoFromUser(owner));
-      
-      boolean ownerIsGood = MiscMethods.checkIfGoodSide(owner.getType());
-      boolean senderIsGood = MiscMethods.checkIfGoodSide(senderProto.getUserType());
-
-      List<UserType> userTypes = new ArrayList<UserType>();
-      if (senderIsGood) {
-        userTypes.add(UserType.BAD_ARCHER);
-        userTypes.add(UserType.BAD_MAGE);
-        userTypes.add(UserType.BAD_WARRIOR);
       } else {
-        userTypes.add(UserType.GOOD_ARCHER);
-        userTypes.add(UserType.GOOD_MAGE);
-        userTypes.add(UserType.GOOD_WARRIOR);
+        resBuilder.setCityOwner(CreateInfoProtoUtils.createMinimumUserProtoFromUser(owner));
+
+        boolean ownerIsGood = MiscMethods.checkIfGoodSide(owner.getType());
+        boolean senderIsGood = MiscMethods.checkIfGoodSide(senderProto.getUserType());
+
+        List<UserType> userTypes = new ArrayList<UserType>();
+        if (senderIsGood) {
+          userTypes.add(UserType.BAD_ARCHER);
+          userTypes.add(UserType.BAD_MAGE);
+          userTypes.add(UserType.BAD_WARRIOR);
+        } else {
+          userTypes.add(UserType.GOOD_ARCHER);
+          userTypes.add(UserType.GOOD_MAGE);
+          userTypes.add(UserType.GOOD_WARRIOR);
+        }
+
+        if (ownerIsGood != senderIsGood) {    //loading enemy city, load some of owners allies (more enemies from your POV)
+          List<User> ownerAllies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY, owner.getLevel(), owner.getId(), false, 
+              null, null, null, null, false, null);
+          setResponseOwnerAlliesOrEnemies(resBuilder, ownerAllies, true);
+        } else {                              //loading ally city or your city, creating some of owners enemies
+          List<User> ownerEnemies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY, owner.getLevel(), owner.getId(), false, 
+              null, null, null, null, false, null);
+          setResponseOwnerAlliesOrEnemies(resBuilder, ownerEnemies, false);
+        }
+
+        LoadPlayerCityResponseEvent resEvent = new LoadPlayerCityResponseEvent(senderProto.getUserId());
+        resEvent.setTag(event.getTag());
+        resEvent.setLoadPlayerCityResponseProto(resBuilder.build());  
+        server.writeEvent(resEvent);
+
       }
-
-      if (ownerIsGood != senderIsGood) {    //loading enemy city, load some of owners allies (more enemies from your POV)
-        List<User> ownerAllies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY, owner.getLevel(), owner.getId(), false, 
-            null, null, null, null, false, null);
-        setResponseOwnerAlliesOrEnemies(resBuilder, ownerAllies, true);
-      } else {                              //loading ally city or your city, creating some of owners enemies
-        List<User> ownerEnemies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY, owner.getLevel(), owner.getId(), false, 
-            null, null, null, null, false, null);
-        setResponseOwnerAlliesOrEnemies(resBuilder, ownerEnemies, false);
-      }
-
-      LoadPlayerCityResponseEvent resEvent = new LoadPlayerCityResponseEvent(senderProto.getUserId());
-      resEvent.setTag(event.getTag());
-      resEvent.setLoadPlayerCityResponseProto(resBuilder.build());  
-      server.writeEvent(resEvent);
-
     } catch (Exception e) {
       log.error("exception in LoadPlayerCity processEvent", e);
     } finally {

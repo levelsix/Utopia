@@ -39,6 +39,7 @@ public class NotificationConstants {
   public static String CLAN_WON__SUBTITLE = "{0} now controls the {2} and is ready for another victim.";
 
   public static String CLAN_TOWER_ATTACKER_DETERMINED__TITLE = "{0} declares war on {1} for the {2}!";
+  public static String CLAN_TOWER_ATTACKER_DETERMINED__SUBTITLE = "The winner will be determined in 6 hours!";
 
   public static String CLAN_TOWER_OWNER_DETERMINED__TITLE = "{0} has claimed ownership of the {1}.";
   public static String CLAN_TOWER_OWNER_DETERMINED__SUBTITLE = "{0} is ready to wage war to maintain control.";
