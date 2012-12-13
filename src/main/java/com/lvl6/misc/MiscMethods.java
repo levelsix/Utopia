@@ -754,6 +754,13 @@ public class MiscMethods {
       //return value
       Map<String, List<Integer>> towersBeforeUpdate = new HashMap<String, List<Integer>>();
 
+      if(null == towersOwned) {
+        towersOwned = new ArrayList<ClanTower>();
+      }
+      if(null == towersAttacked) {
+        towersAttacked = new ArrayList<ClanTower>();
+      }
+      
       //if the clan has towers do something.
       if(0 < towersOwned.size() || 0 < towersAttacked.size()) {
         List<Integer> ownedIds = new ArrayList<Integer>();
