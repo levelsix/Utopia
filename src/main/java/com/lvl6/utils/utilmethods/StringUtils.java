@@ -2,12 +2,13 @@ package com.lvl6.utils.utilmethods;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StringUtils {
   
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+	private static final Logger log = LoggerFactory.getLogger(StringUtils.class);
 
   public static String getListInString(List<String> clauses, String delimiter) {
     String toreturn = "";

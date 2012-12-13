@@ -3,11 +3,10 @@ package com.lvl6.server.controller;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent;
+import com.lvl6.events.RequestEvent; import org.slf4j.*;
 import com.lvl6.events.request.RetrieveStaticDataRequestEvent;
 import com.lvl6.events.response.RetrieveStaticDataResponseEvent;
 import com.lvl6.info.Boss;
@@ -44,7 +43,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 
   @Component @DependsOn("gameServer") public class RetrieveStaticDataController extends EventController{
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public RetrieveStaticDataController() {
     numAllocatedThreads = 15;

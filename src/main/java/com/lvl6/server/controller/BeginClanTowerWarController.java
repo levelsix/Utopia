@@ -8,12 +8,11 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent;
+import com.lvl6.events.RequestEvent; import org.slf4j.*;
 import com.lvl6.events.request.BeginClanTowerWarRequestEvent;
 import com.lvl6.events.response.BeginClanTowerWarResponseEvent;
 import com.lvl6.info.Clan;
@@ -37,7 +36,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 @Component @DependsOn("gameServer") public class BeginClanTowerWarController extends EventController{
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   //For sending messages to online people, NOTIFICATION FEATURE
   @Resource(name = "outgoingGameEventsHandlerExecutor")

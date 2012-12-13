@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d | %-5p | %X{playerId}%X{udid} | %t | %c{1} - %m%n
+			</Pattern>
+		</layout>
+	</appender>
+
+	<appender name="elasticSearch"
+		class="com.lvl6.elasticsearch.LogBackElasticSearchAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>WARN</level>
+		</filter>
+		<elasticHosts>${lvl6.elastic.search.hosts}</elasticHosts>
+		<elasticCluster>${lvl6.elastic.search.cluster.name}</elasticCluster>
+	</appender>
+
+	<appender name="file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+		<file>${lvl6.server.log.location}.log</file>
+		<Append>true</Append>
+		<Encoding>UTF-8</Encoding>
+		<ImmediateFlush>false</ImmediateFlush>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${lvl6.server.log.location}.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d | %-5p | %X{playerId}%X{udid} | %t | %c{1} - %m%n
+			</Pattern>
+		</layout>
+	</appender>
+
+
+	<appender name="errorfile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<file>${lvl6.server.log.location}_errors.log</file>
+		<Append>true</Append>
+		<Encoding>UTF-8</Encoding>
+		<ImmediateFlush>false</ImmediateFlush>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${lvl6.server.log.location}_errors.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d | %-5p | %X{playerId}%X{udid} | %t | %c{1} - %m%n
+			</Pattern>
+		</layout>
+	</appender>
+
+
+
+	<root level="info">
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+		<appender-ref ref="errorfile" />
+		<appender-ref ref="elasticsearch" />
+	</root>
+</configuration>

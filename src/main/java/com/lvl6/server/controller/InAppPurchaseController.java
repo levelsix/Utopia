@@ -21,9 +21,10 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -50,7 +51,7 @@ import com.lvl6.utils.utilmethods.InsertUtil;
 @DependsOn("gameServer")
 public class InAppPurchaseController extends EventController {
 
-  private static Logger log = Logger.getLogger(new Object() {
+  private static Logger log = LoggerFactory.getLogger(new Object() {
   }.getClass().getEnclosingClass());
 
   private static final String SANDBOX_URL = "https://sandbox.itunes.apple.com/verifyReceipt";
@@ -237,7 +238,7 @@ public class InAppPurchaseController extends EventController {
         }
       }
     } catch (Exception e) {
-      log.error(e);
+      log.error("Error doing Kabam post", e);
     }
   }
 

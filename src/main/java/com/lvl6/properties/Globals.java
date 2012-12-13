@@ -1,6 +1,5 @@
 package com.lvl6.properties;
 
-import org.apache.log4j.Level;
 
 import com.lvl6.spring.AppContext;
 
@@ -73,7 +72,7 @@ public class Globals {
     public static final String REVIEW_PAGE_URL = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=548520325&pageNumber=0&sortOrdering=1&type=Purple+Software";
     public static final String REVIEW_PAGE_CONFIRMATION_MESSAGE = "Awesome! Rate us 5 Stars in the App Store to keep the updates coming!";
     
-    public static final Level LOG_LEVEL = Level.INFO;
+    //public static final Level LOG_LEVEL = Level.INFO;
     
     public static final int NUM_SECONDS_FOR_CONTROLLER_PROCESS_EVENT_LONGTIME_LOG_WARNING = 1;
     

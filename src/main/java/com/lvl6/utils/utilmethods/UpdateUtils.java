@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 
@@ -28,8 +29,10 @@ import com.lvl6.utils.DBConnection;
 
 public class UpdateUtils implements UpdateUtil {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+	private static final Logger log = LoggerFactory.getLogger(UpdateUtils.class);
+	
+	
   public static UpdateUtil get() {
     return (UpdateUtil) AppContext.getApplicationContext().getBean("updateUtils");
   }
@@ -889,6 +892,9 @@ public class UpdateUtils implements UpdateUtil {
 	  int numUpdated = DBConnection.get().updateTableRows(tableName, relativeParams, 
 			  absoluteParams, conditionParams, condDelim);
 	  
+	  log.info("after a battle in a clan tower war. numUpdated=" + numUpdated);
+	  log.info("clanTowerId=" + clanTowerId + ", ownerId=" + ownerId + ", attackerId=" + attackerId
+	      + ", ownerWon=" + ownerWon + ", amountToIncrementBattleWinsBy=" + amountToIncrementBattleWinsBy);
 	  //a clan can own multiple towers with another clan being the same attacker for all of them
 	  if (0 == numUpdated) {
 		  return false; //there should be a tower with an owner and an attacker with the specified ids 
@@ -899,7 +905,7 @@ public class UpdateUtils implements UpdateUtil {
   }
   
   public boolean resetClanTowerOwnerOrAttacker(List<Integer> clanTowerOwnerOrAttackerIds, boolean resetOwner) {
-	  if(clanTowerOwnerOrAttackerIds.isEmpty()) {
+	  if(null == clanTowerOwnerOrAttackerIds || clanTowerOwnerOrAttackerIds.isEmpty()) {
 		  return true;
 	  }
 	  String tableName = DBConstants.TABLE_CLAN_TOWERS;
@@ -981,7 +987,7 @@ public class UpdateUtils implements UpdateUtil {
   }
   
   public boolean updateTowerHistory(List<ClanTower> towers, String reasonForEntry) {
-	  if (towers.isEmpty()) {
+	  if (null == towers || towers.isEmpty()) {
 		  return true;
 	  }
 	  

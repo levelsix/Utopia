@@ -6,7 +6,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.hazelcast.core.IMap;
 import com.lvl6.events.PreDatabaseRequestEvent;
@@ -18,7 +19,8 @@ import com.lvl6.utils.ConnectedPlayer;
 public class GameEventHandler extends AbstractGameEventHandler {
 	private static final int DEFAULT_TTL = 9;
 
-	static Logger log = Logger.getLogger(GameEventHandler.class);
+	
+	private static final Logger log = LoggerFactory.getLogger(GameEventHandler.class);
 
 	@Resource(name = "playersByPlayerId")
 	IMap<Integer, ConnectedPlayer> playersByPlayerId;

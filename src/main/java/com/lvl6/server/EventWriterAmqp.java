@@ -64,9 +64,9 @@ public class EventWriterAmqp extends EventWriter {
 	public void processPreDBResponseEvent(ResponseEvent event, String udid) {
 		//log.info("writer received predb event=\n"+event.toString());
 		byte[] buff = getByteArray(event);
-		MessageProperties msgProps = new MessageProperties();
+		MessageProperties msgProps = getProps();
 		String routingKey = "client_udid_" + udid;
-		log.info("writing predb event with type=" + event.getEventType() + " to player with routingKey "+ routingKey + ", event=" + event);
+		log.debug("writing predb event with type=" + event.getEventType() + " to player with routingKey "+ routingKey + ", event=" + event);
 		sendMessageToPlayer(buff, msgProps, routingKey);
 	}
 
@@ -77,13 +77,13 @@ public class EventWriterAmqp extends EventWriter {
 	public void processResponseEvent(ResponseEvent event) {
 		//log.debug("writer received event=\n" + event.toString());
 		byte[] buff = getByteArray(event);
-		MessageProperties msgProps = new MessageProperties();
+		MessageProperties msgProps = getProps();
 		if (BroadcastResponseEvent.class.isInstance(event)) {
 			int[] recipients = ((BroadcastResponseEvent) event).getRecipients();
 			for (int i = 0; i < recipients.length; i++) {
 				if (recipients[i] > 0) {
 					String routingKey = "client_userid_" + recipients[i];
-					log.info("writing broadcast event with type=" + event.getEventType()
+					log.debug("writing broadcast event with type=" + event.getEventType()
 							+ " to players with routingKey " + routingKey);
 					sendMessageToPlayer(buff, msgProps, routingKey);
 				}
@@ -93,10 +93,16 @@ public class EventWriterAmqp extends EventWriter {
 		else {
 			int playerId = ((NormalResponseEvent) event).getPlayerId();
 			String routingKey = "client_userid_" + playerId;
-			log.info("writing normal event with type=" + event.getEventType() + " to player with routingKey "
+			log.debug("writing normal event with type=" + event.getEventType() + " to player with routingKey "
 					+ routingKey + " event=" + event.getClass().getSimpleName());
 			sendMessageToPlayer(buff, msgProps, routingKey);
 		}
+	}
+
+	protected MessageProperties getProps() {
+		MessageProperties msgProps = new MessageProperties();
+		msgProps.setHeader("x-message-ttl", 360000);
+		return msgProps;
 	}
 
 	protected void sendMessageToPlayer(byte[] buff, MessageProperties msgProps, String routingKey) {
@@ -105,14 +111,14 @@ public class EventWriterAmqp extends EventWriter {
 
 	@Override
 	public void processClanResponseEvent(ResponseEvent event, int clanId) {
-		MessageProperties msgProps = new MessageProperties();
+		MessageProperties msgProps = getProps();
 		String clanIdString = "clan_" + clanId;
 		log.info("Sending clan response event with routing key:" + clanIdString);
 		chatTemplate.send(clanIdString, new Message(getByteArray(event), msgProps));
 	}
 
 	public void processGlobalChatResponseEvent(ResponseEvent event) {
-		MessageProperties msgProps = new MessageProperties();
+		MessageProperties msgProps = getProps();
 		String chatGlobalRoutingKey = "chat_global";
     log.info("Sending global event with type="+event.getEventType()+" with routing key:" + chatGlobalRoutingKey);
 		chatTemplate.send(chatGlobalRoutingKey, new Message(getByteArray(event), msgProps));
@@ -153,11 +159,7 @@ public class EventWriterAmqp extends EventWriter {
 		log.info("Last 50 bytes:\n{}", buf.toString());
 	}
 
-	@Override
-	public void sendAdminMessage(String message) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 
 }// EventWriter

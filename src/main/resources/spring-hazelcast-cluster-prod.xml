@@ -15,7 +15,7 @@
 		<hz:config >
 			<hz:group name="${hazelcast.group}" password="${hazelcast.pass}" />
 			<hz:properties>
-				<hz:property name="hazelcast.logging.type">log4j</hz:property>
+				<hz:property name="hazelcast.logging.type">slf4j</hz:property>
 				<hz:property name="hazelcast.max.no.heartbeat.seconds">20</hz:property>
 				
 			</hz:properties>

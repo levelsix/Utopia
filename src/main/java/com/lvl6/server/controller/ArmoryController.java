@@ -4,7 +4,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +34,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
 @Component @DependsOn("gameServer") public class ArmoryController extends EventController {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public ArmoryController() {
     numAllocatedThreads = 4;
@@ -74,12 +75,12 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
       if (quantity != 1 || equipment == null || !equipment.isBuyableInArmory()) {
         if (quantity > 1) {
-          log.fatal("controller does not support selling quantity > 1");
+          log.error("controller does not support selling quantity > 1");
           quantity = 1;
         }
         resBuilder.setStatus(ArmoryStatus.OTHER_FAIL);
       } else if (requestType != ArmoryRequestType.BUY) {
-        log.fatal("controller does not support non buy");
+        log.error("controller does not support non buy");
         resBuilder.setStatus(ArmoryStatus.OTHER_FAIL);
       } else {
         if (requestType == ArmoryRequestType.BUY) {

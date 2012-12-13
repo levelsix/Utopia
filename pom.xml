@@ -149,13 +149,13 @@
 		<profile>
 			<id>kellylocal</id>
 			<properties>
-				<lvl6.server.log.location>~/Desktop/kingdom</lvl6.server.log.location>
+				<lvl6.server.log.location>/tmp/kingdom</lvl6.server.log.location>
 				<server.port>10001</server.port>
 				<hazelcast.group>kelly1</hazelcast.group>
 				<hazelcast.pass>lvl6</hazelcast.pass>
 				<hazelcast.config>dev</hazelcast.config>
 				<hazelcast.port>6702</hazelcast.port>
-				<hazelcast.dev.ips>192.168.13.143</hazelcast.dev.ips>
+				<hazelcast.dev.ips>192.168.5.101</hazelcast.dev.ips>
 			</properties>
 		</profile>
 		<profile>
@@ -197,6 +197,32 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
+<!-- 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.4.2</version>
+				<executions>
+					<execution>
+						<id>default-copy-resources</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<overwrite>true</overwrite>
+							<outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/WEB-INF/classes</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/src/main/resources/</directory>
+									<includes>
+										<include>logback.xml</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin> -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -211,12 +237,6 @@
 					<includes>
 						<include>**/test/*.java</include>
 					</includes>
-					<systemproperties>
-						<property>
-							<name>log4j.configuration</name>
-							<value>log4j.xml</value>
-						</property>
-					</systemproperties>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -431,10 +451,12 @@
 				<version>2.8.1</version>
 				<scope>provided</scope>
 			</dependency>
+			<!-- <dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> 
+				<version>1.2.16</version> </dependency> -->
 			<dependency>
-				<groupId>log4j</groupId>
-				<artifactId>log4j</artifactId>
-				<version>1.2.16</version>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>1.0.7</version>
 			</dependency>
 			<dependency>
 				<groupId>c3p0</groupId>
@@ -618,11 +640,8 @@
 				<artifactId>hector-core</artifactId>
 				<version>1.1-1</version>
 			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-log4j12</artifactId>
-				<version>1.6.6</version>
-			</dependency>
+			<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-log4j12</artifactId> 
+				<version>1.6.6</version> </dependency> -->
 			<dependency>
 				<groupId>redis.clients</groupId>
 				<artifactId>jedis</artifactId>
@@ -718,9 +737,11 @@
 			<groupId>spy</groupId>
 			<artifactId>spymemcached</artifactId>
 		</dependency>
+		<!-- <dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> 
+			</dependency> -->
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>c3p0</groupId>
@@ -827,11 +848,26 @@
 		<dependency>
 			<groupId>org.hectorclient</groupId>
 			<artifactId>hector-core</artifactId>
+			<!-- <exclusions> <exclusion> <artifactId>log4j</artifactId> <groupId>log4j</groupId> 
+				</exclusion> <exclusion> <artifactId>slf4j-log4j12</artifactId> <groupId>org.slf4j</groupId> 
+				</exclusion> </exclusions> -->
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-log4j12</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>org.mortbay.jetty</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-		</dependency>
+		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-log4j12</artifactId> 
+			</dependency> -->
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>

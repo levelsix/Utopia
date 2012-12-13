@@ -2,9 +2,9 @@ package com.lvl6.test;
 
 import java.util.Random;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -16,7 +16,7 @@ import com.lvl6.scriptsjava.generatefakeusers.GenerateFakeUsersWithoutInput;
 @ContextConfiguration("/test-spring-application-context.xml")
 
 public class GeneratingFakeUsersTests {
-	private static Logger log = Logger.getLogger(GenerateFakeUsersWithoutInput.class);
+	private static org.slf4j.Logger log = LoggerFactory.getLogger(GenerateFakeUsersWithoutInput.class);
 	
 	@Test
 	public void emptyTest() {

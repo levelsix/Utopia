@@ -12,8 +12,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.StringTokenizer;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.MDC;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.core.task.TaskExecutor;
 
 import com.lvl6.events.response.ChangedClanTowerResponseEvent;
@@ -31,6 +32,7 @@ import com.lvl6.info.Location;
 import com.lvl6.info.LockBoxEvent;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.info.UserClan;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.ValidLocationBox;
 import com.lvl6.leaderboards.LeaderBoardUtil;
@@ -39,8 +41,8 @@ import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.properties.MDCKeys;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto;
-import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowerChange;
+import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.CharacterModConstants;
@@ -89,14 +91,13 @@ import com.lvl6.server.GameServer;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
-import com.lvl6.utils.MessagingUtil;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class MiscMethods {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+	private static final Logger log = LoggerFactory.getLogger(MiscMethods.class);
   public static final String clanTowersClanAttacked = "clanTowersClanAttacked";
   public static final String clanTowersClanOwned = "clanTowersClanOwned";
 
@@ -144,8 +145,7 @@ public class MiscMethods {
           }
         }
       } catch (Exception e) {
-        log.error("problem with creating dialogue object for this dialogueblob: " + dialogueBlob);
-        log.error(e);
+        log.error("problem with creating dialogue object for this dialogueblob: {}", dialogueBlob, e);
       }
       return new Dialogue(speakers, speakerTexts);
     }
@@ -192,7 +192,7 @@ public class MiscMethods {
     purgeMDCProperties();
     if (udid != null) MDC.put(MDCKeys.UDID, udid);
     if (ip != null) MDC.put(MDCKeys.IP, ip);
-    if (playerId != null && playerId > 0) MDC.put(MDCKeys.PLAYER_ID, playerId);
+    if (playerId != null && playerId > 0) MDC.put(MDCKeys.PLAYER_ID.toString(), playerId.toString());
   }
 
   public static int calculateCoinsGivenToReferrer(User referrer) {
@@ -727,7 +727,18 @@ public class MiscMethods {
   //returns ids of clan towers that the clan owned and attacked
   public static Map<String, List<Integer>> updateClanTowersAfterClanSizeDecrease(Clan aClan) {
     int clanId = aClan.getId();
-    int clanSize = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId).size();
+    
+    //can be null if the clan was just deleted, otherwise a list of all members in the clan
+    List<UserClan> userClanList = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId);
+    
+    int clanSize = 0;
+    
+    if(null == userClanList || userClanList.isEmpty()) {
+      clanSize = 0;
+    } else {
+      clanSize = userClanList.size(); 
+    }
+    
     int minSize = ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER;
 
     if (clanSize < minSize) {
@@ -743,6 +754,13 @@ public class MiscMethods {
       //return value
       Map<String, List<Integer>> towersBeforeUpdate = new HashMap<String, List<Integer>>();
 
+      if(null == towersOwned) {
+        towersOwned = new ArrayList<ClanTower>();
+      }
+      if(null == towersAttacked) {
+        towersAttacked = new ArrayList<ClanTower>();
+      }
+      
       //if the clan has towers do something.
       if(0 < towersOwned.size() || 0 < towersAttacked.size()) {
         List<Integer> ownedIds = new ArrayList<Integer>();
