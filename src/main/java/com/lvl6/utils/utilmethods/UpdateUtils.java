@@ -931,7 +931,7 @@ public class UpdateUtils implements UpdateUtil {
 		  //set the clanOwnerId to the clanAttackerId, regardless of whether it is set
 		  ownerOrAttacker = DBConstants.CLAN_TOWERS__CLAN_OWNER_ID + "=" +
 				  DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + ",";
-		  ownerOrAttacker += DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + "=?,";
+		  ownerOrAttacker += " " + DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + "=?,";
 		  values.add(null);
 		  
 		  //changed ownership, reset time and battle wins
@@ -950,7 +950,7 @@ public class UpdateUtils implements UpdateUtil {
 		  lastRewardTime = " " + DBConstants.CLAN_TOWERS__LAST_REWARD_GIVEN + "=?";
 		  values.add(null);
 		  
-		  whereClause = " where " + DBConstants.CLAN_TOWERS__CLAN_OWNER_ID + "in (" +
+		  whereClause = " where " + DBConstants.CLAN_TOWERS__CLAN_OWNER_ID + " in (" +
 				  listOfIds + ")";
 	  }
 	  else {
@@ -966,7 +966,7 @@ public class UpdateUtils implements UpdateUtil {
 		  attackStartTime = " " + DBConstants.CLAN_TOWERS__ATTACK_START_TIME + "=?";
 		  values.add(null);
 		  
-		  whereClause = " where " + DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + "in (" +
+		  whereClause = " where " + DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + " in (" +
 				  listOfIds + ")";
 	  }
 	  String query = "update " + tableName + " set "  
