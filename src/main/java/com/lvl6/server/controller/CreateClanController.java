@@ -115,7 +115,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        sendGeneralNotification(clanName);
+        sendGeneralNotification(user.getName(), clanName);
       }
     } catch (Exception e) {
       log.error("exception in CreateClan processEvent", e);
@@ -179,9 +179,9 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     return true;
   }
   
-  private void sendGeneralNotification (String clanName) {
+  private void sendGeneralNotification (String userName, String clanName) {
 	  Notification createClanNotification = new Notification ();
-	  createClanNotification.setNotificationAsClanCreated(clanName);
+	  createClanNotification.setNotificationAsClanCreated(userName, clanName);
 	  
 	  MiscMethods.writeGlobalNotification(createClanNotification, server);
   }
