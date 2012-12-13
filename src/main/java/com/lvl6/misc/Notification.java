@@ -113,9 +113,12 @@ public class Notification {
       Object[] arguments = { attacker, owner, towerName };
 
       MessageFormat formatTitle = new MessageFormat(NotificationConstants.CLAN_TOWER_ATTACKER_DETERMINED__TITLE);
+      MessageFormat formatSubtitle = new MessageFormat(NotificationConstants.CLAN_TOWER_ATTACKER_DETERMINED__SUBTITLE);
       String title = formatTitle.format(arguments);
+      String subtitle = formatSubtitle.format(arguments);
 
       keysAndValues.put("title", title);
+      keysAndValues.put("subtitle", subtitle);
     }
 
     keysAndValues.put("rgb", rgb.build());
