@@ -444,18 +444,18 @@ public class TaskActionController extends EventController {
             + simulateEnergyRefill + ", user=" + user);
       }
       
-      //NOTIFICATION FEATURE: for when user gets an epic equip
-      if (ControllerConstants.NOT_SET != lootEquipId) {
-    	  Map<Integer, Equipment> gear = getEquip(lootEquipId);
-    	  if (1 != gear.size()) {
-    		  log.error("Equipments retrieved from db should have been 1.");
-    	  }
-    	  else {
-    		  int cityId = task.getCityId();
-    		  City aCity = CityRetrieveUtils.getCityForCityId(cityId);
-    		  sendGeneralNotification(gear.get(0), user.getName(), aCity.getName());
-    	  }
-      }
+//      //NOTIFICATION FEATURE: for when user gets an epic equip
+//      if (ControllerConstants.NOT_SET != lootEquipId) {
+//    	  Map<Integer, Equipment> gear = getEquip(lootEquipId);
+//    	  if (1 != gear.size()) {
+//    		  log.error("Equipments retrieved from db should have been 1.");
+//    	  }
+//    	  else {
+//    		  int cityId = task.getCityId();
+//    		  City aCity = CityRetrieveUtils.getCityForCityId(cityId);
+//    		  sendGeneralNotification(gear.get(0), user.getName(), aCity.getName());
+//    	  }
+//      }
       
     }
   }
