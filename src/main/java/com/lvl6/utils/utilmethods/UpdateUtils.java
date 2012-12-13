@@ -976,8 +976,11 @@ public class UpdateUtils implements UpdateUtil {
 		        + lastRewardTime
 		        + whereClause ;
 	  
+	  int numTowers = clanTowerOwnerOrAttackerIds.size();
 	  int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
-	  if (clanTowerOwnerOrAttackerIds.size() != numUpdated) {
+	  log.info("resetClanTowerOwnerOrAttacker: num towers updated=" + numUpdated + " \n "
+	      + "The number of towers=" + numTowers + ". The towers=" + clanTowerOwnerOrAttackerIds);
+	  if (numTowers != numUpdated) {
 		  return false;
 	  }
 	  else {
