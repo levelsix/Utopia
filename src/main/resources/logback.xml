@@ -28,8 +28,7 @@
 		<ImmediateFlush>false</ImmediateFlush>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<fileNamePattern>${lvl6.server.log.location}.%d{yyyy-MM-dd}.log
-			</fileNamePattern>
+			<fileNamePattern>${lvl6.server.log.location}.%d{yyyy-MM-dd}.log</fileNamePattern>
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 
@@ -51,8 +50,7 @@
 		<ImmediateFlush>false</ImmediateFlush>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<fileNamePattern>${lvl6.server.log.location}.%d{yyyy-MM-dd}.log
-			</fileNamePattern>
+			<fileNamePattern>${lvl6.server.log.location}_errors.%d{yyyy-MM-dd}.log</fileNamePattern>
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 
