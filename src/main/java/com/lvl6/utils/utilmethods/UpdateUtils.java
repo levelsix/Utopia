@@ -988,6 +988,8 @@ public class UpdateUtils implements UpdateUtil {
 		  return true;
 	  }
 	  
+	  List<Object> values = new ArrayList<Object>();
+	  
 	  String tableName = DBConstants.TABLE_CLAN_TOWERS_HISTORY;
 	  String query = "insert into " + tableName 
 				+" ("
@@ -1006,18 +1008,20 @@ public class UpdateUtils implements UpdateUtil {
 		  +tower.getClanOwnerId()+", "
 	      +tower.getClanAttackerId()+","
 	      +tower.getId()+", "
-	      +tower.getAttackStartTime()+", "
+	      +"?, "
 	      +tower.getOwnerBattleWins()+", "
 	      +tower.getAttackerBattleWins()+", "
 	      +tower.getNumHoursForBattle()+", "
-	      +tower.getLastRewardGiven()+", "
+	      +"?, "
 	      +"\""+reasonForEntry+"\"), ";
+		  values.add(tower.getAttackStartTime());
+		  values.add(tower.getLastRewardGiven());
 	  }
 	  int commaEnding = 2;
 	  query = query.substring(0, query.length()-commaEnding);
 	  log.info("the query to write to clan_towers_history table is: \n" + query);
 	  
-	  int numUpdated = DBConnection.get().updateDirectQueryNaive(query, null);
+	  int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
 	  if(towers.size() != numUpdated) {
 		  return false;
 	  }

@@ -180,8 +180,9 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   }
   
   private void sendGeneralNotification (String clanName) {
-	  Notification createClanNotification = new Notification (server, playersByPlayerId.values());
+	  Notification createClanNotification = new Notification ();
 	  createClanNotification.setNotificationAsClanCreated(clanName);
-	  executor.execute(createClanNotification);
+	  
+	  MiscMethods.writeGlobalNotification(createClanNotification, server);
   }
 }

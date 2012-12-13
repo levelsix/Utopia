@@ -1,5 +1,6 @@
 package com.lvl6.misc;
 
+import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,26 +10,28 @@ import org.slf4j.LoggerFactory;
 
 import com.lvl6.events.response.GeneralNotificationResponseEvent;
 import com.lvl6.properties.ControllerConstants;
+import com.lvl6.properties.NotificationConstants;
 import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.InfoProto.ColorProto;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.ConnectedPlayer;
 
-public class Notification implements Runnable {
+public class Notification {
 
 
 	private static final Logger log = LoggerFactory.getLogger(Notification.class);
   private GameServer server;
   private Collection<ConnectedPlayer> allOnlinePlayers;
+
   private Map<String, Object> keysAndValues;
-  private ColorProto.Builder clr;
+  private ColorProto.Builder rgb;
 
   public static final String ATTACKER_CONCEDED = "attacker conceded";
+  public static final String OWNER_CONCEDED = "owner conceded";
   public static final String ATTACKER_NOT_ENOUGH_MEMBERS = "attacker does not have enough members";
+  public static final String OWNER_NOT_ENOUGH_MEMBERS = "owner does not have enough members";
   public static final String CLAN_TOWER_WAR_ENDED = "battle ended";
   public static final String FOUND_AN_EPIC = "found an epic";
-  public static final String OWNER_CONCEDED = "owner conceded";
-  public static final String OWNER_NOT_ENOUGH_MEMBERS = "owner does not have enough members";
 
   //TODO: Determine the amount of time in between periodic notifications
   public static final long milliseconds_between_periodic_notifications = 
@@ -44,12 +47,9 @@ public class Notification implements Runnable {
    * and passing it into executor.execute whenever a message wants to be sent to players online.
    * Example would be in SendGroupChatController.java regarding sending to all players online.
    */
-  public Notification (GameServer server, 
-      Collection<ConnectedPlayer> allOnlinePlayers) {
-    this.server = server;
-    this.allOnlinePlayers = allOnlinePlayers;
+  public Notification () {
     this.keysAndValues = new HashMap<String, Object>();
-    this.clr = ColorProto.newBuilder();
+    //this.clr = ColorProto.newBuilder();
   }
 
   public void run () {
@@ -66,9 +66,10 @@ public class Notification implements Runnable {
         log.error("Error running Notification", e);
       }
     }
+    this.rgb = ColorProto.newBuilder();
   }
 
-  private GeneralNotificationResponseProto.Builder generateNotificationBuilder() {
+  public GeneralNotificationResponseProto.Builder generateNotificationBuilder() {
     final GeneralNotificationResponseProto.Builder notificationProto = 
         GeneralNotificationResponseProto.newBuilder();
     try {
@@ -82,28 +83,94 @@ public class Notification implements Runnable {
     return notificationProto;
   }
 
-  public void setNotificationAsAttackerConceded () {
+  public void setAsClanTowerWarClanConceded (String losingClan, String winningClan, String towerName) {
+    MessageFormat formatTitle = new MessageFormat(NotificationConstants.CLAN_CONCEDED__TITLE);
+    MessageFormat formatSubtitle = new MessageFormat(NotificationConstants.CLAN_CONCEDED__SUBTITLE);
+    
+    Object[] arguments = { losingClan, winningClan, towerName };
+    
+    String title = formatTitle.format(arguments);
+    String subtitle = formatSubtitle.format(arguments);
+    rgb.setBlue(NotificationConstants.CLAN_CONCEDED__BLUE);
+    rgb.setGreen(NotificationConstants.CLAN_CONCEDED__GREEN);
+    rgb.setRed(NotificationConstants.CLAN_CONCEDED__RED);
+    
+    keysAndValues.put("title", title);
+    keysAndValues.put("subtitle", subtitle);
+    keysAndValues.put("rgb", rgb.build());
+  }
+  
+  public void setAsClanTowerWarClanWon (String clanTowerAttackerName, String clanTowerOwnerName, 
+      String towerName, boolean attackerWon) {
+    MessageFormat formatTitle = new MessageFormat(NotificationConstants.CLAN_WON__TITLE);
+    MessageFormat formatSubtitle = new MessageFormat(NotificationConstants.CLAN_WON__SUBTITLE);
+    
+    Object[] arguments;
+    if(attackerWon) {
+      arguments = new Object[]{ clanTowerAttackerName, clanTowerOwnerName, towerName};
+    } else {
+      arguments = new Object[]{ clanTowerOwnerName, clanTowerAttackerName, towerName};
+    }
+    
+    String title = formatTitle.format(arguments);
+    String subtitle = formatSubtitle.format(arguments);
+    rgb.setBlue(NotificationConstants.CLAN_WON__BLUE);
+    rgb.setGreen(NotificationConstants.CLAN_WON__GREEN);
+    rgb.setRed(NotificationConstants.CLAN_WON__RED);
+    
+    keysAndValues.put("title", title);
+    keysAndValues.put("subtitle", subtitle);
+    keysAndValues.put("rgb", rgb.build());
+  }
+  
+  public void setAsClanTowerWarAttackerOwnerDetermined (String attacker, String owner, String towerName, boolean ownerDetermined) {
+    if(ownerDetermined) {
+      Object[] arguments = { owner, towerName };
+
+      MessageFormat formatTitle = new MessageFormat(NotificationConstants.CLAN_TOWER_OWNER_DETERMINED__TITLE);
+      MessageFormat formatSubtitle = new MessageFormat(NotificationConstants.CLAN_TOWER_OWNER_DETERMINED__SUBTITLE);
+      String title = formatTitle.format(arguments);
+      String subtitle = formatSubtitle.format(arguments);
+
+      keysAndValues.put("title", title);
+      keysAndValues.put("subtitle", subtitle);
+    }  else {
+      Object[] arguments = { attacker, owner, towerName };
+
+      MessageFormat formatTitle = new MessageFormat(NotificationConstants.CLAN_TOWER_ATTACKER_DETERMINED__TITLE);
+      String title = formatTitle.format(arguments);
+
+      keysAndValues.put("title", title);
+    }
+
+    keysAndValues.put("rgb", rgb.build());
 
   }
 
-  public void setNotificationAsClanTowerStatus(){
-
+  public void setAsClanTowerWarDistributeRewards(String towerName, int silverReward, int goldReward) {
+    String silver = "";
+    String conjunction = "";
+    String gold = "";
+    
+    if(0 < silverReward) {
+      silver = silverReward + " silver";
+    }
+    if(0 < goldReward) {
+      conjunction += " and";
+      gold += goldReward + " gold.";
+    }
+    
+    Object[] arguments = { towerName };
+    MessageFormat formatTitle = new MessageFormat(NotificationConstants.CLAN_TOWER_DISTRIBUTE_REWARDS__TITLE);
+    
+    String title = formatTitle.format(arguments);
+    String subtitle = NotificationConstants.CLAN_TOWER_DISTRIBUTE_REWARDS__SUBTITLE;
+    subtitle += silver + conjunction + gold;
+    
+    keysAndValues.put("title", title);
+    keysAndValues.put("subtitle", subtitle);
   }
-
-  public void setNotificationAsClanTowerWarStarted (String clanTowerOwnerName, 
-      String clanTowerAttackerName, String towerName) {
-
-    //TODO: write logic for this function, store to keysAndValues
-    //ex: keysAndValues.put("title", "clan tower war started");
-    //    keysAndValues.put("subtitle", "whatever"); and so on
-
-  }
-
-  public void setNotificationAsClanTowerWarEnded (String clanTowerOwnerName, 
-      String clanTowerAttackerName, String towerName, boolean attackerWon) {
-    //TODO: write logic for this function
-  }
-
+  
   public void setNotificationAsClanCreated (String clanName) {
     //TODO: write logic for this function
   }
@@ -111,16 +178,5 @@ public class Notification implements Runnable {
   public void setNotificationAsEpicWeaponDropped (
       String userName, String equipName, String townName) {
     //TODO: write logic for this function
-  }
-
-  public void setNotificationAsOwnerConceded () {
-
-  }
-
-  public void setAsClanTowerWarClanNotEnoughMembers(String clanTag, 
-      String clanName, String towerName, boolean isTowerOwner) {
-    String title = "";
-    String subtitle = "";
-
   }
 }

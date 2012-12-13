@@ -18,6 +18,7 @@ import org.slf4j.MDC;
 import org.springframework.core.task.TaskExecutor;
 
 import com.lvl6.events.response.ChangedClanTowerResponseEvent;
+import com.lvl6.events.response.GeneralNotificationResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.BossEvent;
@@ -39,6 +40,7 @@ import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.properties.MDCKeys;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto;
+import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowerChange;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
@@ -62,6 +64,7 @@ import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
@@ -366,7 +369,9 @@ public class MiscMethods {
         .setNumHoursBeforeReshowingBossEvent(ControllerConstants.NUM_HOURS_BEFORE_RESHOWING_BOSS_EVENT)
         .setLevelToShowRateUsPopup(ControllerConstants.LEVEL_TO_SHOW_RATE_US_POPUP)
         .setBossEventNumberOfAttacksUntilSuperAttack(ControllerConstants.BOSS_EVENT__NUMBER_OF_ATTACKS_UNTIL_SUPER_ATTACK)
-        .setBossEventSuperAttack(ControllerConstants.BOSS_EVENT__SUPER_ATTACK);
+        .setBossEventSuperAttack(ControllerConstants.BOSS_EVENT__SUPER_ATTACK)
+        .setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA);
+ 
 
     if (ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS != null) {
       for (int i = 0; i < ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS.length; i++) {
@@ -799,7 +804,7 @@ public class MiscMethods {
           notificationsToSend, attackerWon, onlinePlayers, server);
       
       for(Notification n: notificationsToSend) {
-        executor.execute(n);
+        writeGlobalNotification(n, server);
       }
       return;
     }
@@ -811,17 +816,28 @@ public class MiscMethods {
       Map<Integer, ClanTower> clanTowerIdsToClanTowers, List<Notification> notificationsToSend,
       boolean isTowerOwner, Collection<ConnectedPlayer> onlinePlayers, GameServer server) {
     
-    String clanTag = aClan.getTag();
-    String clanName = aClan.getName();
-    
     //for each tower make a notification for it
     for(Integer towerId: towerIds) {
       ClanTower aTower = clanTowerIdsToClanTowers.get(towerId);
       String towerName = aTower.getTowerName();
-      Notification clanTowerWarNotification = new Notification (server, onlinePlayers);
+      Notification clanTowerWarNotification = new Notification ();
+      Clan losingClan;
+      Clan winningClan;
+      String losingClanName;
+      String winningClanName;
       
-      clanTowerWarNotification.setAsClanTowerWarClanNotEnoughMembers(clanTag,
-          clanName, towerName, isTowerOwner);
+      if(isTowerOwner) {
+        losingClan = aClan;
+        winningClan = ClanRetrieveUtils.getClanWithId(aTower.getClanAttackerId());
+      } else {
+        losingClan = ClanRetrieveUtils.getClanWithId(aTower.getClanOwnerId());
+        winningClan = aClan;
+      }
+      
+      losingClanName = losingClan.getName();
+      winningClanName = winningClan.getName();
+      clanTowerWarNotification.setAsClanTowerWarClanConceded(
+          losingClanName, winningClanName, towerName);
       notificationsToSend.add(clanTowerWarNotification);
     }
   }
@@ -845,9 +861,16 @@ public class MiscMethods {
       ChangedClanTowerResponseEvent e = new ChangedClanTowerResponseEvent(0);
       e.setChangedClanTowerResponseProto(t.build());
       
-      MessagingUtil msgUtil = AppContext.getApplicationContext().getBean(MessagingUtil.class);
-      msgUtil.sendGlobalMessage(e);
+      server.writeGlobalEvent(e);
     }
   }
   
+  public static void writeGlobalNotification(Notification n, GameServer server) {
+    GeneralNotificationResponseProto.Builder notificationProto = 
+        n.generateNotificationBuilder();
+    
+    GeneralNotificationResponseEvent aNotification = new GeneralNotificationResponseEvent(0);
+    aNotification.setGeneralNotificationResponseProto(notificationProto.build());
+    server.writeGlobalEvent(aNotification);
+  }
 }

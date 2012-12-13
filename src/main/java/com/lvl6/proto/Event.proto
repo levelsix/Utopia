@@ -321,6 +321,8 @@ message StartupResponseProto {
 		optional int32 bossEventNumberOfAttacksUntilSuperAttack = 88;
 		optional double bossEventSuperAttack = 89;
 		
+		optional int32 initStamina = 91;
+		
 		message DownloadableNibConstants {
 			optional string threeCardMonteNibName = 1;
 			optional string lockBoxNibName = 2;
@@ -2222,6 +2224,7 @@ message BossActionResponseProto {
 	repeated int32 coinsGained = 6;
 	repeated int32 diamondsGained = 7;
 	optional int32 bossId = 8;
+	optional int32 expGained = 9;
 	
 	enum BossActionStatus {
 		SUCCESS = 0; 
