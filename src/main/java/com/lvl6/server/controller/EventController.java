@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.scheduling.annotation.Async;
@@ -8,7 +10,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import com.lvl6.events.GameEvent;
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -51,8 +53,7 @@ public abstract class EventController extends Wrap {
 		this.server = server;
 	}
 
-	private static Logger log = LoggerFactory.getLogger(new Object() {
-	}.getClass().getEnclosingClass());
+	private static Logger log = LoggerFactory.getLogger(new Object() {}.getClass().getEnclosingClass());
 
 	// we have the controllers call server.writeEvent manually already
 	// /**
@@ -88,7 +89,7 @@ public abstract class EventController extends Wrap {
 						reqEvent.getPlayerId(),
 						MiscMethods.getIPOfPlayer(server,
 								reqEvent.getPlayerId(), null));
-		log.info("Received event: " + event.toString());
+		log.info("Received event: {}", event.getClass().getName());
 
 		final long startTime = System.nanoTime();
 		final long endTime;
@@ -105,15 +106,10 @@ public abstract class EventController extends Wrap {
 		}
 		double numSeconds = (endTime - startTime) / 1000000;
 
-		log.info("Finished processing event: " + event.toString() + ", took ~"
-				+ numSeconds + "ms");
+		log.info("Finished processing event: {}, took ~{}ms", event.getClass().getName(), numSeconds);
 
 		if (numSeconds / 1000 > Globals.NUM_SECONDS_FOR_CONTROLLER_PROCESS_EVENT_LONGTIME_LOG_WARNING) {
-			log.warn("event: "
-					+ event.toString()
-					+ " took over "
-					+ Globals.NUM_SECONDS_FOR_CONTROLLER_PROCESS_EVENT_LONGTIME_LOG_WARNING
-					+ " seconds");
+			log.warn("event: {} took over {} seconds", event.getClass().getName(),  Globals.NUM_SECONDS_FOR_CONTROLLER_PROCESS_EVENT_LONGTIME_LOG_WARNING);
 		}
 
 		MiscMethods.purgeMDCProperties();
