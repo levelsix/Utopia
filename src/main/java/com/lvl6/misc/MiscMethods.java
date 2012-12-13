@@ -32,6 +32,7 @@ import com.lvl6.info.Location;
 import com.lvl6.info.LockBoxEvent;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.info.UserClan;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.ValidLocationBox;
 import com.lvl6.leaderboards.LeaderBoardUtil;
@@ -40,8 +41,8 @@ import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.properties.MDCKeys;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto;
-import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowerChange;
+import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.CharacterModConstants;
@@ -90,7 +91,6 @@ import com.lvl6.server.GameServer;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
-import com.lvl6.utils.MessagingUtil;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
@@ -727,7 +727,18 @@ public class MiscMethods {
   //returns ids of clan towers that the clan owned and attacked
   public static Map<String, List<Integer>> updateClanTowersAfterClanSizeDecrease(Clan aClan) {
     int clanId = aClan.getId();
-    int clanSize = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId).size();
+    
+    //can be null if the clan was just deleted, otherwise a list of all members in the clan
+    List<UserClan> userClanList = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId);
+    
+    int clanSize = 0;
+    
+    if(null == userClanList || userClanList.isEmpty()) {
+      clanSize = 0;
+    } else {
+      clanSize = userClanList.size(); 
+    }
+    
     int minSize = ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER;
 
     if (clanSize < minSize) {
