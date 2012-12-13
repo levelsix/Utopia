@@ -902,7 +902,7 @@ public class UpdateUtils implements UpdateUtil {
   }
   
   public boolean resetClanTowerOwnerOrAttacker(List<Integer> clanTowerOwnerOrAttackerIds, boolean resetOwner) {
-	  if(clanTowerOwnerOrAttackerIds.isEmpty()) {
+	  if(null == clanTowerOwnerOrAttackerIds || clanTowerOwnerOrAttackerIds.isEmpty()) {
 		  return true;
 	  }
 	  String tableName = DBConstants.TABLE_CLAN_TOWERS;
@@ -984,7 +984,7 @@ public class UpdateUtils implements UpdateUtil {
   }
   
   public boolean updateTowerHistory(List<ClanTower> towers, String reasonForEntry) {
-	  if (towers.isEmpty()) {
+	  if (null == towers || towers.isEmpty()) {
 		  return true;
 	  }
 	  

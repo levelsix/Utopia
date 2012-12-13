@@ -334,6 +334,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int expGained = 0;
 
     if(isSuperAttack) {
+      log.info("superattack");
       double superAttack = ControllerConstants.BOSS_EVENT__SUPER_ATTACK;
       int integerPart = (int) superAttack;
       double fractionalPart = superAttack - integerPart;
@@ -341,17 +342,26 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int indexOfLastDamage = individualDamages.size() - 1;
       for(int i = 0; i < indexOfLastDamage; i++) {
         int dmgDone = individualDamages.get(i);
-        expGained += calculateExpGained(aBoss, dmgDone);
+        int exp = calculateExpGained(aBoss, dmgDone);
+        expGained += exp;
+        
+        log.info("damage=" + dmgDone + ", exp=" + exp);
       }
       
       if(superAttack != integerPart) {
         int lastDmgDone = individualDamages.get(indexOfLastDamage);
-        expGained += calculateExpGained(aBoss, lastDmgDone) * fractionalPart;
+        int exp = (int) (calculateExpGained(aBoss, lastDmgDone) * fractionalPart);
+        expGained += exp;
+        
+        log.info("last damage=" + lastDmgDone + ", exp=" + exp);
       }
       
     } else {
       int dmgDone = individualDamages.get(0);
-      expGained += calculateExpGained(aBoss, dmgDone);
+      int exp = calculateExpGained(aBoss, dmgDone);
+      expGained += exp;
+      
+      log.info("damage=" + dmgDone + ", exp=" + exp);
     }
     
     return expGained;
