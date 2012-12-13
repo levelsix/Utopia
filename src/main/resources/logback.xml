@@ -26,17 +26,13 @@
 		<Append>true</Append>
 		<Encoding>UTF-8</Encoding>
 		<ImmediateFlush>false</ImmediateFlush>
-		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-			<FileNamePattern>
-				${lvl6.server.log.location}.log.%i.zip
-			</FileNamePattern>
-			<MinIndex>0</MinIndex>
-			<MaxIndex>9</MaxIndex>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${lvl6.server.log.location}.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
 		</rollingPolicy>
-		<triggeringPolicy
-			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-			<MaxFileSize>100MB</MaxFileSize>
-		</triggeringPolicy>
+
 		<layout class="ch.qos.logback.classic.PatternLayout">
 			<Pattern>%d | %-5p | %X{playerId}%X{udid} | %t | %c{1} - %m%n
 			</Pattern>
@@ -53,17 +49,13 @@
 		<Append>true</Append>
 		<Encoding>UTF-8</Encoding>
 		<ImmediateFlush>false</ImmediateFlush>
-		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-			<FileNamePattern>
-				${lvl6.server.log.location}_errors.log.%i.zip
-			</FileNamePattern>
-			<MinIndex>0</MinIndex>
-			<MaxIndex>9</MaxIndex>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${lvl6.server.log.location}.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
 		</rollingPolicy>
-		<triggeringPolicy
-			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-			<MaxFileSize>100MB</MaxFileSize>
-		</triggeringPolicy>
+
 		<layout class="ch.qos.logback.classic.PatternLayout">
 			<Pattern>%d | %-5p | %X{playerId}%X{udid} | %t | %c{1} - %m%n
 			</Pattern>
