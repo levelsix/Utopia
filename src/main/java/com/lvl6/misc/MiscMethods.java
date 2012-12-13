@@ -17,6 +17,7 @@ import org.apache.log4j.MDC;
 import org.springframework.core.task.TaskExecutor;
 
 import com.lvl6.events.response.ChangedClanTowerResponseEvent;
+import com.lvl6.events.response.GeneralNotificationResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.BossEvent;
@@ -38,6 +39,7 @@ import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.properties.MDCKeys;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto;
+import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowerChange;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
@@ -61,6 +63,7 @@ import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
@@ -366,7 +369,9 @@ public class MiscMethods {
         .setNumHoursBeforeReshowingBossEvent(ControllerConstants.NUM_HOURS_BEFORE_RESHOWING_BOSS_EVENT)
         .setLevelToShowRateUsPopup(ControllerConstants.LEVEL_TO_SHOW_RATE_US_POPUP)
         .setBossEventNumberOfAttacksUntilSuperAttack(ControllerConstants.BOSS_EVENT__NUMBER_OF_ATTACKS_UNTIL_SUPER_ATTACK)
-        .setBossEventSuperAttack(ControllerConstants.BOSS_EVENT__SUPER_ATTACK);
+        .setBossEventSuperAttack(ControllerConstants.BOSS_EVENT__SUPER_ATTACK)
+        .setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA);
+ 
 
     if (ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS != null) {
       for (int i = 0; i < ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS.length; i++) {
@@ -721,57 +726,62 @@ public class MiscMethods {
   //Two to write to the clan_towers table
   //returns ids of clan towers that the clan owned and attacked
   public static Map<String, List<Integer>> updateClanTowersAfterClanSizeDecrease(Clan aClan) {
-	  int clanId = aClan.getId();
-	  int clanSize = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId).size();
-	  int minSize = ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER;
-	  
-	  if (clanSize < minSize) {
-		  //since member left,
-		  //need to see if clan loses the towers they own, making the attacker the new owner,
-		  //or make the tower unowned; and making the towers they are attacking, not have an attacker
-		  
-		  List<ClanTower> towersOwned = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
-				  clanId, ControllerConstants.NOT_SET, false);
-		  List<ClanTower> towersAttacked = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
-				  ControllerConstants.NOT_SET, clanId, false);
-		  
-		  List<Integer> ownedIds = new ArrayList<Integer>();
-		  List<Integer> attackedIds = new ArrayList<Integer>();
-		  for(ClanTower ct: towersOwned) {
-			  ownedIds.add(ct.getId());
-		  }
-		  for(ClanTower ct: towersAttacked) {
-			  attackedIds.add(ct.getId());
-		  }
+    int clanId = aClan.getId();
+    int clanSize = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId).size();
+    int minSize = ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER;
 
-		  //update clan_towers_history table
-		  if(!UpdateUtils.get().updateTowerHistory(towersOwned, Notification.OWNER_CONCEDED)) {
-			  log.error("Added more/less towers than the clan owned to clan_towers_history table, when clan " +
-			  		"size decreased below the minimum limit. clan=" + aClan + " towersOwned=" + towersOwned);
-		  }
-		  if(!UpdateUtils.get().updateTowerHistory(towersAttacked, Notification.ATTACKER_CONCEDED)) {
-			  log.error("Added more/less towers than the clan attacked to clan_towers_history table, when clan " +
-			  		"size decreased below the minimum limit. clan=" + aClan + " towersAttacked=" + towersAttacked);
-		  }
-		  
-		  //update clan_towers table
-		  if(!UpdateUtils.get().resetClanTowerOwnerOrAttacker(ownedIds, true)) { //reset the towers where this clan is the owner
-			  log.error("reset more/less towers than the clan owned in clan_towers table. clan=" + 
-					  aClan + "towersOwned=" + towersOwned);
-		  }
-		  if(!UpdateUtils.get().resetClanTowerOwnerOrAttacker(attackedIds, false)) {//reset the towers where this clan is the attacker
-			  log.error("reset more/less towers than the clan attacked in clan_towers table. clan=" + 
-					  aClan + "towersAttacked=" + towersAttacked);
-		  }
-		  
-		  //return clan towers that changed
-		  Map<String, List<Integer>> towersBeforeUpdate = new HashMap<String, List<Integer>>();
-		  towersBeforeUpdate.put(clanTowersClanOwned, ownedIds);
-		  towersBeforeUpdate.put(clanTowersClanAttacked, attackedIds);
-		  return towersBeforeUpdate;
-	  }
-	  return null;
-	  
+    if (clanSize < minSize) {
+      //since member left,
+      //need to see if clan loses the towers they own, making the attacker the new owner,
+      //or make the tower owner-less; and making the towers they are attacking, attacker-less
+
+      List<ClanTower> towersOwned = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
+          clanId, ControllerConstants.NOT_SET, false);
+      List<ClanTower> towersAttacked = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
+          ControllerConstants.NOT_SET, clanId, false);
+
+      //return value
+      Map<String, List<Integer>> towersBeforeUpdate = new HashMap<String, List<Integer>>();
+
+      //if the clan has towers do something.
+      if(0 < towersOwned.size() || 0 < towersAttacked.size()) {
+        List<Integer> ownedIds = new ArrayList<Integer>();
+        List<Integer> attackedIds = new ArrayList<Integer>();
+        for(ClanTower ct: towersOwned) {
+          ownedIds.add(ct.getId());
+        }
+        for(ClanTower ct: towersAttacked) {
+          attackedIds.add(ct.getId());
+        }
+
+        //update clan_towers_history table
+        if(!UpdateUtils.get().updateTowerHistory(towersOwned, Notification.OWNER_CONCEDED)) {
+          log.error("Added more/less towers than the clan owned to clan_towers_history table, when clan " +
+              "size decreased below the minimum limit. clan=" + aClan + " towersOwned=" + towersOwned);
+        }
+        if(!UpdateUtils.get().updateTowerHistory(towersAttacked, Notification.ATTACKER_CONCEDED)) {
+          log.error("Added more/less towers than the clan attacked to clan_towers_history table, when clan " +
+              "size decreased below the minimum limit. clan=" + aClan + " towersAttacked=" + towersAttacked);
+        }
+
+        //update clan_towers table
+        if(!UpdateUtils.get().resetClanTowerOwnerOrAttacker(ownedIds, true)) { //reset the towers where this clan is the owner
+          log.error("reset more/less towers than the clan owned in clan_towers table. clan=" + 
+              aClan + "towersOwned=" + towersOwned);
+        }
+        if(!UpdateUtils.get().resetClanTowerOwnerOrAttacker(attackedIds, false)) {//reset the towers where this clan is the attacker
+          log.error("reset more/less towers than the clan attacked in clan_towers table. clan=" + 
+              aClan + "towersAttacked=" + towersAttacked);
+        }
+
+        //return clan towers that changed
+        towersBeforeUpdate.put(clanTowersClanOwned, ownedIds);
+        towersBeforeUpdate.put(clanTowersClanAttacked, attackedIds);
+      }
+      return towersBeforeUpdate;
+    }
+    return null;
+
   }
   
   //returns the clan towers that changed
@@ -794,7 +804,7 @@ public class MiscMethods {
           notificationsToSend, attackerWon, onlinePlayers, server);
       
       for(Notification n: notificationsToSend) {
-        executor.execute(n);
+        writeGlobalNotification(n, server);
       }
       return;
     }
@@ -806,17 +816,28 @@ public class MiscMethods {
       Map<Integer, ClanTower> clanTowerIdsToClanTowers, List<Notification> notificationsToSend,
       boolean isTowerOwner, Collection<ConnectedPlayer> onlinePlayers, GameServer server) {
     
-    String clanTag = aClan.getTag();
-    String clanName = aClan.getName();
-    
     //for each tower make a notification for it
     for(Integer towerId: towerIds) {
       ClanTower aTower = clanTowerIdsToClanTowers.get(towerId);
       String towerName = aTower.getTowerName();
-      Notification clanTowerWarNotification = new Notification (server, onlinePlayers);
+      Notification clanTowerWarNotification = new Notification ();
+      Clan losingClan;
+      Clan winningClan;
+      String losingClanName;
+      String winningClanName;
       
-      clanTowerWarNotification.setAsClanTowerWarClanNotEnoughMembers(clanTag,
-          clanName, towerName, isTowerOwner);
+      if(isTowerOwner) {
+        losingClan = aClan;
+        winningClan = ClanRetrieveUtils.getClanWithId(aTower.getClanAttackerId());
+      } else {
+        losingClan = ClanRetrieveUtils.getClanWithId(aTower.getClanOwnerId());
+        winningClan = aClan;
+      }
+      
+      losingClanName = losingClan.getName();
+      winningClanName = winningClan.getName();
+      clanTowerWarNotification.setAsClanTowerWarClanConceded(
+          losingClanName, winningClanName, towerName);
       notificationsToSend.add(clanTowerWarNotification);
     }
   }
@@ -840,9 +861,16 @@ public class MiscMethods {
       ChangedClanTowerResponseEvent e = new ChangedClanTowerResponseEvent(0);
       e.setChangedClanTowerResponseProto(t.build());
       
-      MessagingUtil msgUtil = AppContext.getApplicationContext().getBean(MessagingUtil.class);
-      msgUtil.sendGlobalMessage(e);
+      server.writeGlobalEvent(e);
     }
   }
   
+  public static void writeGlobalNotification(Notification n, GameServer server) {
+    GeneralNotificationResponseProto.Builder notificationProto = 
+        n.generateNotificationBuilder();
+    
+    GeneralNotificationResponseEvent aNotification = new GeneralNotificationResponseEvent(0);
+    aNotification.setGeneralNotificationResponseProto(notificationProto.build());
+    server.writeGlobalEvent(aNotification);
+  }
 }

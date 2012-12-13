@@ -72,6 +72,7 @@ import com.lvl6.proto.InfoProto.FullQuestProto;
 import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullTaskProto.FullTaskEquipReqProto;
+import com.lvl6.proto.InfoProto.ColorProto;
 import com.lvl6.proto.InfoProto.FullUserBossProto;
 import com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto;
 import com.lvl6.proto.InfoProto.FullUserCityProto;
@@ -905,6 +906,11 @@ public class CreateInfoProtoUtils {
         .setSilverReward(tower.getSilverReward()).setGoldReward(tower.getGoldReward())
         .setNumHoursToCollect(tower.getNumHoursToCollect())
         .setNumHoursForBattle(tower.getNumHoursForBattle());
+
+    ColorProto.Builder clrB = ColorProto.newBuilder().setBlue(tower.getBlue())
+        .setGreen(tower.getGreen()).setRed(tower.getRed());
+    
+    b.setTitleColor(clrB);
     
     if (tower.getClanOwnerId() > 0) {
       b.setTowerOwner(createMinimumClanProtoFromClan(ClanRetrieveUtils.getClanWithId(tower.getClanOwnerId())));
