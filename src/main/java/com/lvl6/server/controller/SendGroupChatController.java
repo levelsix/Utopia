@@ -6,7 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
@@ -39,7 +40,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 @DependsOn("gameServer")
 public class SendGroupChatController extends EventController {
 
-	private static Logger log = Logger.getLogger(new Object() {
+	private static Logger log = LoggerFactory.getLogger(new Object() {
 	}.getClass().getEnclosingClass());
 
 	public static int CHAT_MESSAGES_MAX_SIZE = 50;
@@ -179,7 +180,7 @@ public class SendGroupChatController extends EventController {
 					chatMessages.remove(CHAT_MESSAGES_MAX_SIZE);
 			}
 			}catch(Exception e) {
-				log.error(e);
+				log.error("Error sending chat message", e);
 			}
 			eventWriter.processGlobalChatResponseEvent(ce);
 		}

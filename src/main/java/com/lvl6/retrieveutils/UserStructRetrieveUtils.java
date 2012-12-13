@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.*;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -24,7 +24,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
 
 @Component @DependsOn("gameServer") public class UserStructRetrieveUtils {
 
-  private Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private final String TABLE_NAME = DBConstants.TABLE_USER_STRUCTS;
 
@@ -96,8 +96,8 @@ import com.lvl6.utils.utilmethods.StringUtils;
         }
         return userStructs;
       } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
+        log.error("problem with database call.", e);
+        
       }
     }
     return null;
@@ -124,8 +124,8 @@ import com.lvl6.utils.utilmethods.StringUtils;
         }
         return structIdsToUserStructs;
       } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
+        log.error("problem with database call.", e);
+        
       }
     }
     return null;
@@ -140,8 +140,8 @@ import com.lvl6.utils.utilmethods.StringUtils;
           return convertRSRowToUserStruct(rs);
         }
       } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
+        log.error("problem with database call.", e);
+        
       }
     }
     return null;

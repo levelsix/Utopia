@@ -2,7 +2,8 @@ package com.lvl6.eventhandlers;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 
 import com.hazelcast.core.ITopic;
@@ -13,7 +14,8 @@ import com.lvl6.server.ServerMessage;
 
 public class ServerEventHandler implements MessageListener<ServerMessage>, InitializingBean {
 	
-	Logger log = Logger.getLogger(getClass());
+	
+	private static final Logger log = LoggerFactory.getLogger(ServerEventHandler.class);
 
 	@Resource(name="serverEvents")
 	protected ITopic<ServerMessage> topic;

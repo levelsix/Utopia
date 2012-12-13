@@ -6,11 +6,10 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent;
+import com.lvl6.events.RequestEvent; import org.slf4j.*;
 import com.lvl6.events.request.LogoutRequestEvent;
 import com.lvl6.info.User;
 import com.lvl6.proto.EventProto.LogoutRequestProto;
@@ -24,7 +23,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 @DependsOn("gameServer")
 public class LogoutController extends EventController {
 
-	private static Logger log = Logger.getLogger(new Object() {
+	private static Logger log = LoggerFactory.getLogger(new Object() {
 	}.getClass().getEnclosingClass());
 
 	public LogoutController() {

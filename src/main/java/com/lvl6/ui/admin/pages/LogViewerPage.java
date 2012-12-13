@@ -13,8 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.lvl6.cassandra.log4j.Log4JConstants;
-import com.lvl6.elasticsearch.Log4jElasticSearchQuery;
+import com.lvl6.elasticsearch.LoggingElasticSearchQuery;
+import com.lvl6.elasticsearch.LoggingConstants;
 import com.lvl6.spring.AppContext;
 import com.lvl6.ui.admin.components.LogSearchForm;
 import com.lvl6.ui.admin.components.LogSearchInputModel;
@@ -59,7 +59,7 @@ public class LogViewerPage extends TemplatePage {
 			super.onSubmit();
 			SearchResponse result;
 			LogSearchInputModel model = getModelObject();
-			Log4jElasticSearchQuery search = AppContext.getApplicationContext().getBean(Log4jElasticSearchQuery.class);
+			LoggingElasticSearchQuery search = AppContext.getApplicationContext().getBean(LoggingElasticSearchQuery.class);
 			if(model.getEnd() != null)
 				search.setEndDate(model.getEnd());
 			if(model.getStart() != null)
@@ -105,7 +105,7 @@ public class LogViewerPage extends TemplatePage {
 		
 		protected SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss.SSS");
 		private String format(String key, Object entry) {
-			if(key.equals(Log4JConstants.TIME)) {
+			if(key.equals(LoggingConstants.TIME)) {
 				return format.format(new Date((Long) entry));
 			}
 			return entry.toString();

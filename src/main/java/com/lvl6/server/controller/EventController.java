@@ -1,6 +1,5 @@
 package com.lvl6.server.controller;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.scheduling.annotation.Async;
@@ -9,7 +8,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import com.lvl6.events.GameEvent;
-import com.lvl6.events.RequestEvent;
+import com.lvl6.events.RequestEvent; import org.slf4j.*;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -52,7 +51,7 @@ public abstract class EventController extends Wrap {
 		this.server = server;
 	}
 
-	private static Logger log = Logger.getLogger(new Object() {
+	private static Logger log = LoggerFactory.getLogger(new Object() {
 	}.getClass().getEnclosingClass());
 
 	// we have the controllers call server.writeEvent manually already

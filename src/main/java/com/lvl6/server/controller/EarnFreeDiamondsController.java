@@ -8,7 +8,6 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.scribe.builder.ServiceBuilder;
@@ -20,7 +19,7 @@ import org.scribe.oauth.OAuthService;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent;
+import com.lvl6.events.RequestEvent; import org.slf4j.*;
 import com.lvl6.events.request.EarnFreeDiamondsRequestEvent;
 import com.lvl6.events.response.EarnFreeDiamondsResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -44,7 +43,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 @DependsOn("gameServer")
 public class EarnFreeDiamondsController extends EventController {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static String LVL6_SHARED_SECRET = "mister8conrad3chan9is1a2very4great5man";
   private Mac hmacSHA1WithLVL6Secret = null;

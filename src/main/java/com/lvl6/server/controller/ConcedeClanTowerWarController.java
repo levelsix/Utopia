@@ -8,7 +8,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
@@ -22,9 +23,9 @@ import com.lvl6.info.User;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.misc.Notification;
 import com.lvl6.properties.ControllerConstants;
+import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowerChange;
 import com.lvl6.proto.EventProto.ConcedeClanTowerWarRequestProto;
 import com.lvl6.proto.EventProto.ConcedeClanTowerWarResponseProto;
-import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowerChange;
 import com.lvl6.proto.EventProto.ConcedeClanTowerWarResponseProto.Builder;
 import com.lvl6.proto.EventProto.ConcedeClanTowerWarResponseProto.ConcedeClanTowerWarStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
@@ -37,7 +38,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 @Component @DependsOn("gameServer") public class ConcedeClanTowerWarController extends EventController{
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   //For sending messages to online people, NOTIFICATION FEATURE
   @Resource(name = "outgoingGameEventsHandlerExecutor")
