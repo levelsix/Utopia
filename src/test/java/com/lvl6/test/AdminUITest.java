@@ -45,7 +45,13 @@ public class AdminUITest extends TestCase {
 		tester = new WicketTester();
 		tester.startPage(LogViewerPage.class);
 	}
+
 	
+	@Test
+	public void testLogIndexer() {
+		log.error("Test error for elasticsearch");
+		log.warn("Test warning for elasticsearch");
+	}
 	
 	@Test
 	public void testSearchLogs() {
@@ -56,6 +62,7 @@ public class AdminUITest extends TestCase {
 		SearchResponse result = query.search();
 	}		
 
+	
 	//log.info(result.toString());
 	//@Test
 	public void testContactAdmins() {

@@ -41,7 +41,7 @@ public class LoggingElasticSearchIndexer {
 			jsonBuilder.startObject()
 				.field(LoggingConstants.TIME, event.getTimeStamp())
 				.field(LoggingConstants.HOST, host)
-				.field(LoggingConstants.MESSAGE, event.getMessage())
+				.field(LoggingConstants.MESSAGE, event.getFormattedMessage())
 				.field(LoggingConstants.LEVEL, event.getLevel() + "")
 				.field(LoggingConstants.NAME, event.getLoggerName())
 				.field(LoggingConstants.THREAD, event.getThreadName());

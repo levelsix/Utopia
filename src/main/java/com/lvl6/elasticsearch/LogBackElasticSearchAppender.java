@@ -10,9 +10,9 @@ import me.prettyprint.cassandra.utils.TimeUUIDUtils;
 import org.slf4j.MDC;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
-import ch.qos.logback.core.AppenderBase;
+import ch.qos.logback.core.UnsynchronizedAppenderBase;
 
-public class LogBackElasticSearchAppender extends AppenderBase<ILoggingEvent> {
+public class LogBackElasticSearchAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
 
 	private String elasticCluster;
 	private String elasticHosts;
@@ -23,15 +23,15 @@ public class LogBackElasticSearchAppender extends AppenderBase<ILoggingEvent> {
 	@Override
 	public void start() {
 		super.start();
-		if(search == null) {
-			search = new LoggingElasticSearchIndexer(getElasticCluster(), getElasticHosts());
-		}
 	}
 
 
 
 	@Override
 	protected void append(ILoggingEvent event) {
+		if(search == null) {
+			search = new LoggingElasticSearchIndexer(getElasticCluster(), getElasticHosts());
+		}
 		final Map<String, Object> mdccopy = MDC.getCopyOfContextMap();
 		if(search != null) {
 			UUID key = TimeUUIDUtils.getUniqueTimeUUIDinMillis();

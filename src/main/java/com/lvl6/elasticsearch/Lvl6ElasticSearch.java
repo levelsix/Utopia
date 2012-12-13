@@ -4,12 +4,10 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 
 public class Lvl6ElasticSearch implements InitializingBean {
-	protected static Logger log = LoggerFactory.getLogger(Lvl6ElasticSearch.class);
+	//protected static Logger log = LoggerFactory.getLogger(Lvl6ElasticSearch.class);
 	
 	public Lvl6ElasticSearch(String hosts, String clusterName) {
 		super();
@@ -76,7 +74,7 @@ public class Lvl6ElasticSearch implements InitializingBean {
 			elasticSearchClient = new TransportClient(settings);
 			String[] hostz = hosts.split(",");
 			for(int i = 0; i<hostz.length; i++) {
-				log.info("Adding elasticsearch host: {}", hostz[i]);
+				//log.info("Adding elasticsearch host: {}", hostz[i]);
 				try {
 					elasticSearchClient.addTransportAddress(new InetSocketTransportAddress(hostz[i], 9300));
 				}catch(Exception e) {
@@ -84,7 +82,7 @@ public class Lvl6ElasticSearch implements InitializingBean {
 				}
 			}
 		}else {
-			log.error("Elastic search hosts property was null or ''");
+			//log.error("Elastic search hosts property was null or ''");
 		}
 	}
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration >
+
+	<appender name="elasticSearch"
+		class="com.lvl6.elasticsearch.LogBackElasticSearchAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>WARN</level>
+		</filter>
+		<elasticHosts>${lvl6.elastic.search.hosts}</elasticHosts>
+		<elasticCluster>${lvl6.elastic.search.cluster.name}</elasticCluster>
+	</appender>
+
+	<root level="info">
+		<appender-ref ref="elasticsearch" />
+	</root>
+</configuration>

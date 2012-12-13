@@ -89,7 +89,7 @@ public abstract class EventController extends Wrap {
 						reqEvent.getPlayerId(),
 						MiscMethods.getIPOfPlayer(server,
 								reqEvent.getPlayerId(), null));
-		log.info("Received event: {}", event.getClass().getName());
+		log.info("Received event: {}", event.getClass().getSimpleName());
 
 		final long startTime = System.nanoTime();
 		final long endTime;
@@ -106,10 +106,10 @@ public abstract class EventController extends Wrap {
 		}
 		double numSeconds = (endTime - startTime) / 1000000;
 
-		log.info("Finished processing event: {}, took ~{}ms", event.getClass().getName(), numSeconds);
+		log.info("Finished processing event: {}, took ~{}ms", event.getClass().getSimpleName(), numSeconds);
 
 		if (numSeconds / 1000 > Globals.NUM_SECONDS_FOR_CONTROLLER_PROCESS_EVENT_LONGTIME_LOG_WARNING) {
-			log.warn("event: {} took over {} seconds", event.getClass().getName(),  Globals.NUM_SECONDS_FOR_CONTROLLER_PROCESS_EVENT_LONGTIME_LOG_WARNING);
+			log.warn("Event {} took over {} seconds", event.getClass().getSimpleName(),  Globals.NUM_SECONDS_FOR_CONTROLLER_PROCESS_EVENT_LONGTIME_LOG_WARNING);
 		}
 
 		MiscMethods.purgeMDCProperties();
