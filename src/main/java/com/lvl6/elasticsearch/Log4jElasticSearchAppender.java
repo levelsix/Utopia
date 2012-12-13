@@ -10,18 +10,17 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import me.prettyprint.cassandra.utils.TimeUUIDUtils;
 
-import org.apache.log4j.AppenderSkeleton;
-import org.apache.log4j.helpers.LogLog;
-import org.apache.log4j.spi.LoggingEvent;
 import org.slf4j.MDC;
 
-public class Log4jElasticSearchAppender extends AppenderSkeleton {
+import ch.qos.logback.classic.spi.LoggingEvent;
+
+public class Log4jElasticSearchAppender{// extends AppenderSkeleton {
 	
 	public static AtomicLong logcounter = new AtomicLong();
 	
 	protected ExecutorService executor = Executors.newFixedThreadPool(20);
 	
-	protected Log4JElasticSearchIndexer search;
+	protected LoggingElasticSearchIndexer search;
 
 	private String clusterName;
 
@@ -54,7 +53,7 @@ public class Log4jElasticSearchAppender extends AppenderSkeleton {
 							// queue
 						}
 					} catch (Exception e) {
-						LogLog.error("Log4jElasticSearchAppender", e);
+						//LogLog.error("Log4jElasticSearchAppender: "+e.getCause().getMessage(), e);
 					} finally {
 						startedUp = true;
 					}
@@ -70,13 +69,13 @@ public class Log4jElasticSearchAppender extends AppenderSkeleton {
 	
 	private void setup() throws Exception {
 		if(search == null) {
-			search = new Log4JElasticSearchIndexer(elasticCluster, elasticHosts);
+			search = new LoggingElasticSearchIndexer(elasticCluster, elasticHosts);
 		}
 	}
 	
 	
 
-	@Override
+	//@Override
 	protected void append(final LoggingEvent event) {
 		@SuppressWarnings("unchecked")
 		final Map<String, Object> mdccopy = MDC.getCopyOfContextMap();
@@ -90,11 +89,11 @@ public class Log4jElasticSearchAppender extends AppenderSkeleton {
 						UUID key = TimeUUIDUtils.getUniqueTimeUUIDinMillis();
 						search.indexEvent(event, key, getHost(), mdccopy);
 					} catch (Exception e) {
-						LogLog.error("append failed, " + e.getMessage(), e);
+						//LogLog.error("append failed, " + e.getMessage(), e);
 					}
 				} else {
 					if (startedUp) {
-						LogLog.warn("Log4jElasticSearchAppender, cluster not available, skipping logging, " + message);
+						//LogLog.warn("Log4jElasticSearchAppender, cluster not available, skipping logging, " + message);
 					}
 				}
 			}
@@ -107,7 +106,7 @@ public class Log4jElasticSearchAppender extends AppenderSkeleton {
 
 
 	public void close() {
-		LogLog.warn("Closing log4jElasticSearch appender");
+		//LogLog.warn("Closing log4jElasticSearch appender");
 		shutdown = true;
 	}
 

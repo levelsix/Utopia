@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -35,7 +36,7 @@ import com.lvl6.utils.RetrieveUtils;
 @DependsOn("gameServer")
 public class RetrieveLeaderboardController extends EventController {
 
-	private static Logger log = Logger.getLogger(new Object() {
+	private static Logger log = LoggerFactory.getLogger(new Object() {
 	}.getClass().getEnclosingClass());
 
 	@Autowired
@@ -142,7 +143,7 @@ public class RetrieveLeaderboardController extends EventController {
 			Integer userId = Integer.valueOf(t.getElement());
 			UserRankScore urs = new UserRankScore(userId, t.getScore(), counter+afterThisRank);
 			lurs.put(userId, urs);
-			log.info(urs);
+			log.info(urs.toString());
 			counter++;
 		}
 		return lurs;

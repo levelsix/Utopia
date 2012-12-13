@@ -4,7 +4,8 @@ import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -21,8 +22,7 @@ public class Attachment {
   /** number of bytes in the network event header */
   public static final int HEADER_SIZE = 12; 
 
-  /** log4j logger */
-  private Logger log = Logger.getLogger(Attachment.class);
+  private Logger log = LoggerFactory.getLogger(Attachment.class);
   
   /** event type for this message */
   public EventProtocolRequest eventType;

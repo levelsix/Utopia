@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.*;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ import com.lvl6.utils.DBConnection;
 /*NO UserTask needed because you can just return a map- only two non-user fields*/
 @Component @DependsOn("gameServer") public class UserLockBoxItemRetrieveUtils {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
   
   private static final String TABLE_NAME = DBConstants.TABLE_USER_LOCK_BOX_ITEMS;
   
@@ -45,8 +45,8 @@ import com.lvl6.utils.DBConnection;
         }
         return lockBoxItemIdsToNumLockBoxes;
       } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
+        log.error("problem with database call.", e);
+        
       }
     }
     return null;

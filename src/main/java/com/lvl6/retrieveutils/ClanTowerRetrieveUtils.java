@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.*;
 
 import com.lvl6.info.ClanTower;
 import com.lvl6.properties.ControllerConstants;
@@ -19,7 +19,7 @@ import com.lvl6.utils.DBConnection;
 
 public class ClanTowerRetrieveUtils {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static final String TABLE_NAME = DBConstants.TABLE_CLAN_TOWERS;
 
@@ -107,8 +107,8 @@ public class ClanTowerRetrieveUtils {
           return clanTower;
         }
       } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
+        log.error("problem with database call.", e);
+        
       }
     }
     return null;
@@ -126,8 +126,8 @@ public class ClanTowerRetrieveUtils {
         }
         return clanTowersList;
       } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
+        log.error("problem with database call.", e);
+        
       }
     }
     return null;
@@ -150,8 +150,8 @@ public class ClanTowerRetrieveUtils {
         }
         return clanIdsToClanTowers;
       } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
+        log.error("problem with database call.", e);
+        
       }
     }
     return null;

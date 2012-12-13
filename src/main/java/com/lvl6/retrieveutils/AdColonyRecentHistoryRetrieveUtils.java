@@ -4,14 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.TreeMap;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.*;
 
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
 public class AdColonyRecentHistoryRetrieveUtils {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static final String TABLE_NAME = DBConstants.TABLE_ADCOLONY_RECENT_HISTORY;
 
@@ -34,8 +35,7 @@ public class AdColonyRecentHistoryRetrieveUtils {
             isDuplicateDigest = true;
           }
         } catch (SQLException e) {
-          log.error("problem with database call.");
-          log.error(e);
+          log.error("problem with database call.", e);
         }
       } 
     }

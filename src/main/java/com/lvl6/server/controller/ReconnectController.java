@@ -5,13 +5,12 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.integration.Message;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent;
+import com.lvl6.events.RequestEvent; import org.slf4j.*;
 import com.lvl6.events.request.ReconnectRequestEvent;
 import com.lvl6.events.response.ReconnectResponseEvent;
 import com.lvl6.proto.EventProto.ReconnectRequestProto;
@@ -24,7 +23,7 @@ import com.lvl6.server.EventWriter;
 @DependsOn("gameServer")
 public class ReconnectController extends EventController {
 
-	private Logger log = Logger.getLogger(getClass());
+	private Logger log = LoggerFactory.getLogger(getClass());
 
 	public ReconnectController() {
 		numAllocatedThreads = 4;

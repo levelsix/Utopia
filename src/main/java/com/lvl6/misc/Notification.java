@@ -1,19 +1,27 @@
 package com.lvl6.misc;
 
 import java.text.MessageFormat;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.lvl6.events.response.GeneralNotificationResponseEvent;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.NotificationConstants;
 import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.InfoProto.ColorProto;
+import com.lvl6.server.GameServer;
+import com.lvl6.utils.ConnectedPlayer;
 
 public class Notification {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+
+	private static final Logger log = LoggerFactory.getLogger(Notification.class);
+  private GameServer server;
+  private Collection<ConnectedPlayer> allOnlinePlayers;
 
   private Map<String, Object> keysAndValues;
   private ColorProto.Builder rgb;
@@ -41,6 +49,23 @@ public class Notification {
    */
   public Notification () {
     this.keysAndValues = new HashMap<String, Object>();
+    //this.clr = ColorProto.newBuilder();
+  }
+
+  public void run () {
+    final GeneralNotificationResponseProto.Builder notificationProto = 
+        generateNotificationBuilder();
+    for (ConnectedPlayer player : allOnlinePlayers) {
+      log.info("Sending general notification message to player: " + player.getPlayerId());
+      GeneralNotificationResponseEvent aNotification = new GeneralNotificationResponseEvent(
+          player.getPlayerId());
+      aNotification.setGeneralNotificationResponseProto(notificationProto.build());
+      try {
+        server.writeEvent(aNotification);
+      } catch (Exception e) {
+        log.error("Error running Notification", e);
+      }
+    }
     this.rgb = ColorProto.newBuilder();
   }
 

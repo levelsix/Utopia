@@ -8,7 +8,8 @@ import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.integration.ip.tcp.serializer.AbstractByteArraySerializer;
 import org.springframework.integration.ip.tcp.serializer.SoftEndOfStreamException;
 
@@ -18,8 +19,8 @@ import com.lvl6.utils.Attachment;
 
 public class GameEventSerializer extends AbstractByteArraySerializer {
 	
-	private Logger log = Logger.getLogger(GameEventSerializer.class);
-
+	
+	private static final Logger log = LoggerFactory.getLogger(GameEventSerializer.class);
 	/**
 	 * This class serializes/deserializes GameEvents for Spring IP 
 	 * socket listeners

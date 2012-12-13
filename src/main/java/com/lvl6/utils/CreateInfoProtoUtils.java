@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.BattleDetails;
@@ -127,7 +128,7 @@ import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
 
 public class CreateInfoProtoUtils {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public static FullClanProtoWithClanSize createFullClanProtoWithClanSize(Clan c) {
     FullClanProto clan = createFullClanProtoFromClan(c);

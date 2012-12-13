@@ -52,7 +52,7 @@ public class AmqpGameEventHandler extends AbstractGameEventHandler implements Me
 	public void onMessage(Message msg) {
 		try {
 		if (msg != null) {
-			log.info("Received message", msg.getMessageProperties().getMessageId());
+			log.debug("Received message", msg.getMessageProperties().getMessageId());
 			Attachment attachment = new Attachment();
 			byte[] payload = (byte[]) msg.getBody();
 			attachment.readBuff = ByteBuffer.wrap(payload);

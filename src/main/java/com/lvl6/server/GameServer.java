@@ -10,8 +10,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -34,8 +34,8 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware {
 	private static final int LOCK_TIMEOUT = 10000;
 	public static int LOCK_WAIT_SECONDS = 60;
 
-	private static Logger log = Logger.getLogger(new Object() {
-	}.getClass().getEnclosingClass());
+	
+	private static final Logger log = LoggerFactory.getLogger(GameServer.class);
 
 	@Autowired
 	protected ServerInstance serverInstance;
@@ -144,7 +144,7 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware {
 	public GameServer(String serverIP, int portNum) {
 		if (eventControllers == null)
 			eventControllers = new Hashtable<EventProtocolRequest, EventController>();
-		BasicConfigurator.configure();
+		//BasicConfigurator.configure();
 	}
 
 	@Override

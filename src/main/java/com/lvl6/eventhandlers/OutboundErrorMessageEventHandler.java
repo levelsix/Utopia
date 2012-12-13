@@ -6,7 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.integration.Message;
 import org.springframework.integration.MessagingException;
 import org.springframework.integration.core.MessageHandler;
@@ -16,7 +17,8 @@ import com.lvl6.utils.ConnectedPlayer;
 
 public class OutboundErrorMessageEventHandler implements MessageHandler {
 
-	Logger log = Logger.getLogger(getClass());
+	
+	private static final Logger log = LoggerFactory.getLogger(OutboundErrorMessageEventHandler.class);
 	
 
 	@Resource(name="playersByPlayerId")
