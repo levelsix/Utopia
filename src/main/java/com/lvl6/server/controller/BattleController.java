@@ -7,16 +7,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.BattleRequestEvent;
 import com.lvl6.events.response.BattleResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.Equipment;
+import com.lvl6.info.LeaderboardEvent;
 import com.lvl6.info.LockBoxEvent;
 import com.lvl6.info.Quest;
 import com.lvl6.info.User;
@@ -41,6 +44,7 @@ import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.LeaderboardEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LockBoxEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
@@ -156,9 +160,18 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         server.writeEvent(resEvent);
 
         if (legitBattle) {
+          boolean attackerFled = result==BattleResult.ATTACKER_FLEE;
           writeChangesToDB(stolenEquipIsLastOne, winner, loser, attacker,
-              defender, expGained, lostCoins, battleTime, result==BattleResult.ATTACKER_FLEE,
+              defender, expGained, lostCoins, battleTime, attackerFled,
               lockBoxEventId);
+          
+          //clan towers
+          if (server.lockClanTowersTable()) {
+            writeChangesToDBForClanTowers(winner, loser, attacker, defender);
+          }
+          
+          //user leaderboard event stuff
+          leaderBoardEventStuff(winner, loser, attacker, defender, attackerFled);
 
           UpdateClientUserResponseEvent resEventAttacker = MiscMethods
               .createUpdateClientUserResponseEventAndUpdateLeaderboard(attacker);
@@ -198,6 +211,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       } catch (Exception e) {
         log.error("exception in BattleController processEvent", e);
       } finally {
+        server.unlockClanTowersTable();
         server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
       }
     }else {
@@ -374,21 +388,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return changedTowers;
   }
 
-  private void writeChangesToDB(boolean stolenEquipIsLastOne, User winner, User loser, User attacker, User defender, int expGained,
-      int lostCoins, Timestamp battleTime, boolean isFlee, int lockBoxEventId) {
+  private void writeChangesToDB(boolean stolenEquipIsLastOne, User winner, User loser, User attacker, User defender, 
+      int expGained, int lostCoins, Timestamp battleTime, boolean isFlee, int lockBoxEventId) {
 
     boolean simulateStaminaRefill = (attacker.getStamina() == attacker.getStaminaMax());
-
-    //clan towers feature variables
-    int attackerId = attacker.getClanId();
-    int defenderId = defender.getClanId();
-    boolean ownerAndAttackerAreEnemies = true;
-    //attacker is owner of tower
-    List<ClanTower> attackerIsClanTowerOwner = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
-        attackerId, defenderId, ownerAndAttackerAreEnemies);    
-    //defender is owner of tower
-    List<ClanTower> defenderIsClanTowerOwner = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
-        defenderId, attackerId, ownerAndAttackerAreEnemies);
 
     if (winner == attacker) {
       if (!attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
@@ -401,12 +404,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         log.error("problem with updating info for defender/loser " + defender.getId() + " in battle at " 
             + battleTime + " vs " + winner.getId());
       }
-
-      //clan tower war feature
-      incrementBattleWins(attackerIsClanTowerOwner, true);//increment clan tower's owner battle wins
-      incrementBattleWins(defenderIsClanTowerOwner, false);//increment clan tower's attacker battle wins
-
-
     } else if (winner == defender) {
       if (isFlee) {
         if (!attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
@@ -431,22 +428,77 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
               + battleTime + " vs " + loser.getId());
         }
       }
-
-      //clan tower war feature
-      incrementBattleWins(defenderIsClanTowerOwner, true);//increment clan tower's owner battle wins
-      incrementBattleWins(attackerIsClanTowerOwner, false);//increment clan tower's attacker battle wins
     }
 
     if (lockBoxEventId != ControllerConstants.NOT_SET) {
       if (!UpdateUtils.get().incrementNumberOfLockBoxesForLockBoxEvent(attacker.getId(), lockBoxEventId, 1))
         log.error("problem incrementing user lock boxes for user = "+attacker+" lock box event id ="+lockBoxEventId);
     }
-
-    defenderIsClanTowerOwner.addAll(attackerIsClanTowerOwner);
-    MiscMethods.sendClanTowerProtosToClient(new HashSet<ClanTower>(defenderIsClanTowerOwner), server, ReasonForClanTowerChange.NUM_BATTLE_WINS_CHANGED);
-
   }
+  
+  private void writeChangesToDBForClanTowers(User winner, User loser, User attacker, User defender) {
+    List<ClanTower> attackerIsClanTowerOwner;
+    List<ClanTower> defenderIsClanTowerOwner;
+    int attackerId = attacker.getClanId();
+    int defenderId = defender.getClanId();
+    boolean ownerAndAttackerAreEnemies = true;
 
+    //attacker is owner of tower
+    attackerIsClanTowerOwner = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
+        attackerId, defenderId, ownerAndAttackerAreEnemies);    
+    //defender is owner of tower
+    defenderIsClanTowerOwner = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
+        defenderId, attackerId, ownerAndAttackerAreEnemies);
+
+    if (winner == attacker) {
+      incrementBattleWins(attackerIsClanTowerOwner, true);//increment clan tower's owner battle wins
+      incrementBattleWins(defenderIsClanTowerOwner, false);//increment clan tower's attacker battle wins
+    } else if (winner == defender) {
+      incrementBattleWins(defenderIsClanTowerOwner, true);//increment clan tower's owner battle wins
+      incrementBattleWins(attackerIsClanTowerOwner, false);//increment clan tower's attacker battle wins
+    }
+    //defenderIsClanTowerOwner contains half of the towers, so add into it the other half
+    defenderIsClanTowerOwner.addAll(attackerIsClanTowerOwner);
+    if(!defenderIsClanTowerOwner.isEmpty()) { //send towers only if there are towers
+      MiscMethods.sendClanTowerProtosToClient(new HashSet<ClanTower>(defenderIsClanTowerOwner), server, ReasonForClanTowerChange.NUM_BATTLE_WINS_CHANGED);
+    }
+  }
+  
+  private void leaderBoardEventStuff(User winner, User loser, User attacker, 
+      User defender, boolean attackerFled) {
+    //get all leaderboard events that have not ended this is assuming all events care about wins/losses/flees
+    List<LeaderboardEvent> activeEvents = LeaderboardEventRetrieveUtils.getActiveLeaderboardEvents();
+    //List<Integer> idsOfActiveEvents = getLeaderboardIds(activeEvents);
+
+    boolean attackerWon = winner == attacker;
+    boolean defenderWon = winner == defender;
+    
+    for(LeaderboardEvent e: activeEvents) {
+      int attackerId = attacker.getId();
+      int defenderId = defender.getId();
+      int leaderboardEventId = e.getId();
+      if(attackerWon) {
+        
+        //need to increment attacker's wins
+        InsertUtils.get().insertIntoUserLeaderboardEvent(leaderboardEventId, attackerId, 1, 0, 0);
+        //need to increment defender's losses
+        InsertUtils.get().insertIntoUserLeaderboardEvent(leaderboardEventId, defenderId, 0, 1, 0);
+      } else if(defenderWon) {
+        
+        //need to increment defender's wins
+        InsertUtils.get().insertIntoUserLeaderboardEvent(leaderboardEventId, defenderId, 1, 0, 0);
+        if(attackerFled) {
+          
+          //need to increment attacker's flees
+          InsertUtils.get().insertIntoUserLeaderboardEvent(leaderboardEventId, attackerId, 0, 0, 1);
+        } else {
+          //need to increment attacker's losses
+          InsertUtils.get().insertIntoUserLeaderboardEvent(leaderboardEventId, attackerId, 0, 1, 0);
+        }
+      }
+    }
+  }
+  
   private int calculateLostCoins(User loser, Random random, boolean isFlee) {
     if (loser.isFake()) {
       if (Math.random() < ControllerConstants.BATTLE__CHANCE_OF_ZERO_GAIN_FOR_SILVER) {

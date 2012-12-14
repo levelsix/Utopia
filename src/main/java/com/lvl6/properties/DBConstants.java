@@ -62,6 +62,8 @@ public class DBConstants {
   public static final String TABLE_CLAN_TOWERS = "clan_towers";
   public static final String TABLE_CLAN_TOWERS_HISTORY = "clan_towers_history";
   public static final String TABLE_CLAN_TIER_LEVELS = "clan_tier_levels";
+  public static final String TABLE_LEADERBOARD_EVENTS = "leaderboard_events";
+  public static final String TABLE_USER_LEADERBOARD_EVENTS = "user_leaderboard_events";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -438,7 +440,7 @@ public class DBConstants {
   public static final String CLAN_TOWERS__ATTACKER_BATTLE_WINS = "attacker_battle_wins";
   public static final String CLAN_TOWERS__LAST_REWARD_GIVEN = "last_reward_given";
   
-  
+  /*CLAN TOWERS HISTORY*/
   public static final String CLAN_TOWERS_HISTORY__OWNER_CLAN_ID = "owner_clan_id";
   public static final String CLAN_TOWERS_HISTORY__ATTACKER_CLAN_ID = "attacker_clan_id";
   public static final String CLAN_TOWERS_HISTORY__TOWER_ID = "tower_id";
@@ -449,5 +451,18 @@ public class DBConstants {
   public static final String CLAN_TOWERS_HISTORY__NUM_HOURS_FOR_BATTLE = "num_hours_for_battle";
   public static final String CLAN_TOWERS_HISTORY__LAST_REWARD_GIVEN = "last_reward_given";
   public static final String CLAN_TOWERS_HISTORY__REASON_FOR_ENTRY = "reason_for_entry";
+  
+  /*LEADERBOARD EVENTS*/
+  public static final String LEADERBOARD_EVENTS__ID = GENERIC__ID;
+  public static final String LEADERBOARD_EVENTS__START_TIME = "start_time";
+  public static final String LEADERBOARD_EVENTS__END_TIME = "end_time";
+  public static final String LEADERBOARD_EVENTS__EVENT_NAME = "event_time";
+  
+  /*USER LEADERBOARD EVENTS*/
+  public static final String USER_LEADERBOARD_EVENTS__LEADERBOARD_EVENT_ID = "leaderboard_event_id";
+  public static final String USER_LEADERBOARD_EVENTS__USER_ID = GENERIC__USER_ID;
+  public static final String USER_LEADERBOARD_EVENTS__BATTLES_WON = "battles_won";
+  public static final String USER_LEADERBOARD_EVENTS__BATTLES_LOST = "battles_lost";
+  public static final String USER_LEADERBOARD_EVENTS__BATTLES_FLED = "battles_fled";
   
 }

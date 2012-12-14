@@ -756,4 +756,26 @@ public class InsertUtils implements InsertUtil{
     return equipIdsAndQuantities;
   }
   
+  public int insertIntoUserLeaderboardEvent(int leaderboardEventId, int userId, 
+      int battlesWonChange, int battlesLostChange, int battlesFledChange) {
+    String tablename = DBConstants.TABLE_USER_LEADERBOARD_EVENTS;
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    Map<String, Object> relativeUpdates = new HashMap<String, Object>();
+    Map<String, Object> absoluteUpdates = new HashMap<String, Object>();
+    
+    insertParams.put(DBConstants.USER_LEADERBOARD_EVENTS__LEADERBOARD_EVENT_ID, leaderboardEventId);
+    insertParams.put(DBConstants.USER_LEADERBOARD_EVENTS__USER_ID, userId);
+    //as long as there is an existing row, setting these three values doesn't matter
+    //this is here just for the initial insert
+    insertParams.put(DBConstants.USER_LEADERBOARD_EVENTS__BATTLES_WON, battlesWonChange);
+    insertParams.put(DBConstants.USER_LEADERBOARD_EVENTS__BATTLES_LOST, battlesLostChange);
+    insertParams.put(DBConstants.USER_LEADERBOARD_EVENTS__BATTLES_FLED, battlesFledChange);
+    
+    //this is for the case when there is already an existing row
+    relativeUpdates.put(DBConstants.USER_LEADERBOARD_EVENTS__BATTLES_WON, battlesWonChange);
+    relativeUpdates.put(DBConstants.USER_LEADERBOARD_EVENTS__BATTLES_LOST, battlesLostChange);
+    relativeUpdates.put(DBConstants.USER_LEADERBOARD_EVENTS__BATTLES_FLED, battlesFledChange);
+    DBConnection.get().insertOnDuplicateKeyUpdate(tablename, insertParams, relativeUpdates, absoluteUpdates);
+    return 0;
+  }
 }
