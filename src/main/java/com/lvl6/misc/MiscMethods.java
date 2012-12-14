@@ -719,6 +719,7 @@ public class MiscMethods {
     return toRet;
   }
   
+  //The lock for clan_towers table must be acquired before calling this function.
   //Makes 7 db calls:
   //One to retrieve clan size
   //Two to retrieve the towers the clan owns and is attacking
@@ -773,11 +774,11 @@ public class MiscMethods {
         }
 
         //update clan_towers_history table
-        if(!UpdateUtils.get().updateTowerHistory(towersOwned, Notification.OWNER_CONCEDED)) {
+        if(!UpdateUtils.get().updateTowerHistory(towersOwned, Notification.OWNER_NOT_ENOUGH_MEMBERS)) {
           log.error("Added more/less towers than the clan owned to clan_towers_history table, when clan " +
               "size decreased below the minimum limit. clan=" + aClan + " towersOwned=" + towersOwned);
         }
-        if(!UpdateUtils.get().updateTowerHistory(towersAttacked, Notification.ATTACKER_CONCEDED)) {
+        if(!UpdateUtils.get().updateTowerHistory(towersAttacked, Notification.ATTACKER_NOT_ENOUGH_MEMBERS)) {
           log.error("Added more/less towers than the clan attacked to clan_towers_history table, when clan " +
               "size decreased below the minimum limit. clan=" + aClan + " towersAttacked=" + towersAttacked);
         }

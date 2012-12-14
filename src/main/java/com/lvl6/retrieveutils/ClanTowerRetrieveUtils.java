@@ -130,7 +130,7 @@ public class ClanTowerRetrieveUtils {
         
       }
     }
-    return null;
+    return new ArrayList<ClanTower>();
   }
 
   private static Map<Integer, ClanTower> convertRSToClanTowerIdsToClanTowers(ResultSet rs) {
