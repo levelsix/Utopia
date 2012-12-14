@@ -191,7 +191,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           setChatMessages(resBuilder, user);
           setGoldSales(resBuilder);
           resBuilder.addAllClanTierLevels(MiscMethods.getAllClanTierLevelProtos());
-          setClanTowers(resBuilder);
+          if(server.lockClanTowersTable()) {
+            setClanTowers(resBuilder);
+          }
           resBuilder.addAllBossEvents(MiscMethods.currentBossEvents());
           
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
@@ -199,6 +201,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         } catch (Exception e) {
           log.error("exception in StartupController processEvent", e);
         } finally {
+          server.unlockClanTowersTable();
           server.unlockPlayer(user.getId()); 
         }
       } else {
