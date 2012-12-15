@@ -11,7 +11,7 @@ message ColorProto {
 //------------------------------------------------------------------------------------------
 
 message LeaderboardEventProto {
-	optional int32 id = 1;
+	optional int32 eventId = 1;
 	optional int64 startDate = 2;
 	optional int64 endDate = 3;
 	optional string eventName = 4;
