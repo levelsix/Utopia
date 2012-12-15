@@ -82,16 +82,16 @@ public class RetrieveLeaderboardRankingsController extends EventController {
       if (legitRetrieval) {
         int rank = (int) leader.getRankForEventAndUser(eventId, userId);
         double score = leader.getScoreForEventAndUser(eventId, userId);
-        
+
         resBuilder.setRetriever(CreateInfoProtoUtils.createMinimumUserProtoWithLevelForLeaderboard(
             user, LeaderboardType.EVENT, rank, score));
 
         //TODO: FIX THIS IMPLEMENTATION
-        lurs = getUsersAfterThisRank(leaderboardType, afterThisRank);
+        lurs = getUsersAfterThisRank(eventId, afterThisRank);
 
         if (lurs != null) {
           List<User> resultUsers = new ArrayList<User>(RetrieveUtils.userRetrieveUtils().getUsersByIds(new ArrayList<Integer>(lurs.keySet())).values());
-          log.info("Populating leaderboard results for: "+leaderboardType+" after this rank: "+afterThisRank+" found results: "+resultUsers.size());
+          log.info("Populating leaderboard results for event: "+eventId+" after this rank: "+afterThisRank+" found results: "+resultUsers.size());
           for (User u : resultUsers) {
             UserRankScore urs = lurs.get(u.getId());
             log.info("Rank: "+urs.rank+" User: "+urs.userId+" Score: "+urs.score);
@@ -116,12 +116,12 @@ public class RetrieveLeaderboardRankingsController extends EventController {
 
   }
 
-  private Map<Integer, UserRankScore> getUsersAfterThisRank(LeaderboardType leaderboardType,	int afterThisRank) {
+  private Map<Integer, UserRankScore> getUsersAfterThisRank(int eventId,	int afterThisRank) {
     Set<Tuple> usrs = new HashSet<Tuple>();
-    log.info("Retrieving "+leaderboardType+" afterThisRank: "+afterThisRank);
-    if (leaderboardType.equals(LeaderboardType.BEST_KDR)) {
-      usrs = leader.getBattlesWonOverTotalBattlesRatioTopN(afterThisRank, afterThisRank+ControllerConstants.LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE);
-    }
+    log.info("Retrieving event: "+eventId+" afterThisRank: "+afterThisRank);
+
+    usrs = leader.getEventTopN(eventId, afterThisRank, afterThisRank+ControllerConstants.LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE);
+
     Map<Integer, UserRankScore> lurs = new LinkedHashMap<Integer, UserRankScore>();
     Iterator<Tuple> it = usrs.iterator();
     int counter = 1;
@@ -135,29 +135,6 @@ public class RetrieveLeaderboardRankingsController extends EventController {
     }
     return lurs;
   }
-
-//  private int getUserRankForLeaderboardType(User user,
-//      LeaderboardType leaderboardType) {
-//    if (leaderboardType == LeaderboardType.BEST_KDR
-//        && user.getBattlesWon() + user.getBattlesLost() < ControllerConstants.LEADERBOARD__MIN_BATTLES_REQUIRED_FOR_KDR_CONSIDERATION)
-//      return 0;
-//    if (leaderboardType.equals(LeaderboardType.BEST_KDR)) {
-//      return ((Long)leader.getBattlesWonOverTotalBattlesRatioRankForUser(user.getId())).intValue();
-//    }
-//    if (leaderboardType.equals(LeaderboardType.MOST_BATTLES_WON)) {
-//      return ((Long) leader.getBattlesWonRankForUser(user.getId()))
-//          .intValue();
-//    }
-//    if (leaderboardType.equals(LeaderboardType.MOST_EXP)) {
-//      return ((Long) leader.getExperienceRankForUser(user.getId()))
-//          .intValue();
-//    }
-//    if (leaderboardType.equals(LeaderboardType.MOST_COINS)) {
-//      return ((Long) leader.getTotalCoinValueRankForUser(user.getId()))
-//          .intValue();
-//    }
-//    return 0;
-//  }
 
   private boolean checkLegitRetrieval(Builder resBuilder, User user,
       int eventId) {
