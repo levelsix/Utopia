@@ -1781,6 +1781,27 @@ message RetrieveLeaderboardResponseProto {
 	}
 }
 
+message RetrieveLeaderboardRankingsRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 eventId = 2;
+	optional int32 afterThisRank = 3;
+}
+
+message RetrieveLeaderboardRankingsResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional RetrieveLeaderboardStatus status = 2;
+	optional int32 eventId = 5;
+	optional int32 afterThisRank = 6;
+
+	optional MinimumUserProtoWithLevelForLeaderboard retriever = 3;
+	repeated MinimumUserProtoWithLevelForLeaderboard resultPlayers = 4;
+	
+	enum RetrieveLeaderboardStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+	}
+}
+
 //------------------------------------------------------------------------------------------
 
 message SendGroupChatRequestProto {

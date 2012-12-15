@@ -262,6 +262,7 @@ enum LeaderboardType {
 	MOST_COINS = 3;
 	MOST_EXP = 4;
 	BEST_KDR = 5;		//start counting only after x battles. so instead of displaying your rank, show that.
+	EVENT = 6;
  }
 
 //------------------------------------------------------------------------------------------

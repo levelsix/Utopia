@@ -233,12 +233,14 @@ public final class InfoProto {
     MOST_COINS(1, 3),
     MOST_EXP(2, 4),
     BEST_KDR(3, 5),
+    EVENT(4, 6),
     ;
     
     public static final int MOST_BATTLES_WON_VALUE = 2;
     public static final int MOST_COINS_VALUE = 3;
     public static final int MOST_EXP_VALUE = 4;
     public static final int BEST_KDR_VALUE = 5;
+    public static final int EVENT_VALUE = 6;
     
     
     public final int getNumber() { return value; }
@@ -249,6 +251,7 @@ public final class InfoProto {
         case 3: return MOST_COINS;
         case 4: return MOST_EXP;
         case 5: return BEST_KDR;
+        case 6: return EVENT;
         default: return null;
       }
     }
@@ -279,7 +282,7 @@ public final class InfoProto {
     }
     
     private static final LeaderboardType[] VALUES = {
-      MOST_BATTLES_WON, MOST_COINS, MOST_EXP, BEST_KDR, 
+      MOST_BATTLES_WON, MOST_COINS, MOST_EXP, BEST_KDR, EVENT, 
     };
     
     public static LeaderboardType valueOf(
@@ -48028,36 +48031,36 @@ public final class InfoProto {
       "\n\n\006ARCHER\020\001\022\010\n\004MAGE\020\002\022\016\n\nALL_AMULET\020\003*,\n" +
       "\016UserClanStatus\022\n\n\006MEMBER\020\000\022\016\n\nREQUESTIN" +
       "G\020\002*@\n\016GroupChatScope\022\n\n\006GLOBAL\020\000\022\014\n\010ALL" +
-      "IANCE\020\001\022\n\n\006LEGION\020\002\022\010\n\004CLAN\020\003*S\n\017Leaderb" +
+      "IANCE\020\001\022\n\n\006LEGION\020\002\022\010\n\004CLAN\020\003*^\n\017Leaderb" +
       "oardType\022\024\n\020MOST_BATTLES_WON\020\002\022\016\n\nMOST_C" +
-      "OINS\020\003\022\014\n\010MOST_EXP\020\004\022\014\n\010BEST_KDR\020\005*f\n\020Ch",
-      "aracterModType\022\016\n\nNEW_PLAYER\020\001\022\026\n\022RESET_" +
-      "SKILL_POINTS\020\002\022\031\n\025CHANGE_CHARACTER_TYPE\020" +
-      "\003\022\017\n\013CHANGE_NAME\020\004*/\n\rAnimationType\022\022\n\016G" +
-      "ENERIC_ACTION\020\001\022\n\n\006ATTACK\020\002*h\n\024EarnFreeD" +
-      "iamondsType\022\010\n\004KIIP\020\001\022\014\n\010ADCOLONY\020\002\022\r\n\tF" +
-      "B_INVITE\020\003\022\n\n\006TAPJOY\020\004\022\020\n\014FLURRY_VIDEO\020\005" +
-      "\022\013\n\007TWITTER\020\006*\371\001\n\022SpecialQuestAction\022\030\n\024" +
-      "PURCHASE_FROM_ARMORY\020\001\022\035\n\031PURCHASE_FROM_" +
-      "MARKETPLACE\020\002\022\022\n\016SELL_TO_ARMORY\020\003\022\027\n\023POS" +
-      "T_TO_MARKETPLACE\020\004\022\024\n\020DEPOSIT_IN_VAULT\020\005",
-      "\022\027\n\023WITHDRAW_FROM_VAULT\020\006\022\027\n\023WRITE_ON_EN" +
-      "EMY_WALL\020\007\022\025\n\021REQUEST_JOIN_CLAN\020\010\022\036\n\032SUC" +
-      "CESSFULLY_FORGE_AN_ITEM\020\t*k\n\010UserType\022\020\n" +
-      "\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD" +
-      "_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004" +
-      "\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResult\022\020\n\014ATTACK" +
-      "ER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTACKER_F" +
-      "LEE\020\002*B\n\023MarketplacePostType\022\026\n\022PREMIUM_" +
-      "EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035Mar" +
-      "ketplaceJobRequirementType\022\007\n\003BUY\020\000\022\010\n\004S",
-      "ELL\020\001*c\n\016CritStructType\022\n\n\006AVIARY\020\000\022\r\n\tC" +
-      "ARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MAR" +
-      "KETPLACE\020\005\022\016\n\nBLACKSMITH\020\006*3\n\021StructOrie" +
-      "ntation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001*" +
-      "P\n\022ExpansionDirection\022\014\n\010FAR_LEFT\020\000\022\r\n\tF" +
-      "AR_RIGHT\020\001\022\r\n\tNEAR_LEFT\020\002\022\016\n\nNEAR_RIGHT\020" +
-      "\003B\013B\tInfoProto"
+      "OINS\020\003\022\014\n\010MOST_EXP\020\004\022\014\n\010BEST_KDR\020\005\022\t\n\005EV",
+      "ENT\020\006*f\n\020CharacterModType\022\016\n\nNEW_PLAYER\020" +
+      "\001\022\026\n\022RESET_SKILL_POINTS\020\002\022\031\n\025CHANGE_CHAR" +
+      "ACTER_TYPE\020\003\022\017\n\013CHANGE_NAME\020\004*/\n\rAnimati" +
+      "onType\022\022\n\016GENERIC_ACTION\020\001\022\n\n\006ATTACK\020\002*h" +
+      "\n\024EarnFreeDiamondsType\022\010\n\004KIIP\020\001\022\014\n\010ADCO" +
+      "LONY\020\002\022\r\n\tFB_INVITE\020\003\022\n\n\006TAPJOY\020\004\022\020\n\014FLU" +
+      "RRY_VIDEO\020\005\022\013\n\007TWITTER\020\006*\371\001\n\022SpecialQues" +
+      "tAction\022\030\n\024PURCHASE_FROM_ARMORY\020\001\022\035\n\031PUR" +
+      "CHASE_FROM_MARKETPLACE\020\002\022\022\n\016SELL_TO_ARMO" +
+      "RY\020\003\022\027\n\023POST_TO_MARKETPLACE\020\004\022\024\n\020DEPOSIT",
+      "_IN_VAULT\020\005\022\027\n\023WITHDRAW_FROM_VAULT\020\006\022\027\n\023" +
+      "WRITE_ON_ENEMY_WALL\020\007\022\025\n\021REQUEST_JOIN_CL" +
+      "AN\020\010\022\036\n\032SUCCESSFULLY_FORGE_AN_ITEM\020\t*k\n\010" +
+      "UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHE" +
+      "R\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nB" +
+      "AD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResul" +
+      "t\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n" +
+      "\rATTACKER_FLEE\020\002*B\n\023MarketplacePostType\022" +
+      "\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_PO" +
+      "ST\020\002*2\n\035MarketplaceJobRequirementType\022\007\n",
+      "\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritStructType\022\n\n\006AV" +
+      "IARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMO" +
+      "RY\020\004\022\017\n\013MARKETPLACE\020\005\022\016\n\nBLACKSMITH\020\006*3\n" +
+      "\021StructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPO" +
+      "SITION_2\020\001*P\n\022ExpansionDirection\022\014\n\010FAR_" +
+      "LEFT\020\000\022\r\n\tFAR_RIGHT\020\001\022\r\n\tNEAR_LEFT\020\002\022\016\n\n" +
+      "NEAR_RIGHT\020\003B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
