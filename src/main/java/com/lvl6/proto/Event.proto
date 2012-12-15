@@ -179,6 +179,9 @@ message StartupResponseProto {
 	
 	repeated BossEventProto bossEvents = 40;
 	
+	repeated LeaderboardEventProto leaderboardEvents = 41;
+	repeated LeaderboardEventRewardProto leaderboardRewards = 42;
+	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
 		optional bool firstTimeToday = 2;
@@ -1264,6 +1267,7 @@ message RetrieveStaticDataRequestProto {
 	optional bool clanTierLevels = 13;
 	repeated int32 bossIds = 14;
 	optional bool currentBossEvents = 15;
+	optional bool currentLeaderboardEvents = 16;
 }
 
 																						//DONE
@@ -1283,6 +1287,8 @@ message RetrieveStaticDataResponseProto {
 	repeated ClanTierLevelProto clanTierLevels = 14;
 	repeated FullBossProto bosses = 15;
 	repeated BossEventProto bossEvents = 16;
+	repeated LeaderboardEventProto leaderboardEvents = 17;
+	repeated LeaderboardEventRewardProto leaderboardEventRewards = 18;
 	
 	optional RetrieveStaticDataStatus status = 13;
 	

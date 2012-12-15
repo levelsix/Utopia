@@ -45753,6 +45753,1420 @@ public final class InfoProto {
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.ColorProto)
   }
   
+  public interface LeaderboardEventProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // optional int32 id = 1;
+    boolean hasId();
+    int getId();
+    
+    // optional int64 startDate = 2;
+    boolean hasStartDate();
+    long getStartDate();
+    
+    // optional int64 endDate = 3;
+    boolean hasEndDate();
+    long getEndDate();
+    
+    // optional string eventName = 4;
+    boolean hasEventName();
+    String getEventName();
+  }
+  public static final class LeaderboardEventProto extends
+      com.google.protobuf.GeneratedMessage
+      implements LeaderboardEventProtoOrBuilder {
+    // Use LeaderboardEventProto.newBuilder() to construct.
+    private LeaderboardEventProto(Builder builder) {
+      super(builder);
+    }
+    private LeaderboardEventProto(boolean noInit) {}
+    
+    private static final LeaderboardEventProto defaultInstance;
+    public static LeaderboardEventProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public LeaderboardEventProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_LeaderboardEventProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_LeaderboardEventProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // optional int32 id = 1;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getId() {
+      return id_;
+    }
+    
+    // optional int64 startDate = 2;
+    public static final int STARTDATE_FIELD_NUMBER = 2;
+    private long startDate_;
+    public boolean hasStartDate() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public long getStartDate() {
+      return startDate_;
+    }
+    
+    // optional int64 endDate = 3;
+    public static final int ENDDATE_FIELD_NUMBER = 3;
+    private long endDate_;
+    public boolean hasEndDate() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public long getEndDate() {
+      return endDate_;
+    }
+    
+    // optional string eventName = 4;
+    public static final int EVENTNAME_FIELD_NUMBER = 4;
+    private java.lang.Object eventName_;
+    public boolean hasEventName() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public String getEventName() {
+      java.lang.Object ref = eventName_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          eventName_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getEventNameBytes() {
+      java.lang.Object ref = eventName_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        eventName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    private void initFields() {
+      id_ = 0;
+      startDate_ = 0L;
+      endDate_ = 0L;
+      eventName_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt64(2, startDate_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt64(3, endDate_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeBytes(4, getEventNameBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, startDate_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(3, endDate_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(4, getEventNameBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.LeaderboardEventProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.LeaderboardEventProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.LeaderboardEventProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.LeaderboardEventProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.LeaderboardEventProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.LeaderboardEventProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.LeaderboardEventProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.LeaderboardEventProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.LeaderboardEventProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.LeaderboardEventProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.LeaderboardEventProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.LeaderboardEventProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_LeaderboardEventProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_LeaderboardEventProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.LeaderboardEventProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        id_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        startDate_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        endDate_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        eventName_ = "";
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.LeaderboardEventProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.LeaderboardEventProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.LeaderboardEventProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.LeaderboardEventProto build() {
+        com.lvl6.proto.InfoProto.LeaderboardEventProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.LeaderboardEventProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.LeaderboardEventProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.LeaderboardEventProto buildPartial() {
+        com.lvl6.proto.InfoProto.LeaderboardEventProto result = new com.lvl6.proto.InfoProto.LeaderboardEventProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.id_ = id_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.startDate_ = startDate_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.endDate_ = endDate_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.eventName_ = eventName_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.LeaderboardEventProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.LeaderboardEventProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.LeaderboardEventProto other) {
+        if (other == com.lvl6.proto.InfoProto.LeaderboardEventProto.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
+        if (other.hasStartDate()) {
+          setStartDate(other.getStartDate());
+        }
+        if (other.hasEndDate()) {
+          setEndDate(other.getEndDate());
+        }
+        if (other.hasEventName()) {
+          setEventName(other.getEventName());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              id_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              startDate_ = input.readInt64();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              endDate_ = input.readInt64();
+              break;
+            }
+            case 34: {
+              bitField0_ |= 0x00000008;
+              eventName_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // optional int32 id = 1;
+      private int id_ ;
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getId() {
+        return id_;
+      }
+      public Builder setId(int value) {
+        bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int64 startDate = 2;
+      private long startDate_ ;
+      public boolean hasStartDate() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public long getStartDate() {
+        return startDate_;
+      }
+      public Builder setStartDate(long value) {
+        bitField0_ |= 0x00000002;
+        startDate_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearStartDate() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        startDate_ = 0L;
+        onChanged();
+        return this;
+      }
+      
+      // optional int64 endDate = 3;
+      private long endDate_ ;
+      public boolean hasEndDate() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public long getEndDate() {
+        return endDate_;
+      }
+      public Builder setEndDate(long value) {
+        bitField0_ |= 0x00000004;
+        endDate_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearEndDate() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        endDate_ = 0L;
+        onChanged();
+        return this;
+      }
+      
+      // optional string eventName = 4;
+      private java.lang.Object eventName_ = "";
+      public boolean hasEventName() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public String getEventName() {
+        java.lang.Object ref = eventName_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          eventName_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setEventName(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        eventName_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearEventName() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        eventName_ = getDefaultInstance().getEventName();
+        onChanged();
+        return this;
+      }
+      void setEventName(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000008;
+        eventName_ = value;
+        onChanged();
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.LeaderboardEventProto)
+    }
+    
+    static {
+      defaultInstance = new LeaderboardEventProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.LeaderboardEventProto)
+  }
+  
+  public interface LeaderboardEventRewardProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // optional int32 leaderboardEventId = 1;
+    boolean hasLeaderboardEventId();
+    int getLeaderboardEventId();
+    
+    // optional int32 minRank = 2;
+    boolean hasMinRank();
+    int getMinRank();
+    
+    // optional int32 maxRank = 3;
+    boolean hasMaxRank();
+    int getMaxRank();
+    
+    // optional int32 goldRewarded = 4;
+    boolean hasGoldRewarded();
+    int getGoldRewarded();
+    
+    // optional string backgroundImageName = 5;
+    boolean hasBackgroundImageName();
+    String getBackgroundImageName();
+    
+    // optional string prizeImageName = 6;
+    boolean hasPrizeImageName();
+    String getPrizeImageName();
+    
+    // optional int32 blue = 7;
+    boolean hasBlue();
+    int getBlue();
+    
+    // optional int32 green = 8;
+    boolean hasGreen();
+    int getGreen();
+    
+    // optional int32 red = 9;
+    boolean hasRed();
+    int getRed();
+  }
+  public static final class LeaderboardEventRewardProto extends
+      com.google.protobuf.GeneratedMessage
+      implements LeaderboardEventRewardProtoOrBuilder {
+    // Use LeaderboardEventRewardProto.newBuilder() to construct.
+    private LeaderboardEventRewardProto(Builder builder) {
+      super(builder);
+    }
+    private LeaderboardEventRewardProto(boolean noInit) {}
+    
+    private static final LeaderboardEventRewardProto defaultInstance;
+    public static LeaderboardEventRewardProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public LeaderboardEventRewardProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_LeaderboardEventRewardProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_LeaderboardEventRewardProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // optional int32 leaderboardEventId = 1;
+    public static final int LEADERBOARDEVENTID_FIELD_NUMBER = 1;
+    private int leaderboardEventId_;
+    public boolean hasLeaderboardEventId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getLeaderboardEventId() {
+      return leaderboardEventId_;
+    }
+    
+    // optional int32 minRank = 2;
+    public static final int MINRANK_FIELD_NUMBER = 2;
+    private int minRank_;
+    public boolean hasMinRank() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getMinRank() {
+      return minRank_;
+    }
+    
+    // optional int32 maxRank = 3;
+    public static final int MAXRANK_FIELD_NUMBER = 3;
+    private int maxRank_;
+    public boolean hasMaxRank() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public int getMaxRank() {
+      return maxRank_;
+    }
+    
+    // optional int32 goldRewarded = 4;
+    public static final int GOLDREWARDED_FIELD_NUMBER = 4;
+    private int goldRewarded_;
+    public boolean hasGoldRewarded() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public int getGoldRewarded() {
+      return goldRewarded_;
+    }
+    
+    // optional string backgroundImageName = 5;
+    public static final int BACKGROUNDIMAGENAME_FIELD_NUMBER = 5;
+    private java.lang.Object backgroundImageName_;
+    public boolean hasBackgroundImageName() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    public String getBackgroundImageName() {
+      java.lang.Object ref = backgroundImageName_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          backgroundImageName_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getBackgroundImageNameBytes() {
+      java.lang.Object ref = backgroundImageName_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        backgroundImageName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    // optional string prizeImageName = 6;
+    public static final int PRIZEIMAGENAME_FIELD_NUMBER = 6;
+    private java.lang.Object prizeImageName_;
+    public boolean hasPrizeImageName() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    public String getPrizeImageName() {
+      java.lang.Object ref = prizeImageName_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          prizeImageName_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getPrizeImageNameBytes() {
+      java.lang.Object ref = prizeImageName_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        prizeImageName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    // optional int32 blue = 7;
+    public static final int BLUE_FIELD_NUMBER = 7;
+    private int blue_;
+    public boolean hasBlue() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    public int getBlue() {
+      return blue_;
+    }
+    
+    // optional int32 green = 8;
+    public static final int GREEN_FIELD_NUMBER = 8;
+    private int green_;
+    public boolean hasGreen() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    public int getGreen() {
+      return green_;
+    }
+    
+    // optional int32 red = 9;
+    public static final int RED_FIELD_NUMBER = 9;
+    private int red_;
+    public boolean hasRed() {
+      return ((bitField0_ & 0x00000100) == 0x00000100);
+    }
+    public int getRed() {
+      return red_;
+    }
+    
+    private void initFields() {
+      leaderboardEventId_ = 0;
+      minRank_ = 0;
+      maxRank_ = 0;
+      goldRewarded_ = 0;
+      backgroundImageName_ = "";
+      prizeImageName_ = "";
+      blue_ = 0;
+      green_ = 0;
+      red_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, leaderboardEventId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, minRank_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, maxRank_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, goldRewarded_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeBytes(5, getBackgroundImageNameBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeBytes(6, getPrizeImageNameBytes());
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeInt32(7, blue_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeInt32(8, green_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        output.writeInt32(9, red_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, leaderboardEventId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, minRank_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, maxRank_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, goldRewarded_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(5, getBackgroundImageNameBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(6, getPrizeImageNameBytes());
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(7, blue_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(8, green_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(9, red_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.LeaderboardEventRewardProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.LeaderboardEventRewardProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.LeaderboardEventRewardProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.LeaderboardEventRewardProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.LeaderboardEventRewardProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.LeaderboardEventRewardProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.LeaderboardEventRewardProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.LeaderboardEventRewardProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.LeaderboardEventRewardProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.LeaderboardEventRewardProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.LeaderboardEventRewardProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.LeaderboardEventRewardProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_LeaderboardEventRewardProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_LeaderboardEventRewardProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.LeaderboardEventRewardProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        leaderboardEventId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        minRank_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        maxRank_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        goldRewarded_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        backgroundImageName_ = "";
+        bitField0_ = (bitField0_ & ~0x00000010);
+        prizeImageName_ = "";
+        bitField0_ = (bitField0_ & ~0x00000020);
+        blue_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000040);
+        green_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000080);
+        red_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000100);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.LeaderboardEventRewardProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.LeaderboardEventRewardProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.LeaderboardEventRewardProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.LeaderboardEventRewardProto build() {
+        com.lvl6.proto.InfoProto.LeaderboardEventRewardProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.LeaderboardEventRewardProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.LeaderboardEventRewardProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.LeaderboardEventRewardProto buildPartial() {
+        com.lvl6.proto.InfoProto.LeaderboardEventRewardProto result = new com.lvl6.proto.InfoProto.LeaderboardEventRewardProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.leaderboardEventId_ = leaderboardEventId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.minRank_ = minRank_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.maxRank_ = maxRank_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.goldRewarded_ = goldRewarded_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.backgroundImageName_ = backgroundImageName_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.prizeImageName_ = prizeImageName_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.blue_ = blue_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.green_ = green_;
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000100;
+        }
+        result.red_ = red_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.LeaderboardEventRewardProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.LeaderboardEventRewardProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.LeaderboardEventRewardProto other) {
+        if (other == com.lvl6.proto.InfoProto.LeaderboardEventRewardProto.getDefaultInstance()) return this;
+        if (other.hasLeaderboardEventId()) {
+          setLeaderboardEventId(other.getLeaderboardEventId());
+        }
+        if (other.hasMinRank()) {
+          setMinRank(other.getMinRank());
+        }
+        if (other.hasMaxRank()) {
+          setMaxRank(other.getMaxRank());
+        }
+        if (other.hasGoldRewarded()) {
+          setGoldRewarded(other.getGoldRewarded());
+        }
+        if (other.hasBackgroundImageName()) {
+          setBackgroundImageName(other.getBackgroundImageName());
+        }
+        if (other.hasPrizeImageName()) {
+          setPrizeImageName(other.getPrizeImageName());
+        }
+        if (other.hasBlue()) {
+          setBlue(other.getBlue());
+        }
+        if (other.hasGreen()) {
+          setGreen(other.getGreen());
+        }
+        if (other.hasRed()) {
+          setRed(other.getRed());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              leaderboardEventId_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              minRank_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              maxRank_ = input.readInt32();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              goldRewarded_ = input.readInt32();
+              break;
+            }
+            case 42: {
+              bitField0_ |= 0x00000010;
+              backgroundImageName_ = input.readBytes();
+              break;
+            }
+            case 50: {
+              bitField0_ |= 0x00000020;
+              prizeImageName_ = input.readBytes();
+              break;
+            }
+            case 56: {
+              bitField0_ |= 0x00000040;
+              blue_ = input.readInt32();
+              break;
+            }
+            case 64: {
+              bitField0_ |= 0x00000080;
+              green_ = input.readInt32();
+              break;
+            }
+            case 72: {
+              bitField0_ |= 0x00000100;
+              red_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // optional int32 leaderboardEventId = 1;
+      private int leaderboardEventId_ ;
+      public boolean hasLeaderboardEventId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getLeaderboardEventId() {
+        return leaderboardEventId_;
+      }
+      public Builder setLeaderboardEventId(int value) {
+        bitField0_ |= 0x00000001;
+        leaderboardEventId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearLeaderboardEventId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        leaderboardEventId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 minRank = 2;
+      private int minRank_ ;
+      public boolean hasMinRank() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getMinRank() {
+        return minRank_;
+      }
+      public Builder setMinRank(int value) {
+        bitField0_ |= 0x00000002;
+        minRank_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearMinRank() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        minRank_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 maxRank = 3;
+      private int maxRank_ ;
+      public boolean hasMaxRank() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public int getMaxRank() {
+        return maxRank_;
+      }
+      public Builder setMaxRank(int value) {
+        bitField0_ |= 0x00000004;
+        maxRank_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearMaxRank() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        maxRank_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 goldRewarded = 4;
+      private int goldRewarded_ ;
+      public boolean hasGoldRewarded() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public int getGoldRewarded() {
+        return goldRewarded_;
+      }
+      public Builder setGoldRewarded(int value) {
+        bitField0_ |= 0x00000008;
+        goldRewarded_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearGoldRewarded() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        goldRewarded_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional string backgroundImageName = 5;
+      private java.lang.Object backgroundImageName_ = "";
+      public boolean hasBackgroundImageName() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public String getBackgroundImageName() {
+        java.lang.Object ref = backgroundImageName_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          backgroundImageName_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setBackgroundImageName(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        backgroundImageName_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearBackgroundImageName() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        backgroundImageName_ = getDefaultInstance().getBackgroundImageName();
+        onChanged();
+        return this;
+      }
+      void setBackgroundImageName(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000010;
+        backgroundImageName_ = value;
+        onChanged();
+      }
+      
+      // optional string prizeImageName = 6;
+      private java.lang.Object prizeImageName_ = "";
+      public boolean hasPrizeImageName() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      public String getPrizeImageName() {
+        java.lang.Object ref = prizeImageName_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          prizeImageName_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setPrizeImageName(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        prizeImageName_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearPrizeImageName() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        prizeImageName_ = getDefaultInstance().getPrizeImageName();
+        onChanged();
+        return this;
+      }
+      void setPrizeImageName(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000020;
+        prizeImageName_ = value;
+        onChanged();
+      }
+      
+      // optional int32 blue = 7;
+      private int blue_ ;
+      public boolean hasBlue() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      public int getBlue() {
+        return blue_;
+      }
+      public Builder setBlue(int value) {
+        bitField0_ |= 0x00000040;
+        blue_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearBlue() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        blue_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 green = 8;
+      private int green_ ;
+      public boolean hasGreen() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      public int getGreen() {
+        return green_;
+      }
+      public Builder setGreen(int value) {
+        bitField0_ |= 0x00000080;
+        green_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearGreen() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        green_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 red = 9;
+      private int red_ ;
+      public boolean hasRed() {
+        return ((bitField0_ & 0x00000100) == 0x00000100);
+      }
+      public int getRed() {
+        return red_;
+      }
+      public Builder setRed(int value) {
+        bitField0_ |= 0x00000100;
+        red_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearRed() {
+        bitField0_ = (bitField0_ & ~0x00000100);
+        red_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.LeaderboardEventRewardProto)
+    }
+    
+    static {
+      defaultInstance = new LeaderboardEventRewardProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.LeaderboardEventRewardProto)
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_BossEventProto_descriptor;
   private static
@@ -46023,6 +47437,16 @@ public final class InfoProto {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_ColorProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_LeaderboardEventProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_LeaderboardEventProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_LeaderboardEventRewardProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_LeaderboardEventRewardProto_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -46345,41 +47769,48 @@ public final class InfoProto {
       "\001(\010\022\021\n\tstartTime\030\006 \001(\003\022\034\n\024diamondGuarant" +
       "eeCost\030\010 \001(\005\022\025\n\rtimeOfSpeedup\030\t \001(\003\022\027\n\017a" +
       "ttemptComplete\030\n \001(\010\"6\n\nColorProto\022\013\n\003re" +
-      "d\030\001 \001(\005\022\r\n\005green\030\002 \001(\005\022\014\n\004blue\030\003 \001(\005*C\n\016" +
-      "EquipClassType\022\013\n\007WARRIOR\020\000\022\n\n\006ARCHER\020\001\022" +
-      "\010\n\004MAGE\020\002\022\016\n\nALL_AMULET\020\003*,\n\016UserClanSta" +
-      "tus\022\n\n\006MEMBER\020\000\022\016\n\nREQUESTING\020\002*@\n\016Group" +
-      "ChatScope\022\n\n\006GLOBAL\020\000\022\014\n\010ALLIANCE\020\001\022\n\n\006L" +
-      "EGION\020\002\022\010\n\004CLAN\020\003*S\n\017LeaderboardType\022\024\n\020" +
-      "MOST_BATTLES_WON\020\002\022\016\n\nMOST_COINS\020\003\022\014\n\010MO",
-      "ST_EXP\020\004\022\014\n\010BEST_KDR\020\005*f\n\020CharacterModTy" +
-      "pe\022\016\n\nNEW_PLAYER\020\001\022\026\n\022RESET_SKILL_POINTS" +
-      "\020\002\022\031\n\025CHANGE_CHARACTER_TYPE\020\003\022\017\n\013CHANGE_" +
-      "NAME\020\004*/\n\rAnimationType\022\022\n\016GENERIC_ACTIO" +
-      "N\020\001\022\n\n\006ATTACK\020\002*h\n\024EarnFreeDiamondsType\022" +
-      "\010\n\004KIIP\020\001\022\014\n\010ADCOLONY\020\002\022\r\n\tFB_INVITE\020\003\022\n" +
-      "\n\006TAPJOY\020\004\022\020\n\014FLURRY_VIDEO\020\005\022\013\n\007TWITTER\020" +
-      "\006*\371\001\n\022SpecialQuestAction\022\030\n\024PURCHASE_FRO" +
-      "M_ARMORY\020\001\022\035\n\031PURCHASE_FROM_MARKETPLACE\020" +
-      "\002\022\022\n\016SELL_TO_ARMORY\020\003\022\027\n\023POST_TO_MARKETP",
-      "LACE\020\004\022\024\n\020DEPOSIT_IN_VAULT\020\005\022\027\n\023WITHDRAW" +
-      "_FROM_VAULT\020\006\022\027\n\023WRITE_ON_ENEMY_WALL\020\007\022\025" +
-      "\n\021REQUEST_JOIN_CLAN\020\010\022\036\n\032SUCCESSFULLY_FO" +
-      "RGE_AN_ITEM\020\t*k\n\010UserType\022\020\n\014GOOD_WARRIO" +
-      "R\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013B" +
-      "AD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE" +
-      "\020\005*E\n\014BattleResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014" +
-      "DEFENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023Mar" +
-      "ketplacePostType\022\026\n\022PREMIUM_EQUIP_POST\020\000" +
-      "\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035MarketplaceJobR",
-      "equirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016Cri" +
-      "tStructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t" +
-      "\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005\022\016" +
-      "\n\nBLACKSMITH\020\006*3\n\021StructOrientation\022\016\n\nP" +
-      "OSITION_1\020\000\022\016\n\nPOSITION_2\020\001*P\n\022Expansion" +
-      "Direction\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001\022\r" +
-      "\n\tNEAR_LEFT\020\002\022\016\n\nNEAR_RIGHT\020\003B\013B\tInfoPro" +
-      "to"
+      "d\030\001 \001(\005\022\r\n\005green\030\002 \001(\005\022\014\n\004blue\030\003 \001(\005\"Z\n\025" +
+      "LeaderboardEventProto\022\n\n\002id\030\001 \001(\005\022\021\n\tsta" +
+      "rtDate\030\002 \001(\003\022\017\n\007endDate\030\003 \001(\003\022\021\n\teventNa" +
+      "me\030\004 \001(\t\"\320\001\n\033LeaderboardEventRewardProto" +
+      "\022\032\n\022leaderboardEventId\030\001 \001(\005\022\017\n\007minRank\030" +
+      "\002 \001(\005\022\017\n\007maxRank\030\003 \001(\005\022\024\n\014goldRewarded\030\004" +
+      " \001(\005\022\033\n\023backgroundImageName\030\005 \001(\t\022\026\n\016pri",
+      "zeImageName\030\006 \001(\t\022\014\n\004blue\030\007 \001(\005\022\r\n\005green" +
+      "\030\010 \001(\005\022\013\n\003red\030\t \001(\005*C\n\016EquipClassType\022\013\n" +
+      "\007WARRIOR\020\000\022\n\n\006ARCHER\020\001\022\010\n\004MAGE\020\002\022\016\n\nALL_" +
+      "AMULET\020\003*,\n\016UserClanStatus\022\n\n\006MEMBER\020\000\022\016" +
+      "\n\nREQUESTING\020\002*@\n\016GroupChatScope\022\n\n\006GLOB" +
+      "AL\020\000\022\014\n\010ALLIANCE\020\001\022\n\n\006LEGION\020\002\022\010\n\004CLAN\020\003" +
+      "*S\n\017LeaderboardType\022\024\n\020MOST_BATTLES_WON\020" +
+      "\002\022\016\n\nMOST_COINS\020\003\022\014\n\010MOST_EXP\020\004\022\014\n\010BEST_" +
+      "KDR\020\005*f\n\020CharacterModType\022\016\n\nNEW_PLAYER\020" +
+      "\001\022\026\n\022RESET_SKILL_POINTS\020\002\022\031\n\025CHANGE_CHAR",
+      "ACTER_TYPE\020\003\022\017\n\013CHANGE_NAME\020\004*/\n\rAnimati" +
+      "onType\022\022\n\016GENERIC_ACTION\020\001\022\n\n\006ATTACK\020\002*h" +
+      "\n\024EarnFreeDiamondsType\022\010\n\004KIIP\020\001\022\014\n\010ADCO" +
+      "LONY\020\002\022\r\n\tFB_INVITE\020\003\022\n\n\006TAPJOY\020\004\022\020\n\014FLU" +
+      "RRY_VIDEO\020\005\022\013\n\007TWITTER\020\006*\371\001\n\022SpecialQues" +
+      "tAction\022\030\n\024PURCHASE_FROM_ARMORY\020\001\022\035\n\031PUR" +
+      "CHASE_FROM_MARKETPLACE\020\002\022\022\n\016SELL_TO_ARMO" +
+      "RY\020\003\022\027\n\023POST_TO_MARKETPLACE\020\004\022\024\n\020DEPOSIT" +
+      "_IN_VAULT\020\005\022\027\n\023WITHDRAW_FROM_VAULT\020\006\022\027\n\023" +
+      "WRITE_ON_ENEMY_WALL\020\007\022\025\n\021REQUEST_JOIN_CL",
+      "AN\020\010\022\036\n\032SUCCESSFULLY_FORGE_AN_ITEM\020\t*k\n\010" +
+      "UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHE" +
+      "R\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nB" +
+      "AD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResul" +
+      "t\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n" +
+      "\rATTACKER_FLEE\020\002*B\n\023MarketplacePostType\022" +
+      "\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_PO" +
+      "ST\020\002*2\n\035MarketplaceJobRequirementType\022\007\n" +
+      "\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritStructType\022\n\n\006AV" +
+      "IARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMO",
+      "RY\020\004\022\017\n\013MARKETPLACE\020\005\022\016\n\nBLACKSMITH\020\006*3\n" +
+      "\021StructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPO" +
+      "SITION_2\020\001*P\n\022ExpansionDirection\022\014\n\010FAR_" +
+      "LEFT\020\000\022\r\n\tFAR_RIGHT\020\001\022\r\n\tNEAR_LEFT\020\002\022\016\n\n" +
+      "NEAR_RIGHT\020\003B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -46818,6 +48249,22 @@ public final class InfoProto {
               new java.lang.String[] { "Red", "Green", "Blue", },
               com.lvl6.proto.InfoProto.ColorProto.class,
               com.lvl6.proto.InfoProto.ColorProto.Builder.class);
+          internal_static_com_lvl6_proto_LeaderboardEventProto_descriptor =
+            getDescriptor().getMessageTypes().get(52);
+          internal_static_com_lvl6_proto_LeaderboardEventProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_LeaderboardEventProto_descriptor,
+              new java.lang.String[] { "Id", "StartDate", "EndDate", "EventName", },
+              com.lvl6.proto.InfoProto.LeaderboardEventProto.class,
+              com.lvl6.proto.InfoProto.LeaderboardEventProto.Builder.class);
+          internal_static_com_lvl6_proto_LeaderboardEventRewardProto_descriptor =
+            getDescriptor().getMessageTypes().get(53);
+          internal_static_com_lvl6_proto_LeaderboardEventRewardProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_LeaderboardEventRewardProto_descriptor,
+              new java.lang.String[] { "LeaderboardEventId", "MinRank", "MaxRank", "GoldRewarded", "BackgroundImageName", "PrizeImageName", "Blue", "Green", "Red", },
+              com.lvl6.proto.InfoProto.LeaderboardEventRewardProto.class,
+              com.lvl6.proto.InfoProto.LeaderboardEventRewardProto.Builder.class);
           return null;
         }
       };

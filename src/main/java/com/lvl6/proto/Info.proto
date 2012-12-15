@@ -17,6 +17,8 @@ message BossEventProto {
 	optional string infoDescription = 12;
 }
 
+//------------------------------------------------------------------------------------------
+
 message ClanTowerProto {
 	optional int32 towerId = 1;
 	optional string towerName = 2;
@@ -788,3 +790,28 @@ message ColorProto {
 	optional int32 green = 2;
 	optional int32 blue = 3;
 }
+
+//------------------------------------------------------------------------------------------
+
+message LeaderboardEventProto {
+	optional int32 id = 1;
+	optional int64 startDate = 2;
+	optional int64 endDate = 3;
+	optional string eventName = 4;
+}
+
+//------------------------------------------------------------------------------------------
+
+message LeaderboardEventRewardProto {
+	optional int32 leaderboardEventId = 1;
+	optional int32 minRank = 2;
+	optional int32 maxRank = 3;
+	optional int32 goldRewarded = 4;
+	optional string backgroundImageName = 5;
+	optional string prizeImageName = 6;
+	optional int32 blue = 7;
+	optional int32 green = 8;
+	optional int32 red = 9;
+}
+
+//------------------------------------------------------------------------------------------
