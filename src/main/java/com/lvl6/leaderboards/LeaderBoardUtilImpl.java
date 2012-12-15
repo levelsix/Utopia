@@ -375,4 +375,47 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 		return 0;
 	}
 
+	@Override
+	public void setRankForEvent(Integer eventId, Integer userId, Double rank) {
+		Jedis jedis = jedisPool.getResource();
+		try {
+			jedis.zadd(LeaderBoardConstants.RANK_FOR_EVENT(eventId), rank, userId.toString());
+		} catch (Exception e) {
+			log.error("Error in jedis pool", e);
+		} finally {
+			if (jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+	}
+
+	@Override
+	public double getRankForEvent(Integer eventId, Integer userId) {
+		Jedis jedis = jedisPool.getResource();
+		try {
+			return jedis.zscore(LeaderBoardConstants.RANK_FOR_EVENT(eventId), userId.toString());
+		} catch (Exception e) {
+			log.error("Error in jedis pool", e);
+		} finally {
+			if (jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return 0;
+	}
+
+	@Override
+	public Set<Tuple> getEventTopN(Integer eventId, Integer start, Integer stop) {
+		Jedis jedis = jedisPool.getResource();
+		try {
+			Set<Tuple> ids = jedis.zrevrangeWithScores(LeaderBoardConstants.RANK_FOR_EVENT(eventId),
+					start, stop);
+			return ids;//convertToIdStringsToInts(ids);
+		} catch (Exception e) {
+			log.error("Error in jedis pool", e);
+		} finally {
+			if (jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return new HashSet<Tuple>();
+	}
+
 }

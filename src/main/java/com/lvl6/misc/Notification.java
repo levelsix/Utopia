@@ -63,6 +63,12 @@ public class Notification {
   public void setAsClanTowerWarClanConceded (String losingClan, String winningClan, String towerName) {
     MessageFormat formatTitle = new MessageFormat(NotificationConstants.CLAN_CONCEDED__TITLE);
     MessageFormat formatSubtitle = new MessageFormat(NotificationConstants.CLAN_CONCEDED__SUBTITLE);
+    
+    if (winningClan == null) {
+      winningClan = "";
+      formatTitle = new MessageFormat(NotificationConstants.CLAN_CONCEDED__TITLE_NO_OWNER);
+      formatSubtitle = new MessageFormat(NotificationConstants.CLAN_CONCEDED__SUBTITLE_NO_OWNER);
+    }
 
     Object[] arguments = { losingClan, winningClan, towerName };
 

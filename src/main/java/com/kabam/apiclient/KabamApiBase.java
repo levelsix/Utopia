@@ -91,8 +91,8 @@ class KabamApiBase {
                 pathParams, queryParams, bodyParams);
 
         Map<String, String> queryParamsWithSig = new HashMap<String, String>(sigData);
-        if (pathParams != null) {
-            for (Map.Entry<String, String> entry : pathParams.entrySet()) {
+        if (queryParams != null) {
+            for (Map.Entry<String, String> entry : queryParams.entrySet()) {
                 queryParamsWithSig.put(entry.getKey(), entry.getValue());
             }
         }

@@ -60,10 +60,12 @@ public interface LeaderBoardUtil {
 
 	public abstract Set<Tuple> getExperienceTopN(Integer start, Integer stop);
 
-	// public abstract void updateLeaderboardForUser(Integer userId);
 	public abstract void updateLeaderboardForUser(User user);
 
-	// public abstract void updateLeaderboardTotalCoinValueForUser(Integer
-	// userId);
+	public abstract void setRankForEvent(Integer eventId, Integer userId, Double rank);
+	public abstract double getRankForEvent(Integer eventId, Integer userId);
+	public abstract Set<Tuple> getEventTopN(Integer eventId, Integer start, Integer stop);
+	
+	
 
 }

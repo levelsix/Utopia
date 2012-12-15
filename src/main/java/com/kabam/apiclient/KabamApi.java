@@ -43,12 +43,16 @@ public class KabamApi extends KabamApiBase {
      *                 <b>mac_hash</b> : MD5 has of the mac address <br>
      *                 <b>device_id</b> : Android device id. (android id) <br>
      *                 <b>advertiser_id</b> : IOS6 advertiser id <br>
+     * @param userCreationDate When is this user created on the 3rd party game's side. This is used
+     *                         to differentiate between old and new accounts in 3rd party mobile
+     *                         games. This is in unix timestamp format. <br>
+     *                         If not passed it will default to current unix time.
      * @return Returns the following:<br>
      *         access_token - The oauth token that can be used for other API calls<br>
      *         naid - The naid returned back<br>
      */
-    public MobileNaidResponse mobileGetNaid (
-            String userId, int clientId, String platform, String biParams)  throws Exception {
+    public MobileNaidResponse mobileGetNaid (String userId, int clientId, String platform, 
+    		String biParams, Long userCreationDate)  throws Exception {
         String service = "/mobile/naid";
         Map<String, String> pathParams = new HashMap<String, String>();
         pathParams.put("client_id", "" + clientId);
@@ -56,7 +60,7 @@ public class KabamApi extends KabamApiBase {
         bodyParams.put("user_id", userId);
         bodyParams.put("platform", platform);
         bodyParams.put("bi_params", biParams);
-
+        bodyParams.put("creation_date", userCreationDate.toString());
         
         String response = post(service, secret, host, port, pathParams, null, bodyParams);
         return (MobileNaidResponse) response(response, MobileNaidResponse.class);

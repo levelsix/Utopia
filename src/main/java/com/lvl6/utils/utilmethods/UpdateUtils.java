@@ -19,6 +19,7 @@ import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
 import com.lvl6.info.UserStruct;
 import com.lvl6.misc.MiscMethods;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.ExpansionDirection;
 import com.lvl6.proto.InfoProto.StructOrientation;
@@ -835,11 +836,11 @@ public class UpdateUtils implements UpdateUtil {
 
 	  //the fields to change
 	  Map<String, Object> absoluteParams = new HashMap<String,Object>();
-	  absoluteParams.put(owner, ownerId);
+	  absoluteParams.put(owner, ownerId == ControllerConstants.NOT_SET ? null : ownerId);
 	  absoluteParams.put(ownedTime, ownedStartTime);
 	  absoluteParams.put(ownerWins, ownerBattleWins);
 	  
-	  absoluteParams.put(attacker, attackerId);
+	  absoluteParams.put(attacker, attackerId == ControllerConstants.NOT_SET ? null : attackerId);
 	  absoluteParams.put(attackTime, attackStartTime);
 	  absoluteParams.put(attackerWins, attackerBattleWins);
 	  
@@ -883,8 +884,8 @@ public class UpdateUtils implements UpdateUtil {
 	  
 	  Map<String, Object> conditionParams = new HashMap<String, Object>();
 	  conditionParams.put(DBConstants.CLAN_TOWERS__TOWER_ID, clanTowerId);
-	  conditionParams.put(DBConstants.CLAN_TOWERS__CLAN_OWNER_ID, ownerId);
-	  conditionParams.put(DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID, attackerId);
+	  conditionParams.put(DBConstants.CLAN_TOWERS__CLAN_OWNER_ID, ownerId == ControllerConstants.NOT_SET ? null : ownerId);
+	  conditionParams.put(DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID, attackerId == ControllerConstants.NOT_SET ? null : attackerId);
 	  
 	  Map<String, Object> absoluteParams = null;
 	  String condDelim = "AND";
@@ -950,7 +951,7 @@ public class UpdateUtils implements UpdateUtil {
 		  lastRewardTime = " " + DBConstants.CLAN_TOWERS__LAST_REWARD_GIVEN + "=?";
 		  values.add(null);
 		  
-		  whereClause = " where " + DBConstants.CLAN_TOWERS__CLAN_OWNER_ID + " in (" +
+		  whereClause = " where " + DBConstants.CLAN_TOWERS__TOWER_ID + " in (" +
 				  listOfIds + ")";
 	  }
 	  else {
@@ -960,13 +961,17 @@ public class UpdateUtils implements UpdateUtil {
 		  //no attacker means reset battle wins
 		  ownerBattleWins = " " + DBConstants.CLAN_TOWERS__OWNER_BATTLE_WINS + "=?,";
 		  values.add(0);
+		  
+      attackStartTime = " " + DBConstants.CLAN_TOWERS__ATTACK_START_TIME + "=?,";
+      values.add(null);
 		  attackerBattleWins = " " + DBConstants.CLAN_TOWERS__ATTACKER_BATTLE_WINS + "=?,";
 		  values.add(0);
+      
+      //reset last reward given
+      lastRewardTime = " " + DBConstants.CLAN_TOWERS__LAST_REWARD_GIVEN + "=?";
+      values.add(null);
 		  
-		  attackStartTime = " " + DBConstants.CLAN_TOWERS__ATTACK_START_TIME + "=?";
-		  values.add(null);
-		  
-		  whereClause = " where " + DBConstants.CLAN_TOWERS__CLAN_ATTACKER_ID + " in (" +
+		  whereClause = " where " + DBConstants.CLAN_TOWERS__TOWER_ID + " in (" +
 				  listOfIds + ")";
 	  }
 	  String query = "update " + tableName + " set "  
@@ -976,6 +981,7 @@ public class UpdateUtils implements UpdateUtil {
 		        + lastRewardTime
 		        + whereClause ;
 	  
+	  log.info(query + " with values " +values);
 	  int numTowers = clanTowerOwnerOrAttackerIds.size();
 	  int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
 	  log.info("~~~~~~~~~~~~~~~~~~~~~~resetClanTowerOwnerOrAttacker: num towers updated=" + numUpdated + " \n "
