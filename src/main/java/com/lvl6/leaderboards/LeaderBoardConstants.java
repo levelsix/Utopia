@@ -10,5 +10,9 @@ public class LeaderBoardConstants {
   public static String BATTLES_WON_FOR_TOURNAMENT(Integer tournament) {
 	  return "battles_won_for_tournament_"+tournament;
   }
+  
+  public static String RANK_FOR_EVENT(Integer event) {
+	  return "rank_for_event_"+event;
+  }
 
 }
