@@ -28,6 +28,8 @@ import com.lvl6.info.ClanTierLevel;
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
+import com.lvl6.info.LeaderboardEvent;
+import com.lvl6.info.LeaderboardEventReward;
 import com.lvl6.info.Location;
 import com.lvl6.info.LockBoxEvent;
 import com.lvl6.info.Task;
@@ -63,6 +65,7 @@ import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
+import com.lvl6.proto.InfoProto.LeaderboardEventProto;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
@@ -76,6 +79,8 @@ import com.lvl6.retrieveutils.rarechange.ClanTierLevelRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.GoldSaleRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.LeaderboardEventRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.LeaderboardEventRewardRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LockBoxEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LockBoxItemRetrieveUtils;
@@ -552,6 +557,28 @@ public class MiscMethods {
       }
     }
     return toReturn;
+  }
+  
+  public static List<LeaderboardEventProto> currentLeaderboardEventProtos() {
+    List<LeaderboardEvent> events = LeaderboardEventRetrieveUtils.getActiveLeaderboardEvents();
+    List<Integer> eventIds = new ArrayList<Integer>();
+    for(LeaderboardEvent e : events) {
+      eventIds.add(e.getId());
+    }
+    
+    //get all the rewards for all the current leaderboard events
+    Map<Integer, List<LeaderboardEventReward>> eventIdsToRewards = 
+        LeaderboardEventRewardRetrieveUtils.getLeaderboardEventRewardsForIds(eventIds);
+    
+    //return value
+    List<LeaderboardEventProto> protos = new ArrayList<LeaderboardEventProto>();
+    
+    for(LeaderboardEvent e: events) {
+      List<LeaderboardEventReward> rList = eventIdsToRewards.get(e.getId()); //rewards for the event
+      
+      protos.add(CreateInfoProtoUtils.createLeaderboardEventProtoFromLeaderboardEvent(e, rList));
+    }
+    return protos;
   }
 
   public static void reloadAllRareChangeStaticData() {

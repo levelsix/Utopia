@@ -180,7 +180,6 @@ message StartupResponseProto {
 	repeated BossEventProto bossEvents = 40;
 	
 	repeated LeaderboardEventProto leaderboardEvents = 41;
-	repeated LeaderboardEventRewardProto leaderboardRewards = 42;
 	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
@@ -1290,7 +1289,6 @@ message RetrieveStaticDataResponseProto {
 	repeated FullBossProto bosses = 15;
 	repeated BossEventProto bossEvents = 16;
 	repeated LeaderboardEventProto leaderboardEvents = 17;
-	repeated LeaderboardEventRewardProto leaderboardEventRewards = 18;
 	
 	optional RetrieveStaticDataStatus status = 13;
 	

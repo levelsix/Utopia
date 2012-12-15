@@ -22,6 +22,8 @@ import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.GoldSale;
+import com.lvl6.info.LeaderboardEvent;
+import com.lvl6.info.LeaderboardEventReward;
 import com.lvl6.info.Location;
 import com.lvl6.info.LockBoxEvent;
 import com.lvl6.info.LockBoxItem;
@@ -58,6 +60,7 @@ import com.lvl6.proto.InfoProto.BuildStructJobProto;
 import com.lvl6.proto.InfoProto.ClanBulletinPostProto;
 import com.lvl6.proto.InfoProto.ClanTierLevelProto;
 import com.lvl6.proto.InfoProto.ClanTowerProto;
+import com.lvl6.proto.InfoProto.ColorProto;
 import com.lvl6.proto.InfoProto.CoordinateProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto;
 import com.lvl6.proto.InfoProto.DialogueProto;
@@ -73,7 +76,6 @@ import com.lvl6.proto.InfoProto.FullQuestProto;
 import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullTaskProto.FullTaskEquipReqProto;
-import com.lvl6.proto.InfoProto.ColorProto;
 import com.lvl6.proto.InfoProto.FullUserBossProto;
 import com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto;
 import com.lvl6.proto.InfoProto.FullUserCityProto;
@@ -85,6 +87,8 @@ import com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto;
 import com.lvl6.proto.InfoProto.FullUserStructureProto;
 import com.lvl6.proto.InfoProto.GoldSaleProto;
 import com.lvl6.proto.InfoProto.GroupChatMessageProto;
+import com.lvl6.proto.InfoProto.LeaderboardEventProto;
+import com.lvl6.proto.InfoProto.LeaderboardEventRewardProto;
 import com.lvl6.proto.InfoProto.LeaderboardType;
 import com.lvl6.proto.InfoProto.LocationProto;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
@@ -972,6 +976,37 @@ public class CreateInfoProtoUtils {
     b.setMiddleEquip(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equips.get(e.getMiddleEquipId())));
     b.setRightEquip(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equips.get(e.getRightEquipId())));
     
+    return b.build();
+  }
+  
+  public static LeaderboardEventProto createLeaderboardEventProtoFromLeaderboardEvent(
+      LeaderboardEvent e, List<LeaderboardEventReward> rList) {
+    
+    LeaderboardEventProto.Builder b = LeaderboardEventProto.newBuilder().setId(e.getId()).setStartDate(e.getStartDate().getTime())
+    .setEndDate(e.getEndDate().getTime()).setEventName(e.getEventName());
+    
+    List<LeaderboardEventRewardProto> rProtosList = new ArrayList<LeaderboardEventRewardProto>();
+    for(LeaderboardEventReward r : rList) {
+      LeaderboardEventRewardProto rProto = createLeaderboardEventRewardProtoFromLeaderboardEventReward(r);
+      rProtosList.add(rProto);
+    }
+    
+    b.addAllRewards(rProtosList);
+    
+    return b.build();
+  }
+  
+  public static LeaderboardEventRewardProto createLeaderboardEventRewardProtoFromLeaderboardEventReward(LeaderboardEventReward r) {
+    
+    LeaderboardEventRewardProto.Builder b = LeaderboardEventRewardProto.newBuilder()
+    .setLeaderboardEventId(r.getLeaderboardEventId()).setMinRank(r.getMinRank()).setMaxRank(r.getMaxRank())
+    .setGoldRewarded(r.getGoldRewarded()).setBackgroundImageName(r.getBackgroundImageName())
+    .setPrizeImageName(r.getPrizeImageName());
+    
+    ColorProto.Builder clrB = ColorProto.newBuilder().setBlue(r.getBlue())
+        .setGreen(r.getGreen()).setRed(r.getRed()); 
+
+    b.setTitleColor(clrB.build());
     return b.build();
   }
 }

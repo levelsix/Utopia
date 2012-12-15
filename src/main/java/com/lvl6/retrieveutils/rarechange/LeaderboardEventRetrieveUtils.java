@@ -84,7 +84,9 @@ import com.lvl6.utils.DBConnection;
       boolean random = false;
       //end initialization
       
+      //event should have end time after now
       relativeGreaterThanConditionParams.put(DBConstants.LEADERBOARD_EVENTS__END_TIME, now);
+      //event should have start time before now
       relativeLessThanConditionParams.put(DBConstants.LEADERBOARD_EVENTS__START_TIME, now);
       if (null != conn) {
         rs = DBConnection.get().selectRows(conn, columns, absoluteConditionParams, 
