@@ -18,4 +18,5 @@
 <!-- 	<task:scheduler id="taskScheduler" pool-size="5" /> -->
 
 	<bean id="clanTowersScheduledTasks" class="com.lvl6.scheduledtasks.ClanTowersScheduledTasks" />
+	<bean id="leaderboardEventScheduledTasks" class="com.lvl6.scheduledtasks.LeaderboardEventScheduledTasks" />
 </beans>
