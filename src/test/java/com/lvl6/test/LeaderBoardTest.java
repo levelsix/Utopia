@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import junit.framework.TestCase;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -58,7 +59,20 @@ public class LeaderBoardTest extends TestCase {
 		printRanks(rank, ex, leaderBoard);
 	}
 	
-	
+	@Test
+	public void testLeaderboardEvents() {
+		Set<Tuple> top5 = lb.getEventTopN(1, 0, 5);
+		int index = 0;
+		boolean ordered = true;
+		for(Tuple t : top5) {
+			long rank = lb.getRankForEventAndUser(1, Integer.valueOf(t.getElement()));
+			Object[] args = {index, rank, t.getScore(), t.getElement()};
+			log.info("Index: {} Rank: {} Score: {} User: {}", args);
+			if(rank != index) ordered = false;
+			index++;
+		}
+		Assert.assertTrue(ordered);
+	}
 
 	private void printRanks(int rank, Set<Tuple> ex, String leaderBoard) {
 		/*log.info("Ranks for "+leaderBoard);

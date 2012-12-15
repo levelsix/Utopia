@@ -422,7 +422,7 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	public Set<Tuple> getEventTopN(Integer eventId, Integer start, Integer stop) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			Set<Tuple> ids = jedis.zrevrangeWithScores(LeaderBoardConstants.RANK_FOR_EVENT(eventId),
+			Set<Tuple> ids = jedis.zrangeWithScores(LeaderBoardConstants.RANK_FOR_EVENT(eventId),
 					start, stop);
 			return ids;//convertToIdStringsToInts(ids);
 		} catch (Exception e) {
