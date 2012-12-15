@@ -28,6 +28,8 @@ import com.lvl6.info.ClanTierLevel;
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
+import com.lvl6.info.LeaderboardEvent;
+import com.lvl6.info.LeaderboardEventReward;
 import com.lvl6.info.Location;
 import com.lvl6.info.LockBoxEvent;
 import com.lvl6.info.Task;
@@ -63,6 +65,7 @@ import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
+import com.lvl6.proto.InfoProto.LeaderboardEventProto;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
@@ -76,6 +79,8 @@ import com.lvl6.retrieveutils.rarechange.ClanTierLevelRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.GoldSaleRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.LeaderboardEventRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.LeaderboardEventRewardRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LockBoxEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LockBoxItemRetrieveUtils;
@@ -553,6 +558,35 @@ public class MiscMethods {
     }
     return toReturn;
   }
+  
+  public static List<LeaderboardEventProto> currentLeaderboardEventProtos() {
+    Map<Integer, LeaderboardEvent> idsToEvents = LeaderboardEventRetrieveUtils.getIdsToLeaderboardEvents();
+    long curTime = (new Date()).getTime();
+    List<Integer> activeEventIds = new ArrayList<Integer>();
+    
+    //return value
+    List<LeaderboardEventProto> protos = new ArrayList<LeaderboardEventProto>();
+    
+    //get the ids of active leader board events
+    for(LeaderboardEvent e : idsToEvents.values()) {
+      if (e.getEndDate().getTime() > curTime) {
+        activeEventIds.add(e.getId());
+      }
+    }
+    
+    //get all the rewards for all the current leaderboard events
+    Map<Integer, List<LeaderboardEventReward>> eventIdsToRewards = 
+        LeaderboardEventRewardRetrieveUtils.getLeaderboardEventRewardsForIds(activeEventIds);
+    
+    //create the protos
+    for(Integer i: activeEventIds) {
+      LeaderboardEvent e = idsToEvents.get(i);
+      List<LeaderboardEventReward> rList = eventIdsToRewards.get(e.getId()); //rewards for the active event
+      
+      protos.add(CreateInfoProtoUtils.createLeaderboardEventProtoFromLeaderboardEvent(e, rList));
+    }
+    return protos;
+  }
 
   public static void reloadAllRareChangeStaticData() {
     log.info("Reloading rare change static data");
@@ -576,6 +610,8 @@ public class MiscMethods {
     ClanTierLevelRetrieveUtils.reload();
     BossEventRetrieveUtils.reload();
     BossRewardRetrieveUtils.reload();
+    LeaderboardEventRetrieveUtils.reload();
+    LeaderboardEventRewardRetrieveUtils.reload();
   }
 
   public static UserType getUserTypeFromDefeatTypeJobUserType(

@@ -55,61 +55,64 @@ import com.lvl6.utils.DBConnection;
     return idsToLeaderBoardEvents.get(id);
   }
 
-  public static List<LeaderboardEvent> getActiveLeaderboardEvents() {
-    long curTime = (new Date()).getTime();
-    String now = "\"" + new Timestamp(curTime) + "\"";
-
-    List<LeaderboardEvent> toReturn = new ArrayList<LeaderboardEvent>();
-    
-    if(null != idsToLeaderBoardEvents) {
-      //go through local copy of db, instead of going to db
-      for(LeaderboardEvent e : idsToLeaderBoardEvents.values()) {
-        if(e.getEndDate().getTime() > curTime && curTime >= e.getStartDate().getTime()) {
-          toReturn.add(e);
-        }
-      }
-    } else {
-      //initialization crap
-      Connection conn = DBConnection.get().getConnection();
-      ResultSet rs = null;
-      List<String> columns = null;
-      Map<String, Object> absoluteConditionParams = null;
-      Map<String, Object> relativeGreaterThanConditionParams = new HashMap<String, Object>();
-      Map<String, Object> relativeLessThanConditionParams = new HashMap<String, Object>();
-      Map<String, Object> likeCondParams = null;
-      String conddelim = ",";
-      String orderByColumn = "";
-      boolean orderByAsc = false;
-      int limit = -1; //SELECT_LIMIT_NOT_SET;
-      boolean random = false;
-      //end initialization
-      
-      relativeGreaterThanConditionParams.put(DBConstants.LEADERBOARD_EVENTS__END_TIME, now);
-      relativeLessThanConditionParams.put(DBConstants.LEADERBOARD_EVENTS__START_TIME, now);
-      if (null != conn) {
-        rs = DBConnection.get().selectRows(conn, columns, absoluteConditionParams, 
-            relativeGreaterThanConditionParams, relativeLessThanConditionParams, likeCondParams, 
-            TABLE_NAME, conddelim, orderByColumn, orderByAsc, limit, random);
-        if (null != rs) {
-          try {
-            rs.last();
-            rs.beforeFirst();
-            while(rs.next()) {
-              LeaderboardEvent le = convertRSRowToLeaderboardEvent(rs);
-              if(null != le) {
-                toReturn.add(le);
-              }
-            }
-          } catch (SQLException e) {
-            log.error("problem with leaderboard event db call.", e);
-          }
-        }
-      }
-      DBConnection.get().close(rs, null, conn);
-    }
-    
-    return toReturn;
-  }
+//  decided to get the active leaderboard events in MiscMethods.currentLeaderboardEventProtos()
+//  public static List<LeaderboardEvent> getActiveLeaderboardEvents() {
+//    long curTime = (new Date()).getTime();
+//    String now = "\"" + new Timestamp(curTime) + "\"";
+//
+//    List<LeaderboardEvent> toReturn = new ArrayList<LeaderboardEvent>();
+//    
+//    if(null != idsToLeaderBoardEvents) {
+//      //go through local copy of db, instead of going to db
+//      for(LeaderboardEvent e : idsToLeaderBoardEvents.values()) {
+//        if(e.getEndDate().getTime() > curTime && curTime >= e.getStartDate().getTime()) {
+//          toReturn.add(e);
+//        }
+//      }
+//    } else {
+//      //initialization crap
+//      Connection conn = DBConnection.get().getConnection();
+//      ResultSet rs = null;
+//      List<String> columns = null;
+//      Map<String, Object> absoluteConditionParams = null;
+//      Map<String, Object> relativeGreaterThanConditionParams = new HashMap<String, Object>();
+//      Map<String, Object> relativeLessThanConditionParams = new HashMap<String, Object>();
+//      Map<String, Object> likeCondParams = null;
+//      String conddelim = ",";
+//      String orderByColumn = "";
+//      boolean orderByAsc = false;
+//      int limit = -1; //SELECT_LIMIT_NOT_SET;
+//      boolean random = false;
+//      //end initialization
+//      
+//      //event should have end time after now
+//      relativeGreaterThanConditionParams.put(DBConstants.LEADERBOARD_EVENTS__END_TIME, now);
+//      //event should have start time before now
+//      relativeLessThanConditionParams.put(DBConstants.LEADERBOARD_EVENTS__START_TIME, now);
+//      if (null != conn) {
+//        rs = DBConnection.get().selectRows(conn, columns, absoluteConditionParams, 
+//            relativeGreaterThanConditionParams, relativeLessThanConditionParams, likeCondParams, 
+//            TABLE_NAME, conddelim, orderByColumn, orderByAsc, limit, random);
+//        if (null != rs) {
+//          try {
+//            rs.last();
+//            rs.beforeFirst();
+//            while(rs.next()) {
+//              LeaderboardEvent le = convertRSRowToLeaderboardEvent(rs);
+//              if(null != le) {
+//                toReturn.add(le);
+//              }
+//            }
+//          } catch (SQLException e) {
+//            log.error("problem with leaderboard event db call.", e);
+//          }
+//        }
+//      }
+//      DBConnection.get().close(rs, null, conn);
+//    }
+//    
+//    return toReturn;
+//  }
   
   private static void setStaticIdsToLeaderboardEvents() {
     log.debug("setting static map of upgrade struct job id to upgrade struct job");

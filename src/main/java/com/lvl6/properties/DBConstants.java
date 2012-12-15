@@ -64,6 +64,7 @@ public class DBConstants {
   public static final String TABLE_CLAN_TIER_LEVELS = "clan_tier_levels";
   public static final String TABLE_LEADERBOARD_EVENTS = "leaderboard_events";
   public static final String TABLE_USER_LEADERBOARD_EVENTS = "user_leaderboard_events";
+  public static final String TABLE_LEADERBOARD_EVENT_REWARDS = "leaderboard_event_rewards";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -464,5 +465,16 @@ public class DBConstants {
   public static final String USER_LEADERBOARD_EVENTS__BATTLES_WON = "battles_won";
   public static final String USER_LEADERBOARD_EVENTS__BATTLES_LOST = "battles_lost";
   public static final String USER_LEADERBOARD_EVENTS__BATTLES_FLED = "battles_fled";
+
+  /*LEADERBOARD EVENT REWARDS*/
+  public static final String LEADERBOARD_EVENT_REWARDS__ID = "leaderboard_event_id";
+  public static final String LEADERBOARD_EVENT_REWARDS__MIN_RANK = "min_rank";
+  public static final String LEADERBOARD_EVENT_REWARDS__MAX_RANK = "max_rank";
+  public static final String LEADERBOARD_EVENT_REWARDS__GOLD_REWARDED = "gold_rewarded";
+  public static final String LEADERBOARD_EVENT_REWARDS__BACKGROUND_IMAGE_NAME = "background_image_name";
+  public static final String LEADERBOARD_EVENT_REWARDS__PRIZE_IMAGE_NAME = "prize_image_name";
+  public static final String LEADERBOARD_EVENT_REWARDS__BLUE = "blue";
+  public static final String LEADERBOARD_EVENT_REWARDS__GREEN = "green";
+  public static final String LEADERBOARD_EVENT_REWARDS__RED = "red";
   
 }

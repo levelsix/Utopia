@@ -245,6 +245,12 @@ import com.lvl6.utils.CreateInfoProtoUtils;
         }
       }
     }
+    
+    //sets the leaderboard stuff: events and rewards
+    if(reqProto.getCurrentLeaderboardEvents()) {
+      resBuilder.addAllLeaderboardEvents(MiscMethods.currentLeaderboardEventProtos());
+      //TODO: SET THE REWARD STUFF
+    }
   }
 
 }

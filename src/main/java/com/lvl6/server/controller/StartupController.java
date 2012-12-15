@@ -16,6 +16,8 @@ import java.util.Set;
 import javax.annotation.Resource;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +25,7 @@ import com.hazelcast.core.IList;
 import com.kabam.apiclient.KabamApi;
 import com.kabam.apiclient.MobileNaidResponse;
 import com.kabam.apiclient.ResponseCode;
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.StartupRequestEvent;
 import com.lvl6.events.response.RetrieveStaticDataResponseEvent;
 import com.lvl6.events.response.StartupResponseEvent;
@@ -195,6 +197,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             setClanTowers(resBuilder);
           }
           resBuilder.addAllBossEvents(MiscMethods.currentBossEvents());
+          setLeaderboardEventStuff(resBuilder);
           
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
@@ -239,6 +242,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
+  //retrieve's the active leaderboard event prizes and rewards for the events
+  private void setLeaderboardEventStuff(StartupResponseProto.Builder resBuilder) {
+    resBuilder.addAllLeaderboardEvents(MiscMethods.currentLeaderboardEventProtos());
+  }
+  
   private void retrieveKabamNaid(User user, String udid, String mac, String advertiserId) {
     if (user != null) {
       String host;

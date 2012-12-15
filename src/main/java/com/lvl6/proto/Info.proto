@@ -15,6 +15,7 @@ message LeaderboardEventProto {
 	optional int64 startDate = 2;
 	optional int64 endDate = 3;
 	optional string eventName = 4;
+	repeated LeaderboardEventRewardProto rewards = 5;
 }
 
 //------------------------------------------------------------------------------------------
