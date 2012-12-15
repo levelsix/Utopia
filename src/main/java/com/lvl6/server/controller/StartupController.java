@@ -265,7 +265,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       
       MobileNaidResponse naidResponse;
       try {
-        naidResponse = kabamApi.mobileGetNaid(userId, clientId, platform, biParams);
+        naidResponse = kabamApi.mobileGetNaid(userId, clientId, platform, biParams, user.getCreateTime().getTime());
       }
       catch (Exception e) {
         e.printStackTrace();

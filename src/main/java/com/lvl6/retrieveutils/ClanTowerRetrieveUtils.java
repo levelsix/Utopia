@@ -10,7 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lvl6.info.ClanTower;
 import com.lvl6.properties.ControllerConstants;
@@ -41,18 +42,13 @@ public class ClanTowerRetrieveUtils {
 
   public static Map<Integer, ClanTower> getClanTowersForClanTowerIds(List<Integer> ids) {
     if(null != ids && 0 < ids.size()) {
-      Connection conn = DBConnection.get().getConnection();
-      Map<String, Object> absoluteConditionParams = new HashMap<String, Object>();
-      String tablename = DBConstants.TABLE_CLAN_TOWERS;
-
-      for(Integer id : ids) {
-        absoluteConditionParams.put(DBConstants.CLAN_TOWERS__TOWER_ID, id);
+      Map<Integer, ClanTower> clanTowerIdsToClanTowers = new HashMap<Integer, ClanTower>();
+      List<ClanTower> towers = getAllClanTowers();
+      for (ClanTower tower : towers) {
+        if (ids.contains(tower.getId())) {
+          clanTowerIdsToClanTowers.put(tower.getId(), tower);
+        }
       }
-
-      ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(
-          conn, absoluteConditionParams, tablename);
-      Map<Integer, ClanTower> clanTowerIdsToClanTowers = convertRSToClanTowerIdsToClanTowers(rs);
-      DBConnection.get().close(rs, null, conn);
       return clanTowerIdsToClanTowers;
     }
     return null;
@@ -108,7 +104,7 @@ public class ClanTowerRetrieveUtils {
         }
       } catch (SQLException e) {
         log.error("problem with database call.", e);
-        
+
       }
     }
     return null;
@@ -127,7 +123,7 @@ public class ClanTowerRetrieveUtils {
         return clanTowersList;
       } catch (SQLException e) {
         log.error("problem with database call.", e);
-        
+
       }
     }
     return null;
@@ -145,13 +141,13 @@ public class ClanTowerRetrieveUtils {
           if (!clanIdsToClanTowers.containsKey(clanTowerId) ) {
             clanIdsToClanTowers.put(clanTowerId, clanTower);
           } else {
-            log.error("more than one clan tower for an id");
+            log.error("more than one clan tower for id"+clanTowerId);
           }
         }
         return clanIdsToClanTowers;
       } catch (SQLException e) {
         log.error("problem with database call.", e);
-        
+
       }
     }
     return null;
@@ -193,7 +189,7 @@ public class ClanTowerRetrieveUtils {
     int ownerBattleWins = rs.getInt(i++);
     int attackerBattleWins = rs.getInt(i++);
     int numberOfHoursForBattle = rs.getInt(i++);
-    
+
     Date lastRewardGiven = null;
     ts = rs.getTimestamp(i++);
     if (!rs.wasNull()) {

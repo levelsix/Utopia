@@ -927,7 +927,7 @@ public class CreateInfoProtoUtils {
       }
     }
     if (tower.getClanAttackerId() > 0) {
-      Clan c = ClanRetrieveUtils.getClanWithId(tower.getClanOwnerId());
+      Clan c = ClanRetrieveUtils.getClanWithId(tower.getClanAttackerId());
       log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@clanTowerAttacker=" + c);
       b.setTowerAttacker(createMinimumClanProtoFromClan(c));
       if(null != tower.getAttackStartTime()) {

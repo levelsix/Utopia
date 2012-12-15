@@ -843,17 +843,12 @@ public class MiscMethods {
       Clan winningClan;
       String losingClanName;
       String winningClanName;
-      
-      if(isTowerOwner) {
-        losingClan = aClan;
-        winningClan = ClanRetrieveUtils.getClanWithId(aTower.getClanAttackerId());
-      } else {
-        losingClan = ClanRetrieveUtils.getClanWithId(aTower.getClanOwnerId());
-        winningClan = aClan;
-      }
+
+      losingClan = aClan;
+      winningClan = ClanRetrieveUtils.getClanWithId(aTower.getClanOwnerId());
       
       losingClanName = losingClan.getName();
-      winningClanName = winningClan.getName();
+      winningClanName = winningClan != null ? winningClan.getName() : null;
       clanTowerWarNotification.setAsClanTowerWarClanConceded(
           losingClanName, winningClanName, towerName);
       notificationsToSend.add(clanTowerWarNotification);
