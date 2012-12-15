@@ -961,7 +961,7 @@ public class DBConnection {
     if (limit != SELECT_LIMIT_NOT_SET) {
       query += " limit " + limit;
     }
-
+    
     ResultSet rs = null;
     try {
       PreparedStatement stmt = conn.prepareStatement(query);
