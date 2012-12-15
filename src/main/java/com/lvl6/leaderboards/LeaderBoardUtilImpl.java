@@ -376,10 +376,10 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	}
 
 	@Override
-	public void setRankForEvent(Integer eventId, Integer userId, Double rank) {
+	public void setScoreForEventAndUser(Integer eventId, Integer userId, Double score) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			jedis.zadd(LeaderBoardConstants.RANK_FOR_EVENT(eventId), rank, userId.toString());
+			jedis.zadd(LeaderBoardConstants.RANK_FOR_EVENT(eventId), score, userId.toString());
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
@@ -389,7 +389,7 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	}
 
 	@Override
-	public double getRankForEvent(Integer eventId, Integer userId) {
+	public double getScoreForEventAndUser(Integer eventId, Integer userId) {
 		Jedis jedis = jedisPool.getResource();
 		try {
 			return jedis.zscore(LeaderBoardConstants.RANK_FOR_EVENT(eventId), userId.toString());
@@ -402,6 +402,22 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 		return 0;
 	}
 
+	@Override
+	public long getRankForEventAndUser(Integer eventId, Integer userId) {
+		Jedis jedis = jedisPool.getResource();
+		try {
+			return jedis.zrank(LeaderBoardConstants.RANK_FOR_EVENT(eventId), userId.toString());
+		} catch (Exception e) {
+			log.error("Error in jedis pool", e);
+		} finally {
+			if (jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return 0;
+	}
+
+	
+	
 	@Override
 	public Set<Tuple> getEventTopN(Integer eventId, Integer start, Integer stop) {
 		Jedis jedis = jedisPool.getResource();

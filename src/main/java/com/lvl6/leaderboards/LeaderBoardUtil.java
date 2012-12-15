@@ -62,8 +62,9 @@ public interface LeaderBoardUtil {
 
 	public abstract void updateLeaderboardForUser(User user);
 
-	public abstract void setRankForEvent(Integer eventId, Integer userId, Double rank);
-	public abstract double getRankForEvent(Integer eventId, Integer userId);
+	public abstract void setScoreForEventAndUser(Integer eventId, Integer userId, Double score);
+	public abstract double getScoreForEventAndUser(Integer eventId, Integer userId);
+	public abstract long getRankForEventAndUser(Integer eventId, Integer userId);
 	public abstract Set<Tuple> getEventTopN(Integer eventId, Integer start, Integer stop);
 	
 	
