@@ -375,6 +375,11 @@ public class ControllerConstants {
   //CLAN TOWER
   public static final int MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER = 2;
   
+  //LEADERBOARD EVENT
+  public static final int LEADERBOARD_EVENT__WINS_WEIGHT = 2;
+  public static final int LEADERBOARD_EVENT__LOSSES_WEIGHT = -1;
+  public static final int LEADERBOARD_EVENT__FLEES_WEIGHT = -3;
+  
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),
     new ValidLocationBox(-118.76606, 50.595863, 27.16478, 9.0692883, "CANADA"),

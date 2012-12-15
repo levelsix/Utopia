@@ -26,8 +26,10 @@ import com.lvl6.info.LockBoxEvent;
 import com.lvl6.info.Quest;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
+import com.lvl6.info.UserLeaderboardEvent;
 import com.lvl6.info.UserQuest;
 import com.lvl6.info.jobs.DefeatTypeJob;
+import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.BattleRequestProto;
@@ -43,6 +45,7 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
+import com.lvl6.retrieveutils.UserLeaderboardEventRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
@@ -65,6 +68,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   public void setInsertUtils(InsertUtil insertUtils) {
     this.insertUtils = insertUtils;
+  }
+
+  @Autowired
+  protected LeaderBoardUtil leaderUtil;
+  public void setLeaderUtil(LeaderBoardUtil leaderUtil) {
+    this.leaderUtil = leaderUtil;
   }
 
   public BattleController() {
@@ -166,12 +175,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           writeChangesToDB(stolenEquipIsLastOne, winner, loser, attacker,
               defender, expGained, lostCoins, battleTime, attackerFled,
               lockBoxEventId);
-          
+
           //clan towers
           if (server.lockClanTowersTable()) {
             writeChangesToDBForClanTowers(winner, loser, attacker, defender);
           }
-          
+
           //user leaderboard event stuff
           leaderBoardEventStuff(winner, loser, attacker, defender, attackerFled);
 
@@ -437,7 +446,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         log.error("problem incrementing user lock boxes for user = "+attacker+" lock box event id ="+lockBoxEventId);
     }
   }
-  
+
   private void writeChangesToDBForClanTowers(User winner, User loser, User attacker, User defender) {
     List<ClanTower> attackerIsClanTowerOwner;
     List<ClanTower> defenderIsClanTowerOwner;
@@ -465,13 +474,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       MiscMethods.sendClanTowerProtosToClient(new HashSet<ClanTower>(defenderIsClanTowerOwner), server, ReasonForClanTowerChange.NUM_BATTLE_WINS_CHANGED);
     }
   }
-  
+
   private void leaderBoardEventStuff(User winner, User loser, User attacker, 
       User defender, boolean attackerFled) {
     //get all leaderboard events that have not ended this is assuming all events care about wins/losses/flees
     Collection<LeaderboardEvent> events = LeaderboardEventRetrieveUtils.getIdsToLeaderboardEvents().values();
     List<LeaderboardEvent> activeEvents = new ArrayList<LeaderboardEvent>();
-    
+
     for (LeaderboardEvent event : events) {
       long curTime = new Date().getTime();
       if (curTime > event.getStartDate().getTime() && curTime < event.getEndDate().getTime()) {
@@ -481,23 +490,23 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     boolean attackerWon = winner == attacker;
     boolean defenderWon = winner == defender;
-    
+
     for(LeaderboardEvent e: activeEvents) {
       int attackerId = attacker.getId();
       int defenderId = defender.getId();
       int leaderboardEventId = e.getId();
       if(attackerWon) {
-        
+
         //need to increment attacker's wins
         InsertUtils.get().insertIntoUserLeaderboardEvent(leaderboardEventId, attackerId, 1, 0, 0);
         //need to increment defender's losses
         InsertUtils.get().insertIntoUserLeaderboardEvent(leaderboardEventId, defenderId, 0, 1, 0);
       } else if(defenderWon) {
-        
+
         //need to increment defender's wins
         InsertUtils.get().insertIntoUserLeaderboardEvent(leaderboardEventId, defenderId, 1, 0, 0);
         if(attackerFled) {
-          
+
           //need to increment attacker's flees
           InsertUtils.get().insertIntoUserLeaderboardEvent(leaderboardEventId, attackerId, 0, 0, 1);
         } else {
@@ -505,9 +514,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           InsertUtils.get().insertIntoUserLeaderboardEvent(leaderboardEventId, attackerId, 0, 1, 0);
         }
       }
+
+      updateLeaderboard(attackerId, leaderboardEventId);
+      updateLeaderboard(defenderId, leaderboardEventId);
     }
   }
-  
+
   private int calculateLostCoins(User loser, Random random, boolean isFlee) {
     if (loser.isFake()) {
       if (Math.random() < ControllerConstants.BATTLE__CHANCE_OF_ZERO_GAIN_FOR_SILVER) {
@@ -605,5 +617,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (result != BattleResult.ATTACKER_WIN) return false;
     if (Math.random() < ControllerConstants.CHANCE_TO_GET_KIIP_ON_BATTLE_WIN) return true;
     return false;
+  }
+  
+  private void updateLeaderboard(int userId, int eventId) {
+    UserLeaderboardEvent ule = UserLeaderboardEventRetrieveUtils.getSpecificUserLeaderboardEvent(eventId, userId);
+    
+    if (ule != null) {
+      int winsScore = ule.getBattlesWon()*ControllerConstants.LEADERBOARD_EVENT__WINS_WEIGHT;
+      int lossesScore = ule.getBattlesLost()*ControllerConstants.LEADERBOARD_EVENT__LOSSES_WEIGHT;
+      int fleesScore = ule.getBattlesFled()*ControllerConstants.LEADERBOARD_EVENT__FLEES_WEIGHT;
+      int totalScore = winsScore+lossesScore+fleesScore;
+      leaderUtil.setScoreForEventAndUser(eventId, userId, (double) totalScore);
+    }
   }
 }
