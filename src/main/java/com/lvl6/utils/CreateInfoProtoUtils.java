@@ -917,11 +917,9 @@ public class CreateInfoProtoUtils {
         .setGreen(tower.getGreen()).setRed(tower.getRed());
     
     b.setTitleColor(clrB);
-    log.info("!!!!!!!!!!!!!!!!!!!!!!createClanTowerProto: tower=" + tower);
     
     if (tower.getClanOwnerId() > 0) {
       Clan c = ClanRetrieveUtils.getClanWithId(tower.getClanOwnerId());
-      log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@clanTowerOwner=" + c);
       b.setTowerOwner(createMinimumClanProtoFromClan(c));
       if(null != tower.getOwnedStartTime()) {
     	  b.setOwnedStartTime(tower.getOwnedStartTime().getTime());
@@ -932,7 +930,6 @@ public class CreateInfoProtoUtils {
     }
     if (tower.getClanAttackerId() > 0) {
       Clan c = ClanRetrieveUtils.getClanWithId(tower.getClanAttackerId());
-      log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@clanTowerAttacker=" + c);
       b.setTowerAttacker(createMinimumClanProtoFromClan(c));
       if(null != tower.getAttackStartTime()) {
     	  b.setAttackStartTime(tower.getAttackStartTime().getTime());
@@ -982,7 +979,7 @@ public class CreateInfoProtoUtils {
   public static LeaderboardEventProto createLeaderboardEventProtoFromLeaderboardEvent(
       LeaderboardEvent e, List<LeaderboardEventReward> rList) {
     
-    LeaderboardEventProto.Builder b = LeaderboardEventProto.newBuilder().setId(e.getId()).setStartDate(e.getStartDate().getTime())
+    LeaderboardEventProto.Builder b = LeaderboardEventProto.newBuilder().setEventId(e.getId()).setStartDate(e.getStartDate().getTime())
     .setEndDate(e.getEndDate().getTime()).setEventName(e.getEventName());
     
     List<LeaderboardEventRewardProto> rProtosList = new ArrayList<LeaderboardEventRewardProto>();
