@@ -560,21 +560,28 @@ public class MiscMethods {
   }
   
   public static List<LeaderboardEventProto> currentLeaderboardEventProtos() {
-    List<LeaderboardEvent> events = LeaderboardEventRetrieveUtils.getActiveLeaderboardEvents();
-    List<Integer> eventIds = new ArrayList<Integer>();
-    for(LeaderboardEvent e : events) {
-      eventIds.add(e.getId());
-    }
-    
-    //get all the rewards for all the current leaderboard events
-    Map<Integer, List<LeaderboardEventReward>> eventIdsToRewards = 
-        LeaderboardEventRewardRetrieveUtils.getLeaderboardEventRewardsForIds(eventIds);
+    Map<Integer, LeaderboardEvent> idsToEvents = LeaderboardEventRetrieveUtils.getIdsToLeaderboardEvents();
+    long curTime = (new Date()).getTime();
+    List<Integer> activeEventIds = new ArrayList<Integer>();
     
     //return value
     List<LeaderboardEventProto> protos = new ArrayList<LeaderboardEventProto>();
     
-    for(LeaderboardEvent e: events) {
-      List<LeaderboardEventReward> rList = eventIdsToRewards.get(e.getId()); //rewards for the event
+    //get the ids of active leader board events
+    for(LeaderboardEvent e : idsToEvents.values()) {
+      if (e.getEndDate().getTime() > curTime) {
+        activeEventIds.add(e.getId());
+      }
+    }
+    
+    //get all the rewards for all the current leaderboard events
+    Map<Integer, List<LeaderboardEventReward>> eventIdsToRewards = 
+        LeaderboardEventRewardRetrieveUtils.getLeaderboardEventRewardsForIds(activeEventIds);
+    
+    //create the protos
+    for(Integer i: activeEventIds) {
+      LeaderboardEvent e = idsToEvents.get(i);
+      List<LeaderboardEventReward> rList = eventIdsToRewards.get(e.getId()); //rewards for the active event
       
       protos.add(CreateInfoProtoUtils.createLeaderboardEventProtoFromLeaderboardEvent(e, rList));
     }
