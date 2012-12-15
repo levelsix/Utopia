@@ -1062,7 +1062,7 @@ public class UpdateUtils implements UpdateUtil {
     }
   }
   
-  public boolean updateLockBoxEventSetRewardGivenOut(int eventId) {
+  public boolean updateLeaderboardEventSetRewardGivenOut(int eventId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.LEADERBOARD_EVENTS__ID, eventId);
 
