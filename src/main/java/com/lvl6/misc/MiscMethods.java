@@ -603,6 +603,8 @@ public class MiscMethods {
     ClanTierLevelRetrieveUtils.reload();
     BossEventRetrieveUtils.reload();
     BossRewardRetrieveUtils.reload();
+    LeaderboardEventRetrieveUtils.reload();
+    LeaderboardEventRewardRetrieveUtils.reload();
   }
 
   public static UserType getUserTypeFromDefeatTypeJobUserType(
