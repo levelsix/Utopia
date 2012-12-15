@@ -191,4 +191,8 @@ public interface UpdateUtil {
   public abstract boolean resetClanTowerOwnerOrAttacker(List<Integer> clanTowerOwnerOrAttackerIds, boolean resetOwner);
   
   public abstract boolean updateTowerHistory(List<ClanTower> towers, String reasonForEntry);
+  
+  public boolean updateUsersAddDiamonds(List<Integer> userIds, int diamonds) ;
+  
+  public boolean updateLeaderboardEventSetRewardGivenOut(int eventId);
 }

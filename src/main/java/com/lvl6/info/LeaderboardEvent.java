@@ -9,13 +9,15 @@ public class LeaderboardEvent implements Serializable {
   private Date startDate;
   private Date endDate;
   private String eventName;
+  private boolean rewardsGivenOut;
   
-  public LeaderboardEvent(int id, Date startDate, Date endDate, String eventName) {
+  public LeaderboardEvent(int id, Date startDate, Date endDate, String eventName, boolean rewardsGivenOut) {
     super();
     this.id = id;
     this.startDate = startDate;
     this.endDate = endDate;
     this.eventName = eventName;
+    this.rewardsGivenOut = rewardsGivenOut;
   }
 
   public int getId() {
@@ -43,9 +45,18 @@ public class LeaderboardEvent implements Serializable {
     this.eventName = eventName;
   }
 
+  public boolean isRewardsGivenOut() {
+    return rewardsGivenOut;
+  }
+
+  public void setRewardsGivenOut(boolean rewardsGivenOut) {
+    this.rewardsGivenOut = rewardsGivenOut;
+  }
+
   @Override
   public String toString() {
-    return "LeaderboardEvent [id=" + id + ", startDate=" + startDate 
-        + ", endDate=" + endDate + ", eventName=" + eventName + "]";
+    return "LeaderboardEvent [id=" + id + ", startDate=" + startDate
+        + ", endDate=" + endDate + ", eventName=" + eventName
+        + ", rewardsGivenOut=" + rewardsGivenOut + "]";
   }
 }

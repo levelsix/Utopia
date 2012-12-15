@@ -458,6 +458,7 @@ public class DBConstants {
   public static final String LEADERBOARD_EVENTS__START_TIME = "start_time";
   public static final String LEADERBOARD_EVENTS__END_TIME = "end_time";
   public static final String LEADERBOARD_EVENTS__EVENT_NAME = "event_time";
+  public static final String LEADERBOARD_EVENTS__REWARDS_GIVEN_OUT = "rewards_given_out";
   
   /*USER LEADERBOARD EVENTS*/
   public static final String USER_LEADERBOARD_EVENTS__LEADERBOARD_EVENT_ID = "leaderboard_event_id";

@@ -893,9 +893,6 @@ public class UpdateUtils implements UpdateUtil {
 	  int numUpdated = DBConnection.get().updateTableRows(tableName, relativeParams, 
 			  absoluteParams, conditionParams, condDelim);
 	  
-	  log.info("after a battle in a clan tower war. numUpdated=" + numUpdated);
-	  log.info("clanTowerId=" + clanTowerId + ", ownerId=" + ownerId + ", attackerId=" + attackerId
-	      + ", ownerWon=" + ownerWon + ", amountToIncrementBattleWinsBy=" + amountToIncrementBattleWinsBy);
 	  //a clan can own multiple towers with another clan being the same attacker for all of them
 	  if (0 == numUpdated) {
 		  return false; //there should be a tower with an owner and an attacker with the specified ids 
@@ -981,11 +978,8 @@ public class UpdateUtils implements UpdateUtil {
 		        + lastRewardTime
 		        + whereClause ;
 	  
-	  log.info(query + " with values " +values);
 	  int numTowers = clanTowerOwnerOrAttackerIds.size();
 	  int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
-	  log.info("~~~~~~~~~~~~~~~~~~~~~~resetClanTowerOwnerOrAttacker: num towers updated=" + numUpdated + " \n "
-	      + "The number of towers=" + numTowers + ". The towers=" + clanTowerOwnerOrAttackerIds);
 	  if (numTowers != numUpdated) {
 		  return false;
 	  }
@@ -1031,7 +1025,6 @@ public class UpdateUtils implements UpdateUtil {
 	  }
 	  int commaEnding = 2;
 	  query = query.substring(0, query.length()-commaEnding);
-	  log.info("the query to write to clan_towers_history table is: \n" + query);
 	  
 	  int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
 	  if(towers.size() != numUpdated) {
@@ -1042,4 +1035,45 @@ public class UpdateUtils implements UpdateUtil {
 	  }
 	  
 	}
+  
+  public boolean updateUsersAddDiamonds(List<Integer> userIds, int diamonds) {
+    if (userIds == null || userIds.size() <= 0) return true;
+    
+    List<Object> values = new ArrayList<Object>();
+    String query = "update " + DBConstants.TABLE_USER + " set "
+        + DBConstants.USER__DIAMONDS + "="+ DBConstants.USER__DIAMONDS + "?"
+        + " where id in (?";
+    values.add(diamonds);
+    values.add(userIds.get(0));
+    
+    for (int i = 1; i < userIds.size(); i++) {
+      query += ", ?";
+      values.add(userIds.get(i));
+    }
+    
+    log.info(query + " with values " +values);
+    int numUserIds = userIds.size();
+    int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
+    if (numUserIds != numUpdated) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+  
+  public boolean updateLockBoxEventSetRewardGivenOut(int eventId) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.LEADERBOARD_EVENTS__ID, eventId);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+      absoluteParams.put(DBConstants.LEADERBOARD_EVENTS__REWARDS_GIVEN_OUT, 1);
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_LEADERBOARD_EVENTS, null, absoluteParams, 
+        conditionParams, "or");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
 }

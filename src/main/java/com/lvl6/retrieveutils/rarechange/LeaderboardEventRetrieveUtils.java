@@ -154,6 +154,7 @@ import com.lvl6.utils.DBConnection;
     Date startDate = new Date(rs.getTimestamp(i++).getTime());
     Date endDate = new Date(rs.getTimestamp(i++).getTime());
     String eventName = rs.getString(i++);
-    return new LeaderboardEvent(id, startDate, endDate, eventName);
+    boolean rewardsGivenOut = rs.getBoolean(i++);
+    return new LeaderboardEvent(id, startDate, endDate, eventName, rewardsGivenOut);
   }
 }
