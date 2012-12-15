@@ -323,6 +323,8 @@ message StartupResponseProto {
 		
 		optional int32 initStamina = 91;
 		
+		optional int32 minClanMembersToHoldClanTower = 92;
+		
 		message DownloadableNibConstants {
 			optional string threeCardMonteNibName = 1;
 			optional string lockBoxNibName = 2;

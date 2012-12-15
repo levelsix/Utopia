@@ -46,8 +46,8 @@ public class NotificationConstants {
   public static String CLAN_TOWER_OWNER_DETERMINED__TITLE = "{0} has claimed ownership of the {1}.";
   public static String CLAN_TOWER_OWNER_DETERMINED__SUBTITLE = "{0} is ready to wage war to maintain control.";
 
-  public static String CLAN_TOWER_DISTRIBUTE_REWARDS__TITLE = "Your clan won the war for the {0}!";
-  public static String CLAN_TOWER_DISTRIBUTE_REWARDS__SUBTITLE = "Your leader has received";
+  public static String CLAN_TOWER_DISTRIBUTE_REWARDS__TITLE = "Your clan has held the {0} for {1} hours!";
+  public static String CLAN_TOWER_DISTRIBUTE_REWARDS__SUBTITLE = "Everyone has received {2}! (It may take a moment)";
 
 
   //EPIC WEAPON DROP

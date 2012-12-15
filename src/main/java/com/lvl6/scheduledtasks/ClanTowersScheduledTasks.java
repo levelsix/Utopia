@@ -17,19 +17,21 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.ILock;
 import com.lvl6.events.response.GeneralNotificationResponseEvent;
+import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.ClanTower;
+import com.lvl6.info.User;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.misc.Notification;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
-import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowerChange;
+import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.ConnectedPlayer;
+import com.lvl6.utils.RetrieveUtils;
 
 public class ClanTowersScheduledTasks {
   private static Logger log = LoggerFactory.getLogger(ClanTowersScheduledTasks.class);
@@ -248,6 +250,10 @@ public class ClanTowersScheduledTasks {
 
   protected void distributeRewardsForTower(ClanTower tower) {
     try {
+      if (tower.getClanOwnerId() == ControllerConstants.NOT_SET) {
+        return;
+      }
+      
       if (tower.getLastRewardGiven() == null) {
         if (tower.getOwnedStartTime() != null) {
           tower.setLastRewardGiven(tower.getOwnedStartTime());
@@ -263,6 +269,7 @@ public class ClanTowersScheduledTasks {
         giveRewardsToClanMembers(tower);
         updateLastRewardTimeForClanTower(tower, currentTimeMillis);
         sendNotificationForRewardDistribution(tower, tower.getClanOwnerId());
+        sendUpdateUserMessagesToClanMembers(tower.getClanOwnerId());
       }
     } catch(Exception e) {
       log.error("Error distributing tower rewards", e);
@@ -282,7 +289,6 @@ public class ClanTowersScheduledTasks {
         , tower.getId());
   }
 
-
   protected void giveRewardsToClanMembers(ClanTower tower) {
     log.info("Distributing rewards for tower: {} to clan: {}", tower.getId(), tower.getClanOwnerId());
     jdbcTemplate.update("update "
@@ -301,14 +307,23 @@ public class ClanTowersScheduledTasks {
         ,tower.getSilverReward()
         ,tower.getGoldReward());
   }
+  
+  protected void sendUpdateUserMessagesToClanMembers(int clanId) {
+    List<User> users = RetrieveUtils.userRetrieveUtils().getUsersByClanId(clanId);
+    for (User user : users) {
+      UpdateClientUserResponseEvent e = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
+      server.writeEvent(e);
+    }
+  }
 
   public void sendNotificationForRewardDistribution(ClanTower aTower, int clanId) {
     Notification n = new Notification();
     String towerName = aTower.getTowerName();
     int silverReward = aTower.getSilverReward();
     int goldReward = aTower.getGoldReward();
+    int numHours = aTower.getNumHoursToCollect();
     
-    n.setAsClanTowerWarDistributeRewards(towerName, silverReward, goldReward);
+    n.setAsClanTowerWarDistributeRewards(towerName, silverReward, goldReward, numHours);
     
     GeneralNotificationResponseProto.Builder notificationProto = 
         n.generateNotificationBuilder();

@@ -96,6 +96,19 @@ import com.lvl6.utils.utilmethods.StringUtils;
     return userIdToUserMap;
   }
 
+  public List<User> getUsersByClanId(int clanId) {
+    log.debug("retrieving users with clanId " + clanId);
+
+    Map<String, Object> absoluteConditionParams = new HashMap<String, Object>();
+    absoluteConditionParams.put(DBConstants.USER__CLAN_ID, clanId);
+
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, absoluteConditionParams, DBConstants.TABLE_USER);
+    List<User> usersList = convertRSToUsers(rs);
+    DBConnection.get().close(rs, null, conn);
+    return usersList;
+  }
+
   public List<User> getUsers(List<UserType> requestedTypes, int numUsers, int playerLevel, int userId, boolean guaranteeNum, 
       Double latLowerBound, Double latUpperBound, Double longLowerBound, Double longUpperBound, boolean forBattle, 
       List<Integer> forbiddenPlayerIds) {

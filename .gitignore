@@ -29,8 +29,8 @@ target/
 *.DS_Store
 *.swp
 *.out
-#*.p12
-#*log*
+*.p12
+*log*
 
 ## 
 runOnTomcat.sh

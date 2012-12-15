@@ -370,7 +370,8 @@ public class MiscMethods {
         .setLevelToShowRateUsPopup(ControllerConstants.LEVEL_TO_SHOW_RATE_US_POPUP)
         .setBossEventNumberOfAttacksUntilSuperAttack(ControllerConstants.BOSS_EVENT__NUMBER_OF_ATTACKS_UNTIL_SUPER_ATTACK)
         .setBossEventSuperAttack(ControllerConstants.BOSS_EVENT__SUPER_ATTACK)
-        .setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA);
+        .setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA)
+        .setMinClanMembersToHoldClanTower(ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER);
  
 
     if (ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS != null) {

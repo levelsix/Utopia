@@ -7,7 +7,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.NotificationConstants;
 import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.InfoProto.ColorProto;
@@ -26,10 +25,7 @@ public class Notification {
   public static final String OWNER_NOT_ENOUGH_MEMBERS = "owner does not have enough members";
   public static final String CLAN_TOWER_WAR_ENDED = "battle ended";
   public static final String FOUND_AN_EPIC = "found an epic";
-
-  //TODO: Determine the amount of time in between periodic notifications
-  public static final long milliseconds_between_periodic_notifications = 
-      (long)(1.0 / 5.0 * ControllerConstants.NUM_HOURS_FOR_CLAN_TOWER_WAR * 60 * 60 * 1000);
+  
   /*
    * This class exists so as to not keep writing 
    * new Runnable() {
@@ -49,13 +45,14 @@ public class Notification {
   public GeneralNotificationResponseProto.Builder generateNotificationBuilder() {
     final GeneralNotificationResponseProto.Builder notificationProto = 
         GeneralNotificationResponseProto.newBuilder();
-    //    try {
-    notificationProto.setTitle((String)keysAndValues.get("title"));
-    notificationProto.setSubtitle((String)keysAndValues.get("subtitle"));
-    notificationProto.setRgb((ColorProto)keysAndValues.get("rgb"));
-    //    } catch (Exception e) {
-    //      log.error("Error sending notification");
-    //    }
+    try {
+      notificationProto.setTitle((String)keysAndValues.get("title"));
+      notificationProto.setSubtitle((String)keysAndValues.get("subtitle"));
+      notificationProto.setRgb((ColorProto)keysAndValues.get("rgb"));
+    } catch (Exception e) {
+      log.error("Error sending notification");
+      log.error(""+e);
+    }
 
     return notificationProto;
   }
@@ -145,25 +142,29 @@ public class Notification {
 
   }
 
-  public void setAsClanTowerWarDistributeRewards(String towerName, int silverReward, int goldReward) {
+  public void setAsClanTowerWarDistributeRewards(String towerName, int silverReward, int goldReward, int numHours) {
     String silver = "";
     String conjunction = "";
     String gold = "";
 
-    if(0 < silverReward) {
+    if (0 < silverReward) {
       silver = silverReward + " silver";
+      conjunction = " and ";
+    } if (0 < goldReward) {
+      gold += goldReward + " gold";
+    } else {
+      conjunction = "";
     }
-    if(0 < goldReward) {
-      conjunction += " and";
-      gold += goldReward + " gold.";
-    }
+    
+    String rewards = silver + conjunction + gold;
+    String numHoursStr = numHours + "";
 
-    Object[] arguments = { towerName };
+    Object[] arguments = { towerName, numHoursStr, rewards };
     MessageFormat formatTitle = new MessageFormat(NotificationConstants.CLAN_TOWER_DISTRIBUTE_REWARDS__TITLE);
+    MessageFormat formatSubtitle = new MessageFormat(NotificationConstants.CLAN_TOWER_DISTRIBUTE_REWARDS__SUBTITLE);
 
     String title = formatTitle.format(arguments);
-    String subtitle = NotificationConstants.CLAN_TOWER_DISTRIBUTE_REWARDS__SUBTITLE;
-    subtitle += silver + conjunction + gold;
+    String subtitle = formatSubtitle.format(arguments);
     rgb.setBlue(NotificationConstants.CLAN_TOWER_DISTRIBUTE_REWARDS__BLUE);
     rgb.setGreen(NotificationConstants.CLAN_TOWER_DISTRIBUTE_REWARDS__GREEN);
     rgb.setRed(NotificationConstants.CLAN_TOWER_DISTRIBUTE_REWARDS__RED);
