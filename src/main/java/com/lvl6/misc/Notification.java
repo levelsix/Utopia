@@ -176,8 +176,7 @@ public class Notification {
     log.info("rewards sent. " + title + " " + subtitle);
   }
 
-  public void setNotificationAsClanCreated (String clanOwnerName, String clanName) {
-    //TODO: write logic for this function
+  public void setAsClanCreated (String clanOwnerName, String clanName) {
     Object[] arguments = { clanOwnerName, clanName };
 
     MessageFormat formatTitle = new MessageFormat(NotificationConstants.CLAN_CREATED__TITLE);
@@ -197,7 +196,7 @@ public class Notification {
     log.info("new clan created. " + title + " " + subtitle);
   }
 
-  public void setNotificationAsEpicWeaponDropped (
+  public void setAsEpicWeaponDropped (
       String userName, String equipName, String townName) {
     Object[] arguments = { userName, equipName, townName };
 
@@ -217,4 +216,63 @@ public class Notification {
 
     log.info("epic weapon dropped. " + title + " " + subtitle);
   }
+  
+  //announces the first place winner
+  public void setAsLeaderboardEventEndedGlobal(String firstPlaceWinnerName, int gold) {
+    Object[] arguments = { firstPlaceWinnerName, gold };
+    
+    MessageFormat formatTitle = new MessageFormat(
+        NotificationConstants.LEADERBOARD_EVENT_ENDED_GLOBAL_TITLE);
+    MessageFormat formatSubtitle = new MessageFormat(
+        NotificationConstants.LEADERBOARD_EVENT_ENDED_GLOBAL_SUBTITLE);
+    
+    String title = formatTitle.format(arguments);
+    String subtitle = formatSubtitle.format(arguments);
+    
+    rgb.setBlue(NotificationConstants.LEADERBOARD_EVENT_ENDED_GLOBAL__BLUE);
+    rgb.setGreen(NotificationConstants.LEADERBOARD_EVENT_ENDED_GLOBAL__GREEN);
+    rgb.setRed(NotificationConstants.LEADERBOARD_EVENT_ENDED_GLOBAL__RED);
+    
+    keysAndValues.put("title", title);
+    keysAndValues.put("subtitle", subtitle);
+    keysAndValues.put("rgb", rgb.build());
+    
+    log.info("global notification for tournament/leaderboard event ending. " 
+        + title + " " + subtitle);
+  }
+  
+  public void setAsLeaderboardEventEndedIndividual(boolean playerOnline, 
+      int rank, int gold) {
+    Object[] arguments = { rank, gold };
+    MessageFormat formatTitle;
+    MessageFormat formatSubtitle;
+    if(playerOnline) {
+      formatTitle = new MessageFormat(
+          NotificationConstants.LEADERBOARD_EVENT_ENDED_INDIVIDUAL_ONLINE_TITLE);
+      formatSubtitle = new MessageFormat(
+          NotificationConstants.LEADERBOARD_EVENT_ENDED_INDIVIDUAL_ONLINE_SUBTITLE);
+    } else {
+      formatTitle = new MessageFormat(
+          NotificationConstants.LEADERBOARD_EVENT_ENDED_INDIVIDUAL_OFFLINE_TITLE);
+      formatSubtitle = new MessageFormat(
+          NotificationConstants.LEADERBOARD_EVENT_ENDED_INDIVIDUAL_OFFLINE_SUBTITLE);
+    }
+    
+    String title = formatTitle.format(arguments);
+    String subtitle = formatSubtitle.format(arguments);
+   
+    //color does not matter in apns notification, just set it anyways
+    //TODO: FIX THESE NUMBERS IN NOTIFICATION CONSTANTS . JAVA
+    rgb.setBlue(NotificationConstants.LEADERBOARD_EVENT_ENDED_INDIVIDUAL__BLUE);
+    rgb.setGreen(NotificationConstants.LEADERBOARD_EVENT_ENDED_INDIVIDUAL__GREEN);
+    rgb.setRed(NotificationConstants.LEADERBOARD_EVENT_ENDED_INDIVIDUAL__RED);
+
+    keysAndValues.put("title", title);
+    keysAndValues.put("subtitle", subtitle);
+    keysAndValues.put("rgb", rgb.build());
+    
+    log.info("notification for player. player online=" + playerOnline 
+        + " title=" + title + " subtitle=" + subtitle);
+  }
+  
 }
