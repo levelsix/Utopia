@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +20,19 @@ import redis.clients.jedis.Tuple;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.ILock;
+import com.lvl6.events.response.GeneralNotificationResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.LeaderboardEvent;
 import com.lvl6.info.LeaderboardEventReward;
 import com.lvl6.info.User;
 import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.misc.MiscMethods;
+import com.lvl6.misc.Notification;
+import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.retrieveutils.rarechange.LeaderboardEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LeaderboardEventRewardRetrieveUtils;
 import com.lvl6.server.GameServer;
+import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
@@ -65,6 +71,17 @@ public class LeaderboardEventScheduledTasks {
 	protected LeaderBoardUtil getLeader() {
 		return leader;
 	}
+	
+	@Resource(name = "playersByPlayerId")
+  protected Map<Integer, ConnectedPlayer> playersByPlayerId;
+
+	public Map<Integer, ConnectedPlayer> getPlayersByPlayerId() {
+    return playersByPlayerId;
+  }
+
+  public void setPlayersByPlayerId(Map<Integer, ConnectedPlayer> playersByPlayerId) {
+    this.playersByPlayerId = playersByPlayerId;
+  }
 
 	@Scheduled(fixedRate = 10000)
 	public void checkForEventsEnded() {
@@ -132,5 +149,113 @@ public class LeaderboardEventScheduledTasks {
 		if (!UpdateUtils.get().updateLeaderboardEventSetRewardGivenOut(event.getId())) {
 			log.error("Error updating rewards given out for event " + event);
 		}
+		
+		//SEND NOTIFICATION FOR END OF TOURNAMENT (LEADERBOARD EVENT)
+		notificationStuff(event, rewards, userIdsToUsers);
+	}
+	
+	private void notificationStuff(LeaderboardEvent event, List<LeaderboardEventReward> rewards,
+	    Map<Integer, User> userIdsToUsers) {
+	  int eventId = event.getId();
+	  
+	  LeaderboardEventReward r = getFirstPlaceReward(rewards);
+    if (null == r) {
+      log.error("first place leader board event reward does not exist.");
+      return;
+    } else {
+      sendGlobalNotification(eventId, r, userIdsToUsers);
+    }
+   
+    sendIndividualNotifications(eventId, rewards, userIdsToUsers);
+    
+	}
+	
+	private void sendGlobalNotification(int eventId, LeaderboardEventReward r,
+      Map<Integer, User> userIdsToUsers) {
+	  
+	  Set<Tuple> set = new HashSet<Tuple>();
+    int minRank = 1;
+    int maxRank = 1;
+    
+    set = leader.getEventTopN(eventId, minRank, maxRank); //the top player
+    
+    Iterator<Tuple> it = set.iterator();
+    while (it.hasNext()) { //loop should only go once
+      Tuple t = it.next();
+      Integer userId = Integer.valueOf(t.getElement());
+      
+      if(userIdsToUsers.containsKey(userId)) {//user should be in there
+        User u = userIdsToUsers.get(userId);
+        GeneralNotificationResponseEvent resEvent =
+            generateGlobalNotificationResponseEvent(u, r); 
+        server.writeGlobalEvent(resEvent);
+        
+      } else {
+        log.error("first place winner does not exist for leaderboard/tournament event");
+        return;
+      }
+      
+    }
+	}
+	
+	private LeaderboardEventReward getFirstPlaceReward(List<LeaderboardEventReward> rList) {
+	  for(LeaderboardEventReward r : rList) {
+	    if(1 == r.getMinRank() && 1 == r.getMaxRank()) {
+	      return r;
+	    }
+	  }
+	  return null;
+	}
+	
+	private GeneralNotificationResponseEvent generateGlobalNotificationResponseEvent(
+	    User firstPlaceWinner, LeaderboardEventReward reward) {
+	  String firstPlaceWinnerName = firstPlaceWinner.getName();
+	  int gold = reward.getGoldRewarded();
+	  
+	  Notification global = new Notification();
+    global.setAsLeaderboardEventEndedGlobal(firstPlaceWinnerName, gold);
+    
+    GeneralNotificationResponseProto.Builder b = global.generateNotificationBuilder();
+    
+    GeneralNotificationResponseEvent resEvent = 
+        new GeneralNotificationResponseEvent(0); //0 just because.
+    resEvent.setGeneralNotificationResponseProto(b.build());
+    
+    return resEvent;
+	}
+	
+	private void sendIndividualNotifications(int eventId, 
+	    List<LeaderboardEventReward> rList, Map<Integer, User> userIdsToUsers) {
+	  for (LeaderboardEventReward reward : rList) {
+      Set<Tuple> set = new HashSet<Tuple>();
+      int gold = reward.getGoldRewarded();
+      int minRank = reward.getMinRank();
+      int maxRank = reward.getMaxRank();
+      set = leader.getEventTopN(eventId, minRank, maxRank);
+
+      Iterator<Tuple> it = set.iterator();
+      while (it.hasNext()) {
+        Tuple t = it.next();
+        
+        //notification message different for online and offline
+        Integer userId = Integer.valueOf(t.getElement());
+        boolean playerOnline = playersByPlayerId.containsKey(userId);
+        
+        Notification n = new Notification();
+        n.setAsLeaderboardEventEndedIndividual(playerOnline, maxRank, gold);
+        
+        GeneralNotificationResponseProto.Builder b = n.generateNotificationBuilder();
+        
+        GeneralNotificationResponseEvent resEvent = 
+            new GeneralNotificationResponseEvent(userId);
+        resEvent.setGeneralNotificationResponseProto(b.build());
+        
+        if(playerOnline) {
+          server.writeEvent(resEvent);
+        } else {
+          server.writeAPNSNotificationOrEvent(resEvent);
+        }
+      }
+	  }
 	}
 }
