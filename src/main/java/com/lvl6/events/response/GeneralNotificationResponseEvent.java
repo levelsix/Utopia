@@ -29,4 +29,7 @@ public class GeneralNotificationResponseEvent extends NormalResponseEvent {
     this.generalNotificationResponseProto = generalNotificationResponseProto;
   }
 
+  public GeneralNotificationResponseProto getGeneralNotificationResponseProto() {
+    return generalNotificationResponseProto;
+  }
 }
