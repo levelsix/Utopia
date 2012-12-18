@@ -101,7 +101,7 @@ public class LeaderboardEventScheduledTasks {
 				.getLeaderboardEventRewardsForId(event.getId());
 		for (LeaderboardEventReward reward : rewards) {
 			Set<Tuple> set = new HashSet<Tuple>();
-			set = leader.getEventTopN(event.getId(), reward.getMinRank(), reward.getMaxRank());
+			set = leader.getEventTopN(event.getId(), reward.getMinRank()-1, reward.getMaxRank()-1);
 
 			List<Integer> userIds = new ArrayList<Integer>();
 			Iterator<Tuple> it = set.iterator();
@@ -110,11 +110,10 @@ public class LeaderboardEventScheduledTasks {
 				Integer userId = Integer.valueOf(t.getElement());
 
 				// Make sure a score of at least 0
-				if (t.getScore() > 0) {
-					userIds.add(userId);
-				}
+				userIds.add(userId);
 			}
 
+			log.info("Awarding " + reward.getGoldRewarded() + " gold for ranks "+reward.getMinRank()+"-"+reward.getMaxRank()+" to users "+userIds);
 			if (!UpdateUtils.get().updateUsersAddDiamonds(userIds, reward.getGoldRewarded())) {
 				log.error("Error updating user diamonds for userIds " + userIds + " and reward " + reward);
 			}
@@ -131,6 +130,8 @@ public class LeaderboardEventScheduledTasks {
 
 		if (!UpdateUtils.get().updateLeaderboardEventSetRewardGivenOut(event.getId())) {
 			log.error("Error updating rewards given out for event " + event);
+		} else {
+		  event.setRewardsGivenOut(true);
 		}
 	}
 }

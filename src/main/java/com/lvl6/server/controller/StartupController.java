@@ -237,7 +237,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     List<ClanTower> towers = ClanTowerRetrieveUtils.getAllClanTowers();
     
     for (ClanTower tower : towers) {
-      log.info("startupcontroller: tower=" + tower);
       resBuilder.addClanTowers(CreateInfoProtoUtils.createClanTowerProtoFromClanTower(tower));
     }
   }
