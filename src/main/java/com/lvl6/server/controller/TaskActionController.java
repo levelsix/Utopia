@@ -600,7 +600,7 @@ public class TaskActionController extends EventController {
 		  //send a notification
 		  String equipName = equip.getName();
 		  Notification foundEpicNotification = new Notification ();
-		  foundEpicNotification.setNotificationAsEpicWeaponDropped(userName, equipName, townName);
+		  foundEpicNotification.setAsEpicWeaponDropped(userName, equipName, townName);
 		  
 		  MiscMethods.writeGlobalNotification(foundEpicNotification, server);
 	  }

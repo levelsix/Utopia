@@ -181,7 +181,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   
   private void sendGeneralNotification (String userName, String clanName) {
 	  Notification createClanNotification = new Notification ();
-	  createClanNotification.setNotificationAsClanCreated(userName, clanName);
+	  createClanNotification.setAsClanCreated(userName, clanName);
 	  
 	  MiscMethods.writeGlobalNotification(createClanNotification, server);
   }

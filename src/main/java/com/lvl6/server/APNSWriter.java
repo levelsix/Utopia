@@ -17,6 +17,7 @@ import com.lvl6.events.GameEvent;
 import com.lvl6.events.NormalResponseEvent;
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.events.response.BattleResponseEvent;
+import com.lvl6.events.response.GeneralNotificationResponseEvent;
 import com.lvl6.events.response.PostOnClanBulletinResponseEvent;
 import com.lvl6.events.response.PostOnPlayerWallResponseEvent;
 import com.lvl6.events.response.PurchaseFromMarketplaceResponseEvent;
@@ -25,6 +26,7 @@ import com.lvl6.info.UserClan;
 import com.lvl6.properties.APNSProperties;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.EventProto.BattleResponseProto;
+import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.EventProto.PostOnClanBulletinResponseProto;
 import com.lvl6.proto.EventProto.PostOnPlayerWallResponseProto;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto;
@@ -162,6 +164,11 @@ public class APNSWriter extends Wrap {
 									(PostOnPlayerWallResponseEvent) event, user, user.getDeviceToken());
 						}
 						
+						if (GeneralNotificationResponseEvent.class.isInstance(event)) {
+						  handleGeneralNotification(service,
+						      (GeneralNotificationResponseEvent) event, user, user.getDeviceToken());
+						}
+						
 						// if
 						// (ReferralCodeUsedResponseEvent.class.isInstance(event))
 						// {
@@ -224,6 +231,27 @@ public class APNSWriter extends Wrap {
 		}
 	}
 
+	private void handleGeneralNotification(ApnsService service, GeneralNotificationResponseEvent event,
+      User user, String token) {
+	  if(user.getNumBadges() < SOFT_MAX_NOTIFICATION_BADGES) {
+	    PayloadBuilder pb = APNS.newPayload().actionKey("View Now").badge(1);
+	    
+	    log.info("GeneralNotification for user: " + user.getId());
+	    GeneralNotificationResponseProto resProto = event.getGeneralNotificationResponseProto();
+	    String title = resProto.getTitle();
+	    String subtitle = resProto.getSubtitle();
+	    
+	    String alertBody = title + " " + subtitle;
+	    pb.alertBody(alertBody);
+	    if (!pb.isTooLong()) {
+	      log.info("sending apns for a general notification");
+	      service.push(token, pb.build());
+	    } else {
+	      log.error("PlayloadBuilder isTooLong to send apns message for general notification");
+	    }
+	  }
+	}
+	
 	/**
 	 * send apns to the given playerId
 	 */
