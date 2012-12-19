@@ -75,8 +75,8 @@ public class NotificationConstants {
   public static final String LEADERBOARD_EVENT_ENDED_GLOBAL_SUBTITLE = "{0} has won the grand prize.";
       
   //LEADERBOARD EVENT (TOURNAMENT) ENDED, MESSAGE FOR INDIVIDUALS THAT ARE ONLINE
-  public static final String LEADERBOARD_EVENT_ENDED_INDIVIDUAL_ONLINE_TITLE = "You {1} made it into the {0}{0}tournament's top {0}!{0}";
-  public static final String LEADERBOARD_EVENT_ENDED_INDIVIDUAL_ONLINE_SUBTITLE = "You have{0} been awarded {1} gold.";
+  public static final String LEADERBOARD_EVENT_ENDED_INDIVIDUAL_ONLINE_TITLE = "You made it into the tournament\'s top {0}!";
+  public static final String LEADERBOARD_EVENT_ENDED_INDIVIDUAL_ONLINE_SUBTITLE = "You have been awarded {1} gold.";
   
   //LEADERBOARD EVENT (TOURNAMENT) ENDED, MESSAGE FOR INDIVIDUALS THAT ARE OFFLINE
   public static final String LEADERBOARD_EVENT_ENDED_INDIVIDUAL_OFFLINE_TITLE = "The tournament ended.";
