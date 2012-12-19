@@ -81,14 +81,16 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
     if (legitPost) {
       Timestamp timeOfPost = new Timestamp(new Date().getTime());
-      int wallPostId = insertUtils.insertPlayerWallPost(posterId, wallOwnerId, content, timeOfPost);
+      String censoredContent = MiscMethods.censorUserInput(content);
+      int wallPostId = insertUtils.insertPlayerWallPost(posterId, wallOwnerId, censoredContent, timeOfPost);
       if (wallPostId <= 0) {
         legitPost = false;
         resBuilder.setStatus(PostOnPlayerWallStatus.OTHER_FAIL);
         log.error("problem with inserting wall post into db. posterId=" + posterId + ", wallOwnerId="
-            + wallOwnerId + ", content=" + content + ", timeOfPost=" + timeOfPost);
+            + wallOwnerId + ", content=" + content + ", censoredContent=" + censoredContent 
+            + ", timeOfPost=" + timeOfPost);
       } else {
-        PlayerWallPost pwp =  new PlayerWallPost(wallPostId, posterId, wallOwnerId, timeOfPost, content);
+        PlayerWallPost pwp =  new PlayerWallPost(wallPostId, posterId, wallOwnerId, timeOfPost, censoredContent);
         PlayerWallPostProto pwpp = CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, users.get(posterId));
         resBuilder.setPost(pwpp);
 

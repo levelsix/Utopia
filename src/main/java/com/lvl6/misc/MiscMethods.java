@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.slf4j.Logger;
@@ -925,5 +926,47 @@ public class MiscMethods {
     GeneralNotificationResponseEvent aNotification = new GeneralNotificationResponseEvent(0);
     aNotification.setGeneralNotificationResponseProto(notificationProto.build());
     server.writeGlobalEvent(aNotification);
+  }
+  
+  //Simple (inefficient) word by word censor. If a word appears in 
+  //a blacklist then that word is replaced by a number of asterisks 
+  //equal to the word's length, e.g. fuck => ****
+  //Not sure whether to use String or StringBuilder, so going with latter.
+  public static String censorUserInput(String userContent) {
+    StringBuilder toReturn = new StringBuilder(userContent.length());
+    Set<String> blackList = ProfanityRetrieveUtils.getAllProfanity();
+    
+    String[] words = userContent.split(" ");
+    String space = " "; //split by space, need to add them back in
+    String w = "";
+    
+    for(int i = 0; i < words.length; i++) {
+      w = words[i];
+
+      //if at the last word, don't add a space after "censoring" it
+      if ((words.length - 1) == i) {
+        space = "";
+      }
+      
+      if(blackList.contains(w)) {
+        toReturn.append(asteriskify(w) + space);
+      } else {
+        toReturn.append(w + space);
+      }
+    }
+    
+    return toReturn.toString();
+  }
+  
+  //average length of word is 4 characters. So based on this, not using
+  //StringBuilder
+  public static String asteriskify(String wordToAskerify) {
+    int len = wordToAskerify.length();
+    String s = "";
+    
+    for(int i = 0; i < len; i++) {
+      s += "*";
+    }
+    return s;
   }
 }
