@@ -62,6 +62,7 @@ public class DBConstants {
   public static final String TABLE_CLAN_TOWERS = "clan_towers";
   public static final String TABLE_CLAN_TOWERS_HISTORY = "clan_towers_history";
   public static final String TABLE_CLAN_TIER_LEVELS = "clan_tier_levels";
+  public static final String TABLE_PROFANITY = "profanity";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -449,5 +450,8 @@ public class DBConstants {
   public static final String CLAN_TOWERS_HISTORY__NUM_HOURS_FOR_BATTLE = "num_hours_for_battle";
   public static final String CLAN_TOWERS_HISTORY__LAST_REWARD_GIVEN = "last_reward_given";
   public static final String CLAN_TOWERS_HISTORY__REASON_FOR_ENTRY = "reason_for_entry";
+
+  /*PROFANITY*/
+  public static final String PROFANITY__WORD = "term";
   
 }
