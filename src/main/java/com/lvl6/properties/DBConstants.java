@@ -65,6 +65,7 @@ public class DBConstants {
   public static final String TABLE_LEADERBOARD_EVENTS = "leaderboard_events";
   public static final String TABLE_USER_LEADERBOARD_EVENTS = "user_leaderboard_events";
   public static final String TABLE_LEADERBOARD_EVENT_REWARDS = "leaderboard_event_rewards";
+  public static final String TABLE_PROFANITY = "profanity";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -477,5 +478,8 @@ public class DBConstants {
   public static final String LEADERBOARD_EVENT_REWARDS__BLUE = "blue";
   public static final String LEADERBOARD_EVENT_REWARDS__GREEN = "green";
   public static final String LEADERBOARD_EVENT_REWARDS__RED = "red";
+  
+  /*PROFANITY*/
+  public static final String PROFANITY__WORD = "term";
   
 }
