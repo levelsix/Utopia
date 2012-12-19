@@ -44,6 +44,8 @@ public class NotificationConstants {
   
   
   /*TITLE AND SUBTITLE CONSTANTS*/
+  // ESCAPE APOSTROPHES
+  
   //CLAN TOWER  (Formatted in accordance to MessageFormat class)
   public static String CLAN_CONCEDED__TITLE = "{0} has forfeited the {2} to {1}.";
   public static String CLAN_CONCEDED__SUBTITLE = "{1} now holds the {2} and wants a stronger opponent. ";
