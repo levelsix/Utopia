@@ -46,7 +46,7 @@ import com.lvl6.utils.DBConnection;
           while(rs.next()) { 
             String profanityTerm = convertRSRowToProfanity(rs);
             if (null != profanityTerm)
-              oneWordProfanity.add(profanityTerm);
+              oneWordProfanityTemp.add(profanityTerm);
           }
           oneWordProfanity = oneWordProfanityTemp;
         } catch (SQLException e) {
