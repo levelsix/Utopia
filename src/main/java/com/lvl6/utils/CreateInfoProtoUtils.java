@@ -979,7 +979,8 @@ public class CreateInfoProtoUtils {
       LeaderboardEvent e, List<LeaderboardEventReward> rList) {
     
     LeaderboardEventProto.Builder b = LeaderboardEventProto.newBuilder().setEventId(e.getId()).setStartDate(e.getStartDate().getTime())
-    .setEndDate(e.getEndDate().getTime()).setEventName(e.getEventName());
+    .setEndDate(e.getEndDate().getTime()).setEventName(e.getEventName())
+    .setLastShowDate(e.getEndDate().getTime()+ControllerConstants.LEADERBOARD_EVENT__NUM_HOURS_TO_SHOW_AFTER_EVENT_END*3600000L);
     
     List<LeaderboardEventRewardProto> rProtosList = new ArrayList<LeaderboardEventRewardProto>();
     for(LeaderboardEventReward r : rList) {

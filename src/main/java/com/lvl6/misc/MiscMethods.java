@@ -570,7 +570,7 @@ public class MiscMethods {
     
     //get the ids of active leader board events
     for(LeaderboardEvent e : idsToEvents.values()) {
-      if (e.getEndDate().getTime() > curTime) {
+      if (e.getEndDate().getTime()+ControllerConstants.LEADERBOARD_EVENT__NUM_HOURS_TO_SHOW_AFTER_EVENT_END*3600000L > curTime) {
         activeEventIds.add(e.getId());
       }
     }

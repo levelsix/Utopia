@@ -379,6 +379,7 @@ public class ControllerConstants {
   public static final int LEADERBOARD_EVENT__WINS_WEIGHT = 2;
   public static final int LEADERBOARD_EVENT__LOSSES_WEIGHT = -1;
   public static final int LEADERBOARD_EVENT__FLEES_WEIGHT = -3;
+  public static final int LEADERBOARD_EVENT__NUM_HOURS_TO_SHOW_AFTER_EVENT_END = 24;
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),
