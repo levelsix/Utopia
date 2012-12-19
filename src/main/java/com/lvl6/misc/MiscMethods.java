@@ -86,6 +86,7 @@ import com.lvl6.retrieveutils.rarechange.LockBoxEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LockBoxItemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.PossessEquipJobRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.ProfanityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
@@ -612,6 +613,7 @@ public class MiscMethods {
     BossRewardRetrieveUtils.reload();
     LeaderboardEventRetrieveUtils.reload();
     LeaderboardEventRewardRetrieveUtils.reload();
+    ProfanityRetrieveUtils.reload();
   }
 
   public static UserType getUserTypeFromDefeatTypeJobUserType(
