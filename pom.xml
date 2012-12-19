@@ -81,7 +81,7 @@
 		<server.port>10001</server.port>
 		<globals.isSandbox>true</globals.isSandbox>
 		<globals.iddictionOn>false</globals.iddictionOn>
-		<lvl6.application.version>2.1f</lvl6.application.version>
+		<lvl6.application.version>2.2f</lvl6.application.version>
 		<lvl6.application.healthcheck.timeout.seconds>6</lvl6.application.healthcheck.timeout.seconds>
 		<apns.path.to.cert>/usr/share/tomcat7/KingdomAPNSDevKey.p12</apns.path.to.cert>
 		<apns.cert.password>robashen123</apns.cert.password>
