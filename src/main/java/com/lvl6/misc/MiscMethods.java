@@ -942,13 +942,14 @@ public class MiscMethods {
     
     for(int i = 0; i < words.length; i++) {
       w = words[i];
-
+      
       //if at the last word, don't add a space after "censoring" it
       if ((words.length - 1) == i) {
         space = "";
       }
       
-      if(blackList.contains(w)) {
+      //the profanity table only holds lower case one word profanities
+      if(blackList.contains(w.toLowerCase())) {
         toReturn.append(asteriskify(w) + space);
       } else {
         toReturn.append(w + space);
