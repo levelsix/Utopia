@@ -175,10 +175,8 @@ public class LeaderboardEventScheduledTasks {
       Map<Integer, User> userIdsToUsers) {
 	  
 	  Set<Tuple> set = new HashSet<Tuple>();
-    int minRank = 1;
-    int maxRank = 1;
     
-    set = leader.getEventTopN(eventId, minRank, maxRank); //the top player
+    set = leader.getEventTopN(eventId, 0, 0); //the top player
     
     Iterator<Tuple> it = set.iterator();
     while (it.hasNext()) { //loop should only go once
@@ -201,7 +199,7 @@ public class LeaderboardEventScheduledTasks {
 	
 	private LeaderboardEventReward getFirstPlaceReward(List<LeaderboardEventReward> rList) {
 	  for(LeaderboardEventReward r : rList) {
-	    if(1 == r.getMinRank() && 1 == r.getMaxRank()) {
+	    if(1 >= r.getMinRank() && 1 <= r.getMaxRank()) {
 	      return r;
 	    }
 	  }
@@ -232,7 +230,7 @@ public class LeaderboardEventScheduledTasks {
       int gold = reward.getGoldRewarded();
       int minRank = reward.getMinRank();
       int maxRank = reward.getMaxRank();
-      set = leader.getEventTopN(eventId, minRank, maxRank);
+      set = leader.getEventTopN(eventId, minRank-1, maxRank-1);
 
       Iterator<Tuple> it = set.iterator();
       while (it.hasNext()) {
