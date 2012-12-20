@@ -244,8 +244,7 @@ public class Notification {
   public void setAsLeaderboardEventEndedIndividual(boolean playerOnline, 
       int rank, int gold) {
     Object[] arguments = { rank+"", gold };
-    log.info("rank="+rank+", gold="+gold);
-    log.info(arguments[0]+", "+arguments[1]);
+    
     MessageFormat formatTitle;
     MessageFormat formatSubtitle;
     if(playerOnline) {
