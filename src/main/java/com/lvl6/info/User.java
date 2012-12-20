@@ -16,6 +16,7 @@ import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.DBConnection;
+import com.lvl6.utils.utilmethods.InsertUtils;
 
 public class User implements Serializable {
 
@@ -621,6 +622,13 @@ public class User implements Serializable {
         this.stamina = staminaMax;
       }
       this.diamonds += diamondChange;
+      
+      //tracking history of refills
+      boolean staminaRefill = (statType == StatType.STAMINA);
+      //goldCost (last arg) corresponds to either 
+      //ControllerConstants.Refill_stat_with_diamonds__diamond_cost_for_energy/stamina_refill
+      InsertUtils.get().insertIntoRefillStatHistory(this.id, staminaRefill, staminaMax, -diamondChange);
+      
       return true;
     }
     return false;

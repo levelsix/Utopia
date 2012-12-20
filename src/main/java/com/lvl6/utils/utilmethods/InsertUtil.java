@@ -133,4 +133,6 @@ public interface InsertUtil {
   public abstract int insertIntoBossEquipDropHistory(int bossRewardDropHistoryId, List<Integer> equipIds);
   
   public int insertIntoUserLeaderboardEvent(int leaderboardEventId, int userId, int battlesWonChange, int battlesLostChange, int battlesFledChange);
+  
+  public int insertIntoRefillStatHistory(int userId, boolean staminaRefill, int staminaMax, int goldCost);
 }
