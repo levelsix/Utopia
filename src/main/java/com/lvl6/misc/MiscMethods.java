@@ -935,19 +935,19 @@ public class MiscMethods {
   public static String censorUserInput(String userContent) {
     StringBuilder toReturn = new StringBuilder(userContent.length());
     Set<String> blackList = ProfanityRetrieveUtils.getAllProfanity();
-    
+
     String[] words = userContent.split(" ");
     String space = " "; //split by space, need to add them back in
     String w = "";
-    
+
     for(int i = 0; i < words.length; i++) {
       w = words[i];
-      
+
       //if at the last word, don't add a space after "censoring" it
       if ((words.length - 1) == i) {
         space = "";
       }
-      
+
       //the profanity table only holds lower case one word profanities
       if(blackList.contains(w.toLowerCase())) {
         toReturn.append(asteriskify(w) + space);
@@ -955,19 +955,20 @@ public class MiscMethods {
         toReturn.append(w + space);
       }
     }
-    
+
     return toReturn.toString();
   }
-  
+
   //average length of word is 4 characters. So based on this, not using
   //StringBuilder
   public static String asteriskify(String wordToAskerify) {
     int len = wordToAskerify.length();
     String s = "";
-    
+
     for(int i = 0; i < len; i++) {
       s += "*";
     }
     return s;
   }
+
 }

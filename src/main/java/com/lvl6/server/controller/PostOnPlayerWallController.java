@@ -87,7 +87,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         legitPost = false;
         resBuilder.setStatus(PostOnPlayerWallStatus.OTHER_FAIL);
         log.error("problem with inserting wall post into db. posterId=" + posterId + ", wallOwnerId="
-            + wallOwnerId + ", content=" + content + ", censoredContent=" + censoredContent 
+            + wallOwnerId + ", content=" + content +  ", censoredContent=" + censoredContent 
             + ", timeOfPost=" + timeOfPost);
       } else {
         PlayerWallPost pwp =  new PlayerWallPost(wallPostId, posterId, wallOwnerId, timeOfPost, censoredContent);

@@ -460,6 +460,9 @@ public class DBConstants {
   public static final String CLAN_TOWERS_HISTORY__NUM_HOURS_FOR_BATTLE = "num_hours_for_battle";
   public static final String CLAN_TOWERS_HISTORY__LAST_REWARD_GIVEN = "last_reward_given";
   public static final String CLAN_TOWERS_HISTORY__REASON_FOR_ENTRY = "reason_for_entry";
+
+  /*PROFANITY*/
+  public static final String PROFANITY__WORD = "term";
   
   /*LEADERBOARD EVENTS*/
   public static final String LEADERBOARD_EVENTS__ID = GENERIC__ID;
