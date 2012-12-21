@@ -129,7 +129,8 @@ public class SendGroupChatController extends EventController {
 
 			if (legitSend) {
 				log.info("Group chat message is legit... sending to group");
-				writeChangesToDB(user, scope, chatMessage, timeOfPost);
+				String censoredChatMessage = MiscMethods.censorUserInput(chatMessage);
+				writeChangesToDB(user, scope, censoredChatMessage, timeOfPost);
 
 				UpdateClientUserResponseEvent resEventUpdate = MiscMethods
 						.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
@@ -137,7 +138,7 @@ public class SendGroupChatController extends EventController {
 				server.writeEvent(resEventUpdate);
 				final ReceivedGroupChatResponseProto.Builder chatProto = ReceivedGroupChatResponseProto
 						.newBuilder();
-				chatProto.setChatMessage(chatMessage);
+				chatProto.setChatMessage(censoredChatMessage);
 				chatProto.setSender(senderProto);
 				chatProto.setScope(scope);
 				if (scope == GroupChatScope.GLOBAL) {
