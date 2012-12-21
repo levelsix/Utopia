@@ -20,8 +20,8 @@ public class GenerateFakeUsersWithoutInput {
 
   private static String nameRulesFile = "src/main/java/com/lvl6/scriptsjava/generatefakeusers/namerulesElven.txt";
   private static int numEnemiesToCreatePerLevel = 300;
-  private static int minLevel = 41;
-  private static int maxLevel = 50;
+  private static int minLevel = 51;
+  private static int maxLevel = 70;
 
   private static int syllablesInName1 = 2;
   private static int syllablesInName2 = 3;
