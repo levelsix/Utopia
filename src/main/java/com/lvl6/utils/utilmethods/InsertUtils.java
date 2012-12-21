@@ -756,4 +756,21 @@ public class InsertUtils implements InsertUtil{
     return equipIdsAndQuantities;
   }
   
+  //at the time of this writing 12/19/12 only used to record when user spend diamonds to
+  //refill energy or stamina
+  public int insertIntoRefillStatHistory(int userId, boolean staminaRefill,
+      int staminaMax, int goldCost) {
+    String tablename = DBConstants.TABLE_REFILL_STAT_HISTORY;
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    
+    insertParams.put(DBConstants.REFILL_STAT_HISTORY__USER_ID, userId);
+    insertParams.put(DBConstants.REFILL_STAT_HISTORY__STAMINA_REFILL, staminaRefill);
+    insertParams.put(DBConstants.REFILL_STAT_HISTORY__STAMINA_MAX, staminaMax);
+    insertParams.put(DBConstants.REFILL_STAT_HISTORY__GOLD_COST, goldCost);
+    
+    //number of rows inserted (should be one)
+    int numUpdated =  DBConnection.get().insertIntoTableBasic(tablename, insertParams);
+    Log.debug("number of rows inserted into refill_stat_history table: " + numUpdated);
+    return numUpdated;
+  }
 }

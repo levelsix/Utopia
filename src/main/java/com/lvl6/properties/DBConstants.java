@@ -14,6 +14,7 @@ public class DBConstants {
   public static final String TABLE_USER_QUESTS_COMPLETED_TASKS = "user_quests_completed_tasks";
   public static final String TABLE_USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS = "user_quests_defeat_type_job_progress";
   public static final String TABLE_USER_QUESTS_TASK_PROGRESS = "user_quests_task_progress";
+  public static final String TABLE_REFILL_STAT_HISTORY = "refill_stat_history";
   public static final String TABLE_EQUIPMENT = "equipment";
   public static final String TABLE_TASKS = "tasks";
   public static final String TABLE_TASKS_EQUIPREQS = "tasks_equipreqs";
@@ -139,6 +140,12 @@ public class DBConstants {
   public static final String USER_CITIES__USER_ID = GENERIC__USER_ID;
   public static final String USER_CITIES__CITY_ID = "city_id";
   public static final String USER_CITIES__CURRENT_RANK = "current_rank";
+  
+  /*REFILL STAT HISTORY*/ //missing time_of_refill column because adding to table does it automatically
+  public static final String REFILL_STAT_HISTORY__USER_ID = GENERIC__USER_ID;
+  public static final String REFILL_STAT_HISTORY__STAMINA_REFILL = "stamina_refill";
+  public static final String REFILL_STAT_HISTORY__STAMINA_MAX = "stamina_max";
+  public static final String REFILL_STAT_HISTORY__GOLD_COST = "gold_cost";
   
   /*IAP TABLE*/
   public static final String IAP_HISTORY__ID = GENERIC__ID;
