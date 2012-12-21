@@ -53,6 +53,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   @Override
   protected void processRequestEvent(RequestEvent event) throws Exception {
+    //the level up happens prematurely, so a bad inefficient stop gap solution:
+    //make this thread sleep :O
+    try {
+      Thread.sleep(500); //sleep for half a second
+    } catch (InterruptedException e) {
+      //do nothing?
+      log.info("LevelUpRequestEvent thread interrupted from sleep.");
+    }
+    
     LevelUpRequestProto reqProto = ((LevelUpRequestEvent)event).getLevelUpRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
