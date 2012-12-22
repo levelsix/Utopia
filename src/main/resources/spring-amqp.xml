@@ -23,14 +23,19 @@
 		">
 
 
+	<bean id="rabbitConnectionFactory" class="com.rabbitmq.client.ConnectionFactory">
+		<property name="host" value="${amqp.host}" />
+		<property name="requestedHeartbeat" value="10" />
+	</bean>
 
 
 	<rabbit:connection-factory id="amqpConnectionFactory"
 		host="${amqp.host}" 
 		username="${amqp.user}" 
 		password="${amqp.pass}"
-		virtual-host="${amqp.vhost}"
-		channel-cache-size="5" />
+		virtual-host="${amqp.vhost}" 
+		channel-cache-size="15" 
+		connection-factory="rabbitConnectionFactory" />
 
 
 
@@ -42,28 +47,29 @@
 		auto-delete="false" 
 		durable="true">
 		<rabbit:bindings>
-			<rabbit:binding queue="clientMessages" key="${amqp.client.messages.routing.key}" />
+			<rabbit:binding queue="clientMessages"
+				key="${amqp.client.messages.routing.key}" />
 		</rabbit:bindings>
 	</rabbit:direct-exchange>
-	
+
 	<rabbit:topic-exchange name="${amqp.chat.exchange}"
-		auto-delete="false"
-		durable="true">
+		auto-delete="false" durable="true">
 	</rabbit:topic-exchange>
 
-	<rabbit:queue id="clientMessages" 
-		name="clientMessages"
+	<rabbit:queue id="clientMessages" name="clientMessages"
 		durable="true" 
 		auto-delete="false" />
 
 
-	<rabbit:listener-container	connection-factory="amqpConnectionFactory" concurrency="30" error-handler="amqpErrorHandler">
-		<rabbit:listener 
-			queues="clientMessages" 
-			ref="clientEventHandler"
+	<rabbit:listener-container
+		connection-factory="amqpConnectionFactory" 
+		concurrency="15"
+		error-handler="amqpErrorHandler">
+		<rabbit:listener queues="clientMessages" 
+		ref="clientEventHandler"
 			method="onMessage" />
 	</rabbit:listener-container>
-	
+
 	<rabbit:template id="clientMessagesTemplate"
 		connection-factory="amqpConnectionFactory" 
 		channel-transacted="true"
