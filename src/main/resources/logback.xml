@@ -65,6 +65,6 @@
 		<appender-ref ref="console" />
 		<appender-ref ref="file" />
 		<appender-ref ref="errorfile" />
-		<appender-ref ref="elasticsearch" /> 
+		<!-- <appender-ref ref="elasticsearch" />  -->
 	</root>
 </configuration>

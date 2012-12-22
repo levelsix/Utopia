@@ -34,7 +34,7 @@
 		username="${amqp.user}" 
 		password="${amqp.pass}"
 		virtual-host="${amqp.vhost}" 
-		channel-cache-size="15" 
+		channel-cache-size="13" 
 		connection-factory="rabbitConnectionFactory" />
 
 
@@ -63,7 +63,7 @@
 
 	<rabbit:listener-container
 		connection-factory="amqpConnectionFactory" 
-		concurrency="15"
+		concurrency="13"
 		error-handler="amqpErrorHandler">
 		<rabbit:listener queues="clientMessages" 
 		ref="clientEventHandler"
