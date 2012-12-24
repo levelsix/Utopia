@@ -181,7 +181,15 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 			  ControllerConstants.RETRACT_MARKETPLACE_POST__MIN_NUM_DAYS_UNTIL_FREE_TO_RETRACT_ITEM *
 			  daysToMilliseconds;
 	  
-	  double timeItemPosted = mp.getTimeOfPost().getTime();
+	  java.util.Date dateItemPosted = mp.getTimeOfPost();
+	  double timeItemPosted = 0;//mp.getTimeOfPost().getTime(); //this generated null pointer exception
+	  if (null != dateItemPosted) {
+	    timeItemPosted = dateItemPosted.getTime();
+	  } else {
+	    log.error("Somehow marketplace post has null post time. marketplacepost=" + mp);
+	    //since post had null post time, just allow user to retract at no cost
+	    return true;
+	  }
 	  
 	  //item needs to be after this time to be retracted for free
 	  double timeItemCanBeRetractedForFree = timeItemPosted + minTimeItemNeedsToBeOnMarketplace;
