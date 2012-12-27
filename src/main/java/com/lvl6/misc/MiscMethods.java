@@ -964,6 +964,7 @@ public class MiscMethods {
   public static String asteriskify(String wordToAskerify) {
     int len = wordToAskerify.length();
     String s = "";
+
     for(int i = 0; i < len; i++) {
       s += "*";
     }
