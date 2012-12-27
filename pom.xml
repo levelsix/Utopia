@@ -357,11 +357,11 @@
 							<optionName>Stickiness Cookie Expiration</optionName>
 							<value>0</value>
 						</optionSetting>
-<!-- 						<optionSetting>
+ 						<optionSetting>
 							<namespace>aws:elb:policies</namespace>
 							<optionName>Stickiness Policy</optionName>
 							<value>true</value>
-						</optionSetting> -->
+						</optionSetting> 
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:hostmanager</namespace>
 							<optionName>LogPublicationControl</optionName>
