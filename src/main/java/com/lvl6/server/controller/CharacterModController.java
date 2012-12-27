@@ -203,6 +203,12 @@ import com.lvl6.utils.RetrieveUtils;
       log.error("user does not have enough gold. has " + user.getDiamonds() + ", needs " + diamondCost);
       return false;
     }
+    //temporarily stop people from resetting their game, to prevent transfering initial gold
+    if (CharacterModType.NEW_PLAYER == modType) {
+      resBuilder.setStatus(CharacterModStatus.OTHER_FAIL);
+      log.error("user tried resetting their character. user=" + user);
+      return false;
+    }
     //TODO
     //add check to make sure name is legit
     //add check to make sure character is not in a clan
