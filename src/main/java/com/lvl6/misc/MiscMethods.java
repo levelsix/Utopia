@@ -112,6 +112,17 @@ public class MiscMethods {
     return (int)
         (equipment.getMinutesToAttemptForgeBase()*Math.pow(ControllerConstants.FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER, goalLevel));
   }
+  
+  public static float calculateChanceOfSuccessForForge(Equipment equipment, int goalLevel) {
+    return  (1-equipment.getChanceOfForgeFailureBase()) - 
+        ((1-equipment.getChanceOfForgeFailureBase()) / (ControllerConstants.FORGE_MAX_EQUIP_LEVEL - 1)) * 
+        (goalLevel-2);
+  }
+
+  public static int calculateDiamondCostToSpeedupForgeWaittime(Equipment equipment, int goalLevel) {
+    return (int) Math.ceil(calculateMinutesToFinishForgeAttempt(equipment, goalLevel) / 
+        ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
+  }
 
   public static UserEquip chooseUserEquipWithEquipIdPreferrablyNonEquippedIgnoreLevel(User user, List<UserEquip> userEquipsForEquipId) {
     if (user == null || userEquipsForEquipId == null || userEquipsForEquipId.size() <= 0) {
