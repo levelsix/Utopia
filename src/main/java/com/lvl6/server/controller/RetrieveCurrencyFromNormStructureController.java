@@ -54,8 +54,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     RetrieveCurrencyFromNormStructureRequestProto reqProto = ((RetrieveCurrencyFromNormStructureRequestEvent)event).getRetrieveCurrencyFromNormStructureRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
-    List<Integer> userStructId = reqProto.getUserStructIdList();
-    List<Long> timeOfRetrieval = reqProto.getTimeOfRetrievalList();
+//    List<Integer> userStructId = reqProto.getUserStructIdList();
+//    List<Long> timeOfRetrieval = reqProto.getTimeOfRetrievalList();
 
     RetrieveCurrencyFromNormStructureResponseProto.Builder resBuilder = RetrieveCurrencyFromNormStructureResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
