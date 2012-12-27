@@ -2,19 +2,15 @@ package com.lvl6.ui.admin.components;
 
 import java.lang.reflect.Field;
 
-import org.apache.wicket.ajax.AbstractAjaxTimerBehavior;
-import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.AbstractItem;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.util.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lvl6.ui.admin.pages.AdminPage;
 import com.lvl6.ui.admin.pages.StatsGraphsPage;
 import com.lvl6.utils.StringUtils;
 
@@ -64,15 +60,5 @@ public class StatsPanelDynamic extends Panel {
 
 	private static final long serialVersionUID = -2625835646085053890L;
 
-	AbstractAjaxTimerBehavior abstractAjaxTimerBehavior = new AbstractAjaxTimerBehavior(Duration.seconds(90))
-	{
-		private static final long serialVersionUID = 5721917435743521271L;
-
-		@Override
-		protected void onTimer(AjaxRequestTarget target)
-		{
-			setResponsePage(AdminPage.class);
-		}
-	};
 	
 }
