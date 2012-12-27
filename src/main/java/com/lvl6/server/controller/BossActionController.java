@@ -262,7 +262,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 		int expGained = 0;
 		
 		damageGenerated = generateDamage(aBoss, isSuperAttack, individualDamages);
-		expGained = generateExpGained(aBoss, isSuperAttack, individualDamages);
+		expGained = generateExpGained(aBoss, isSuperAttack, individualDamages, aUser.getLevel());
 		
 		int currentHealth = aUserBoss.getCurrentHealth() - damageGenerated;
 		int numTimesKilled = aUserBoss.getNumTimesKilled();
@@ -326,49 +326,65 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 	  
 	  return damageGenerated;
   }
-  
-//  user's experience based on the attack
-//  The formula is:
-//  (minExp) + ((dmgDone - minDmg)/(maxDmg - minDmg)) * (maxExp - minExp)
-  private int generateExpGained(Boss aBoss, boolean isSuperAttack, List<Integer> individualDamages) {
-    int expGained = 0;
+
+  //  user's experience based on the attack
+  //  The formula is:
+  //  (minExp) + ((dmgDone - minDmg)/(maxDmg - minDmg)) * (maxExp - minExp)
+  //
+  //  Forget the top formula, new formula is max(value1, value2) where
+  //  value1 = 1; 
+  //  value2 = randomNumFrom(aBoss.minExp, aBoss.maxExp) + currentLevel 
+  //  Take max because value2 could be negative. 
+  //  THE MINIMUM EXP GAINED IS 1! This is for the low level players.
+  private int generateExpGained(Boss aBoss, boolean isSuperAttack, 
+      List<Integer> individualDamages, int userLevel) {
+    int expGained = 1;
+    int minExp = aBoss.getMinExp();
+    int maxExp = aBoss.getMaxExp();
 
     if(isSuperAttack) {
       log.info("superattack");
       double superAttack = ControllerConstants.BOSS_EVENT__SUPER_ATTACK;
       int integerPart = (int) superAttack;
-      double fractionalPart = superAttack - integerPart;
-      
+      double fractionalPart = superAttack - (double) integerPart;
+
       int indexOfLastDamage = individualDamages.size() - 1;
       for(int i = 0; i < indexOfLastDamage; i++) {
-        int dmgDone = individualDamages.get(i);
-        int exp = calculateExpGained(aBoss, dmgDone);
+        int dmgDone = individualDamages.get(i); //not really needed because of new formula
+        //int exp = calculateExpGained(minExp, maxExp);
+        int exp = generateNumInRange(minExp, maxExp);
+        exp = Math.max(1, exp + userLevel);
         expGained += exp;
-        
+
         log.info("damage=" + dmgDone + ", exp=" + exp);
       }
+
+      int lastDmgDone = individualDamages.get(indexOfLastDamage); //not really needed, just for logging
+      //int lastExp = calculateExpGained(minExp, maxExp);
+      int lastExp = generateNumInRange(minExp, maxExp);
       
-      int lastDmgDone = individualDamages.get(indexOfLastDamage);
-      int lastExp = calculateExpGained(aBoss, lastDmgDone); 
       if(superAttack != integerPart) {
         lastExp = (int) (lastExp * fractionalPart); //truncating some values
+        lastExp = Math.max(1, lastExp + userLevel); //once again, minimum exp could be 1 and 1*(float from 0 to 1) is 0
         log.info("super attack not a whole number.");
       }
       log.info("lastDmgDone=" + lastDmgDone + ", the last exp gained=" + lastExp);
       expGained += lastExp;  
-      
+
     } else {
       int dmgDone = individualDamages.get(0);
-      int exp = calculateExpGained(aBoss, dmgDone);
+      //int exp = calculateExpGained(minExp, maxExp);
+      int exp = generateNumInRange(minExp, maxExp);
+      exp = Math.max(1, exp + userLevel);
       expGained += exp;
-      
+
       log.info("damage=" + dmgDone + ", exp=" + exp);
     }
-    
+
     return expGained;
   }
-  
-  private int calculateExpGained(Boss aBoss, int dmgDone) {
+  /*
+  private int calculateExpGained(int minExp, int maxExp) {
     double minDmg = aBoss.getMinDamage();
     double maxDmg = aBoss.getMaxDamage();
     double maxMinDmgDifference = maxDmg - minDmg;
@@ -382,7 +398,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     
     log.info("differencesRatio=" + differencesRatio);
     return (int) (minExp + differencesRatio*maxMinExpDifference);
-  }
+    
+  }*/
   
   private List<BossReward> determineLoot(UserBoss aUserBoss) { 
     List<BossReward> rewardsAwarded = new ArrayList<BossReward>();

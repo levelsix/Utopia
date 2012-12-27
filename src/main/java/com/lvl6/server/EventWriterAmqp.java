@@ -101,7 +101,8 @@ public class EventWriterAmqp extends EventWriter {
 
 	protected MessageProperties getProps() {
 		MessageProperties msgProps = new MessageProperties();
-		msgProps.setHeader("x-message-ttl", 360000);
+		//msgProps.setHeader("x-message-ttl", 360000);
+		msgProps.setExpiration("120000");
 		return msgProps;
 	}
 

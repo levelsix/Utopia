@@ -6,11 +6,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PostOnPlayerWallRequestEvent;
 import com.lvl6.events.response.PostOnPlayerWallResponseEvent;
 import com.lvl6.info.PlayerWallPost;
@@ -87,7 +89,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         legitPost = false;
         resBuilder.setStatus(PostOnPlayerWallStatus.OTHER_FAIL);
         log.error("problem with inserting wall post into db. posterId=" + posterId + ", wallOwnerId="
-            + wallOwnerId + ", content=" + content + ", censoredContent=" + censoredContent 
+            + wallOwnerId + ", content=" + content +  ", censoredContent=" + censoredContent 
             + ", timeOfPost=" + timeOfPost);
       } else {
         PlayerWallPost pwp =  new PlayerWallPost(wallPostId, posterId, wallOwnerId, timeOfPost, censoredContent);

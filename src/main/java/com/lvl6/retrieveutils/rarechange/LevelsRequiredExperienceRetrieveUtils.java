@@ -66,6 +66,8 @@ import com.lvl6.utils.DBConnection;
           log.error("problem with database call.", e);
           
         }
+      } else {
+        log.error("query to select whole table failed somehow because ResultSet returned is null.");
       }
     }
     DBConnection.get().close(rs, null, conn);

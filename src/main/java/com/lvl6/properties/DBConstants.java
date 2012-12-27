@@ -66,6 +66,7 @@ public class DBConstants {
   public static final String TABLE_LEADERBOARD_EVENTS = "leaderboard_events";
   public static final String TABLE_USER_LEADERBOARD_EVENTS = "user_leaderboard_events";
   public static final String TABLE_LEADERBOARD_EVENT_REWARDS = "leaderboard_event_rewards";
+
   public static final String TABLE_PROFANITY = "profanity";
   
   /*COLUMNNAMES*/
@@ -460,6 +461,9 @@ public class DBConstants {
   public static final String CLAN_TOWERS_HISTORY__NUM_HOURS_FOR_BATTLE = "num_hours_for_battle";
   public static final String CLAN_TOWERS_HISTORY__LAST_REWARD_GIVEN = "last_reward_given";
   public static final String CLAN_TOWERS_HISTORY__REASON_FOR_ENTRY = "reason_for_entry";
+
+  /*PROFANITY*/
+  public static final String PROFANITY__WORD = "term";
   
   /*LEADERBOARD EVENTS*/
   public static final String LEADERBOARD_EVENTS__ID = GENERIC__ID;
@@ -485,8 +489,6 @@ public class DBConstants {
   public static final String LEADERBOARD_EVENT_REWARDS__BLUE = "blue";
   public static final String LEADERBOARD_EVENT_REWARDS__GREEN = "green";
   public static final String LEADERBOARD_EVENT_REWARDS__RED = "red";
-  
-  /*PROFANITY*/
-  public static final String PROFANITY__WORD = "term";
+
   
 }
