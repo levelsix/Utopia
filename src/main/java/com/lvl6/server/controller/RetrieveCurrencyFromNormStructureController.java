@@ -54,49 +54,49 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     RetrieveCurrencyFromNormStructureRequestProto reqProto = ((RetrieveCurrencyFromNormStructureRequestEvent)event).getRetrieveCurrencyFromNormStructureRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
-    int userStructId = reqProto.getUserStructId();
-    Timestamp timeOfRetrieval = new Timestamp(reqProto.getTimeOfRetrieval());
+    List<Integer> userStructId = reqProto.getUserStructIdList();
+    List<Long> timeOfRetrieval = reqProto.getTimeOfRetrievalList();
 
     RetrieveCurrencyFromNormStructureResponseProto.Builder resBuilder = RetrieveCurrencyFromNormStructureResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    UserStruct userStruct = RetrieveUtils.userStructRetrieveUtils().getSpecificUserStruct(userStructId);
-    Structure struct = null;
-    if (userStruct != null) {
-      struct = StructureRetrieveUtils.getStructForStructId(userStruct.getStructId());
-    }
-    server.lockPlayer(senderProto.getUserId());
+//    UserStruct userStruct = RetrieveUtils.userStructRetrieveUtils().getSpecificUserStruct(userStructId);
+//    Structure struct = null;
+//    if (userStruct != null) {
+//      struct = StructureRetrieveUtils.getStructForStructId(userStruct.getStructId());
+//    }
+//    server.lockPlayer(senderProto.getUserId());
 
     try {
-      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-      
-      int coinGain = MiscMethods.calculateIncomeGainedFromUserStruct(struct.getIncome(), userStruct.getLevel());
-      
-      boolean legitRetrieval = checkLegitRetrieval(resBuilder, user, userStruct, struct, timeOfRetrieval, coinGain);
-      
-      if (legitRetrieval) {
-        if (!user.updateRelativeCoinsCoinsretrievedfromstructs(coinGain)) {
-          log.error("problem with updating user stats after retrieving " + coinGain + " silver");
-          legitRetrieval = false;
-        }
-        if (!UpdateUtils.get().updateUserStructLastretrieved(userStructId, timeOfRetrieval)) {
-          log.error("problem with updating user struct last retrieved for userStructId " + userStructId + " to " + timeOfRetrieval);
-          legitRetrieval = false;
-        }
-      }
-
-      RetrieveCurrencyFromNormStructureResponseEvent resEvent = new RetrieveCurrencyFromNormStructureResponseEvent(senderProto.getUserId());
-      resEvent.setTag(event.getTag());
-      resEvent.setRetrieveCurrencyFromNormStructureResponseProto(resBuilder.build());  
-      server.writeEvent(resEvent);
-      
-      if (legitRetrieval) {
-        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
-        resEventUpdate.setTag(event.getTag());
-        server.writeEvent(resEventUpdate);
-        
-        updateAndCheckUserQuests(server, coinGain, senderProto);        
-      }
+//      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+//      
+//      int coinGain = MiscMethods.calculateIncomeGainedFromUserStruct(struct.getIncome(), userStruct.getLevel());
+//      
+//      boolean legitRetrieval = checkLegitRetrieval(resBuilder, user, userStruct, struct, timeOfRetrieval, coinGain);
+//      
+//      if (legitRetrieval) {
+//        if (!user.updateRelativeCoinsCoinsretrievedfromstructs(coinGain)) {
+//          log.error("problem with updating user stats after retrieving " + coinGain + " silver");
+//          legitRetrieval = false;
+//        }
+//        if (!UpdateUtils.get().updateUserStructLastretrieved(userStructId, timeOfRetrieval)) {
+//          log.error("problem with updating user struct last retrieved for userStructId " + userStructId + " to " + timeOfRetrieval);
+//          legitRetrieval = false;
+//        }
+//      }
+//
+//      RetrieveCurrencyFromNormStructureResponseEvent resEvent = new RetrieveCurrencyFromNormStructureResponseEvent(senderProto.getUserId());
+//      resEvent.setTag(event.getTag());
+//      resEvent.setRetrieveCurrencyFromNormStructureResponseProto(resBuilder.build());  
+//      server.writeEvent(resEvent);
+//      
+//      if (legitRetrieval) {
+//        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
+//        resEventUpdate.setTag(event.getTag());
+//        server.writeEvent(resEventUpdate);
+//        
+//        updateAndCheckUserQuests(server, coinGain, senderProto);        
+//      }
     } catch (Exception e) {
       log.error("exception in RetrieveCurrencyFromNormStructureController processEvent", e);
     } finally {
@@ -143,18 +143,18 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("struct owner is not user, or struct is not complete yet. userStruct=" + userStruct);
       return false;
     }
-    if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfRetrieval)) {
-      resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
-      log.error("client time too apart of server time. client time=" + timeOfRetrieval + ", servertime~="
-          + new Date());
-      return false;
-    }
-    if ((timeOfRetrieval.getTime() - userStruct.getLastRetrieved().getTime())  < 60000*struct.getMinutesToGain()) {
-      resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.NOT_LONG_ENOUGH);
-      log.error("struct not ready for retrieval yet. time of retrieval=" + timeOfRetrieval
-          + ", userStruct=" + userStruct + ", takes this many minutes to gain:" + struct.getMinutesToGain()); 
-      return false;
-    }
+//    if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfRetrieval)) {
+//      resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
+//      log.error("client time too apart of server time. client time=" + timeOfRetrieval + ", servertime~="
+//          + new Date());
+//      return false;
+//    }
+//    if ((timeOfRetrieval.getTime() - userStruct.getLastRetrieved().getTime())  < 60000*struct.getMinutesToGain()) {
+//      resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.NOT_LONG_ENOUGH);
+//      log.error("struct not ready for retrieval yet. time of retrieval=" + timeOfRetrieval
+//          + ", userStruct=" + userStruct + ", takes this many minutes to gain:" + struct.getMinutesToGain()); 
+//      return false;
+//    }
     if (coinGain <= 0) {
       resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL);
       log.error("coinGain <= 0. coinGain is " + coinGain);

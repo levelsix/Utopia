@@ -734,8 +734,8 @@ message UpgradeNormStructureResponseProto {
 																						//DONE
 message RetrieveCurrencyFromNormStructureRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional int32 userStructId = 2;
-	optional int64 timeOfRetrieval = 3;	
+	repeated int32 userStructId = 2;
+	repeated int64 timeOfRetrieval = 3;	
 }
 
 																						//DONE
@@ -744,11 +744,8 @@ message RetrieveCurrencyFromNormStructureResponseProto {
 	optional RetrieveCurrencyFromNormStructureStatus status = 2;
 	
 	enum RetrieveCurrencyFromNormStructureStatus {
-		SUCCESS = 0;
-		NOT_LONG_ENOUGH = 1;
-		OTHER_FAIL = 2;
-		CLIENT_TOO_APART_FROM_SERVER_TIME = 3;
-		LEVEL_TOO_LOW = 4;
+		OTHER_FAIL = 0;
+		SUCCESS = 1;
 	}
 }
 
@@ -1048,14 +1045,10 @@ message PurchaseFromMarketplaceResponseProto {
 																						//DONE
 message UseSkillPointRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional BoostType boostType = 2;
-	
-	enum BoostType {
-		ATTACK = 0;
-		DEFENSE = 1;
-		ENERGY = 2;
-		STAMINA = 4;
-	}
+	optional int32 attackIncrease = 2;
+	optional int32 defenseIncrease = 3;
+	optional int32 energyIncrease = 4;
+	optional int32 staminaIncrease = 5;
 }
 
 																						//DONE

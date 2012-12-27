@@ -11,7 +11,6 @@ import com.lvl6.info.User;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.UseSkillPointRequestProto;
-import com.lvl6.proto.EventProto.UseSkillPointRequestProto.BoostType;
 import com.lvl6.proto.EventProto.UseSkillPointResponseProto;
 import com.lvl6.proto.EventProto.UseSkillPointResponseProto.Builder;
 import com.lvl6.proto.EventProto.UseSkillPointResponseProto.UseSkillPointStatus;
@@ -46,7 +45,10 @@ import com.lvl6.utils.RetrieveUtils;
     UseSkillPointRequestProto reqProto = ((UseSkillPointRequestEvent)event).getUseSkillPointRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
-    BoostType boostType = reqProto.getBoostType();
+    int attackIncrease = reqProto.getAttackIncrease();
+    int defenseIncrease = reqProto.getDefenseIncrease();
+    int energyIncrease = reqProto.getEnergyIncrease();
+    int staminaIncrease = reqProto.getStaminaIncrease();
     UseSkillPointResponseProto.Builder resBuilder = UseSkillPointResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
@@ -54,37 +56,37 @@ import com.lvl6.utils.RetrieveUtils;
     server.lockPlayer(senderProto.getUserId());
 
     try {
-      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-
-      int gain = 0;
-      int cost = 0;
-      if (boostType == BoostType.ATTACK) {
-        gain = ControllerConstants.USE_SKILL_POINT__ATTACK_BASE_GAIN;
-        cost = ControllerConstants.USE_SKILL_POINT__ATTACK_BASE_COST;
-      } else if (boostType == BoostType.DEFENSE) {
-        gain = ControllerConstants.USE_SKILL_POINT__DEFENSE_BASE_GAIN;
-        cost = ControllerConstants.USE_SKILL_POINT__DEFENSE_BASE_COST;
-      } else if (boostType == BoostType.ENERGY) {
-        gain = ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_GAIN;
-        cost = ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_COST;
-      } else if (boostType == BoostType.STAMINA) {
-        gain = ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_GAIN;
-        cost = ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_COST;
-      } 
-
-      boolean legitBoost = checkLegitBoost(resBuilder, gain, cost, user);
-
-      UseSkillPointResponseEvent resEvent = new UseSkillPointResponseEvent(senderProto.getUserId());
-      resEvent.setTag(event.getTag());
-      resEvent.setUseSkillPointResponseProto(resBuilder.build());  
-      server.writeEvent(resEvent);
-
-      if (legitBoost) {
-        writeChangesToDB(user, boostType, gain, cost);
-        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
-        resEventUpdate.setTag(event.getTag());
-        server.writeEvent(resEventUpdate);
-      }
+//      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+//
+//      int gain = 0;
+//      int cost = 0;
+//      if (boostType == BoostType.ATTACK) {
+//        gain = ControllerConstants.USE_SKILL_POINT__ATTACK_BASE_GAIN;
+//        cost = ControllerConstants.USE_SKILL_POINT__ATTACK_BASE_COST;
+//      } else if (boostType == BoostType.DEFENSE) {
+//        gain = ControllerConstants.USE_SKILL_POINT__DEFENSE_BASE_GAIN;
+//        cost = ControllerConstants.USE_SKILL_POINT__DEFENSE_BASE_COST;
+//      } else if (boostType == BoostType.ENERGY) {
+//        gain = ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_GAIN;
+//        cost = ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_COST;
+//      } else if (boostType == BoostType.STAMINA) {
+//        gain = ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_GAIN;
+//        cost = ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_COST;
+//      } 
+//
+//      boolean legitBoost = checkLegitBoost(resBuilder, gain, cost, user);
+//
+//      UseSkillPointResponseEvent resEvent = new UseSkillPointResponseEvent(senderProto.getUserId());
+//      resEvent.setTag(event.getTag());
+//      resEvent.setUseSkillPointResponseProto(resBuilder.build());  
+//      server.writeEvent(resEvent);
+//
+//      if (legitBoost) {
+//        writeChangesToDB(user, boostType, gain, cost);
+//        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
+//        resEventUpdate.setTag(event.getTag());
+//        server.writeEvent(resEventUpdate);
+//      }
 
     } catch (Exception e) {
       log.error("exception in UseSkillPointController processEvent", e);
@@ -93,26 +95,26 @@ import com.lvl6.utils.RetrieveUtils;
     }
   }
 
-  private void writeChangesToDB(User user, BoostType boostType, int gain,
-      int cost) {
-    if (boostType == BoostType.ATTACK) {
-      if (!user.updateRelativeAttackDefenseSkillPoints(gain, 0, cost*-1)) {
-        log.error("error in taking away " + cost + " skill points and giving " + gain + " attack");
-      }
-    } else if (boostType == BoostType.DEFENSE) {
-      if (!user.updateRelativeAttackDefenseSkillPoints(0, gain, cost*-1)) {
-        log.error("error in taking away " + cost + " skill points and giving " + gain + " defense");
-      }
-    } else if (boostType == BoostType.ENERGY) {
-      if (!user.updateRelativeEnergyEnergymaxStaminaStaminamaxSkillPoints(gain, gain, 0, 0, cost*-1)){
-        log.error("error in taking away " + cost + " skill points and giving " + gain + " energy/energymax");
-      }
-    } else if (boostType == BoostType.STAMINA) {
-      if (!user.updateRelativeEnergyEnergymaxStaminaStaminamaxSkillPoints(0, 0, gain, gain, cost*-1)){
-        log.error("error in taking away " + cost + " skill points and giving " + gain + " stamina/staminamax");
-      }
-    } 
-  }
+//  private void writeChangesToDB(User user, BoostType boostType, int gain,
+//      int cost) {
+//    if (boostType == BoostType.ATTACK) {
+//      if (!user.updateRelativeAttackDefenseSkillPoints(gain, 0, cost*-1)) {
+//        log.error("error in taking away " + cost + " skill points and giving " + gain + " attack");
+//      }
+//    } else if (boostType == BoostType.DEFENSE) {
+//      if (!user.updateRelativeAttackDefenseSkillPoints(0, gain, cost*-1)) {
+//        log.error("error in taking away " + cost + " skill points and giving " + gain + " defense");
+//      }
+//    } else if (boostType == BoostType.ENERGY) {
+//      if (!user.updateRelativeEnergyEnergymaxStaminaStaminamaxSkillPoints(gain, gain, 0, 0, cost*-1)){
+//        log.error("error in taking away " + cost + " skill points and giving " + gain + " energy/energymax");
+//      }
+//    } else if (boostType == BoostType.STAMINA) {
+//      if (!user.updateRelativeEnergyEnergymaxStaminaStaminamaxSkillPoints(0, 0, gain, gain, cost*-1)){
+//        log.error("error in taking away " + cost + " skill points and giving " + gain + " stamina/staminamax");
+//      }
+//    } 
+//  }
 
   private boolean checkLegitBoost(Builder resBuilder, int gain, int cost, User user) {
     if (gain == 0 || cost == 0) {
