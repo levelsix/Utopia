@@ -1,10 +1,13 @@
 package com.lvl6.ui.admin.pages;
 
+import org.apache.wicket.ajax.AbstractAjaxTimerBehavior;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.util.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,6 +43,7 @@ public class AdminPage extends TemplatePage {
 		setContactAdmins();
 		setSendAdminMessage();
 		//setupGraphs();
+		add(abstractAjaxTimerBehavior);
 	}
 	
 	private void setIsSandbox() {
@@ -109,6 +113,17 @@ public class AdminPage extends TemplatePage {
 		add(link);
 	}
 	
+
+	AbstractAjaxTimerBehavior abstractAjaxTimerBehavior = new AbstractAjaxTimerBehavior(Duration.seconds(90))
+	{
+		private static final long serialVersionUID = 5721917435743521271L;
+
+		@Override
+		protected void onTimer(AjaxRequestTarget target)
+		{
+			setResponsePage(AdminPage.class);
+		}
+	};
 	
 
 }
