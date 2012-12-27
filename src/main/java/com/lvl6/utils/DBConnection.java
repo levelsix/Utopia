@@ -518,20 +518,28 @@ public class DBConnection {
     return generatedKey;
   }
 
-  //newRows should contain maps that are different only by the value in the key, value pair, i.e. 
-  //each map in newRows is the new row to be inserted
+  /*newRows should contain maps that are different only by the value in the key, value pair, i.e. 
+    each map in newRows is the new row to be inserted
+    example usage:
+    INSERT INTO user_bosses
+      (boss_id, user_id, cur_health)   <---this is columns in the following code
+    VALUES
+      (1, 2, 500),         ,---- Each of these is a values list and together
+      (2, 5, 100),     <--|----- are collectively referred to as
+      (3, 9, 0)            '---- valuesListCollection in the code
+  */  
   public List<Integer> insertIntoTableBasicReturnIds(String tableName, List<Map<String, Object>> newRows) {
     List<String> questions = new LinkedList<String>();
     List<String> columns = new LinkedList<String>();
     List<List<Object>> valuesListCollection = new ArrayList<List<Object>>();
 
-    populateQuestionsColsValsListCol(questions, columns, valuesListCollection, newRows);
+    populateQuestionsColumnsValuesListCollection(questions, columns, valuesListCollection, newRows);
 
     if(0 <= columns.size()) {
-
+      boolean isInsert = true;
       int numberOfQuestionLists = valuesListCollection.size();
-      String query = constructInsertIntoTableValuesSQLQuery(
-          tableName, columns, questions, numberOfQuestionLists);
+      String query = constructInsertOrReplaceIntoTableValuesSQLQuery(
+          tableName, columns, questions, numberOfQuestionLists, isInsert);
       return queryDBAndReturnAutoIncIds(query, valuesListCollection);
     }
     return null;
@@ -554,8 +562,8 @@ public class DBConnection {
     }
   }
 
-  //helper function for insertIntoTableBasicReturnIds
-  private void populateQuestionsColsValsListCol(List<String> questions, List<String> columns, 
+  //helper function for insertIntoTableBasicReturnIds() and replaceIntoTableValues()
+  private void populateQuestionsColumnsValuesListCollection(List<String> questions, List<String> columns, 
       List<List<Object>> valuesListCollection, List<Map<String, Object>> newRows){
     for(Map<String, Object> newRow : newRows) {
 
@@ -564,7 +572,7 @@ public class DBConnection {
         populateColumnsAndQuestions(columns, questions, newRow);
 
         List<Object> valuesList = new ArrayList<Object>();
-        //generate a values list (group values into a list) for all rows, 
+        //generate a values list for all rows, 
         //i.e. the (?,...,?) in VALUES (?,...,?),...(?,...,?)
         generateValuesList(columns, valuesList, newRow);
 
@@ -573,10 +581,17 @@ public class DBConnection {
     }
   }
 
-  private String constructInsertIntoTableValuesSQLQuery(String tableName, List<String> columns, 
-      List<String> questions, int numberOfQuestionLists){
+  private String constructInsertOrReplaceIntoTableValuesSQLQuery(String tableName, List<String> columns, 
+      List<String> questions, int numberOfQuestionLists, boolean isInsert){
     String delimiter = ",";
-    String query = "insert into " + tableName + " ("
+    String query = "";
+    if(isInsert) {
+      query = "INSERT ";
+    } else {
+      query = "REPLACE ";
+    }
+    
+    query += " into " + tableName + " ("
         + StringUtils.getListInString(columns, delimiter) + ") VALUES ";
 
     //construct the (?,...,?),...(?,...,?) in VALUES (?,...,?),...(?,...,?)
@@ -711,6 +726,42 @@ public class DBConnection {
     return numUpdated;
   }
 
+  //query setup is similar to how insertIntoTableBasicReturnIds() works, but actual querying
+  //of db is slightly different in that this does not return the ids of rows modified in the table. 
+  //Hopefully the comments for insertIntoTableBasicReturnIds() will be helpful.
+  public int replaceIntoTableValues(String tableName, List<Map<String, Object>> newRows) {
+    List<String> questions = new LinkedList<String>();
+    List<String> columns = new LinkedList<String>();
+    List<List<Object>> valuesListCollection = new ArrayList<List<Object>>();
+    int numUpdated = 0;
+
+    populateQuestionsColumnsValuesListCollection(questions, columns, valuesListCollection, newRows);
+
+    if(0 <= columns.size()) {
+
+      boolean isInsert = false;
+      int numberOfQuestionLists = valuesListCollection.size();
+      String query = constructInsertOrReplaceIntoTableValuesSQLQuery(
+          tableName, columns, questions, numberOfQuestionLists, isInsert);
+      Connection conn = null;
+      PreparedStatement stmt = null;
+      try {
+        conn = dataSource.getConnection();
+        stmt = conn.prepareStatement(query);
+        setValuesInPreparedStatement(stmt, valuesListCollection);
+        numUpdated = stmt.executeUpdate(); //if this throws an error, then switch to stmt.execute()
+        
+      } catch (SQLException e) {
+        log.error("problem with " + query + ", values are " + valuesListCollection, e);
+        e.printStackTrace();
+      } catch (Exception e) {
+        log.error("DID NOT MODIFY DB", e);  
+      } finally {
+        close(null, stmt, conn);
+      }
+    }
+    return numUpdated;
+  }
   /*
    * mysql replace statement either:
    * 1) inserts new row into table if there does not exist a row in the table
