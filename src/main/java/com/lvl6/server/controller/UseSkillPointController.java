@@ -1,15 +1,23 @@
 package com.lvl6.server.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.UseSkillPointRequestEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.events.response.UseSkillPointResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
+import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.EventProto.UseSkillPointRequestProto;
 import com.lvl6.proto.EventProto.UseSkillPointResponseProto;
 import com.lvl6.proto.EventProto.UseSkillPointResponseProto.Builder;
@@ -18,7 +26,7 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.RetrieveUtils;
 
-  @Component @DependsOn("gameServer") public class UseSkillPointController extends EventController {
+@Component @DependsOn("gameServer") public class UseSkillPointController extends EventController {
 
   private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
@@ -36,6 +44,10 @@ import com.lvl6.utils.RetrieveUtils;
     return EventProtocolRequest.C_USE_SKILL_POINT_EVENT;
   }
 
+  //used for skill point stuff
+  public static final int cost = 0;
+  public static final int gain = 1;
+
   /*
    * db stuff done before sending event to eventwriter/client because the client's not waiting 
    * on it immediately anyways
@@ -45,10 +57,12 @@ import com.lvl6.utils.RetrieveUtils;
     UseSkillPointRequestProto reqProto = ((UseSkillPointRequestEvent)event).getUseSkillPointRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
-    int attackIncrease = reqProto.getAttackIncrease();
-    int defenseIncrease = reqProto.getDefenseIncrease();
-    int energyIncrease = reqProto.getEnergyIncrease();
-    int staminaIncrease = reqProto.getStaminaIncrease();
+    Map<String, Integer> statTypeToStatIncrease = new HashMap<String, Integer>();
+    statTypeToStatIncrease.put(DBConstants.USER__ATTACK, reqProto.getAttackIncrease());
+    statTypeToStatIncrease.put(DBConstants.USER__DEFENSE, reqProto.getDefenseIncrease());
+    statTypeToStatIncrease.put(DBConstants.USER__ENERGY, reqProto.getEnergyIncrease());
+    statTypeToStatIncrease.put(DBConstants.USER__STAMINA, reqProto.getStaminaIncrease());
+
     UseSkillPointResponseProto.Builder resBuilder = UseSkillPointResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
@@ -56,37 +70,27 @@ import com.lvl6.utils.RetrieveUtils;
     server.lockPlayer(senderProto.getUserId());
 
     try {
-//      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-//
-//      int gain = 0;
-//      int cost = 0;
-//      if (boostType == BoostType.ATTACK) {
-//        gain = ControllerConstants.USE_SKILL_POINT__ATTACK_BASE_GAIN;
-//        cost = ControllerConstants.USE_SKILL_POINT__ATTACK_BASE_COST;
-//      } else if (boostType == BoostType.DEFENSE) {
-//        gain = ControllerConstants.USE_SKILL_POINT__DEFENSE_BASE_GAIN;
-//        cost = ControllerConstants.USE_SKILL_POINT__DEFENSE_BASE_COST;
-//      } else if (boostType == BoostType.ENERGY) {
-//        gain = ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_GAIN;
-//        cost = ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_COST;
-//      } else if (boostType == BoostType.STAMINA) {
-//        gain = ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_GAIN;
-//        cost = ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_COST;
-//      } 
-//
-//      boolean legitBoost = checkLegitBoost(resBuilder, gain, cost, user);
-//
-//      UseSkillPointResponseEvent resEvent = new UseSkillPointResponseEvent(senderProto.getUserId());
-//      resEvent.setTag(event.getTag());
-//      resEvent.setUseSkillPointResponseProto(resBuilder.build());  
-//      server.writeEvent(resEvent);
-//
-//      if (legitBoost) {
-//        writeChangesToDB(user, boostType, gain, cost);
-//        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
-//        resEventUpdate.setTag(event.getTag());
-//        server.writeEvent(resEventUpdate);
-//      }
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+
+      Map<String, List<Integer>> statTypeToStatCostAndGain = new HashMap<String, List<Integer>>();
+      List<Integer> totalCostAndGain = determineAllStatCostAndGain(statTypeToStatIncrease, statTypeToStatCostAndGain);
+
+      int totalSkillPointCost = totalCostAndGain.get(0);
+      int totalSkillPointGain = totalCostAndGain.get(1);
+      boolean legitBoost = checkLegitBoost(resBuilder, totalSkillPointGain, 
+          totalSkillPointCost, user);
+
+      UseSkillPointResponseEvent resEvent = new UseSkillPointResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
+      resEvent.setUseSkillPointResponseProto(resBuilder.build());  
+      server.writeEvent(resEvent);
+
+      if (legitBoost) {
+        writeChangesToDB(user, statTypeToStatCostAndGain, totalSkillPointCost);
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
+        resEventUpdate.setTag(event.getTag());
+        server.writeEvent(resEventUpdate);
+      }
 
     } catch (Exception e) {
       log.error("exception in UseSkillPointController processEvent", e);
@@ -95,26 +99,86 @@ import com.lvl6.utils.RetrieveUtils;
     }
   }
 
-//  private void writeChangesToDB(User user, BoostType boostType, int gain,
-//      int cost) {
-//    if (boostType == BoostType.ATTACK) {
-//      if (!user.updateRelativeAttackDefenseSkillPoints(gain, 0, cost*-1)) {
-//        log.error("error in taking away " + cost + " skill points and giving " + gain + " attack");
-//      }
-//    } else if (boostType == BoostType.DEFENSE) {
-//      if (!user.updateRelativeAttackDefenseSkillPoints(0, gain, cost*-1)) {
-//        log.error("error in taking away " + cost + " skill points and giving " + gain + " defense");
-//      }
-//    } else if (boostType == BoostType.ENERGY) {
-//      if (!user.updateRelativeEnergyEnergymaxStaminaStaminamaxSkillPoints(gain, gain, 0, 0, cost*-1)){
-//        log.error("error in taking away " + cost + " skill points and giving " + gain + " energy/energymax");
-//      }
-//    } else if (boostType == BoostType.STAMINA) {
-//      if (!user.updateRelativeEnergyEnergymaxStaminaStaminamaxSkillPoints(0, 0, gain, gain, cost*-1)){
-//        log.error("error in taking away " + cost + " skill points and giving " + gain + " stamina/staminamax");
-//      }
-//    } 
-//  }
+  // returns a list containing two integers: total cost, total gain
+  private List<Integer> determineAllStatCostAndGain(Map<String, Integer> statTypeToStatIncrease,
+      Map<String, List<Integer>> statTypeToStatCostAndGain) {
+    List<Integer> totalCostAndGain = new ArrayList<Integer>(); //return value
+    int totalCost = 0;
+    int totalGain = 0;
+
+    //placeholder for cost and gain for one stat
+    List<Integer> costAndGainForAStat = null; 
+
+    for(String statType: statTypeToStatIncrease.keySet()) {
+      int statIncrease = statTypeToStatIncrease.get(statType);
+      costAndGainForAStat = determineStatCostAndGain(statType, statIncrease);
+
+      totalCost += costAndGainForAStat.get(cost);
+      totalGain += costAndGainForAStat.get(gain);
+
+      //used in writeToDB to determine how much of each user stat is increased
+      statTypeToStatCostAndGain.put(statType, costAndGainForAStat);
+    }
+
+    totalCostAndGain.add(cost, totalCost);
+    totalCostAndGain.add(gain, totalGain);
+
+    return totalCostAndGain;
+  }
+
+  //return value is a two Integer list: cost and gain
+  private List<Integer> determineStatCostAndGain(String statType, int statIncrease) {
+    List<Integer> costAndGain = new ArrayList<Integer>();
+
+    if (DBConstants.USER__ATTACK.equals(statType)) {
+      costAndGain.add(cost, statIncrease * ControllerConstants.USE_SKILL_POINT__ATTACK_BASE_COST);
+      costAndGain.add(gain, statIncrease * ControllerConstants.USE_SKILL_POINT__ATTACK_BASE_GAIN);
+
+    } else if (DBConstants.USER__DEFENSE.equals(statType)) {
+      costAndGain.add(cost, statIncrease * ControllerConstants.USE_SKILL_POINT__DEFENSE_BASE_GAIN);
+      costAndGain.add(gain, statIncrease * ControllerConstants.USE_SKILL_POINT__DEFENSE_BASE_COST);
+
+    } else if (DBConstants.USER__ENERGY.equals(statType)) {
+      costAndGain.add(cost, statIncrease * ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_GAIN);
+      costAndGain.add(gain, statIncrease * ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_COST);
+
+    } else if (DBConstants.USER__STAMINA.equals(statType)) {
+      costAndGain.add(cost, statIncrease * ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_GAIN);
+      costAndGain.add(gain, statIncrease * ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_COST);
+    } else {
+      log.error("no stat type with value=" + statType);
+      costAndGain.add(cost, 0);
+      costAndGain.add(gain, 0);
+    }
+
+    return costAndGain;
+  }
+
+  private void writeChangesToDB(User user, Map<String, List<Integer>> statTypeToStatCostAndGain, int skillPointsChange) {
+    List<Integer> attackCostAndGain = statTypeToStatCostAndGain.get(DBConstants.USER__ATTACK);
+    List<Integer> defenseCostAndGain = statTypeToStatCostAndGain.get(DBConstants.USER__DEFENSE);
+    List<Integer> energyCostAndGain = statTypeToStatCostAndGain.get(DBConstants.USER__ENERGY);
+    List<Integer> staminaCostAndGain = statTypeToStatCostAndGain.get(DBConstants.USER__STAMINA);
+
+    int attackChange = attackCostAndGain.get(gain);
+    int defenseChange = defenseCostAndGain.get(gain);
+    int energyChange = energyCostAndGain.get(gain);
+    int staminaChange = staminaCostAndGain.get(gain);
+
+    int attackCost = attackCostAndGain.get(gain);
+    int defenseCost = defenseCostAndGain.get(gain);
+    int energyCost = energyCostAndGain.get(gain);
+    int staminaCost = staminaCostAndGain.get(gain);
+
+    if(!user.updateRelativeAttackDefenseEnergyEnergyMaxStaminaStaminaMaxSkillPoints(
+        attackChange, defenseChange, energyChange, staminaChange, skillPointsChange)) {
+      log.error("error in taking away " 
+          + attackCost + " skill points and giving " + attackChange + " attack"
+          + ", " + defenseCost + " skill points and giving " + defenseChange + " defense"
+          + ", " + energyCost + " skill points and giving " + energyChange + " energy/energy max"
+          + ", " + staminaCost + " skill points and giving " + staminaChange + " stamina/stamina max");
+    }
+  }
 
   private boolean checkLegitBoost(Builder resBuilder, int gain, int cost, User user) {
     if (gain == 0 || cost == 0) {

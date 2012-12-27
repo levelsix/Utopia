@@ -666,50 +666,32 @@ public class User implements Serializable {
     return false;
   }
 
-
   /*
    * used for using skill points
    */
-  public boolean updateRelativeEnergyEnergymaxStaminaStaminamaxSkillPoints 
-  (int energyChange, int energyMaxChange, 
-      int staminaChange, int staminaMaxChange, int skillPointsChange) {
+  public boolean updateRelativeAttackDefenseEnergyEnergyMaxStaminaStaminaMaxSkillPoints(
+      int attackChange, int defenseChange, int energyChange, 
+      int staminaChange, int skillPointsChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
     Map <String, Object> relativeParams = new HashMap<String, Object>();
 
-    if (energyChange > 0) relativeParams.put(DBConstants.USER__ENERGY, energyChange);
-    if (energyMaxChange > 0) relativeParams.put(DBConstants.USER__ENERGY_MAX, energyMaxChange);
-    if (staminaChange > 0) relativeParams.put(DBConstants.USER__STAMINA, staminaChange);
-    if (staminaMaxChange > 0) relativeParams.put(DBConstants.USER__STAMINA_MAX, staminaMaxChange);
-
-    relativeParams.put(DBConstants.USER__SKILL_POINTS, skillPointsChange);
-
-    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
-        conditionParams, "and");
-    if (numUpdated == 1) {
-      this.energy += energyChange;
-      this.energyMax += energyMaxChange;
-      this.stamina += staminaChange;
-      this.staminaMax += staminaMaxChange;
-      this.skillPoints += skillPointsChange;
-      return true;
+    if (attackChange > 0) {
+      relativeParams.put(DBConstants.USER__ATTACK, attackChange);
     }
-    return false;
-  }
+    if (defenseChange > 0) {
+      relativeParams.put(DBConstants.USER__DEFENSE, defenseChange);
+    }
+    if (energyChange > 0) {
+      relativeParams.put(DBConstants.USER__ENERGY, energyChange);
+      relativeParams.put(DBConstants.USER__ENERGY_MAX, energyChange);
+    }
+    if (staminaChange > 0) {
+      relativeParams.put(DBConstants.USER__STAMINA, staminaChange);
+      relativeParams.put(DBConstants.USER__STAMINA_MAX, staminaChange);
+    }
 
-  /*
-   * used for using skill points
-   */
-  public boolean updateRelativeAttackDefenseSkillPoints (int attackChange, int defenseChange, 
-      int skillPointsChange) {
-    Map <String, Object> conditionParams = new HashMap<String, Object>();
-    conditionParams.put(DBConstants.USER__ID, id);
-
-    Map <String, Object> relativeParams = new HashMap<String, Object>();
-
-    if (attackChange > 0) relativeParams.put(DBConstants.USER__ATTACK, attackChange);
-    if (defenseChange > 0) relativeParams.put(DBConstants.USER__DEFENSE, defenseChange);
     relativeParams.put(DBConstants.USER__SKILL_POINTS, skillPointsChange);
 
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
@@ -717,11 +699,72 @@ public class User implements Serializable {
     if (numUpdated == 1) {
       this.attack += attackChange;
       this.defense += defenseChange;
+      this.energy += energyChange;
+      this.energyMax += energyChange;
+      this.stamina += staminaChange;
+      this.staminaMax += staminaChange;
       this.skillPoints += skillPointsChange;
       return true;
     }
     return false;
   }
+  
+
+//  /*
+//   * used for using skill points
+//   */
+//  public boolean updateRelativeEnergyEnergymaxStaminaStaminamaxSkillPoints 
+//  (int energyChange, int energyMaxChange, 
+//      int staminaChange, int staminaMaxChange, int skillPointsChange) {
+//    Map <String, Object> conditionParams = new HashMap<String, Object>();
+//    conditionParams.put(DBConstants.USER__ID, id);
+//
+//    Map <String, Object> relativeParams = new HashMap<String, Object>();
+//
+//    if (energyChange > 0) relativeParams.put(DBConstants.USER__ENERGY, energyChange);
+//    if (energyMaxChange > 0) relativeParams.put(DBConstants.USER__ENERGY_MAX, energyMaxChange);
+//    if (staminaChange > 0) relativeParams.put(DBConstants.USER__STAMINA, staminaChange);
+//    if (staminaMaxChange > 0) relativeParams.put(DBConstants.USER__STAMINA_MAX, staminaMaxChange);
+//
+//    relativeParams.put(DBConstants.USER__SKILL_POINTS, skillPointsChange);
+//
+//    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+//        conditionParams, "and");
+//    if (numUpdated == 1) {
+//      this.energy += energyChange;
+//      this.energyMax += energyMaxChange;
+//      this.stamina += staminaChange;
+//      this.staminaMax += staminaMaxChange;
+//      this.skillPoints += skillPointsChange;
+//      return true;
+//    }
+//    return false;
+//  }
+//
+//  /*
+//   * used for using skill points
+//   */
+//  public boolean updateRelativeAttackDefenseSkillPoints (int attackChange, int defenseChange, 
+//      int skillPointsChange) {
+//    Map <String, Object> conditionParams = new HashMap<String, Object>();
+//    conditionParams.put(DBConstants.USER__ID, id);
+//
+//    Map <String, Object> relativeParams = new HashMap<String, Object>();
+//
+//    if (attackChange > 0) relativeParams.put(DBConstants.USER__ATTACK, attackChange);
+//    if (defenseChange > 0) relativeParams.put(DBConstants.USER__DEFENSE, defenseChange);
+//    relativeParams.put(DBConstants.USER__SKILL_POINTS, skillPointsChange);
+//
+//    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+//        conditionParams, "and");
+//    if (numUpdated == 1) {
+//      this.attack += attackChange;
+//      this.defense += defenseChange;
+//      this.skillPoints += skillPointsChange;
+//      return true;
+//    }
+//    return false;
+//  }
 
   /*
    * used for purchasing and selling structures, redeeming quests
