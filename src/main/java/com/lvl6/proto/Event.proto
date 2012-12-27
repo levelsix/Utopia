@@ -734,8 +734,12 @@ message UpgradeNormStructureResponseProto {
 																						//DONE
 message RetrieveCurrencyFromNormStructureRequestProto {
 	optional MinimumUserProto sender = 1;
-	repeated int32 userStructId = 2;
-	repeated int64 timeOfRetrieval = 3;	
+	repeated StructRetrieval structRetrievals = 2;
+	
+	message StructRetrieval {
+		optional int32 userStructId = 1;
+		optional int64 timeOfRetrieval = 2;
+	}
 }
 
 																						//DONE
@@ -744,8 +748,9 @@ message RetrieveCurrencyFromNormStructureResponseProto {
 	optional RetrieveCurrencyFromNormStructureStatus status = 2;
 	
 	enum RetrieveCurrencyFromNormStructureStatus {
-		OTHER_FAIL = 0;
-		SUCCESS = 1;
+		OTHER_FAIL = 1;
+		SUCCESS = 2;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 3;
 	}
 }
 
