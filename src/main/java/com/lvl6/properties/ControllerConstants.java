@@ -89,7 +89,7 @@ public class ControllerConstants {
   public static final int FORGE_MIN_DIAMOND_COST_FOR_GUARANTEE = 1;
   public static final double FORGE_DIAMOND_COST_FOR_GUARANTEE_EXPONENTIAL_MULTIPLIER = 2;
   public static final int FORGE_MAX_EQUIP_LEVEL = 10;
-  public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 3;
+  public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 15;
   public static final double FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER = 1.8;
 
   public static final int EXPANSION_WAIT_COMPLETE__HOUR_CONSTANT = 0;

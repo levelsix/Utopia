@@ -136,10 +136,11 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
   private int calculateDiamondCostForGuarantee(Equipment equip, int goalLevel, boolean paidToGuarantee) {
     if (!paidToGuarantee) return 0;
+
+    float chanceOfSuccess = MiscMethods.calculateChanceOfSuccessForForge(equip, goalLevel);
+    int goldCostToSpeedup = MiscMethods.calculateDiamondCostToSpeedupForgeWaittime(equip, goalLevel);
     
-    return (int) ((ControllerConstants.FORGE_MIN_DIAMOND_COST_FOR_GUARANTEE + 
-        (equip.getMinLevel()/ControllerConstants.AVERAGE_SIZE_OF_LEVEL_BRACKET) ) * 
-        (Math.pow(goalLevel, ControllerConstants.FORGE_DIAMOND_COST_FOR_GUARANTEE_EXPONENTIAL_MULTIPLIER)));
+    return (int) (goldCostToSpeedup/chanceOfSuccess);
   }
 
   private boolean checkLegitSubmit(Builder resBuilder, User user, boolean paidToGuarantee, List<UserEquip> userEquips, Equipment equip, Timestamp startTime) {

@@ -73,7 +73,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (legitFinish) {
         BlacksmithAttempt ba = unhandledBlacksmithAttemptsForUser.get(0);
         
-        int diamondCost = calculateDiamondCostToSpeedupForgeWaittime(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ba.getEquipId()), ba.getGoalLevel());
+        int diamondCost = MiscMethods.calculateDiamondCostToSpeedupForgeWaittime(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ba.getEquipId()), ba.getGoalLevel());
         writeChangesToDB(user, ba, timeOfSpeedup, diamondCost);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
@@ -135,7 +135,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return false;
     }
 
-    int diamondCost = calculateDiamondCostToSpeedupForgeWaittime(equip, blacksmithAttempt.getGoalLevel());
+    int diamondCost = MiscMethods.calculateDiamondCostToSpeedupForgeWaittime(equip, blacksmithAttempt.getGoalLevel());
     if (user.getDiamonds() < diamondCost) {
       resBuilder.setStatus(FinishForgeAttemptWaittimeWithDiamondsStatus.NOT_ENOUGH_DIAMONDS);
       log.error("user doesn't have enough diamonds. has " + user.getDiamonds() +", needs " + diamondCost);
@@ -143,11 +143,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     resBuilder.setStatus(FinishForgeAttemptWaittimeWithDiamondsStatus.SUCCESS);
     return true;  
-  }
-
-  private int calculateDiamondCostToSpeedupForgeWaittime(Equipment equipment, int goalLevel) {
-    return (int) (MiscMethods.calculateMinutesToFinishForgeAttempt(equipment, goalLevel) / 
-        (ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD+equipment.getMinLevel()/ControllerConstants.AVERAGE_SIZE_OF_LEVEL_BRACKET));
   }
 
 }

@@ -12,6 +12,7 @@ import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.CollectForgeEquipsRequestProto;
 import com.lvl6.proto.EventProto.CollectForgeEquipsResponseProto;
@@ -133,9 +134,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     if (blacksmithAttempt.isGuaranteed())
       return true;
     
-    float chanceOfSuccess = (1-equipment.getChanceOfForgeFailureBase()) - 
-        ((1-equipment.getChanceOfForgeFailureBase()) / (ControllerConstants.FORGE_MAX_EQUIP_LEVEL - 1)) * 
-        (blacksmithAttempt.getGoalLevel()-2);
+    float chanceOfSuccess = MiscMethods.calculateChanceOfSuccessForForge(equipment, blacksmithAttempt.getGoalLevel());
 
     return Math.random() <= chanceOfSuccess;
   }
