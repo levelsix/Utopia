@@ -3,12 +3,16 @@ package com.lvl6.server.controller;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrieveCurrencyFromNormStructureRequestEvent;
 import com.lvl6.events.response.RetrieveCurrencyFromNormStructureResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -19,6 +23,7 @@ import com.lvl6.info.UserQuest;
 import com.lvl6.info.UserStruct;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureRequestProto;
+import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval;
 import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureResponseProto;
 import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureResponseProto.Builder;
 import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus;
@@ -54,27 +59,29 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     RetrieveCurrencyFromNormStructureRequestProto reqProto = ((RetrieveCurrencyFromNormStructureRequestEvent)event).getRetrieveCurrencyFromNormStructureRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
-//    List<Integer> userStructId = reqProto.getUserStructIdList();
-//    List<Long> timeOfRetrieval = reqProto.getTimeOfRetrievalList();
-
+    List<StructRetrieval> structRetrievals = reqProto.getStructRetrievalsList();
+    
+    Map<Integer, Timestamp> structIdsToTimesOfRetrieval =  new HashMap<Integer, Timestamp>();
+    //create map from ids to times and check for duplicates
+    boolean uniqueStructs = getIdsAndTimes(structRetrievals, structIdsToTimesOfRetrieval); 
+    
     RetrieveCurrencyFromNormStructureResponseProto.Builder resBuilder = RetrieveCurrencyFromNormStructureResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-//    UserStruct userStruct = RetrieveUtils.userStructRetrieveUtils().getSpecificUserStruct(userStructId);
-//    Structure struct = null;
-//    if (userStruct != null) {
-//      struct = StructureRetrieveUtils.getStructForStructId(userStruct.getStructId());
-//    }
-//    server.lockPlayer(senderProto.getUserId());
-
+    server.lockPlayer(senderProto.getUserId());
+    
     try {
-//      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-//      
-//      int coinGain = MiscMethods.calculateIncomeGainedFromUserStruct(struct.getIncome(), userStruct.getLevel());
-//      
-//      boolean legitRetrieval = checkLegitRetrieval(resBuilder, user, userStruct, struct, timeOfRetrieval, coinGain);
-//      
-//      if (legitRetrieval) {
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      List<Integer> structIds = new ArrayList<Integer>(structIdsToTimesOfRetrieval.keySet());
+      
+      Map<Integer, UserStruct> structIdsToUserStructs = getStructIdsToUserStructs(structIds);
+      Map<Integer, Structure> structIdsToStructures = getStructIdsToStructs(structIds);
+      
+      int coinGain = calculateMoneyGainedFromStructs(structIds, structIdsToUserStructs, structIdsToStructures);
+      boolean legitRetrieval = checkLegitRetrieval(resBuilder, user, structIds, structIdsToUserStructs,
+          structIdsToStructures, structIdsToTimesOfRetrieval, uniqueStructs, coinGain);
+      
+      if (legitRetrieval) {
 //        if (!user.updateRelativeCoinsCoinsretrievedfromstructs(coinGain)) {
 //          log.error("problem with updating user stats after retrieving " + coinGain + " silver");
 //          legitRetrieval = false;
@@ -83,20 +90,20 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 //          log.error("problem with updating user struct last retrieved for userStructId " + userStructId + " to " + timeOfRetrieval);
 //          legitRetrieval = false;
 //        }
-//      }
-//
-//      RetrieveCurrencyFromNormStructureResponseEvent resEvent = new RetrieveCurrencyFromNormStructureResponseEvent(senderProto.getUserId());
-//      resEvent.setTag(event.getTag());
-//      resEvent.setRetrieveCurrencyFromNormStructureResponseProto(resBuilder.build());  
-//      server.writeEvent(resEvent);
-//      
-//      if (legitRetrieval) {
+      }
+
+      RetrieveCurrencyFromNormStructureResponseEvent resEvent = new RetrieveCurrencyFromNormStructureResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
+      resEvent.setRetrieveCurrencyFromNormStructureResponseProto(resBuilder.build());  
+      server.writeEvent(resEvent);
+      
+      if (legitRetrieval) {
 //        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
 //        resEventUpdate.setTag(event.getTag());
 //        server.writeEvent(resEventUpdate);
 //        
 //        updateAndCheckUserQuests(server, coinGain, senderProto);        
-//      }
+      }
     } catch (Exception e) {
       log.error("exception in RetrieveCurrencyFromNormStructureController processEvent", e);
     } finally {
@@ -104,6 +111,72 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
+  //returns true if all struct ids are unique (there must be at least one), false otherwise
+  private boolean getIdsAndTimes(List<StructRetrieval> srList, Map<Integer, Timestamp> structIdsToTimesOfRetrieval) {
+    if (srList.isEmpty()) {
+      return false;
+    }
+    for(StructRetrieval sr : srList) {
+      int key = sr.getUserStructId();
+      Timestamp value = new Timestamp(sr.getTimeOfRetrieval());
+      
+      if(structIdsToTimesOfRetrieval.containsKey(key)) {
+        return false; //duplicate
+      } else {
+        structIdsToTimesOfRetrieval.put(key, value);
+      }
+    }
+    return true;
+  }
+  
+  private Map<Integer, UserStruct> getStructIdsToUserStructs(List<Integer> structIds) {
+    Map<Integer, UserStruct> returnValue = new HashMap<Integer, UserStruct>();
+    
+    List<UserStruct> userStructList = RetrieveUtils.userStructRetrieveUtils()
+        .getUserStructs(structIds);
+    for(UserStruct us : userStructList) {
+      if(null != us) {
+        returnValue.put(us.getStructId(), us);
+      } else {
+        //TODO: MAYBE MAKE A TO STRING METHOD FOR THE LIST AND MAP...
+        log.error("could not retrieve one of the structs. structIds to retrieve="
+            + structIds + ". structs retrieved=" + userStructList + ". Continuing with processing.");
+      }
+    }
+    return returnValue;
+  }
+  
+  private Map<Integer, Structure> getStructIdsToStructs(List<Integer> structIds) {
+    Map<Integer, Structure> returnValue = new HashMap<Integer, Structure>();
+    Map<Integer, Structure> structIdsToStructs = StructureRetrieveUtils.getStructIdsToStructs();
+    
+    for(Integer i : structIds) {
+      Structure s = structIdsToStructs.get(i);
+      if(null != s) {
+        returnValue.put(i, s);
+      } else {
+        log.error("structure with id " + i + " does not exist");
+      }
+    }
+    
+    return returnValue;
+  }
+  
+  private int calculateMoneyGainedFromStructs(List<Integer> structIds,
+      Map<Integer, UserStruct> structIdsToUserStructs, Map<Integer, Structure> structIdsToStructures) {
+    int totalCoinsGained = 0;
+    
+    for(Integer i : structIds) {
+      UserStruct userStructure = structIdsToUserStructs.get(i);
+      Structure struct = structIdsToStructures.get(i);
+      
+      totalCoinsGained += MiscMethods.calculateIncomeGainedFromUserStruct(
+          struct.getIncome(), userStructure.getLevel());
+    }
+    
+    return totalCoinsGained;
+  }
+  
   private void updateAndCheckUserQuests(GameServer server, int coinGain, MinimumUserProto senderProto) {
     List<UserQuest> inProgressUserQuests = RetrieveUtils.userQuestRetrieveUtils().getIncompleteUserQuestsForUser(senderProto.getUserId());
     if (inProgressUserQuests != null) {
@@ -128,21 +201,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private boolean checkLegitRetrieval(Builder resBuilder, User user, UserStruct userStruct, Structure struct, Timestamp timeOfRetrieval,
-      int coinGain) {
-    // TODO Auto-generated method stub
-    if (user == null || userStruct == null || timeOfRetrieval == null || userStruct.getLastRetrieved() == null) {
-      resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL);
-      log.error("parameter passed in is null. user=" + user + ", userStruct= " + userStruct
-          + ", timeOfRetrieval=" + timeOfRetrieval + ", userStruct's last retrieved time=" 
-          + userStruct.getLastRetrieved());
-      return false;
-    }
-    if (user.getId() != userStruct.getUserId() || !userStruct.isComplete()) {
-      resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL);
-      log.error("struct owner is not user, or struct is not complete yet. userStruct=" + userStruct);
-      return false;
-    }
+  private boolean checkLegitRetrieval(Builder resBuilder, User user, List<Integer> structIds, 
+      Map<Integer, UserStruct> structIdsToUserStructs, Map<Integer, Structure> structIdsToStructures,
+      Map<Integer, Timestamp> structIdsToTimesOfRetrieval, boolean uniqueStructs, int coinGain) {
+//    if (user == null || structIds.isEmpty()) { //|| timeOfRetrieval == null || userStruct.getLastRetrieved() == null) {
+//      resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL);
+//      log.error("user is null or empty structs from which to collect money. user=" + user);
+//      return false;
+//    }
+//    if (user.getId() != userStruct.getUserId() || !userStruct.isComplete()) {
+//      resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL);
+//      log.error("struct owner is not user, or struct is not complete yet. userStruct=" + userStruct);
+//      return false;
+//    }
 //    if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfRetrieval)) {
 //      resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
 //      log.error("client time too apart of server time. client time=" + timeOfRetrieval + ", servertime~="
@@ -155,13 +226,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 //          + ", userStruct=" + userStruct + ", takes this many minutes to gain:" + struct.getMinutesToGain()); 
 //      return false;
 //    }
-    if (coinGain <= 0) {
-      resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL);
-      log.error("coinGain <= 0. coinGain is " + coinGain);
-      return false;
-    }
-    resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.SUCCESS);
-    return true;
+//    if (coinGain <= 0) {
+//      resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL);
+//      log.error("coinGain <= 0. coinGain is " + coinGain);
+//      return false;
+//    }
+//    resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.SUCCESS);
+//    return true;
+    //TODO: DELETE THESE TWO LINES AFTER IMPLEMENTING LOGIC FOR THIS FUNCTION
+    resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL);
+    return false;
   }
 
 }
