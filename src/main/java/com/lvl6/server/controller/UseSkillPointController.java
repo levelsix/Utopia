@@ -86,7 +86,7 @@ import com.lvl6.utils.RetrieveUtils;
       server.writeEvent(resEvent);
 
       if (legitBoost) {
-        writeChangesToDB(user, statTypeToStatCostAndGain, totalSkillPointCost);
+        writeChangesToDB(user, statTypeToStatCostAndGain, -totalSkillPointCost);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
