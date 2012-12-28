@@ -135,16 +135,16 @@ import com.lvl6.utils.RetrieveUtils;
       costAndGain.add(gain, statIncrease * ControllerConstants.USE_SKILL_POINT__ATTACK_BASE_GAIN);
 
     } else if (DBConstants.USER__DEFENSE.equals(statType)) {
-      costAndGain.add(cost, statIncrease * ControllerConstants.USE_SKILL_POINT__DEFENSE_BASE_GAIN);
-      costAndGain.add(gain, statIncrease * ControllerConstants.USE_SKILL_POINT__DEFENSE_BASE_COST);
+      costAndGain.add(cost, statIncrease * ControllerConstants.USE_SKILL_POINT__DEFENSE_BASE_COST);
+      costAndGain.add(gain, statIncrease * ControllerConstants.USE_SKILL_POINT__DEFENSE_BASE_GAIN);
 
     } else if (DBConstants.USER__ENERGY.equals(statType)) {
-      costAndGain.add(cost, statIncrease * ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_GAIN);
-      costAndGain.add(gain, statIncrease * ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_COST);
+      costAndGain.add(cost, statIncrease * ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_COST);
+      costAndGain.add(gain, statIncrease * ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_GAIN);
 
     } else if (DBConstants.USER__STAMINA.equals(statType)) {
-      costAndGain.add(cost, statIncrease * ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_GAIN);
-      costAndGain.add(gain, statIncrease * ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_COST);
+      costAndGain.add(cost, statIncrease * ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_COST);
+      costAndGain.add(gain, statIncrease * ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_GAIN);
     } else {
       log.error("no stat type with value=" + statType);
       costAndGain.add(cost, 0);
