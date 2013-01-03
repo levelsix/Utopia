@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.mortbay.log.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
@@ -412,20 +413,40 @@ public class UpdateUtils implements UpdateUtil {
   /* (non-Javadoc)
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructLastretrieved(int, java.sql.Timestamp)
    */
-  @Override
+  /*@Override
   @Caching(evict= {
       @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-      @CacheEvict(value="specificUserStruct", key="#userStructId")})
-  public boolean updateUserStructLastretrieved(int userStructId, Timestamp lastRetrievedTime) {
-    Map <String, Object> conditionParams = new HashMap<String, Object>();
-    conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
+      @CacheEvict(value="specificUserStruct", key="#userStructId")}) */
+  public boolean updateUserStructsLastretrieved(Map<Integer, Timestamp> userStructIdsToLastRetrievedTime,
+      Map<Integer, UserStruct> structIdsToUserStructs) {
+    List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
 
-    Map <String, Object> absoluteParams = new HashMap<String, Object>();
-    absoluteParams.put(DBConstants.USER_STRUCTS__LAST_RETRIEVED, lastRetrievedTime);
-
-    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
-        conditionParams, "or");
-    if (numUpdated == 1) {
+    for(Integer userStructId : userStructIdsToLastRetrievedTime.keySet()) {
+      Map <String, Object> aRow = new HashMap<String, Object>();
+      Timestamp lastRetrievedTime = userStructIdsToLastRetrievedTime.get(userStructId);
+      UserStruct us = structIdsToUserStructs.get(userStructId);
+      
+      aRow.put(DBConstants.USER_STRUCTS__ID, userStructId);
+      aRow.put(DBConstants.USER_STRUCTS__USER_ID, us.getUserId());
+      aRow.put(DBConstants.USER_STRUCTS__STRUCT_ID, us.getStructId());
+      aRow.put(DBConstants.USER_STRUCTS__LAST_RETRIEVED, lastRetrievedTime);
+      CoordinatePair cp = us.getCoordinates();
+      aRow.put(DBConstants.USER_STRUCTS__X_COORD, cp.getX());
+      aRow.put(DBConstants.USER_STRUCTS__Y_COORD, cp.getY());
+      aRow.put(DBConstants.USER_STRUCTS__LEVEL, us.getLevel());
+      aRow.put(DBConstants.USER_STRUCTS__PURCHASE_TIME, us.getPurchaseTime());
+      aRow.put(DBConstants.USER_STRUCTS__LAST_UPGRADE_TIME, us.getLastUpgradeTime());
+      aRow.put(DBConstants.USER_STRUCTS__IS_COMPLETE, us.isComplete());
+      aRow.put(DBConstants.USER_STRUCTS__ORIENTATION, us.getOrientation());
+      
+      newRows.add(aRow);
+    }
+    
+    int numUpdated = DBConnection.get().replaceIntoTableValues(DBConstants.TABLE_USER_STRUCTS, newRows);
+    
+    Log.info("num userStructs updated: " + numUpdated 
+        + ". Number of userStructs: " + userStructIdsToLastRetrievedTime.size());
+    if (numUpdated == userStructIdsToLastRetrievedTime.size()) {
       return true;
     }
     return false;

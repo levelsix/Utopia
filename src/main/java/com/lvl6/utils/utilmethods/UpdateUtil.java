@@ -107,14 +107,15 @@ public interface UpdateUtil {
       Timestamp lastUpgradeTime, boolean isComplete);
 
   /*
-   * used for updating last retrieved user struct time
+   * used for updating last retrieved user struct times
    */
   @Caching(evict = {
       @CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
       @CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
       @CacheEvict(value = "specificUserStruct", key = "#userStructId") })
-  public abstract boolean updateUserStructLastretrieved(int userStructId,
-      Timestamp lastRetrievedTime);
+  public abstract boolean updateUserStructsLastretrieved(
+      Map<Integer, Timestamp> userStructIdsToLastRetrievedTime,
+      Map<Integer, UserStruct> structIdsToUserStructs);
 
   /*
    * used for upgrading user structs level

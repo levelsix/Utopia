@@ -6,7 +6,7 @@ import java.util.Date;
 import com.lvl6.proto.InfoProto.StructOrientation;
 
 public class UserStruct implements Serializable {
-
+  //any change in this class should also change the UpdateUtils.java method updateUserStructsLastretrieved()
 	private static final long serialVersionUID = 117707363672187583L;
 	private int id;
 	private int userId;

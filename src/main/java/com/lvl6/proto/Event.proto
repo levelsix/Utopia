@@ -751,6 +751,7 @@ message RetrieveCurrencyFromNormStructureResponseProto {
 		OTHER_FAIL = 1;
 		SUCCESS = 2;
 		CLIENT_TOO_APART_FROM_SERVER_TIME = 3;
+		NOT_LONG_ENOUGH = 4;
 	}
 }
 
