@@ -119,7 +119,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
 
   private void writeChangesToDB(User user, int diamondsChange, int coinsGained) {
-    if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(diamondsChange, coinsGained, 0)) {
+    boolean changeNumPostsInMarketplace = false;
+    if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(diamondsChange, coinsGained, 
+        0, changeNumPostsInMarketplace)) {
       log.error("problem with changing user's diamonds/coins");
     }
   }

@@ -156,17 +156,28 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       return;
     }
 
+    if (!DeleteUtils.get().deleteMarketplacePost(mp.getId())) {
+      log.error("problem with deleting marketplace post with id " + mp.getId());      
+    }
+
+    boolean changeNumPostsInMarketplace = true;
+    int numPostsInMarketplaceChange = MiscMethods.getNumPostsInMarketPlaceForUser(
+        seller.getId());
+    
     if (totalSellerDiamondChange != 0 || totalSellerCoinChange != 0) {
       if (!seller.isFake() && !seller.updateRelativeDiamondsearningsCoinsearningsNumpostsinmarketplaceNummarketplacesalesunredeemedNaive(
-          totalSellerDiamondChange, totalSellerCoinChange, -1, 1)) {
+          totalSellerDiamondChange, totalSellerCoinChange, numPostsInMarketplaceChange, 1,
+          changeNumPostsInMarketplace)) {
         log.error("problem with updating seller info. diamondChange=" + totalSellerDiamondChange
             + ", coinChange=" + totalSellerCoinChange + ", num posts in marketplace decremented by 1, " +
             		"num marketplace sales unredeemed increased by 1");
       }
     }
+    changeNumPostsInMarketplace = false;
     if (totalBuyerDiamondChange != 0 || totalBuyerCoinChange != 0)
     {
-      if (!buyer.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(totalBuyerDiamondChange, totalBuyerCoinChange, 0)) {
+      if (!buyer.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(totalBuyerDiamondChange, 
+          totalBuyerCoinChange, 0, changeNumPostsInMarketplace)) {
         log.error("problem with updating buyer info. diamondChange=" + totalBuyerDiamondChange
             + ", coinChange=" + totalBuyerCoinChange);
       }
@@ -176,9 +187,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       log.error("problem with adding to marketplace history the post " + mp + " with buyer " + buyer.getId());
     }
 
-    if (!DeleteUtils.get().deleteMarketplacePost(mp.getId())) {
-      log.error("problem with deleting marketplace post with id " + mp.getId());      
-    }
   }
   
   private boolean checkLegitPurchase(Builder resBuilder, MarketplacePost mp, User buyer, User seller, int postId) {

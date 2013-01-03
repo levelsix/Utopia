@@ -4,11 +4,13 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PostToMarketplaceRequestEvent;
 import com.lvl6.events.response.PostToMarketplaceResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -180,11 +182,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       }
     }
 
-    if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(0, 0, 1)) {
-      log.error("problem with increasing user's num marketplace posts by 1");
-      return;
-    }
-
     int posterId = reqProto.getSender().getUserId();
     int postedEquipId = equip.getId();
     int diamondCost = reqProto.getDiamondCost();
@@ -196,6 +193,16 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           + ", diamondCost=" + diamondCost + ", coinCost=" + coinCost
           + ", timeOfPost=" + timeOfPost + ", equipLevel=" + ue.getLevel());      
     }
+    
+    boolean changeNumPostsInMarketplace = true;
+    int numPostsInMarketplaceChange = MiscMethods.getNumPostsInMarketPlaceForUser(user.getId());
+    
+    if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(
+        0, 0, numPostsInMarketplaceChange, changeNumPostsInMarketplace)) {
+      log.error("problem with increasing user's num marketplace posts by 1");
+      //return;
+    }
+    
   } 
 
 }

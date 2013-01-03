@@ -129,13 +129,17 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     int diamondChange = diamondCut * -1;
     int coinChange = coinCut * -1;
 
-    if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(diamondChange, coinChange, -1)) {
-      log.error("problem with decrementing user's num posts in marketplace by 1 and changing diamonds by "
-          + diamondChange + " and changing coins by " + coinChange);
-    }
-
     if (!DeleteUtils.get().deleteMarketplacePost(mp.getId())) {
       log.error("problem with deleting marketplace post with id " + mp.getId());      
+    }
+
+    boolean changeNumPostsInMarketplace = true;
+    int numPostsInMarketplaceChange = MiscMethods.getNumPostsInMarketPlaceForUser(user.getId());
+    
+    if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(diamondChange, coinChange, 
+        numPostsInMarketplaceChange, changeNumPostsInMarketplace)) {
+      log.error("problem with decrementing user's num posts in marketplace by 1 and changing diamonds by "
+          + diamondChange + " and changing coins by " + coinChange);
     }
   }
 

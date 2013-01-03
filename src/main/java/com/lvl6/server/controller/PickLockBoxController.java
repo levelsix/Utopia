@@ -219,7 +219,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (userEvent.getLastPickTime() != null && userEvent.getLastPickTime().getTime() + 60000*ControllerConstants.LOCK_BOXES__NUM_MINUTES_TO_REPICK > curTime.getTime())
       diamondCost += ControllerConstants.LOCK_BOXES__GOLD_COST_TO_RESET_PICK;
     int coinCost = method == PickLockBoxMethod.SILVER ? ControllerConstants.LOCK_BOXES__SILVER_COST_TO_PICK : 0;
-    if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(-diamondCost, -coinCost, 0)) {
+    
+    boolean changeNumPostsInMarketplace = false;
+    if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(-diamondCost, -coinCost, 0, changeNumPostsInMarketplace)) {
       log.error("problem with updating users currency.");
       return;
     }

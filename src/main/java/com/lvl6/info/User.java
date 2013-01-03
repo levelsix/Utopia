@@ -827,23 +827,28 @@ public class User implements Serializable {
    */
   public boolean updateRelativeDiamondsearningsCoinsearningsNumpostsinmarketplaceNummarketplacesalesunredeemedNaive 
   (int diamondEarningsChange, int coinEarningsChange, 
-      int numPostsInMarketplaceChange, int numMarketplaceSalesUnredeemedChange) {
+      int numPostsInMarketplaceChange, int numMarketplaceSalesUnredeemedChange, boolean changeNumPostsInMarketplace) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
     Map <String, Object> relativeParams = new HashMap<String, Object>();
+    Map<String, Object> absoluteParams = new HashMap<String, Object>();
 
     relativeParams.put(DBConstants.USER__MARKETPLACE_DIAMONDS_EARNINGS, diamondEarningsChange);
     relativeParams.put(DBConstants.USER__MARKETPLACE_COINS_EARNINGS, coinEarningsChange);
-    relativeParams.put(DBConstants.USER__NUM_POSTS_IN_MARKETPLACE, numPostsInMarketplaceChange);
+    //relativeParams.put(DBConstants.USER__NUM_POSTS_IN_MARKETPLACE, numPostsInMarketplaceChange);
     relativeParams.put(DBConstants.USER__NUM_MARKETPLACE_SALES_UNREDEEMED, numMarketplaceSalesUnredeemedChange);
 
-    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+    if(changeNumPostsInMarketplace) {
+      absoluteParams.put(DBConstants.USER__NUM_POSTS_IN_MARKETPLACE, numPostsInMarketplaceChange);
+    }
+    
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.marketplaceDiamondsEarnings += diamondEarningsChange;
       this.marketplaceCoinsEarnings += coinEarningsChange;
-      this.numPostsInMarketplace += numPostsInMarketplaceChange;
+      this.numPostsInMarketplace = numPostsInMarketplaceChange;
       this.numMarketplaceSalesUnredeemed += numMarketplaceSalesUnredeemedChange;
       return true;
     }
@@ -855,22 +860,27 @@ public class User implements Serializable {
    * used for marketplace
    */
   public boolean updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive (int diamondChange, int coinChange, 
-      int numPostsInMarketplaceChange) {
+      int numPostsInMarketplaceChange, boolean changeNumPostsInMarketplace) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
     Map <String, Object> relativeParams = new HashMap<String, Object>();
+    Map<String, Object> absoluteParams = new HashMap<String, Object>();
 
     relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
     relativeParams.put(DBConstants.USER__COINS, coinChange);
-    relativeParams.put(DBConstants.USER__NUM_POSTS_IN_MARKETPLACE, numPostsInMarketplaceChange);
+    //relativeParams.put(DBConstants.USER__NUM_POSTS_IN_MARKETPLACE, numPostsInMarketplaceChange);
 
-    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+    if(changeNumPostsInMarketplace) {
+      absoluteParams.put(DBConstants.USER__NUM_POSTS_IN_MARKETPLACE, numPostsInMarketplaceChange);
+    }
+    
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.coins += coinChange;
       this.diamonds += diamondChange;
-      this.numPostsInMarketplace += numPostsInMarketplaceChange;
+      this.numPostsInMarketplace = numPostsInMarketplaceChange;
       return true;
     }
     return false;

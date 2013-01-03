@@ -33,6 +33,7 @@ import com.lvl6.info.LeaderboardEvent;
 import com.lvl6.info.LeaderboardEventReward;
 import com.lvl6.info.Location;
 import com.lvl6.info.LockBoxEvent;
+import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserClan;
@@ -71,6 +72,7 @@ import com.lvl6.proto.InfoProto.LockBoxEventProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
+import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRewardRetrieveUtils;
@@ -982,4 +984,12 @@ public class MiscMethods {
     return s;
   }
 
+  public static int getNumPostsInMarketPlaceForUser(int userId) {
+    List<MarketplacePost> posts = MarketplacePostRetrieveUtils
+        .getMostRecentActiveMarketplacePostsForPoster(
+            ControllerConstants.POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER, 
+            userId);
+    return posts.size();
+  }
+  
 }
