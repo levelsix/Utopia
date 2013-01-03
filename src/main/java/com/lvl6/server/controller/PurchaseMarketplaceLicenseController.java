@@ -79,12 +79,12 @@ import com.lvl6.utils.RetrieveUtils;
 
   private void writeChangesToDB(User user, LicenseType type, Timestamp timeOfPurchase) {
     if (type == LicenseType.SHORT) {
-      if (user.updateRelativeDiamondsAbsoluteLastshortlicensepurchasetimeLastlonglicensepurchasetime
+      if (!user.updateRelativeDiamondsAbsoluteLastshortlicensepurchasetimeLastlonglicensepurchasetime
           (ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__SHORT_DIAMOND_COST*-1, timeOfPurchase, null)) {
         log.error("problem with giving user marketplace license");
       }
     } else if (type == LicenseType.LONG) {
-      if (user.updateRelativeDiamondsAbsoluteLastshortlicensepurchasetimeLastlonglicensepurchasetime
+      if (!user.updateRelativeDiamondsAbsoluteLastshortlicensepurchasetimeLastlonglicensepurchasetime
           (ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__LONG_DIAMOND_COST*-1, null, timeOfPurchase)) {
         log.error("problem with giving user marketplace license");
       }
