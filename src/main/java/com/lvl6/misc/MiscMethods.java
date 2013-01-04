@@ -49,6 +49,7 @@ import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowe
 import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BazaarMinLevelConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.CharacterModConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ClanConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.DownloadableNibConstants;
@@ -543,6 +544,17 @@ public class MiscMethods {
       cb.addProductIds(IAPValues.packageNames.get(i));
       cb.addProductDiamondsGiven(IAPValues.packageGivenDiamonds.get(i));
     }
+    
+    BazaarMinLevelConstants bmlc = BazaarMinLevelConstants.newBuilder()
+        .setClanHouseMinLevel(ControllerConstants.STARTUP__CLAN_HOUSE_MIN_LEVEL)
+        .setVaultMinLevel(ControllerConstants.STARTUP__VAULT_MIN_LEVEL)
+        .setArmoryMinLevel(ControllerConstants.STARTUP__ARMORY_MIN_LEVEL)
+        .setMarketplaceMinLevel(ControllerConstants.STARTUP__MARKETPLACE_MIN_LEVEL)
+        .setBlacksmithMinLevel(ControllerConstants.STARTUP__BLACKSMITH_MIN_LEVEL)
+        .setLeaderboardMinLevel(ControllerConstants.STARTUP__LEADERBOARD_MIN_LEVEL)
+        .build();
+    cb = cb.setMinLevelConstants(bmlc);
+    
     return cb.build();  
   }
   
