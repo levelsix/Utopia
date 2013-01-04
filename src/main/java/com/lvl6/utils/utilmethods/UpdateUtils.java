@@ -437,7 +437,7 @@ public class UpdateUtils implements UpdateUtil {
       aRow.put(DBConstants.USER_STRUCTS__PURCHASE_TIME, us.getPurchaseTime());
       aRow.put(DBConstants.USER_STRUCTS__LAST_UPGRADE_TIME, us.getLastUpgradeTime());
       aRow.put(DBConstants.USER_STRUCTS__IS_COMPLETE, us.isComplete());
-      aRow.put(DBConstants.USER_STRUCTS__ORIENTATION, us.getOrientation());
+      aRow.put(DBConstants.USER_STRUCTS__ORIENTATION, us.getOrientation().getNumber());
       
       newRows.add(aRow);
     }
