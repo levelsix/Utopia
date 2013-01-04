@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -61,10 +62,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     MinimumUserProto senderProto = reqProto.getSender();
     List<StructRetrieval> structRetrievals = reqProto.getStructRetrievalsList();
     
-    Map<Integer, Timestamp> structIdsToTimesOfRetrieval =  new HashMap<Integer, Timestamp>();
+    Map<Integer, Timestamp> userStructIdsToTimesOfRetrieval =  new HashMap<Integer, Timestamp>();
     List<Integer> duplicates = new ArrayList<Integer>();
     //create map from ids to times and check for duplicates
-    getIdsAndTimes(structRetrievals, structIdsToTimesOfRetrieval, duplicates); 
+    getIdsAndTimes(structRetrievals, userStructIdsToTimesOfRetrieval, duplicates); 
     
     RetrieveCurrencyFromNormStructureResponseProto.Builder resBuilder = RetrieveCurrencyFromNormStructureResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -73,22 +74,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-      List<Integer> structIds = new ArrayList<Integer>(structIdsToTimesOfRetrieval.keySet());
+      List<Integer> userStructIds = new ArrayList<Integer>(userStructIdsToTimesOfRetrieval.keySet());
       
-      Map<Integer, UserStruct> structIdsToUserStructs = getStructIdsToUserStructs(structIds);
-      Map<Integer, Structure> structIdsToStructures = getStructIdsToStructs(structIds);
+      Map<Integer, UserStruct> userStructIdsToUserStructs = getUserStructIdsToUserStructs(userStructIds);
+      Map<Integer, Structure> userStructIdsToStructures = getUserStructIdsToStructs(userStructIdsToUserStructs.values());
       
-      int coinGain = calculateMoneyGainedFromStructs(structIds, structIdsToUserStructs, structIdsToStructures);
-      boolean legitRetrieval = checkLegitRetrieval(resBuilder, user, structIds, structIdsToUserStructs,
-          structIdsToStructures, structIdsToTimesOfRetrieval, duplicates, coinGain);
+      int coinGain = calculateMoneyGainedFromStructs(userStructIds, userStructIdsToUserStructs, userStructIdsToStructures);
+      boolean legitRetrieval = checkLegitRetrieval(resBuilder, user, userStructIds, userStructIdsToUserStructs,
+          userStructIdsToStructures, userStructIdsToTimesOfRetrieval, duplicates, coinGain);
       
       if (legitRetrieval) {
         if (!user.updateRelativeCoinsCoinsretrievedfromstructs(coinGain)) {
           log.error("problem with updating user stats after retrieving " + coinGain + " silver");
           legitRetrieval = false;
         }
-        if (!UpdateUtils.get().updateUserStructsLastretrieved(structIdsToTimesOfRetrieval, structIdsToUserStructs)) {
-          log.error("problem with updating user structs last retrieved for userStructId " + shallowMapToString(structIdsToTimesOfRetrieval));
+        if (!UpdateUtils.get().updateUserStructsLastretrieved(userStructIdsToTimesOfRetrieval, userStructIdsToUserStructs)) {
+          log.error("problem with updating user structs last retrieved for userStructIds " + shallowMapToString(userStructIdsToTimesOfRetrieval));
           legitRetrieval = false;
         }
       }
@@ -116,6 +117,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private void getIdsAndTimes(List<StructRetrieval> srList, Map<Integer, Timestamp> structIdsToTimesOfRetrieval,
       List<Integer> duplicates) {
     if (srList.isEmpty()) {
+      log.error("RetrieveCurrencyFromNormStruct request did not send any user struct ids.");
       return;
     }
     for(StructRetrieval sr : srList) {
@@ -130,46 +132,57 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
   
-  private Map<Integer, UserStruct> getStructIdsToUserStructs(List<Integer> structIds) {
+  private Map<Integer, UserStruct> getUserStructIdsToUserStructs(List<Integer> userStructIds) {
     Map<Integer, UserStruct> returnValue = new HashMap<Integer, UserStruct>();
+    if(null == userStructIds || userStructIds.isEmpty()) {
+      log.error("no user struct ids!");
+    }
     
     List<UserStruct> userStructList = RetrieveUtils.userStructRetrieveUtils()
-        .getUserStructs(structIds);
+        .getUserStructs(userStructIds);
     for(UserStruct us : userStructList) {
       if(null != us) {
-        returnValue.put(us.getStructId(), us);
+        returnValue.put(us.getId(), us);
       } else {
-        log.error("could not retrieve one of the structs. structIds to retrieve="
-            + shallowListToString(structIds) + ". structs retrieved=" 
+        log.error("could not retrieve one of the user structs. userStructIds to retrieve="
+            + shallowListToString(userStructIds) + ". user structs retrieved=" 
             + shallowListToString(userStructList) + ". Continuing with processing.");
+        return new HashMap<Integer, UserStruct>();
       }
     }
     return returnValue;
   }
   
-  private Map<Integer, Structure> getStructIdsToStructs(List<Integer> structIds) {
+  private Map<Integer, Structure> getUserStructIdsToStructs(Collection<UserStruct> userStructs) {
     Map<Integer, Structure> returnValue = new HashMap<Integer, Structure>();
     Map<Integer, Structure> structIdsToStructs = StructureRetrieveUtils.getStructIdsToStructs();
     
-    for(Integer i : structIds) {
-      Structure s = structIdsToStructs.get(i);
+    if(null == userStructs || userStructs.isEmpty()) {
+      log.error("There are no user structs.");
+    }
+    
+    for(UserStruct us : userStructs) {
+      int structId = us.getStructId();
+      int userStructId = us.getId();
+      
+      Structure s = structIdsToStructs.get(structId);
       if(null != s) {
-        returnValue.put(i, s);
+        returnValue.put(userStructId, s);
       } else {
-        log.error("structure with id " + i + " does not exist");
+        log.error("structure with id " + structId + " does not exist, therefore UserStruct is invalid:" + us);
       }
     }
     
     return returnValue;
   }
   
-  private int calculateMoneyGainedFromStructs(List<Integer> structIds,
-      Map<Integer, UserStruct> structIdsToUserStructs, Map<Integer, Structure> structIdsToStructures) {
+  private int calculateMoneyGainedFromStructs(List<Integer> userStructIds,
+      Map<Integer, UserStruct> userStructIdsToUserStructs, Map<Integer, Structure> userStructIdsToStructures) {
     int totalCoinsGained = 0;
     
-    for(Integer i : structIds) {
-      UserStruct userStructure = structIdsToUserStructs.get(i);
-      Structure struct = structIdsToStructures.get(i);
+    for(Integer i : userStructIds) {
+      UserStruct userStructure = userStructIdsToUserStructs.get(i);
+      Structure struct = userStructIdsToStructures.get(i);
       
       totalCoinsGained += MiscMethods.calculateIncomeGainedFromUserStruct(
           struct.getIncome(), userStructure.getLevel());
@@ -202,18 +215,18 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private boolean checkLegitRetrieval(Builder resBuilder, User user, List<Integer> structIds, 
-      Map<Integer, UserStruct> structIdsToUserStructs, Map<Integer, Structure> structIdsToStructures,
-      Map<Integer, Timestamp> structIdsToTimesOfRetrieval, List<Integer> duplicates, int coinGain) {
+  private boolean checkLegitRetrieval(Builder resBuilder, User user, List<Integer> userStructIds, 
+      Map<Integer, UserStruct> userStructIdsToUserStructs, Map<Integer, Structure> userStructIdsToStructures,
+      Map<Integer, Timestamp> userStructIdsToTimesOfRetrieval, List<Integer> duplicates, int coinGain) {
 
     int userId = user.getId();
     
-    if (user == null || structIds.isEmpty() || structIdsToUserStructs.isEmpty()
-        || structIdsToStructures.isEmpty() || structIdsToTimesOfRetrieval.isEmpty()) { //|| timeOfRetrieval == null || userStruct.getLastRetrieved() == null) {
+    if (user == null || userStructIds.isEmpty() || userStructIdsToUserStructs.isEmpty()
+        || userStructIdsToStructures.isEmpty() || userStructIdsToTimesOfRetrieval.isEmpty()) { //|| timeOfRetrieval == null || userStruct.getLastRetrieved() == null) {
       resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL);
       log.error("user is null, or no struct ids, or no user structs, or no structures, or no retrieval times . user=" + user
-          + shallowListToString(structIds) + " " + shallowMapToString(structIdsToUserStructs) + " " 
-          + shallowMapToString(structIdsToStructures) + shallowMapToString(structIdsToTimesOfRetrieval));
+          + shallowListToString(userStructIds) + " " + shallowMapToString(userStructIdsToUserStructs) + " " 
+          + shallowMapToString(userStructIdsToStructures) + shallowMapToString(userStructIdsToTimesOfRetrieval));
       return false;
     }
     if (!duplicates.isEmpty()) {
@@ -221,10 +234,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("duplicate struct ids in request. ids=" + shallowListToString(duplicates));
       return false;
     }
-    for (Integer id : structIds) {
-      UserStruct userStruct = structIdsToUserStructs.get(id);
-      Timestamp timeOfRetrieval = structIdsToTimesOfRetrieval.get(id);
-      Structure struct = structIdsToStructures.get(id);
+    for (Integer id : userStructIds) {
+      UserStruct userStruct = userStructIdsToUserStructs.get(id);
+      Timestamp timeOfRetrieval = userStructIdsToTimesOfRetrieval.get(id);
+      Structure struct = userStructIdsToStructures.get(id);
       
       if (userId != userStruct.getUserId() || !userStruct.isComplete()) {
         resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL);
