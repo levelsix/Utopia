@@ -327,6 +327,17 @@ message StartupResponseProto {
 		
 		optional int32 minClanMembersToHoldClanTower = 92;
 		
+		optional BazaarMinLevelConstants minLevelConstants = 93;
+		
+		message BazaarMinLevelConstants {
+			optional int32 clanHouseMinLevel = 1;
+			optional int32 vaultMinLevel = 2;
+			optional int32 armoryMinLevel = 3;
+			optional int32 marketplaceMinLevel = 4;
+			optional int32 blacksmithMinLevel = 5;
+			optional int32 leaderboardMinLevel = 6;
+		}
+		
 		message DownloadableNibConstants {
 			optional string threeCardMonteNibName = 1;
 			optional string lockBoxNibName = 2;
