@@ -131,10 +131,11 @@ public interface InsertUtil {
   public abstract int insertIntoBossRewardDropHistoryReturnId(int bossId, int userId, int silverDropped, int goldDropped, Timestamp timeOfDrop);
   
   public abstract int insertIntoBossEquipDropHistory(int bossRewardDropHistoryId, List<Integer> equipIds);
-  
 
   public int insertIntoUserLeaderboardEvent(int leaderboardEventId, int userId, int battlesWonChange, int battlesLostChange, int battlesFledChange);
 
-
-  public int insertIntoRefillStatHistory(int userId, boolean staminaRefill, int staminaMax, int goldCost);
+  public abstract int insertIntoRefillStatHistory(int userId, boolean staminaRefill, int staminaMax, int goldCost);
+  
+  public abstract int insertIntoUserCurrencyHistory (int userId, Date date, int isSilver, 
+      int currencyChange, int currencyBefore, String reasonForChange);
 }

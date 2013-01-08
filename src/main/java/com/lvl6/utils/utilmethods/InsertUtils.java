@@ -793,7 +793,26 @@ public class InsertUtils implements InsertUtil{
     
     //number of rows inserted (should be one)
     int numUpdated =  DBConnection.get().insertIntoTableBasic(tablename, insertParams);
-    Log.debug("number of rows inserted into refill_stat_history table: " + numUpdated);
+    Log.info("number of rows inserted into refill_stat_history table: " + numUpdated);
+    return numUpdated;
+  }
+  
+  //0 for isSilver means currency is gold; 1 for isSilver means currency is silver
+  public int insertIntoUserCurrencyHistory (int userId, Date date, int isSilver, 
+      int currencyChange, int currencyBefore, String reasonForChange) {
+    String tableName = DBConstants.TABLE_USER_CURRENCY_HISTORY;
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    
+    insertParams.put(DBConstants.USER_CURRENCY_HISTORY__USER_ID, userId);
+    insertParams.put(DBConstants.USER_CURRENCY_HISTORY__DATE, date);
+    insertParams.put(DBConstants.USER_CURRENCY_HISTORY__USER_ID, isSilver);
+    insertParams.put(DBConstants.USER_CURRENCY_HISTORY__CURRENCY_CHANGE, currencyChange);
+    insertParams.put(DBConstants.USER_CURRENCY_HISTORY__CURRENCY_BEFORE_CHANGE, currencyBefore);
+    insertParams.put(DBConstants.USER_CURRENCY_HISTORY__REASON_FOR_CHANGE, reasonForChange);
+    
+    //number of rows inserted
+    int numUpdated = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
+    Log.info("number of rows inserted into user_currency_history: " + numUpdated);
     return numUpdated;
   }
 }

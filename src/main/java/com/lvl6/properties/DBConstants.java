@@ -68,6 +68,7 @@ public class DBConstants {
   public static final String TABLE_LEADERBOARD_EVENT_REWARDS = "leaderboard_event_rewards";
 
   public static final String TABLE_PROFANITY = "profanity";
+  public static final String TABLE_USER_CURRENCY_HISTORY = "user_currency_history";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -487,5 +488,12 @@ public class DBConstants {
   public static final String LEADERBOARD_EVENT_REWARDS__GREEN = "green";
   public static final String LEADERBOARD_EVENT_REWARDS__RED = "red";
 
+  /*USER CURRENCY HISTORY (FOR GOLD/DIAMONDS AND SILVER/COINS*/
+  public static final String USER_CURRENCY_HISTORY__USER_ID = GENERIC__USER_ID;
+  public static final String USER_CURRENCY_HISTORY__DATE = "date";
+  public static final String USER_CURRENCY_HISTORY__IS_SILVER = "is_silver";
+  public static final String USER_CURRENCY_HISTORY__CURRENCY_CHANGE = "currency_change";
+  public static final String USER_CURRENCY_HISTORY__CURRENCY_BEFORE_CHANGE = "currency_before_change";
+  public static final String USER_CURRENCY_HISTORY__REASON_FOR_CHANGE = "reason_for_change";
   
 }
