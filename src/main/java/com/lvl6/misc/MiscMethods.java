@@ -58,6 +58,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ForgeCons
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.GoldmineConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditions;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.LeaderboardEventConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.LockBoxConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ThreeCardMonteConstants;
 import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
@@ -554,6 +555,15 @@ public class MiscMethods {
         .setLeaderboardMinLevel(ControllerConstants.STARTUP__LEADERBOARD_MIN_LEVEL)
         .build();
     cb = cb.setMinLevelConstants(bmlc);
+    
+    LeaderboardEventConstants lec =LeaderboardEventConstants.newBuilder()
+        .setWinsWeight(ControllerConstants.LEADERBOARD_EVENT__WINS_WEIGHT)
+        .setLossesWeight(ControllerConstants.LEADERBOARD_EVENT__LOSSES_WEIGHT)
+        .setFleesWeight(ControllerConstants.LEADERBOARD_EVENT__FLEES_WEIGHT)
+        .setNumHoursToShowAfterEventEnd(ControllerConstants.LEADERBOARD_EVENT__NUM_HOURS_TO_SHOW_AFTER_EVENT_END)
+        .build();
+    
+    cb = cb.setLeaderboardConstants(lec);
     
     return cb.build();  
   }
