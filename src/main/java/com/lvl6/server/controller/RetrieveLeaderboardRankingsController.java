@@ -96,6 +96,7 @@ public class RetrieveLeaderboardRankingsController extends EventController {
             UserRankScore urs = lurs.get(u.getId());
             log.info("Rank: "+urs.rank+" User: "+urs.userId+" Score: "+urs.score);
             resBuilder.addResultPlayers(CreateInfoProtoUtils.createMinimumUserProtoWithLevelForLeaderboard(u, leaderboardType, urs.rank, urs.score));
+            resBuilder.addFullUsers(CreateInfoProtoUtils.createFullUserProtoFromUser(u));
           }
         }
       }
