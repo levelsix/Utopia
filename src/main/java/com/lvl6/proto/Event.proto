@@ -1814,6 +1814,8 @@ message RetrieveLeaderboardRankingsResponseProto {
 
 	optional MinimumUserProtoWithLevelForLeaderboard retriever = 3;
 	repeated MinimumUserProtoWithLevelForLeaderboard resultPlayers = 4;
+
+	repeated FullUserProto fullUsers = 7;
 	
 	enum RetrieveLeaderboardStatus {
 		SUCCESS = 0;
