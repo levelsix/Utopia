@@ -446,7 +446,7 @@ public class UpdateUtils implements UpdateUtil {
     
     Log.info("num userStructs updated: " + numUpdated 
         + ". Number of userStructs: " + userStructIdsToLastRetrievedTime.size());
-    if (numUpdated == userStructIdsToLastRetrievedTime.size()) {
+    if (numUpdated == userStructIdsToLastRetrievedTime.size()*2) {
       return true;
     }
     return false;
