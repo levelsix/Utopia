@@ -537,6 +537,8 @@ public class MiscMethods {
         .setGoldMineNibName(ControllerConstants.NIB_NAME__GOLD_MINE)
         .setExpansionNibName(ControllerConstants.NIB_NAME__EXPANSION)
         .setFiltersNibName(ControllerConstants.NIB_NAME__MARKET_FILTERS)
+        .setBlacksmithNibName(ControllerConstants.NIB_NAME__BLACKSMITH)
+        .setGoldShoppeNibName(ControllerConstants.NIB_NAME__GOLD_SHOPPE)
         .build();
     
     cb = cb.setDownloadableNibConstants(dnc);
