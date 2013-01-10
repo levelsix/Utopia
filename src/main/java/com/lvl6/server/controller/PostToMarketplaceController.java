@@ -196,7 +196,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     
     boolean changeNumPostsInMarketplace = true;
     int numPostsInMarketplaceChange = MiscMethods.getNumPostsInMarketPlaceForUser(user.getId());
-    
+    log.info("number of posts in market place for user " + user.getId() 
+        + ": " + numPostsInMarketplaceChange + ". Number of posts user has: " + user.getNumPostsInMarketplace());
     if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(
         0, 0, numPostsInMarketplaceChange, changeNumPostsInMarketplace)) {
       log.error("problem with increasing user's num marketplace posts by 1");
