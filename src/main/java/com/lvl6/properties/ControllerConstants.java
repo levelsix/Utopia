@@ -120,7 +120,7 @@ public class ControllerConstants {
   public static final int TUTORIAL__INIT_ENERGY = 20;
   public static final int TUTORIAL__INIT_STAMINA = 3;
   public static final int TUTORIAL__INIT_HEALTH = 30;
-  public static final int TUTORIAL__INIT_DIAMONDS = 10;
+  public static final int TUTORIAL__INIT_DIAMONDS = 50;
   public static final int TUTORIAL__INIT_COINS = 50;
   public static final int TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT = 0; //Because it does not warn the user
   public static final int TUTORIAL__FIRST_TASK_ID = 1;          //give user full task proto for both sides
@@ -447,6 +447,8 @@ public class ControllerConstants {
   public static final String NIB_NAME__GOLD_MINE = "GoldMine.2";
   public static final String NIB_NAME__EXPANSION = "Expansion.2";
   public static final String NIB_NAME__MARKET_FILTERS = "MarketplaceFilters.2";
+  public static final String NIB_NAME__BLACKSMITH = "Blacksmith.2";
+  public static final String NIB_NAME__GOLD_SHOPPE = "GoldShoppe.2";
   
   public static final int IDDICTION__EQUIP_ID = 282;
   public static final String IDDICTION__NOTICE = "FREE limited edition gold equip for joining today!";
