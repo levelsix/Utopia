@@ -55,11 +55,27 @@
 	<rabbit:topic-exchange name="${amqp.chat.exchange}"
 		auto-delete="false" durable="true">
 	</rabbit:topic-exchange>
+	
+	
+	<rabbit:topic-exchange name="serverMessages"
+		auto-delete="false" durable="true">
+		<rabbit:bindings>
+			<rabbit:binding queue="serverMessagesQueue" pattern="messageForAllServers"></rabbit:binding>
+		</rabbit:bindings>
+	</rabbit:topic-exchange>
+	
+	
+	<rabbit:queue id="serverMessagesQueue" name="serverMessagesQueue" auto-delete="false" durable="true" />
 
 	<rabbit:queue id="clientMessages" name="clientMessages"
 		durable="true" 
 		auto-delete="false" />
 
+	<rabbit:listener-container connection-factory="rabbitConnectionFactory" concurrency="1" error-handler="amqpErrorHandler">
+		<rabbit:listener queues="serverMessagesQueue" ref="serverMessageEventHandler" method="onMessage"/>
+	</rabbit:listener-container>
+
+	<rabbit:template id="serverMessagesTemplate" connection-factory="amqpConnectionFactory" channel-transacted="true" exchange="serverMessages" />
 
 	<rabbit:listener-container
 		connection-factory="amqpConnectionFactory" 
@@ -81,6 +97,7 @@
 		exchange="${amqp.chat.exchange}" />
 
 	<bean id="clientEventHandler" class="com.lvl6.eventhandlers.AmqpGameEventHandler" />
+	<bean id="serverEventHandler" class="com.lvl6.eventhandlers.ServerEventHandler" />
 	<bean id="amqpErrorHandler" class="com.lvl6.eventhandlers.AmqpErrorHandler" />
 
 </beans>
