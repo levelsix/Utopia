@@ -360,7 +360,7 @@ public class InsertUtils implements InsertUtil{
    */
   @Override
   public boolean insertIAPHistoryElem(JSONObject appleReceipt,
-      int diamondChange, User user, double cashCost) {
+      int diamondChange, int coinChange, User user, double cashCost) {
     Map<String, Object> insertParams = new HashMap<String, Object>();
     try {
       insertParams.put(DBConstants.IAP_HISTORY__USER_ID, user.getId());
@@ -370,6 +370,8 @@ public class InsertUtils implements InsertUtil{
           appleReceipt.getString(IAPValues.PURCHASE_DATE));
       insertParams.put(DBConstants.IAP_HISTORY__PREMIUMCUR_PURCHASED,
           diamondChange);
+      insertParams.put(DBConstants.IAP_HISTORY__REGCUR_PURCHASED,
+          coinChange);
       insertParams.put(DBConstants.IAP_HISTORY__CASH_SPENT, cashCost);
       insertParams.put(DBConstants.IAP_HISTORY__UDID, user.getUdid());
       insertParams.put(DBConstants.IAP_HISTORY__PRODUCT_ID,

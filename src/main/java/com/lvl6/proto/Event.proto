@@ -917,6 +917,7 @@ message InAppPurchaseResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional InAppPurchaseStatus status = 2;
 	optional int32 diamondsGained = 3;
+	optional int32 coinsGained = 7;
 	
 	optional string packageName = 4;
 	optional double packagePrice = 5;

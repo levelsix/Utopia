@@ -75,7 +75,7 @@ public interface InsertUtil {
       CoordinatePair coordinates, Timestamp timeOfPurchase);
 
   public abstract boolean insertIAPHistoryElem(JSONObject appleReceipt,
-      int diamondChange, User user, double cashCost);
+      int diamondChange, int coinChange, User user, double cashCost);
 
   public abstract boolean insertMarketplaceItem(int posterId,
       MarketplacePostType postType, int postedEquipId, int diamondCost,

@@ -153,17 +153,26 @@ public class InAppPurchaseController extends EventController {
           try {
             int diamondChange = IAPValues.getDiamondsForPackageName(receiptFromApple
                 .getString(IAPValues.PRODUCT_ID));
+            int coinChange = IAPValues.getCoinsForPackageName(receiptFromApple
+                .getString(IAPValues.PRODUCT_ID));
             double cashCost = IAPValues.getCashSpentForPackageName(receiptFromApple
                 .getString(IAPValues.PRODUCT_ID));
-            user.updateRelativeDiamondsNaive(diamondChange);
-            if (!insertUtils
-                .insertIAPHistoryElem(receiptFromApple, diamondChange, user, cashCost)) {
+            
+            if (diamondChange > 0) {
+              resBuilder.setDiamondsGained(diamondChange);
+              user.updateRelativeDiamondsNaive(diamondChange);
+            } else {
+              resBuilder.setCoinsGained(coinChange);
+              user.updateRelativeCoinsNaive(coinChange);
+            }
+            
+            if (!insertUtils.insertIAPHistoryElem(receiptFromApple, diamondChange, coinChange, user, cashCost)) {
               log.error("problem with logging in-app purchase history for receipt:"
                   + receiptFromApple.toString(4) + " and user " + user);
             }
             resBuilder.setStatus(InAppPurchaseStatus.SUCCESS);
             resBuilder.setPackageName(receiptFromApple.getString(IAPValues.PRODUCT_ID));
-            resBuilder.setDiamondsGained(diamondChange);
+            
             resBuilder.setPackagePrice(cashCost);
             log.info("successful in-app purchase from user " + user.getId() + " for package "
                 + receiptFromApple.getString(IAPValues.PRODUCT_ID));
@@ -269,8 +278,8 @@ public class InAppPurchaseController extends EventController {
     logParams.put("serverid", "1");
     logParams.put("localcents", reqProto.getLocalcents());
     logParams.put("localcurrency", reqProto.getLocalcurrency());
-    logParams.put("igc", resBuilder.getDiamondsGained());
-    logParams.put("igctype", "gold");
+    logParams.put("igc", resBuilder.hasDiamondsGained() ? resBuilder.getDiamondsGained() : resBuilder.getCoinsGained());
+    logParams.put("igctype", resBuilder.hasDiamondsGained() ? "gold" : "silver");
     logParams.put("transactionid", receiptFromApple.get(IAPValues.TRANSACTION_ID));
     logParams.put("platform", "itunes");
     logParams.put("locale", reqProto.getLocale());

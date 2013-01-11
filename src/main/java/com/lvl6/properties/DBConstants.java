@@ -158,6 +158,7 @@ public class DBConstants {
   public static final String IAP_HISTORY__TRANSACTION_ID = "transaction_id";
   public static final String IAP_HISTORY__PURCHASE_DATE = "purchase_date";
   public static final String IAP_HISTORY__PREMIUMCUR_PURCHASED = "premiumcur_purchased";
+  public static final String IAP_HISTORY__REGCUR_PURCHASED = "regcur_purchased";
   public static final String IAP_HISTORY__CASH_SPENT = "cash_spent";
   public static final String IAP_HISTORY__UDID = "udid";
   public static final String IAP_HISTORY__PRODUCT_ID = "product_id";
