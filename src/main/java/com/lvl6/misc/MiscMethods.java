@@ -562,6 +562,7 @@ public class MiscMethods {
     for (String id : IAPValues.iapPackageNames) {
       InAppPurchasePackageProto.Builder iapb = InAppPurchasePackageProto.newBuilder();
       iapb.setPackageId(id);
+      iapb.setImageName(IAPValues.getImageNameForPackageName(id));
       
       int diamondAmt = IAPValues.getDiamondsForPackageName(id);
       if (diamondAmt > 0) {

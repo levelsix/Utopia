@@ -34,7 +34,18 @@ public class IAPValues {
   private static final String PACKAGES3 = Globals.APPLE_BUNDLE_ID + ".packageS3";
   private static final String PACKAGES4 = Globals.APPLE_BUNDLE_ID + ".packageS4";
   private static final String PACKAGES5 = Globals.APPLE_BUNDLE_ID + ".packageS5";
-  
+
+  private static final String PACKAGE1IMG = "goldstack1.png";
+  private static final String PACKAGE2IMG = "goldstack2.png";
+  private static final String PACKAGE3IMG = "goldstack3.png";
+  private static final String PACKAGE4IMG = "goldstack4.png";
+  private static final String PACKAGE5IMG = "goldstack5.png";
+  private static final String PACKAGES1IMG = "silverstack1.png";
+  private static final String PACKAGES2IMG = "silverstack2.png";
+  private static final String PACKAGES3IMG = "silverstack3.png";
+  private static final String PACKAGES4IMG = "silverstack4.png";
+  private static final String PACKAGES5IMG = "silverstack5.png";
+
   /*
    * 1- $1 for 10 diamonds
    * 2- $1 for 12 diamonds
@@ -42,31 +53,31 @@ public class IAPValues {
    * 4- $1 for 13 diamonds
    * 5- $1 for 15 diamonds
    */
-  
+
   private static final int PACKAGE_1_DIAMONDS = 50;
   private static final int PACKAGE_2_DIAMONDS = 120;
   private static final int PACKAGE_3_DIAMONDS = 250;
   private static final int PACKAGE_4_DIAMONDS = 650;
   private static final int PACKAGE_5_DIAMONDS = 1500;
-  
+
   private static final int PACKAGE_S1_COINS = 50;
   private static final int PACKAGE_S2_COINS = 120;
   private static final int PACKAGE_S3_COINS = 250;
   private static final int PACKAGE_S4_COINS = 650;
   private static final int PACKAGE_S5_COINS = 1500;
-  
+
   private static final double PACKAGE_1_PRICE = 4.99;
   private static final double PACKAGE_2_PRICE = 9.99;
   private static final double PACKAGE_3_PRICE = 19.99;
   private static final double PACKAGE_4_PRICE = 49.99;
   private static final double PACKAGE_5_PRICE = 99.99;
-  
+
   private static final double PACKAGE_1_SALE_PRICE = 3.99;
   private static final double PACKAGE_2_SALE_PRICE = 7.99;
   private static final double PACKAGE_3_SALE_PRICE = 15.99;
   private static final double PACKAGE_4_SALE_PRICE = 39.99;
   private static final double PACKAGE_5_SALE_PRICE = 74.99;
-  
+
   private static final double PACKAGE_S1_PRICE = 4.99;
   private static final double PACKAGE_S2_PRICE = 9.99;
   private static final double PACKAGE_S3_PRICE = 19.99;
@@ -82,7 +93,7 @@ public class IAPValues {
       Arrays.asList(PACKAGE_1_DIAMONDS, PACKAGE_2_DIAMONDS, PACKAGE_3_DIAMONDS, 
           PACKAGE_4_DIAMONDS, PACKAGE_5_DIAMONDS);
 
-  
+
   public static int getDiamondsForPackageName(String packageName) {
     if (packageName.equals(PACKAGE1) || packageName.equals(PACKAGE1SALE)) {
       return PACKAGE_1_DIAMONDS;
@@ -120,7 +131,41 @@ public class IAPValues {
     }
     return 0;
   }
-  
+
+  public static String getImageNameForPackageName(String packageName) {
+    if (packageName.equals(PACKAGE1)) {
+      return PACKAGE1IMG;
+    }
+    if (packageName.equals(PACKAGE2)) {
+      return PACKAGE2IMG;
+    }
+    if (packageName.equals(PACKAGE3)) {
+      return PACKAGE3IMG;
+    }
+    if (packageName.equals(PACKAGE4)) {
+      return PACKAGE4IMG;
+    }
+    if (packageName.equals(PACKAGE5)) {
+      return PACKAGE5IMG;
+    }
+    if (packageName.equals(PACKAGES1)) {
+      return PACKAGES1IMG;
+    }
+    if (packageName.equals(PACKAGES2)) {
+      return PACKAGES2IMG;
+    }
+    if (packageName.equals(PACKAGES3)) {
+      return PACKAGES3IMG;
+    }
+    if (packageName.equals(PACKAGES4)) {
+      return PACKAGES4IMG;
+    }
+    if (packageName.equals(PACKAGES5)) {
+      return PACKAGES5IMG;
+    }
+    return null;
+  }
+
   public static double getCashSpentForPackageName(String packageName) {
     if (packageName.equals(PACKAGE1)) {
       return PACKAGE_1_PRICE;

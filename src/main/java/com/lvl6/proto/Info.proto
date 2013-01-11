@@ -6,6 +6,7 @@ message InAppPurchasePackageProto {
 	optional string packageId = 1;
 	optional int32 currencyAmount = 2;
 	optional bool isGold = 3;
+	optional string imageName = 4;
 }
 
 //------------------------------------------------------------------------------------------
