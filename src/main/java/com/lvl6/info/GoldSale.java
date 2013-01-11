@@ -13,14 +13,19 @@ public class GoldSale implements Serializable {
   private String package3SaleIdentifier;
   private String package4SaleIdentifier;
   private String package5SaleIdentifier;
+  private String packageS1SaleIdentifier;
+  private String packageS2SaleIdentifier;
+  private String packageS3SaleIdentifier;
+  private String packageS4SaleIdentifier;
+  private String packageS5SaleIdentifier;
   private String goldShoppeImageName;
   private String goldBarImageName;
   
-  public GoldSale(int id, Date startDate, Date endDate,
-      String package1SaleIdentifier, String package2SaleIdentifier,
-      String package3SaleIdentifier, String package4SaleIdentifier,
-      String package5SaleIdentifier, String goldShoppeImageName,
-      String goldBarImageName) {
+  public GoldSale(int id, Date startDate, Date endDate, String goldShoppeImageName,
+      String goldBarImageName, String package1SaleIdentifier, 
+      String package2SaleIdentifier, String package3SaleIdentifier, String package4SaleIdentifier,
+      String package5SaleIdentifier, String packageS1SaleIdentifier, String packageS2SaleIdentifier,
+      String packageS3SaleIdentifier, String packageS4SaleIdentifier, String packageS5SaleIdentifier) {
     super();
     this.id = id;
     this.startDate = startDate;
@@ -30,6 +35,11 @@ public class GoldSale implements Serializable {
     this.package3SaleIdentifier = package3SaleIdentifier;
     this.package4SaleIdentifier = package4SaleIdentifier;
     this.package5SaleIdentifier = package5SaleIdentifier;
+    this.packageS1SaleIdentifier = packageS1SaleIdentifier;
+    this.packageS2SaleIdentifier = packageS2SaleIdentifier;
+    this.packageS3SaleIdentifier = packageS3SaleIdentifier;
+    this.packageS4SaleIdentifier = packageS4SaleIdentifier;
+    this.packageS5SaleIdentifier = packageS5SaleIdentifier;
     this.goldShoppeImageName = goldShoppeImageName;
     this.goldBarImageName = goldBarImageName;
   }
@@ -114,6 +124,46 @@ public class GoldSale implements Serializable {
     this.goldBarImageName = goldBarImageName;
   }
 
+  public String getPackageS1SaleIdentifier() {
+    return packageS1SaleIdentifier;
+  }
+
+  public void setPackageS1SaleIdentifier(String packageS1SaleIdentifier) {
+    this.packageS1SaleIdentifier = packageS1SaleIdentifier;
+  }
+
+  public String getPackageS2SaleIdentifier() {
+    return packageS2SaleIdentifier;
+  }
+
+  public void setPackageS2SaleIdentifier(String packageS2SaleIdentifier) {
+    this.packageS2SaleIdentifier = packageS2SaleIdentifier;
+  }
+
+  public String getPackageS3SaleIdentifier() {
+    return packageS3SaleIdentifier;
+  }
+
+  public void setPackageS3SaleIdentifier(String packageS3SaleIdentifier) {
+    this.packageS3SaleIdentifier = packageS3SaleIdentifier;
+  }
+
+  public String getPackageS4SaleIdentifier() {
+    return packageS4SaleIdentifier;
+  }
+
+  public void setPackageS4SaleIdentifier(String packageS4SaleIdentifier) {
+    this.packageS4SaleIdentifier = packageS4SaleIdentifier;
+  }
+
+  public String getPackageS5SaleIdentifier() {
+    return packageS5SaleIdentifier;
+  }
+
+  public void setPackageS5SaleIdentifier(String packageS5SaleIdentifier) {
+    this.packageS5SaleIdentifier = packageS5SaleIdentifier;
+  }
+
   @Override
   public String toString() {
     return "GoldSale [id=" + id + ", startDate=" + startDate + ", endDate="
@@ -122,6 +172,11 @@ public class GoldSale implements Serializable {
         + ", package3SaleIdentifier=" + package3SaleIdentifier
         + ", package4SaleIdentifier=" + package4SaleIdentifier
         + ", package5SaleIdentifier=" + package5SaleIdentifier
+        + ", packageS1SaleIdentifier=" + packageS1SaleIdentifier
+        + ", packageS2SaleIdentifier=" + packageS2SaleIdentifier
+        + ", packageS3SaleIdentifier=" + packageS3SaleIdentifier
+        + ", packageS4SaleIdentifier=" + packageS4SaleIdentifier
+        + ", packageS5SaleIdentifier=" + packageS5SaleIdentifier
         + ", goldShoppeImageName=" + goldShoppeImageName
         + ", goldBarImageName=" + goldBarImageName + "]";
   }

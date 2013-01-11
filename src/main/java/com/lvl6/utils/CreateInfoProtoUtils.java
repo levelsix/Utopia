@@ -900,6 +900,11 @@ public class CreateInfoProtoUtils {
     if (sale.getPackage3SaleIdentifier() != null) b.setPackage3SaleIdentifier(sale.getPackage3SaleIdentifier());
     if (sale.getPackage4SaleIdentifier() != null) b.setPackage4SaleIdentifier(sale.getPackage4SaleIdentifier());
     if (sale.getPackage5SaleIdentifier() != null) b.setPackage5SaleIdentifier(sale.getPackage5SaleIdentifier());
+    if (sale.getPackageS1SaleIdentifier() != null) b.setPackage1SaleIdentifier(sale.getPackageS1SaleIdentifier());
+    if (sale.getPackageS2SaleIdentifier() != null) b.setPackage2SaleIdentifier(sale.getPackageS2SaleIdentifier());
+    if (sale.getPackageS3SaleIdentifier() != null) b.setPackage3SaleIdentifier(sale.getPackageS3SaleIdentifier());
+    if (sale.getPackageS4SaleIdentifier() != null) b.setPackage4SaleIdentifier(sale.getPackageS4SaleIdentifier());
+    if (sale.getPackageS5SaleIdentifier() != null) b.setPackage5SaleIdentifier(sale.getPackageS5SaleIdentifier());
     b.setGoldShoppeImageName(sale.getGoldShoppeImageName()).setGoldBarImageName(sale.getGoldBarImageName());
 
     return b.build();

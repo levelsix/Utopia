@@ -89,6 +89,11 @@ message GoldSaleProto {
 	optional string package5SaleIdentifier = 8;
 	optional string goldShoppeImageName = 9;
 	optional string goldBarImageName = 10;
+	optional string packageS1SaleIdentifier = 11;
+	optional string packageS2SaleIdentifier = 12;
+	optional string packageS3SaleIdentifier = 13;
+	optional string packageS4SaleIdentifier = 14;
+	optional string packageS5SaleIdentifier = 15;
 }
 
 //-----------------------------------------------------------------------------------------

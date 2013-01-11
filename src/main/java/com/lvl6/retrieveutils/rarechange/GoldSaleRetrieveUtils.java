@@ -110,15 +110,20 @@ import com.lvl6.utils.DBConnection;
     int id = rs.getInt(i++);
     Date startDate = new Date(rs.getTimestamp(i++).getTime());
     Date endDate = new Date(rs.getTimestamp(i++).getTime());
+    String goldShoppeImageName = rs.getString(i++);
+    String goldBarImageName = rs.getString(i++);
     String package1SaleIdentifier = rs.getString(i++);
     String package2SaleIdentifier = rs.getString(i++);
     String package3SaleIdentifier = rs.getString(i++);
     String package4SaleIdentifier = rs.getString(i++);
     String package5SaleIdentifier = rs.getString(i++);
-    String goldShoppeImageName = rs.getString(i++);
-    String goldBarImageName = rs.getString(i++);
+    String packageS1SaleIdentifier = rs.getString(i++);
+    String packageS2SaleIdentifier = rs.getString(i++);
+    String packageS3SaleIdentifier = rs.getString(i++);
+    String packageS4SaleIdentifier = rs.getString(i++);
+    String packageS5SaleIdentifier = rs.getString(i++);
     
-    GoldSale goldSale = new GoldSale(id, startDate, endDate, package1SaleIdentifier, package2SaleIdentifier, package3SaleIdentifier, package4SaleIdentifier, package5SaleIdentifier, goldShoppeImageName, goldBarImageName);
+    GoldSale goldSale = new GoldSale(id, startDate, endDate, goldShoppeImageName, goldBarImageName, package1SaleIdentifier, package2SaleIdentifier, package3SaleIdentifier, package4SaleIdentifier, package5SaleIdentifier, packageS1SaleIdentifier, packageS2SaleIdentifier, packageS3SaleIdentifier, packageS4SaleIdentifier, packageS5SaleIdentifier);
     return goldSale;
   }
 }
