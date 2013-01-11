@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -103,6 +104,7 @@ import com.lvl6.spring.AppContext;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class MiscMethods {
@@ -111,7 +113,9 @@ public class MiscMethods {
 	private static final Logger log = LoggerFactory.getLogger(MiscMethods.class);
   public static final String clanTowersClanAttacked = "clanTowersClanAttacked";
   public static final String clanTowersClanOwned = "clanTowersClanOwned";
-
+  public static final String gold = "gold";
+  public static final String silver = "silver";
+  
   public static int calculateMinutesToFinishForgeAttempt(Equipment equipment, int goalLevel) {
     return (int)
         (equipment.getMinutesToAttemptForgeBase()*Math.pow(ControllerConstants.FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER, goalLevel));
@@ -1016,4 +1020,59 @@ public class MiscMethods {
     return posts.size();
   }
   
+  //gold silver change should be a signed number (positive or negative) and
+  //this should be called after the user is updated
+  public static void writeToUserCurrencyOneUserGoldAndSilver(
+      User aUser, Timestamp date, Map<String,Integer> goldSilverChange, 
+      Map<String, Integer> previousGoldSilver, String reasonForChange) {
+    //try, catch is here just in case this blows up, not really necessary;
+    try {
+      int amount = 2;
+      String gold = "gold";
+      String silver = "silver";
+
+      int userId = aUser.getId();
+      //two copies of userId
+      List<Integer> userIds = new ArrayList<Integer>(Collections.nCopies(amount, userId));
+      //two copies of date
+      List<Timestamp> dates = new ArrayList<Timestamp>(Collections.nCopies(amount, date));
+      //initialize space for two elements
+      List<Integer> areSilver = new ArrayList<Integer>(amount);
+      //gold first then silver
+      List<Integer> changesToCurrencies = new ArrayList<Integer>(amount);
+      List<Integer> previousCurrencies = new ArrayList<Integer>(amount);
+      List<String> reasonsForChanges = new ArrayList<String>(Collections.nCopies(amount, reasonForChange));
+
+      areSilver.add(0); //gold
+      areSilver.add(1); //silver
+
+      int goldChange = goldSilverChange.get(gold);
+      int silverChange = goldSilverChange.get(silver);
+      changesToCurrencies.add(goldChange);
+      changesToCurrencies.add(silverChange);
+
+      int previousGold = 0;
+      int previousSilver = 0;
+      if(null == previousGoldSilver) {
+        //difference instead of sum because of example:
+        //u.gold = 10; change = -5 => u.gold = 5
+        //previous_gold = 5 - -5 = 10
+        previousGold = aUser.getDiamonds() - goldChange;
+        previousSilver = aUser.getCoins() - silverChange;
+      } else {
+        previousGold = previousGoldSilver.get(gold);
+        previousSilver = previousGoldSilver.get(silver);
+      }
+      previousCurrencies.add(previousGold);
+      previousCurrencies.add(previousSilver);
+      
+      //using multiple rows because 2 entries: one for silver, other for gold
+      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates, areSilver,
+          changesToCurrencies, previousCurrencies, reasonsForChanges);
+      log.info("Should be 2. Rows inserted into user_currency_history: " + numInserted);
+    } catch(Exception e) {
+      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+    }
+    
+  }
 }

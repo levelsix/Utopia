@@ -402,6 +402,21 @@ public class ControllerConstants {
   public static final int LEADERBOARD_EVENT__FLEES_WEIGHT = -3;
   public static final int LEADERBOARD_EVENT__NUM_HOURS_TO_SHOW_AFTER_EVENT_END = 24;
   
+  //USER CURRENCY HISTORY REASON FOR CHANGE VALUES
+  public static final String UCHRFC__USER_CREATED = "user created";
+  public static final String UCHRFC__LEADERBOARD = "leaderboard event";
+  public static final String UCHRFC__CLAN_TOWER_WAR_ENDED = "clan tower war ended";
+  public static final String UCHRFC__SHORT_MARKET_PLACE_LICENSE = "purchased short market place license";
+  public static final String UCHRFC__LONG_MARKET_PLACE_LICENSE = "purchased long market place license";
+  public static final String UCHRFC__GROUP_CHAT = "purchased group chat"; //is controller for this even used?
+  public static final String UCHRFC__BOSS_ACTION = "boss action";
+  public static final String UCHRFC__REFILL_STAT = "refill stat, energy or stamina";
+  public static final String UCHRFC__FINISH_NORM_STRUCT = "finish construction or income wait time";
+  public static final String UCHRFC__UPGRADE_NORM_STRUCT = "upgraded norm struct";
+  public static final String UCHRFC__SELL_NORM_STRUCT = "sell norm struct";
+  public static final String UCHRFC__PURCHASE_NORM_STRUCT = "purchased norm struct";
+  public static final String UCHRFC__QUEST_REDEEM = "quest redeemed";
+  
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),
     new ValidLocationBox(-118.76606, 50.595863, 27.16478, 9.0692883, "CANADA"),

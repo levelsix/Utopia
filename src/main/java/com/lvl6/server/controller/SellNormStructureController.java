@@ -1,9 +1,16 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.SellNormStructureRequestEvent;
 import com.lvl6.events.response.SellNormStructureResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -76,6 +83,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
             } else {
               resBuilder.setStatus(SellNormStructureStatus.SUCCESS);                      
             }
+            writeToUserCurrencyHistory(user, diamondChange, coinChange);
           }
         } else {
           resBuilder.setStatus(SellNormStructureStatus.FAIL);
@@ -103,5 +111,19 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
     } finally {
       server.unlockPlayer(senderProto.getUserId());      
     }
+  }
+  
+  public void writeToUserCurrencyHistory(User aUser, int diamondChange, int coinChange) {
+    Timestamp date = new Timestamp((new Date()).getTime());
+
+    Map<String, Integer> money = new HashMap<String, Integer>();
+    money.put(MiscMethods.gold, diamondChange);
+    money.put(MiscMethods.silver, coinChange);
+    Map<String, Integer> previousGoldSilver = null;
+    String reasonForChange = ControllerConstants.UCHRFC__SELL_NORM_STRUCT;
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, date, money,
+        previousGoldSilver, reasonForChange);
+    
   }
 }

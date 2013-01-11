@@ -2,6 +2,7 @@ package com.lvl6.scheduledtasks;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +30,11 @@ import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowe
 import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
+import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 
 public class ClanTowersScheduledTasks {
   private static Logger log = LoggerFactory.getLogger(ClanTowersScheduledTasks.class);
@@ -267,6 +270,7 @@ public class ClanTowersScheduledTasks {
 
       if(currentTimeMillis > tower.getLastRewardGiven().getTime() + millisecondsToCollect) {
         giveRewardsToClanMembers(tower);
+        insertIntoUserCurrencyHistory(tower, currentTimeMillis);
         updateLastRewardTimeForClanTower(tower, currentTimeMillis);
         sendNotificationForRewardDistribution(tower, tower.getClanOwnerId());
         sendUpdateUserMessagesToClanMembers(tower.getClanOwnerId());
@@ -289,6 +293,7 @@ public class ClanTowersScheduledTasks {
         , tower.getId());
   }
 
+  
   protected void giveRewardsToClanMembers(ClanTower tower) {
     log.info("Distributing rewards for tower: {} to clan: {}", tower.getId(), tower.getClanOwnerId());
     jdbcTemplate.update("update "
@@ -306,6 +311,43 @@ public class ClanTowersScheduledTasks {
         +"="+tower.getClanOwnerId()
         ,tower.getSilverReward()
         ,tower.getGoldReward());
+  }
+  
+  protected void insertIntoUserCurrencyHistory(ClanTower tower, long now) {
+    //try catch not necessary, but just precaution 
+    try{
+      List<User> users = RetrieveUtils.userRetrieveUtils().getUsersByClanId(tower.getClanOwnerId());
+      int amount = users.size();
+      int gold = tower.getGoldReward();
+      List<Integer> userIds = getUserIds(users);
+      List<Timestamp> dates = new ArrayList<Timestamp>(Collections.nCopies(amount, new Timestamp(now)));
+      List<Integer> areSilver = new ArrayList<Integer>(Collections.nCopies(amount, 0));
+      List<Integer> currenciesChange = new ArrayList<Integer>(Collections.nCopies(amount, gold));
+      List<Integer> currenciesBefore = getCurrenciesBefore(users, gold);
+      List<String> reasonsForChanges = new ArrayList<String>(Collections.nCopies(amount,
+          ControllerConstants.UCHRFC__CLAN_TOWER_WAR_ENDED));
+      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates, areSilver, 
+          currenciesChange, currenciesBefore, reasonsForChanges);
+      log.info("Should be " + userIds.size() + ". Rows inserted into user_currency_history: " + numInserted);
+    } catch(Exception e) {
+      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+    }
+  }
+
+  private List<Integer> getCurrenciesBefore(List<User> users, int goldRewarded) {
+    List<Integer> returnVal = new ArrayList<Integer>();
+    for(User u : users) {
+      returnVal.add(u.getDiamonds() - goldRewarded); //the gold was rewarded to them before writing to history
+    }
+    return returnVal;
+  }
+
+  private List<Integer> getUserIds(List<User> users) {
+    List<Integer> userIds = new ArrayList<Integer>();
+    for(User u : users) {
+      userIds.add(u.getId());
+    }
+    return userIds;
   }
   
   protected void sendUpdateUserMessagesToClanMembers(int clanId) {

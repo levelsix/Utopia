@@ -1,12 +1,19 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.FinishNormStructWaittimeWithDiamondsRequestEvent;
 import com.lvl6.events.response.FinishNormStructWaittimeWithDiamondsResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -24,6 +31,7 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
@@ -34,6 +42,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   public FinishNormStructWaittimeWithDiamondsController() {
     numAllocatedThreads = 2;
   }
+  
+  public static String silver = "silver";
+  public static String gold = "gold";
   
   @Override
   public RequestEvent createRequestEvent() {
@@ -76,11 +87,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
 
       if (legitSpeedup) {
-        writeChangesToDB(user, userStruct, timeOfSpeedup, waitTimeType, struct);
+        Map<String, Integer> money = new HashMap<String, Integer>();
+        writeChangesToDB(user, userStruct, timeOfSpeedup, waitTimeType, struct, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
-        
+        writeToUserCurrencyHistory(user, timeOfSpeedup, money);
         if (waitTimeType == NormStructWaitTimeType.FINISH_CONSTRUCTION) {
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
         }
@@ -95,33 +107,43 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private void writeChangesToDB(User user, UserStruct userStruct, Timestamp timeOfPurchase, NormStructWaitTimeType waitTimeType, Structure struct) {
+  private void writeChangesToDB(User user, UserStruct userStruct, Timestamp timeOfPurchase, NormStructWaitTimeType waitTimeType, Structure struct,
+      Map<String, Integer> money) {
     if (waitTimeType == NormStructWaitTimeType.FINISH_CONSTRUCTION) {
-      if (!user.updateRelativeDiamondsNaive(struct.getInstaBuildDiamondCost()
-          * -1)) {
+      int goldCost = struct.getInstaBuildDiamondCost() * -1;
+      if (!user.updateRelativeDiamondsNaive(goldCost)) {
         log.error("problem with using diamonds to finish norm struct build");
       } else {
         if (!UpdateUtils.get().updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), timeOfPurchase, null, true)) {
           log.error("problem with using diamonds to finish norm struct build");
         }
+        money.put(gold, goldCost);
+        money.put(silver, null);
       }
     }
     if (waitTimeType == NormStructWaitTimeType.FINISH_INCOME_WAITTIME) {
-      if (!user.updateRelativeDiamondsCoinsExperienceNaive(calculateDiamondCostForInstaRetrieve(userStruct, struct)*-1, MiscMethods.calculateIncomeGainedFromUserStruct(struct.getIncome(), userStruct.getLevel()), 0)) {
+      int goldCost = calculateDiamondCostForInstaRetrieve(userStruct, struct)*-1;
+      int silverCost = MiscMethods.calculateIncomeGainedFromUserStruct(struct.getIncome(), userStruct.getLevel());
+      if (!user.updateRelativeDiamondsCoinsExperienceNaive(goldCost, silverCost, 0)) {
         log.error("problem with using diamonds to finish norm struct income waittime");
       } else {
         if (!UpdateUtils.get().updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), timeOfPurchase, null, true)) {
           log.error("problem with using diamonds to finish norm struct income waittime");
         }
+        money.put(gold, goldCost);
+        money.put(silver, silverCost);
       }
     }
     if (waitTimeType == NormStructWaitTimeType.FINISH_UPGRADE) {
-      if (!user.updateRelativeDiamondsNaive(calculateDiamondCostForInstaUpgrade(userStruct, struct) * -1)) {
+      int goldCost = calculateDiamondCostForInstaUpgrade(userStruct, struct) * -1;
+      if (!user.updateRelativeDiamondsNaive(goldCost)) {
         log.error("problem with using diamonds to finish norm struct upgrade waittime");
       } else {
         if (!UpdateUtils.get().updateUserStructLastretrievedIscompleteLevelchange(userStruct.getId(), timeOfPurchase, true, 1)) {
           log.error("problem with using diamodns to finish upgrade waittime");
         }
+        money.put(gold, goldCost);
+        money.put(silver, null);
       }
     }
   }
@@ -181,4 +203,28 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return Math.max(1, result);
   }
 
+  public void writeToUserCurrencyHistory(User aUser, Timestamp timeOfPurchase, Map<String, Integer> money) {
+    try {
+      int amount = money.size();
+      String reasonForChange = ControllerConstants.UCHRFC__FINISH_NORM_STRUCT;
+      
+      int numInserted = 0;
+      if(2 == amount) {
+        Map<String, Integer> previousGoldSilver = null;
+        MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, timeOfPurchase, 
+            money, previousGoldSilver, reasonForChange);
+      } else if (1 == amount) {
+        int userId = aUser.getId();
+        int isSilver = 0;
+        int currencyChange = money.get(gold);
+        int currencyBefore = aUser.getDiamonds() - currencyChange;
+        
+        numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, timeOfPurchase, isSilver, 
+            currencyChange, currencyBefore, reasonForChange);
+        log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
+      }
+    } catch (Exception e) {
+      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+    }
+  }
 }

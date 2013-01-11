@@ -2,14 +2,17 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseNormStructureRequestEvent;
 import com.lvl6.events.response.PurchaseNormStructureResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -91,10 +94,13 @@ import com.lvl6.utils.utilmethods.InsertUtil;
       server.writeEvent(resEvent);
 
       if (legitPurchaseNorm) {
-        writeChangesToDB(user, struct);
+        Map<String, Integer> money = new HashMap<String, Integer>();
+        writeChangesToDB(user, struct, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        
+        writeToUserCurrencyHistory(user, timeOfPurchase, money);
       }
     } catch (Exception e) {
       log.error("exception in PurchaseNormStructure processEvent", e);
@@ -103,12 +109,15 @@ import com.lvl6.utils.utilmethods.InsertUtil;
     }
   }
 
-  private void writeChangesToDB(User user, Structure struct) {
+  private void writeChangesToDB(User user, Structure struct, Map<String, Integer> money) {
     int diamondChange = Math.max(0, struct.getDiamondPrice());
     int coinChange = Math.max(0, struct.getCoinPrice());
 
     if (!user.updateRelativeDiamondsCoinsExperienceNaive(diamondChange*-1, coinChange*-1, 0)) {
       log.error("problem with taking away " + diamondChange + " diamonds, " + coinChange + " coins.");
+    } else {//things went ok
+      money.put(MiscMethods.gold, diamondChange);
+      money.put(MiscMethods.silver, coinChange);
     }
   }
 
@@ -168,5 +177,14 @@ import com.lvl6.utils.utilmethods.InsertUtil;
     }
     resBuilder.setStatus(PurchaseNormStructureStatus.SUCCESS);
     return true;
+  }
+  
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
+    Map<String, Integer> previousGoldSilver = null;
+    String reasonForChange = ControllerConstants.UCHRFC__PURCHASE_NORM_STRUCT;
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, date, money,
+        previousGoldSilver, reasonForChange);
+    
   }
 }

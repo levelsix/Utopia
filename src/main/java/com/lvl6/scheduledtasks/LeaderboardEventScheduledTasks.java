@@ -1,5 +1,6 @@
 package com.lvl6.scheduledtasks;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.mortbay.log.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +30,14 @@ import com.lvl6.info.User;
 import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.misc.Notification;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.retrieveutils.rarechange.LeaderboardEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LeaderboardEventRewardRetrieveUtils;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class LeaderboardEventScheduledTasks {
@@ -107,12 +111,20 @@ public class LeaderboardEventScheduledTasks {
 	}
 
 	public void checkEndOfEvent(LeaderboardEvent event) {
+	  Date now = new Date();
+	  Timestamp nowCopy = new Timestamp(now.getTime());
 		if (event.isRewardsGivenOut())
 			return;
-		if (event.getEndDate().getTime() > new Date().getTime())
+		if (event.getEndDate().getTime() > now.getTime())
 			return;
 
 		List<Integer> allUserIds = new ArrayList<Integer>();
+		//user_currency_history
+		List<Timestamp> dates  = new ArrayList<Timestamp>();
+		List<Integer> areSilver = new ArrayList<Integer>();
+		List<Integer> goldSilverChange = new ArrayList<Integer>();
+		List<Integer> previousGoldSilver = null;
+		List<String> reasonsForChanges = new ArrayList<String>();
 
 		List<LeaderboardEventReward> rewards = LeaderboardEventRewardRetrieveUtils
 				.getLeaderboardEventRewardsForId(event.getId());
@@ -122,19 +134,39 @@ public class LeaderboardEventScheduledTasks {
 
 			List<Integer> userIds = new ArrayList<Integer>();
 			Iterator<Tuple> it = set.iterator();
+			
 			while (it.hasNext()) {
 				Tuple t = it.next();
 				Integer userId = Integer.valueOf(t.getElement());
 
 				// Make sure a score of at least 0
 				userIds.add(userId);
+				
+				//user_currency_history
+				dates.add(nowCopy);
+				areSilver.add(0);
+				goldSilverChange.add(reward.getGoldRewarded());
+				reasonsForChanges.add(ControllerConstants.UCHRFC__LEADERBOARD);
 			}
 
 			log.info("Awarding " + reward.getGoldRewarded() + " gold for ranks "+reward.getMinRank()+"-"+reward.getMaxRank()+" to users "+userIds);
 			if (!UpdateUtils.get().updateUsersAddDiamonds(userIds, reward.getGoldRewarded())) {
 				log.error("Error updating user diamonds for userIds " + userIds + " and reward " + reward);
 			}
-
+			//try catch not necessary, just precaution.
+			try {
+			  int numInserted = InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates, 
+			      areSilver, goldSilverChange, previousGoldSilver, reasonsForChanges);
+			  log.info("Should be " + userIds.size() + ". Rows inserted into user_currency_history: " + numInserted);
+			} catch(Exception e) {
+			  log.error("Maybe table's not there or duplicate keys? " + e.toString());
+			}
+			//this is done so as to not create new lists each loop
+			dates.clear();
+			areSilver.clear();
+			goldSilverChange.clear();
+			reasonsForChanges.clear();
+			
 			allUserIds.addAll(userIds);
 		}
 

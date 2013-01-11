@@ -1,9 +1,15 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
+import org.mortbay.log.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseGroupChatRequestEvent;
 import com.lvl6.events.response.PurchaseGroupChatResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -17,6 +23,7 @@ import com.lvl6.proto.EventProto.PurchaseGroupChatResponseProto.PurchaseGroupCha
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 
 @Component @DependsOn("gameServer") public class PurchaseGroupChatController extends EventController {
 
@@ -61,6 +68,7 @@ import com.lvl6.utils.RetrieveUtils;
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        writeToUserCurrencyHistory(user); //don't want to hold up thread from sending to client, hence after writeEvent
       }
     } catch (Exception e) {
       log.error("exception in PurchaseGroupChat processEvent", e);
@@ -88,5 +96,22 @@ import com.lvl6.utils.RetrieveUtils;
     }
     resBuilder.setStatus(PurchaseGroupChatStatus.SUCCESS);
     return true;
+  }
+  
+  private void writeToUserCurrencyHistory(User u) {
+    //try, catch just a precaution
+    try {
+      Timestamp date = new Timestamp((new Date()).getTime());
+      int isSilver = 0;
+      int currencyChange = ControllerConstants.PURCHASE_GROUP_CHAT__DIAMOND_PRICE_FOR_PACKAGE;
+      int currencyBefore = u.getDiamonds() - currencyChange;
+      String reasonForChange = ControllerConstants.UCHRFC__GROUP_CHAT;
+      int inserted = InsertUtils.get().insertIntoUserCurrencyHistory(u.getId(), date, isSilver,
+          currencyChange, currencyBefore, reasonForChange);
+
+      log.info("Should be 1. Rows inserted into user_currency_history: " + inserted);
+    } catch (Exception e) {
+      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+    }
   }
 }

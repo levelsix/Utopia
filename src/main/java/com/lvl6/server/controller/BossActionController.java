@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.mortbay.log.Log;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -122,6 +123,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           List<FullUserEquipProto> ueList = getFullUserEquipProtosForClient(
               resBuilder, allUserEquipIds, aUser.getId(), allEquipIds, levels);
           resBuilder.addAllLootUserEquip(ueList);
+          
+          writeToUserCurrencyHistory(aUser, money, curTime);
         }
       }
       BossActionResponseEvent resEvent = new BossActionResponseEvent(userId);
@@ -639,5 +642,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
 
     return fullUserEquipProtos;
+  }
+  
+  private void writeToUserCurrencyHistory(User aUser, Map<String, Integer> money, Timestamp curTime) {
+    Map<String, Integer> previousGoldSilver = null;
+    String reasonForChange = ControllerConstants.UCHRFC__BOSS_ACTION;
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, curTime, money, 
+        previousGoldSilver, reasonForChange);
+    
   }
 }

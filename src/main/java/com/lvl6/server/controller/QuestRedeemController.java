@@ -1,13 +1,18 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.QuestRedeemRequestEvent;
 import com.lvl6.events.response.QuestRedeemResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -119,13 +124,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       if (legitRedeem) {
         User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-        writeChangesToDB(userQuest, quest, user, senderProto);
+        Map<String, Integer> money = new HashMap<String, Integer>();
+        writeChangesToDB(userQuest, quest, user, senderProto, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         if (gainedEquip) {
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
         }
+        
+        writeToUserCurrencyHistory(user, money);
       }
     } catch (Exception e) {
       log.error("exception in QuestRedeem processEvent", e);
@@ -160,7 +168,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }    
   }
 
-  private void writeChangesToDB(UserQuest userQuest, Quest quest, User user, MinimumUserProto senderProto) {
+  private void writeChangesToDB(UserQuest userQuest, Quest quest, User user, MinimumUserProto senderProto,
+      Map<String, Integer> money) {
     if (!UpdateUtils.get().updateRedeemUserQuest(userQuest.getUserId(), userQuest.getQuestId())) {
       log.error("problem with marking user quest as redeemed. questId=" + userQuest.getQuestId());
     }
@@ -171,6 +180,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (!user.updateRelativeDiamondsCoinsExperienceNaive(diamondsGained, coinsGained, expGained)) {
       log.error("problem with giving user " + diamondsGained + " diamonds, " + coinsGained
           + " coins, " + expGained + " exp");
+    } else {
+      //things worked
+      money.put(MiscMethods.gold, diamondsGained);
+      money.put(MiscMethods.silver, coinsGained);
     }
   }
 
@@ -194,4 +207,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return false;
   }
 
+  public void writeToUserCurrencyHistory(User aUser, Map<String, Integer> money) {
+    Timestamp date = new Timestamp((new Date()).getTime());
+
+    Map<String, Integer> previousGoldSilver = null;
+    String reasonForChange = ControllerConstants.UCHRFC__QUEST_REDEEM;
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, date, money,
+        previousGoldSilver, reasonForChange);
+  }
 }

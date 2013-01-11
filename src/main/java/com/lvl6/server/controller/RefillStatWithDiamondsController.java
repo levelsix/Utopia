@@ -1,9 +1,14 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RefillStatWithDiamondsRequestEvent;
 import com.lvl6.events.response.RefillStatWithDiamondsResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -18,6 +23,7 @@ import com.lvl6.proto.EventProto.RefillStatWithDiamondsResponseProto.RefillStatS
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 
   @Component @DependsOn("gameServer") public class RefillStatWithDiamondsController extends EventController{
 
@@ -64,6 +70,7 @@ import com.lvl6.utils.RetrieveUtils;
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        writeToUserCurrencyHistory(user, statType);
       }
     } catch (Exception e) {
       log.error("exception in RefillStatWithDiamondsController processEvent", e);
@@ -126,6 +133,31 @@ import com.lvl6.utils.RetrieveUtils;
     resBuilder.setStatus(RefillStatStatus.SUCCESS);
     return true;  
   }
+  
+  public void writeToUserCurrencyHistory(User aUser, StatType aStatType) {
+    //try, catch just a precaution
+    try {
+      int userId = aUser.getId();
+      Timestamp date = new Timestamp((new Date()).getTime());
+      int isSilver = 0;
+      int currencyChange = 0;
+      int currencyBefore = 0;
+      String reasonForChange = ControllerConstants.UCHRFC__REFILL_STAT; 
 
+      if (StatType.ENERGY == aStatType) {
+        currencyChange = ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL * -1;
+      } else if (StatType.STAMINA == aStatType) {
+        currencyChange = ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL * -1;
+      }
+
+      currencyBefore = aUser.getDiamonds() - currencyChange;
+
+      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver, 
+          currencyChange, currencyBefore, reasonForChange);
+      log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
+    } catch (Exception e) {
+      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+    }
+  }
 
 }

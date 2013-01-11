@@ -2,11 +2,13 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.mortbay.log.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,6 +125,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int userId = ControllerConstants.NOT_SET;
     List<Integer> equipIds = new ArrayList<Integer>();
     Task taskCompleted = null;
+    int playerCoins = 0;
+    int playerDiamonds = 0;
 
     if (legitUserCreate) {
       String newReferCode = grabNewReferCode();
@@ -130,11 +134,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       taskCompleted = TaskRetrieveUtils.getTaskForTaskId(ControllerConstants.TUTORIAL__FIRST_TASK_ID);
 
       int playerExp = taskCompleted.getExpGained() * taskCompleted.getNumForCompletion() + ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN + ControllerConstants.TUTORIAL__FAKE_QUEST_EXP_GAINED;
-      int playerCoins = ControllerConstants.TUTORIAL__INIT_COINS + MiscMethods.calculateCoinsGainedFromTutorialTask(taskCompleted) + ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_COIN_GAIN + ControllerConstants.TUTORIAL__FAKE_QUEST_COINS_GAINED
+      playerCoins = ControllerConstants.TUTORIAL__INIT_COINS + MiscMethods.calculateCoinsGainedFromTutorialTask(taskCompleted) + ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_COIN_GAIN + ControllerConstants.TUTORIAL__FAKE_QUEST_COINS_GAINED
           - StructureRetrieveUtils.getStructForStructId(ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD).getCoinPrice(); 
       if (referrer != null) playerCoins += ControllerConstants.USER_CREATE__COIN_REWARD_FOR_BEING_REFERRED;
 
-      int playerDiamonds = ControllerConstants.TUTORIAL__INIT_DIAMONDS;
+      playerDiamonds = ControllerConstants.TUTORIAL__INIT_DIAMONDS;
       if (usedDiamondsToBuild) playerDiamonds -= ControllerConstants.TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT;
 
       Integer amuletEquipped = ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID;
@@ -159,6 +163,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       userId = insertUtils.insertUser(udid, name, type, loc, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL, 
           attack, defense, energy, stamina, playerExp, playerCoins, playerDiamonds, 
           null, null, null, false, ControllerConstants.PURCHASE_GROUP_CHAT__NUM_CHATS_GIVEN_FOR_PACKAGE);
+            
       if (userId > 0) {
         server.lockPlayer(userId);
         try {
@@ -224,6 +229,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
         LeaderBoardUtil leaderboard = AppContext.getApplicationContext().getBean(LeaderBoardUtil.class);
         leaderboard.updateLeaderboardForUser(user);
+        
+        //CURRENCY CHANGE HISTORY
+        writeToUserCurrencyHistory(user, playerCoins, playerDiamonds);
+
       } catch (Exception e) {
         log.error("exception in UserCreateController processEvent", e);
       } finally {
@@ -450,6 +459,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return sumStat + ControllerConstants.TUTORIAL__MAGE_INIT_ATTACK + ControllerConstants.TUTORIAL__MAGE_INIT_DEFENSE;
     }
     return sumStat;
+  }
+  
+  private void writeToUserCurrencyHistory(User aUser, int playerCoins, int playerDiamonds) {
+    Timestamp date = new Timestamp(new Date().getTime());
+    String gold = "gold";
+    String silver = "silver";
+    
+    Map<String, Integer> goldSilverChange = new HashMap<String, Integer>();
+    goldSilverChange.put(gold, playerDiamonds);
+    goldSilverChange.put(silver, playerCoins);
+    
+    Map<String, Integer> previousGoldSilver = null;
+    String reasonForChange = ControllerConstants.UCHRFC__USER_CREATED;
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, date, goldSilverChange,
+        previousGoldSilver, reasonForChange);
   }
 
 }

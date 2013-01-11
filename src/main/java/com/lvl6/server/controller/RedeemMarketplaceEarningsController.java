@@ -1,9 +1,14 @@
 package com.lvl6.server.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RedeemMarketplaceEarningsRequestEvent;
 import com.lvl6.events.response.RedeemMarketplaceEarningsResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -57,7 +62,8 @@ import com.lvl6.utils.RetrieveUtils;
       server.writeEvent(resEvent);
 
       if (legitRedeem) {
-        writeChangesToDB(user);
+        Map<String, Integer> money = new HashMap<String, Integer>();
+        writeChangesToDB(user, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
@@ -70,7 +76,8 @@ import com.lvl6.utils.RetrieveUtils;
     }
   }
 
-  private void writeChangesToDB(User user) {
+  private void writeChangesToDB(User user, Map<String, Integer> money) {
+    money.put(MiscMethods.gold, user.getDiamonds());
     if (!user.updateMoveMarketplaceEarningsToRealStatResetNummarketplacesalesunredeemed()) {
       log.error("problem with moving earnings to real stat for user in mktplace. user=" + user);
     }

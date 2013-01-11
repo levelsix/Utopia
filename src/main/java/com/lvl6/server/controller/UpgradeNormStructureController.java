@@ -2,12 +2,16 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.UpgradeNormStructureRequestEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.events.response.UpgradeNormStructureResponseEvent;
@@ -75,10 +79,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
 
       if (legitUpgrade) {
-        writeChangesToDB(user, userStruct, struct, timeOfUpgrade);
+        Map<String, Integer> money = new HashMap<String, Integer>();
+        writeChangesToDB(user, userStruct, struct, timeOfUpgrade, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        
+        writeToUserCurrencyHistory(user, timeOfUpgrade, money);
       }
     } catch (Exception e) {
       log.error("exception in UpgradeNormStructure processEvent", e);
@@ -87,11 +94,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private void writeChangesToDB(User user, UserStruct userStruct, Structure struct, Timestamp timeOfUpgrade) {
+  private void writeChangesToDB(User user, UserStruct userStruct, Structure struct, Timestamp timeOfUpgrade,
+      Map<String, Integer> money) {
+    int goldChange = -1*calculateUpgradeDiamondCost(userStruct.getLevel(), struct);
+    int silverChange = -1*calculateUpgradeCoinCost(userStruct.getLevel(), struct);
+    
     // TODO Auto-generated method stub
-    if (!user.updateRelativeDiamondsCoinsExperienceNaive(-1*calculateUpgradeDiamondCost(userStruct.getLevel(), struct), -1*calculateUpgradeCoinCost(userStruct.getLevel(), struct), 0)) {
-      log.error("problem with updating user stats: diamondChange=" + -1*calculateUpgradeDiamondCost(userStruct.getLevel(), struct)
-          + ", coinChange=" + -1*calculateUpgradeCoinCost(userStruct.getLevel(), struct) + ", user is " + user);
+    if (!user.updateRelativeDiamondsCoinsExperienceNaive(goldChange, silverChange, 0)) {
+      log.error("problem with updating user stats: diamondChange=" + goldChange
+          + ", coinChange=" + silverChange + ", user is " + user);
+    } else {
+      //everything went well
+      money.put(MiscMethods.gold, goldChange);
+      money.put(MiscMethods.silver, silverChange);
     }
     if (!UpdateUtils.get().updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), null, timeOfUpgrade, false)) {
       log.error("problem with changing time of upgrade to " + timeOfUpgrade + " and marking as incomplete, the user struct " + userStruct);
@@ -166,6 +181,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   
   private int calculateUpgradeDiamondCost(int oldLevel, Structure struct) {
     return Math.max(0, (int)(struct.getDiamondPrice() * Math.pow(ControllerConstants.UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_DIAMOND_COST_EXPONENT_BASE, oldLevel)));
+  }
+  
+  private void writeToUserCurrencyHistory(User aUser, Timestamp timeOfUpgrade, Map<String, Integer> money) {
+    int amount = money.size();
+    String reasonForChange = ControllerConstants.UCHRFC__UPGRADE_NORM_STRUCT;
+    
+    if(2 == amount) {
+      Map<String, Integer> previousGoldSilver = null;
+      MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, timeOfUpgrade, 
+          money, previousGoldSilver, reasonForChange);
+    }
   }
 
 }

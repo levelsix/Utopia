@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 
+import org.mortbay.log.Log;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,7 @@ import com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.Purchas
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 
 /*
  * NOT READY/BEING USED YET
@@ -69,6 +71,7 @@ import com.lvl6.utils.RetrieveUtils;
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        writeToUserCurrencyHistory(user, type, timeOfPurchase); //don't want to hold up thread from sending to client, hence after writeEvent
       }
     } catch (Exception e) {
       log.error("exception in PurchaseMarketplaceLicense processEvent", e);
@@ -129,6 +132,34 @@ import com.lvl6.utils.RetrieveUtils;
 
     resBuilder.setStatus(PurchaseMarketplaceLicenseStatus.SUCCESS);
     return true;
+  }
+  
+  private void writeToUserCurrencyHistory(User user, LicenseType type, Timestamp timeOfPurchase) {
+    //try, catch just a precaution
+    try {
+      int isSilver = 0;
+      int numInserted = 0;
+      if (type == LicenseType.SHORT) {
+        int currencyChange = ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__SHORT_DIAMOND_COST*-1;
+        int currencyBefore = user.getDiamonds() - currencyChange;
+        String reasonForChange = ControllerConstants.UCHRFC__SHORT_MARKET_PLACE_LICENSE;
+
+        numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(user.getId(), timeOfPurchase, isSilver, 
+            currencyChange, currencyBefore, reasonForChange);
+
+      } else if (type == LicenseType.LONG) {
+        int currencyChange = ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__LONG_DIAMOND_COST*-1;
+        int currencyBefore = user.getDiamonds() - currencyChange;
+        String reasonForChange = ControllerConstants.UCHRFC__LONG_MARKET_PLACE_LICENSE;
+
+        numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(user.getId(), timeOfPurchase, isSilver, 
+            currencyChange, currencyBefore, reasonForChange);
+      } //don't do anything if type is something else
+
+      log.info("Should be 1. Num rows inserted into user_currency_history: " + numInserted);
+    } catch (Exception e) {
+      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+    }
   }
 
 }
