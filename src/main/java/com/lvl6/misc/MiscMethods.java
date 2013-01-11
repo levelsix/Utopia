@@ -110,7 +110,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 public class MiscMethods {
 
 
-	private static final Logger log = LoggerFactory.getLogger(MiscMethods.class);
+  private static final Logger log = LoggerFactory.getLogger(MiscMethods.class);
   public static final String clanTowersClanAttacked = "clanTowersClanAttacked";
   public static final String clanTowersClanOwned = "clanTowersClanOwned";
   public static final String gold = "gold";
@@ -271,9 +271,13 @@ public class MiscMethods {
   }
 
   public static UpdateClientUserResponseEvent createUpdateClientUserResponseEventAndUpdateLeaderboard(User user) {
-    if (!user.isFake()) {
-      LeaderBoardUtil leaderboard = AppContext.getApplicationContext().getBean(LeaderBoardUtil.class);
-      leaderboard.updateLeaderboardForUser(user);
+    try {
+      if (!user.isFake()) {
+        LeaderBoardUtil leaderboard = AppContext.getApplicationContext().getBean(LeaderBoardUtil.class);
+        leaderboard.updateLeaderboardForUser(user);
+      }
+    } catch (Exception e) {
+      log.error("Failed to update leaderboard.");
     }
 
     UpdateClientUserResponseEvent resEvent = new UpdateClientUserResponseEvent(user.getId());
@@ -400,6 +404,7 @@ public class MiscMethods {
         .setMinClanMembersToHoldClanTower(ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER);
  
 
+
     if (ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS != null) {
       for (int i = 0; i < ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS.length; i++) {
         AnimatedSpriteOffset aso = ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS[i];
@@ -443,14 +448,14 @@ public class MiscMethods {
         .build();
 
     cb.setFormulaConstants(formulaConstants);
-    
+
     ClanConstants clanConstants = ClanConstants.newBuilder()
         .setMaxCharLengthForClanDescription(ControllerConstants.CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_DESCRIPTION)
         .setMaxCharLengthForClanName(ControllerConstants.CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_NAME)
         .setDiamondPriceToCreateClan(ControllerConstants.CREATE_CLAN__DIAMOND_PRICE_TO_CREATE_CLAN)
         .setMaxCharLengthForClanTag(ControllerConstants.CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_TAG)
         .build();
-    
+
     cb.setClanConstants(clanConstants);
 
     ForgeConstants forgeConstants = ForgeConstants.newBuilder()
@@ -492,16 +497,16 @@ public class MiscMethods {
         .build();
 
     cb = cb.setBattleConstants(battleConstants);
-    
+
     GoldmineConstants gc = GoldmineConstants.newBuilder()
         .setNumHoursBeforeGoldmineRetrieval(ControllerConstants.GOLDMINE__NUM_HOURS_BEFORE_RETRIEVAL)
         .setNumHoursForGoldminePickup(ControllerConstants.GOLDMINE__NUM_HOURS_TO_PICK_UP)
         .setGoldAmountFromGoldminePickup(ControllerConstants.GOLDMINE__GOLD_AMOUNT_FROM_PICK_UP)
         .setGoldCostForGoldmineRestart(ControllerConstants.GOLDMINE__GOLD_COST_TO_RESTART)
         .build();
-    
+
     cb = cb.setGoldmineConstants(gc);
-    
+
     LockBoxConstants lbc = LockBoxConstants.newBuilder()
         .setFreeChanceToPickLockBox(ControllerConstants.LOCK_BOXES__FREE_CHANCE_TO_PICK)
         .setGoldChanceToPickLockBox(ControllerConstants.LOCK_BOXES__GOLD_CHANCE_TO_PICK)
@@ -511,9 +516,9 @@ public class MiscMethods {
         .setSilverChanceToPickLockBox(ControllerConstants.LOCK_BOXES__SILVER_CHANCE_TO_PICK)
         .setSilverCostToPickLockBox(ControllerConstants.LOCK_BOXES__SILVER_COST_TO_PICK)
         .build();
-    
+
     cb = cb.setLockBoxConstants(lbc);
-    
+
     ExpansionConstants ec = ExpansionConstants.newBuilder()
         .setExpansionPurchaseCostConstant(ControllerConstants.PURCHASE_EXPANSION__COST_CONSTANT)
         .setExpansionPurchaseCostExponentBase(ControllerConstants.PURCHASE_EXPANSION__COST_EXPONENT_BASE)
@@ -521,9 +526,9 @@ public class MiscMethods {
         .setExpansionWaitCompleteHourConstant(ControllerConstants.EXPANSION_WAIT_COMPLETE__HOUR_CONSTANT)
         .setExpansionWaitCompleteHourIncrementBase(ControllerConstants.EXPANSION_WAIT_COMPLETE__HOUR_INCREMENT_BASE)
         .build();
-    
+
     cb = cb.setExpansionConstants(ec);
-    
+
     ThreeCardMonteConstants tc = ThreeCardMonteConstants.newBuilder()
         .setDiamondCostToPlayThreeCardMonte(ControllerConstants.THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY)
         .setMinLevelToDisplayThreeCardMonte(ControllerConstants.THREE_CARD_MONTE__MIN_LEVEL)
@@ -531,9 +536,9 @@ public class MiscMethods {
         .setMediumMonteCardPercentageChance(ControllerConstants.THREE_CARD_MONTE__MEDIUM_PERCENTAGE)
         .setGoodMonteCardPercentageChance(ControllerConstants.THREE_CARD_MONTE__GOOD_PERCENTAGE)
         .build();
-    
+
     cb = cb.setThreeCardMonteConstants(tc);
-    
+
     DownloadableNibConstants dnc = DownloadableNibConstants.newBuilder()
         .setThreeCardMonteNibName(ControllerConstants.NIB_NAME__THREE_CARD_MONTE)
         .setLockBoxNibName(ControllerConstants.NIB_NAME__LOCK_BOX)
@@ -544,7 +549,7 @@ public class MiscMethods {
         .setBlacksmithNibName(ControllerConstants.NIB_NAME__BLACKSMITH)
         .setGoldShoppeNibName(ControllerConstants.NIB_NAME__GOLD_SHOPPE)
         .build();
-    
+
     cb = cb.setDownloadableNibConstants(dnc);
 
     for (int i = 0; i < IAPValues.packageNames.size(); i++) {
@@ -573,12 +578,12 @@ public class MiscMethods {
     
     return cb.build();  
   }
-  
+
   public static List<LockBoxEventProto> currentLockBoxEventsForUserType(UserType type) {
     Map<Integer, LockBoxEvent> events = LockBoxEventRetrieveUtils.getLockBoxEventIdsToLockBoxEvents();
     long curTime = new Date().getTime();
     List<LockBoxEventProto> toReturn = new ArrayList<LockBoxEventProto>();
-    
+
     for (LockBoxEvent event : events.values()) {
       // Send all events that are not yet over
       if (event.getEndDate().getTime() > curTime) {
@@ -587,12 +592,12 @@ public class MiscMethods {
     }
     return toReturn;
   }
-  
+
   public static List<BossEventProto> currentBossEvents() {
     Map<Integer, BossEvent> events = BossEventRetrieveUtils.getIdsToBossEvents();
     long curTime = new Date().getTime();
     List<BossEventProto> toReturn = new ArrayList<BossEventProto>();
-    
+
     for (BossEvent event : events.values()) {
       // Send all events that are not yet over
       if (event.getEndDate().getTime() > curTime) {
@@ -741,56 +746,56 @@ public class MiscMethods {
 
     return retEquipId;
   }
-  
+
   /*
    * Returns true if the user's (short or long) marketplace license is still in effect
    */
   public static boolean validateMarketplaceLicense(User aUser, Timestamp timeActionBegan) {
-	  Date longMarketplaceLicenseTimeOfPurchase = aUser.getLastLongLicensePurchaseTime();
-	  Date shortMarketplaceLicenseTimeOfPurchase = aUser.getLastShortLicensePurchaseTime();
-	  
-	  boolean longLicenseValid = false;
-	  boolean shortLicenseValid = false;
-	  
-	  double daysToMilliseconds = 24 * 60 * 60 * 1000;
+    Date longMarketplaceLicenseTimeOfPurchase = aUser.getLastLongLicensePurchaseTime();
+    Date shortMarketplaceLicenseTimeOfPurchase = aUser.getLastShortLicensePurchaseTime();
 
-	  double startTime = timeActionBegan.getTime();
-	  
-	  //check if long license valid
-	  if (null != longMarketplaceLicenseTimeOfPurchase) {
-		  //time long license was bought
-		  double timeLicensePurchased = longMarketplaceLicenseTimeOfPurchase.getTime();
-		  double timeLongLicenseIsEffective = 
-				  ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_LONG_LICENSE *
-				  daysToMilliseconds;
-		  double timeLongLicenseEnds = timeLicensePurchased + timeLongLicenseIsEffective;
-		  
-		  if(startTime < timeLongLicenseEnds) {
-			  longLicenseValid = true;
-		  }
-	  }
-	  
-	  //check if short license valid
-	  if (null != shortMarketplaceLicenseTimeOfPurchase) {
-		  //time short license was bought
-		  double timeLicensePurchased = shortMarketplaceLicenseTimeOfPurchase.getTime();
-		  double timeShortLicenseIsEffective = 
-				  ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_SHORT_LICENSE *
-				  daysToMilliseconds;
-		  double timeShortLicenseEnds = timeLicensePurchased + timeShortLicenseIsEffective;
-		  
-		  if(startTime < timeShortLicenseEnds) {
-			  shortLicenseValid = true;
-		  }
-	  }	  
-	  
-	  if(longLicenseValid || shortLicenseValid) {
-		  return true;
-	  } else {
-		  return false;
-	  }
+    boolean longLicenseValid = false;
+    boolean shortLicenseValid = false;
+
+    double daysToMilliseconds = 24 * 60 * 60 * 1000;
+
+    double startTime = timeActionBegan.getTime();
+
+    //check if long license valid
+    if (null != longMarketplaceLicenseTimeOfPurchase) {
+      //time long license was bought
+      double timeLicensePurchased = longMarketplaceLicenseTimeOfPurchase.getTime();
+      double timeLongLicenseIsEffective = 
+          ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_LONG_LICENSE *
+          daysToMilliseconds;
+      double timeLongLicenseEnds = timeLicensePurchased + timeLongLicenseIsEffective;
+
+      if(startTime < timeLongLicenseEnds) {
+        longLicenseValid = true;
+      }
+    }
+
+    //check if short license valid
+    if (null != shortMarketplaceLicenseTimeOfPurchase) {
+      //time short license was bought
+      double timeLicensePurchased = shortMarketplaceLicenseTimeOfPurchase.getTime();
+      double timeShortLicenseIsEffective = 
+          ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_SHORT_LICENSE *
+          daysToMilliseconds;
+      double timeShortLicenseEnds = timeLicensePurchased + timeShortLicenseIsEffective;
+
+      if(startTime < timeShortLicenseEnds) {
+        shortLicenseValid = true;
+      }
+    }	  
+
+    if(longLicenseValid || shortLicenseValid) {
+      return true;
+    } else {
+      return false;
+    }
   }
-  
+
   public static List<ClanTierLevelProto> getAllClanTierLevelProtos() {
     ArrayList<ClanTierLevelProto> toRet = new ArrayList<ClanTierLevelProto>();
     Map<Integer, ClanTierLevel> l = ClanTierLevelRetrieveUtils.getAllClanTierLevels();
@@ -809,18 +814,18 @@ public class MiscMethods {
   //returns ids of clan towers that the clan owned and attacked
   public static Map<String, List<Integer>> updateClanTowersAfterClanSizeDecrease(Clan aClan) {
     int clanId = aClan.getId();
-    
+
     //can be null if the clan was just deleted, otherwise a list of all members in the clan
     List<UserClan> userClanList = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId);
-    
+
     int clanSize = 0;
-    
+
     if(null == userClanList || userClanList.isEmpty()) {
       clanSize = 0;
     } else {
       clanSize = userClanList.size(); 
     }
-    
+
     int minSize = ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER;
 
     if (clanSize < minSize) {
@@ -842,7 +847,7 @@ public class MiscMethods {
       if(null == towersAttacked) {
         towersAttacked = new ArrayList<ClanTower>();
       }
-      
+
       //if the clan has towers do something.
       if(0 < towersOwned.size() || 0 < towersAttacked.size()) {
         List<Integer> ownedIds = new ArrayList<Integer>();
@@ -883,7 +888,7 @@ public class MiscMethods {
     return null;
 
   }
-  
+
   //returns the clan towers that changed
   public static void sendClanTowerWarNotEnoughMembersNotification(
       Map<Integer, ClanTower> clanTowerIdsToClanTowers, List<Integer> towersAttacked,
@@ -902,7 +907,7 @@ public class MiscMethods {
       attackerWon = true;
       generateClanTowerNotEnoughMembersNotification(aClan, towersOwned, clanTowerIdsToClanTowers,
           notificationsToSend, attackerWon, onlinePlayers, server);
-      
+
       for(Notification n: notificationsToSend) {
         writeGlobalNotification(n, server);
       }
@@ -911,11 +916,11 @@ public class MiscMethods {
     log.info("no towers changed");
     return;
   }
-  
+
   private static void generateClanTowerNotEnoughMembersNotification(Clan aClan, List<Integer> towerIds, 
       Map<Integer, ClanTower> clanTowerIdsToClanTowers, List<Notification> notificationsToSend,
       boolean isTowerOwner, Collection<ConnectedPlayer> onlinePlayers, GameServer server) {
-    
+
     //for each tower make a notification for it
     for(Integer towerId: towerIds) {
       ClanTower aTower = clanTowerIdsToClanTowers.get(towerId);
@@ -928,7 +933,7 @@ public class MiscMethods {
 
       losingClan = aClan;
       winningClan = ClanRetrieveUtils.getClanWithId(aTower.getClanOwnerId());
-      
+
       losingClanName = losingClan.getName();
       winningClanName = winningClan != null ? winningClan.getName() : null;
       clanTowerWarNotification.setAsClanTowerWarClanConceded(
@@ -948,27 +953,27 @@ public class MiscMethods {
             CreateInfoProtoUtils.createClanTowerProtoFromClanTower(tower);
         toSend.add(towerProto);
       }
-      
+
       ChangedClanTowerResponseProto.Builder t = ChangedClanTowerResponseProto.newBuilder();
       t.addAllClanTowers(toSend);
       t.setReason(reason);
 
       ChangedClanTowerResponseEvent e = new ChangedClanTowerResponseEvent(0);
       e.setChangedClanTowerResponseProto(t.build());
-      
+
       server.writeGlobalEvent(e);
     }
   }
-  
+
   public static void writeGlobalNotification(Notification n, GameServer server) {
     GeneralNotificationResponseProto.Builder notificationProto = 
         n.generateNotificationBuilder();
-    
+
     GeneralNotificationResponseEvent aNotification = new GeneralNotificationResponseEvent(0);
     aNotification.setGeneralNotificationResponseProto(notificationProto.build());
     server.writeGlobalEvent(aNotification);
   }
-  
+
   //Simple (inefficient) word by word censor. If a word appears in 
   //a blacklist then that word is replaced by a number of asterisks 
   //equal to the word's length, e.g. fuck => ****
