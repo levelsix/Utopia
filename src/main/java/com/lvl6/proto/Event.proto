@@ -211,8 +211,10 @@ message StartupResponseProto {
 	}
 		  
 	message StartupConstants {
+		// Keep for legacy reasons
 	  	repeated string productIds = 1;
 	  	repeated int32 productDiamondsGiven = 2;
+	  	
     	optional int32 maxLevelDifferenceForBattle = 6;
     	optional int32 maxLevelForUser = 62;
     	
@@ -330,6 +332,8 @@ message StartupResponseProto {
 		optional BazaarMinLevelConstants minLevelConstants = 93;
 		
 		optional LeaderboardEventConstants leaderboardConstants = 94;
+		
+		optional InAppPurchasePackageProto inAppPurchasePackages = 95;
 		
 		message LeaderboardEventConstants {
 			optional int32 winsWeight = 1;

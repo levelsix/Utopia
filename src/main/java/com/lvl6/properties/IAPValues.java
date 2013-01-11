@@ -28,6 +28,12 @@ public class IAPValues {
   private static final String PACKAGE3SALE = Globals.APPLE_BUNDLE_ID + ".package3sale";
   private static final String PACKAGE4SALE = Globals.APPLE_BUNDLE_ID + ".package4sale";
   private static final String PACKAGE5SALE = Globals.APPLE_BUNDLE_ID + ".package5sale";
+
+  private static final String PACKAGES1 = Globals.APPLE_BUNDLE_ID + ".packageS1";
+  private static final String PACKAGES2 = Globals.APPLE_BUNDLE_ID + ".packageS2";
+  private static final String PACKAGES3 = Globals.APPLE_BUNDLE_ID + ".packageS3";
+  private static final String PACKAGES4 = Globals.APPLE_BUNDLE_ID + ".packageS4";
+  private static final String PACKAGES5 = Globals.APPLE_BUNDLE_ID + ".packageS5";
   
   /*
    * 1- $1 for 10 diamonds
@@ -43,6 +49,12 @@ public class IAPValues {
   private static final int PACKAGE_4_DIAMONDS = 650;
   private static final int PACKAGE_5_DIAMONDS = 1500;
   
+  private static final int PACKAGE_S1_COINS = 50;
+  private static final int PACKAGE_S2_COINS = 120;
+  private static final int PACKAGE_S3_COINS = 250;
+  private static final int PACKAGE_S4_COINS = 650;
+  private static final int PACKAGE_S5_COINS = 1500;
+  
   private static final double PACKAGE_1_PRICE = 4.99;
   private static final double PACKAGE_2_PRICE = 9.99;
   private static final double PACKAGE_3_PRICE = 19.99;
@@ -54,6 +66,15 @@ public class IAPValues {
   private static final double PACKAGE_3_SALE_PRICE = 15.99;
   private static final double PACKAGE_4_SALE_PRICE = 39.99;
   private static final double PACKAGE_5_SALE_PRICE = 74.99;
+  
+  private static final double PACKAGE_S1_PRICE = 4.99;
+  private static final double PACKAGE_S2_PRICE = 9.99;
+  private static final double PACKAGE_S3_PRICE = 19.99;
+  private static final double PACKAGE_S4_PRICE = 49.99;
+  private static final double PACKAGE_S5_PRICE = 99.99;
+
+  public static final List<String> iapPackageNames = 
+      Arrays.asList(PACKAGE1, PACKAGES1, PACKAGE2, PACKAGES2, PACKAGE3, PACKAGES3, PACKAGE4, PACKAGES4, PACKAGE5, PACKAGES5);
 
   public static final List<String> packageNames = 
       Arrays.asList(PACKAGE1, PACKAGE2, PACKAGE3, PACKAGE4, PACKAGE5);
@@ -77,6 +98,25 @@ public class IAPValues {
     }
     if (packageName.equals(PACKAGE5) || packageName.equals(PACKAGE5SALE)) {
       return PACKAGE_5_DIAMONDS;
+    }
+    return 0;
+  }
+
+  public static int getCoinsForPackageName(String packageName) {
+    if (packageName.equals(PACKAGES1)) {
+      return PACKAGE_S1_COINS;
+    }
+    if (packageName.equals(PACKAGES2)) {
+      return PACKAGE_S2_COINS;
+    }
+    if (packageName.equals(PACKAGES3)) {
+      return PACKAGE_S3_COINS;
+    }
+    if (packageName.equals(PACKAGES4)) {
+      return PACKAGE_S4_COINS;
+    }
+    if (packageName.equals(PACKAGES5)) {
+      return PACKAGE_S5_COINS;
     }
     return 0;
   }
@@ -111,6 +151,21 @@ public class IAPValues {
     }
     if (packageName.equals(PACKAGE5SALE)) {
       return PACKAGE_5_SALE_PRICE;
+    }
+    if (packageName.equals(PACKAGES1)) {
+      return PACKAGE_S1_PRICE;
+    }
+    if (packageName.equals(PACKAGES2)) {
+      return PACKAGE_S2_PRICE;
+    }
+    if (packageName.equals(PACKAGES3)) {
+      return PACKAGE_S3_PRICE;
+    }
+    if (packageName.equals(PACKAGES4)) {
+      return PACKAGE_S4_PRICE;
+    }
+    if (packageName.equals(PACKAGES5)) {
+      return PACKAGE_S5_PRICE;
     }
     return 0;
   }

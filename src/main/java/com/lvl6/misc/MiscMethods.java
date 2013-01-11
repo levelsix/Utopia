@@ -66,6 +66,7 @@ import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
 import com.lvl6.proto.InfoProto.BossEventProto;
 import com.lvl6.proto.InfoProto.ClanTierLevelProto;
 import com.lvl6.proto.InfoProto.ClanTowerProto;
+import com.lvl6.proto.InfoProto.InAppPurchasePackageProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.proto.InfoProto.EquipClassType;
@@ -552,9 +553,25 @@ public class MiscMethods {
 
     cb = cb.setDownloadableNibConstants(dnc);
 
+    // For legacy purposes
     for (int i = 0; i < IAPValues.packageNames.size(); i++) {
       cb.addProductIds(IAPValues.packageNames.get(i));
       cb.addProductDiamondsGiven(IAPValues.packageGivenDiamonds.get(i));
+    }
+    
+    for (String id : IAPValues.iapPackageNames) {
+      InAppPurchasePackageProto.Builder iapb = InAppPurchasePackageProto.newBuilder();
+      iapb.setPackageId(id);
+      
+      int diamondAmt = IAPValues.getDiamondsForPackageName(id);
+      if (diamondAmt > 0) {
+        iapb.setCurrencyAmount(diamondAmt);
+        iapb.setIsGold(true);
+      } else {
+        int coinAmt = IAPValues.getCoinsForPackageName(id);
+        iapb.setCurrencyAmount(coinAmt);
+        iapb.setIsGold(false);
+      }
     }
     
     BazaarMinLevelConstants bmlc = BazaarMinLevelConstants.newBuilder()
