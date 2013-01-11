@@ -29,7 +29,7 @@ public class IAPValues {
   private static final String PACKAGE4SALE = Globals.APPLE_BUNDLE_ID + ".package4sale";
   private static final String PACKAGE5SALE = Globals.APPLE_BUNDLE_ID + ".package5sale";
 
-  private static final String PACKAGES1 = Globals.APPLE_BUNDLE_ID + ".package1sale";
+  private static final String PACKAGES1 = Globals.APPLE_BUNDLE_ID + ".packageS1";
   private static final String PACKAGES2 = Globals.APPLE_BUNDLE_ID + ".packageS2";
   private static final String PACKAGES3 = Globals.APPLE_BUNDLE_ID + ".packageS3";
   private static final String PACKAGES4 = Globals.APPLE_BUNDLE_ID + ".packageS4";
@@ -84,8 +84,7 @@ public class IAPValues {
 
   
   public static int getDiamondsForPackageName(String packageName) {
-    // TODO: CHANGE BACK
-    if (packageName.equals(PACKAGE1)) {// || packageName.equals(PACKAGE1SALE)) {
+    if (packageName.equals(PACKAGE1) || packageName.equals(PACKAGE1SALE)) {
       return PACKAGE_1_DIAMONDS;
     }
     if (packageName.equals(PACKAGE2) || packageName.equals(PACKAGE2SALE)) {
