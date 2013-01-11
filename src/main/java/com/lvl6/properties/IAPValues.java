@@ -84,7 +84,8 @@ public class IAPValues {
 
   
   public static int getDiamondsForPackageName(String packageName) {
-    if (packageName.equals(PACKAGE1) || packageName.equals(PACKAGE1SALE)) {
+    // TODO: CHANGE BACK
+    if (packageName.equals(PACKAGE1)) {// || packageName.equals(PACKAGE1SALE)) {
       return PACKAGE_1_DIAMONDS;
     }
     if (packageName.equals(PACKAGE2) || packageName.equals(PACKAGE2SALE)) {
