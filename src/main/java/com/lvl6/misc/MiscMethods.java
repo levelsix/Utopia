@@ -572,6 +572,7 @@ public class MiscMethods {
         iapb.setCurrencyAmount(coinAmt);
         iapb.setIsGold(false);
       }
+      cb.addInAppPurchasePackages(iapb.build());
     }
     
     BazaarMinLevelConstants bmlc = BazaarMinLevelConstants.newBuilder()
