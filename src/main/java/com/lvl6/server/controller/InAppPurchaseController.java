@@ -7,6 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +36,7 @@ import com.lvl6.events.response.InAppPurchaseResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.misc.MiscMethods;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.properties.KabamProperties;
@@ -46,6 +48,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.IAPHistoryRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
+import com.lvl6.utils.utilmethods.InsertUtils;
 
 @Component
 @DependsOn("gameServer")
@@ -167,6 +170,9 @@ public class InAppPurchaseController extends EventController {
             resBuilder.setPackagePrice(cashCost);
             log.info("successful in-app purchase from user " + user.getId() + " for package "
                 + receiptFromApple.getString(IAPValues.PRODUCT_ID));
+            
+            Timestamp date = new Timestamp((new Date()).getTime());
+            writeToUserCurrencyHistory(user, date, diamondChange);
           } catch (Exception e) {
             log.error("problem with in app purchase flow", e);
           }
@@ -289,5 +295,19 @@ public class InAppPurchaseController extends EventController {
     }
 
     return sb.toString();
+  }
+  
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date, int diamondChange) {
+    try {
+      int userId = aUser.getId();
+      int isSilver = 0;
+      int currencyBefore = aUser.getDiamonds() - diamondChange;
+      String reasonForChange = ControllerConstants.UCHRFC__IN_APP_PURCHASE;
+      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver, 
+          diamondChange, currencyBefore, reasonForChange);
+      log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
+    } catch (Exception e) {
+      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+    }
   }
 }

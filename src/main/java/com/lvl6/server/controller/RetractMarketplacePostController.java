@@ -1,11 +1,15 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetractMarketplacePostRequestEvent;
 import com.lvl6.events.response.RetractMarketplacePostResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -105,12 +109,14 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       server.writeEvent(resEvent);
 
       if (legitRetract) {
-        writeChangesToDB(user, mp, diamondCut, coinCut);
+        Map<String, Integer> money = new HashMap<String, Integer>();
+        writeChangesToDB(user, mp, diamondCut, coinCut, money);
         if (mp != null) {
           UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
           resEventUpdate.setTag(event.getTag());
           server.writeEvent(resEventUpdate);
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
+          writeToUserCurrencyHistory(user, timeOfRetractionRequest, money);
         }
       }
     } catch (Exception e) {
@@ -121,7 +127,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
   }
 
-  private void writeChangesToDB(User user, MarketplacePost mp, int diamondCut, int coinCut) {
+  private void writeChangesToDB(User user, MarketplacePost mp, int diamondCut, int coinCut, 
+      Map<String, Integer> money) {
     if (user == null || mp == null) {
       log.error("parameter passed in is null. user=" + user + ", marketplace post=" + mp);
     }
@@ -140,6 +147,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         numPostsInMarketplaceChange, changeNumPostsInMarketplace)) {
       log.error("problem with decrementing user's num posts in marketplace by 1 and changing diamonds by "
           + diamondChange + " and changing coins by " + coinChange);
+    } else {
+      money.put(MiscMethods.gold, diamondChange);
+      money.put(MiscMethods.silver, coinChange);
     }
   }
 
@@ -206,6 +216,17 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 	  }	else {
 		  return false;
 	  }
-	  
   }
+  
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
+    int amount = money.size();
+    String reasonForChange = ControllerConstants.UCHRFC__RETRACT_MARKETPLACE_POST;
+    
+    if(2 == amount) {
+      Map<String, Integer> previousGoldSilver = null;
+      MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, date, 
+          money, previousGoldSilver, reasonForChange);
+    }
+  }
+  
 }

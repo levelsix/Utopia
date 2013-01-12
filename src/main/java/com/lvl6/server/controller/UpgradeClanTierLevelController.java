@@ -1,9 +1,16 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.UpgradeClanTierLevelRequestEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.events.response.UpgradeClanTierLevelResponseEvent;
@@ -11,6 +18,7 @@ import com.lvl6.info.Clan;
 import com.lvl6.info.ClanTierLevel;
 import com.lvl6.info.User;
 import com.lvl6.misc.MiscMethods;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.UpgradeClanTierLevelRequestProto;
 import com.lvl6.proto.EventProto.UpgradeClanTierLevelResponseProto;
 import com.lvl6.proto.EventProto.UpgradeClanTierLevelResponseProto.Builder;
@@ -21,6 +29,7 @@ import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.ClanTierLevelRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 @Component @DependsOn("gameServer") public class UpgradeClanTierLevelController extends EventController {
@@ -56,28 +65,34 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     server.lockPlayer(senderProto.getUserId());
     try {
       User possibleClanOwner = RetrieveUtils.userRetrieveUtils().getUserById(userId);
-
-      boolean validRequest = 
-          isValidUpdateClanTierLevelRequest(resBuilder, possibleClanOwner, clanId);
+      List<Integer> currencyChange = new ArrayList<Integer>();
       
+      boolean validRequest = 
+          isValidUpdateClanTierLevelRequest(resBuilder, possibleClanOwner, clanId, currencyChange);
+      boolean successfulUpdate = false;
       if (validRequest) {
+        successfulUpdate = writeChangesToDB(resBuilder, possibleClanOwner, currencyChange, clanId);
+      }
+      if (successfulUpdate) {
         Clan clan = ClanRetrieveUtils.getClanWithId(clanId);
         resBuilder.setMinClan(CreateInfoProtoUtils.createMinimumClanProtoFromClan(clan));
         resBuilder.setFullClan(CreateInfoProtoUtils.createFullClanProtoWithClanSize(clan));
       }
-
+      
       UpgradeClanTierLevelResponseEvent resEvent = 
           new UpgradeClanTierLevelResponseEvent(userId);
       resEvent.setTag(event.getTag());
       resEvent.setUpgradeClanTierResponseProto(resBuilder.build());
 
-      if(validRequest) {
+      if(successfulUpdate) {
         //notify everyone in the clan that their clan's tier level has increased
         server.writeClanEvent(resEvent, clanId);
 
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(possibleClanOwner);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        
+        writeToUserCurrencyHistory(possibleClanOwner, currencyChange);
       } else {
         server.writeEvent(resEvent);
       }
@@ -95,7 +110,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
    * currentTierLevel is modified accordingly. 
    * Returns false otherwise.
    */
-  private boolean isValidUpdateClanTierLevelRequest(Builder aBuilder, User aUser, int clanId) {
+  private boolean isValidUpdateClanTierLevelRequest(Builder aBuilder, User aUser, int clanId,
+      List<Integer> currencyChange) {
     //check if user who sent request is the owner of the clan
     //then check if user has enough money
     //then check if the clan is at the highest level
@@ -128,19 +144,63 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return false;
     }
 
-    //passed all checks
-    //UPDATE USER'S GOLD AND THE CLAN'S CURRENT TIER LEVEL
-    aUser.updateRelativeDiamondsNaive(-upgradeCost);
-    if(UpdateUtils.get().incrementCurrentTierLevelForClan(clanId)) {
-      //upgrade clan request has met all requirements
-      aBuilder.setStatus(UpgradeClanTierLevelStatus.SUCCESS);
-      return true;    			
-    }
-    else {
-      aBuilder.setStatus(UpgradeClanTierLevelStatus.OTHER_FAIL);
-      return false;
-    }
-
+    currencyChange.add(upgradeCost);
+    aBuilder.setStatus(UpgradeClanTierLevelStatus.SUCCESS);
+    return true;  
   }
 
+  private boolean writeChangesToDB(Builder aBuilder, User aUser, List<Integer> currencyChange, int clanId) {
+    if(currencyChange.isEmpty()) {
+      return false;
+    }
+    int before = aUser.getDiamonds();
+    int upgradeCost = -1 * currencyChange.get(0);
+    int refund = -1 * upgradeCost;
+
+    //passed all checks
+    //UPDATE USER'S GOLD AND THE CLAN'S CURRENT TIER LEVEL
+    if (aUser.updateRelativeDiamondsNaive(upgradeCost)) {
+      if(UpdateUtils.get().incrementCurrentTierLevelForClan(clanId)) {
+        //upgraded clan tier
+        log.info("successfully changed clan tier level for clan: " + clanId);
+        aBuilder.setStatus(UpgradeClanTierLevelStatus.SUCCESS);
+        return true;
+      }
+      else {
+        int after = aUser.getDiamonds();
+        log.error("problem with creating new clan. user diamonds before: " + before + ", after: " + after);
+        //if(!aUser.updateRelativeDiamondsNaive(refund)) {
+          //give back money to user because of failure;
+        log.error("give back " + refund + " diamonds to user: " + aUser + "?");
+        //}
+        aBuilder.setStatus(UpgradeClanTierLevelStatus.OTHER_FAIL);
+      }
+    } else {
+      log.error("could not take " + upgradeCost + " diamonds form user: " + aUser);
+      aBuilder.setStatus(UpgradeClanTierLevelStatus.OTHER_FAIL);
+    }
+    currencyChange.clear();
+    return false;
+  }
+  
+  private void writeToUserCurrencyHistory(User aUser, List<Integer> money) {
+    try {
+      if(money.isEmpty()) {
+        return;
+      }
+      int userId = aUser.getId();
+      Timestamp date = new Timestamp((new Date()).getTime());
+      int isSilver = 0;
+      int currencyChange = money.get(0);
+      int currencyBefore = aUser.getDiamonds() - currencyChange;
+      String reasonForChange = ControllerConstants.UCHRFC__UPGRADE_CLAN_TIER_LEVEL;
+      
+      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver, 
+          currencyChange, currencyBefore, reasonForChange);
+      
+      log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
+    } catch (Exception e) {
+      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+    }
+  }
 }

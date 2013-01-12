@@ -2,12 +2,16 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.FinishForgeAttemptWaittimeWithDiamondsRequestEvent;
 import com.lvl6.events.response.FinishForgeAttemptWaittimeWithDiamondsResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -25,6 +29,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
   @Component @DependsOn("gameServer") public class FinishForgeAttemptWaittimeWithDiamondsController extends EventController{
@@ -72,12 +77,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       if (legitFinish) {
         BlacksmithAttempt ba = unhandledBlacksmithAttemptsForUser.get(0);
+        Map<String, Integer> money = new HashMap<String, Integer>();
         
         int diamondCost = MiscMethods.calculateDiamondCostToSpeedupForgeWaittime(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ba.getEquipId()), ba.getGoalLevel());
-        writeChangesToDB(user, ba, timeOfSpeedup, diamondCost);
+        writeChangesToDB(user, ba, timeOfSpeedup, diamondCost, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        
+        writeToUserCurrencyHistory(user, timeOfSpeedup, money);
       }
     } catch (Exception e) {
       log.error("exception in FinishForgeAttemptWaittimeWithDiamondsController processEvent", e);
@@ -86,13 +94,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private void writeChangesToDB(User user, BlacksmithAttempt ba, Timestamp timeOfSpeedup, int diamondCost) {
+  private void writeChangesToDB(User user, BlacksmithAttempt ba, Timestamp timeOfSpeedup, int diamondCost,
+      Map<String, Integer> money) {
     if (!UpdateUtils.get().updateAbsoluteBlacksmithAttemptcompleteTimeofspeedup(ba.getId(), timeOfSpeedup, true)) {
       log.error("problem with updating blacksmith attempt complete and time of speedup. ba=" + ba + ", timeOfSpeedup is " + timeOfSpeedup + ", attempt complete is true");
     }    
     if (diamondCost > 0) {
       if (!user.updateRelativeDiamondsNaive(diamondCost*-1)) {
         log.error("problem with taking away diamonds post forge speedup, taking away " + diamondCost + ", user only has " + user.getDiamonds());
+      } else {
+        money.put(MiscMethods.gold, diamondCost * - 1);
       }
     }
   }
@@ -145,4 +156,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return true;  
   }
 
+  public void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
+    try {
+      if(money.isEmpty()) {
+        return;
+      }
+      int userId = aUser.getId();
+      int isSilver = 0;
+      int currencyChange = money.get(MiscMethods.gold);
+      int currencyBefore = aUser.getDiamonds() - currencyChange;
+      String reasonForChange = ControllerConstants.UCHRFC__FINISH_FORGE_ATTEMPT_WAIT_TIME;
+      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver, 
+          currencyChange, currencyBefore, reasonForChange);
+      log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
+    } catch (Exception e) {
+      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+    }
+  }
+  
 }

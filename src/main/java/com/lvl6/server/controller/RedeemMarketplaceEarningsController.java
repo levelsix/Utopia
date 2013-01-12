@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +16,7 @@ import com.lvl6.events.response.RedeemMarketplaceEarningsResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.misc.MiscMethods;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.RedeemMarketplaceEarningsRequestProto;
 import com.lvl6.proto.EventProto.RedeemMarketplaceEarningsResponseProto;
 import com.lvl6.proto.EventProto.RedeemMarketplaceEarningsResponseProto.Builder;
@@ -67,6 +70,8 @@ import com.lvl6.utils.RetrieveUtils;
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        
+        writeToUserCurrencyHistory(user, money);
       }
 
     } catch (Exception e) {
@@ -96,5 +101,15 @@ import com.lvl6.utils.RetrieveUtils;
     }
     resBuilder.setStatus(RedeemMarketplaceEarningsStatus.SUCCESS);
     return true;
+  }
+  
+  public void writeToUserCurrencyHistory(User aUser, Map<String, Integer> money) {
+    Timestamp date = new Timestamp((new Date()).getTime());
+
+    Map<String, Integer> previousGoldSilver = null;
+    String reasonForChange = ControllerConstants.UCHRFC__REDEEM_MARKETPLACE_EARNINGS;
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, date, money,
+        previousGoldSilver, reasonForChange);
   }
 }

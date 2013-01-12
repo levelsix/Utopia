@@ -1,7 +1,11 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
@@ -16,10 +20,12 @@ import org.scribe.model.Response;
 import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.EarnFreeDiamondsRequestEvent;
 import com.lvl6.events.response.EarnFreeDiamondsResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -134,12 +140,16 @@ public class EarnFreeDiamondsController extends EventController {
       server.writeEvent(resEvent);
 
       if (legitFreeDiamondsEarn) {
-        writeChangesToDB(user, freeDiamondsType, kiipConfirmationReceipt, adColonyAmountEarned, adColonyRewardType);
+        Map<String, Integer> money = new HashMap<String, Integer>();
+        List<String> keys = new ArrayList<String>();
+        writeChangesToDB(user, freeDiamondsType, kiipConfirmationReceipt, adColonyAmountEarned, adColonyRewardType,
+            money, keys);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
 
         writeToDBHistory(user, freeDiamondsType, clientTime, kiipConfirmationReceipt, adColonyDigest, adColonyRewardType, adColonyAmountEarned);
+        writeToUserCurrencyHistory(user, clientTime, money, keys, freeDiamondsType);
       }
     } catch (Exception e) {
       log.error("exception in earn free gold processEvent", e);
@@ -223,11 +233,17 @@ public class EarnFreeDiamondsController extends EventController {
     return null;
   }
 
-  private void writeChangesToDB(User user, EarnFreeDiamondsType freeDiamondsType, JSONObject kiipReceipt, int adColonyAmountEarned, AdColonyRewardType adColonyRewardType) throws JSONException {
+  private void writeChangesToDB(User user, EarnFreeDiamondsType freeDiamondsType, JSONObject kiipReceipt, int adColonyAmountEarned, 
+      AdColonyRewardType adColonyRewardType, Map<String, Integer> money, List<String> keys) throws JSONException {
     if (freeDiamondsType == EarnFreeDiamondsType.KIIP) {
-      if (!user.updateRelativeDiamondsForFree(kiipReceipt.getInt(KIIP_JSON_QUANTITY_KEY), freeDiamondsType)) {
-        log.error("problem with updating diamonds. diamondChange=" + kiipReceipt.getInt(KIIP_JSON_QUANTITY_KEY)
+      int diamondChange = kiipReceipt.getInt(KIIP_JSON_QUANTITY_KEY);
+      if (!user.updateRelativeDiamondsForFree(diamondChange, freeDiamondsType)) {
+        log.error("problem with updating diamonds. diamondChange=" + diamondChange
             + ", freeDiamondsType=" + freeDiamondsType);
+      } else {
+        String key = MiscMethods.gold;
+        money.put(key, diamondChange);
+        keys.add(key);
       }
     }
     if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
@@ -235,11 +251,19 @@ public class EarnFreeDiamondsController extends EventController {
         if (!user.updateRelativeDiamondsForFree(adColonyAmountEarned, freeDiamondsType)) {
           log.error("problem with updating diamonds. diamondChange=" + adColonyAmountEarned
               + ", freeDiamondsType=" + freeDiamondsType);
+        } else {
+          String key = MiscMethods.gold;
+          money.put(key, adColonyAmountEarned);
+          keys.add(key);
         }
       } else if (adColonyRewardType == AdColonyRewardType.COINS) {
         if (!user.updateRelativeCoinsAdcolonyvideoswatched(adColonyAmountEarned, 1)) {
           log.error("problem with updating coins. coin change=" + adColonyAmountEarned
               + ", Adcolonyvideoswatched=" + 1);
+        } else {
+          String key = MiscMethods.silver;
+          money.put(key, adColonyAmountEarned);
+          keys.add(key);
         }
       }
     }
@@ -398,4 +422,38 @@ public class EarnFreeDiamondsController extends EventController {
     return oAuthService;
   }
 
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money, List<String> keys,
+      EarnFreeDiamondsType freeDiamondsType) {
+    try {
+      if(keys.isEmpty()) {
+        return;
+      }
+      int userId = aUser.getId();
+      int isSilver;
+      int currencyChange = money.get(0);
+      int currencyBefore;
+      String reasonForChange = "earn free diamonds controller";
+      
+      if(keys.get(0).equals(MiscMethods.silver)) {
+        isSilver = 1;
+        currencyBefore = aUser.getCoins() - currencyChange;
+      } else {
+        isSilver = 0;
+        currencyBefore = aUser.getDiamonds() - currencyChange;
+      }
+      
+      if (freeDiamondsType == EarnFreeDiamondsType.KIIP) {
+        reasonForChange = ControllerConstants.UCHRFC__EARN_FREE_DIAMONDS_KIIP;
+      } else if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
+        reasonForChange = ControllerConstants.UCHRFC__EARN_FREE_DIAMONDS_ADCOLONY;
+      }
+      
+      int inserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver,
+          currencyChange, currencyBefore, reasonForChange);
+
+      log.info("Should be 1. Rows inserted into user_currency_history: " + inserted);
+    } catch (Exception e) {
+      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+    }
+  }
 }
