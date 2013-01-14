@@ -111,7 +111,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             legitRedeem = false;
           } else {
             resBuilder.setEquipRewardFromQuest(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
-                new UserEquip(userEquipId, userQuest.getUserId(), quest.getEquipIdGained(), ControllerConstants.DEFAULT_USER_EQUIP_LEVEL)));
+                new UserEquip(userEquipId, userQuest.getUserId(), quest.getEquipIdGained(), ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0)));
             gainedEquip = true;
           }
         }

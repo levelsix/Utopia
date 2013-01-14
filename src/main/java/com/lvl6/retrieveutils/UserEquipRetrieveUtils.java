@@ -167,7 +167,8 @@ import com.lvl6.utils.utilmethods.StringUtils;
     int userId = rs.getInt(i++);
     int equipId = rs.getInt(i++);
     int level = rs.getInt(i++);
-    UserEquip userEquip = new UserEquip(userEquipId, userId, equipId, level);
+    int enhancementPercentage = rs.getInt(i++);
+    UserEquip userEquip = new UserEquip(userEquipId, userId, equipId, level, enhancementPercentage);
     return userEquip;
   }
 

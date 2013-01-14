@@ -242,7 +242,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           lostEquip = null;
         } else {
           resBuilder.setUserEquipGained(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
-              new UserEquip(lostEquip.getId(), winner.getId(), lostEquip.getEquipId(), lostEquip.getLevel())));
+              new UserEquip(lostEquip.getId(), winner.getId(), lostEquip.getEquipId(), lostEquip.getLevel(), 0)));
           resBuilder.setEquipGained(CreateInfoProtoUtils.createFullEquipProtoFromEquip(
               EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(lostEquip.getEquipId())));
         }
@@ -254,7 +254,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         lostEquip = null;
       } else {
         resBuilder.setUserEquipGained(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
-            new UserEquip(lostEquip.getId(), winner.getId(), lostEquip.getEquipId(), lostEquip.getLevel())));
+            new UserEquip(lostEquip.getId(), winner.getId(), lostEquip.getEquipId(), lostEquip.getLevel(), 0)));
         resBuilder.setEquipGained(CreateInfoProtoUtils.createFullEquipProtoFromEquip(
             EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(lostEquip.getEquipId())));
       }

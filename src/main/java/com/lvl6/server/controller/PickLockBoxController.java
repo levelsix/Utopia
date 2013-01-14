@@ -206,7 +206,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (success) {
         int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), lockBoxEvent.getPrizeEquipId(), 1);
         if (userEquipId > 0) {
-          return new UserEquip(userEquipId, user.getId(), lockBoxEvent.getPrizeEquipId(), 1);
+          return new UserEquip(userEquipId, user.getId(), lockBoxEvent.getPrizeEquipId(), 1, 0);
         }
       }
     }

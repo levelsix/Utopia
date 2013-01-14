@@ -9,15 +9,25 @@ public class UserEquip implements Serializable {
 	private int userId;
 	private int equipId;
 	private int level;
+  private int enhancementPercentage;
 
-	public UserEquip(int id, int userId, int equipId, int level) {
+	public UserEquip(int id, int userId, int equipId, int level, int enhancementPercentage) {
     this.id = id;
     this.userId = userId;
     this.equipId = equipId;
     this.level = level;
+    this.enhancementPercentage = enhancementPercentage;
   }
 
-	public int getId() {
+	public int getEnhancementPercentage() {
+    return enhancementPercentage;
+  }
+
+  public void setEnhancementPercentage(int enhancementPercentage) {
+    this.enhancementPercentage = enhancementPercentage;
+  }
+
+  public int getId() {
 		return id;
 	}
 
@@ -36,7 +46,8 @@ public class UserEquip implements Serializable {
   @Override
   public String toString() {
     return "UserEquip [id=" + id + ", userId=" + userId + ", equipId="
-        + equipId + ", level=" + level + "]";
+        + equipId + ", level=" + level + ", enhancementPercentage="
+        + enhancementPercentage + "]";
   }
 
 }

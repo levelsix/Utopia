@@ -78,7 +78,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
             legitCollection = false;
           } else {
             resBuilder.addUserEquips(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
-                new UserEquip(newUserEquipId, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel())));
+                new UserEquip(newUserEquipId, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel(), 0)));
           }
           
           //forge quest
@@ -95,9 +95,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
             legitCollection = false;
           } else {
               resBuilder.addUserEquips(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
-                new UserEquip(newUserEquipId1, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1)));
+                new UserEquip(newUserEquipId1, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1, 0)));
               resBuilder.addUserEquips(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
-                new UserEquip(newUserEquipId2, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1)));
+                new UserEquip(newUserEquipId2, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1, 0)));
           }
         }
       }

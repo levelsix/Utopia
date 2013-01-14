@@ -71,7 +71,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
             log.error("problem with giving 1 of equip " + equipId + " to forger " + user.getId());
           } else {
             resBuilder.setUserEquip(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
-                new UserEquip(newUserEquipId, user.getId(), equipId, equipLevel)));
+                new UserEquip(newUserEquipId, user.getId(), equipId, equipLevel, 0)));
           }
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
         }

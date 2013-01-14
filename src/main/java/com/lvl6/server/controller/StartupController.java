@@ -496,7 +496,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             log.error("failed in giving user " + user + " equip with id " + idOfEquipToGive);
             return 0;
           } else {
-            UserEquip ue = new UserEquip (userEquipId, user.getId(), idOfEquipToGive, levelOfEquipToGive);
+            UserEquip ue = new UserEquip (userEquipId, user.getId(), idOfEquipToGive, levelOfEquipToGive, 0);
             dbiBuilder.setUserEquipBonus(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(ue));
           }
 

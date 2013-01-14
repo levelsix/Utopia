@@ -636,7 +636,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int userEquipId = allUserEquipIds.get(i);
       int equipId = allEquipIds.get(i);
       int level = levels.get(i);
-      UserEquip ue = new UserEquip(userEquipId, userId, equipId, level);
+      UserEquip ue = new UserEquip(userEquipId, userId, equipId, level, 0);
       FullUserEquipProto fuep = CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(ue);
       fullUserEquipProtos.add(fuep);
     }

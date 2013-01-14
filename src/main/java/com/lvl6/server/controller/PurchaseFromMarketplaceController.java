@@ -91,7 +91,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           legitPurchase = false;
         } else {
           resBuilder.setFullUserEquipOfBoughtItem(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
-              new UserEquip(userEquipId, buyer.getId(), mp.getPostedEquipId(), mp.getEquipLevel())));
+              new UserEquip(userEquipId, buyer.getId(), mp.getPostedEquipId(), mp.getEquipLevel(), 0)));
         }
       }
       resEvent.setPurchaseFromMarketplaceResponseProto(resBuilder.build());  

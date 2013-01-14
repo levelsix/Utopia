@@ -161,7 +161,7 @@ public class TaskActionController extends EventController {
                     userEquipId,
                     user.getId(),
                     lootEquipId,
-                    ControllerConstants.DEFAULT_USER_EQUIP_LEVEL)));
+                    ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0)));
           }
         }
 

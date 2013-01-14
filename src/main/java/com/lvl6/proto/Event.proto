@@ -2356,7 +2356,21 @@ message GeneralNotificationResponseProto {
 	optional ColorProto rgb = 3;
 }
 
-//if reset
-	//if owner, don't allow it
-	//else delete all user_clan stuff with that user_id
+message EnhanceEquipRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 feederUserEquipId = 2;
+	optional int32 enhancingUserEquipId = 3;
+}
+
+message EnhanceEquipResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional EnhanceEquipStatus status = 2;
+	
+	optional FullUserEquipProto enhancedEquip = 3;
+	
+	enum EnhanceEquipStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+	}
+}
 	
