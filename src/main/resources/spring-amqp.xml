@@ -30,11 +30,8 @@
 
 
 	<rabbit:connection-factory id="amqpConnectionFactory"
-		host="${amqp.host}" 
-		username="${amqp.user}" 
-		password="${amqp.pass}"
-		virtual-host="${amqp.vhost}" 
-		channel-cache-size="13" 
+		host="${amqp.host}" username="${amqp.user}" password="${amqp.pass}"
+		virtual-host="${amqp.vhost}" channel-cache-size="13"
 		connection-factory="rabbitConnectionFactory" />
 
 
@@ -44,8 +41,7 @@
 	<rabbit:admin id="rabbitAdmin" connection-factory="amqpConnectionFactory" />
 
 	<rabbit:direct-exchange name="${amqp.exchange}"
-		auto-delete="false" 
-		durable="true">
+		auto-delete="false" durable="true">
 		<rabbit:bindings>
 			<rabbit:binding queue="clientMessages"
 				key="${amqp.client.messages.routing.key}" />
@@ -56,31 +52,54 @@
 		auto-delete="false" durable="true">
 	</rabbit:topic-exchange>
 
-	<rabbit:queue id="clientMessages" name="clientMessages"
-		durable="true" 
-		auto-delete="false" />
 
+	<rabbit:topic-exchange name="serverMessages"
+		auto-delete="false" durable="true">
+		<rabbit:bindings>
+			<rabbit:binding queue="serverMessagesQueue" pattern="messageForAllServers"></rabbit:binding>
+		</rabbit:bindings>
+	</rabbit:topic-exchange>
+
+
+	<rabbit:queue id="serverMessagesQueue" name="serverMessagesQueue"
+		auto-delete="false" durable="true" />
+
+	<rabbit:queue id="clientMessages" name="clientMessages"
+		durable="true" auto-delete="false" />
 
 	<rabbit:listener-container
-		connection-factory="amqpConnectionFactory" 
-		concurrency="13"
+		connection-factory="amqpConnectionFactory" concurrency="1"
+		error-handler="amqpErrorHandler"
+		message-converter="jsonConverter">
+		<rabbit:listener queues="serverMessagesQueue" ref="serverEventHandler"
+			method="onMessage" />
+	</rabbit:listener-container>
+
+	<rabbit:template id="serverMessagesTemplate"
+		connection-factory="amqpConnectionFactory" channel-transacted="true"
+		exchange="serverMessages" message-converter="jsonConverter" />
+
+	<bean id="jsonConverter"
+		class="org.springframework.amqp.support.converter.JsonMessageConverter">
+	</bean>
+
+	<rabbit:listener-container
+		connection-factory="amqpConnectionFactory" concurrency="13"
 		error-handler="amqpErrorHandler">
-		<rabbit:listener queues="clientMessages" 
-		ref="clientEventHandler"
+		<rabbit:listener queues="clientMessages" ref="clientEventHandler"
 			method="onMessage" />
 	</rabbit:listener-container>
 
 	<rabbit:template id="clientMessagesTemplate"
-		connection-factory="amqpConnectionFactory" 
-		channel-transacted="true"
+		connection-factory="amqpConnectionFactory" channel-transacted="true"
 		exchange="${amqp.exchange}" />
 
 	<rabbit:template id="chatMessagesTemplate"
-		connection-factory="amqpConnectionFactory" 
-		channel-transacted="true"
+		connection-factory="amqpConnectionFactory" channel-transacted="true"
 		exchange="${amqp.chat.exchange}" />
 
 	<bean id="clientEventHandler" class="com.lvl6.eventhandlers.AmqpGameEventHandler" />
+	<bean id="serverEventHandler" class="com.lvl6.eventhandlers.ServerEventHandler" />
 	<bean id="amqpErrorHandler" class="com.lvl6.eventhandlers.AmqpErrorHandler" />
 
 </beans>
