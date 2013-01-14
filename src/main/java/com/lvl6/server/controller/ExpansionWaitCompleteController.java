@@ -1,11 +1,15 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.ExpansionWaitCompleteRequestEvent;
 import com.lvl6.events.response.ExpansionWaitCompleteResponseEvent;
 import com.lvl6.info.User;
@@ -21,6 +25,7 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserCityExpansionRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 /*
@@ -68,7 +73,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       resEvent.setExpansionWaitCompleteResponseProto(resBuilder.build());  
 
       if (legitExpansionComplete) {
-        writeChangesToDB(user, userCityExpansionData, speedUp);
+        Map<String, Integer> money = new HashMap<String, Integer>();
+        writeChangesToDB(user, userCityExpansionData, speedUp, money);
+        writeToUserCurrencyHistory(user, clientTime, money);
       }
       server.writeEvent(resEvent);
     } catch (Exception e) {
@@ -78,7 +85,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private void writeChangesToDB(User user, UserCityExpansionData userCityExpansionData, boolean speedUp) {
+  private void writeChangesToDB(User user, UserCityExpansionData userCityExpansionData, boolean speedUp, 
+      Map<String, Integer> money) {
     int farLeftExpansionChange = userCityExpansionData.getFarLeftExpansions(), farRightExpansionChange = userCityExpansionData.getFarRightExpansions(), 
         nearLeftExpansionChange = userCityExpansionData.getNearLeftExpansions(), nearRightExpansionChange = userCityExpansionData.getNearRightExpansions();
     if (userCityExpansionData.getLastExpandDirection() == ExpansionDirection.FAR_LEFT) {
@@ -96,8 +104,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     
     if (speedUp) {
-      if (user.updateRelativeDiamondsNaive(-calculateExpansionSpeedupCost(userCityExpansionData))) {
+      int diamondChange = -calculateExpansionSpeedupCost(userCityExpansionData);
+      if (!user.updateRelativeDiamondsNaive(diamondChange)) {
         log.error("problem updating user diamonds");
+      } else {
+        //everything went ok
+        money.put(MiscMethods.gold, diamondChange);
       }
     }
   }
@@ -135,5 +147,23 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private int calculateExpansionSpeedupCost(UserCityExpansionData userCityExpansionData) {
     return calculateMinutesForCurrentExpansion(userCityExpansionData)/ControllerConstants.EXPANSION_WAIT_COMPLETE__BASE_MINUTES_TO_ONE_GOLD;
+  }
+  
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
+    try {
+      if(money.isEmpty()) {
+        return;
+      }
+      int userId = aUser.getId();
+      int isSilver = 0;
+      int currencyChange = money.get(MiscMethods.gold);
+      int currencyBefore = aUser.getDiamonds() - currencyChange;
+      String reasonForChange = ControllerConstants.UCHRFC__EXPANSION_WAIT_COMPLETE;
+      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver, 
+          currencyChange, currencyBefore, reasonForChange);
+      log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
+    } catch (Exception e) {
+      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+    }
   }
 }

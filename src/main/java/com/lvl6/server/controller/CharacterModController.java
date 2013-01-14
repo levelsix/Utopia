@@ -1,13 +1,17 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.CharacterModRequestEvent;
 import com.lvl6.events.response.CharacterModResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -27,6 +31,7 @@ import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 
 @Component @DependsOn("gameServer") public class CharacterModController extends EventController {
 
@@ -99,6 +104,8 @@ import com.lvl6.utils.RetrieveUtils;
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        
+        writeToUserCurrencyHistory(user, modType, diamondCost);
       }
 
 
@@ -216,4 +223,29 @@ import com.lvl6.utils.RetrieveUtils;
     return true;
   }
 
+  private void writeToUserCurrencyHistory(User aUser, CharacterModType modType, int diamondCost) {
+    try {
+      int userId = aUser.getId();
+      Timestamp date = new Timestamp((new Date()).getTime());
+      int isSilver = 0;
+      int currencyBefore = aUser.getDiamonds() - diamondCost;
+      String reasonForChange = "character mod controller";
+      if (modType == CharacterModType.CHANGE_CHARACTER_TYPE) {
+        reasonForChange = ControllerConstants.UCHRFC__CHARACTER_MOD_TYPE;
+      } else if (modType == CharacterModType.CHANGE_NAME) {
+        reasonForChange = ControllerConstants.UCHRFC__CHARACTER_MOD_NAME;
+      } else if (modType == CharacterModType.NEW_PLAYER) {
+        reasonForChange = ControllerConstants.UCHRFC__CHARACTER_MOD_RESET;
+      } else if (modType == CharacterModType.RESET_SKILL_POINTS) {
+        reasonForChange = ControllerConstants.UCHRFC__CHARACTER_MOD_SKILL_POINTS;
+      }
+      
+      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, 
+          isSilver, diamondCost, currencyBefore, reasonForChange);
+      log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
+    } catch (Exception e) {
+      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+    }
+  }
+  
 }

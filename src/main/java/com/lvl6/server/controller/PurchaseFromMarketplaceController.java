@@ -1,11 +1,18 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseFromMarketplaceRequestEvent;
 import com.lvl6.events.response.PurchaseFromMarketplaceResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -103,9 +110,13 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         resEvent2.setPurchaseFromMarketplaceResponseProto(resBuilder.build());  
         server.writeAPNSNotificationOrEvent(resEvent2);
         
-        writeChangesToDB(buyer, seller, mp, timeOfPurchaseRequest);
+        Map<String, Integer> moneyBuyer = new HashMap<String, Integer>();
+        Map<String, Integer> moneySeller = new HashMap<String, Integer>();
+        List<String> goldOrSilverTransaction = new ArrayList<String>(1);
+        
+        writeChangesToDB(buyer, seller, mp, timeOfPurchaseRequest, moneyBuyer, moneySeller, goldOrSilverTransaction);
         UpdateClientUserResponseEvent resEventUpdate;
-        if (buyer != null && seller != null && mp != null) {
+        if (buyer != null && seller != null && mp != null) { //won't this always execute? ~Art
           resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(buyer);
           resEventUpdate.setTag(event.getTag());
           server.writeEvent(resEventUpdate);
@@ -114,6 +125,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           
           QuestUtils.checkAndSendQuestsCompleteBasic(server, buyer.getId(), senderProto, SpecialQuestAction.PURCHASE_FROM_MARKETPLACE, false);
         }
+        writeToUserCurrencyHistory(buyer, seller, timeOfPurchaseRequest, moneyBuyer, moneySeller, goldOrSilverTransaction);
       }
     } catch (Exception e) {
       log.error("exception in PurchaseFromMarketplace processEvent", e);
@@ -126,7 +138,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
 
 
-  private void writeChangesToDB(User buyer, User seller, MarketplacePost mp, Timestamp timeOfPurchaseRequest) {
+  private void writeChangesToDB(User buyer, User seller, MarketplacePost mp, Timestamp timeOfPurchaseRequest,
+      Map<String, Integer> moneyBuyer, Map<String, Integer> moneySeller, List<String> goldOrSilverTransaction) {
     if (seller == null || buyer == null || mp == null) {
       log.error("parameter passed in is null. seller=" + seller + ", buyer=" + buyer + ", post=" + mp);
     }
@@ -148,9 +161,11 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     if (mp.getDiamondCost() > 0) {
       totalSellerDiamondChange += (int)Math.floor(percentOfMoneyUserGets*mp.getDiamondCost());
       totalBuyerDiamondChange -= mp.getDiamondCost();
+      goldOrSilverTransaction.add(MiscMethods.gold);
     } else if (mp.getCoinCost() > 0) {
       totalSellerCoinChange += (int)Math.floor(percentOfMoneyUserGets*mp.getCoinCost());
-      totalBuyerCoinChange -= mp.getCoinCost();      
+      totalBuyerCoinChange -= mp.getCoinCost();    
+      goldOrSilverTransaction.add(MiscMethods.silver);
     } else {
       log.error("marketplace post has no cost. mp=" + mp);
       return;
@@ -171,6 +186,10 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         log.error("problem with updating seller info. diamondChange=" + totalSellerDiamondChange
             + ", coinChange=" + totalSellerCoinChange + ", num posts in marketplace decremented by 1, " +
             		"num marketplace sales unredeemed increased by 1");
+      } else {
+        //things went ok
+        moneySeller.put(MiscMethods.gold, totalSellerDiamondChange);
+        moneySeller.put(MiscMethods.silver, totalSellerCoinChange);
       }
     }
     changeNumPostsInMarketplace = false;
@@ -180,6 +199,10 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           totalBuyerCoinChange, 0, changeNumPostsInMarketplace)) {
         log.error("problem with updating buyer info. diamondChange=" + totalBuyerDiamondChange
             + ", coinChange=" + totalBuyerCoinChange);
+      } else {
+        //things went ok
+        moneyBuyer.put(MiscMethods.gold, totalBuyerDiamondChange);
+        moneyBuyer.put(MiscMethods.silver, totalBuyerCoinChange);
       }
     }
 
@@ -218,4 +241,60 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     resBuilder.setStatus(PurchaseFromMarketplaceStatus.SUCCESS);
     return true;
   }
+  
+  //only gold changes or silver changes, not both
+  private void writeToUserCurrencyHistory(User buyer, User seller, Timestamp date, Map<String, Integer> moneyBuyer, 
+      Map<String, Integer> moneySeller, List<String> goldOrSilverTransaction) {
+    if(goldOrSilverTransaction.isEmpty()) {
+      return;
+    }
+    try {
+      String goldOrSilver = goldOrSilverTransaction.get(0); 
+      int amount = 2;
+      List<Integer> userIds = new ArrayList<Integer>(amount);
+      List<Timestamp> dates = new ArrayList<Timestamp>(Collections.nCopies(amount, date));
+      List<Integer> areSilver;
+      List<Integer> currenciesChange = new ArrayList<Integer>(amount);
+      List<Integer> currenciesBefore = new ArrayList<Integer>(amount);
+      List<String> reasonsForChanges = new ArrayList<String>(amount);
+      
+      //buyer information then seller's
+      userIds.add(buyer.getId());
+      userIds.add(seller.getId());
+      
+      int buyerCurrencyChange = moneyBuyer.get(goldOrSilver);
+      int sellerCurrencyChange = moneySeller.get(goldOrSilver);
+      
+      
+      if(MiscMethods.gold == goldOrSilver) {
+        //not a silver change but gold change
+        areSilver = new ArrayList<Integer>(Collections.nCopies(amount, 0));
+        
+        int buyerGoldBeforeChange = buyer.getDiamonds() - buyerCurrencyChange;
+        int sellerGoldBeforeChange = seller.getDiamonds() - sellerCurrencyChange;
+        currenciesBefore.add(buyerGoldBeforeChange);
+        currenciesBefore.add(sellerGoldBeforeChange);
+      } else {
+        areSilver = new ArrayList<Integer>(Collections.nCopies(amount, 1));
+        
+        int buyerSilverBeforeChange = buyer.getCoins() - buyerCurrencyChange;
+        int sellerSilverBeforeChange = seller.getCoins() - sellerCurrencyChange;
+        currenciesBefore.add(buyerSilverBeforeChange);
+        currenciesBefore.add(sellerSilverBeforeChange);
+      }
+      
+      currenciesChange.add(buyerCurrencyChange);
+      currenciesChange.add(sellerCurrencyChange);
+      reasonsForChanges.add(ControllerConstants.UCHRFC__SOLD_ITEM_ON_MARKETPLACE); //buyer reason
+      reasonsForChanges.add(ControllerConstants.UCHRFC__PURCHASED_FROM_MARKETPLACE); //seller reason
+
+      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates, areSilver,
+          currenciesChange, currenciesBefore, reasonsForChanges);
+      log.info("Should be 2. Rows inserted into user_currency_history: " + numInserted);
+    } catch (Exception e) {
+      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+    }
+    
+  }
+  
 }

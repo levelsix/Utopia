@@ -2,15 +2,18 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.CreateClanRequestEvent;
 import com.lvl6.events.response.CreateClanResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -85,12 +88,12 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     server.lockPlayer(senderProto.getUserId());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      Timestamp createTime = new Timestamp(new Date().getTime());
 
       boolean legitCreate = checkLegitCreate(resBuilder, user, clanName, tag);
 
       int clanId = ControllerConstants.NOT_SET;
       if (legitCreate) {
-        Timestamp createTime = new Timestamp(new Date().getTime());
         String description = "Welcome to " + clanName + "!";
         clanId = InsertUtils.get().insertClan(clanName, user.getId(), createTime, description, tag, MiscMethods.checkIfGoodSide(user.getType()));
         if (clanId <= 0) {
@@ -110,12 +113,15 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       resEvent.setCreateClanResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
       if (legitCreate) {
-        writeChangesToDB(user, clanId);
+        Map<String, Integer> money = new HashMap<String, Integer>();
+        writeChangesToDB(user, clanId, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
         sendGeneralNotification(user.getName(), clanName);
+        
+        writeToUserCurrencyHistory(user, createTime, money);
       }
     } catch (Exception e) {
       log.error("exception in CreateClan processEvent", e);
@@ -124,9 +130,13 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     }
   }
 
-  private void writeChangesToDB(User user, int clanId) {
-    if (!user.updateRelativeDiamondsAbsoluteClan(-1*ControllerConstants.CREATE_CLAN__DIAMOND_PRICE_TO_CREATE_CLAN, clanId)) {
+  private void writeChangesToDB(User user, int clanId, Map<String, Integer> money) {
+    int goldChange = -1*ControllerConstants.CREATE_CLAN__DIAMOND_PRICE_TO_CREATE_CLAN;
+    if (!user.updateRelativeDiamondsAbsoluteClan(goldChange, clanId)) {
       log.error("problem with decreasing user diamonds for creating clan");
+    } else {
+      //everything went well
+      money.put(MiscMethods.gold, goldChange);
     }
     if (!InsertUtils.get().insertUserClan(user.getId(), clanId, UserClanStatus.MEMBER, new Timestamp(new Date().getTime()))) {
       log.error("problem with inserting user clan data for user " + user + ", and clan id " + clanId);
@@ -184,5 +194,24 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 	  createClanNotification.setAsClanCreated(userName, clanName);
 	  
 	  MiscMethods.writeGlobalNotification(createClanNotification, server);
+  }
+  
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
+    try {
+      if(money.isEmpty()) {
+        return;
+      }
+      int userId = aUser.getId();
+      int isSilver = 0;
+      int currencyChange = money.get(MiscMethods.gold);
+      int currencyBefore = aUser.getDiamonds() - currencyChange;
+      String reasonForChange = ControllerConstants.UCHRFC__CREATE_CLAN;
+      int inserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver,
+          currencyChange, currencyBefore, reasonForChange);
+
+      log.info("Should be 1. Rows inserted into user_currency_history: " + inserted);
+    } catch (Exception e) {
+      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+    }
   }
 }

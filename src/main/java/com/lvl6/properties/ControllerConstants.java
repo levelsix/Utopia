@@ -416,6 +416,28 @@ public class ControllerConstants {
   public static final String UCHRFC__SELL_NORM_STRUCT = "sell norm struct";
   public static final String UCHRFC__PURCHASE_NORM_STRUCT = "purchased norm struct";
   public static final String UCHRFC__QUEST_REDEEM = "quest redeemed";
+  public static final String UCHRFC__REDEEM_MARKETPLACE_EARNINGS = "redeemed marketplace earnings";
+  public static final String UCHRFC__PICK_LOCKBOX = "picked lockbox";
+  public static final String UCHRFC__RETRACT_MARKETPLACE_POST = "retract marketplace post";
+  public static final String UCHRFC__PLAY_THREE_CARD_MONTE = "played three card monte";
+  public static final String UCHRFC__SOLD_ITEM_ON_MARKETPLACE = "sold item on marketplace";
+  public static final String UCHRFC__PURCHASED_FROM_MARKETPLACE = "purchased from marketplace";
+  public static final String UCHRFC__EXPANSION_WAIT_COMPLETE = "expansion wait complete";
+  public static final String UCHRFC__SUBMIT_EQUIPS_TO_BLACKSMITH = "submit equips to blacksmith";
+  public static final String UCHRFC__FINISH_FORGE_ATTEMPT_WAIT_TIME = "finish forge attempt wait time";
+  public static final String UCHRFC__IN_APP_PURCHASE = "inapp purchase";
+  public static final String UCHRFC__ARMORY_TRANSACTION = "armory transaction";
+  public static final String UCHRFC__UPGRADE_CLAN_TIER_LEVEL = "upgraded clan tier level";
+  public static final String UCHRFC__CREATE_CLAN = "created clan";
+  public static final String UCHRFC__EARN_FREE_DIAMONDS_KIIP = "kiip";
+  public static final String UCHRFC__EARN_FREE_DIAMONDS_ADCOLONY = "adcolony";
+  public static final String UCHRFC__CHARACTER_MOD_TYPE = "character type, class";
+  public static final String UCHRFC__CHARACTER_MOD_NAME = "character name";
+  public static final String UCHRFC__CHARACTER_MOD_RESET = "character reset";
+  public static final String UCHRFC__CHARACTER_MOD_SKILL_POINTS = "character skill points";
+  public static final String UCHRFC__GOLDMINE = "goldmine reset";
+  public static final String UCHRFC__COLLECT_GOLDMINE = "collect from goldmine";
+  
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),

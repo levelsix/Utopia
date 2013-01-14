@@ -2,14 +2,17 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PickLockBoxRequestEvent;
 import com.lvl6.events.response.PickLockBoxResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -105,12 +108,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
 
       if (legitPick) {
-        writeChangesToDB(user, method, lockBoxEvent, userEvent, successfulPick, hadAllItems, curTime
-            );
+        Map<String, Integer> money = new HashMap<String, Integer>();
+        writeChangesToDB(user, method, lockBoxEvent, userEvent, successfulPick, hadAllItems, curTime, money);
 
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        
+        writeToUserCurrencyHistory(user, curTime, money);
       }
     } catch (Exception e) {
       log.error("exception in PickLockBox processEvent", e);
@@ -214,7 +219,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return null;
   }
 
-  private void writeChangesToDB(User user, PickLockBoxMethod method, LockBoxEvent event, UserLockBoxEvent userEvent, boolean successfulPick, boolean hadAllItems, Timestamp curTime) {
+  private void writeChangesToDB(User user, PickLockBoxMethod method, LockBoxEvent event, UserLockBoxEvent userEvent, 
+      boolean successfulPick, boolean hadAllItems, Timestamp curTime, Map<String, Integer> money) {
     int diamondCost = method == PickLockBoxMethod.GOLD ? ControllerConstants.LOCK_BOXES__GOLD_COST_TO_PICK : 0;
     if (userEvent.getLastPickTime() != null && userEvent.getLastPickTime().getTime() + 60000*ControllerConstants.LOCK_BOXES__NUM_MINUTES_TO_REPICK > curTime.getTime())
       diamondCost += ControllerConstants.LOCK_BOXES__GOLD_COST_TO_RESET_PICK;
@@ -224,11 +230,25 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(-diamondCost, -coinCost, 0, changeNumPostsInMarketplace)) {
       log.error("problem with updating users currency.");
       return;
+    } else {
+      money.put(MiscMethods.gold, diamondCost);
+      money.put(MiscMethods.silver, coinCost);
     }
 
     if (!UpdateUtils.get().decrementNumLockBoxesIncrementNumTimesCompletedForUser(event.getId(), user.getId(), successfulPick ? 1 : 0, hadAllItems, curTime)) {
       log.error("problem with decrementing users lock boxes for event "+event.getId());
       return;
+    }
+  }
+  
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
+    int amount = money.size();
+    String reasonForChange = ControllerConstants.UCHRFC__PICK_LOCKBOX;
+    
+    if(2 == amount) {
+      Map<String, Integer> previousGoldSilver = null;
+      MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, date, 
+          money, previousGoldSilver, reasonForChange);
     }
   }
 }

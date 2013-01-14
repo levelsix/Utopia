@@ -2,7 +2,9 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,6 +118,11 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           }
         }
       }
+      
+      String key = "";
+      Map<String, Integer> money = new HashMap<String, Integer>();
+      Timestamp date = new Timestamp(new Date().getTime());
+      
       if (legitBuy) {
         //        if (userEquip == null || userEquip.getQuantity() < 1) {
         //          if (MiscMethods.checkIfEquipIsEquippableOnUser(equipment, user) && !user.updateEquipped(equipment)) {
@@ -133,19 +140,28 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           resBuilder.setFullUserEquipOfBoughtItem(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
               new UserEquip(userEquipId, user.getId(), equipId, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0)));
           if (equipment.getDiamondPrice() != Equipment.NOT_SET) {
-            if (!InsertUtils.get().insertDiamondEquipPurchaseHistory(user.getId(), equipId, equipment.getDiamondPrice(), new Timestamp(new Date().getTime()))) {
+            if (!InsertUtils.get().insertDiamondEquipPurchaseHistory(user.getId(), equipId, equipment.getDiamondPrice(), date)) {
               log.error("problem with inserting diamond equip into purchase history. equip id = " + equipId);
             }
           }
         }
         
         if (equipment.getCoinPrice() != Equipment.NOT_SET) {
-          if (!user.updateRelativeCoinsNaive(equipment.getCoinPrice() * -1)) {
-            log.error("problem with taking away " + equipment.getCoinPrice() + " coins from user");
+          int currencyChange = equipment.getCoinPrice() * -1;
+          if (!user.updateRelativeCoinsNaive(currencyChange)) {
+            log.error("problem with taking away " + (currencyChange*-1) + " coins from user");
+          } else {
+            //updating coins went ok
+            key = MiscMethods.silver;
+            money.put(key, currencyChange);
           }
         } else if (equipment.getDiamondPrice() != Equipment.NOT_SET)  {
-          if (!user.updateRelativeDiamondsNaive(equipment.getDiamondPrice() * -1)) {
-            log.error("problem with taking away " + equipment.getDiamondPrice() + " diamonds from user");
+          int currencyChange = equipment.getDiamondPrice() * -1;
+          if (!user.updateRelativeDiamondsNaive(currencyChange)) {
+            log.error("problem with taking away " + (currencyChange*-1) + " diamonds from user");
+          } else {
+            key = MiscMethods.gold;
+            money.put(key, currencyChange);
           }
         }
         resBuilder.setStatus(ArmoryStatus.SUCCESS);
@@ -159,8 +175,13 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         if (!DeleteUtils.get().deleteUserEquip(userEquip.getId())) {
           log.error("problem with delete from player userequip with id " + userEquip.getId());
         }
-        if (!user.updateRelativeCoinsNaive((int)(ControllerConstants.ARMORY__SELL_RATIO * equipment.getCoinPrice()))) {
+        
+        int currencyChange = (int)(ControllerConstants.ARMORY__SELL_RATIO * equipment.getCoinPrice());
+        if (!user.updateRelativeCoinsNaive(currencyChange)) {
           log.error("problem with changing coin count by " + (int)(ControllerConstants.ARMORY__SELL_RATIO * equipment.getCoinPrice()));
+        } else {
+          key = MiscMethods.silver;
+          money.put(key, currencyChange);
         }
         resBuilder.setStatus(ArmoryStatus.SUCCESS);
       }
@@ -183,6 +204,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       if (legitSell) {
         QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.SELL_TO_ARMORY, true);
       }
+      
+      writeToUserCurrencyHistory(user, date, key, money);
     } catch (Exception e) {
       log.error("exception in ArmoryController processEvent", e);
     } finally {
@@ -190,4 +213,27 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     }
   }
 
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date, String key, Map<String, Integer> money) {
+    try{
+      int userId = aUser.getId();
+      int isSilver;
+      int currencyChange = money.get(key);
+      int currencyBefore;
+      String reasonForChange = ControllerConstants.UCHRFC__ARMORY_TRANSACTION;
+      if(MiscMethods.silver.equals(key)) {
+        isSilver = 1;
+        currencyBefore = aUser.getCoins() - currencyChange;
+      } else {
+        isSilver = 0;
+        currencyBefore = aUser.getDiamonds() - currencyChange;
+      }
+      
+      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, 
+          isSilver, currencyChange, currencyBefore, reasonForChange);
+      log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
+    } catch (Exception e) {
+      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+    }
+  }
+  
 }

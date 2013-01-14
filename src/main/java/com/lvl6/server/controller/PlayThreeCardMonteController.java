@@ -1,9 +1,16 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PlayThreeCardMonteRequestEvent;
 import com.lvl6.events.response.PlayThreeCardMonteResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -84,11 +91,14 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
       if (legitPlay) {
         int diamondsChange = diamondsGained - ControllerConstants.THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY;
-
-        writeChangesToDB(user, diamondsChange, coinsGained);
+        
+        Map<String, Integer> money = new HashMap<String, Integer>();
+        writeChangesToDB(user, diamondsChange, coinsGained, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        
+        writeToUserCurrencyHistory(user, money);
       }
 
     } catch (Exception e) {
@@ -118,11 +128,24 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     return true;
   }
 
-  private void writeChangesToDB(User user, int diamondsChange, int coinsGained) {
+  private void writeChangesToDB(User user, int diamondsChange, int coinsGained, Map<String, Integer> money) {
     boolean changeNumPostsInMarketplace = false;
     if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(diamondsChange, coinsGained, 
         0, changeNumPostsInMarketplace)) {
       log.error("problem with changing user's diamonds/coins");
+    } else {
+      money.put(MiscMethods.gold, diamondsChange);
+      money.put(MiscMethods.silver, coinsGained);
     }
+  }
+  
+  public void writeToUserCurrencyHistory(User aUser, Map<String, Integer> money) {
+    Timestamp date = new Timestamp((new Date()).getTime());
+
+    Map<String, Integer> previousGoldSilver = null;
+    String reasonForChange = ControllerConstants.UCHRFC__PLAY_THREE_CARD_MONTE;
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, date, money,
+        previousGoldSilver, reasonForChange);
   }
 }

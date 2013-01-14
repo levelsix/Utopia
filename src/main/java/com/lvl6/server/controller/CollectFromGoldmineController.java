@@ -1,12 +1,16 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.CollectFromGoldmineRequestEvent;
 import com.lvl6.events.response.CollectFromGoldmineResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -20,6 +24,7 @@ import com.lvl6.proto.EventProto.CollectFromGoldmineResponseProto.CollectFromGol
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 
 @Component @DependsOn("gameServer") public class CollectFromGoldmineController extends EventController{
 
@@ -62,10 +67,13 @@ import com.lvl6.utils.RetrieveUtils;
       server.writeEvent(resEvent);
 
       if (legit) {
-        writeChangesToDB(user);
+        List<Integer> money = new ArrayList<Integer>();
+        writeChangesToDB(user, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        
+        writeToUserCurrencyHistory(user, curTime, money);
       }
     } catch (Exception e) {
       log.error("exception in CollectFromGoldmineController processEvent", e);
@@ -106,10 +114,32 @@ import com.lvl6.utils.RetrieveUtils;
     return true;
   }
 
-  private void writeChangesToDB(User user) {
+  private void writeChangesToDB(User user, List<Integer> money) {
+    int goldChange = ControllerConstants.GOLDMINE__GOLD_AMOUNT_FROM_PICK_UP;
     Timestamp stamp = new Timestamp(user.getLastGoldmineRetrieval().getTime() + 3600000l*(ControllerConstants.GOLDMINE__NUM_HOURS_BEFORE_RETRIEVAL+ControllerConstants.GOLDMINE__NUM_HOURS_TO_PICK_UP));
-    if (!user.updateLastGoldmineRetrieval(ControllerConstants.GOLDMINE__GOLD_AMOUNT_FROM_PICK_UP, stamp)) {
-      log.error("problem with adding diamonds for goldmine, adding " + ControllerConstants.GOLDMINE__GOLD_AMOUNT_FROM_PICK_UP);
+    if (!user.updateLastGoldmineRetrieval(goldChange, stamp)) {
+      log.error("problem with adding diamonds for goldmine, adding " + goldChange);
+    } else {
+      money.add(goldChange);
+    }
+  }
+  
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date, List<Integer> money) {
+    try {
+      if(money.isEmpty()) {
+        return;
+      }
+      int userId = aUser.getId();
+      int isSilver = 0;
+      int currencyChange = money.get(0);
+      int currencyBefore = aUser.getDiamonds() - currencyChange;
+      String reasonForChange = ControllerConstants.UCHRFC__COLLECT_GOLDMINE;
+      int inserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver,
+          currencyChange, currencyBefore, reasonForChange);
+
+      log.info("Should be 1. Rows inserted into user_currency_history: " + inserted);
+    } catch (Exception e) {
+      log.error("Maybe table's not there or duplicate keys? " + e.toString());
     }
   }
 }

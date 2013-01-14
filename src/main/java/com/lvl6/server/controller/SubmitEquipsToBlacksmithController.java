@@ -3,12 +3,16 @@ package com.lvl6.server.controller;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.SubmitEquipsToBlacksmithRequestEvent;
 import com.lvl6.events.response.SubmitEquipsToBlacksmithResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -75,12 +79,13 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       boolean legitSubmit = checkLegitSubmit(resBuilder, user, paidToGuarantee, userEquips, equip, startTime);
 
       int goalLevel = 0;
+      int diamondCost = calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee);
       if (legitSubmit) {
         goalLevel = userEquips.get(0).getLevel() + 1;
 
         int blacksmithId = InsertUtils.get().insertForgeAttemptIntoBlacksmith(user.getId(), equip.getId(), goalLevel, 
             paidToGuarantee, startTime, 
-            calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee), null, false);
+            diamondCost, null, false);
 
         if (blacksmithId <= 0) {
           resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.OTHER_FAIL);
@@ -89,7 +94,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         } else {
           BlacksmithAttempt ba = new BlacksmithAttempt(blacksmithId, user.getId(), equip.getId(), goalLevel, 
               paidToGuarantee, startTime, 
-              calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee), null, false);
+              diamondCost, null, false);
           resBuilder.setUnhandledBlacksmithAttempt(CreateInfoProtoUtils.createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(ba));
         }
       }
@@ -100,12 +105,14 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       server.writeEvent(resEvent);
 
       if (legitSubmit) {
-        writeChangesToDB(user, calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee), userEquips);
-        if (calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee) > 0) {
+        Map<String, Integer> money = new HashMap<String, Integer>();
+        writeChangesToDB(user, diamondCost, userEquips, money);
+        if (diamondCost > 0) {
           UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
           resEventUpdate.setTag(event.getTag());
           server.writeEvent(resEventUpdate);
         }
+        writeToUserCurrencyHistory(user, startTime, money);
       }
 
     } catch (Exception e) {
@@ -115,7 +122,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     }
   }
 
-  private void writeChangesToDB(User user, int diamondCostForGuarantee, List<UserEquip> userEquips) {
+  private void writeChangesToDB(User user, int diamondCostForGuarantee, List<UserEquip> userEquips,
+      Map<String, Integer> money) {
     if (userEquips != null) {
       for (UserEquip ue : userEquips) {
         if (!MiscMethods.unequipUserEquipIfEquipped(user, ue)) {
@@ -129,6 +137,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       if (diamondCostForGuarantee > 0) {
         if (!user.updateRelativeDiamondsNaive(diamondCostForGuarantee*-1)) {
           log.error("problem with taking away diamonds post forge guarantee attempt, taking away " + diamondCostForGuarantee + ", user only has " + user.getDiamonds());
+        } else {
+          money.put(MiscMethods.gold, diamondCostForGuarantee);
         }
       }
     }
@@ -196,5 +206,23 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
     resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.SUCCESS);
     return true;
+  }
+  
+  public void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
+    try {
+      if(money.isEmpty()) {
+        return;
+      }
+      int userId = aUser.getId();
+      int isSilver = 0;
+      int currencyChange = money.get(MiscMethods.gold);
+      int currencyBefore = aUser.getDiamonds() - currencyChange;
+      String reasonForChange = ControllerConstants.UCHRFC__SUBMIT_EQUIPS_TO_BLACKSMITH;
+      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver, 
+          currencyChange, currencyBefore, reasonForChange);
+      log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
+    } catch (Exception e) {
+      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+    }
   }
 }
