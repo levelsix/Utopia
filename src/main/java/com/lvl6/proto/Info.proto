@@ -465,6 +465,7 @@ message FullUserEquipProto {
 	optional int32 userId = 2;
 	optional int32 equipId = 3;
 	optional int32 level = 4;
+	optional int32 enhancementPercentage = 5;
 }
 
 //------------------------------------------------------------------------------------------
