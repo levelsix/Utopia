@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -37,6 +38,25 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 	Logger log = LoggerFactory.getLogger(getClass());
 
 	protected JdbcTemplate jdbc;
+	
+	
+	@Resource(name="serverMessagesTemplate")
+	protected RabbitTemplate serverMessagesTemplate;
+	public RabbitTemplate getServerMessagesTemplate() {
+		return serverMessagesTemplate;
+	}
+	public void setServerMessagesTemplate(RabbitTemplate serverMessagesTemplate) {
+		this.serverMessagesTemplate = serverMessagesTemplate;
+	}
+
+	@Resource
+	protected ApplicationMode appMode;
+	public ApplicationMode getAppMode() {
+		return appMode;
+	}
+	public void setAppMode(ApplicationMode appMode) {
+		this.appMode = appMode;
+	}
 
 	@Resource
 	public void setDataSource(DataSource dataSource) {
@@ -164,6 +184,14 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 			});
 		}
 	}
+	
+	public void setApplicationMode(Boolean maintenanceMode, String messageForUsers) {
+		log.info("Setting application maintenance mode: {} message: {}", maintenanceMode, messageForUsers);
+		appMode.setMaintenanceMode(maintenanceMode);
+		appMode.setMessageForUsers(messageForUsers);
+		serverMessagesTemplate.convertAndSend(appMode);
+	}
+	
 
 	protected void sendPurgeStaticDataNotificationToAllClients() {
 		Set<Integer> keySet = players.keySet();
