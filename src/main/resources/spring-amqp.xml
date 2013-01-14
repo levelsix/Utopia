@@ -68,10 +68,10 @@
 		durable="true" auto-delete="false" />
 
 	<rabbit:listener-container
-		connection-factory="rabbitConnectionFactory" concurrency="1"
+		connection-factory="amqpConnectionFactory" concurrency="1"
 		error-handler="amqpErrorHandler"
 		message-converter="jsonConverter">
-		<rabbit:listener queues="serverMessagesQueue" ref="serverMessageEventHandler"
+		<rabbit:listener queues="serverMessagesQueue" ref="serverEventHandler"
 			method="onMessage" />
 	</rabbit:listener-container>
 
