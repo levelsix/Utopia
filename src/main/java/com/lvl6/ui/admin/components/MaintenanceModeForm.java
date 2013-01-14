@@ -16,7 +16,7 @@ public class MaintenanceModeForm extends Form<ApplicationMode> {
 	}
 	
 	protected void setup() {
-		add(new CheckBox("maintenanceMode"));
+		add(new CheckBox("isMaintenanceMode"));
 		add(new TextField<String>("messageForUsers"));
 	}
 	

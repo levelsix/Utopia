@@ -50,7 +50,7 @@ public class AdminPage extends TemplatePage {
 	}
 	
 	private void setMaintenanceMode() {
-		
+		add(maintenanceForm);
 	}
 	
 	protected MaintenanceModeForm maintenanceForm = new MaintenanceModeForm("maintenanceForm") {
