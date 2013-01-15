@@ -135,6 +135,7 @@ public class DBConstants {
   public static final String USER_EQUIP__USER_ID = GENERIC__USER_ID;
   public static final String USER_EQUIP__EQUIP_ID = "equip_id";
   public static final String USER_EQUIP__LEVEL = "level";
+  public static final String USER_EQUIP__ENHANCEMENT_PERCENT = "enhancement_percent";
   
   /*USER TASK TABLE*/
   public static final String USER_TASK__USER_ID = GENERIC__USER_ID;

@@ -12,6 +12,7 @@ import com.lvl6.events.request.EnhanceEquipRequestEvent;
 import com.lvl6.events.response.EnhanceEquipResponseEvent;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.UserEquip;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.proto.EventProto.EnhanceEquipRequestProto;
 import com.lvl6.proto.EventProto.EnhanceEquipResponseProto;
 import com.lvl6.proto.EventProto.EnhanceEquipResponseProto.Builder;
@@ -20,6 +21,8 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.DeleteUtils;
+import com.lvl6.utils.utilmethods.UpdateUtils;
 
   @Component @DependsOn("gameServer") public class EnhanceEquipController extends EventController {
 
@@ -47,7 +50,8 @@ import com.lvl6.utils.RetrieveUtils;
 
     UserEquip enhancingUserEquip = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquip(reqProto.getEnhancingUserEquipId());
     UserEquip feederUserEquip = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquip(reqProto.getFeederUserEquipId());
-
+    int oldEnhancementPercentage = enhancingUserEquip.getEnhancementPercentage();
+    
     Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
     Equipment enhancingEquip = (enhancingUserEquip == null) ? null : equipmentIdsToEquipment.get(enhancingUserEquip.getEquipId());
     Equipment feederEquip = (feederUserEquip == null) ? null : equipmentIdsToEquipment.get(feederUserEquip.getEquipId());
@@ -66,7 +70,9 @@ import com.lvl6.utils.RetrieveUtils;
       server.writeEvent(resEvent);
 
       if (legitEquip) {
-        writeChangesToDB();
+        MiscMethods.enhanceUserEquip(enhancingUserEquip, feederUserEquip);
+        writeChangesToDB(enhancingUserEquip, feederUserEquip);
+        //TODO: TRACK THIS ENHANCEMENT
       }
     } catch (Exception e) {
       log.error("exception in EnhanceEquip processEvent", e);
@@ -75,7 +81,18 @@ import com.lvl6.utils.RetrieveUtils;
     }
   }
 
-  private void writeChangesToDB() {
+  //delete feederuserequip, write enhanceduserequip to the db
+  private void writeChangesToDB(UserEquip enhancedUserEquip, UserEquip feederUserEquip) {
+    int userEquipId = enhancedUserEquip.getId();
+    int enhancementPercent = enhancedUserEquip.getEnhancementPercentage();
+    if(!UpdateUtils.get().updateUserEquipAfterEnhancment(userEquipId, enhancementPercent)) {
+      
+    } else {
+      //success, now delete  feederUserEquip
+      if (!DeleteUtils.get().deleteUserEquip(userEquipId)) {
+        log.error("problem with delete from player userequip with id " + userEquipId);
+      }
+    }
   }
 
   private boolean checkEquip(Builder resBuilder) {

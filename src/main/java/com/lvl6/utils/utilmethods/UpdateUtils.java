@@ -298,6 +298,21 @@ public class UpdateUtils implements UpdateUtil {
     }
     return false;
   }
+  
+  public boolean updateUserEquipAfterEnhancment (int userEquipId, int enhancementPercent) {
+    Map<String, Object> conditionParams = new HashMap<String, Object>();
+    Map<String, Object> absoluteParams = new HashMap<String, Object>();
+    
+    conditionParams.put(DBConstants.USER_EQUIP__EQUIP_ID, userEquipId);
+    absoluteParams.put(DBConstants.USER_EQUIP__ENHANCEMENT_PERCENT, enhancementPercent);
+    
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_EQUIP, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
 
   /*
    * used for updating is_complete=true and last_retrieved to upgrade_time+minutestogain for a userstruct

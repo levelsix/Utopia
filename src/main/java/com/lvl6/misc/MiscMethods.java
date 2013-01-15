@@ -1099,4 +1099,8 @@ public class MiscMethods {
     }
     
   }
+  
+  public static void enhanceUserEquip(UserEquip mainUserEquip, UserEquip feederUserEquip) {
+    
+  }
 }
