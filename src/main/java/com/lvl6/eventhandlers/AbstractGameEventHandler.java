@@ -35,7 +35,7 @@ public abstract class AbstractGameEventHandler implements MessageHandler {
 
 	@Autowired
 	MessagingUtil messagingUtil;
-	
+
 	public MessagingUtil getMessagingUtil() {
 		return messagingUtil;
 	}
@@ -68,13 +68,10 @@ public abstract class AbstractGameEventHandler implements MessageHandler {
 		while (attachment.eventReady()) {
 			RequestEvent event = getEvent(attachment);
 			log.debug("Recieved event from client: " + event.getPlayerId());
-			if (getApplicationMode().isMaintenanceMode()) {
-				messagingUtil.sendMaintanenceModeMessage(getApplicationMode().getMessageForUsers(), event.getPlayerId());
-			} else {
-				delegateEvent(payload, event, (String) msg.getHeaders().get("ip_connection_id"),
-						attachment.eventType);
-				attachment.reset();
-			}
+			delegateEvent(payload, event, (String) msg.getHeaders().get("ip_connection_id"),
+					attachment.eventType);
+			attachment.reset();
+
 		}
 	}
 
