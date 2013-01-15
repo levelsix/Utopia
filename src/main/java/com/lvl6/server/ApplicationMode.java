@@ -1,6 +1,8 @@
 package com.lvl6.server;
 
-public class ApplicationMode {
+import java.io.Serializable;
+
+public class ApplicationMode implements Serializable {
 	/**
 	 * 
 	 */
