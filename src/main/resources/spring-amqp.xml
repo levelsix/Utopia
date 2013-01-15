@@ -99,7 +99,7 @@
 		exchange="${amqp.chat.exchange}" />
 
 	<bean id="clientEventHandler" class="com.lvl6.eventhandlers.AmqpGameEventHandler" />
-	<bean id="serverEventHandler" class="com.lvl6.eventhandlers.ServerEventHandler" />
+	<bean id="serverEventHandler" class="com.lvl6.eventhandlers.AmqpServerEventHandler" />
 	<bean id="amqpErrorHandler" class="com.lvl6.eventhandlers.AmqpErrorHandler" />
 
 </beans>
