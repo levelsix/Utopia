@@ -12,14 +12,37 @@ import org.springframework.integration.core.MessageHandler;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.server.ApplicationMode;
 import com.lvl6.server.GameServer;
 import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.Attachment;
+import com.lvl6.utils.MessagingUtil;
 
 public abstract class AbstractGameEventHandler implements MessageHandler {
 
-	protected static Logger log = LoggerFactory
-			.getLogger(AbstractGameEventHandler.class);
+	protected static Logger log = LoggerFactory.getLogger(AbstractGameEventHandler.class);
+
+	@Autowired
+	ApplicationMode applicationMode;
+
+	public ApplicationMode getApplicationMode() {
+		return applicationMode;
+	}
+
+	public void setApplicationMode(ApplicationMode applicationMode) {
+		this.applicationMode = applicationMode;
+	}
+
+	@Autowired
+	MessagingUtil messagingUtil;
+
+	public MessagingUtil getMessagingUtil() {
+		return messagingUtil;
+	}
+
+	public void setMessagingUtil(MessagingUtil messagingUtil) {
+		this.messagingUtil = messagingUtil;
+	}
 
 	@Autowired
 	GameServer server;
@@ -45,10 +68,10 @@ public abstract class AbstractGameEventHandler implements MessageHandler {
 		while (attachment.eventReady()) {
 			RequestEvent event = getEvent(attachment);
 			log.debug("Recieved event from client: " + event.getPlayerId());
-			delegateEvent(payload, event,
-					(String) msg.getHeaders().get("ip_connection_id"),
+			delegateEvent(payload, event, (String) msg.getHeaders().get("ip_connection_id"),
 					attachment.eventType);
 			attachment.reset();
+
 		}
 	}
 
@@ -57,12 +80,10 @@ public abstract class AbstractGameEventHandler implements MessageHandler {
 	 */
 	protected RequestEvent getEvent(Attachment attachment) {
 		RequestEvent event = null;
-		ByteBuffer bb = ByteBuffer.wrap(Arrays.copyOf(attachment.payload,
-				attachment.payloadSize));
+		ByteBuffer bb = ByteBuffer.wrap(Arrays.copyOf(attachment.payload, attachment.payloadSize));
 
 		// get the controller and tell it to instantiate an event for us
-		EventController ec = server
-				.getEventControllerByEventType(attachment.eventType);
+		EventController ec = server.getEventControllerByEventType(attachment.eventType);
 
 		if (ec == null) {
 			return null;
@@ -75,6 +96,7 @@ public abstract class AbstractGameEventHandler implements MessageHandler {
 		return event;
 	}
 
-	protected abstract void delegateEvent(byte[] bytes, RequestEvent event, String ip_connection_id, EventProtocolRequest eventType);
+	protected abstract void delegateEvent(byte[] bytes, RequestEvent event, String ip_connection_id,
+			EventProtocolRequest eventType);
 
 }

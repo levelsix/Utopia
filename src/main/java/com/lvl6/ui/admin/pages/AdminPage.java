@@ -14,7 +14,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.lvl6.properties.Globals;
 import com.lvl6.server.DevOps;
+import com.lvl6.server.ServerAdmin;
 import com.lvl6.spring.AppContext;
+import com.lvl6.ui.admin.components.MaintenanceModeForm;
 import com.lvl6.ui.admin.components.RecentPurchasesPanel;
 import com.lvl6.ui.admin.components.ReloadLeaderboardLink;
 import com.lvl6.ui.admin.components.ReloadStaticDataLink;
@@ -42,9 +44,25 @@ public class AdminPage extends TemplatePage {
 		setRecentPurchases();
 		setContactAdmins();
 		setSendAdminMessage();
+		setMaintenanceMode();
 		//setupGraphs();
 		add(abstractAjaxTimerBehavior);
 	}
+	
+	private void setMaintenanceMode() {
+		add(maintenanceForm);
+	}
+	
+	protected MaintenanceModeForm maintenanceForm = new MaintenanceModeForm("maintenanceForm") {
+		private static final long serialVersionUID = 1L;
+		@Override
+		protected void onSubmit() {
+			super.onSubmit();
+			log.info("Setting maintenance mode");
+			ServerAdmin admin = AppContext.getApplicationContext().getBean(ServerAdmin.class);
+			admin.setApplicationMode(getModelObject().isMaintenanceMode(), getModelObject().getMessageForUsers());
+		}
+	};
 	
 	private void setIsSandbox() {
 		add(new Label("isSandbox", "Sandbox: "+Globals.IS_SANDBOX()));
