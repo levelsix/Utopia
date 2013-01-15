@@ -60,7 +60,7 @@ public class AdminPage extends TemplatePage {
 			super.onSubmit();
 			log.info("Setting maintenance mode");
 			ServerAdmin admin = AppContext.getApplicationContext().getBean(ServerAdmin.class);
-			admin.setAppMode(getModelObject());
+			admin.setApplicationMode(getModelObject().isMaintenanceMode(), getModelObject().getMessageForUsers());
 		}
 	};
 	
