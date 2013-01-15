@@ -79,8 +79,12 @@ public class AmqpGameEventHandler extends AbstractGameEventHandler implements Me
 		event.setTag(attachment.tag);
 		event.read(bb);
 		log.debug("Received event from client: " + event.getPlayerId());
-		updatePlayerToServerMaps(event);
-		ec.handleEvent(event);
+		if (getApplicationMode().isMaintenanceMode()) {
+			messagingUtil.sendMaintanenceModeMessage(getApplicationMode().getMessageForUsers(), event.getPlayerId());
+		} else {
+			updatePlayerToServerMaps(event);
+			ec.handleEvent(event);
+		}
 	}
 
 	@Override
