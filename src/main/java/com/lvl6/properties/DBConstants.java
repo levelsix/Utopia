@@ -66,9 +66,13 @@ public class DBConstants {
   public static final String TABLE_LEADERBOARD_EVENTS = "leaderboard_events";
   public static final String TABLE_USER_LEADERBOARD_EVENTS = "user_leaderboard_events";
   public static final String TABLE_LEADERBOARD_EVENT_REWARDS = "leaderboard_event_rewards";
-
   public static final String TABLE_PROFANITY = "profanity";
   public static final String TABLE_USER_CURRENCY_HISTORY = "user_currency_history";
+  
+  public static final String TABLE_EQUIP_ENHANCEMENT = "equip_enhancement";
+  public static final String TABLE_EQUIP_ENHANCEMENT_HISTORY = "equip_enhancement_history";
+  public static final String TABLE_EQUIP_ENHANCEMENT_FEEDERS = "equip_enhancement_feeders";
+  public static final String TABLE_EQUIP_ENHANCEMENT_FEEDERS_HISTORY = "equip_enhancement_feeders_history";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -136,6 +140,39 @@ public class DBConstants {
   public static final String USER_EQUIP__EQUIP_ID = "equip_id";
   public static final String USER_EQUIP__LEVEL = "level";
   public static final String USER_EQUIP__ENHANCEMENT_PERCENT = "enhancement_percent";
+  
+  /*EQUIP ENHANCEMENT*/
+  public static final String EQUIP_ENHANCEMENT__ID = GENERIC__ID;
+  public static final String EQUIP_ENHANCEMENT__USER_ID = GENERIC__USER_ID;
+  public static final String EQUIP_ENHANCEMENT__EQUIP_ID = "equip_id";
+  public static final String EQUIP_ENHANCEMENT__EQUIP_LEVEL = "equip_level";
+  public static final String EQUIP_ENHANCEMENT__ENHANCEMENT_PERCENTAGE_BEFORE_ENHANCEMENT = "enhancement_percentage_before_enhancement";
+  public static final String EQUIP_ENHANCEMENT__START_TIME_OF_ENHANCEMENT = "start_time_of_enhancement";
+  public static final String EQUIP_ENHANCEMENT__TIME_OF_SPEED_UP = "time_of_speed_up";
+  
+  /*EQUIP ENHANCEMENT HISTORY*/
+  public static final String EQUIP_ENHANCEMENT_HISTORY__EQUIP_ENHANCEMENT_ID = "equip_enhancement_id";
+  public static final String EQUIP_ENHANCEMENT_HISTORY__USER_ID = GENERIC__USER_ID;
+  public static final String EQUIP_ENHANCEMENT_HISTORY__EQUIP_ID = "equip_id";
+  public static final String EQUIP_ENHANCEMENT_HISTORY__EQUIP_LEVEL = "equip_level";
+  public static final String EQUIP_ENHANCEMENT_HISTORY__CURRENT_ENHANCEMENT_PERCENTAGE = "current_enhancement_percentage";
+  public static final String EQUIP_ENHANCEMENT_HISTORY__PREVIOUS_ENHANCEMENT_PERCENTAGE = "previous_enhancement_percentage";
+  public static final String EQUIP_ENHANCEMENT_HISTORY__START_TIME_OF_ENHANCEMENT = "start_time_of_enhancement";
+  public static final String EQUIP_ENHANCEMENT_HISTORY__TIME_OF_SPEED_UP = "time_of_speed_up";
+  
+  /*EQUIP ENHANCEMENT FEEDERS*/
+  public static final String EQUIP_ENHANCEMENT_FEEDERS__ID = GENERIC__ID;
+  public static final String EQUIP_ENHANCEMENT_FEEDERS__EQUIP_ENHANCEMENT_ID = "equip_enhancement_id";
+  public static final String EQUIP_ENHANCEMENT_FEEDERS__EQUIP_ID = "equip_id";
+  public static final String EQUIP_ENHANCEMENT_FEEDERS__EQUIP_LEVEL = "equip_level";
+  public static final String EQUIP_ENHANCEMENT_FEEDERS__ENHANCEMENT_PERCENTAGE_BEFORE_ENHANCEMENT = "enhancement_percentage_before_enhancement";
+
+  /*EQUIP ENHANCEMENT FEEDERS HISTORY*/
+  public static final String EQUIP_ENHANCEMENT_FEEDERS_HISTORY__ID = "equip_enhancement_feeders_id";
+  public static final String EQUIP_ENHANCEMENT_FEEDERS_HISTORY__EQUIP_ENHANCEMENT_ID = "equip_enhancement_id";
+  public static final String EQUIP_ENHANCEMENT_FEEDERS_HISTORY__EQUIP_ID = "equip_id";
+  public static final String EQUIP_ENHANCEMENT_FEEDERS_HISTORY__EQUIP_LEVEL = "equip_level";
+  public static final String EQUIP_ENHANCEMENT_FEEDERS_HISTORY__ENHANCEMENT_PERCENTAGE_BEFORE_ENHANCEMENT = "enhancement_percentage_before_enhancement";
   
   /*USER TASK TABLE*/
   public static final String USER_TASK__USER_ID = GENERIC__USER_ID;
