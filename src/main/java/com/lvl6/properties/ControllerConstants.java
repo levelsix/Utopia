@@ -101,8 +101,8 @@ public class ControllerConstants {
   
   public static final int SIZE_OF_ATTACK_LIST = 20;
 
-  public static final int BATTLE__MAX_NUM_TIMES_ATTACKED_BY_ONE_IN_PROTECTION_PERIOD = 10;
-  public static final int BATTLE__HOURS_IN_ATTACKED_BY_ONE_PROTECTION_PERIOD = 8;
+  public static final int BATTLE__MAX_NUM_TIMES_ATTACKED_BY_ONE_IN_PROTECTION_PERIOD = 25;
+  public static final int BATTLE__HOURS_IN_ATTACKED_BY_ONE_PROTECTION_PERIOD = 2;
   public static final int BATTLE__MAX_LEVEL_TO_STEAL = 4;
   public static final int BATTLE__MAX_LEVEL_TO_STEAL_EPICS = 2;
   
@@ -394,7 +394,7 @@ public class ControllerConstants {
   public static final int LEVEL_TO_SHOW_RATE_US_POPUP = 8;
   
   //CLAN TOWER
-  public static final int MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER = 2;
+  public static final int MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER = 5;
   
   //LEADERBOARD EVENT
   public static final int LEADERBOARD_EVENT__WINS_WEIGHT = 2;
@@ -484,8 +484,8 @@ public class ControllerConstants {
   public static final String NIB_NAME__GOLD_MINE = "GoldMine.2";
   public static final String NIB_NAME__EXPANSION = "Expansion.2";
   public static final String NIB_NAME__MARKET_FILTERS = "MarketplaceFilters.2";
-  public static final String NIB_NAME__BLACKSMITH = "Blacksmith.2";
-  public static final String NIB_NAME__GOLD_SHOPPE = "GoldShoppe.2";
+  public static final String NIB_NAME__BLACKSMITH = "Blacksmith.3";
+  public static final String NIB_NAME__GOLD_SHOPPE = "GoldShoppe.3";
   
   public static final int IDDICTION__EQUIP_ID = 282;
   public static final String IDDICTION__NOTICE = "FREE limited edition gold equip for joining today!";

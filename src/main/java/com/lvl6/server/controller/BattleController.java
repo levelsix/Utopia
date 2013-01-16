@@ -204,7 +204,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           }
 
           if (attacker != null && defender != null){
-            server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
+            //server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
             if (!defender.isFake()) {
               BattleResponseEvent resEvent2 = new BattleResponseEvent(defender.getId());
               resEvent2.setBattleResponseProto(resProto);

@@ -807,7 +807,7 @@ public class InsertUtils implements InsertUtil{
     
     insertParams.put(DBConstants.USER_CURRENCY_HISTORY__USER_ID, userId);
     insertParams.put(DBConstants.USER_CURRENCY_HISTORY__DATE, date);
-    insertParams.put(DBConstants.USER_CURRENCY_HISTORY__USER_ID, isSilver);
+    insertParams.put(DBConstants.USER_CURRENCY_HISTORY__IS_SILVER, isSilver);
     insertParams.put(DBConstants.USER_CURRENCY_HISTORY__CURRENCY_CHANGE, currencyChange);
     insertParams.put(DBConstants.USER_CURRENCY_HISTORY__CURRENCY_BEFORE_CHANGE, currencyBefore);
     insertParams.put(DBConstants.USER_CURRENCY_HISTORY__REASON_FOR_CHANGE, reasonForChange);
