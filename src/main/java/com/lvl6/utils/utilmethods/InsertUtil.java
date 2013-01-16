@@ -32,6 +32,20 @@ public interface InsertUtil {
       @CacheEvict(value = "userEquipsWithEquipId", key = "#userId+':'+#equipId") })
   public abstract int insertUserEquip(int userId, int equipId, int level);
 
+  public abstract int insertEquipEnhancement(int id, int userId, int equipId, int equipLevel,
+      int enhancementPercentageBeforeEnhancement, Timestamp startTimeOfEnhancement,
+      Timestamp timeOfSpeedup);
+  
+  public abstract int insertIntoEquipEnhancementHistory(int equipEnhancementId, int userId, int equipId, 
+      int equipLevel, int currentEnhancementPercentage, int previousEnhancementPercentage, 
+      Timestamp timeOfEnhancement, Timestamp timeOfSpeedup);
+  
+  public abstract int insertEquipEnhancementFeeders(int id, int equipEnhancementId, int equipId,
+      int equipLevel, int enhancementPercentageBeforeEnhancement);
+  
+  public abstract int insertIntoEquipEnhancementFeedersHistory(int id, int equipEnhancementId,
+      int equipId, int equipLevel, int enhancementPercentageBeforeEnhancement);
+  
   /*
    * (non-Javadoc)
    * 
