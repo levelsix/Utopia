@@ -2,6 +2,21 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+message EquipEnhancementProto {
+	optional int32 enhancementId = 1;
+	optional int32 userId = 2;
+	optional EquipEnhancementItemProto enhancingEquip = 3;
+	repeated EquipEnhancementItemProto feederEquips = 4;
+	optional int64 startTime = 5;
+	optional int64 timeOfSpeedup = 6;
+}
+
+message EquipEnhancementItemProto {
+	optional int32 equipId = 1;
+	optional int32 level = 2;
+	optional int32 enhancementPercentage = 3;
+}
+
 message InAppPurchasePackageProto {
 	optional string packageId = 1;
 	optional int32 currencyAmount = 2;

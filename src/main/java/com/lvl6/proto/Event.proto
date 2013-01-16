@@ -2356,21 +2356,42 @@ message GeneralNotificationResponseProto {
 	optional ColorProto rgb = 3;
 }
 
-message EnhanceEquipRequestProto {
+message SubmitEquipEnhancementRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional int32 feederUserEquipId = 2;
-	optional int32 enhancingUserEquipId = 3;
+	optional int32 enhancingUserEquipId = 2;
+	repeated int32 feederUserEquipIds = 3;
+	optional int64 clientTime = 4;
 }
 
-message EnhanceEquipResponseProto {
+message SubmitEquipEnhancementResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional EnhanceEquipStatus status = 2;
-	
-	optional FullUserEquipProto enhancedEquip = 3;
-	
+	optional EquipEnhancementProto equipToEnhance = 3;
+
 	enum EnhanceEquipStatus {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 2;
 	}
 }
+
+message CollectEquipEnhancementRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 equipEnhancementId = 2;
+	optional int64 clientTime = 3;
+}
+
+message CollectEquipEnhancementResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional CollectEquipStatus status = 2;
+	optional FullUserEquipProto resultingEquip = 3;
+	
+	enum CollectEquipStatus {
+		SUCCESS = 0;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 1;
+		ENHANCEMENT_NOT_COMPLETE = 2;
+		OTHER_FAIL = 3;
+	}
+}
+
 	
