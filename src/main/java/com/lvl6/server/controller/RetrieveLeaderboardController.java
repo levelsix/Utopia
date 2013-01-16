@@ -98,7 +98,6 @@ public class RetrieveLeaderboardController extends EventController {
           log.info("Populating leaderboard results for: "+leaderboardType+" after this rank: "+afterThisRank+" found results: "+resultUsers.size());
           for (User u : resultUsers) {
             UserRankScore urs = lurs.get(u.getId());
-            log.info("Rank: "+urs.rank+" User: "+urs.userId+" Score: "+urs.score);
             resBuilder.addResultPlayers(CreateInfoProtoUtils.createMinimumUserProtoWithLevelForLeaderboard(u, leaderboardType, urs.rank, urs.score));
           }
         }
@@ -122,7 +121,6 @@ public class RetrieveLeaderboardController extends EventController {
 
   private Map<Integer, UserRankScore> getUsersAfterThisRank(LeaderboardType leaderboardType,	int afterThisRank) {
     Set<Tuple> usrs = new HashSet<Tuple>();
-    log.info("Retrieving "+leaderboardType+" afterThisRank: "+afterThisRank);
     if (leaderboardType.equals(LeaderboardType.BEST_KDR)) {
       usrs = leader.getBattlesWonOverTotalBattlesRatioTopN(afterThisRank, afterThisRank+ControllerConstants.LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE);
     }
@@ -143,7 +141,6 @@ public class RetrieveLeaderboardController extends EventController {
       Integer userId = Integer.valueOf(t.getElement());
       UserRankScore urs = new UserRankScore(userId, t.getScore(), counter+afterThisRank);
       lurs.put(userId, urs);
-      log.info(urs.toString());
       counter++;
     }
     return lurs;

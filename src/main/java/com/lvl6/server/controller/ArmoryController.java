@@ -109,12 +109,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
             resBuilder.setStatus(ArmoryStatus.CANNOT_SELL_DIAMOND_EQUIP);
             log.error("player tried to sell a diamond equip (equip with id " + equipId + ")");
           } else {
-            if (userEquip != null) {
-              legitSell = true;
-            } else {
-              resBuilder.setStatus(ArmoryStatus.NOT_ENOUGH_EQUIP_TO_SELL);
-              log.error("player tried to sell " + quantity + " equips with id " + equipId + " but has none");
-            }
+            resBuilder.setStatus(ArmoryStatus.NOT_ENOUGH_EQUIP_TO_SELL);
+            log.error("player tried to sell " + quantity + " equips with id " + equipId + " but has none");
           }
         }
       }
