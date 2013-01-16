@@ -61,8 +61,7 @@
 	</rabbit:topic-exchange>
 
 
-	<rabbit:queue id="serverMessagesQueue" 
-		auto-delete="false" durable="true" />
+	<rabbit:queue id="serverMessagesQueue" />
 
 	<rabbit:queue id="clientMessages" name="clientMessages"
 		durable="true" auto-delete="false" />
