@@ -181,6 +181,8 @@ message StartupResponseProto {
 	
 	repeated LeaderboardEventProto leaderboardEvents = 41;
 	
+	optional EquipEnhancementProto equipEnhancement = 42;
+	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
 		optional bool firstTimeToday = 2;
@@ -2372,13 +2374,15 @@ message SubmitEquipEnhancementResponseProto {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
 		CLIENT_TOO_APART_FROM_SERVER_TIME = 2;
+		MAIN_OR_FEEDER_OR_EQUIPS_NONEXISTENT = 3;
 	}
 }
 
 message CollectEquipEnhancementRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 equipEnhancementId = 2;
-	optional int64 clientTime = 3;
+	optional int64 clientTime = 3; //this will be the time of speed up if speedUp is true
+	optional bool speedUp = 4;
 }
 
 message CollectEquipEnhancementResponseProto {
@@ -2391,6 +2395,7 @@ message CollectEquipEnhancementResponseProto {
 		CLIENT_TOO_APART_FROM_SERVER_TIME = 1;
 		ENHANCEMENT_NOT_COMPLETE = 2;
 		OTHER_FAIL = 3;
+		NOT_ENOUGH_GOLD = 4;
 	}
 }
 
