@@ -21,14 +21,14 @@ import com.lvl6.proto.EventProto.SubmitEquipEnhancementRequestProto;
 import com.lvl6.proto.EventProto.SubmitEquipEnhancementResponseProto;
 import com.lvl6.proto.EventProto.SubmitEquipEnhancementResponseProto.Builder;
 import com.lvl6.proto.EventProto.SubmitEquipEnhancementResponseProto.EnhanceEquipStatus;
-import com.lvl6.proto.EventProto.SubmitEquipsToBlacksmithResponseProto.SubmitEquipsToBlacksmithStatus;
+import com.lvl6.proto.InfoProto.EquipEnhancementProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
-import com.lvl6.utils.utilmethods.UpdateUtils;
 
   @Component @DependsOn("gameServer") public class SubmitEquipEnhancementController extends EventController {
 
@@ -57,7 +57,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int enhancingUserEquipId = reqProto.getEnhancingUserEquipId(); 
     List<Integer> feederUserEquipIds = reqProto.getFeederUserEquipIdsList();
     Timestamp clientTime = new Timestamp(reqProto.getClientTime());
-
+    int userId = senderProto.getUserId();
+    
     SubmitEquipEnhancementResponseProto.Builder resBuilder = SubmitEquipEnhancementResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
@@ -77,14 +78,21 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       boolean legitEquip = checkEquip(resBuilder, enhancingUserEquip, feederUserEquipIds, feederUserEquips, 
           equipmentIdsToEquipment, clientTime);
 
-      SubmitEquipEnhancementResponseEvent resEvent = new SubmitEquipEnhancementResponseEvent(senderProto.getUserId());
-      resEvent.setTag(event.getTag());
-
       boolean successful = false;
+      List<Integer> enhancementInteger = new ArrayList<Integer>();
       if (legitEquip) {
         successful = writeChangesToDB(resBuilder, enhancingUserEquipId, enhancingUserEquip,
-            feederUserEquipIds, feederUserEquips, clientTime);
+            feederUserEquipIds, feederUserEquips, clientTime, enhancementInteger);
       }
+      if (successful) {
+        int enhancementId = enhancementInteger.get(0);
+        EquipEnhancementProto eep = CreateInfoProtoUtils.createEquipEnhancementProto(
+            enhancementId, userId, enhancingUserEquip, feederUserEquips, clientTime.getTime());
+        resBuilder.setEquipToEnhance(eep);
+      }
+      
+      SubmitEquipEnhancementResponseEvent resEvent = new SubmitEquipEnhancementResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setSubmitEquipEnhancementResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
       
@@ -104,7 +112,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   //delete all the feeder user equips; make entries in equip enhancement feeders table
   //delete feederuserequip, write enhanceduserequip to the db
   private boolean writeChangesToDB(Builder resBuilder, int userEquipId, UserEquip enhancedUserEquip, 
-      List<Integer> feederUserEquipIds, List<UserEquip> feederUserEquips, Timestamp clientTime) {
+      List<Integer> feederUserEquipIds, List<UserEquip> feederUserEquips, Timestamp clientTime,
+      List<Integer> enhancementInteger) {
     int userId = enhancedUserEquip.getUserId();
     int equipId = enhancedUserEquip.getEquipId();
     int equipLevel = enhancedUserEquip.getLevel();
@@ -114,6 +123,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     //make entry in equip enhancement table
     int equipEnhancementId = InsertUtils.get().insertEquipEnhancement(userId, equipId, equipLevel, 
         enhancementPercentageBeforeEnhancement, startTimeOfEnhancement); 
+    enhancementInteger.add(equipEnhancementId);
+    
     if(1 > equipEnhancementId) { //this rarely happens...maybe
       resBuilder.setStatus(EnhanceEquipStatus.OTHER_FAIL);
       log.error("could not enhance equip=" + enhancedUserEquip + ". Id returned: " + equipEnhancementId);
