@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.SubmitEquipEnhancementRequestEvent;
 import com.lvl6.events.response.SubmitEquipEnhancementResponseEvent;
+import com.lvl6.info.EquipEnhancement;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.UserEquip;
 import com.lvl6.misc.MiscMethods;
@@ -25,6 +26,7 @@ import com.lvl6.proto.InfoProto.EquipEnhancementProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.retrieveutils.EquipEnhancementRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
@@ -96,7 +98,6 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       resEvent.setSubmitEquipEnhancementResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
       
-      //TODO: TRACK THE USER EQUIPS DELETED
       if (successful) {
         MiscMethods.writeIntoDUEFE(enhancingUserEquip, feederUserEquips);
       }
@@ -163,6 +164,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   
   private boolean checkEquip(Builder resBuilder, UserEquip enhancingUserEquip, List<Integer> feederUserEquipIds, 
       List<UserEquip> feederUserEquips, Map<Integer, Equipment> equipmentIdsToEquipment, Timestamp startTime) {
+    int userId = enhancingUserEquip.getUserId();
     //the case where client asked for a user equip and user equip is not there.
     if (!MiscMethods.checkClientTimeAroundApproximateNow(startTime)) {
       resBuilder.setStatus(EnhanceEquipStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
@@ -170,6 +172,14 @@ import com.lvl6.utils.utilmethods.InsertUtils;
           + new Date());
       return false;
     }
+    
+    List<EquipEnhancement> enhancements = EquipEnhancementRetrieveUtils.getEquipEnhancementsForUser(userId); 
+    if (!enhancements.isEmpty()) {
+      resBuilder.setStatus(EnhanceEquipStatus.ALREADY_ENHANCING);
+      log.error("user is already enhancing an equip:" + MiscMethods.shallowListToString(enhancements));
+      return false;
+    }
+    
     if (null == enhancingUserEquip || null == feederUserEquips ||
         feederUserEquipIds.size() != feederUserEquips.size()) {
       resBuilder.setStatus(EnhanceEquipStatus.MAIN_OR_FEEDER_OR_EQUIPS_NONEXISTENT);
