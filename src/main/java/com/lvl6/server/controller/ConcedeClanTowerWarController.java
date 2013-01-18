@@ -175,7 +175,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
 
     if(oldClanTowerOwnerClanOwnerId == userId) {
-      if (0 < oldClanTowerAttackerClanOwnerId || 
+      if (0 > oldClanTowerAttackerClanOwnerId || 
           ControllerConstants.NOT_SET == oldClanTowerAttackerClanOwnerId) {
         //don't let the clan give up the tower since there's no attacker
         resBuilder.setStatus(ConcedeClanTowerWarStatus.NO_ATTACKER);

@@ -147,7 +147,7 @@ public class DBConstants {
   public static final String EQUIP_ENHANCEMENT__USER_ID = GENERIC__USER_ID;
   public static final String EQUIP_ENHANCEMENT__EQUIP_ID = "equip_id";
   public static final String EQUIP_ENHANCEMENT__EQUIP_LEVEL = "equip_level";
-  public static final String EQUIP_ENHANCEMENT__ENHANCEMENT_PERCENTAGE_BEFORE_ENHANCEMENT = "enhancement_percentage_before_enhancement";
+  public static final String EQUIP_ENHANCEMENT__ENHANCEMENT_PERCENTAGE_BEFORE_ENHANCEMENT = "enhancement_percentage";
   public static final String EQUIP_ENHANCEMENT__START_TIME_OF_ENHANCEMENT = "start_time_of_enhancement";
   
   /*EQUIP ENHANCEMENT HISTORY*/

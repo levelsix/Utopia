@@ -453,6 +453,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int attackerId = attacker.getClanId();
     int defenderId = defender.getClanId();
     boolean ownerAndAttackerAreEnemies = true;
+    
+    if (attackerId == ControllerConstants.NOT_SET || defenderId == ControllerConstants.NOT_SET) {
+      return;
+    }
 
     //attacker is owner of tower
     attackerIsClanTowerOwner = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(

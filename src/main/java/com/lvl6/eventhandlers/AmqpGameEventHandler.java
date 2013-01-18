@@ -80,8 +80,13 @@ public class AmqpGameEventHandler extends AbstractGameEventHandler implements Me
 		event.read(bb);
 		log.debug("Received event from client: " + event.getPlayerId());
 		if (getApplicationMode().isMaintenanceMode()) {
-			String udid = ((PreDatabaseRequestEvent) event).getUdid();
-			messagingUtil.sendMaintanenceModeMessage(getApplicationMode().getMessageForUsers(), udid);
+			if(event instanceof PreDatabaseRequestEvent) {
+				String udid = ((PreDatabaseRequestEvent) event).getUdid();
+				messagingUtil.sendMaintanenceModeMessage(getApplicationMode().getMessageForUsers(), udid);
+			}else {
+				int playerId = event.getPlayerId();
+				messagingUtil.sendMaintanenceModeMessage(getApplicationMode().getMessageForUsers(), playerId);
+			}
 		} else {
 			updatePlayerToServerMaps(event);
 			ec.handleEvent(event);
