@@ -243,7 +243,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int userId = aUser.getId();
     List<EquipEnhancement> equipUnderEnhancements = EquipEnhancementRetrieveUtils
         .getEquipEnhancementsForUser(userId);
-    if(null == equipUnderEnhancements) {
+    if(null == equipUnderEnhancements || equipUnderEnhancements.isEmpty()) {
       return;
     }
     log.debug("number of equip enhancements: " + equipUnderEnhancements.size());
