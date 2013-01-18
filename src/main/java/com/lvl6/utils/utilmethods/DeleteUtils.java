@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.mortbay.log.Log;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 
@@ -57,6 +58,8 @@ public class DeleteUtils implements DeleteUtil {
     String delimiter = ",";
     String query = " DELETE FROM " + tableName + " WHERE " + DBConstants.USER_EQUIP__USER_ID 
     + " IN (" + StringUtils.getListInString(questions, delimiter) + ")";
+    
+    Log.info(query + " values " + values);
     
     List values = userEquipIds; //adding generics will throw (type mismatch?) errors
     
