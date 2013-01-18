@@ -18,6 +18,7 @@ import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Location;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
+import com.lvl6.info.UserEquip;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType;
@@ -112,6 +113,84 @@ public class InsertUtils implements InsertUtil{
     int userEquipId = DBConnection.get().insertIntoTableBasicReturnId(
         DBConstants.TABLE_USER_EQUIP, insertParams);
     return userEquipId;
+  }
+  
+  public int insertEquipEnhancement(int userId, int equipId, int equipLevel,
+      int enhancementPercentageBeforeEnhancement, Timestamp startTimeOfEnhancement) {
+    String tableName = DBConstants.TABLE_EQUIP_ENHANCEMENT;
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT__USER_ID, userId);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT__EQUIP_ID, equipId);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT__EQUIP_LEVEL, equipLevel);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT__ENHANCEMENT_PERCENTAGE_BEFORE_ENHANCEMENT,
+        enhancementPercentageBeforeEnhancement);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT__START_TIME_OF_ENHANCEMENT, startTimeOfEnhancement);
+    
+    int equipEnhancementId = DBConnection.get().insertIntoTableBasicReturnId(tableName, insertParams);
+    return equipEnhancementId;
+  }
+  
+  public int insertIntoEquipEnhancementHistory(int equipEnhancementId, int userId, int equipId, 
+      int equipLevel, int currentEnhancementPercentage, int previousEnhancementPercentage, 
+      Timestamp startTimeOfEnhancement, Timestamp timeOfSpeedup) {
+
+    String tableName = DBConstants.TABLE_EQUIP_ENHANCEMENT_HISTORY;
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_HISTORY__EQUIP_ENHANCEMENT_ID, equipEnhancementId);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_HISTORY__USER_ID, userId);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_HISTORY__EQUIP_ID, equipId);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_HISTORY__EQUIP_LEVEL, equipLevel);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_HISTORY__CURRENT_ENHANCEMENT_PERCENTAGE, 
+        currentEnhancementPercentage);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_HISTORY__PREVIOUS_ENHANCEMENT_PERCENTAGE, 
+        previousEnhancementPercentage);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_HISTORY__START_TIME_OF_ENHANCEMENT,
+        startTimeOfEnhancement);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_HISTORY__TIME_OF_SPEED_UP, timeOfSpeedup);
+    
+    int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
+    return numInserted;
+  }
+  
+  //many equip enhancement feeders to one equip enhancement id
+  public List<Integer> insertEquipEnhancementFeeders(int equipEnhancementId, List<UserEquip> feeders) {
+    String tableName = DBConstants.TABLE_EQUIP_ENHANCEMENT_FEEDERS;
+    List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
+    for(UserEquip ue: feeders) {
+      int equipId = ue.getEquipId();
+      int equipLevel = ue.getLevel();
+      int enhancementPercentageBeforeEnhancement = ue.getEnhancementPercentage();
+          
+      Map<String, Object> oneRow = new HashMap<String, Object>();
+      oneRow.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS__EQUIP_ENHANCEMENT_ID, equipEnhancementId);
+      oneRow.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS__EQUIP_ID, equipId);
+      oneRow.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS__EQUIP_LEVEL, equipLevel);
+      oneRow.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS__ENHANCEMENT_PERCENTAGE_BEFORE_ENHANCEMENT, 
+          enhancementPercentageBeforeEnhancement);
+      
+      newRows.add(oneRow);
+    }
+    List<Integer> feederIds = DBConnection.get().insertIntoTableBasicReturnIds(tableName, newRows);
+    return feederIds;
+  }
+  
+  public int insertIntoEquipEnhancementFeedersHistory(int id, int equipEnhancementId,
+      int equipId, int equipLevel, int enhancementPercentageBeforeEnhancement) {
+
+    String tableName = DBConstants.TABLE_EQUIP_ENHANCEMENT_FEEDERS_HISTORY;
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__ID, equipEnhancementId);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__EQUIP_ENHANCEMENT_ID, equipEnhancementId);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_HISTORY__EQUIP_ID, equipId);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_HISTORY__EQUIP_LEVEL, equipLevel);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__ENHANCEMENT_PERCENTAGE_BEFORE_ENHANCEMENT,
+        enhancementPercentageBeforeEnhancement);
+    
+    int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
+    return numInserted;
   }
   
   public List<Integer> insertUserEquips(int userId, List<Integer> equipIds, List<Integer> levels) {

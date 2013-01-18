@@ -181,6 +181,8 @@ message StartupResponseProto {
 	
 	repeated LeaderboardEventProto leaderboardEvents = 41;
 	
+	optional EquipEnhancementProto equipEnhancement = 42;
+	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
 		optional bool firstTimeToday = 2;
@@ -2356,21 +2358,47 @@ message GeneralNotificationResponseProto {
 	optional ColorProto rgb = 3;
 }
 
-message EnhanceEquipRequestProto {
+message SubmitEquipEnhancementRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional int32 feederUserEquipId = 2;
-	optional int32 enhancingUserEquipId = 3;
+	optional int32 enhancingUserEquipId = 2;
+	repeated int32 feederUserEquipIds = 3;
+	optional int64 clientTime = 4;
 }
 
-message EnhanceEquipResponseProto {
+message SubmitEquipEnhancementResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional EnhanceEquipStatus status = 2;
-	
-	optional FullUserEquipProto enhancedEquip = 3;
-	
+	optional EquipEnhancementProto equipToEnhance = 3;
+
 	enum EnhanceEquipStatus {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 2;
+		MAIN_OR_FEEDER_OR_EQUIPS_NONEXISTENT = 3;
+		TRYING_TO_SURPASS_MAX_LEVEL = 4;
+		ALREADY_ENHANCING = 5;
 	}
 }
+
+message CollectEquipEnhancementRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 equipEnhancementId = 2;
+	optional int64 clientTime = 3; //this will be the time of speed up if speedUp is true
+	optional bool speedUp = 4;
+}
+
+message CollectEquipEnhancementResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional CollectEquipStatus status = 2;
+	optional FullUserEquipProto resultingEquip = 3;
+	
+	enum CollectEquipStatus {
+		SUCCESS = 0;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 1;
+		ENHANCEMENT_NOT_COMPLETE = 2;
+		OTHER_FAIL = 3;
+		NOT_ENOUGH_GOLD = 4;
+	}
+}
+
 	

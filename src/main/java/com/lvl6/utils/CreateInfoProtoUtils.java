@@ -66,6 +66,8 @@ import com.lvl6.proto.InfoProto.DefeatTypeJobProto;
 import com.lvl6.proto.InfoProto.DialogueProto;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
+import com.lvl6.proto.InfoProto.EquipEnhancementItemProto;
+import com.lvl6.proto.InfoProto.EquipEnhancementProto;
 import com.lvl6.proto.InfoProto.FullBossProto;
 import com.lvl6.proto.InfoProto.FullCityProto;
 import com.lvl6.proto.InfoProto.FullClanProto;
@@ -1012,4 +1014,30 @@ public class CreateInfoProtoUtils {
     b.setTitleColor(clrB.build());
     return b.build();
   }
+  
+  public static EquipEnhancementItemProto createEquipEnhancementItemProtoFromUserEquip(UserEquip ue) {
+    EquipEnhancementItemProto.Builder b = EquipEnhancementItemProto.newBuilder()
+        .setEquipId(ue.getEquipId()).setLevel(ue.getLevel()).setEnhancementPercentage(ue.getEnhancementPercentage());
+    
+    return b.build();
+  }
+  
+  public static EquipEnhancementProto createEquipEnhancementProto(int enhancementId,  
+      int userId, UserEquip mainUserEquip, List<UserEquip> feederUserEquips, long startTime) {
+    EquipEnhancementProto.Builder b = EquipEnhancementProto.newBuilder()
+        .setEnhancementId(enhancementId).setUserId(userId).setStartTime(startTime);
+    
+    EquipEnhancementItemProto enhancingEquipProto = createEquipEnhancementItemProtoFromUserEquip(mainUserEquip);
+    b.setEnhancingEquip(enhancingEquipProto);
+    
+    List<EquipEnhancementItemProto> itemProtoList = new ArrayList<EquipEnhancementItemProto>();
+    for(UserEquip ue : feederUserEquips) {
+      EquipEnhancementItemProto feederEquipProto = createEquipEnhancementItemProtoFromUserEquip(ue);
+      itemProtoList.add(feederEquipProto);
+    }
+    b.addAllFeederEquips(itemProtoList);
+    
+    return b.build();
+  }
+  
 }

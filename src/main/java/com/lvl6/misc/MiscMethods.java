@@ -42,6 +42,7 @@ import com.lvl6.info.UserEquip;
 import com.lvl6.info.ValidLocationBox;
 import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
+import com.lvl6.properties.DBConstants;
 import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.properties.MDCKeys;
@@ -66,11 +67,11 @@ import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
 import com.lvl6.proto.InfoProto.BossEventProto;
 import com.lvl6.proto.InfoProto.ClanTierLevelProto;
 import com.lvl6.proto.InfoProto.ClanTowerProto;
-import com.lvl6.proto.InfoProto.InAppPurchasePackageProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
+import com.lvl6.proto.InfoProto.InAppPurchasePackageProto;
 import com.lvl6.proto.InfoProto.LeaderboardEventProto;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
 import com.lvl6.proto.InfoProto.UserType;
@@ -1100,7 +1101,59 @@ public class MiscMethods {
     
   }
   
-  public static void enhanceUserEquip(UserEquip mainUserEquip, UserEquip feederUserEquip) {
+  public static String shallowListToString(List aList) {
+    StringBuilder returnValue = new StringBuilder();
+    for(Object o : aList) {
+      returnValue.append(" ");
+      returnValue.append(o.toString()); 
+    }
+    return returnValue.toString();
+  }
+  
+  public static String shallowMapToString(Map aMap) {
+    StringBuilder returnValue = new StringBuilder();
+    returnValue.append("[");
+    for(Object key : aMap.keySet()) {
+      returnValue.append(" ");
+      returnValue.append(key);
+      returnValue.append("=");
+      returnValue.append(aMap.get(key).toString());
+    }
+    returnValue.append("]");
+    return returnValue.toString();
+  }
+  
+  public static void writeIntoDUEFE(UserEquip mainUserEquip, List<UserEquip> feederUserEquips) {
+    List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
+    Map<String, Object> newRow = new HashMap<String, Object>();
     
+    newRow.put(DBConstants.DUEFE__USER_EQUIP__ID, mainUserEquip.getId());
+    newRow.put(DBConstants.DUEFE__USER_EQUIP__USER_ID, mainUserEquip.getUserId());
+    newRow.put(DBConstants.DUEFE__USER_EQUIP__EQUIP_ID, mainUserEquip.getEquipId());
+    newRow.put(DBConstants.DUEFE__USER_EQUIP__LEVEL, mainUserEquip.getLevel());
+    newRow.put(DBConstants.DUEFE__USER_EQUIP__ENHANCEMENT_PERCENT, mainUserEquip.getEnhancementPercentage());
+    newRow.put(DBConstants.DUEFE__IS_FEEDER, 0);
+
+    newRows.add(newRow);
+    for(UserEquip ue : feederUserEquips) {
+      Map<String, Object> newRow2 = new HashMap<String, Object>();
+      newRow2.put(DBConstants.DUEFE__USER_EQUIP__ID, ue.getId());
+      newRow2.put(DBConstants.DUEFE__USER_EQUIP__USER_ID, ue.getUserId());
+      newRow2.put(DBConstants.DUEFE__USER_EQUIP__EQUIP_ID, ue.getEquipId());
+      newRow2.put(DBConstants.DUEFE__USER_EQUIP__LEVEL, ue.getLevel());
+      newRow2.put(DBConstants.DUEFE__USER_EQUIP__ENHANCEMENT_PERCENT, ue.getEnhancementPercentage());
+      newRow2.put(DBConstants.DUEFE__IS_FEEDER, 1);
+      
+      newRows.add(newRow2);
+    }
+  }
+  
+  public static boolean isEquipAtMaxEnhancementLevel(UserEquip enhancingUserEquip) {
+    return false;
+  }
+  
+  public static int calculateEnhancementForEquip(UserEquip mainUserEquip, List<UserEquip> feederUserEquips) {
+    
+    return 0;
   }
 }

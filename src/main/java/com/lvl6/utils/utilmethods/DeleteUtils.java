@@ -47,6 +47,27 @@ public class DeleteUtils implements DeleteUtil {
     return false;
   }
   
+  public boolean deleteUserEquips(List<Integer> userEquipIds) {
+    String tableName = DBConstants.TABLE_USER_EQUIP;
+    List<String> questions = new ArrayList<String>();
+    for(int userEquipId : userEquipIds) {
+      questions.add("?");
+    }
+    
+    String delimiter = ",";
+    String query = " DELETE FROM " + tableName + " WHERE " + DBConstants.USER_EQUIP__USER_ID 
+    + " IN (" + StringUtils.getListInString(questions, delimiter) + ")";
+    
+    List values = userEquipIds; //adding generics will throw (type mismatch?) errors
+    
+    int numDeleted = DBConnection.get().deleteDirectQueryNaive(query, values);
+    if(userEquipIds.size() == numDeleted) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
   public boolean deleteBlacksmithAttempt(int blacksmithId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.BLACKSMITH__ID, blacksmithId);

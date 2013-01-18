@@ -73,6 +73,7 @@ public class DBConstants {
   public static final String TABLE_EQUIP_ENHANCEMENT_HISTORY = "equip_enhancement_history";
   public static final String TABLE_EQUIP_ENHANCEMENT_FEEDERS = "equip_enhancement_feeders";
   public static final String TABLE_EQUIP_ENHANCEMENT_FEEDERS_HISTORY = "equip_enhancement_feeders_history";
+  public static final String TABLE_DELETED_USER_EQUIPS_FOR_ENHANCING = "deleted_user_equips_for_enhancing";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -148,7 +149,6 @@ public class DBConstants {
   public static final String EQUIP_ENHANCEMENT__EQUIP_LEVEL = "equip_level";
   public static final String EQUIP_ENHANCEMENT__ENHANCEMENT_PERCENTAGE_BEFORE_ENHANCEMENT = "enhancement_percentage_before_enhancement";
   public static final String EQUIP_ENHANCEMENT__START_TIME_OF_ENHANCEMENT = "start_time_of_enhancement";
-  public static final String EQUIP_ENHANCEMENT__TIME_OF_SPEED_UP = "time_of_speed_up";
   
   /*EQUIP ENHANCEMENT HISTORY*/
   public static final String EQUIP_ENHANCEMENT_HISTORY__EQUIP_ENHANCEMENT_ID = "equip_enhancement_id";
@@ -173,6 +173,14 @@ public class DBConstants {
   public static final String EQUIP_ENHANCEMENT_FEEDERS_HISTORY__EQUIP_ID = "equip_id";
   public static final String EQUIP_ENHANCEMENT_FEEDERS_HISTORY__EQUIP_LEVEL = "equip_level";
   public static final String EQUIP_ENHANCEMENT_FEEDERS_HISTORY__ENHANCEMENT_PERCENTAGE_BEFORE_ENHANCEMENT = "enhancement_percentage_before_enhancement";
+  
+  /*DELETED USER EQUIPS FOR ENHANCING*/
+  public static final String DUEFE__USER_EQUIP__ID = "user_equip_id";
+  public static final String DUEFE__USER_EQUIP__USER_ID = GENERIC__USER_ID;
+  public static final String DUEFE__USER_EQUIP__EQUIP_ID = "equip_id";
+  public static final String DUEFE__USER_EQUIP__LEVEL = "level";
+  public static final String DUEFE__USER_EQUIP__ENHANCEMENT_PERCENT = "enhancement_percent";
+  public static final String DUEFE__IS_FEEDER = "is_feeder";
   
   /*USER TASK TABLE*/
   public static final String USER_TASK__USER_ID = GENERIC__USER_ID;

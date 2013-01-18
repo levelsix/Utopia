@@ -1,5 +1,7 @@
 package com.lvl6.utils.utilmethods;
 
+import java.util.List;
+
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 
@@ -24,6 +26,8 @@ public interface DeleteUtil {
 	public abstract boolean deleteUserStruct(int userStructId);
 	
   public abstract boolean deleteUserEquip(int userEquipId);
+  
+  public abstract boolean deleteUserEquips(List<Integer> userEquipIds);
   
   public abstract boolean deleteUserClanDataRelatedToClanId(int clanId, int numRowsToDelete);
 
