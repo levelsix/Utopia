@@ -65,6 +65,20 @@ public class MessagingUtil {
 		ev.setSendAdminMessageResponseProto(samrp.build());
 		eventWriter.processPreDBResponseEvent(ev, udid);
 	}
+
+	
+	public void sendMaintanenceModeMessage(String message, int playerId) {
+		log.info("Sending maintenance mode message: \"{}\" to player {}", message, playerId);
+		//send admin message
+		SendAdminMessageResponseProto.Builder samrp = SendAdminMessageResponseProto.newBuilder();
+		samrp.setMessage(message);
+		samrp.setSenderId(ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL);
+		SendAdminMessageResponseEvent ev = new SendAdminMessageResponseEvent(playerId);
+		ev.setSendAdminMessageResponseProto(samrp.build());
+		eventWriter.handleEvent(ev);
+	}
+	
+	
 	
 	public void sendAdminMessage(String message) {
 		log.info("Sending admin message: {}", message);
