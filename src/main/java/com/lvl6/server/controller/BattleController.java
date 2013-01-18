@@ -454,12 +454,20 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int defenderId = defender.getClanId();
     boolean ownerAndAttackerAreEnemies = true;
 
+    log.info("Attacker: " +attacker+"\nDefender: "+defender);
+    
+    if (attackerId == ControllerConstants.NOT_SET || defenderId == ControllerConstants.NOT_SET) {
+      return;
+    }
+
     //attacker is owner of tower
     attackerIsClanTowerOwner = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
         attackerId, defenderId, ownerAndAttackerAreEnemies);    
     //defender is owner of tower
     defenderIsClanTowerOwner = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
         defenderId, attackerId, ownerAndAttackerAreEnemies);
+    
+    log.info("Attacker towers: \n"+attackerIsClanTowerOwner + "\nDefender towers:\n"+defenderIsClanTowerOwner);
 
     if (winner == attacker) {
       incrementBattleWins(attackerIsClanTowerOwner, true);//increment clan tower's owner battle wins

@@ -973,6 +973,7 @@ public class MiscMethods {
             CreateInfoProtoUtils.createClanTowerProtoFromClanTower(tower);
         toSend.add(towerProto);
       }
+      log.info("Sending towers: \n"+changedTowers);
 
       ChangedClanTowerResponseProto.Builder t = ChangedClanTowerResponseProto.newBuilder();
       t.addAllClanTowers(toSend);
