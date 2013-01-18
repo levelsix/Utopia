@@ -35,6 +35,8 @@ import com.lvl6.info.City;
 import com.lvl6.info.ClanChatPost;
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.Dialogue;
+import com.lvl6.info.EquipEnhancement;
+import com.lvl6.info.EquipEnhancementFeeder;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.GoldSale;
 import com.lvl6.info.MarketplaceTransaction;
@@ -63,6 +65,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus;
 import com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus;
+import com.lvl6.proto.InfoProto.EquipEnhancementProto;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
@@ -74,6 +77,8 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
 import com.lvl6.retrieveutils.ClanChatPostRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
+import com.lvl6.retrieveutils.EquipEnhancementFeederRetrieveUtils;
+import com.lvl6.retrieveutils.EquipEnhancementRetrieveUtils;
 import com.lvl6.retrieveutils.IAPHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
 import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
@@ -198,6 +203,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           }
           resBuilder.addAllBossEvents(MiscMethods.currentBossEvents());
           setLeaderboardEventStuff(resBuilder);
+          setEquipEnhancementStuff(resBuilder, user);
           
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
@@ -233,6 +239,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);    
   }
 
+  private void setEquipEnhancementStuff(StartupResponseProto.Builder resBuilder, User aUser) {
+    int userId = aUser.getId();
+    List<EquipEnhancement> equipUnderEnhancements = EquipEnhancementRetrieveUtils
+        .getEquipEnhancementsForUser(userId);
+    log.debug("number of equip enhancements: " + equipUnderEnhancements.size());
+    EquipEnhancement equipUnderEnhancement = equipUnderEnhancements.get(0);
+    
+    int equipEnhancementId = equipUnderEnhancement.getId();
+    List<EquipEnhancementFeeder> feeders = EquipEnhancementFeederRetrieveUtils
+        .getEquipEnhancementFeedersForEquipEnhancementId(equipEnhancementId);
+    
+    EquipEnhancementProto eeProto = 
+        CreateInfoProtoUtils.createEquipEnhancementProto(equipUnderEnhancement, feeders);
+    resBuilder.setEquipEnhancement(eeProto);
+  }
+  
   private void setClanTowers(StartupResponseProto.Builder resBuilder) {
     List<ClanTower> towers = ClanTowerRetrieveUtils.getAllClanTowers();
     

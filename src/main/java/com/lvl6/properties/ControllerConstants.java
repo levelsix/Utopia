@@ -438,6 +438,8 @@ public class ControllerConstants {
   public static final String UCHRFC__GOLDMINE = "goldmine reset";
   public static final String UCHRFC__COLLECT_GOLDMINE = "collect from goldmine";
   
+  //ENHANCING
+  public static final int MAX_ENHANCEMENT_LEVEL = 12;
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),

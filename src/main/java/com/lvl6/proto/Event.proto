@@ -337,6 +337,8 @@ message StartupResponseProto {
 		
 		repeated InAppPurchasePackageProto inAppPurchasePackages = 95;
 		
+		optional int32 maxEnhancementLevel = 96;
+		
 		message LeaderboardEventConstants {
 			optional int32 winsWeight = 1;
 			optional int32 lossesWeight = 2;

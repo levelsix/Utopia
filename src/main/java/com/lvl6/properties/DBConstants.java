@@ -159,6 +159,7 @@ public class DBConstants {
   public static final String EQUIP_ENHANCEMENT_HISTORY__PREVIOUS_ENHANCEMENT_PERCENTAGE = "previous_enhancement_percentage";
   public static final String EQUIP_ENHANCEMENT_HISTORY__START_TIME_OF_ENHANCEMENT = "start_time_of_enhancement";
   public static final String EQUIP_ENHANCEMENT_HISTORY__TIME_OF_SPEED_UP = "time_of_speed_up";
+  public static final String EQUIP_ENHANCEMENT_HISTORY__RESULTING_USER_EQUIP_ID = "resulting_user_equip_id";
   
   /*EQUIP ENHANCEMENT FEEDERS*/
   public static final String EQUIP_ENHANCEMENT_FEEDERS__ID = GENERIC__ID;
@@ -181,6 +182,7 @@ public class DBConstants {
   public static final String DUEFE__USER_EQUIP__LEVEL = "level";
   public static final String DUEFE__USER_EQUIP__ENHANCEMENT_PERCENT = "enhancement_percent";
   public static final String DUEFE__IS_FEEDER = "is_feeder";
+  public static final String DUEFE__EQUIP_ENHANCEMENT_ID = "equip_enhancement_id";
   
   /*USER TASK TABLE*/
   public static final String USER_TASK__USER_ID = GENERIC__USER_ID;

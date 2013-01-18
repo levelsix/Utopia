@@ -29,6 +29,8 @@ import com.lvl6.info.Clan;
 import com.lvl6.info.ClanTierLevel;
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.Dialogue;
+import com.lvl6.info.EquipEnhancement;
+import com.lvl6.info.EquipEnhancementFeeder;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.LeaderboardEvent;
 import com.lvl6.info.LeaderboardEventReward;
@@ -596,6 +598,8 @@ public class MiscMethods {
     
     cb = cb.setLeaderboardConstants(lec);
     
+    cb = cb.setMaxEnhancementLevel(ControllerConstants.MAX_ENHANCEMENT_LEVEL);
+    
     return cb.build();  
   }
 
@@ -1123,7 +1127,8 @@ public class MiscMethods {
     return returnValue.toString();
   }
   
-  public static void writeIntoDUEFE(UserEquip mainUserEquip, List<UserEquip> feederUserEquips) {
+  public static void writeIntoDUEFE(UserEquip mainUserEquip, List<UserEquip> feederUserEquips,
+      int enhancementId) {
     List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
     Map<String, Object> newRow = new HashMap<String, Object>();
     
@@ -1133,6 +1138,7 @@ public class MiscMethods {
     newRow.put(DBConstants.DUEFE__USER_EQUIP__LEVEL, mainUserEquip.getLevel());
     newRow.put(DBConstants.DUEFE__USER_EQUIP__ENHANCEMENT_PERCENT, mainUserEquip.getEnhancementPercentage());
     newRow.put(DBConstants.DUEFE__IS_FEEDER, 0);
+    newRow.put(DBConstants.DUEFE__EQUIP_ENHANCEMENT_ID, enhancementId);
 
     newRows.add(newRow);
     for(UserEquip ue : feederUserEquips) {
@@ -1152,7 +1158,19 @@ public class MiscMethods {
     return false;
   }
   
-  public static int calculateEnhancementForEquip(UserEquip mainUserEquip, List<UserEquip> feederUserEquips) {
+  public static int calculateEnhancementForEquip(EquipEnhancement mainEquip,
+      List<EquipEnhancementFeeder> feederEquips) {
+    
+    return 0;
+  }
+  
+  public static int calculateMinutesToFinishEnhancing(EquipEnhancement e, List<EquipEnhancementFeeder> feeder) {
+    
+    return 0;
+  }
+  
+  public static int calculateCostToSpeedUpEnhancing(EquipEnhancement e, List<EquipEnhancementFeeder> feeder,
+      Timestamp timeOfSpeedUp) {
     
     return 0;
   }
