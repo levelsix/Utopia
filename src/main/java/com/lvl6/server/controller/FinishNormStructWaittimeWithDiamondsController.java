@@ -224,7 +224,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
       }
     } catch (Exception e) {
-      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+      log.error("Maybe table's not there or duplicate keys? ", e);
     }
   }
 }

@@ -330,7 +330,7 @@ public class ClanTowersScheduledTasks {
           currenciesChange, currenciesBefore, reasonsForChanges);
       log.info("Should be " + userIds.size() + ". Rows inserted into user_currency_history: " + numInserted);
     } catch(Exception e) {
-      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+      log.error("Maybe table's not there or duplicate keys? ", e);
     }
   }
 
