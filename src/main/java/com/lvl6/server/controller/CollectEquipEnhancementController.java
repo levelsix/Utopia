@@ -262,7 +262,11 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   
   private void writeIntoEquipEnhancementFeederHistory(int equipEnhancementId, 
       List<EquipEnhancementFeeder> feeders) {
+    int size = feeders.size();
     int numInserted = InsertUtils.get()
         .insertMultipleIntoEquipEnhancementFeedersHistory(equipEnhancementId, feeders);
+    if(size != numInserted) {
+      log.error("numInserted into feeder history table: " + numInserted + ", should have been:" + size);
+    }
   }
 }
