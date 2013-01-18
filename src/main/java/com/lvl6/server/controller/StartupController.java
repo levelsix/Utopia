@@ -246,7 +246,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if(null == equipUnderEnhancements || equipUnderEnhancements.isEmpty()) {
       return;
     }
-    log.debug("number of equip enhancements: " + equipUnderEnhancements.size());
+    
     EquipEnhancement equipUnderEnhancement = equipUnderEnhancements.get(0);
     
     int equipEnhancementId = equipUnderEnhancement.getId();

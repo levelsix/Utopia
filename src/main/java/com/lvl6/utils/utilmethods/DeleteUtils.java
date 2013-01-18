@@ -60,8 +60,6 @@ public class DeleteUtils implements DeleteUtil {
     + " IN (" + StringUtils.getListInString(questions, delimiter) + ")";
     
     List values = userEquipIds; //adding generics will throw (type mismatch?) errors
-
-    Log.info(query + " values " + values);
     
     int numDeleted = DBConnection.get().deleteDirectQueryNaive(query, values);
     if(userEquipIds.size() == numDeleted) {
