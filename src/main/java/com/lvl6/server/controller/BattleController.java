@@ -460,6 +460,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     //defender is owner of tower
     defenderIsClanTowerOwner = ClanTowerRetrieveUtils.getAllClanTowersWithSpecificOwnerAndOrAttackerId(
         defenderId, attackerId, ownerAndAttackerAreEnemies);
+    
+    log.info("Attacker towers: \n"+attackerIsClanTowerOwner + "\nDefender towers:\n"+defenderIsClanTowerOwner);
 
     if (winner == attacker) {
       incrementBattleWins(attackerIsClanTowerOwner, true);//increment clan tower's owner battle wins
