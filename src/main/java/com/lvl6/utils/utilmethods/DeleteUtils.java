@@ -56,7 +56,7 @@ public class DeleteUtils implements DeleteUtil {
     }
     
     String delimiter = ",";
-    String query = " DELETE FROM " + tableName + " WHERE " + DBConstants.USER_EQUIP__USER_ID 
+    String query = " DELETE FROM " + tableName + " WHERE " + DBConstants.USER_EQUIP__ID
     + " IN (" + StringUtils.getListInString(questions, delimiter) + ")";
     
     List values = userEquipIds; //adding generics will throw (type mismatch?) errors
