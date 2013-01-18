@@ -10,6 +10,7 @@ import org.springframework.cache.annotation.Caching;
 
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.CoordinatePair;
+import com.lvl6.info.EquipEnhancementFeeder;
 import com.lvl6.info.Location;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
@@ -33,17 +34,21 @@ public interface InsertUtil {
       @CacheEvict(value = "userEquipsWithEquipId", key = "#userId+':'+#equipId") })
   public abstract int insertUserEquip(int userId, int equipId, int level);
 
+  public abstract int insertUserEquip(int userId, int equipId, int level, int enhancementPercentage);
+  
   public abstract int insertEquipEnhancement(int userId, int equipId, int equipLevel,
       int enhancementPercentageBeforeEnhancement, Timestamp startTimeOfEnhancement);
   
   public abstract int insertIntoEquipEnhancementHistory(int equipEnhancementId, int userId, int equipId, 
       int equipLevel, int currentEnhancementPercentage, int previousEnhancementPercentage, 
-      Timestamp timeOfEnhancement, Timestamp timeOfSpeedup);
+      Timestamp timeOfEnhancement, Timestamp timeOfSpeedup, int userEquipId);
   
   public abstract List<Integer> insertEquipEnhancementFeeders(int equipEnhancementId, List<UserEquip> feeders);
   
   public abstract int insertIntoEquipEnhancementFeedersHistory(int id, int equipEnhancementId,
       int equipId, int equipLevel, int enhancementPercentageBeforeEnhancement);
+  
+  public abstract int insertMultipleIntoEquipEnhancementFeedersHistory(int equipEnhancementId, List<EquipEnhancementFeeder> feeders);
   
   /*
    * (non-Javadoc)

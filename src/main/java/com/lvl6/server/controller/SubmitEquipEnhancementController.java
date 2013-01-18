@@ -86,8 +86,9 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         successful = writeChangesToDB(resBuilder, enhancingUserEquipId, enhancingUserEquip,
             feederUserEquipIds, feederUserEquips, clientTime, enhancementInteger);
       }
+      int enhancementId = 0;
       if (successful) {
-        int enhancementId = enhancementInteger.get(0);
+        enhancementId = enhancementInteger.get(0);
         EquipEnhancementProto eep = CreateInfoProtoUtils.createEquipEnhancementProto(
             enhancementId, userId, enhancingUserEquip, feederUserEquips, clientTime.getTime());
         resBuilder.setEquipToEnhance(eep);
@@ -99,7 +100,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       server.writeEvent(resEvent);
       
       if (successful) {
-        MiscMethods.writeIntoDUEFE(enhancingUserEquip, feederUserEquips);
+        MiscMethods.writeIntoDUEFE(enhancingUserEquip, feederUserEquips, enhancementId);
       }
       
     } catch (Exception e) {
@@ -174,7 +175,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     }
     
     List<EquipEnhancement> enhancements = EquipEnhancementRetrieveUtils.getEquipEnhancementsForUser(userId); 
-    if (!enhancements.isEmpty()) {
+    if (null != enhancements && !enhancements.isEmpty()) {
       resBuilder.setStatus(EnhanceEquipStatus.ALREADY_ENHANCING);
       log.error("user is already enhancing an equip:" + MiscMethods.shallowListToString(enhancements));
       return false;

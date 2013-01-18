@@ -2,6 +2,7 @@ package com.lvl6.utils.utilmethods;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,7 @@ import org.springframework.cache.annotation.Caching;
 
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.CoordinatePair;
+import com.lvl6.info.EquipEnhancementFeeder;
 import com.lvl6.info.Location;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
@@ -115,6 +117,18 @@ public class InsertUtils implements InsertUtil{
     return userEquipId;
   }
   
+  public int insertUserEquip(int userId, int equipId, int level, int enhancementPercentage) {
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.USER_EQUIP__USER_ID, userId);
+    insertParams.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
+    insertParams.put(DBConstants.USER_EQUIP__LEVEL, level);
+    insertParams.put(DBConstants.USER_EQUIP__ENHANCEMENT_PERCENT, enhancementPercentage);
+
+    int userEquipId = DBConnection.get().insertIntoTableBasicReturnId(
+        DBConstants.TABLE_USER_EQUIP, insertParams);
+    return userEquipId;
+  }
+  
   public int insertEquipEnhancement(int userId, int equipId, int equipLevel,
       int enhancementPercentageBeforeEnhancement, Timestamp startTimeOfEnhancement) {
     String tableName = DBConstants.TABLE_EQUIP_ENHANCEMENT;
@@ -133,7 +147,7 @@ public class InsertUtils implements InsertUtil{
   
   public int insertIntoEquipEnhancementHistory(int equipEnhancementId, int userId, int equipId, 
       int equipLevel, int currentEnhancementPercentage, int previousEnhancementPercentage, 
-      Timestamp startTimeOfEnhancement, Timestamp timeOfSpeedup) {
+      Timestamp startTimeOfEnhancement, Timestamp timeOfSpeedup, int userEquipId) {
 
     String tableName = DBConstants.TABLE_EQUIP_ENHANCEMENT_HISTORY;
     Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -149,6 +163,7 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.EQUIP_ENHANCEMENT_HISTORY__START_TIME_OF_ENHANCEMENT,
         startTimeOfEnhancement);
     insertParams.put(DBConstants.EQUIP_ENHANCEMENT_HISTORY__TIME_OF_SPEED_UP, timeOfSpeedup);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_HISTORY__RESULTING_USER_EQUIP_ID, userEquipId);
     
     int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
     return numInserted;
@@ -182,7 +197,7 @@ public class InsertUtils implements InsertUtil{
     String tableName = DBConstants.TABLE_EQUIP_ENHANCEMENT_FEEDERS_HISTORY;
     Map<String, Object> insertParams = new HashMap<String, Object>();
     
-    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__ID, equipEnhancementId);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__ID, id);
     insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__EQUIP_ENHANCEMENT_ID, equipEnhancementId);
     insertParams.put(DBConstants.EQUIP_ENHANCEMENT_HISTORY__EQUIP_ID, equipId);
     insertParams.put(DBConstants.EQUIP_ENHANCEMENT_HISTORY__EQUIP_LEVEL, equipLevel);
@@ -190,6 +205,34 @@ public class InsertUtils implements InsertUtil{
         enhancementPercentageBeforeEnhancement);
     
     int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
+    return numInserted;
+  }
+  
+  public int insertMultipleIntoEquipEnhancementFeedersHistory(int equipEnhancementId, List<EquipEnhancementFeeder> feeders) {
+    String tablename = DBConstants.TABLE_EQUIP_ENHANCEMENT_FEEDERS_HISTORY;
+    int amount = feeders.size();
+    List<Object> equipEnhancementFeedersIds = new ArrayList<Object>(amount);
+    List<Object> equipEnhancementIds = new ArrayList<Object>(Collections.nCopies(amount, equipEnhancementId));
+    List<Object> equipIds = new ArrayList<Object>(amount);
+    List<Object> equipLevels = new ArrayList<Object>();
+    List<Object> enhancementPercentages = new ArrayList<Object>();
+    
+    for(EquipEnhancementFeeder aFeeder : feeders) {
+      equipEnhancementFeedersIds.add(aFeeder.getId());
+      equipIds.add(aFeeder.getEquipId());
+      equipLevels.add(aFeeder.getEquipLevel());
+      enhancementPercentages.add(aFeeder.getEnhancementPercentageBeforeEnhancement());
+    }
+    Map<String, List<Object>> insertParams = new HashMap<String, List<Object>>();
+    
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__ID, equipEnhancementFeedersIds);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__EQUIP_ENHANCEMENT_ID, equipEnhancementIds);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__EQUIP_ID, equipIds);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__EQUIP_LEVEL, equipLevels);
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__ENHANCEMENT_PERCENTAGE_BEFORE_ENHANCEMENT,
+        enhancementPercentages);
+    
+    int numInserted = DBConnection.get().insertIntoTableMultipleRows(tablename, insertParams, amount);
     return numInserted;
   }
   

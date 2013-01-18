@@ -1,6 +1,7 @@
 package com.lvl6.utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,8 @@ import com.lvl6.info.ClanTierLevel;
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Dialogue;
+import com.lvl6.info.EquipEnhancement;
+import com.lvl6.info.EquipEnhancementFeeder;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.GoldSale;
 import com.lvl6.info.LeaderboardEvent;
@@ -1033,6 +1036,42 @@ public class CreateInfoProtoUtils {
     List<EquipEnhancementItemProto> itemProtoList = new ArrayList<EquipEnhancementItemProto>();
     for(UserEquip ue : feederUserEquips) {
       EquipEnhancementItemProto feederEquipProto = createEquipEnhancementItemProtoFromUserEquip(ue);
+      itemProtoList.add(feederEquipProto);
+    }
+    b.addAllFeederEquips(itemProtoList);
+    
+    return b.build();
+  }
+  
+  public static EquipEnhancementItemProto createEquipEnhancementItemProtoFromEquipEnhacementFeeder(
+      EquipEnhancementFeeder aFeeder) {
+    EquipEnhancementItemProto.Builder b = EquipEnhancementItemProto.newBuilder()
+        .setEquipId(aFeeder.getEquipId()).setLevel(aFeeder.getEquipLevel())
+        .setEnhancementPercentage(aFeeder.getEnhancementPercentageBeforeEnhancement());
+    
+    return b.build();
+  }
+  
+  public static EquipEnhancementProto createEquipEnhancementProto(EquipEnhancement ee, 
+      List<EquipEnhancementFeeder> feeders) {
+    EquipEnhancementProto.Builder b = EquipEnhancementProto.newBuilder()
+        .setEnhancementId(ee.getId()).setUserId(ee.getUserId());
+    
+    Date start = ee.getStartTimeOfEnhancement();
+    if(null != start) {
+      b.setStartTime(start.getTime());
+    }
+    
+    EquipEnhancementItemProto enhancingEquipProto = EquipEnhancementItemProto.newBuilder()
+        .setEquipId(ee.getEquipId()).setLevel(ee.getEquipLevel())
+        .setEnhancementPercentage(ee.getEnhancementPercentage())
+        .build();
+    b.setEnhancingEquip(enhancingEquipProto);
+    
+    List<EquipEnhancementItemProto> itemProtoList = new ArrayList<EquipEnhancementItemProto>();
+    for(EquipEnhancementFeeder aFeeder : feeders) {
+      EquipEnhancementItemProto feederEquipProto = 
+          createEquipEnhancementItemProtoFromEquipEnhacementFeeder(aFeeder);
       itemProtoList.add(feederEquipProto);
     }
     b.addAllFeederEquips(itemProtoList);

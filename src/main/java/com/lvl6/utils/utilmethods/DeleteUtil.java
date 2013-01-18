@@ -38,4 +38,8 @@ public interface DeleteUtil {
   public abstract boolean deleteUserClan(int userId, int clanId);
 
   public void deleteUserClansForUserExceptSpecificClan(int userId, int clanId);
+  
+  public abstract boolean deleteEquipEnhancements(List<Integer> equipEnhancementIds);
+  
+  public abstract boolean deleteEquipEnhancementFeeders(List<Integer> equipEnhancementFeederIds);
 }

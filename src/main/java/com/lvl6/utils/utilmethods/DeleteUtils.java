@@ -205,5 +205,48 @@ public class DeleteUtils implements DeleteUtil {
     }
     return false;
   }
+  
+  public boolean deleteEquipEnhancements(List<Integer> equipEnhancementIds) {
+    String tableName = DBConstants.TABLE_EQUIP_ENHANCEMENT;
+    List<String> questions = new ArrayList<String>();
+    for(int id : equipEnhancementIds) {
+      questions.add("?");
+    }
+    
+    String delimiter = ",";
+    String query = " DELETE FROM " + tableName + " WHERE " + DBConstants.EQUIP_ENHANCEMENT__ID 
+    + " IN (" + StringUtils.getListInString(questions, delimiter) + ")";
+    
+    List values = equipEnhancementIds; //adding generics will throw (type mismatch?) errors
+    
+    int numDeleted = DBConnection.get().deleteDirectQueryNaive(query, values);
+    if(equipEnhancementIds.size() == numDeleted) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  //since many EquipEnhancementFeeders point to one EquipEnhancement, could just delete by EnhancementId
+  public boolean deleteEquipEnhancementFeeders(List<Integer> equipEnhancementFeederIds) {
+    String tableName = DBConstants.TABLE_EQUIP_ENHANCEMENT_FEEDERS;
+    List<String> questions = new ArrayList<String>();
+    for(int id : equipEnhancementFeederIds) {
+      questions.add("?");
+    }
+    
+    String delimiter = ",";
+    String query = " DELETE FROM " + tableName + " WHERE " + DBConstants.EQUIP_ENHANCEMENT__ID 
+    + " IN (" + StringUtils.getListInString(questions, delimiter) + ")";
+    
+    List values = equipEnhancementFeederIds; //adding generics will throw (type mismatch?) errors
+    
+    int numDeleted = DBConnection.get().deleteDirectQueryNaive(query, values);
+    if(equipEnhancementFeederIds.size() == numDeleted) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 }

@@ -5,9 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +32,25 @@ import com.lvl6.utils.DBConnection;
     List<EquipEnhancement> equipEnhancements = convertRSToEquipEnhancements(rs);
     DBConnection.get().close(rs, null, conn);
     return equipEnhancements;
+  }
+  
+  public static EquipEnhancement getEquipEnhancementsForEquipEnhancementId(int equipEnhancementId) {
+    log.debug("retrieving equip enhancements for equip enhancement id " + equipEnhancementId);
+    
+    Connection conn = DBConnection.get().getConnection();
+    Map<String, Object> absoluteConditionParams = new HashMap<String, Object>();
+    absoluteConditionParams.put(DBConstants.EQUIP_ENHANCEMENT__ID, equipEnhancementId);
+    
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, absoluteConditionParams, TABLE_NAME);
+    EquipEnhancement equipEnhancement = null;
+    try {
+      equipEnhancement = convertRSRowToEquipEnhancement(rs);
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    DBConnection.get().close(rs, null, conn);
+    return equipEnhancement;
   }
   
   private static List<EquipEnhancement> convertRSToEquipEnhancements(
