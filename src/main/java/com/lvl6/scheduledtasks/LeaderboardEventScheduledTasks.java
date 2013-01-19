@@ -159,7 +159,7 @@ public class LeaderboardEventScheduledTasks {
 			      areSilver, goldSilverChange, previousGoldSilver, reasonsForChanges);
 			  log.info("Should be " + userIds.size() + ". Rows inserted into user_currency_history: " + numInserted);
 			} catch(Exception e) {
-			  log.error("Maybe table's not there or duplicate keys? " + e.toString());
+			  log.error("Maybe table's not there or duplicate keys? ", e);
 			}
 			//this is done so as to not create new lists each loop
 			dates.clear();
