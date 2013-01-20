@@ -169,7 +169,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       //since user's level is below the cap, don't allow them to post to the marketplace
       resBuilder.setStatus(PostToMarketplaceStatus.OTHER_FAIL);
       log.error("Attempted to post to marketplace, but too low level. min level to post to marketplace=" + minLevel + ", user=" + user);
-      
+      return false;
     }
     resBuilder.setStatus(PostToMarketplaceStatus.SUCCESS);
     return true;
