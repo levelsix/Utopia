@@ -14,6 +14,7 @@ import com.lvl6.info.Clan;
 import com.lvl6.info.User;
 import com.lvl6.info.UserClan;
 import com.lvl6.misc.MiscMethods;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.RequestJoinClanRequestProto;
 import com.lvl6.proto.EventProto.RequestJoinClanResponseProto;
 import com.lvl6.proto.EventProto.RequestJoinClanResponseProto.Builder;
@@ -111,6 +112,12 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       resBuilder.setStatus(RequestJoinClanStatus.REQUEST_ALREADY_FILED);
       log.error("user clan already exists for this: " + uc);
       return false;      
+    }
+    int minLevel = ControllerConstants.STARTUP__CLAN_HOUSE_MIN_LEVEL;
+    if (user.getLevel() < minLevel) {
+      resBuilder.setStatus(RequestJoinClanStatus.OTHER_FAIL);
+      log.error("Attemped to send join request to clan, but too low level. min level to join clan=" + minLevel + ", user=" + user);
+      return false;
     }
     resBuilder.setStatus(RequestJoinClanStatus.SUCCESS);
     return true;
