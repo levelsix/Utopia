@@ -164,6 +164,13 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         return false;        
       }
     }
+    int minLevel = ControllerConstants.STARTUP__MARKETPLACE_MIN_LEVEL;
+    if (user.getLevel() < minLevel) {
+      //since user's level is below the cap, don't allow them to post to the marketplace
+      resBuilder.setStatus(PostToMarketplaceStatus.OTHER_FAIL);
+      log.error("Attempted to post to marketplace, but too low level. min level to post to marketplace=" + minLevel + ", user=" + user);
+      
+    }
     resBuilder.setStatus(PostToMarketplaceStatus.SUCCESS);
     return true;
   }
