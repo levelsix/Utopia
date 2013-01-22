@@ -294,7 +294,7 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware {
 	      lockMap.remove(lockName);
 	    }
 	  } catch (Exception e) {
-	    log.error("Error unlocking all clan towers.");
+	    log.error("Error unlocking all clan towers.", e);
 	  }
 	}
 	

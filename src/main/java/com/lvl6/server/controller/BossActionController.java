@@ -42,8 +42,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  private static String silver = "silver";
-  private static String gold = "gold";
   private static String damage = "damage";
   private static String experience = "experience";
 
@@ -439,7 +437,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   /**
    * Every BossReward can be awarded.
    * @param brList - all BossRewards with the same and specific reward group
-   * @param rewards - contains the BossRewards that have been awarded
+   * @param rewards - will contain the BossRewards that have been awarded
    */
   private void pickLootFromSpecialRewardGroup(List<BossReward> brList,
       List<BossReward> rewards) {
@@ -536,9 +534,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         allEquipIds.add(reward.getEquipId());
       }
     }
-
-    money.put(silver, silverTotal);
-    money.put(gold, goldTotal);
+    
+    if (0 != silverTotal) {
+      money.put(MiscMethods.silver, silverTotal);
+    }
+    if (0 != goldTotal) {
+      money.put(MiscMethods.gold, goldTotal);
+    }
   }
 
   private boolean isSilverReward(BossReward br) {
@@ -598,8 +600,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("either updated no rows after boss attack or updated more than expected");
       return;
     }
-    int silverChange = money.get(silver);
-    int goldChange = money.get(gold);
+    int silverChange = money.get(MiscMethods.silver);
+    int goldChange = money.get(MiscMethods.gold);
 
     //update users table regarding silver and gold
     boolean simulateStaminaRefill = aUser.getStamina() == aUser.getStaminaMax();
@@ -648,7 +650,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     Map<String, Integer> previousGoldSilver = null;
     String reasonForChange = ControllerConstants.UCHRFC__BOSS_ACTION;
     
-    MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, curTime, money, 
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, curTime, money, 
         previousGoldSilver, reasonForChange);
     
   }

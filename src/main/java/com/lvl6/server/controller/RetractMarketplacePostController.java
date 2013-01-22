@@ -148,8 +148,12 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       log.error("problem with decrementing user's num posts in marketplace by 1 and changing diamonds by "
           + diamondChange + " and changing coins by " + coinChange);
     } else {
-      money.put(MiscMethods.gold, diamondChange);
-      money.put(MiscMethods.silver, coinChange);
+      if (0 != diamondChange) {
+        money.put(MiscMethods.gold, diamondChange);
+      }
+      if (0 != coinChange) {
+        money.put(MiscMethods.silver, coinChange);
+      }
     }
   }
 
@@ -219,14 +223,11 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
   
   private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
-    int amount = money.size();
+    Map<String, Integer> previousGoldSilver = null;
     String reasonForChange = ControllerConstants.UCHRFC__RETRACT_MARKETPLACE_POST;
-    
-    if(2 == amount) {
-      Map<String, Integer> previousGoldSilver = null;
-      MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, date, 
-          money, previousGoldSilver, reasonForChange);
-    }
+
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, 
+        money, previousGoldSilver, reasonForChange);
   }
   
 }

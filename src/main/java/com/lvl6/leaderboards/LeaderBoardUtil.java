@@ -30,16 +30,16 @@ public interface LeaderBoardUtil {
 	// public abstract void incrementTotalCoinValueForUser(Integer userId,
 	// Double incrementAmount);
 	//
-	public abstract double getBattlesWonForUser(Integer userId);
-	public abstract double getBattlesWonForUser(Integer tournament, Integer userId);
+	public abstract Double getBattlesWonForUser(Integer userId);
+	public abstract Double getBattlesWonForUser(Integer tournament, Integer userId);
 	
 	
-	public abstract double getBattlesWonOverTotalBattlesRatioForUser(
+	public abstract Double getBattlesWonOverTotalBattlesRatioForUser(
 			Integer userId);
 
-	public abstract double getTotalCoinValueForUser(Integer userId);
+	public abstract Double getTotalCoinValueForUser(Integer userId);
 
-	public abstract double getExperienceForUser(Integer userId);
+	public abstract Double getExperienceForUser(Integer userId);
 
 	public abstract long getBattlesWonRankForUser(Integer userId);
 
@@ -63,7 +63,7 @@ public interface LeaderBoardUtil {
 	public abstract void updateLeaderboardForUser(User user);
 
 	public abstract void setScoreForEventAndUser(Integer eventId, Integer userId, Double score);
-	public abstract double getScoreForEventAndUser(Integer eventId, Integer userId);
+	public abstract Double getScoreForEventAndUser(Integer eventId, Integer userId);
 	public abstract long getRankForEventAndUser(Integer eventId, Integer userId);
 	public abstract Set<Tuple> getEventTopN(Integer eventId, Integer start, Integer stop);
 	

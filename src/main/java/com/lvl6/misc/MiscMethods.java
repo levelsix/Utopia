@@ -1057,15 +1057,10 @@ public class MiscMethods {
     //try, catch is here just in case this blows up, not really necessary;
     try {
       int amount = 2;
-      String gold = "gold";
-      String silver = "silver";
 
       int userId = aUser.getId();
-      //two copies of userId
       List<Integer> userIds = new ArrayList<Integer>(Collections.nCopies(amount, userId));
-      //two copies of date
       List<Timestamp> dates = new ArrayList<Timestamp>(Collections.nCopies(amount, date));
-      //initialize space for two elements
       List<Integer> areSilver = new ArrayList<Integer>(amount);
       //gold first then silver
       List<Integer> changesToCurrencies = new ArrayList<Integer>(amount);
@@ -1103,6 +1098,70 @@ public class MiscMethods {
       log.error("Maybe table's not there or duplicate keys? ", e);
     }
     
+  }
+  
+  public static void writeToUserCurrencyOneUserGoldOrSilver(
+      User aUser, Timestamp date, Map<String,Integer> goldSilverChange, 
+      Map<String, Integer> previousGoldSilver, String reasonForChange) {
+    try {
+      //determine what changed, gold or silver
+      Set<String> keySet = goldSilverChange.keySet();
+      Object[] keyArray = keySet.toArray();
+      String key = (String) keyArray[0];
+      int currentCurrency = 0;
+
+      //arguments to insertIntoUserCurrency
+      int userId = aUser.getId();
+      int isSilver = 0;
+      int currencyChange = goldSilverChange.get(key);
+      int currencyBefore = 0;
+      
+      if (0 == currencyChange) {
+        return;//don't write a non change to history table to avoid bloat
+      }
+      
+      if (key.equals(gold)) {
+        currentCurrency = aUser.getDiamonds();
+        
+      } else if(key.equals(silver)) {
+        currentCurrency = aUser.getCoins();
+        isSilver = 1;
+        
+      } else {
+        log.error("invalid key for map representing currency change. key=" + key);
+        return;
+      }
+      
+      if(null == previousGoldSilver || previousGoldSilver.isEmpty()) {
+        currencyBefore = currentCurrency - currencyChange;
+      } else {
+        currencyBefore = previousGoldSilver.get(key);
+      }
+      
+      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(
+          userId, date, isSilver, currencyChange, currencyBefore, reasonForChange);
+      log.info("Should be 1. number or rows inserted=" + numInserted);
+    } catch(Exception e) {
+      log.error("null pointer exception?", e);
+    }
+  }
+  
+  //only previousGoldSilver can be null.
+  public static void writeToUserCurrencyOneUserGoldAndOrSilver(
+      User aUser, Timestamp date, Map<String,Integer> goldSilverChange, 
+      Map<String, Integer> previousGoldSilver, String reasonForChange) {
+    try {
+      int amount = goldSilverChange.size();
+      if(2 == amount) {
+        writeToUserCurrencyOneUserGoldAndSilver(aUser, date, goldSilverChange, 
+            previousGoldSilver, reasonForChange);
+      } else if(1 == amount) {
+        writeToUserCurrencyOneUserGoldOrSilver(aUser, date, goldSilverChange,
+            previousGoldSilver, reasonForChange);
+      }
+    } catch(Exception e) {
+      log.error("error updating user_curency_history; reasonForChange=" + reasonForChange, e);
+    }
   }
   
   public static String shallowListToString(List aList) {

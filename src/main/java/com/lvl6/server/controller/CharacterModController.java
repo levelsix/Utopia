@@ -228,7 +228,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       int userId = aUser.getId();
       Timestamp date = new Timestamp((new Date()).getTime());
       int isSilver = 0;
-      int currencyBefore = aUser.getDiamonds() - diamondCost;
+      int currencyBefore = aUser.getDiamonds() - (-1*diamondCost); //forgot to add negative before, 
       String reasonForChange = "character mod controller";
       if (modType == CharacterModType.CHANGE_CHARACTER_TYPE) {
         reasonForChange = ControllerConstants.UCHRFC__CHARACTER_MOD_TYPE;
