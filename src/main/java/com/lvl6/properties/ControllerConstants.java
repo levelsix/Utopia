@@ -345,7 +345,7 @@ public class ControllerConstants {
 
   //LEADERBOARD
   public static final int LEADERBOARD__MIN_BATTLES_REQUIRED_FOR_KDR_CONSIDERATION = 100;
-  public static final int LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE = 15;
+  public static final int LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE = 150;
   
   //SEND GROUP CHAT
   public static final int SEND_GROUP_CHAT__MAX_LENGTH_OF_CHAT_STRING = 200;
