@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/aop 
 		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 		http://www.hazelcast.com/schema/spring
-        http://www.hazelcast.com/schema/spring/hazelcast-spring-2.3.xsd">
+        http://www.hazelcast.com/schema/spring/hazelcast-spring-2.4.xsd">
 
 	<hz:hazelcast id="hazel">
 		<hz:config>
