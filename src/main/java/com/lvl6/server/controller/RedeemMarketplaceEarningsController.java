@@ -82,7 +82,14 @@ import com.lvl6.utils.RetrieveUtils;
   }
 
   private void writeChangesToDB(User user, Map<String, Integer> money) {
-    money.put(MiscMethods.gold, user.getDiamonds());
+    int goldChange = user.getMarketplaceDiamondsEarnings();
+    int silverChange = user.getMarketplaceCoinsEarnings();
+    if (0 != goldChange) {
+      money.put(MiscMethods.gold, goldChange);
+    }
+    if (0 != silverChange) {
+      money.put(MiscMethods.silver, silverChange);
+    }
     if (!user.updateMoveMarketplaceEarningsToRealStatResetNummarketplacesalesunredeemed()) {
       log.error("problem with moving earnings to real stat for user in mktplace. user=" + user);
     }
@@ -109,7 +116,7 @@ import com.lvl6.utils.RetrieveUtils;
     Map<String, Integer> previousGoldSilver = null;
     String reasonForChange = ControllerConstants.UCHRFC__REDEEM_MARKETPLACE_EARNINGS;
     
-    MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, date, money,
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money,
         previousGoldSilver, reasonForChange);
   }
 }

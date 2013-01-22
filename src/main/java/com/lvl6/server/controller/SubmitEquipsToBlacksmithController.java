@@ -209,20 +209,10 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   }
   
   public void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
-    try {
-      if(money.isEmpty()) {
-        return;
-      }
-      int userId = aUser.getId();
-      int isSilver = 0;
-      int currencyChange = money.get(MiscMethods.gold);
-      int currencyBefore = aUser.getDiamonds() - currencyChange;
-      String reasonForChange = ControllerConstants.UCHRFC__SUBMIT_EQUIPS_TO_BLACKSMITH;
-      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver, 
-          currencyChange, currencyBefore, reasonForChange);
-      log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
-    } catch (Exception e) {
-      log.error("Maybe table's not there or duplicate keys? ", e);
-    }
+    Map<String, Integer> previousGoldSilver = null;
+    String reasonForChange = ControllerConstants.UCHRFC__SUBMIT_EQUIPS_TO_BLACKSMITH;
+
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonForChange);
+    
   }
 }

@@ -182,8 +182,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           + " coins, " + expGained + " exp");
     } else {
       //things worked
-      money.put(MiscMethods.gold, diamondsGained);
-      money.put(MiscMethods.silver, coinsGained);
+      if (0 != diamondsGained) {
+        money.put(MiscMethods.gold, diamondsGained);
+      }
+      if (0 != coinsGained) {
+        money.put(MiscMethods.silver, coinsGained);
+      }
     }
   }
 
@@ -213,7 +217,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     Map<String, Integer> previousGoldSilver = null;
     String reasonForChange = ControllerConstants.UCHRFC__QUEST_REDEEM;
     
-    MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, date, money,
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money,
         previousGoldSilver, reasonForChange);
   }
 }

@@ -105,8 +105,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           + ", coinChange=" + silverChange + ", user is " + user);
     } else {
       //everything went well
-      money.put(MiscMethods.gold, goldChange);
-      money.put(MiscMethods.silver, silverChange);
+      if (0 != goldChange) {
+        money.put(MiscMethods.gold, goldChange);
+      }
+      if (0 != silverChange) {
+        money.put(MiscMethods.silver, silverChange);
+      }
     }
     if (!UpdateUtils.get().updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), null, timeOfUpgrade, false)) {
       log.error("problem with changing time of upgrade to " + timeOfUpgrade + " and marking as incomplete, the user struct " + userStruct);
@@ -184,14 +188,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
   
   private void writeToUserCurrencyHistory(User aUser, Timestamp timeOfUpgrade, Map<String, Integer> money) {
-    int amount = money.size();
+    Map<String, Integer> previousGoldSilver = null;
     String reasonForChange = ControllerConstants.UCHRFC__UPGRADE_NORM_STRUCT;
-    
-    if(2 == amount) {
-      Map<String, Integer> previousGoldSilver = null;
-      MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, timeOfUpgrade, 
-          money, previousGoldSilver, reasonForChange);
-    }
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, timeOfUpgrade, 
+        money, previousGoldSilver, reasonForChange);
   }
 
 }
