@@ -424,9 +424,9 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	public long getRankForEventAndUser(Integer eventId, Integer userId) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			Long res = jedis.zrevrank(LeaderBoardConstants.RANK_FOR_EVENT(eventId), userId.toString())+1;
+			Long res = jedis.zrevrank(LeaderBoardConstants.RANK_FOR_EVENT(eventId), userId.toString());
 			if(res != null)
-				return res;
+				return res+1;
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
