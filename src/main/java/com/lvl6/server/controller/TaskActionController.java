@@ -255,7 +255,7 @@ public class TaskActionController extends EventController {
     } catch (Exception e) {
       log.error("exception in TaskActionController processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     }
   }
 

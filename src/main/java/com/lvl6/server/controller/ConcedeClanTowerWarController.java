@@ -120,7 +120,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("exception in BeginClanTowerWarController processEvent", e);
     } finally {
       server.unlockClanTowersTable();
-      server.unlockPlayer(senderProto.getUserId());      
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
     }
   }
 

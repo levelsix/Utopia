@@ -130,7 +130,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     } catch (Exception e) {
       log.error("exception in PurchaseFromMarketplace processEvent", e);
     } finally {
-      server.unlockPlayers(sellerId, buyerId);      
+      server.unlockPlayers(sellerId, buyerId, this.getClass().getSimpleName());      
     }
     }else {
     	log.warn("Unable to obtain lock in PurchaseFromMarketplaceController");

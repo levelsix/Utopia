@@ -154,7 +154,7 @@ public class EarnFreeDiamondsController extends EventController {
     } catch (Exception e) {
       log.error("exception in earn free gold processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());      
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
     }
   }
 

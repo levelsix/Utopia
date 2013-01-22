@@ -214,7 +214,7 @@ public class InAppPurchaseController extends EventController {
       log.error("exception in InAppPurchaseController processEvent", e);
     } finally {
       // Unlock this player
-      server.unlockPlayer(senderProto.getUserId());
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     }
   }
 

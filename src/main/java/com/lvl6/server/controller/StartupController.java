@@ -205,7 +205,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           log.error("exception in StartupController processEvent", e);
         } finally {
           server.unlockClanTowersTable();
-          server.unlockPlayer(user.getId()); 
+          server.unlockPlayer(user.getId(), this.getClass().getSimpleName()); 
         }
       } else {
         log.info("new player with udid " + udid);

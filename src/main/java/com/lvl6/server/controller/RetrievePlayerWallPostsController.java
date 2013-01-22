@@ -96,7 +96,7 @@ import com.lvl6.utils.RetrieveUtils;
     } catch (Exception e) {
       log.error("exception in RetrievePlayerWallPostsController processEvent", e);
     } finally {
-      server.unlockPlayer(relevantUserId); 
+      server.unlockPlayer(relevantUserId, this.getClass().getSimpleName()); 
     }
 
   }

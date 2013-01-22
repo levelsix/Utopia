@@ -114,7 +114,7 @@ public class RetrieveLeaderboardController extends EventController {
           "exception in RetrieveLeaderboardController processEvent",
           e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     }
 
   }

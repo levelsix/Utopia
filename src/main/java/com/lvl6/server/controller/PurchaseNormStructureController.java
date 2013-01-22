@@ -105,7 +105,7 @@ import com.lvl6.utils.utilmethods.InsertUtil;
     } catch (Exception e) {
       log.error("exception in PurchaseNormStructure processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());      
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
     }
   }
 

@@ -80,7 +80,7 @@ import com.lvl6.utils.RetrieveUtils;
       log.error("exception in UserQuestDetailsController processEvent", e);
     } finally {
     	log.debug("Unlocking player "+ senderProto.getUserId());
-      server.unlockPlayer(senderProto.getUserId()); 
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName()); 
     }
   }
 

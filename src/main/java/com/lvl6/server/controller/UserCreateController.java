@@ -179,7 +179,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         } catch (Exception e) {
           log.error("exception in UserCreateController processEvent", e);
         } finally {
-          server.unlockPlayer(userId); 
+          server.unlockPlayer(userId, this.getClass().getSimpleName()); 
         }
       } else {
         resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
@@ -234,7 +234,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       } catch (Exception e) {
         log.error("exception in UserCreateController processEvent", e);
       } finally {
-        server.unlockPlayer(userId); 
+        server.unlockPlayer(userId, this.getClass().getSimpleName()); 
       }
     }
     
@@ -334,7 +334,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       } catch (Exception e) {
         log.error("exception in UserCreateController processEvent", e);
       } finally {
-        server.unlockPlayer(referrer.getId()); 
+        server.unlockPlayer(referrer.getId(), this.getClass().getSimpleName()); 
       }
     }
   }

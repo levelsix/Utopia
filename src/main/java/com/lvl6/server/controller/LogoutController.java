@@ -79,7 +79,7 @@ public class LogoutController extends EventController {
 			} catch (Exception e) {
 				log.error("exception in updating user logout", e);
 			} finally {
-				server.unlockPlayer(playerId);
+				server.unlockPlayer(playerId, this.getClass().getSimpleName());
 			}
 		} else {
 			log.error("cannot update last logout because playerid of sender:"+sender.getName()+" is <= 0, it's "	+ playerId);

@@ -223,7 +223,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         log.error("exception in BattleController processEvent", e);
       } finally {
         server.unlockClanTowersTable();
-        server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
+        server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId(), this.getClass().getSimpleName());
       }
     }else {
       log.warn("Failed to obtain lock in BattleController processEvent");

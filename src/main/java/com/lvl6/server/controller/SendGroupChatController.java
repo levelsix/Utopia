@@ -159,7 +159,7 @@ public class SendGroupChatController extends EventController {
 		} catch (Exception e) {
 			log.error("exception in SendGroupChat processEvent", e);
 		} finally {
-			server.unlockPlayer(senderProto.getUserId());
+			server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
 		}
 	}
 

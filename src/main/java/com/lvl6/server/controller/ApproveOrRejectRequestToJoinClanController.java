@@ -98,8 +98,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } catch (Exception e) {
       log.error("exception in ApproveOrRejectRequestToJoinClan processEvent", e);
     } finally {
-      server.unlockPlayer(requesterId);
-      server.unlockPlayer(senderProto.getUserId());
+      server.unlockPlayer(requesterId, this.getClass().getSimpleName());
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     }
   }
 

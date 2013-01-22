@@ -138,7 +138,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } catch (Exception e) {
       log.error("exception in QuestRedeem processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());      
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
     }
     if (legitRedeem && quest != null && userQuest != null && senderProto.getUserType() != null) {
       clearUserQuestData(quest, userQuest, senderProto.getUserType());
