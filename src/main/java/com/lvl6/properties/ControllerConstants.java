@@ -238,7 +238,7 @@ public class ControllerConstants {
   public static final double VAULT__DEPOSIT_PERCENT_CUT = 0.1;
   
   //REFILL STAT WITH DIAMONDS
-  public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL = 20;
+  public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL = 10;
   public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL = 10;
 
   //LOAD PLAYER CITY
