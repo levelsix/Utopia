@@ -33,7 +33,7 @@ import com.lvl6.utils.PlayerSet;
 public class GameServer implements InitializingBean, HazelcastInstanceAware {
 
 	private static final int LOCK_TIMEOUT = 10000;
-	public static int LOCK_WAIT_SECONDS = 60;
+	public static int LOCK_WAIT_SECONDS = 10;
 
 	
 	private static final Logger log = LoggerFactory.getLogger(GameServer.class);
@@ -397,7 +397,8 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware {
 		// ILock lock = hazel.getLock(playersInAction.lockName(playerId));
 		try {
 			if (lockMap.isLocked(playersInAction.lockName(playerId))) {
-				lockMap.unlock(playersInAction.lockName(playerId));
+				//TODO: temporary hack... should revert back to regular unlock once we figure out the issue with 'Thread not owner of lock'
+				lockMap.forceUnlock(playersInAction.lockName(playerId));
 			}
 			log.debug("Unlocked player " + playerId+" from class: "+fromClass);
 			if (playersInAction.containsPlayer(playerId)) {
@@ -410,7 +411,6 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware {
 			}else {
 				log.error("Error unlocking player " + playerId+" from class: "+fromClass, e);
 			}
-			
 		}
 	}
 
