@@ -89,7 +89,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     ConcedeClanTowerWarResponseProto.Builder resBuilder = ConcedeClanTowerWarResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       if(server.lockClanTowersTable()) {
         User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());

@@ -6,10 +6,12 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.LogoutRequestEvent;
 import com.lvl6.info.User;
 import com.lvl6.proto.EventProto.LogoutRequestProto;
@@ -60,7 +62,7 @@ public class LogoutController extends EventController {
 		int playerId = sender.getUserId();
 
 		if (playerId > 0) {
-			server.lockPlayer(playerId);
+			server.lockPlayer(playerId, this.getClass().getSimpleName());
 			try {
 				User user = RetrieveUtils.userRetrieveUtils().getUserById(playerId);
 				if (user != null) {

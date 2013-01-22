@@ -54,7 +54,7 @@ import com.lvl6.utils.RetrieveUtils;
     resBuilder.setSender(senderProto);
 
     resBuilder.setStatus(LoadPlayerCityStatus.SUCCESS);
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
 
     try {
       User owner = RetrieveUtils.userRetrieveUtils().getUserById(cityOwnerId);

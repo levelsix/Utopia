@@ -39,7 +39,7 @@ public class StatsPanelDynamic extends Panel {
 			AbstractItem itm = new AbstractItem(rv.newChildId());
 			PageParameters params = new PageParameters();
 			params.set(STATS_FIELD_NAME, field.getName());
-			log.info("Adding field {}", field.getName());
+			//log.info("Adding field {}", field.getName());
 			BookmarkablePageLink<StatsGraphsPage> bookmarkablePageLink = new BookmarkablePageLink<StatsGraphsPage>("statGraphLink", StatsGraphsPage.class, params);
 			//bookmarkablePageLink.setOutputMarkupId(true);
 			itm.add(bookmarkablePageLink);

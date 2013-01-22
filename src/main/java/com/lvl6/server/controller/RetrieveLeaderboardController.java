@@ -72,7 +72,7 @@ public class RetrieveLeaderboardController extends EventController {
     resBuilder.setLeaderboardType(leaderboardType);
     resBuilder.setAfterThisRank(afterThisRank);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       boolean legitRetrieval = checkLegitRetrieval(resBuilder, user,	leaderboardType);

@@ -2,13 +2,11 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.mortbay.log.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,7 +163,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           null, null, null, false, ControllerConstants.PURCHASE_GROUP_CHAT__NUM_CHATS_GIVEN_FOR_PACKAGE);
             
       if (userId > 0) {
-        server.lockPlayer(userId);
+        server.lockPlayer(userId, this.getClass().getSimpleName());
         try {
           user = RetrieveUtils.userRetrieveUtils().getUserById(userId);
 
@@ -215,7 +213,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
 
     if (legitUserCreate && userId > 0) {
-      server.lockPlayer(userId);
+      server.lockPlayer(userId, this.getClass().getSimpleName());
       try {
         writeFirstWallPost(userId);
         writeUserStruct(userId, ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD, timeOfStructPurchase, timeOfStructBuild, structCoords);
@@ -315,7 +313,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private void rewardReferrer(User referrer, User user) {
     if (!referrer.isFake()) {
-      server.lockPlayer(referrer.getId());
+      server.lockPlayer(referrer.getId(), this.getClass().getSimpleName());
       try {
         int coinsGivenToReferrer = MiscMethods.calculateCoinsGivenToReferrer(referrer);
         if (!referrer.updateRelativeCoinsNumreferrals(coinsGivenToReferrer, 1)) {

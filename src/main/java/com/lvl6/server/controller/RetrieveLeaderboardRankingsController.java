@@ -72,7 +72,7 @@ public class RetrieveLeaderboardRankingsController extends EventController {
     resBuilder.setEventId(eventId);
     resBuilder.setAfterThisRank(afterThisRank);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       LeaderboardType leaderboardType = LeaderboardType.EVENT;
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
@@ -131,7 +131,7 @@ public class RetrieveLeaderboardRankingsController extends EventController {
       Integer userId = Integer.valueOf(t.getElement());
       UserRankScore urs = new UserRankScore(userId, t.getScore(), counter+afterThisRank);
       lurs.put(userId, urs);
-      log.info(urs.toString());
+      log.debug(urs.toString());
       counter++;
     }
     return lurs;

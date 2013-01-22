@@ -56,7 +56,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     MoveOrRotateNormStructureResponseProto.Builder resBuilder = MoveOrRotateNormStructureResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     //only locking so you cant moveOrRotate it hella times
 
     try {

@@ -99,7 +99,7 @@ public class InAppPurchaseController extends EventController {
     resBuilder.setReceipt(reqProto.getReceipt());
 
     // Lock this player's ID
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 

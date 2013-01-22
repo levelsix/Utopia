@@ -46,10 +46,14 @@ public class PlayerSet implements HazelcastInstanceAware {
 	 * 
 	 * @throws InterruptedException
 	 */
-	public void addPlayer(int playerId) {
-		players.put(playerId, new PlayerInAction(playerId));
+	public void addPlayer(int playerId, String lockedByClass) {
+		players.put(playerId, new PlayerInAction(playerId, lockedByClass));
 	}
 
+	public PlayerInAction getPlayerInAction(int playerId) {
+		return players.get(playerId);
+	}
+	
 	public void removePlayer(int playerId) {
 		if(containsPlayer(playerId))
 			players.remove(playerId);

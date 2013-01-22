@@ -69,7 +69,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     UserQuest userQuest = null;
     Quest quest = null;
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
 
     try {
       userQuest = RetrieveUtils.userQuestRetrieveUtils().getSpecificUnredeemedUserQuest(senderProto.getUserId(), questId);

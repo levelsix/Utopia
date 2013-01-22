@@ -76,7 +76,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       return;
     }
 
-    if(server.lockPlayers(sellerId, buyerId)) {
+    if(server.lockPlayers(sellerId, buyerId, this.getClass().getSimpleName())) {
     try {
       MarketplacePost mp = MarketplacePostRetrieveUtils.getSpecificActiveMarketplacePost(postId);
       User buyer = RetrieveUtils.userRetrieveUtils().getUserById(buyerId);

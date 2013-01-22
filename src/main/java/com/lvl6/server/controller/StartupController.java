@@ -169,7 +169,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (updateStatus != UpdateStatus.MAJOR_UPDATE) {
       user = RetrieveUtils.userRetrieveUtils().getUserByUDID(udid);
       if (user != null) {
-        server.lockPlayer(user.getId());
+        server.lockPlayer(user.getId(), this.getClass().getSimpleName());
         try {
           startupStatus = StartupStatus.USER_IN_DB;
           log.info("No major update... getting user info");

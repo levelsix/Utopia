@@ -106,7 +106,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     List<FullUserEquipProto> oldDefenderUserEquipsList = reqProto.getDefenderUserEquipsList();
 
-    if( server.lockPlayers(attackerProto.getUserId(), defenderProto.getUserId())) {
+    if( server.lockPlayers(attackerProto.getUserId(), defenderProto.getUserId(), this.getClass().getSimpleName())) {
 
       try {
         User attacker = RetrieveUtils.userRetrieveUtils().getUserById(attackerProto.getUserId());

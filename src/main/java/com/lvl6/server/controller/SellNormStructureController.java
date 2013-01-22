@@ -63,7 +63,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
       struct = StructureRetrieveUtils.getStructForStructId(userStruct.getStructId());
     }
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
 
     try {
       User user = null;

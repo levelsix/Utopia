@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrievePlayerWallPostsRequestEvent;
 import com.lvl6.events.response.RetrievePlayerWallPostsResponseEvent;
 import com.lvl6.info.PlayerWallPost;
@@ -53,7 +55,7 @@ import com.lvl6.utils.RetrieveUtils;
     resBuilder.setRelevantUserId(relevantUserId);
     if (reqProto.hasBeforeThisPostId()) resBuilder.setBeforeThisPostId(beforeThisPostId);
 
-    server.lockPlayer(relevantUserId);
+    server.lockPlayer(relevantUserId, this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(relevantUserId);
       if (user == null) {
