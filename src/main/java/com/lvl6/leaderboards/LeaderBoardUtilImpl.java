@@ -93,22 +93,24 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	}
 
 	@Override
-	public double getBattlesWonForUser(Integer userId) {
+	public Double getBattlesWonForUser(Integer userId) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			return jedis.zscore(LeaderBoardConstants.BATTLES_WON,
+			Double res = jedis.zscore(LeaderBoardConstants.BATTLES_WON,
 					userId.toString());
+			if(res != null)
+				return res;
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
 			if (jedis != null)
 				jedisPool.returnResource(jedis);
 		}
-		return 0;
+		return 0d;
 	}
 
 	@Override
-	public double getBattlesWonOverTotalBattlesRatioForUser(Integer userId) {
+	public Double getBattlesWonOverTotalBattlesRatioForUser(Integer userId) {
 		Jedis jedis = jedisPool.getResource();
 		try {
 			return jedis.zscore(LeaderBoardConstants.BATTLES_WON_TO_TOTAL_BATTLES_RATIO,userId.toString());
@@ -118,14 +120,16 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 			if (jedis != null)
 				jedisPool.returnResource(jedis);
 		}
-		return 0;
+		return 0d;
 	}
 
 	@Override
 	public long getBattlesWonRankForUser(Integer userId) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			return jedis.zrevrank(LeaderBoardConstants.BATTLES_WON,	userId.toString()) + 1;
+			Long res = jedis.zrevrank(LeaderBoardConstants.BATTLES_WON,	userId.toString()) + 1;
+			if(res != null)
+				return res;
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
@@ -139,9 +143,11 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	public long getBattlesWonOverTotalBattlesRatioRankForUser(Integer userId) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			return jedis.zrevrank(
+			Long res = jedis.zrevrank(
 					LeaderBoardConstants.BATTLES_WON_TO_TOTAL_BATTLES_RATIO,
 					userId.toString()) + 1;
+			if(res != null)
+				return res;
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
@@ -219,41 +225,47 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	// jedis.zincrby(LeaderBoardConstants.SILVER, amount, userId.toString());
 	// }
 	@Override
-	public double getTotalCoinValueForUser(Integer userId) {
+	public Double getTotalCoinValueForUser(Integer userId) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			return jedis.zscore(LeaderBoardConstants.COIN_WORTH,
+			Double res = jedis.zscore(LeaderBoardConstants.COIN_WORTH,
 					userId.toString());
+			if(res != null)
+				return res;
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
 			if (jedis != null)
 				jedisPool.returnResource(jedis);
 		}
-		return 0;
+		return 0d;
 	}
 
 	@Override
-	public double getExperienceForUser(Integer userId) {
+	public Double getExperienceForUser(Integer userId) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			return jedis.zscore(LeaderBoardConstants.EXPERIENCE,
+			Double res = jedis.zscore(LeaderBoardConstants.EXPERIENCE,
 					userId.toString());
+			if(res != null)
+				return res;
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
 			if (jedis != null)
 				jedisPool.returnResource(jedis);
 		}
-		return 0;
+		return 0d;
 	}
 
 	@Override
 	public long getTotalCoinValueRankForUser(Integer userId) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			return jedis.zrevrank(LeaderBoardConstants.COIN_WORTH,
+			Long res = jedis.zrevrank(LeaderBoardConstants.COIN_WORTH,
 					userId.toString()) + 1;
+			if(res != null)
+				return res;
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
@@ -267,8 +279,10 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	public long getExperienceRankForUser(Integer userId) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			return jedis.zrevrank(LeaderBoardConstants.EXPERIENCE,
+			Long res = jedis.zrevrank(LeaderBoardConstants.EXPERIENCE,
 					userId.toString()) + 1;
+			if(res != null)
+				return res;
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
@@ -362,17 +376,19 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	}
 
 	@Override
-	public double getBattlesWonForUser(Integer tournament, Integer userId) {
+	public Double getBattlesWonForUser(Integer tournament, Integer userId) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			return jedis.zscore(LeaderBoardConstants.BATTLES_WON_FOR_TOURNAMENT(tournament), userId.toString());
+			Double res = jedis.zscore(LeaderBoardConstants.BATTLES_WON_FOR_TOURNAMENT(tournament), userId.toString());
+			if(res != null)
+				return res;
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
 			if (jedis != null)
 				jedisPool.returnResource(jedis);
 		}
-		return 0;
+		return 0d;
 	}
 
 	@Override
@@ -389,24 +405,28 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	}
 
 	@Override
-	public double getScoreForEventAndUser(Integer eventId, Integer userId) {
+	public Double getScoreForEventAndUser(Integer eventId, Integer userId) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			return jedis.zscore(LeaderBoardConstants.RANK_FOR_EVENT(eventId), userId.toString());
+			Double res = jedis.zscore(LeaderBoardConstants.RANK_FOR_EVENT(eventId), userId.toString());
+			if(res != null)
+				return res; 
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
 			if (jedis != null)
 				jedisPool.returnResource(jedis);
 		}
-		return 0;
+		return 0d;
 	}
 
 	@Override
 	public long getRankForEventAndUser(Integer eventId, Integer userId) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			return jedis.zrevrank(LeaderBoardConstants.RANK_FOR_EVENT(eventId), userId.toString())+1;
+			Long res = jedis.zrevrank(LeaderBoardConstants.RANK_FOR_EVENT(eventId), userId.toString())+1;
+			if(res != null)
+				return res;
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {

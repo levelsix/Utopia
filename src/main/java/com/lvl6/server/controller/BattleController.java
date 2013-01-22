@@ -195,7 +195,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
           if (winner != null && attacker != null && winner == attacker) {
             if (reqProto.hasNeutralCityId() && reqProto.getNeutralCityId() >= 0) {
-              server.unlockPlayer(defenderProto.getUserId());
+              //server.unlockPlayer(defenderProto.getUserId());
               checkQuestsPostBattle(winner, defender.getType(),
                   attackerProto, reqProto.getNeutralCityId(), lostEquip);
             } else if (lostEquip != null) {
