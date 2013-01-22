@@ -393,7 +393,7 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware {
 	}
 
 	public void unlockPlayer(int playerId) {
-		log.debug("Unlocking player: " + playerId);
+		log.info("Unlocking player: " + playerId);
 		// ILock lock = hazel.getLock(playersInAction.lockName(playerId));
 		try {
 			if (lockMap.isLocked(playersInAction.lockName(playerId))) {
