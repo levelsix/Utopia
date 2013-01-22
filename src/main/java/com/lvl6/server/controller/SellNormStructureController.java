@@ -117,12 +117,16 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
     Timestamp date = new Timestamp((new Date()).getTime());
 
     Map<String, Integer> money = new HashMap<String, Integer>();
-    money.put(MiscMethods.gold, diamondChange);
-    money.put(MiscMethods.silver, coinChange);
+    if (0 != diamondChange) {
+      money.put(MiscMethods.gold, diamondChange);
+    }
+    if (0 != coinChange) {
+      money.put(MiscMethods.silver, coinChange);
+    }
     Map<String, Integer> previousGoldSilver = null;
     String reasonForChange = ControllerConstants.UCHRFC__SELL_NORM_STRUCT;
     
-    MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, date, money,
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money,
         previousGoldSilver, reasonForChange);
     
   }

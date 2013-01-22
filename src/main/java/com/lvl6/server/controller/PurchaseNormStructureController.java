@@ -116,8 +116,12 @@ import com.lvl6.utils.utilmethods.InsertUtil;
     if (!user.updateRelativeDiamondsCoinsExperienceNaive(diamondChange*-1, coinChange*-1, 0)) {
       log.error("problem with taking away " + diamondChange + " diamonds, " + coinChange + " coins.");
     } else {//things went ok
-      money.put(MiscMethods.gold, diamondChange);
-      money.put(MiscMethods.silver, coinChange);
+      if (0 != diamondChange) {
+        money.put(MiscMethods.gold, diamondChange * -1);
+      }
+      if (0 != coinChange) {
+        money.put(MiscMethods.silver, coinChange * -1);
+      }
     }
   }
 
@@ -183,7 +187,7 @@ import com.lvl6.utils.utilmethods.InsertUtil;
     Map<String, Integer> previousGoldSilver = null;
     String reasonForChange = ControllerConstants.UCHRFC__PURCHASE_NORM_STRUCT;
     
-    MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, date, money,
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money,
         previousGoldSilver, reasonForChange);
     
   }

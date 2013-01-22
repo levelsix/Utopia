@@ -176,7 +176,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         aBuilder.setStatus(UpgradeClanTierLevelStatus.OTHER_FAIL);
       }
     } else {
-      log.error("could not take " + upgradeCost + " diamonds form user: " + aUser);
+      log.error("could not take " + refund + " diamonds form user: " + aUser);
       aBuilder.setStatus(UpgradeClanTierLevelStatus.OTHER_FAIL);
     }
     currencyChange.clear();
@@ -191,7 +191,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int userId = aUser.getId();
       Timestamp date = new Timestamp((new Date()).getTime());
       int isSilver = 0;
-      int currencyChange = money.get(0);
+      int currencyChange = money.get(0) * -1; //forgot to make it negative before, but it is negative in writetodb
       int currencyBefore = aUser.getDiamonds() - currencyChange;
       String reasonForChange = ControllerConstants.UCHRFC__UPGRADE_CLAN_TIER_LEVEL;
       

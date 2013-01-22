@@ -242,7 +242,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     return true;
   }
   
-  //only gold changes or silver changes, not both
+  //only gold changes or silver changes, not both, seller doesn't really get the money until seller redeems purchase
   private void writeToUserCurrencyHistory(User buyer, User seller, Timestamp date, Map<String, Integer> moneyBuyer, 
       Map<String, Integer> moneySeller, List<String> goldOrSilverTransaction) {
     if(goldOrSilverTransaction.isEmpty()) {
@@ -263,10 +263,11 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       userIds.add(seller.getId());
       
       int buyerCurrencyChange = moneyBuyer.get(goldOrSilver);
-      int sellerCurrencyChange = moneySeller.get(goldOrSilver);
+      //int sellerCurrencyChange = moneySeller.get(goldOrSilver);
+      int sellerCurrencyChange = 0; //the change occurs when the person redeems the purchase
       
       
-      if(MiscMethods.gold == goldOrSilver) {
+      if(goldOrSilver.equals(MiscMethods.gold)) {
         //not a silver change but gold change
         areSilver = new ArrayList<Integer>(Collections.nCopies(amount, 0));
         
@@ -285,8 +286,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       
       currenciesChange.add(buyerCurrencyChange);
       currenciesChange.add(sellerCurrencyChange);
-      reasonsForChanges.add(ControllerConstants.UCHRFC__SOLD_ITEM_ON_MARKETPLACE); //buyer reason
-      reasonsForChanges.add(ControllerConstants.UCHRFC__PURCHASED_FROM_MARKETPLACE); //seller reason
+      reasonsForChanges.add(ControllerConstants.UCHRFC__PURCHASED_FROM_MARKETPLACE); //buyer reason
+      reasonsForChanges.add(ControllerConstants.UCHRFC__SOLD_ITEM_ON_MARKETPLACE); //seller reason
 
       int numInserted = InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates, areSilver,
           currenciesChange, currenciesBefore, reasonsForChanges);

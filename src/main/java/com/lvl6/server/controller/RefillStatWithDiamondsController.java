@@ -2,6 +2,8 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +25,6 @@ import com.lvl6.proto.EventProto.RefillStatWithDiamondsResponseProto.RefillStatS
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.InsertUtils;
 
   @Component @DependsOn("gameServer") public class RefillStatWithDiamondsController extends EventController{
 
@@ -135,29 +136,25 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   }
   
   public void writeToUserCurrencyHistory(User aUser, StatType aStatType) {
-    //try, catch just a precaution
-    try {
-      int userId = aUser.getId();
-      Timestamp date = new Timestamp((new Date()).getTime());
-      int isSilver = 0;
-      int currencyChange = 0;
-      int currencyBefore = 0;
-      String reasonForChange = ControllerConstants.UCHRFC__REFILL_STAT; 
+    Timestamp date = new Timestamp((new Date()).getTime());
+    Map<String, Integer> goldSilverChange = new HashMap<String, Integer>();
+    Map<String, Integer> previousGoldSilver = null;
+    String reasonForChange = ControllerConstants.UCHRFC__REFILL_STAT;
 
-      if (StatType.ENERGY == aStatType) {
-        currencyChange = ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL * -1;
-      } else if (StatType.STAMINA == aStatType) {
-        currencyChange = ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL * -1;
-      }
-
-      currencyBefore = aUser.getDiamonds() - currencyChange;
-
-      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver, 
-          currencyChange, currencyBefore, reasonForChange);
-      log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
-    } catch (Exception e) {
-      log.error("Maybe table's not there or duplicate keys? ", e);
+    int currencyChange = 0;
+    
+    if (StatType.ENERGY == aStatType) {
+      currencyChange = ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL * -1;
+      reasonForChange += " energy";
+    } else if (StatType.STAMINA == aStatType) {
+      currencyChange = ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL * -1;
+      reasonForChange += " stamina";
+    } else {
+      log.error("wrong StatType. StatType=" + aStatType);
+      return;
     }
-  }
+    goldSilverChange.put(MiscMethods.gold, currencyChange);
 
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange, previousGoldSilver, reasonForChange);
+  }
 }
