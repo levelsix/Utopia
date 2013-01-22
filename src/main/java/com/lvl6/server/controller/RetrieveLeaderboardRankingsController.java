@@ -121,7 +121,7 @@ public class RetrieveLeaderboardRankingsController extends EventController {
     Set<Tuple> usrs = new HashSet<Tuple>();
     log.info("Retrieving event: "+eventId+" afterThisRank: "+afterThisRank);
 
-    usrs = leader.getEventTopN(eventId, afterThisRank, afterThisRank+ControllerConstants.LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE);
+    usrs = leader.getEventTopN(eventId, afterThisRank, afterThisRank+ControllerConstants.LEADERBOARD_EVENT__MAX_PLAYERS_SENT_AT_ONCE);
 
     Map<Integer, UserRankScore> lurs = new LinkedHashMap<Integer, UserRankScore>();
     Iterator<Tuple> it = usrs.iterator();
