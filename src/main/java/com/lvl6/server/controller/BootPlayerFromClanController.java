@@ -6,11 +6,13 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.BootPlayerFromClanRequestEvent;
 import com.lvl6.events.response.BootPlayerFromClanResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -103,9 +105,15 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
 
         //clan tower stuff
         if(server.lockClanTowersTable()) {
-          Clan aClan = ClanRetrieveUtils.getClanWithId(user.getClanId());
-          sendTowersAndNotifications(aClan);
-
+        	try {
+	          Clan aClan = ClanRetrieveUtils.getClanWithId(user.getClanId());
+	          sendTowersAndNotifications(aClan);
+        	}catch(Exception e) {
+        		log.error("Failed to update clan tower and send notification", e);
+        		throw e;
+        	}finally {
+        		server.unlockClanTowersTable();
+        	}
         }
       } else {
         server.writeEvent(resEvent);
@@ -113,7 +121,6 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
     } catch (Exception e) {
       log.error("exception in BootPlayerFromClan processEvent", e);
     } finally {
-      server.unlockClanTowersTable();
       server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     }
   }

@@ -288,7 +288,8 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware {
 	  try {
 	    String lockName = clanTowersTableLockName();
 	    if(lockMap.isLocked(lockName)) {
-	      lockMap.unlock(lockName);
+	      //TODO: Figure out hazelcast issue with unlock and change this back to unlock
+	    	lockMap.forceUnlock(lockName);
 	    }
 	    log.debug("Unlocked all clan towers");
 	    if (lockMap.containsKey(lockName)) {
