@@ -79,10 +79,9 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       boolean legitSubmit = checkLegitSubmit(resBuilder, user, paidToGuarantee, userEquips, equip, startTime);
 
       int goalLevel = 0;
+      goalLevel = userEquips.get(0).getLevel() + 1;
       int diamondCost = calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee);
       if (legitSubmit) {
-        goalLevel = userEquips.get(0).getLevel() + 1;
-
         int blacksmithId = InsertUtils.get().insertForgeAttemptIntoBlacksmith(user.getId(), equip.getId(), goalLevel, 
             paidToGuarantee, startTime, 
             diamondCost, null, false);

@@ -129,7 +129,7 @@ public class MiscMethods {
 
   public static int calculateDiamondCostToSpeedupForgeWaittime(Equipment equipment, int goalLevel) {
     return (int) Math.ceil(calculateMinutesToFinishForgeAttempt(equipment, goalLevel) / 
-        ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
+        (float)ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
   }
 
   public static UserEquip chooseUserEquipWithEquipIdPreferrablyNonEquippedIgnoreLevel(User user, List<UserEquip> userEquipsForEquipId) {
@@ -1067,9 +1067,8 @@ public class MiscMethods {
       previousCurrencies.add(previousSilver);
       
       //using multiple rows because 2 entries: one for silver, other for gold
-      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates, areSilver,
+      InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates, areSilver,
           changesToCurrencies, previousCurrencies, reasonsForChanges);
-      log.info("Should be 2. Rows inserted into user_currency_history: " + numInserted);
     } catch(Exception e) {
       log.error("Maybe table's not there or duplicate keys? ", e);
     }
@@ -1114,9 +1113,8 @@ public class MiscMethods {
         currencyBefore = previousGoldSilver.get(key);
       }
       
-      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(
+      InsertUtils.get().insertIntoUserCurrencyHistory(
           userId, date, isSilver, currencyChange, currencyBefore, reasonForChange);
-      log.info("Should be 1. number or rows inserted=" + numInserted);
     } catch(Exception e) {
       log.error("null pointer exception?", e);
     }
