@@ -80,6 +80,8 @@ import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.BoosterItemRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.BoosterPackRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRewardRetrieveUtils;
@@ -685,6 +687,8 @@ public class MiscMethods {
     LeaderboardEventRetrieveUtils.reload();
     LeaderboardEventRewardRetrieveUtils.reload();
     ProfanityRetrieveUtils.reload();
+    BoosterPackRetrieveUtils.reload();
+    BoosterItemRetrieveUtils.reload();
   }
 
   public static UserType getUserTypeFromDefeatTypeJobUserType(

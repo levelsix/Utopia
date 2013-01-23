@@ -75,6 +75,10 @@ public class DBConstants {
   public static final String TABLE_EQUIP_ENHANCEMENT_FEEDERS_HISTORY = "equip_enhancement_feeders_history";
   public static final String TABLE_DELETED_USER_EQUIPS_FOR_ENHANCING = "deleted_user_equips_for_enhancing";
   
+  public static final String TABLE_BOOSTER_PACK = "booster_pack";
+  public static final String TABLE_BOOSTER_ITEM = "booster_item";
+  public static final String TABLE_USER_BOOSTER_ITEMS = "user_booster_items";
+  
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
   public static final String GENERIC__ID = "id";
@@ -544,5 +548,25 @@ public class DBConstants {
   public static final String USER_CURRENCY_HISTORY__CURRENCY_CHANGE = "currency_change";
   public static final String USER_CURRENCY_HISTORY__CURRENCY_BEFORE_CHANGE = "currency_before_change";
   public static final String USER_CURRENCY_HISTORY__REASON_FOR_CHANGE = "reason_for_change";
+ 
+  /*BOOSTER PACK*/
+  public static final String BOOSTER_PACK__ID = GENERIC__ID;
+  public static final String BOOSTER_PACK__COIN_COST = "coin_cost";
+  public static final String BOOSTER_PACK__DIAMOND_COST = "diamond_cost";
+  public static final String BOOSTER_PACK__NAME = "name";
+  public static final String BOOSTER_PACK__IMAGE = "image";
+  public static final String BOOSTER_PACK__DESCRIPTION = "description";
+  public static final String BOOSTER_PACK__NUM_EQUIPS = "num_equips";
   
+  /*BOOSTER ITEM*/
+  public static final String BOOSTER_ITEM__ID = GENERIC__ID;
+  public static final String BOOSTER_ITEM__BOOSTER_PACK_ID = "booster_pack_id";
+  public static final String BOOSTER_ITEM__EQUIP_ID = "equip_id";
+  public static final String BOOSTER_ITEM__QUANTITY = "quantity";
+  public static final String BOOSTER_ITEM__IS_SPECIAL = "is_special";
+  
+  /*USER BOOSTER ITEMS*/
+  public static final String USER_BOOSTER_ITEMS__BOOSTER_ITEM_ID = "booster_item_id";
+  public static final String USER_BOOSTER_ITEMS__USER_ID = "user_id";
+  public static final String USER_BOOSTER_ITEMS__NUM_RECEIVED = "num_received";
 }
