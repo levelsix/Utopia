@@ -44,7 +44,11 @@ import com.lvl6.utils.DBConnection;
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, absoluteConditionParams, TABLE_NAME);
     EquipEnhancement equipEnhancement = null;
     try {
-      equipEnhancement = convertRSRowToEquipEnhancement(rs);
+      rs.last();
+      rs.beforeFirst();
+      if(rs.next()) {
+        equipEnhancement = convertRSRowToEquipEnhancement(rs);
+      }
     } catch (SQLException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

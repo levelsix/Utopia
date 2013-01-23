@@ -201,7 +201,7 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__EQUIP_ENHANCEMENT_ID, equipEnhancementId);
     insertParams.put(DBConstants.EQUIP_ENHANCEMENT_HISTORY__EQUIP_ID, equipId);
     insertParams.put(DBConstants.EQUIP_ENHANCEMENT_HISTORY__EQUIP_LEVEL, equipLevel);
-    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__ENHANCEMENT_PERCENTAGE_BEFORE_ENHANCEMENT,
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__ENHANCEMENT_PERCENTAGE,
         enhancementPercentageBeforeEnhancement);
     
     int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
@@ -229,7 +229,7 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__EQUIP_ENHANCEMENT_ID, equipEnhancementIds);
     insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__EQUIP_ID, equipIds);
     insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__EQUIP_LEVEL, equipLevels);
-    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__ENHANCEMENT_PERCENTAGE_BEFORE_ENHANCEMENT,
+    insertParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS_HISTORY__ENHANCEMENT_PERCENTAGE,
         enhancementPercentages);
     
     int numInserted = DBConnection.get().insertIntoTableMultipleRows(tablename, insertParams, amount);

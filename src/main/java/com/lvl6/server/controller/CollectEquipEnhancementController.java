@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,21 +15,17 @@ import com.lvl6.events.request.CollectEquipEnhancementRequestEvent;
 import com.lvl6.events.response.CollectEquipEnhancementResponseEvent;
 import com.lvl6.info.EquipEnhancement;
 import com.lvl6.info.EquipEnhancementFeeder;
-import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
-import com.lvl6.info.UserEquip;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.proto.EventProto.CollectEquipEnhancementRequestProto;
 import com.lvl6.proto.EventProto.CollectEquipEnhancementResponseProto;
 import com.lvl6.proto.EventProto.CollectEquipEnhancementResponseProto.Builder;
 import com.lvl6.proto.EventProto.CollectEquipEnhancementResponseProto.CollectEquipStatus;
-import com.lvl6.proto.InfoProto.EquipEnhancementProto;
 import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.EquipEnhancementFeederRetrieveUtils;
 import com.lvl6.retrieveutils.EquipEnhancementRetrieveUtils;
-import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
@@ -67,7 +62,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     CollectEquipEnhancementResponseProto.Builder resBuilder = CollectEquipEnhancementResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
+    server.lockPlayer(userId, this.getClass().getSimpleName());
     try {
       //The main equip that is being enhanced.
       EquipEnhancement equipUnderEnhancement = EquipEnhancementRetrieveUtils
@@ -110,7 +105,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     } catch (Exception e) {
       log.error("exception in EnhanceEquip processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
+      server.unlockPlayer(userId, this.getClass().getSimpleName());      
     }
   }
 

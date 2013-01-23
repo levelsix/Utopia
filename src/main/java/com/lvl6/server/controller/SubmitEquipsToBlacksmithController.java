@@ -78,11 +78,9 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
       boolean legitSubmit = checkLegitSubmit(resBuilder, user, paidToGuarantee, userEquips, equip, startTime);
 
-      int goalLevel = 0;
+      int goalLevel = userEquips.get(0).getLevel() + 1;
       int diamondCost = calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee);
       if (legitSubmit) {
-        goalLevel = userEquips.get(0).getLevel() + 1;
-
         int blacksmithId = InsertUtils.get().insertForgeAttemptIntoBlacksmith(user.getId(), equip.getId(), goalLevel, 
             paidToGuarantee, startTime, 
             diamondCost, null, false);
@@ -150,7 +148,10 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     float chanceOfSuccess = MiscMethods.calculateChanceOfSuccessForForge(equip, goalLevel);
     int goldCostToSpeedup = MiscMethods.calculateDiamondCostToSpeedupForgeWaittime(equip, goalLevel);
     
-    return (int) (goldCostToSpeedup/chanceOfSuccess);
+    float y = goldCostToSpeedup/chanceOfSuccess;
+    int x = (int) (goldCostToSpeedup/chanceOfSuccess);
+    log.info("diamonds="+x+ " "+y);
+    return x;
   }
 
   private boolean checkLegitSubmit(Builder resBuilder, User user, boolean paidToGuarantee, List<UserEquip> userEquips, Equipment equip, Timestamp startTime) {
