@@ -411,7 +411,7 @@ public class ControllerConstants {
   public static final String UCHRFC__LONG_MARKET_PLACE_LICENSE = "purchased long market place license";
   public static final String UCHRFC__GROUP_CHAT = "purchased group chat"; //is controller for this even used?
   public static final String UCHRFC__BOSS_ACTION = "boss action";
-  public static final String UCHRFC__REFILL_STAT = "refill stat, energy or stamina";
+  public static final String UCHRFC__REFILL_STAT = "refilled stat: ";
   public static final String UCHRFC__FINISH_NORM_STRUCT = "finish construction or income wait time";
   public static final String UCHRFC__UPGRADE_NORM_STRUCT = "upgraded norm struct";
   public static final String UCHRFC__SELL_NORM_STRUCT = "sell norm struct";
