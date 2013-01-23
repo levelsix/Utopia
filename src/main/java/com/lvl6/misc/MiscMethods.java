@@ -57,6 +57,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BazaarMin
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.CharacterModConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ClanConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.DownloadableNibConstants;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.EnhancementConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ExpansionConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ForgeConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants;
@@ -558,6 +559,23 @@ public class MiscMethods {
 
     cb = cb.setDownloadableNibConstants(dnc);
 
+    EnhancementConstants enc = EnhancementConstants.newBuilder()
+        .setMaxEnhancementLevel(ControllerConstants.MAX_ENHANCEMENT_LEVEL)
+        .setEnhanceLevelExponentBase(ControllerConstants.ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE)
+        .setEnhancePercentPerLevel(ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL)
+        .setEnhanceTimeConstantA(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_A)
+        .setEnhanceTimeConstantB(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_B)
+        .setEnhanceTimeConstantC(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_C)
+        .setEnhanceTimeConstantD(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_D)
+        .setEnhanceTimeConstantE(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_E)
+        .setEnhanceTimeConstantF(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_F)
+        .setEnhanceTimeConstantG(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_G)
+        .setEnhancePercentConstantA(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_A)
+        .setEnhancePercentConstantB(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B)
+        .build();
+    
+    cb = cb.setEnhanceConstants(enc);
+
     // For legacy purposes
     for (int i = 0; i < IAPValues.packageNames.size(); i++) {
       cb.addProductIds(IAPValues.packageNames.get(i));
@@ -599,8 +617,6 @@ public class MiscMethods {
         .build();
     
     cb = cb.setLeaderboardConstants(lec);
-    
-    cb = cb.setMaxEnhancementLevel(ControllerConstants.MAX_ENHANCEMENT_LEVEL);
     
     return cb.build();  
   }
@@ -1219,20 +1235,81 @@ public class MiscMethods {
     return false;
   }
   
-  public static int calculateEnhancementForEquip(EquipEnhancement mainEquip,
-      List<EquipEnhancementFeeder> feederEquips) {
-    
-    return 0;
+  public static int attackPowerForEquip(int equipId, int forgeLevel, int enhanceLevel) {
+    Equipment eq = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipId);
+    double forge = Math.pow(ControllerConstants.LEVEL_EQUIP_BOOST_EXPONENT_BASE, forgeLevel-1);
+    double enhance = Math.pow(ControllerConstants.ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE, enhanceLevel);
+
+    int result = (int)Math.ceil(eq.getAttackBoost()*forge*enhance);
+    log.info("attack="+result);
+    return result;
   }
   
-  public static int calculateMinutesToFinishEnhancing(EquipEnhancement e, List<EquipEnhancementFeeder> feeder) {
+  public static int defensePowerForEquip(int equipId, int forgeLevel, int enhanceLevel) {
+    Equipment eq = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipId);
+    double forge = Math.pow(ControllerConstants.LEVEL_EQUIP_BOOST_EXPONENT_BASE, forgeLevel-1);
+    double enhance = Math.pow(ControllerConstants.ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE, enhanceLevel);
     
-    return 0;
+    int result = (int)Math.ceil(eq.getDefenseBoost()*forge*enhance);
+    log.info("defense="+result);
+    return result;
+  }
+  
+  private static int totalMinutesToLevelUpEnhancementEquip(EquipEnhancement e) {
+    Equipment eq = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(e.getEquipId());
+    double result = ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_A*Math.pow(e.getEquipLevel(), ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_B);
+    log.info("1="+result);
+    result = Math.pow(result, (ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_C+ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_D*(eq.getRarity().getNumber()+1)));
+    log.info("2="+result);
+    result *= Math.pow(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_E, (eq.getMinLevel()/ControllerConstants.AVERAGE_SIZE_OF_LEVEL_BRACKET*ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_F));
+    log.info("3="+result);
+    result *= Math.pow(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_G, e.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL+1);
+    
+    log.info("minutes="+result);
+    return (int)Math.max(result, 1);
+  }
+  
+  private static int calculateEnhancementForEquip(EquipEnhancement mainEquip, EquipEnhancementFeeder feederEquip) {
+    int mainStats = attackPowerForEquip(mainEquip.getEquipId(), mainEquip.getEquipLevel(), mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL) +
+        defensePowerForEquip(mainEquip.getEquipId(), mainEquip.getEquipLevel(), mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL);
+    int feederStats = attackPowerForEquip(feederEquip.getEquipId(), feederEquip.getEquipLevel(), feederEquip.getEnhancementPercentageBeforeEnhancement()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL) +
+        defensePowerForEquip(feederEquip.getEquipId(), feederEquip.getEquipLevel(), feederEquip.getEnhancementPercentageBeforeEnhancement()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL);
+    int result = (int)((((float)feederStats)/mainStats)/(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_A*
+        Math.pow(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B, mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL+1))*
+        ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL);
+    
+    log.info("percentage="+result);
+    return result;
+  }
+  
+  public static int calculateEnhancementForEquip(EquipEnhancement mainEquip,
+      List<EquipEnhancementFeeder> feederEquips) {
+    int totalChange = 0;
+    for (EquipEnhancementFeeder f : feederEquips) {
+      totalChange += calculateEnhancementForEquip(mainEquip, f);
+    }
+
+    int maxChange = (mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL+1)*ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL-mainEquip.getEnhancementPercentage();
+    log.info("totalChange="+totalChange+" maxChange="+maxChange);
+    return Math.min(maxChange, totalChange);
+  }
+  
+  public static int calculateMinutesToFinishEnhancing(EquipEnhancement mainEquip, List<EquipEnhancementFeeder> feederEquips) {
+    int pChange = calculateEnhancementForEquip(mainEquip, feederEquips);
+    float percent = ((float)pChange)/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL;
+    int totalTime = totalMinutesToLevelUpEnhancementEquip(mainEquip);
+    int result = (int)Math.ceil(percent*totalTime);
+    
+    log.info("time for enhance="+result);
+    return result;
   }
   
   public static int calculateCostToSpeedUpEnhancing(EquipEnhancement e, List<EquipEnhancementFeeder> feeder,
       Timestamp timeOfSpeedUp) {
+    int mins = calculateMinutesToFinishEnhancing(e, feeder);
+    int result = (int)Math.ceil(((float)mins)/ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
     
-    return 0;
+    log.info("diamonds="+result);
+    return result;
   }
 }

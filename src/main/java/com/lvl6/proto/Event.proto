@@ -337,7 +337,22 @@ message StartupResponseProto {
 		
 		repeated InAppPurchasePackageProto inAppPurchasePackages = 95;
 		
-		optional int32 maxEnhancementLevel = 96;
+		optional EnhancementConstants enhanceConstants = 96;
+		
+		message EnhancementConstants {
+			optional int32 maxEnhancementLevel = 1;
+			optional int32 enhancePercentPerLevel = 2;
+			optional float enhanceTimeConstantA = 3;
+			optional float enhanceTimeConstantB = 4;
+			optional float enhanceTimeConstantC = 5;
+			optional float enhanceTimeConstantD = 6;
+			optional float enhanceTimeConstantE = 7;
+			optional float enhanceTimeConstantF = 8;
+			optional float enhanceTimeConstantG = 9;
+			optional float enhancePercentConstantA = 10;
+			optional float enhancePercentConstantB = 11;
+			optional float enhanceLevelExponentBase = 12;
+		}
 		
 		message LeaderboardEventConstants {
 			optional int32 winsWeight = 1;

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.CollectEquipEnhancementRequestEvent;
 import com.lvl6.events.response.CollectEquipEnhancementResponseEvent;
+import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.EquipEnhancement;
 import com.lvl6.info.EquipEnhancementFeeder;
 import com.lvl6.info.User;
@@ -84,7 +85,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         //add the user equip, delete the equip enhancement and equip enhancement feeders,
         //record what happened
         successful = writeChangesToDB(resBuilder, equipEnhancementId, equipUnderEnhancement,
-            feedersForEnhancement, clientTime, speedUp, userEquipBuilder);
+            feedersForEnhancement, clientTime, speedUp, userEquipBuilder, aUser);
       }
       
       if (successful) {
@@ -100,6 +101,10 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       if (successful) {
         writeIntoEquipEnhancementHistory(equipUnderEnhancement, userEquipBuilder, speedUp, clientTime);
         writeIntoEquipEnhancementFeederHistory(equipEnhancementId, feedersForEnhancement);
+
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(aUser);
+        resEventUpdate.setTag(event.getTag());
+        server.writeEvent(resEventUpdate);
       }
       
     } catch (Exception e) {
@@ -113,15 +118,15 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   //record what happened
   private boolean writeChangesToDB(Builder resBuilder, int equipEnhancementId, EquipEnhancement equipUnderEnhancement, 
       List<EquipEnhancementFeeder> feedersForEnhancement, Timestamp clientTime, boolean speedUp, 
-      FullUserEquipProto.Builder userEquipBuilder) {
+      FullUserEquipProto.Builder userEquipBuilder, User aUser) {
     //stuff to create user equip
     int userId = equipUnderEnhancement.getUserId();
     int equipId = equipUnderEnhancement.getEquipId();
     int equipLevel = equipUnderEnhancement.getEquipLevel();
-    //int enhancementPercentageBeforeEnhancement = equipUnderEnhancement.getEnhancementPercentage();
+    int enhancementPercentageBeforeEnhancement = equipUnderEnhancement.getEnhancementPercentage();
 
     int enhancementPercentageAfterEnhancement = MiscMethods.calculateEnhancementForEquip(equipUnderEnhancement,
-        feedersForEnhancement);
+        feedersForEnhancement)+enhancementPercentageBeforeEnhancement;
     int userEquipId = InsertUtils.get().insertUserEquip(userId, equipId, equipLevel, enhancementPercentageAfterEnhancement);
     
     
@@ -140,12 +145,13 @@ import com.lvl6.utils.utilmethods.InsertUtils;
           + ", equip enhancement feeders: " + MiscMethods.shallowListToString(feedersForEnhancement));
     }
     //delete equip ehancement feeder stuff
-    List<Integer> equipEnhancementFeederIds = getFeederIds(feedersForEnhancement);
-    successfulDelete = DeleteUtils.get().deleteEquipEnhancementFeeders(equipEnhancementFeederIds);
-    if(!successfulDelete) {
-      log.error("Did not delete equip enhancement feeders: " + equipUnderEnhancement
-          + ", equip enhancement feeders: " + MiscMethods.shallowListToString(feedersForEnhancement));
-    }
+    //feeders will auto delete by cascading
+//    List<Integer> equipEnhancementFeederIds = getFeederIds(feedersForEnhancement);
+//    successfulDelete = DeleteUtils.get().deleteEquipEnhancementFeeders(equipEnhancementFeederIds);
+//    if(!successfulDelete) {
+//      log.error("Did not delete equip enhancement feeders: " + equipUnderEnhancement
+//          + ", equip enhancement feeders: " + MiscMethods.shallowListToString(feedersForEnhancement));
+//    }
     
     //since Enhancing is finished, create user equip for the client
     userEquipBuilder.setUserEquipId(userEquipId);
@@ -153,6 +159,11 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     userEquipBuilder.setEquipId(equipId);
     userEquipBuilder.setLevel(equipLevel);
     userEquipBuilder.setEnhancementPercentage(enhancementPercentageAfterEnhancement);
+    
+    if (speedUp) {
+      int cost = MiscMethods.calculateCostToSpeedUpEnhancing(equipUnderEnhancement, feedersForEnhancement, clientTime);
+      aUser.updateRelativeDiamondsNaive(-cost);
+    }
     
     return true;
   }

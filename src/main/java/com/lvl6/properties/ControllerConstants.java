@@ -440,8 +440,18 @@ public class ControllerConstants {
   public static final String UCHRFC__COLLECT_GOLDMINE = "collect from goldmine";
   
   //ENHANCING
-  public static final int MAX_ENHANCEMENT_LEVEL = 12;
-  public static final int ENHANCEMENT__FORMULA_CONSTANT_A = 12;
+  public static final int MAX_ENHANCEMENT_LEVEL = 5;
+  public static final int ENHANCEMENT__PERCENTAGE_PER_LEVEL = 10000;
+  public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_A = .25f;
+  public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_B = 1.5f;
+  public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_C = 1;
+  public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_D = 0.1f;
+  public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_E = 1.5f;
+  public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_F = 2.1f;
+  public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_G = 1.365f;
+  public static final float ENHANCEMENT__PERCENT_FORMULA_CONSTANT_A = 1.67f;
+  public static final float ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B = 3.f;
+  public static final float ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE = 1.2f;
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),
