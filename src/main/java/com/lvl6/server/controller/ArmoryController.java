@@ -67,7 +67,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     boolean legitBuy = false;
     boolean legitSell = false;
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       List<UserEquip> userEquipsForEquipId = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsWithEquipId(senderProto.getUserId(), equipId);;
@@ -205,7 +205,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     } catch (Exception e) {
       log.error("exception in ArmoryController processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId()); 
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName()); 
     }
   }
 

@@ -71,7 +71,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     LevelUpResponseProto.Builder resBuilder = LevelUpResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       boolean legitLevelUp = checkLegitLevelUp(resBuilder, user);
@@ -132,7 +132,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } catch (Exception e) {
       log.error("exception in LevelUpController processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId()); 
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName()); 
     }
   }
 

@@ -69,7 +69,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     UserQuest userQuest = null;
     Quest quest = null;
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
 
     try {
       userQuest = RetrieveUtils.userQuestRetrieveUtils().getSpecificUnredeemedUserQuest(senderProto.getUserId(), questId);
@@ -138,7 +138,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } catch (Exception e) {
       log.error("exception in QuestRedeem processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());      
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
     }
     if (legitRedeem && quest != null && userQuest != null && senderProto.getUserType() != null) {
       clearUserQuestData(quest, userQuest, senderProto.getUserType());

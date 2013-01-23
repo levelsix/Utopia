@@ -2,10 +2,12 @@ package com.lvl6.server.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrieveUserEquipForUserRequestEvent;
 import com.lvl6.events.response.RetrieveUserEquipForUserResponseEvent;
 import com.lvl6.info.UserEquip;
@@ -45,7 +47,7 @@ import com.lvl6.utils.RetrieveUtils;
     resBuilder.setSender(senderProto);
     resBuilder.setRelevantUserId(relevantUserId);
 
-    server.lockPlayer(relevantUserId);
+    server.lockPlayer(relevantUserId, this.getClass().getSimpleName());
     try {
       List<UserEquip> userEquips = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsForUser(relevantUserId);
       if (userEquips != null) {
@@ -63,7 +65,7 @@ import com.lvl6.utils.RetrieveUtils;
     } catch (Exception e) {
       log.error("exception in RetrieveUserEquipForUserController processEvent", e);
     } finally {
-      server.unlockPlayer(relevantUserId); 
+      server.unlockPlayer(relevantUserId, this.getClass().getSimpleName()); 
     }
   }
 

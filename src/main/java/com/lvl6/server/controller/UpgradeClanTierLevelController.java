@@ -62,7 +62,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     UpgradeClanTierLevelResponseProto.Builder resBuilder = UpgradeClanTierLevelResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User possibleClanOwner = RetrieveUtils.userRetrieveUtils().getUserById(userId);
       List<Integer> currencyChange = new ArrayList<Integer>();
@@ -100,7 +100,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } catch (Exception e) {
       log.error("exception in UpgradeClanTierLevelController processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     }
   }
 

@@ -8,13 +8,13 @@
 		http://www.springframework.org/schema/aop 
 		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 		http://www.hazelcast.com/schema/spring
-        http://www.hazelcast.com/schema/spring/hazelcast-spring-2.1.xsd
+        http://www.hazelcast.com/schema/spring/hazelcast-spring-2.4.xsd
 		">
 	
 	<import resource="classpath:spring-hazelcast-cluster-${hazelcast.config}.xml"/>
 	
 	
-	<hz:atomicNumber id="connectedPlayerCount" name="connectedPlayerCount" instance-ref="hazel" />
+	<!-- <hz:atomicNumber id="connectedPlayerCount" name="connectedPlayerCount" instance-ref="hazel" /> -->
 	
 	
 	<hz:queue id="gameEventQueue" name="gameEventQueue" instance-ref="hazel" />

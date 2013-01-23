@@ -71,7 +71,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     resBuilder.setLockBoxEventId(reqProto.getLockBoxEventId());
     resBuilder.setClientTime(reqProto.getClientTime());
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       LockBoxEvent lockBoxEvent = LockBoxEventRetrieveUtils.getLockBoxEventForLockBoxEventId(lockBoxEventId);
@@ -120,7 +120,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } catch (Exception e) {
       log.error("exception in PickLockBox processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     }
   }
 

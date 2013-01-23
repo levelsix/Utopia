@@ -89,38 +89,40 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     ConcedeClanTowerWarResponseProto.Builder resBuilder = ConcedeClanTowerWarResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
-    try {
-      if(server.lockClanTowersTable()) {
-        User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-
-        ClanTower oldTower = ClanTowerRetrieveUtils.getClanTower(towerId);
-        ClanTower newTower = oldTower.copy();
-        Clan oldClanTowerAttacker = 
-            ClanRetrieveUtils.getClanWithId(newTower.getClanAttackerId()); //newTower, oldTower doesn't matter
-        Clan oldClanTowerOwner = 
-            ClanRetrieveUtils.getClanWithId(newTower.getClanOwnerId()); //newTower, oldTower doesn't matter
-
-        boolean legit = checkLegitConcedeClanTowerWarRequest(
-            resBuilder, user, oldClanTowerAttacker, oldClanTowerOwner, newTower, curTime);
-
-        ConcedeClanTowerWarResponseEvent resEvent = new ConcedeClanTowerWarResponseEvent(senderProto.getUserId());
-        resEvent.setTag(event.getTag());
-        resEvent.setConcedeClanTowerWarResponseProto(resBuilder.build());  
-        server.writeEvent(resEvent);
-
-        if (legit) {
-          writeChangesToDB(oldTower, newTower, curTime, user);
-
-          sendTowersAndNotifications(oldTower.getClanOwnerId(), newTower.getClanAttackerId(), 
-              newTower, oldClanTowerAttacker, oldClanTowerOwner);
-        }
-      }
-    } catch (Exception e) {
-      log.error("exception in BeginClanTowerWarController processEvent", e);
-    } finally {
-      server.unlockClanTowersTable();
-      server.unlockPlayer(senderProto.getUserId());      
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
+    if(server.lockClanTowersTable()) {
+	    try {
+	        User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+	
+	        ClanTower oldTower = ClanTowerRetrieveUtils.getClanTower(towerId);
+	        ClanTower newTower = oldTower.copy();
+	        Clan oldClanTowerAttacker = 
+	            ClanRetrieveUtils.getClanWithId(newTower.getClanAttackerId()); //newTower, oldTower doesn't matter
+	        Clan oldClanTowerOwner = 
+	            ClanRetrieveUtils.getClanWithId(newTower.getClanOwnerId()); //newTower, oldTower doesn't matter
+	
+	        boolean legit = checkLegitConcedeClanTowerWarRequest(
+	            resBuilder, user, oldClanTowerAttacker, oldClanTowerOwner, newTower, curTime);
+	
+	        ConcedeClanTowerWarResponseEvent resEvent = new ConcedeClanTowerWarResponseEvent(senderProto.getUserId());
+	        resEvent.setTag(event.getTag());
+	        resEvent.setConcedeClanTowerWarResponseProto(resBuilder.build());  
+	        server.writeEvent(resEvent);
+	
+	        if (legit) {
+	          writeChangesToDB(oldTower, newTower, curTime, user);
+	
+	          sendTowersAndNotifications(oldTower.getClanOwnerId(), newTower.getClanAttackerId(), 
+	              newTower, oldClanTowerAttacker, oldClanTowerOwner);
+	        }
+	    } catch (Exception e) {
+	      log.error("exception in BeginClanTowerWarController processEvent", e);
+	    } finally {
+	      server.unlockClanTowersTable();
+	      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
+	    }
+    }else {
+    	log.error("Failed to obtain lock on Clantowers table");
     }
   }
 

@@ -105,7 +105,7 @@ public class EarnFreeDiamondsController extends EventController {
     EarnFreeDiamondsResponseProto.Builder resBuilder = EarnFreeDiamondsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
@@ -154,7 +154,7 @@ public class EarnFreeDiamondsController extends EventController {
     } catch (Exception e) {
       log.error("exception in earn free gold processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());      
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
     }
   }
 

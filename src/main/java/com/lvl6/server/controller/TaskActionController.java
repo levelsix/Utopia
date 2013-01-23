@@ -115,7 +115,7 @@ public class TaskActionController extends EventController {
     int taskId = reqProto.getTaskId();
     Timestamp clientTime = new Timestamp(reqProto.getCurTime());
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(
           senderProto.getUserId());
@@ -255,7 +255,7 @@ public class TaskActionController extends EventController {
     } catch (Exception e) {
       log.error("exception in TaskActionController processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     }
   }
 

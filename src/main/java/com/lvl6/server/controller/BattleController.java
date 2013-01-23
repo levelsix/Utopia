@@ -106,7 +106,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     List<FullUserEquipProto> oldDefenderUserEquipsList = reqProto.getDefenderUserEquipsList();
 
-    if( server.lockPlayers(attackerProto.getUserId(), defenderProto.getUserId())) {
+    if( server.lockPlayers(attackerProto.getUserId(), defenderProto.getUserId(), this.getClass().getSimpleName())) {
 
       try {
         User attacker = RetrieveUtils.userRetrieveUtils().getUserById(attackerProto.getUserId());
@@ -178,7 +178,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
           //clan towers
           if (server.lockClanTowersTable()) {
-            writeChangesToDBForClanTowers(winner, loser, attacker, defender);
+        	  try {
+        		  writeChangesToDBForClanTowers(winner, loser, attacker, defender);
+        	  }catch(Exception e) {
+        		  log.error("Failed to write clanTower changes to DB", e);
+        		  throw e;
+        	  }finally {
+        		  server.unlockClanTowersTable();		  
+        	  }
           }
 
           //user leaderboard event stuff
@@ -222,8 +229,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       } catch (Exception e) {
         log.error("exception in BattleController processEvent", e);
       } finally {
-        server.unlockClanTowersTable();
-        server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
+    	  server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId(), this.getClass().getSimpleName());
       }
     }else {
       log.warn("Failed to obtain lock in BattleController processEvent");
