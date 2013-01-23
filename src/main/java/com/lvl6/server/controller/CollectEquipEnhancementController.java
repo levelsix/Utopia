@@ -67,7 +67,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     CollectEquipEnhancementResponseProto.Builder resBuilder = CollectEquipEnhancementResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       //The main equip that is being enhanced.
       EquipEnhancement equipUnderEnhancement = EquipEnhancementRetrieveUtils
@@ -110,7 +110,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     } catch (Exception e) {
       log.error("exception in EnhanceEquip processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());      
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
     }
   }
 
