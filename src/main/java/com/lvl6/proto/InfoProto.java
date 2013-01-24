@@ -1136,6 +1136,544 @@ public final class InfoProto {
     // @@protoc_insertion_point(enum_scope:com.lvl6.proto.ExpansionDirection)
   }
   
+  public interface MinimumUserProtoForClanTowerScoresOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // optional .com.lvl6.proto.MinimumUserProtoWithLevel minUserProtoWithLevel = 1;
+    boolean hasMinUserProtoWithLevel();
+    com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel getMinUserProtoWithLevel();
+    com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelOrBuilder getMinUserProtoWithLevelOrBuilder();
+    
+    // optional int32 pointsGained = 2;
+    boolean hasPointsGained();
+    int getPointsGained();
+    
+    // optional int32 pointsLost = 3;
+    boolean hasPointsLost();
+    int getPointsLost();
+  }
+  public static final class MinimumUserProtoForClanTowerScores extends
+      com.google.protobuf.GeneratedMessage
+      implements MinimumUserProtoForClanTowerScoresOrBuilder {
+    // Use MinimumUserProtoForClanTowerScores.newBuilder() to construct.
+    private MinimumUserProtoForClanTowerScores(Builder builder) {
+      super(builder);
+    }
+    private MinimumUserProtoForClanTowerScores(boolean noInit) {}
+    
+    private static final MinimumUserProtoForClanTowerScores defaultInstance;
+    public static MinimumUserProtoForClanTowerScores getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public MinimumUserProtoForClanTowerScores getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserProtoForClanTowerScores_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserProtoForClanTowerScores_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // optional .com.lvl6.proto.MinimumUserProtoWithLevel minUserProtoWithLevel = 1;
+    public static final int MINUSERPROTOWITHLEVEL_FIELD_NUMBER = 1;
+    private com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel minUserProtoWithLevel_;
+    public boolean hasMinUserProtoWithLevel() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel getMinUserProtoWithLevel() {
+      return minUserProtoWithLevel_;
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelOrBuilder getMinUserProtoWithLevelOrBuilder() {
+      return minUserProtoWithLevel_;
+    }
+    
+    // optional int32 pointsGained = 2;
+    public static final int POINTSGAINED_FIELD_NUMBER = 2;
+    private int pointsGained_;
+    public boolean hasPointsGained() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getPointsGained() {
+      return pointsGained_;
+    }
+    
+    // optional int32 pointsLost = 3;
+    public static final int POINTSLOST_FIELD_NUMBER = 3;
+    private int pointsLost_;
+    public boolean hasPointsLost() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public int getPointsLost() {
+      return pointsLost_;
+    }
+    
+    private void initFields() {
+      minUserProtoWithLevel_ = com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel.getDefaultInstance();
+      pointsGained_ = 0;
+      pointsLost_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, minUserProtoWithLevel_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, pointsGained_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, pointsLost_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, minUserProtoWithLevel_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, pointsGained_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, pointsLost_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScoresOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserProtoForClanTowerScores_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserProtoForClanTowerScores_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getMinUserProtoWithLevelFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        if (minUserProtoWithLevelBuilder_ == null) {
+          minUserProtoWithLevel_ = com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel.getDefaultInstance();
+        } else {
+          minUserProtoWithLevelBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        pointsGained_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        pointsLost_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores build() {
+        com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores buildPartial() {
+        com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores result = new com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (minUserProtoWithLevelBuilder_ == null) {
+          result.minUserProtoWithLevel_ = minUserProtoWithLevel_;
+        } else {
+          result.minUserProtoWithLevel_ = minUserProtoWithLevelBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.pointsGained_ = pointsGained_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.pointsLost_ = pointsLost_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores) {
+          return mergeFrom((com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores other) {
+        if (other == com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores.getDefaultInstance()) return this;
+        if (other.hasMinUserProtoWithLevel()) {
+          mergeMinUserProtoWithLevel(other.getMinUserProtoWithLevel());
+        }
+        if (other.hasPointsGained()) {
+          setPointsGained(other.getPointsGained());
+        }
+        if (other.hasPointsLost()) {
+          setPointsLost(other.getPointsLost());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel.newBuilder();
+              if (hasMinUserProtoWithLevel()) {
+                subBuilder.mergeFrom(getMinUserProtoWithLevel());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setMinUserProtoWithLevel(subBuilder.buildPartial());
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              pointsGained_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              pointsLost_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // optional .com.lvl6.proto.MinimumUserProtoWithLevel minUserProtoWithLevel = 1;
+      private com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel minUserProtoWithLevel_ = com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelOrBuilder> minUserProtoWithLevelBuilder_;
+      public boolean hasMinUserProtoWithLevel() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel getMinUserProtoWithLevel() {
+        if (minUserProtoWithLevelBuilder_ == null) {
+          return minUserProtoWithLevel_;
+        } else {
+          return minUserProtoWithLevelBuilder_.getMessage();
+        }
+      }
+      public Builder setMinUserProtoWithLevel(com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel value) {
+        if (minUserProtoWithLevelBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          minUserProtoWithLevel_ = value;
+          onChanged();
+        } else {
+          minUserProtoWithLevelBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder setMinUserProtoWithLevel(
+          com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel.Builder builderForValue) {
+        if (minUserProtoWithLevelBuilder_ == null) {
+          minUserProtoWithLevel_ = builderForValue.build();
+          onChanged();
+        } else {
+          minUserProtoWithLevelBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder mergeMinUserProtoWithLevel(com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel value) {
+        if (minUserProtoWithLevelBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              minUserProtoWithLevel_ != com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel.getDefaultInstance()) {
+            minUserProtoWithLevel_ =
+              com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel.newBuilder(minUserProtoWithLevel_).mergeFrom(value).buildPartial();
+          } else {
+            minUserProtoWithLevel_ = value;
+          }
+          onChanged();
+        } else {
+          minUserProtoWithLevelBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder clearMinUserProtoWithLevel() {
+        if (minUserProtoWithLevelBuilder_ == null) {
+          minUserProtoWithLevel_ = com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel.getDefaultInstance();
+          onChanged();
+        } else {
+          minUserProtoWithLevelBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel.Builder getMinUserProtoWithLevelBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getMinUserProtoWithLevelFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelOrBuilder getMinUserProtoWithLevelOrBuilder() {
+        if (minUserProtoWithLevelBuilder_ != null) {
+          return minUserProtoWithLevelBuilder_.getMessageOrBuilder();
+        } else {
+          return minUserProtoWithLevel_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelOrBuilder> 
+          getMinUserProtoWithLevelFieldBuilder() {
+        if (minUserProtoWithLevelBuilder_ == null) {
+          minUserProtoWithLevelBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelOrBuilder>(
+                  minUserProtoWithLevel_,
+                  getParentForChildren(),
+                  isClean());
+          minUserProtoWithLevel_ = null;
+        }
+        return minUserProtoWithLevelBuilder_;
+      }
+      
+      // optional int32 pointsGained = 2;
+      private int pointsGained_ ;
+      public boolean hasPointsGained() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getPointsGained() {
+        return pointsGained_;
+      }
+      public Builder setPointsGained(int value) {
+        bitField0_ |= 0x00000002;
+        pointsGained_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearPointsGained() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        pointsGained_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 pointsLost = 3;
+      private int pointsLost_ ;
+      public boolean hasPointsLost() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public int getPointsLost() {
+        return pointsLost_;
+      }
+      public Builder setPointsLost(int value) {
+        bitField0_ |= 0x00000004;
+        pointsLost_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearPointsLost() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        pointsLost_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.MinimumUserProtoForClanTowerScores)
+    }
+    
+    static {
+      defaultInstance = new MinimumUserProtoForClanTowerScores(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.MinimumUserProtoForClanTowerScores)
+  }
+  
   public interface EquipEnhancementProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
@@ -50017,6 +50555,11 @@ public final class InfoProto {
   }
   
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_MinimumUserProtoForClanTowerScores_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_MinimumUserProtoForClanTowerScores_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_EquipEnhancementProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -50320,388 +50863,400 @@ public final class InfoProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\nInfo.proto\022\016com.lvl6.proto\"\354\001\n\025EquipEn" +
-      "hancementProto\022\025\n\renhancementId\030\001 \001(\005\022\016\n" +
-      "\006userId\030\002 \001(\005\022A\n\016enhancingEquip\030\003 \001(\0132)." +
-      "com.lvl6.proto.EquipEnhancementItemProto" +
-      "\022?\n\014feederEquips\030\004 \003(\0132).com.lvl6.proto." +
-      "EquipEnhancementItemProto\022\021\n\tstartTime\030\005" +
-      " \001(\003\022\025\n\rtimeOfSpeedup\030\006 \001(\003\"Z\n\031EquipEnha" +
-      "ncementItemProto\022\017\n\007equipId\030\001 \001(\005\022\r\n\005lev" +
-      "el\030\002 \001(\005\022\035\n\025enhancementPercentage\030\003 \001(\005\"" +
-      "i\n\031InAppPurchasePackageProto\022\021\n\tpackageI",
-      "d\030\001 \001(\t\022\026\n\016currencyAmount\030\002 \001(\005\022\016\n\006isGol" +
-      "d\030\003 \001(\010\022\021\n\timageName\030\004 \001(\t\"6\n\nColorProto" +
-      "\022\013\n\003red\030\001 \001(\005\022\r\n\005green\030\002 \001(\005\022\014\n\004blue\030\003 \001" +
-      "(\005\"\263\001\n\025LeaderboardEventProto\022\017\n\007eventId\030" +
-      "\001 \001(\005\022\021\n\tstartDate\030\002 \001(\003\022\017\n\007endDate\030\003 \001(" +
-      "\003\022\021\n\teventName\030\004 \001(\t\022<\n\007rewards\030\005 \003(\0132+." +
-      "com.lvl6.proto.LeaderboardEventRewardPro" +
-      "to\022\024\n\014lastShowDate\030\006 \001(\003\"\326\001\n\033Leaderboard" +
-      "EventRewardProto\022\032\n\022leaderboardEventId\030\001" +
-      " \001(\005\022\017\n\007minRank\030\002 \001(\005\022\017\n\007maxRank\030\003 \001(\005\022\024",
-      "\n\014goldRewarded\030\004 \001(\005\022\033\n\023backgroundImageN" +
-      "ame\030\005 \001(\t\022\026\n\016prizeImageName\030\006 \001(\t\022.\n\ntit" +
-      "leColor\030\007 \001(\0132\032.com.lvl6.proto.ColorProt" +
-      "o\"\346\002\n\016BossEventProto\022\016\n\006cityId\030\001 \001(\005\022\021\n\t" +
-      "startDate\030\002 \001(\003\022\017\n\007endDate\030\003 \001(\003\022\021\n\teven" +
-      "tName\030\004 \001(\t\022\023\n\013headerImage\030\005 \001(\t\0221\n\tleft" +
-      "Equip\030\006 \001(\0132\036.com.lvl6.proto.FullEquipPr" +
-      "oto\022\024\n\014leftTagImage\030\007 \001(\t\0223\n\013middleEquip" +
-      "\030\010 \001(\0132\036.com.lvl6.proto.FullEquipProto\022\026" +
-      "\n\016middleTagImage\030\t \001(\t\0222\n\nrightEquip\030\n \001",
-      "(\0132\036.com.lvl6.proto.FullEquipProto\022\025\n\rri" +
-      "ghtTagImage\030\013 \001(\t\022\027\n\017infoDescription\030\014 \001" +
-      "(\t\"\312\003\n\016ClanTowerProto\022\017\n\007towerId\030\001 \001(\005\022\021" +
-      "\n\ttowerName\030\002 \001(\t\022\026\n\016towerImageName\030\003 \001(" +
-      "\t\0224\n\ntowerOwner\030\004 \001(\0132 .com.lvl6.proto.M" +
-      "inimumClanProto\022\026\n\016ownedStartTime\030\005 \001(\003\022" +
-      "\024\n\014silverReward\030\006 \001(\005\022\022\n\ngoldReward\030\007 \001(" +
-      "\005\022\031\n\021numHoursToCollect\030\010 \001(\005\0227\n\rtowerAtt" +
-      "acker\030\t \001(\0132 .com.lvl6.proto.MinimumClan" +
-      "Proto\022\027\n\017attackStartTime\030\n \001(\003\022\027\n\017ownerB",
-      "attlesWin\030\013 \001(\005\022\032\n\022attackerBattlesWin\030\014 " +
-      "\001(\005\022\031\n\021numHoursForBattle\030\r \001(\005\022\027\n\017lastRe" +
-      "wardGiven\030\016 \001(\003\022.\n\ntitleColor\030\017 \001(\0132\032.co" +
-      "m.lvl6.proto.ColorProto\"\277\003\n\rGoldSaleProt" +
-      "o\022\016\n\006saleId\030\001 \001(\005\022\021\n\tstartDate\030\002 \001(\003\022\017\n\007" +
-      "endDate\030\003 \001(\003\022\036\n\026package1SaleIdentifier\030" +
-      "\004 \001(\t\022\036\n\026package2SaleIdentifier\030\005 \001(\t\022\036\n" +
-      "\026package3SaleIdentifier\030\006 \001(\t\022\036\n\026package" +
-      "4SaleIdentifier\030\007 \001(\t\022\036\n\026package5SaleIde" +
-      "ntifier\030\010 \001(\t\022\033\n\023goldShoppeImageName\030\t \001",
-      "(\t\022\030\n\020goldBarImageName\030\n \001(\t\022\037\n\027packageS" +
-      "1SaleIdentifier\030\013 \001(\t\022\037\n\027packageS2SaleId" +
-      "entifier\030\014 \001(\t\022\037\n\027packageS3SaleIdentifie" +
-      "r\030\r \001(\t\022\037\n\027packageS4SaleIdentifier\030\016 \001(\t" +
-      "\022\037\n\027packageS5SaleIdentifier\030\017 \001(\t\"\177\n\025Gro" +
-      "upChatMessageProto\0220\n\006sender\030\001 \001(\0132 .com" +
-      ".lvl6.proto.MinimumUserProto\022\022\n\ntimeOfCh" +
-      "at\030\002 \001(\003\022\017\n\007content\030\003 \001(\t\022\017\n\007isAdmin\030\004 \001" +
-      "(\010\"\260\002\n\021LockBoxEventProto\022\026\n\016lockBoxEvent" +
-      "Id\030\001 \001(\005\022\021\n\tstartDate\030\002 \001(\003\022\017\n\007endDate\030\003",
-      " \001(\003\022\030\n\020lockBoxImageName\030\004 \001(\t\022\021\n\teventN" +
-      "ame\030\005 \001(\t\0222\n\nprizeEquip\030\006 \001(\0132\036.com.lvl6" +
-      ".proto.FullEquipProto\022/\n\005items\030\007 \003(\0132 .c" +
-      "om.lvl6.proto.LockBoxItemProto\022\031\n\021descri" +
-      "ptionString\030\010 \001(\t\022\034\n\024descriptionImageNam" +
-      "e\030\t \001(\t\022\024\n\014tagImageName\030\n \001(\t\"\250\001\n\020LockBo" +
-      "xItemProto\022\025\n\rlockBoxItemId\030\001 \001(\005\022\026\n\016loc" +
-      "kBoxEventId\030\002 \001(\005\022\026\n\016chanceToUnlock\030\003 \001(" +
-      "\002\022\014\n\004name\030\004 \001(\t\022,\n\004type\030\005 \001(\0162\036.com.lvl6" +
-      ".proto.EquipClassType\022\021\n\timageName\030\006 \001(\t",
-      "\"\273\001\n\025UserLockBoxEventProto\022\026\n\016lockBoxEve" +
-      "ntId\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\022\024\n\014numLockBox" +
-      "es\030\003 \001(\005\022\031\n\021numTimesCompleted\030\004 \001(\005\022\024\n\014l" +
-      "astPickTime\030\005 \001(\003\0223\n\005items\030\006 \003(\0132$.com.l" +
-      "vl6.proto.UserLockBoxItemProto\"O\n\024UserLo" +
-      "ckBoxItemProto\022\025\n\rlockBoxItemId\030\001 \001(\005\022\016\n" +
-      "\006userId\030\002 \001(\005\022\020\n\010quantity\030\003 \001(\005\"\353\001\n\rFull" +
-      "BossProto\022\016\n\006bossId\030\001 \001(\005\022\022\n\nbaseHealth\030" +
-      "\002 \001(\005\022\021\n\tminDamage\030\003 \001(\005\022\021\n\tmaxDamage\030\004 " +
-      "\001(\005\022\025\n\rminutesToKill\030\005 \001(\005\022\030\n\020minutesToR",
-      "espawn\030\006 \001(\005\022\016\n\006minExp\030\007 \001(\005\022\016\n\006maxExp\030\r" +
-      " \001(\005\022\016\n\006cityId\030\010 \001(\005\022\032\n\022assetNumWithinCi" +
-      "ty\030\t \001(\005\022\023\n\013staminaCost\030\014 \001(\005\"\211\001\n\021FullUs" +
-      "erBossProto\022\016\n\006bossId\030\001 \001(\005\022\016\n\006userId\030\002 " +
-      "\001(\005\022\021\n\tcurHealth\030\003 \001(\005\022\026\n\016numTimesKilled" +
-      "\030\004 \001(\005\022\021\n\tstartTime\030\005 \001(\003\022\026\n\016lastKilledT" +
-      "ime\030\006 \001(\003\"Z\n\031FullClanProtoWithClanSize\022+" +
-      "\n\004clan\030\001 \001(\0132\035.com.lvl6.proto.FullClanPr" +
-      "oto\022\020\n\010clanSize\030\002 \001(\005\"\232\001\n\025ClanBulletinPo" +
-      "stProto\022\032\n\022clanBulletinPostId\030\005 \001(\005\0220\n\006p",
-      "oster\030\001 \001(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022\016\n\006clanId\030\002 \001(\005\022\022\n\ntimeOfPost\030\003 \001(" +
-      "\003\022\017\n\007content\030\004 \001(\t\"M\n\022ClanTierLevelProto" +
-      "\022\021\n\ttierLevel\030\001 \001(\005\022\017\n\007maxSize\030\002 \001(\005\022\023\n\013" +
-      "upgradeCost\030\003 \001(\005\"\227\001\n\030MinimumUserProtoFo" +
-      "rClans\022G\n\014minUserProto\030\001 \001(\01321.com.lvl6." +
-      "proto.MinimumUserProtoWithBattleHistory\022" +
-      "2\n\nclanStatus\030\002 \001(\0162\036.com.lvl6.proto.Use" +
-      "rClanStatus\"x\n\021FullUserClanProto\022\016\n\006user" +
-      "Id\030\001 \001(\005\022\016\n\006clanId\030\002 \001(\005\022.\n\006status\030\003 \001(\016",
-      "2\036.com.lvl6.proto.UserClanStatus\022\023\n\013requ" +
-      "estTime\030\004 \001(\003\"\253\001\n!MinimumUserProtoWithBa" +
-      "ttleHistory\022H\n\025minUserProtoWithLevel\030\001 \001" +
-      "(\0132).com.lvl6.proto.MinimumUserProtoWith" +
-      "Level\022\022\n\nbattlesWon\030\002 \001(\005\022\023\n\013battlesLost" +
-      "\030\003 \001(\005\022\023\n\013battlesFled\030\004 \001(\005\"\220\001\n\016MonteCar" +
-      "dProto\022\016\n\006cardId\030\001 \001(\005\022\026\n\016diamondsGained" +
-      "\030\002 \001(\005\022-\n\005equip\030\003 \001(\0132\036.com.lvl6.proto.F" +
-      "ullEquipProto\022\022\n\nequipLevel\030\004 \001(\005\022\023\n\013coi" +
-      "nsGained\030\005 \001(\005\"\276\001\n\rFullClanProto\022\016\n\006clan",
-      "Id\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022/\n\005owner\030\003 \001(\0132 ." +
-      "com.lvl6.proto.MinimumUserProto\022\022\n\ncreat" +
-      "eTime\030\004 \001(\003\022\023\n\013description\030\005 \001(\t\022\013\n\003tag\030" +
-      "\006 \001(\t\022\016\n\006isGood\030\007 \001(\010\022\030\n\020currentTierLeve" +
-      "l\030\010 \001(\005\"\241\001\n\020MinimumClanProto\022\016\n\006clanId\030\001" +
-      " \001(\005\022\014\n\004name\030\002 \001(\t\022\017\n\007ownerId\030\003 \001(\005\022\022\n\nc" +
-      "reateTime\030\004 \001(\003\022\023\n\013description\030\005 \001(\t\022\013\n\003" +
-      "tag\030\006 \001(\t\022\016\n\006isGood\030\007 \001(\010\022\030\n\020currentTier" +
-      "Level\030\010 \001(\005\"\214\001\n\020MinimumUserProto\022\016\n\006user" +
-      "Id\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022*\n\010userType\030\003 \001(\016",
-      "2\030.com.lvl6.proto.UserType\022.\n\004clan\030\004 \001(\013" +
-      "2 .com.lvl6.proto.MinimumClanProto\"b\n\031Mi" +
-      "nimumUserProtoWithLevel\0226\n\014minUserProto\030" +
-      "\001 \001(\0132 .com.lvl6.proto.MinimumUserProto\022" +
-      "\r\n\005level\030\002 \001(\005\"\335\001\n\'MinimumUserProtoWithL" +
-      "evelForLeaderboard\0226\n\014minUserProto\030\001 \001(\013" +
+      "\n\nInfo.proto\022\016com.lvl6.proto\"\230\001\n\"Minimum" +
+      "UserProtoForClanTowerScores\022H\n\025minUserPr" +
+      "otoWithLevel\030\001 \001(\0132).com.lvl6.proto.Mini" +
+      "mumUserProtoWithLevel\022\024\n\014pointsGained\030\002 " +
+      "\001(\005\022\022\n\npointsLost\030\003 \001(\005\"\354\001\n\025EquipEnhance" +
+      "mentProto\022\025\n\renhancementId\030\001 \001(\005\022\016\n\006user" +
+      "Id\030\002 \001(\005\022A\n\016enhancingEquip\030\003 \001(\0132).com.l" +
+      "vl6.proto.EquipEnhancementItemProto\022?\n\014f" +
+      "eederEquips\030\004 \003(\0132).com.lvl6.proto.Equip" +
+      "EnhancementItemProto\022\021\n\tstartTime\030\005 \001(\003\022",
+      "\025\n\rtimeOfSpeedup\030\006 \001(\003\"Z\n\031EquipEnhanceme" +
+      "ntItemProto\022\017\n\007equipId\030\001 \001(\005\022\r\n\005level\030\002 " +
+      "\001(\005\022\035\n\025enhancementPercentage\030\003 \001(\005\"i\n\031In" +
+      "AppPurchasePackageProto\022\021\n\tpackageId\030\001 \001" +
+      "(\t\022\026\n\016currencyAmount\030\002 \001(\005\022\016\n\006isGold\030\003 \001" +
+      "(\010\022\021\n\timageName\030\004 \001(\t\"6\n\nColorProto\022\013\n\003r" +
+      "ed\030\001 \001(\005\022\r\n\005green\030\002 \001(\005\022\014\n\004blue\030\003 \001(\005\"\263\001" +
+      "\n\025LeaderboardEventProto\022\017\n\007eventId\030\001 \001(\005" +
+      "\022\021\n\tstartDate\030\002 \001(\003\022\017\n\007endDate\030\003 \001(\003\022\021\n\t" +
+      "eventName\030\004 \001(\t\022<\n\007rewards\030\005 \003(\0132+.com.l",
+      "vl6.proto.LeaderboardEventRewardProto\022\024\n" +
+      "\014lastShowDate\030\006 \001(\003\"\326\001\n\033LeaderboardEvent" +
+      "RewardProto\022\032\n\022leaderboardEventId\030\001 \001(\005\022" +
+      "\017\n\007minRank\030\002 \001(\005\022\017\n\007maxRank\030\003 \001(\005\022\024\n\014gol" +
+      "dRewarded\030\004 \001(\005\022\033\n\023backgroundImageName\030\005" +
+      " \001(\t\022\026\n\016prizeImageName\030\006 \001(\t\022.\n\ntitleCol" +
+      "or\030\007 \001(\0132\032.com.lvl6.proto.ColorProto\"\346\002\n" +
+      "\016BossEventProto\022\016\n\006cityId\030\001 \001(\005\022\021\n\tstart" +
+      "Date\030\002 \001(\003\022\017\n\007endDate\030\003 \001(\003\022\021\n\teventName" +
+      "\030\004 \001(\t\022\023\n\013headerImage\030\005 \001(\t\0221\n\tleftEquip",
+      "\030\006 \001(\0132\036.com.lvl6.proto.FullEquipProto\022\024" +
+      "\n\014leftTagImage\030\007 \001(\t\0223\n\013middleEquip\030\010 \001(" +
+      "\0132\036.com.lvl6.proto.FullEquipProto\022\026\n\016mid" +
+      "dleTagImage\030\t \001(\t\0222\n\nrightEquip\030\n \001(\0132\036." +
+      "com.lvl6.proto.FullEquipProto\022\025\n\rrightTa" +
+      "gImage\030\013 \001(\t\022\027\n\017infoDescription\030\014 \001(\t\"\312\003" +
+      "\n\016ClanTowerProto\022\017\n\007towerId\030\001 \001(\005\022\021\n\ttow" +
+      "erName\030\002 \001(\t\022\026\n\016towerImageName\030\003 \001(\t\0224\n\n" +
+      "towerOwner\030\004 \001(\0132 .com.lvl6.proto.Minimu" +
+      "mClanProto\022\026\n\016ownedStartTime\030\005 \001(\003\022\024\n\014si",
+      "lverReward\030\006 \001(\005\022\022\n\ngoldReward\030\007 \001(\005\022\031\n\021" +
+      "numHoursToCollect\030\010 \001(\005\0227\n\rtowerAttacker" +
+      "\030\t \001(\0132 .com.lvl6.proto.MinimumClanProto" +
+      "\022\027\n\017attackStartTime\030\n \001(\003\022\027\n\017ownerBattle" +
+      "sWin\030\013 \001(\005\022\032\n\022attackerBattlesWin\030\014 \001(\005\022\031" +
+      "\n\021numHoursForBattle\030\r \001(\005\022\027\n\017lastRewardG" +
+      "iven\030\016 \001(\003\022.\n\ntitleColor\030\017 \001(\0132\032.com.lvl" +
+      "6.proto.ColorProto\"\277\003\n\rGoldSaleProto\022\016\n\006" +
+      "saleId\030\001 \001(\005\022\021\n\tstartDate\030\002 \001(\003\022\017\n\007endDa" +
+      "te\030\003 \001(\003\022\036\n\026package1SaleIdentifier\030\004 \001(\t",
+      "\022\036\n\026package2SaleIdentifier\030\005 \001(\t\022\036\n\026pack" +
+      "age3SaleIdentifier\030\006 \001(\t\022\036\n\026package4Sale" +
+      "Identifier\030\007 \001(\t\022\036\n\026package5SaleIdentifi" +
+      "er\030\010 \001(\t\022\033\n\023goldShoppeImageName\030\t \001(\t\022\030\n" +
+      "\020goldBarImageName\030\n \001(\t\022\037\n\027packageS1Sale" +
+      "Identifier\030\013 \001(\t\022\037\n\027packageS2SaleIdentif" +
+      "ier\030\014 \001(\t\022\037\n\027packageS3SaleIdentifier\030\r \001" +
+      "(\t\022\037\n\027packageS4SaleIdentifier\030\016 \001(\t\022\037\n\027p" +
+      "ackageS5SaleIdentifier\030\017 \001(\t\"\177\n\025GroupCha" +
+      "tMessageProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6",
+      ".proto.MinimumUserProto\022\022\n\ntimeOfChat\030\002 " +
+      "\001(\003\022\017\n\007content\030\003 \001(\t\022\017\n\007isAdmin\030\004 \001(\010\"\260\002" +
+      "\n\021LockBoxEventProto\022\026\n\016lockBoxEventId\030\001 " +
+      "\001(\005\022\021\n\tstartDate\030\002 \001(\003\022\017\n\007endDate\030\003 \001(\003\022" +
+      "\030\n\020lockBoxImageName\030\004 \001(\t\022\021\n\teventName\030\005" +
+      " \001(\t\0222\n\nprizeEquip\030\006 \001(\0132\036.com.lvl6.prot" +
+      "o.FullEquipProto\022/\n\005items\030\007 \003(\0132 .com.lv" +
+      "l6.proto.LockBoxItemProto\022\031\n\021description" +
+      "String\030\010 \001(\t\022\034\n\024descriptionImageName\030\t \001" +
+      "(\t\022\024\n\014tagImageName\030\n \001(\t\"\250\001\n\020LockBoxItem",
+      "Proto\022\025\n\rlockBoxItemId\030\001 \001(\005\022\026\n\016lockBoxE" +
+      "ventId\030\002 \001(\005\022\026\n\016chanceToUnlock\030\003 \001(\002\022\014\n\004" +
+      "name\030\004 \001(\t\022,\n\004type\030\005 \001(\0162\036.com.lvl6.prot" +
+      "o.EquipClassType\022\021\n\timageName\030\006 \001(\t\"\273\001\n\025" +
+      "UserLockBoxEventProto\022\026\n\016lockBoxEventId\030" +
+      "\001 \001(\005\022\016\n\006userId\030\002 \001(\005\022\024\n\014numLockBoxes\030\003 " +
+      "\001(\005\022\031\n\021numTimesCompleted\030\004 \001(\005\022\024\n\014lastPi" +
+      "ckTime\030\005 \001(\003\0223\n\005items\030\006 \003(\0132$.com.lvl6.p" +
+      "roto.UserLockBoxItemProto\"O\n\024UserLockBox" +
+      "ItemProto\022\025\n\rlockBoxItemId\030\001 \001(\005\022\016\n\006user",
+      "Id\030\002 \001(\005\022\020\n\010quantity\030\003 \001(\005\"\353\001\n\rFullBossP" +
+      "roto\022\016\n\006bossId\030\001 \001(\005\022\022\n\nbaseHealth\030\002 \001(\005" +
+      "\022\021\n\tminDamage\030\003 \001(\005\022\021\n\tmaxDamage\030\004 \001(\005\022\025" +
+      "\n\rminutesToKill\030\005 \001(\005\022\030\n\020minutesToRespaw" +
+      "n\030\006 \001(\005\022\016\n\006minExp\030\007 \001(\005\022\016\n\006maxExp\030\r \001(\005\022" +
+      "\016\n\006cityId\030\010 \001(\005\022\032\n\022assetNumWithinCity\030\t " +
+      "\001(\005\022\023\n\013staminaCost\030\014 \001(\005\"\211\001\n\021FullUserBos" +
+      "sProto\022\016\n\006bossId\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\022\021" +
+      "\n\tcurHealth\030\003 \001(\005\022\026\n\016numTimesKilled\030\004 \001(" +
+      "\005\022\021\n\tstartTime\030\005 \001(\003\022\026\n\016lastKilledTime\030\006",
+      " \001(\003\"Z\n\031FullClanProtoWithClanSize\022+\n\004cla" +
+      "n\030\001 \001(\0132\035.com.lvl6.proto.FullClanProto\022\020" +
+      "\n\010clanSize\030\002 \001(\005\"\232\001\n\025ClanBulletinPostPro" +
+      "to\022\032\n\022clanBulletinPostId\030\005 \001(\005\0220\n\006poster" +
+      "\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProto" +
+      "\022\016\n\006clanId\030\002 \001(\005\022\022\n\ntimeOfPost\030\003 \001(\003\022\017\n\007" +
+      "content\030\004 \001(\t\"M\n\022ClanTierLevelProto\022\021\n\tt" +
+      "ierLevel\030\001 \001(\005\022\017\n\007maxSize\030\002 \001(\005\022\023\n\013upgra" +
+      "deCost\030\003 \001(\005\"\227\001\n\030MinimumUserProtoForClan" +
+      "s\022G\n\014minUserProto\030\001 \001(\01321.com.lvl6.proto",
+      ".MinimumUserProtoWithBattleHistory\0222\n\ncl" +
+      "anStatus\030\002 \001(\0162\036.com.lvl6.proto.UserClan" +
+      "Status\"x\n\021FullUserClanProto\022\016\n\006userId\030\001 " +
+      "\001(\005\022\016\n\006clanId\030\002 \001(\005\022.\n\006status\030\003 \001(\0162\036.co" +
+      "m.lvl6.proto.UserClanStatus\022\023\n\013requestTi" +
+      "me\030\004 \001(\003\"\253\001\n!MinimumUserProtoWithBattleH" +
+      "istory\022H\n\025minUserProtoWithLevel\030\001 \001(\0132)." +
+      "com.lvl6.proto.MinimumUserProtoWithLevel" +
+      "\022\022\n\nbattlesWon\030\002 \001(\005\022\023\n\013battlesLost\030\003 \001(" +
+      "\005\022\023\n\013battlesFled\030\004 \001(\005\"\220\001\n\016MonteCardProt",
+      "o\022\016\n\006cardId\030\001 \001(\005\022\026\n\016diamondsGained\030\002 \001(" +
+      "\005\022-\n\005equip\030\003 \001(\0132\036.com.lvl6.proto.FullEq" +
+      "uipProto\022\022\n\nequipLevel\030\004 \001(\005\022\023\n\013coinsGai" +
+      "ned\030\005 \001(\005\"\276\001\n\rFullClanProto\022\016\n\006clanId\030\001 " +
+      "\001(\005\022\014\n\004name\030\002 \001(\t\022/\n\005owner\030\003 \001(\0132 .com.l" +
+      "vl6.proto.MinimumUserProto\022\022\n\ncreateTime" +
+      "\030\004 \001(\003\022\023\n\013description\030\005 \001(\t\022\013\n\003tag\030\006 \001(\t" +
+      "\022\016\n\006isGood\030\007 \001(\010\022\030\n\020currentTierLevel\030\010 \001" +
+      "(\005\"\241\001\n\020MinimumClanProto\022\016\n\006clanId\030\001 \001(\005\022" +
+      "\014\n\004name\030\002 \001(\t\022\017\n\007ownerId\030\003 \001(\005\022\022\n\ncreate",
+      "Time\030\004 \001(\003\022\023\n\013description\030\005 \001(\t\022\013\n\003tag\030\006" +
+      " \001(\t\022\016\n\006isGood\030\007 \001(\010\022\030\n\020currentTierLevel" +
+      "\030\010 \001(\005\"\214\001\n\020MinimumUserProto\022\016\n\006userId\030\001 " +
+      "\001(\005\022\014\n\004name\030\002 \001(\t\022*\n\010userType\030\003 \001(\0162\030.co" +
+      "m.lvl6.proto.UserType\022.\n\004clan\030\004 \001(\0132 .co" +
+      "m.lvl6.proto.MinimumClanProto\"b\n\031Minimum" +
+      "UserProtoWithLevel\0226\n\014minUserProto\030\001 \001(\013" +
       "2 .com.lvl6.proto.MinimumUserProto\022\r\n\005le" +
-      "vel\030\002 \001(\005\0228\n\017leaderboardType\030\003 \001(\0162\037.com" +
-      ".lvl6.proto.LeaderboardType\022\027\n\017leaderboa" +
-      "rdRank\030\004 \001(\005\022\030\n\020leaderboardScore\030\005 \001(\001\"\247",
-      "\013\n\rFullUserProto\022\016\n\006userId\030\001 \001(\005\022\014\n\004name" +
-      "\030\002 \001(\t\022\r\n\005level\030\003 \001(\005\022*\n\010userType\030\004 \001(\0162" +
-      "\030.com.lvl6.proto.UserType\022\016\n\006attack\030\005 \001(" +
-      "\005\022\017\n\007defense\030\006 \001(\005\022\017\n\007stamina\030\007 \001(\005\022\035\n\025l" +
-      "astStaminaRefillTime\030\010 \001(\003\022\016\n\006energy\030\n \001" +
-      "(\005\022\034\n\024lastEnergyRefillTime\030\013 \001(\003\022\023\n\013skil" +
-      "lPoints\030\r \001(\005\022\021\n\tenergyMax\030\017 \001(\005\022\022\n\nstam" +
-      "inaMax\030\020 \001(\005\022\020\n\010diamonds\030\021 \001(\005\022\r\n\005coins\030" +
-      "\022 \001(\005\022#\n\033marketplaceDiamondsEarnings\030\023 \001" +
-      "(\005\022 \n\030marketplaceCoinsEarnings\030\024 \001(\005\022\024\n\014",
-      "vaultBalance\030\025 \001(\005\022\022\n\nexperience\030\026 \001(\005\022\026" +
-      "\n\016tasksCompleted\030\027 \001(\005\022\022\n\nbattlesWon\030\030 \001" +
-      "(\005\022\023\n\013battlesLost\030\031 \001(\005\022\r\n\005flees\030- \001(\005\022\024" +
-      "\n\014referralCode\030\033 \001(\t\022\024\n\014numReferrals\030\034 \001" +
-      "(\005\0223\n\014userLocation\030\036 \001(\0132\035.com.lvl6.prot" +
-      "o.LocationProto\022\035\n\025numPostsInMarketplace" +
-      "\030\037 \001(\005\022%\n\035numMarketplaceSalesUnredeemed\030" +
-      "  \001(\005\022C\n\027weaponEquippedUserEquip\030! \001(\0132\"" +
-      ".com.lvl6.proto.FullUserEquipProto\022B\n\026ar" +
-      "morEquippedUserEquip\030\" \001(\0132\".com.lvl6.pr",
-      "oto.FullUserEquipProto\022C\n\027amuletEquipped" +
-      "UserEquip\030# \001(\0132\".com.lvl6.proto.FullUse" +
-      "rEquipProto\022\025\n\rlastLoginTime\030$ \001(\003\022\026\n\016la" +
-      "stLogoutTime\030% \001(\003\022$\n\034lastShortLicensePu" +
-      "rchaseTime\030+ \001(\003\022#\n\033lastLongLicensePurch" +
-      "aseTime\030, \001(\003\022\016\n\006isFake\030. \001(\010\022\017\n\007isAdmin" +
-      "\0300 \001(\010\022$\n\034numCoinsRetrievedFromStructs\0302" +
-      " \001(\005\022 \n\030numAdColonyVideosWatched\0303 \001(\005\022\036" +
-      "\n\026numGroupChatsRemaining\0306 \001(\005\022.\n\004clan\0307" +
-      " \001(\0132 .com.lvl6.proto.MinimumClanProto\022\035",
-      "\n\025lastGoldmineRetrieval\0308 \001(\003\022\014\n\004udid\030\035 " +
-      "\001(\t\022\023\n\013deviceToken\030& \001(\t\022\"\n\032lastBattleNo" +
-      "tificationTime\030\' \001(\003\022\030\n\020lastTimeAttacked" +
-      "\030( \001(\003\022\021\n\tnumBadges\030* \001(\005\022\022\n\ncreateTime\030" +
-      "/ \001(\003\022\021\n\tapsalarId\0301 \001(\005\022\034\n\024numTimesKiip" +
-      "Rewarded\0304 \001(\005\022 \n\030numConsecutiveDaysPlay" +
-      "ed\0305 \001(\005\"\276\004\n\016FullEquipProto\022\017\n\007equipId\030\001" +
-      " \001(\005\022\014\n\004name\030\002 \001(\t\022;\n\tequipType\030\003 \001(\0162(." +
-      "com.lvl6.proto.FullEquipProto.EquipType\022" +
-      "\023\n\013description\030\004 \001(\t\022\023\n\013attackBoost\030\005 \001(",
-      "\005\022\024\n\014defenseBoost\030\006 \001(\005\022\020\n\010minLevel\030\007 \001(" +
-      "\005\022\021\n\tcoinPrice\030\010 \001(\005\022\024\n\014diamondPrice\030\t \001" +
-      "(\005\022\024\n\014chanceOfLoss\030\n \001(\002\0221\n\tclassType\030\013 " +
-      "\001(\0162\036.com.lvl6.proto.EquipClassType\0225\n\006r" +
-      "arity\030\014 \001(\0162%.com.lvl6.proto.FullEquipPr" +
-      "oto.Rarity\022\031\n\021isBuyableInArmory\030\r \001(\010\022 \n" +
-      "\030chanceOfForgeFailureBase\030\016 \001(\002\022!\n\031minut" +
-      "esToAttemptForgeBase\030\017 \001(\005\"E\n\006Rarity\022\n\n\006" +
-      "COMMON\020\000\022\014\n\010UNCOMMON\020\001\022\010\n\004RARE\020\002\022\010\n\004EPIC" +
-      "\020\003\022\r\n\tLEGENDARY\020\004\".\n\tEquipType\022\n\n\006WEAPON",
-      "\020\000\022\t\n\005ARMOR\020\001\022\n\n\006AMULET\020\002\"\247\002\n\026FullUserSt" +
-      "ructureProto\022\024\n\014userStructId\030\001 \001(\005\022\016\n\006us" +
-      "erId\030\002 \001(\005\022\020\n\010structId\030\003 \001(\005\022\025\n\rlastRetr" +
-      "ieved\030\004 \001(\003\0224\n\013coordinates\030\005 \001(\0132\037.com.l" +
-      "vl6.proto.CoordinateProto\022\r\n\005level\030\006 \001(\005" +
-      "\022\024\n\014purchaseTime\030\007 \001(\003\022\027\n\017lastUpgradeTim" +
-      "e\030\010 \001(\003\022\022\n\nisComplete\030\t \001(\010\0226\n\013orientati" +
-      "on\030\n \001(\0162!.com.lvl6.proto.StructOrientat" +
-      "ion\"x\n\022FullUserEquipProto\022\023\n\013userEquipId" +
-      "\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\022\017\n\007equipId\030\003 \001(\005\022",
-      "\r\n\005level\030\004 \001(\005\022\035\n\025enhancementPercentage\030" +
-      "\005 \001(\005\"\370\002\n\022FullStructureProto\022\020\n\010structId" +
-      "\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\016\n\006income\030\003 \001(\005\022\025\n\r" +
-      "minutesToGain\030\004 \001(\005\022\026\n\016minutesToBuild\030\005 " +
-      "\001(\005\022\034\n\024minutesToUpgradeBase\030\006 \001(\005\022\021\n\tcoi" +
-      "nPrice\030\007 \001(\005\022\024\n\014diamondPrice\030\010 \001(\005\022\020\n\010mi" +
-      "nLevel\030\t \001(\005\022\017\n\007xLength\030\n \001(\005\022\017\n\007yLength" +
-      "\030\013 \001(\005\022\035\n\025instaBuildDiamondCost\030\016 \001(\005\022$\n" +
-      "\034instaRetrieveDiamondCostBase\030\017 \001(\005\022#\n\033i" +
-      "nstaUpgradeDiamondCostBase\030\020 \001(\005\022\036\n\026imgV",
-      "erticalPixelOffset\030\021 \001(\005\"\254\004\n\rFullTaskPro" +
-      "to\022\016\n\006taskId\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\016\n\006city" +
-      "Id\030\003 \001(\005\022 \n\030numRequiredForCompletion\030\004 \001" +
-      "(\005\022\022\n\nenergyCost\030\005 \001(\005\022\026\n\016minCoinsGained" +
-      "\030\006 \001(\005\022\026\n\016maxCoinsGained\030\007 \001(\005\022\031\n\021chance" +
-      "OfEquipLoot\030\010 \001(\002\022\035\n\025potentialLootEquipI" +
-      "ds\030\t \003(\005\022\021\n\texpGained\030\n \001(\005\022\032\n\022assetNumW" +
-      "ithinCity\030\013 \001(\005\022\026\n\016processingText\030\014 \001(\t\022" +
-      "<\n\023spriteLandingCoords\030\016 \001(\0132\037.com.lvl6." +
-      "proto.CoordinateProto\0224\n\ranimationType\030\017",
-      " \001(\0162\035.com.lvl6.proto.AnimationType\022F\n\te" +
-      "quipReqs\030\r \003(\01323.com.lvl6.proto.FullTask" +
-      "Proto.FullTaskEquipReqProto\032J\n\025FullTaskE" +
-      "quipReqProto\022\016\n\006taskId\030\001 \001(\005\022\017\n\007equipId\030" +
-      "\002 \001(\005\022\020\n\010quantity\030\003 \001(\005\"\346\001\n\rFullCityProt" +
-      "o\022\016\n\006cityId\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\020\n\010minLe" +
-      "vel\030\003 \001(\005\022\035\n\025expGainedBaseOnRankup\030\004 \001(\005" +
-      "\022\037\n\027coinsGainedBaseOnRankup\030\005 \001(\005\022\022\n\nmap" +
-      "ImgName\030\006 \001(\t\022/\n\006center\030\007 \001(\0132\037.com.lvl6" +
-      ".proto.CoordinateProto\022\017\n\007taskIds\030\n \003(\005\022",
-      "\017\n\007bossIds\030\013 \003(\005\"\216\002\n\036FullUserCityExpansi" +
-      "onDataProto\022\016\n\006userId\030\001 \001(\005\022\031\n\021farLeftEx" +
-      "pansions\030\002 \001(\005\022\032\n\022farRightExpansions\030\003 \001" +
-      "(\005\022\032\n\022nearLeftExpansions\030\004 \001(\005\022\033\n\023nearRi" +
-      "ghtExpansions\030\005 \001(\005\022\023\n\013isExpanding\030\006 \001(\010" +
-      "\022\026\n\016lastExpandTime\030\007 \001(\003\022?\n\023lastExpandDi" +
-      "rection\030\010 \001(\0162\".com.lvl6.proto.Expansion" +
-      "Direction\"q\n\021FullUserCityProto\022\016\n\006userId" +
-      "\030\001 \001(\005\022\016\n\006cityId\030\002 \001(\005\022\023\n\013currentRank\030\003 " +
-      "\001(\005\022\'\n\037numTasksCurrentlyCompleteInRank\030\004",
-      " \001(\005\"\'\n\017CoordinateProto\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030" +
-      "\002 \001(\002\"4\n\rLocationProto\022\020\n\010latitude\030\001 \001(\001" +
-      "\022\021\n\tlongitude\030\002 \001(\001\"\236\003\n\027NeutralCityEleme" +
-      "ntProto\022\016\n\006cityId\030\001 \001(\005\022\017\n\007assetId\030\002 \001(\005" +
-      "\022\014\n\004name\030\t \001(\t\022I\n\004type\030\003 \001(\0162;.com.lvl6." +
-      "proto.NeutralCityElementProto.NeutralCit" +
-      "yElemType\022/\n\006coords\030\004 \001(\0132\037.com.lvl6.pro" +
-      "to.CoordinateProto\022\017\n\007xLength\030\005 \001(\005\022\017\n\007y" +
-      "Length\030\006 \001(\005\022\r\n\005imgId\030\007 \001(\t\0226\n\013orientati" +
-      "on\030\010 \001(\0162!.com.lvl6.proto.StructOrientat",
-      "ion\"o\n\023NeutralCityElemType\022\026\n\022PERSON_QUE" +
-      "ST_GIVER\020\000\022\014\n\010BUILDING\020\001\022\016\n\nDECORATION\020\002" +
-      "\022\030\n\024PERSON_NEUTRAL_ENEMY\020\003\022\010\n\004BOSS\020\004\"\303\002\n" +
-      "\030FullMarketplacePostProto\022\031\n\021marketplace" +
-      "PostId\030\001 \001(\005\0220\n\006poster\030\002 \001(\0132 .com.lvl6." +
-      "proto.MinimumUserProto\0225\n\010postType\030\003 \001(\016" +
-      "2#.com.lvl6.proto.MarketplacePostType\022\022\n" +
-      "\ntimeOfPost\030\004 \001(\003\0223\n\013postedEquip\030\005 \001(\0132\036" +
-      ".com.lvl6.proto.FullEquipProto\022\023\n\013diamon" +
-      "dCost\030\006 \001(\005\022\020\n\010coinCost\030\007 \001(\005\022\022\n\nequipLe",
-      "vel\030\010 \001(\005\022\037\n\027equipEnhancementPercent\030\t \001" +
-      "(\005\"\260\001\n\027FullUserCritstructProto\022,\n\004type\030\001" +
-      " \001(\0162\036.com.lvl6.proto.CritStructType\022/\n\006" +
-      "coords\030\002 \001(\0132\037.com.lvl6.proto.Coordinate" +
-      "Proto\0226\n\013orientation\030\003 \001(\0162!.com.lvl6.pr" +
-      "oto.StructOrientation\"M\n\024MinimumUserTask" +
-      "Proto\022\016\n\006userId\030\001 \001(\005\022\016\n\006taskId\030\002 \001(\005\022\025\n" +
-      "\rnumTimesActed\030\003 \001(\005\"\321\004\n\033FullUserQuestDa" +
-      "taLargeProto\022\016\n\006userId\030\001 \001(\005\022\017\n\007questId\030" +
-      "\002 \001(\005\022\022\n\nisRedeemed\030\003 \001(\010\022\022\n\nisComplete\030",
-      "\004 \001(\010\022T\n\035requiredDefeatTypeJobProgress\030\005" +
-      " \003(\0132-.com.lvl6.proto.MinimumUserDefeatT" +
-      "ypeJobProto\022V\n\036requiredBuildStructJobPro" +
-      "gress\030\006 \003(\0132..com.lvl6.proto.MinimumUser" +
-      "BuildStructJobProto\022Z\n requiredUpgradeSt" +
-      "ructJobProgress\030\007 \003(\01320.com.lvl6.proto.M" +
-      "inimumUserUpgradeStructJobProto\022X\n\037requi" +
-      "redPossessEquipJobProgress\030\010 \003(\0132/.com.l" +
-      "vl6.proto.MinimumUserPossessEquipJobProt" +
-      "o\022H\n\025requiredTasksProgress\030\t \003(\0132).com.l",
-      "vl6.proto.MinimumUserQuestTaskProto\022\034\n\024c" +
-      "oinsRetrievedForReq\030\013 \001(\005\022\035\n\025numComponen" +
-      "tsComplete\030\n \001(\005\"c\n\031MinimumUserQuestTask" +
-      "Proto\022\016\n\006userId\030\001 \001(\005\022\017\n\007questId\030\002 \001(\005\022\016" +
-      "\n\006taskId\030\003 \001(\005\022\025\n\rnumTimesActed\030\004 \001(\005\"n\n" +
-      "\035MinimumUserDefeatTypeJobProto\022\016\n\006userId" +
-      "\030\001 \001(\005\022\017\n\007questId\030\002 \001(\005\022\027\n\017defeatTypeJob" +
-      "Id\030\003 \001(\005\022\023\n\013numDefeated\030\004 \001(\005\"\307\002\n\022Defeat" +
-      "TypeJobProto\022\027\n\017defeatTypeJobId\030\001 \001(\005\022N\n" +
-      "\013typeOfEnemy\030\002 \001(\01629.com.lvl6.proto.Defe",
-      "atTypeJobProto.DefeatTypeJobEnemyType\022\032\n" +
-      "\022numEnemiesToDefeat\030\003 \001(\005\022\016\n\006cityId\030\004 \001(" +
-      "\005\"\233\001\n\026DefeatTypeJobEnemyType\022\020\n\014GOOD_WAR" +
-      "RIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017" +
-      "\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_M" +
-      "AGE\020\005\022 \n\034ALL_TYPES_FROM_OPPOSING_SIDE\020\006\"" +
-      "w\n\036MinimumUserBuildStructJobProto\022\016\n\006use" +
-      "rId\030\001 \001(\005\022\017\n\007questId\030\002 \001(\005\022\030\n\020buildStruc" +
-      "tJobId\030\003 \001(\005\022\032\n\022numOfStructUserHas\030\004 \001(\005" +
-      "\"[\n\023BuildStructJobProto\022\030\n\020buildStructJo",
-      "bId\030\001 \001(\005\022\020\n\010structId\030\002 \001(\005\022\030\n\020quantityR" +
-      "equired\030\003 \001(\005\"u\n MinimumUserUpgradeStruc" +
-      "tJobProto\022\016\n\006userId\030\001 \001(\005\022\017\n\007questId\030\002 \001" +
-      "(\005\022\032\n\022upgradeStructJobId\030\003 \001(\005\022\024\n\014curren" +
-      "tLevel\030\004 \001(\005\"W\n\025UpgradeStructJobProto\022\032\n" +
-      "\022upgradeStructJobId\030\001 \001(\005\022\020\n\010structId\030\002 " +
-      "\001(\005\022\020\n\010levelReq\030\003 \001(\005\"v\n\037MinimumUserPoss" +
-      "essEquipJobProto\022\016\n\006userId\030\001 \001(\005\022\017\n\007ques" +
-      "tId\030\002 \001(\005\022\031\n\021possessEquipJobId\030\003 \001(\005\022\027\n\017" +
-      "numEquipUserHas\030\004 \001(\005\"W\n\024PossessEquipJob",
-      "Proto\022\031\n\021possessEquipJobId\030\001 \001(\005\022\017\n\007equi" +
-      "pId\030\002 \001(\005\022\023\n\013quantityReq\030\003 \001(\005\"\227\005\n\016FullQ" +
-      "uestProto\022\017\n\007questId\030\001 \001(\005\022\016\n\006cityId\030\002 \001" +
-      "(\005\022\014\n\004name\030\003 \001(\t\022\023\n\013description\030\004 \001(\t\022\024\n" +
-      "\014doneResponse\030\005 \001(\t\022\032\n\022assetNumWithinCit" +
-      "y\030\007 \001(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026\n\016diamonds" +
-      "Gained\030\t \001(\005\022\021\n\texpGained\030\n \001(\005\022\025\n\requip" +
-      "IdGained\030\013 \001(\005\022\035\n\025questsRequiredForThis\030" +
-      "\014 \003(\005\022\020\n\010taskReqs\030\r \003(\005\022\035\n\025upgradeStruct" +
-      "JobsReqs\030\016 \003(\005\022\033\n\023buildStructJobsReqs\030\017 ",
-      "\003(\005\022\026\n\016defeatTypeReqs\030\020 \003(\005\022\033\n\023possessEq" +
-      "uipJobReqs\030\021 \003(\005\022\030\n\020coinRetrievalReq\030\026 \001" +
-      "(\005\022A\n\025specialQuestActionReq\030\006 \001(\0162\".com." +
-      "lvl6.proto.SpecialQuestAction\022\034\n\024numComp" +
-      "onentsForGood\030\022 \001(\005\022\033\n\023numComponentsForB" +
-      "ad\030\023 \001(\005\0225\n\016acceptDialogue\030\024 \001(\0132\035.com.l" +
-      "vl6.proto.DialogueProto\022\026\n\016questGiverNam" +
-      "e\030\025 \001(\t\022\035\n\025questGiverImageSuffix\030\027 \001(\t\022\020" +
-      "\n\010priority\030\030 \001(\005\"\362\003\n\rDialogueProto\022G\n\rsp" +
-      "eechSegment\030\001 \003(\01320.com.lvl6.proto.Dialo",
-      "gueProto.SpeechSegmentProto\032\227\003\n\022SpeechSe" +
-      "gmentProto\022Q\n\007speaker\030\001 \001(\0162@.com.lvl6.p" +
-      "roto.DialogueProto.SpeechSegmentProto.Di" +
-      "alogueSpeaker\022\023\n\013speakerText\030\002 \001(\t\"\230\002\n\017D" +
-      "ialogueSpeaker\022\017\n\013PLAYER_TYPE\020\001\022\020\n\014GOOD_" +
-      "WARRIOR\020\002\022\017\n\013GOOD_ARCHER\020\003\022\r\n\tGOOD_MAGE\020" +
-      "\004\022\017\n\013BAD_WARRIOR\020\005\022\016\n\nBAD_ARCHER\020\006\022\014\n\010BA" +
-      "D_MAGE\020\007\022\026\n\022GOOD_TUTORIAL_GIRL\020\010\022\025\n\021BAD_" +
-      "TUTORIAL_GIRL\020\t\022\020\n\014QUESTGIVER_1\020\n\022\020\n\014QUE" +
-      "STGIVER_2\020\013\022\020\n\014QUESTGIVER_3\020\014\022\020\n\014QUESTGI",
-      "VER_4\020\r\022\020\n\014QUESTGIVER_5\020\016\022\n\n\006BAZAAR\020\031\"\233\001" +
-      "\n\023PlayerWallPostProto\022\030\n\020playerWallPostI" +
+      "vel\030\002 \001(\005\"\335\001\n\'MinimumUserProtoWithLevelF" +
+      "orLeaderboard\0226\n\014minUserProto\030\001 \001(\0132 .co",
+      "m.lvl6.proto.MinimumUserProto\022\r\n\005level\030\002" +
+      " \001(\005\0228\n\017leaderboardType\030\003 \001(\0162\037.com.lvl6" +
+      ".proto.LeaderboardType\022\027\n\017leaderboardRan" +
+      "k\030\004 \001(\005\022\030\n\020leaderboardScore\030\005 \001(\001\"\247\013\n\rFu" +
+      "llUserProto\022\016\n\006userId\030\001 \001(\005\022\014\n\004name\030\002 \001(" +
+      "\t\022\r\n\005level\030\003 \001(\005\022*\n\010userType\030\004 \001(\0162\030.com" +
+      ".lvl6.proto.UserType\022\016\n\006attack\030\005 \001(\005\022\017\n\007" +
+      "defense\030\006 \001(\005\022\017\n\007stamina\030\007 \001(\005\022\035\n\025lastSt" +
+      "aminaRefillTime\030\010 \001(\003\022\016\n\006energy\030\n \001(\005\022\034\n" +
+      "\024lastEnergyRefillTime\030\013 \001(\003\022\023\n\013skillPoin",
+      "ts\030\r \001(\005\022\021\n\tenergyMax\030\017 \001(\005\022\022\n\nstaminaMa" +
+      "x\030\020 \001(\005\022\020\n\010diamonds\030\021 \001(\005\022\r\n\005coins\030\022 \001(\005" +
+      "\022#\n\033marketplaceDiamondsEarnings\030\023 \001(\005\022 \n" +
+      "\030marketplaceCoinsEarnings\030\024 \001(\005\022\024\n\014vault" +
+      "Balance\030\025 \001(\005\022\022\n\nexperience\030\026 \001(\005\022\026\n\016tas" +
+      "ksCompleted\030\027 \001(\005\022\022\n\nbattlesWon\030\030 \001(\005\022\023\n" +
+      "\013battlesLost\030\031 \001(\005\022\r\n\005flees\030- \001(\005\022\024\n\014ref" +
+      "erralCode\030\033 \001(\t\022\024\n\014numReferrals\030\034 \001(\005\0223\n" +
+      "\014userLocation\030\036 \001(\0132\035.com.lvl6.proto.Loc" +
+      "ationProto\022\035\n\025numPostsInMarketplace\030\037 \001(",
+      "\005\022%\n\035numMarketplaceSalesUnredeemed\030  \001(\005" +
+      "\022C\n\027weaponEquippedUserEquip\030! \001(\0132\".com." +
+      "lvl6.proto.FullUserEquipProto\022B\n\026armorEq" +
+      "uippedUserEquip\030\" \001(\0132\".com.lvl6.proto.F" +
+      "ullUserEquipProto\022C\n\027amuletEquippedUserE" +
+      "quip\030# \001(\0132\".com.lvl6.proto.FullUserEqui" +
+      "pProto\022\025\n\rlastLoginTime\030$ \001(\003\022\026\n\016lastLog" +
+      "outTime\030% \001(\003\022$\n\034lastShortLicensePurchas" +
+      "eTime\030+ \001(\003\022#\n\033lastLongLicensePurchaseTi" +
+      "me\030, \001(\003\022\016\n\006isFake\030. \001(\010\022\017\n\007isAdmin\0300 \001(",
+      "\010\022$\n\034numCoinsRetrievedFromStructs\0302 \001(\005\022" +
+      " \n\030numAdColonyVideosWatched\0303 \001(\005\022\036\n\026num" +
+      "GroupChatsRemaining\0306 \001(\005\022.\n\004clan\0307 \001(\0132" +
+      " .com.lvl6.proto.MinimumClanProto\022\035\n\025las" +
+      "tGoldmineRetrieval\0308 \001(\003\022\014\n\004udid\030\035 \001(\t\022\023" +
+      "\n\013deviceToken\030& \001(\t\022\"\n\032lastBattleNotific" +
+      "ationTime\030\' \001(\003\022\030\n\020lastTimeAttacked\030( \001(" +
+      "\003\022\021\n\tnumBadges\030* \001(\005\022\022\n\ncreateTime\030/ \001(\003" +
+      "\022\021\n\tapsalarId\0301 \001(\005\022\034\n\024numTimesKiipRewar" +
+      "ded\0304 \001(\005\022 \n\030numConsecutiveDaysPlayed\0305 ",
+      "\001(\005\"\276\004\n\016FullEquipProto\022\017\n\007equipId\030\001 \001(\005\022" +
+      "\014\n\004name\030\002 \001(\t\022;\n\tequipType\030\003 \001(\0162(.com.l" +
+      "vl6.proto.FullEquipProto.EquipType\022\023\n\013de" +
+      "scription\030\004 \001(\t\022\023\n\013attackBoost\030\005 \001(\005\022\024\n\014" +
+      "defenseBoost\030\006 \001(\005\022\020\n\010minLevel\030\007 \001(\005\022\021\n\t" +
+      "coinPrice\030\010 \001(\005\022\024\n\014diamondPrice\030\t \001(\005\022\024\n" +
+      "\014chanceOfLoss\030\n \001(\002\0221\n\tclassType\030\013 \001(\0162\036" +
+      ".com.lvl6.proto.EquipClassType\0225\n\006rarity" +
+      "\030\014 \001(\0162%.com.lvl6.proto.FullEquipProto.R" +
+      "arity\022\031\n\021isBuyableInArmory\030\r \001(\010\022 \n\030chan",
+      "ceOfForgeFailureBase\030\016 \001(\002\022!\n\031minutesToA" +
+      "ttemptForgeBase\030\017 \001(\005\"E\n\006Rarity\022\n\n\006COMMO" +
+      "N\020\000\022\014\n\010UNCOMMON\020\001\022\010\n\004RARE\020\002\022\010\n\004EPIC\020\003\022\r\n" +
+      "\tLEGENDARY\020\004\".\n\tEquipType\022\n\n\006WEAPON\020\000\022\t\n" +
+      "\005ARMOR\020\001\022\n\n\006AMULET\020\002\"\247\002\n\026FullUserStructu" +
+      "reProto\022\024\n\014userStructId\030\001 \001(\005\022\016\n\006userId\030" +
+      "\002 \001(\005\022\020\n\010structId\030\003 \001(\005\022\025\n\rlastRetrieved" +
+      "\030\004 \001(\003\0224\n\013coordinates\030\005 \001(\0132\037.com.lvl6.p" +
+      "roto.CoordinateProto\022\r\n\005level\030\006 \001(\005\022\024\n\014p" +
+      "urchaseTime\030\007 \001(\003\022\027\n\017lastUpgradeTime\030\010 \001",
+      "(\003\022\022\n\nisComplete\030\t \001(\010\0226\n\013orientation\030\n " +
+      "\001(\0162!.com.lvl6.proto.StructOrientation\"x" +
+      "\n\022FullUserEquipProto\022\023\n\013userEquipId\030\001 \001(" +
+      "\005\022\016\n\006userId\030\002 \001(\005\022\017\n\007equipId\030\003 \001(\005\022\r\n\005le" +
+      "vel\030\004 \001(\005\022\035\n\025enhancementPercentage\030\005 \001(\005" +
+      "\"\370\002\n\022FullStructureProto\022\020\n\010structId\030\001 \001(" +
+      "\005\022\014\n\004name\030\002 \001(\t\022\016\n\006income\030\003 \001(\005\022\025\n\rminut" +
+      "esToGain\030\004 \001(\005\022\026\n\016minutesToBuild\030\005 \001(\005\022\034" +
+      "\n\024minutesToUpgradeBase\030\006 \001(\005\022\021\n\tcoinPric" +
+      "e\030\007 \001(\005\022\024\n\014diamondPrice\030\010 \001(\005\022\020\n\010minLeve",
+      "l\030\t \001(\005\022\017\n\007xLength\030\n \001(\005\022\017\n\007yLength\030\013 \001(" +
+      "\005\022\035\n\025instaBuildDiamondCost\030\016 \001(\005\022$\n\034inst" +
+      "aRetrieveDiamondCostBase\030\017 \001(\005\022#\n\033instaU" +
+      "pgradeDiamondCostBase\030\020 \001(\005\022\036\n\026imgVertic" +
+      "alPixelOffset\030\021 \001(\005\"\254\004\n\rFullTaskProto\022\016\n" +
+      "\006taskId\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\016\n\006cityId\030\003 " +
+      "\001(\005\022 \n\030numRequiredForCompletion\030\004 \001(\005\022\022\n" +
+      "\nenergyCost\030\005 \001(\005\022\026\n\016minCoinsGained\030\006 \001(" +
+      "\005\022\026\n\016maxCoinsGained\030\007 \001(\005\022\031\n\021chanceOfEqu" +
+      "ipLoot\030\010 \001(\002\022\035\n\025potentialLootEquipIds\030\t ",
+      "\003(\005\022\021\n\texpGained\030\n \001(\005\022\032\n\022assetNumWithin" +
+      "City\030\013 \001(\005\022\026\n\016processingText\030\014 \001(\t\022<\n\023sp" +
+      "riteLandingCoords\030\016 \001(\0132\037.com.lvl6.proto" +
+      ".CoordinateProto\0224\n\ranimationType\030\017 \001(\0162" +
+      "\035.com.lvl6.proto.AnimationType\022F\n\tequipR" +
+      "eqs\030\r \003(\01323.com.lvl6.proto.FullTaskProto" +
+      ".FullTaskEquipReqProto\032J\n\025FullTaskEquipR" +
+      "eqProto\022\016\n\006taskId\030\001 \001(\005\022\017\n\007equipId\030\002 \001(\005" +
+      "\022\020\n\010quantity\030\003 \001(\005\"\346\001\n\rFullCityProto\022\016\n\006" +
+      "cityId\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\020\n\010minLevel\030\003",
+      " \001(\005\022\035\n\025expGainedBaseOnRankup\030\004 \001(\005\022\037\n\027c" +
+      "oinsGainedBaseOnRankup\030\005 \001(\005\022\022\n\nmapImgNa" +
+      "me\030\006 \001(\t\022/\n\006center\030\007 \001(\0132\037.com.lvl6.prot" +
+      "o.CoordinateProto\022\017\n\007taskIds\030\n \003(\005\022\017\n\007bo" +
+      "ssIds\030\013 \003(\005\"\216\002\n\036FullUserCityExpansionDat" +
+      "aProto\022\016\n\006userId\030\001 \001(\005\022\031\n\021farLeftExpansi" +
+      "ons\030\002 \001(\005\022\032\n\022farRightExpansions\030\003 \001(\005\022\032\n" +
+      "\022nearLeftExpansions\030\004 \001(\005\022\033\n\023nearRightEx" +
+      "pansions\030\005 \001(\005\022\023\n\013isExpanding\030\006 \001(\010\022\026\n\016l" +
+      "astExpandTime\030\007 \001(\003\022?\n\023lastExpandDirecti",
+      "on\030\010 \001(\0162\".com.lvl6.proto.ExpansionDirec" +
+      "tion\"q\n\021FullUserCityProto\022\016\n\006userId\030\001 \001(" +
+      "\005\022\016\n\006cityId\030\002 \001(\005\022\023\n\013currentRank\030\003 \001(\005\022\'" +
+      "\n\037numTasksCurrentlyCompleteInRank\030\004 \001(\005\"" +
+      "\'\n\017CoordinateProto\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002" +
+      "\"4\n\rLocationProto\022\020\n\010latitude\030\001 \001(\001\022\021\n\tl" +
+      "ongitude\030\002 \001(\001\"\236\003\n\027NeutralCityElementPro" +
+      "to\022\016\n\006cityId\030\001 \001(\005\022\017\n\007assetId\030\002 \001(\005\022\014\n\004n" +
+      "ame\030\t \001(\t\022I\n\004type\030\003 \001(\0162;.com.lvl6.proto" +
+      ".NeutralCityElementProto.NeutralCityElem",
+      "Type\022/\n\006coords\030\004 \001(\0132\037.com.lvl6.proto.Co" +
+      "ordinateProto\022\017\n\007xLength\030\005 \001(\005\022\017\n\007yLengt" +
+      "h\030\006 \001(\005\022\r\n\005imgId\030\007 \001(\t\0226\n\013orientation\030\010 " +
+      "\001(\0162!.com.lvl6.proto.StructOrientation\"o" +
+      "\n\023NeutralCityElemType\022\026\n\022PERSON_QUEST_GI" +
+      "VER\020\000\022\014\n\010BUILDING\020\001\022\016\n\nDECORATION\020\002\022\030\n\024P" +
+      "ERSON_NEUTRAL_ENEMY\020\003\022\010\n\004BOSS\020\004\"\303\002\n\030Full" +
+      "MarketplacePostProto\022\031\n\021marketplacePostI" +
       "d\030\001 \001(\005\0220\n\006poster\030\002 \001(\0132 .com.lvl6.proto" +
-      ".MinimumUserProto\022\023\n\013wallOwnerId\030\003 \001(\005\022\022" +
-      "\n\ntimeOfPost\030\004 \001(\003\022\017\n\007content\030\005 \001(\t\"\340\001\n\037" +
-      "UnhandledBlacksmithAttemptProto\022\024\n\014black" +
-      "smithId\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\022\017\n\007equipId" +
-      "\030\003 \001(\005\022\021\n\tgoalLevel\030\004 \001(\003\022\022\n\nguaranteed\030" +
-      "\005 \001(\010\022\021\n\tstartTime\030\006 \001(\003\022\034\n\024diamondGuara" +
-      "nteeCost\030\010 \001(\005\022\025\n\rtimeOfSpeedup\030\t \001(\003\022\027\n",
-      "\017attemptComplete\030\n \001(\010*C\n\016EquipClassType" +
-      "\022\013\n\007WARRIOR\020\000\022\n\n\006ARCHER\020\001\022\010\n\004MAGE\020\002\022\016\n\nA" +
-      "LL_AMULET\020\003*,\n\016UserClanStatus\022\n\n\006MEMBER\020" +
-      "\000\022\016\n\nREQUESTING\020\002*@\n\016GroupChatScope\022\n\n\006G" +
-      "LOBAL\020\000\022\014\n\010ALLIANCE\020\001\022\n\n\006LEGION\020\002\022\010\n\004CLA" +
-      "N\020\003*^\n\017LeaderboardType\022\024\n\020MOST_BATTLES_W" +
-      "ON\020\002\022\016\n\nMOST_COINS\020\003\022\014\n\010MOST_EXP\020\004\022\014\n\010BE" +
-      "ST_KDR\020\005\022\t\n\005EVENT\020\006*f\n\020CharacterModType\022" +
-      "\016\n\nNEW_PLAYER\020\001\022\026\n\022RESET_SKILL_POINTS\020\002\022" +
-      "\031\n\025CHANGE_CHARACTER_TYPE\020\003\022\017\n\013CHANGE_NAM",
-      "E\020\004*/\n\rAnimationType\022\022\n\016GENERIC_ACTION\020\001" +
-      "\022\n\n\006ATTACK\020\002*h\n\024EarnFreeDiamondsType\022\010\n\004" +
-      "KIIP\020\001\022\014\n\010ADCOLONY\020\002\022\r\n\tFB_INVITE\020\003\022\n\n\006T" +
-      "APJOY\020\004\022\020\n\014FLURRY_VIDEO\020\005\022\013\n\007TWITTER\020\006*\371" +
-      "\001\n\022SpecialQuestAction\022\030\n\024PURCHASE_FROM_A" +
-      "RMORY\020\001\022\035\n\031PURCHASE_FROM_MARKETPLACE\020\002\022\022" +
-      "\n\016SELL_TO_ARMORY\020\003\022\027\n\023POST_TO_MARKETPLAC" +
-      "E\020\004\022\024\n\020DEPOSIT_IN_VAULT\020\005\022\027\n\023WITHDRAW_FR" +
-      "OM_VAULT\020\006\022\027\n\023WRITE_ON_ENEMY_WALL\020\007\022\025\n\021R" +
-      "EQUEST_JOIN_CLAN\020\010\022\036\n\032SUCCESSFULLY_FORGE",
-      "_AN_ITEM\020\t*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000" +
-      "\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_" +
-      "WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*" +
-      "E\n\014BattleResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEF" +
-      "ENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023Market" +
-      "placePostType\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n" +
-      "\017NORM_EQUIP_POST\020\002*2\n\035MarketplaceJobRequ" +
-      "irementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritSt" +
-      "ructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005V" +
-      "AULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005\022\016\n\nB",
-      "LACKSMITH\020\006*3\n\021StructOrientation\022\016\n\nPOSI" +
-      "TION_1\020\000\022\016\n\nPOSITION_2\020\001*P\n\022ExpansionDir" +
-      "ection\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001\022\r\n\tN" +
-      "EAR_LEFT\020\002\022\016\n\nNEAR_RIGHT\020\003B\013B\tInfoProto"
+      ".MinimumUserProto\0225\n\010postType\030\003 \001(\0162#.co",
+      "m.lvl6.proto.MarketplacePostType\022\022\n\ntime" +
+      "OfPost\030\004 \001(\003\0223\n\013postedEquip\030\005 \001(\0132\036.com." +
+      "lvl6.proto.FullEquipProto\022\023\n\013diamondCost" +
+      "\030\006 \001(\005\022\020\n\010coinCost\030\007 \001(\005\022\022\n\nequipLevel\030\010" +
+      " \001(\005\022\037\n\027equipEnhancementPercent\030\t \001(\005\"\260\001" +
+      "\n\027FullUserCritstructProto\022,\n\004type\030\001 \001(\0162" +
+      "\036.com.lvl6.proto.CritStructType\022/\n\006coord" +
+      "s\030\002 \001(\0132\037.com.lvl6.proto.CoordinateProto" +
+      "\0226\n\013orientation\030\003 \001(\0162!.com.lvl6.proto.S" +
+      "tructOrientation\"M\n\024MinimumUserTaskProto",
+      "\022\016\n\006userId\030\001 \001(\005\022\016\n\006taskId\030\002 \001(\005\022\025\n\rnumT" +
+      "imesActed\030\003 \001(\005\"\321\004\n\033FullUserQuestDataLar" +
+      "geProto\022\016\n\006userId\030\001 \001(\005\022\017\n\007questId\030\002 \001(\005" +
+      "\022\022\n\nisRedeemed\030\003 \001(\010\022\022\n\nisComplete\030\004 \001(\010" +
+      "\022T\n\035requiredDefeatTypeJobProgress\030\005 \003(\0132" +
+      "-.com.lvl6.proto.MinimumUserDefeatTypeJo" +
+      "bProto\022V\n\036requiredBuildStructJobProgress" +
+      "\030\006 \003(\0132..com.lvl6.proto.MinimumUserBuild" +
+      "StructJobProto\022Z\n requiredUpgradeStructJ" +
+      "obProgress\030\007 \003(\01320.com.lvl6.proto.Minimu",
+      "mUserUpgradeStructJobProto\022X\n\037requiredPo" +
+      "ssessEquipJobProgress\030\010 \003(\0132/.com.lvl6.p" +
+      "roto.MinimumUserPossessEquipJobProto\022H\n\025" +
+      "requiredTasksProgress\030\t \003(\0132).com.lvl6.p" +
+      "roto.MinimumUserQuestTaskProto\022\034\n\024coinsR" +
+      "etrievedForReq\030\013 \001(\005\022\035\n\025numComponentsCom" +
+      "plete\030\n \001(\005\"c\n\031MinimumUserQuestTaskProto" +
+      "\022\016\n\006userId\030\001 \001(\005\022\017\n\007questId\030\002 \001(\005\022\016\n\006tas" +
+      "kId\030\003 \001(\005\022\025\n\rnumTimesActed\030\004 \001(\005\"n\n\035Mini" +
+      "mumUserDefeatTypeJobProto\022\016\n\006userId\030\001 \001(",
+      "\005\022\017\n\007questId\030\002 \001(\005\022\027\n\017defeatTypeJobId\030\003 " +
+      "\001(\005\022\023\n\013numDefeated\030\004 \001(\005\"\307\002\n\022DefeatTypeJ" +
+      "obProto\022\027\n\017defeatTypeJobId\030\001 \001(\005\022N\n\013type" +
+      "OfEnemy\030\002 \001(\01629.com.lvl6.proto.DefeatTyp" +
+      "eJobProto.DefeatTypeJobEnemyType\022\032\n\022numE" +
+      "nemiesToDefeat\030\003 \001(\005\022\016\n\006cityId\030\004 \001(\005\"\233\001\n" +
+      "\026DefeatTypeJobEnemyType\022\020\n\014GOOD_WARRIOR\020" +
+      "\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD" +
+      "_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005" +
+      "\022 \n\034ALL_TYPES_FROM_OPPOSING_SIDE\020\006\"w\n\036Mi",
+      "nimumUserBuildStructJobProto\022\016\n\006userId\030\001" +
+      " \001(\005\022\017\n\007questId\030\002 \001(\005\022\030\n\020buildStructJobI" +
+      "d\030\003 \001(\005\022\032\n\022numOfStructUserHas\030\004 \001(\005\"[\n\023B" +
+      "uildStructJobProto\022\030\n\020buildStructJobId\030\001" +
+      " \001(\005\022\020\n\010structId\030\002 \001(\005\022\030\n\020quantityRequir" +
+      "ed\030\003 \001(\005\"u\n MinimumUserUpgradeStructJobP" +
+      "roto\022\016\n\006userId\030\001 \001(\005\022\017\n\007questId\030\002 \001(\005\022\032\n" +
+      "\022upgradeStructJobId\030\003 \001(\005\022\024\n\014currentLeve" +
+      "l\030\004 \001(\005\"W\n\025UpgradeStructJobProto\022\032\n\022upgr" +
+      "adeStructJobId\030\001 \001(\005\022\020\n\010structId\030\002 \001(\005\022\020",
+      "\n\010levelReq\030\003 \001(\005\"v\n\037MinimumUserPossessEq" +
+      "uipJobProto\022\016\n\006userId\030\001 \001(\005\022\017\n\007questId\030\002" +
+      " \001(\005\022\031\n\021possessEquipJobId\030\003 \001(\005\022\027\n\017numEq" +
+      "uipUserHas\030\004 \001(\005\"W\n\024PossessEquipJobProto" +
+      "\022\031\n\021possessEquipJobId\030\001 \001(\005\022\017\n\007equipId\030\002" +
+      " \001(\005\022\023\n\013quantityReq\030\003 \001(\005\"\227\005\n\016FullQuestP" +
+      "roto\022\017\n\007questId\030\001 \001(\005\022\016\n\006cityId\030\002 \001(\005\022\014\n" +
+      "\004name\030\003 \001(\t\022\023\n\013description\030\004 \001(\t\022\024\n\014done" +
+      "Response\030\005 \001(\t\022\032\n\022assetNumWithinCity\030\007 \001" +
+      "(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026\n\016diamondsGaine",
+      "d\030\t \001(\005\022\021\n\texpGained\030\n \001(\005\022\025\n\requipIdGai" +
+      "ned\030\013 \001(\005\022\035\n\025questsRequiredForThis\030\014 \003(\005" +
+      "\022\020\n\010taskReqs\030\r \003(\005\022\035\n\025upgradeStructJobsR" +
+      "eqs\030\016 \003(\005\022\033\n\023buildStructJobsReqs\030\017 \003(\005\022\026" +
+      "\n\016defeatTypeReqs\030\020 \003(\005\022\033\n\023possessEquipJo" +
+      "bReqs\030\021 \003(\005\022\030\n\020coinRetrievalReq\030\026 \001(\005\022A\n" +
+      "\025specialQuestActionReq\030\006 \001(\0162\".com.lvl6." +
+      "proto.SpecialQuestAction\022\034\n\024numComponent" +
+      "sForGood\030\022 \001(\005\022\033\n\023numComponentsForBad\030\023 " +
+      "\001(\005\0225\n\016acceptDialogue\030\024 \001(\0132\035.com.lvl6.p",
+      "roto.DialogueProto\022\026\n\016questGiverName\030\025 \001" +
+      "(\t\022\035\n\025questGiverImageSuffix\030\027 \001(\t\022\020\n\010pri" +
+      "ority\030\030 \001(\005\"\362\003\n\rDialogueProto\022G\n\rspeechS" +
+      "egment\030\001 \003(\01320.com.lvl6.proto.DialoguePr" +
+      "oto.SpeechSegmentProto\032\227\003\n\022SpeechSegment" +
+      "Proto\022Q\n\007speaker\030\001 \001(\0162@.com.lvl6.proto." +
+      "DialogueProto.SpeechSegmentProto.Dialogu" +
+      "eSpeaker\022\023\n\013speakerText\030\002 \001(\t\"\230\002\n\017Dialog" +
+      "ueSpeaker\022\017\n\013PLAYER_TYPE\020\001\022\020\n\014GOOD_WARRI" +
+      "OR\020\002\022\017\n\013GOOD_ARCHER\020\003\022\r\n\tGOOD_MAGE\020\004\022\017\n\013",
+      "BAD_WARRIOR\020\005\022\016\n\nBAD_ARCHER\020\006\022\014\n\010BAD_MAG" +
+      "E\020\007\022\026\n\022GOOD_TUTORIAL_GIRL\020\010\022\025\n\021BAD_TUTOR" +
+      "IAL_GIRL\020\t\022\020\n\014QUESTGIVER_1\020\n\022\020\n\014QUESTGIV" +
+      "ER_2\020\013\022\020\n\014QUESTGIVER_3\020\014\022\020\n\014QUESTGIVER_4" +
+      "\020\r\022\020\n\014QUESTGIVER_5\020\016\022\n\n\006BAZAAR\020\031\"\233\001\n\023Pla" +
+      "yerWallPostProto\022\030\n\020playerWallPostId\030\001 \001" +
+      "(\005\0220\n\006poster\030\002 \001(\0132 .com.lvl6.proto.Mini" +
+      "mumUserProto\022\023\n\013wallOwnerId\030\003 \001(\005\022\022\n\ntim" +
+      "eOfPost\030\004 \001(\003\022\017\n\007content\030\005 \001(\t\"\340\001\n\037Unhan" +
+      "dledBlacksmithAttemptProto\022\024\n\014blacksmith",
+      "Id\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\022\017\n\007equipId\030\003 \001(" +
+      "\005\022\021\n\tgoalLevel\030\004 \001(\003\022\022\n\nguaranteed\030\005 \001(\010" +
+      "\022\021\n\tstartTime\030\006 \001(\003\022\034\n\024diamondGuaranteeC" +
+      "ost\030\010 \001(\005\022\025\n\rtimeOfSpeedup\030\t \001(\003\022\027\n\017atte" +
+      "mptComplete\030\n \001(\010*C\n\016EquipClassType\022\013\n\007W" +
+      "ARRIOR\020\000\022\n\n\006ARCHER\020\001\022\010\n\004MAGE\020\002\022\016\n\nALL_AM" +
+      "ULET\020\003*,\n\016UserClanStatus\022\n\n\006MEMBER\020\000\022\016\n\n" +
+      "REQUESTING\020\002*@\n\016GroupChatScope\022\n\n\006GLOBAL" +
+      "\020\000\022\014\n\010ALLIANCE\020\001\022\n\n\006LEGION\020\002\022\010\n\004CLAN\020\003*^" +
+      "\n\017LeaderboardType\022\024\n\020MOST_BATTLES_WON\020\002\022",
+      "\016\n\nMOST_COINS\020\003\022\014\n\010MOST_EXP\020\004\022\014\n\010BEST_KD" +
+      "R\020\005\022\t\n\005EVENT\020\006*f\n\020CharacterModType\022\016\n\nNE" +
+      "W_PLAYER\020\001\022\026\n\022RESET_SKILL_POINTS\020\002\022\031\n\025CH" +
+      "ANGE_CHARACTER_TYPE\020\003\022\017\n\013CHANGE_NAME\020\004*/" +
+      "\n\rAnimationType\022\022\n\016GENERIC_ACTION\020\001\022\n\n\006A" +
+      "TTACK\020\002*h\n\024EarnFreeDiamondsType\022\010\n\004KIIP\020" +
+      "\001\022\014\n\010ADCOLONY\020\002\022\r\n\tFB_INVITE\020\003\022\n\n\006TAPJOY" +
+      "\020\004\022\020\n\014FLURRY_VIDEO\020\005\022\013\n\007TWITTER\020\006*\371\001\n\022Sp" +
+      "ecialQuestAction\022\030\n\024PURCHASE_FROM_ARMORY" +
+      "\020\001\022\035\n\031PURCHASE_FROM_MARKETPLACE\020\002\022\022\n\016SEL",
+      "L_TO_ARMORY\020\003\022\027\n\023POST_TO_MARKETPLACE\020\004\022\024" +
+      "\n\020DEPOSIT_IN_VAULT\020\005\022\027\n\023WITHDRAW_FROM_VA" +
+      "ULT\020\006\022\027\n\023WRITE_ON_ENEMY_WALL\020\007\022\025\n\021REQUES" +
+      "T_JOIN_CLAN\020\010\022\036\n\032SUCCESSFULLY_FORGE_AN_I" +
+      "TEM\020\t*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013G" +
+      "OOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRI" +
+      "OR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014Ba" +
+      "ttleResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDER" +
+      "_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023Marketplace" +
+      "PostType\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NORM",
+      "_EQUIP_POST\020\002*2\n\035MarketplaceJobRequireme" +
+      "ntType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritStructT" +
+      "ype\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020" +
+      "\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005\022\016\n\nBLACKS" +
+      "MITH\020\006*3\n\021StructOrientation\022\016\n\nPOSITION_" +
+      "1\020\000\022\016\n\nPOSITION_2\020\001*P\n\022ExpansionDirectio" +
+      "n\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001\022\r\n\tNEAR_L" +
+      "EFT\020\002\022\016\n\nNEAR_RIGHT\020\003B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
         public com.google.protobuf.ExtensionRegistry assignDescriptors(
             com.google.protobuf.Descriptors.FileDescriptor root) {
           descriptor = root;
-          internal_static_com_lvl6_proto_EquipEnhancementProto_descriptor =
+          internal_static_com_lvl6_proto_MinimumUserProtoForClanTowerScores_descriptor =
             getDescriptor().getMessageTypes().get(0);
+          internal_static_com_lvl6_proto_MinimumUserProtoForClanTowerScores_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_MinimumUserProtoForClanTowerScores_descriptor,
+              new java.lang.String[] { "MinUserProtoWithLevel", "PointsGained", "PointsLost", },
+              com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores.class,
+              com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores.Builder.class);
+          internal_static_com_lvl6_proto_EquipEnhancementProto_descriptor =
+            getDescriptor().getMessageTypes().get(1);
           internal_static_com_lvl6_proto_EquipEnhancementProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_EquipEnhancementProto_descriptor,
@@ -50709,7 +51264,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.EquipEnhancementProto.class,
               com.lvl6.proto.InfoProto.EquipEnhancementProto.Builder.class);
           internal_static_com_lvl6_proto_EquipEnhancementItemProto_descriptor =
-            getDescriptor().getMessageTypes().get(1);
+            getDescriptor().getMessageTypes().get(2);
           internal_static_com_lvl6_proto_EquipEnhancementItemProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_EquipEnhancementItemProto_descriptor,
@@ -50717,7 +51272,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.EquipEnhancementItemProto.class,
               com.lvl6.proto.InfoProto.EquipEnhancementItemProto.Builder.class);
           internal_static_com_lvl6_proto_InAppPurchasePackageProto_descriptor =
-            getDescriptor().getMessageTypes().get(2);
+            getDescriptor().getMessageTypes().get(3);
           internal_static_com_lvl6_proto_InAppPurchasePackageProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_InAppPurchasePackageProto_descriptor,
@@ -50725,7 +51280,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.InAppPurchasePackageProto.class,
               com.lvl6.proto.InfoProto.InAppPurchasePackageProto.Builder.class);
           internal_static_com_lvl6_proto_ColorProto_descriptor =
-            getDescriptor().getMessageTypes().get(3);
+            getDescriptor().getMessageTypes().get(4);
           internal_static_com_lvl6_proto_ColorProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_ColorProto_descriptor,
@@ -50733,7 +51288,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.ColorProto.class,
               com.lvl6.proto.InfoProto.ColorProto.Builder.class);
           internal_static_com_lvl6_proto_LeaderboardEventProto_descriptor =
-            getDescriptor().getMessageTypes().get(4);
+            getDescriptor().getMessageTypes().get(5);
           internal_static_com_lvl6_proto_LeaderboardEventProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_LeaderboardEventProto_descriptor,
@@ -50741,7 +51296,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.LeaderboardEventProto.class,
               com.lvl6.proto.InfoProto.LeaderboardEventProto.Builder.class);
           internal_static_com_lvl6_proto_LeaderboardEventRewardProto_descriptor =
-            getDescriptor().getMessageTypes().get(5);
+            getDescriptor().getMessageTypes().get(6);
           internal_static_com_lvl6_proto_LeaderboardEventRewardProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_LeaderboardEventRewardProto_descriptor,
@@ -50749,7 +51304,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.LeaderboardEventRewardProto.class,
               com.lvl6.proto.InfoProto.LeaderboardEventRewardProto.Builder.class);
           internal_static_com_lvl6_proto_BossEventProto_descriptor =
-            getDescriptor().getMessageTypes().get(6);
+            getDescriptor().getMessageTypes().get(7);
           internal_static_com_lvl6_proto_BossEventProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_BossEventProto_descriptor,
@@ -50757,7 +51312,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.BossEventProto.class,
               com.lvl6.proto.InfoProto.BossEventProto.Builder.class);
           internal_static_com_lvl6_proto_ClanTowerProto_descriptor =
-            getDescriptor().getMessageTypes().get(7);
+            getDescriptor().getMessageTypes().get(8);
           internal_static_com_lvl6_proto_ClanTowerProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_ClanTowerProto_descriptor,
@@ -50765,7 +51320,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.ClanTowerProto.class,
               com.lvl6.proto.InfoProto.ClanTowerProto.Builder.class);
           internal_static_com_lvl6_proto_GoldSaleProto_descriptor =
-            getDescriptor().getMessageTypes().get(8);
+            getDescriptor().getMessageTypes().get(9);
           internal_static_com_lvl6_proto_GoldSaleProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_GoldSaleProto_descriptor,
@@ -50773,7 +51328,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.GoldSaleProto.class,
               com.lvl6.proto.InfoProto.GoldSaleProto.Builder.class);
           internal_static_com_lvl6_proto_GroupChatMessageProto_descriptor =
-            getDescriptor().getMessageTypes().get(9);
+            getDescriptor().getMessageTypes().get(10);
           internal_static_com_lvl6_proto_GroupChatMessageProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_GroupChatMessageProto_descriptor,
@@ -50781,7 +51336,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.GroupChatMessageProto.class,
               com.lvl6.proto.InfoProto.GroupChatMessageProto.Builder.class);
           internal_static_com_lvl6_proto_LockBoxEventProto_descriptor =
-            getDescriptor().getMessageTypes().get(10);
+            getDescriptor().getMessageTypes().get(11);
           internal_static_com_lvl6_proto_LockBoxEventProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_LockBoxEventProto_descriptor,
@@ -50789,7 +51344,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.LockBoxEventProto.class,
               com.lvl6.proto.InfoProto.LockBoxEventProto.Builder.class);
           internal_static_com_lvl6_proto_LockBoxItemProto_descriptor =
-            getDescriptor().getMessageTypes().get(11);
+            getDescriptor().getMessageTypes().get(12);
           internal_static_com_lvl6_proto_LockBoxItemProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_LockBoxItemProto_descriptor,
@@ -50797,7 +51352,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.LockBoxItemProto.class,
               com.lvl6.proto.InfoProto.LockBoxItemProto.Builder.class);
           internal_static_com_lvl6_proto_UserLockBoxEventProto_descriptor =
-            getDescriptor().getMessageTypes().get(12);
+            getDescriptor().getMessageTypes().get(13);
           internal_static_com_lvl6_proto_UserLockBoxEventProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_UserLockBoxEventProto_descriptor,
@@ -50805,7 +51360,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.UserLockBoxEventProto.class,
               com.lvl6.proto.InfoProto.UserLockBoxEventProto.Builder.class);
           internal_static_com_lvl6_proto_UserLockBoxItemProto_descriptor =
-            getDescriptor().getMessageTypes().get(13);
+            getDescriptor().getMessageTypes().get(14);
           internal_static_com_lvl6_proto_UserLockBoxItemProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_UserLockBoxItemProto_descriptor,
@@ -50813,7 +51368,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.UserLockBoxItemProto.class,
               com.lvl6.proto.InfoProto.UserLockBoxItemProto.Builder.class);
           internal_static_com_lvl6_proto_FullBossProto_descriptor =
-            getDescriptor().getMessageTypes().get(14);
+            getDescriptor().getMessageTypes().get(15);
           internal_static_com_lvl6_proto_FullBossProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullBossProto_descriptor,
@@ -50821,7 +51376,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullBossProto.class,
               com.lvl6.proto.InfoProto.FullBossProto.Builder.class);
           internal_static_com_lvl6_proto_FullUserBossProto_descriptor =
-            getDescriptor().getMessageTypes().get(15);
+            getDescriptor().getMessageTypes().get(16);
           internal_static_com_lvl6_proto_FullUserBossProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserBossProto_descriptor,
@@ -50829,7 +51384,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullUserBossProto.class,
               com.lvl6.proto.InfoProto.FullUserBossProto.Builder.class);
           internal_static_com_lvl6_proto_FullClanProtoWithClanSize_descriptor =
-            getDescriptor().getMessageTypes().get(16);
+            getDescriptor().getMessageTypes().get(17);
           internal_static_com_lvl6_proto_FullClanProtoWithClanSize_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullClanProtoWithClanSize_descriptor,
@@ -50837,7 +51392,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullClanProtoWithClanSize.class,
               com.lvl6.proto.InfoProto.FullClanProtoWithClanSize.Builder.class);
           internal_static_com_lvl6_proto_ClanBulletinPostProto_descriptor =
-            getDescriptor().getMessageTypes().get(17);
+            getDescriptor().getMessageTypes().get(18);
           internal_static_com_lvl6_proto_ClanBulletinPostProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_ClanBulletinPostProto_descriptor,
@@ -50845,7 +51400,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.ClanBulletinPostProto.class,
               com.lvl6.proto.InfoProto.ClanBulletinPostProto.Builder.class);
           internal_static_com_lvl6_proto_ClanTierLevelProto_descriptor =
-            getDescriptor().getMessageTypes().get(18);
+            getDescriptor().getMessageTypes().get(19);
           internal_static_com_lvl6_proto_ClanTierLevelProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_ClanTierLevelProto_descriptor,
@@ -50853,7 +51408,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.ClanTierLevelProto.class,
               com.lvl6.proto.InfoProto.ClanTierLevelProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserProtoForClans_descriptor =
-            getDescriptor().getMessageTypes().get(19);
+            getDescriptor().getMessageTypes().get(20);
           internal_static_com_lvl6_proto_MinimumUserProtoForClans_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserProtoForClans_descriptor,
@@ -50861,7 +51416,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserProtoForClans.class,
               com.lvl6.proto.InfoProto.MinimumUserProtoForClans.Builder.class);
           internal_static_com_lvl6_proto_FullUserClanProto_descriptor =
-            getDescriptor().getMessageTypes().get(20);
+            getDescriptor().getMessageTypes().get(21);
           internal_static_com_lvl6_proto_FullUserClanProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserClanProto_descriptor,
@@ -50869,7 +51424,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullUserClanProto.class,
               com.lvl6.proto.InfoProto.FullUserClanProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserProtoWithBattleHistory_descriptor =
-            getDescriptor().getMessageTypes().get(21);
+            getDescriptor().getMessageTypes().get(22);
           internal_static_com_lvl6_proto_MinimumUserProtoWithBattleHistory_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserProtoWithBattleHistory_descriptor,
@@ -50877,7 +51432,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserProtoWithBattleHistory.class,
               com.lvl6.proto.InfoProto.MinimumUserProtoWithBattleHistory.Builder.class);
           internal_static_com_lvl6_proto_MonteCardProto_descriptor =
-            getDescriptor().getMessageTypes().get(22);
+            getDescriptor().getMessageTypes().get(23);
           internal_static_com_lvl6_proto_MonteCardProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MonteCardProto_descriptor,
@@ -50885,7 +51440,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MonteCardProto.class,
               com.lvl6.proto.InfoProto.MonteCardProto.Builder.class);
           internal_static_com_lvl6_proto_FullClanProto_descriptor =
-            getDescriptor().getMessageTypes().get(23);
+            getDescriptor().getMessageTypes().get(24);
           internal_static_com_lvl6_proto_FullClanProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullClanProto_descriptor,
@@ -50893,7 +51448,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullClanProto.class,
               com.lvl6.proto.InfoProto.FullClanProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumClanProto_descriptor =
-            getDescriptor().getMessageTypes().get(24);
+            getDescriptor().getMessageTypes().get(25);
           internal_static_com_lvl6_proto_MinimumClanProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumClanProto_descriptor,
@@ -50901,7 +51456,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumClanProto.class,
               com.lvl6.proto.InfoProto.MinimumClanProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserProto_descriptor =
-            getDescriptor().getMessageTypes().get(25);
+            getDescriptor().getMessageTypes().get(26);
           internal_static_com_lvl6_proto_MinimumUserProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserProto_descriptor,
@@ -50909,7 +51464,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserProto.class,
               com.lvl6.proto.InfoProto.MinimumUserProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserProtoWithLevel_descriptor =
-            getDescriptor().getMessageTypes().get(26);
+            getDescriptor().getMessageTypes().get(27);
           internal_static_com_lvl6_proto_MinimumUserProtoWithLevel_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserProtoWithLevel_descriptor,
@@ -50917,7 +51472,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel.class,
               com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserProtoWithLevelForLeaderboard_descriptor =
-            getDescriptor().getMessageTypes().get(27);
+            getDescriptor().getMessageTypes().get(28);
           internal_static_com_lvl6_proto_MinimumUserProtoWithLevelForLeaderboard_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserProtoWithLevelForLeaderboard_descriptor,
@@ -50925,7 +51480,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.class,
               com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.Builder.class);
           internal_static_com_lvl6_proto_FullUserProto_descriptor =
-            getDescriptor().getMessageTypes().get(28);
+            getDescriptor().getMessageTypes().get(29);
           internal_static_com_lvl6_proto_FullUserProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserProto_descriptor,
@@ -50933,7 +51488,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullUserProto.class,
               com.lvl6.proto.InfoProto.FullUserProto.Builder.class);
           internal_static_com_lvl6_proto_FullEquipProto_descriptor =
-            getDescriptor().getMessageTypes().get(29);
+            getDescriptor().getMessageTypes().get(30);
           internal_static_com_lvl6_proto_FullEquipProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullEquipProto_descriptor,
@@ -50941,7 +51496,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullEquipProto.class,
               com.lvl6.proto.InfoProto.FullEquipProto.Builder.class);
           internal_static_com_lvl6_proto_FullUserStructureProto_descriptor =
-            getDescriptor().getMessageTypes().get(30);
+            getDescriptor().getMessageTypes().get(31);
           internal_static_com_lvl6_proto_FullUserStructureProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserStructureProto_descriptor,
@@ -50949,7 +51504,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullUserStructureProto.class,
               com.lvl6.proto.InfoProto.FullUserStructureProto.Builder.class);
           internal_static_com_lvl6_proto_FullUserEquipProto_descriptor =
-            getDescriptor().getMessageTypes().get(31);
+            getDescriptor().getMessageTypes().get(32);
           internal_static_com_lvl6_proto_FullUserEquipProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserEquipProto_descriptor,
@@ -50957,7 +51512,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullUserEquipProto.class,
               com.lvl6.proto.InfoProto.FullUserEquipProto.Builder.class);
           internal_static_com_lvl6_proto_FullStructureProto_descriptor =
-            getDescriptor().getMessageTypes().get(32);
+            getDescriptor().getMessageTypes().get(33);
           internal_static_com_lvl6_proto_FullStructureProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullStructureProto_descriptor,
@@ -50965,7 +51520,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullStructureProto.class,
               com.lvl6.proto.InfoProto.FullStructureProto.Builder.class);
           internal_static_com_lvl6_proto_FullTaskProto_descriptor =
-            getDescriptor().getMessageTypes().get(33);
+            getDescriptor().getMessageTypes().get(34);
           internal_static_com_lvl6_proto_FullTaskProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullTaskProto_descriptor,
@@ -50981,7 +51536,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullTaskProto.FullTaskEquipReqProto.class,
               com.lvl6.proto.InfoProto.FullTaskProto.FullTaskEquipReqProto.Builder.class);
           internal_static_com_lvl6_proto_FullCityProto_descriptor =
-            getDescriptor().getMessageTypes().get(34);
+            getDescriptor().getMessageTypes().get(35);
           internal_static_com_lvl6_proto_FullCityProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullCityProto_descriptor,
@@ -50989,7 +51544,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullCityProto.class,
               com.lvl6.proto.InfoProto.FullCityProto.Builder.class);
           internal_static_com_lvl6_proto_FullUserCityExpansionDataProto_descriptor =
-            getDescriptor().getMessageTypes().get(35);
+            getDescriptor().getMessageTypes().get(36);
           internal_static_com_lvl6_proto_FullUserCityExpansionDataProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserCityExpansionDataProto_descriptor,
@@ -50997,7 +51552,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto.class,
               com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto.Builder.class);
           internal_static_com_lvl6_proto_FullUserCityProto_descriptor =
-            getDescriptor().getMessageTypes().get(36);
+            getDescriptor().getMessageTypes().get(37);
           internal_static_com_lvl6_proto_FullUserCityProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserCityProto_descriptor,
@@ -51005,7 +51560,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullUserCityProto.class,
               com.lvl6.proto.InfoProto.FullUserCityProto.Builder.class);
           internal_static_com_lvl6_proto_CoordinateProto_descriptor =
-            getDescriptor().getMessageTypes().get(37);
+            getDescriptor().getMessageTypes().get(38);
           internal_static_com_lvl6_proto_CoordinateProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_CoordinateProto_descriptor,
@@ -51013,7 +51568,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.CoordinateProto.class,
               com.lvl6.proto.InfoProto.CoordinateProto.Builder.class);
           internal_static_com_lvl6_proto_LocationProto_descriptor =
-            getDescriptor().getMessageTypes().get(38);
+            getDescriptor().getMessageTypes().get(39);
           internal_static_com_lvl6_proto_LocationProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_LocationProto_descriptor,
@@ -51021,7 +51576,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.LocationProto.class,
               com.lvl6.proto.InfoProto.LocationProto.Builder.class);
           internal_static_com_lvl6_proto_NeutralCityElementProto_descriptor =
-            getDescriptor().getMessageTypes().get(39);
+            getDescriptor().getMessageTypes().get(40);
           internal_static_com_lvl6_proto_NeutralCityElementProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_NeutralCityElementProto_descriptor,
@@ -51029,7 +51584,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.NeutralCityElementProto.class,
               com.lvl6.proto.InfoProto.NeutralCityElementProto.Builder.class);
           internal_static_com_lvl6_proto_FullMarketplacePostProto_descriptor =
-            getDescriptor().getMessageTypes().get(40);
+            getDescriptor().getMessageTypes().get(41);
           internal_static_com_lvl6_proto_FullMarketplacePostProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullMarketplacePostProto_descriptor,
@@ -51037,7 +51592,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullMarketplacePostProto.class,
               com.lvl6.proto.InfoProto.FullMarketplacePostProto.Builder.class);
           internal_static_com_lvl6_proto_FullUserCritstructProto_descriptor =
-            getDescriptor().getMessageTypes().get(41);
+            getDescriptor().getMessageTypes().get(42);
           internal_static_com_lvl6_proto_FullUserCritstructProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserCritstructProto_descriptor,
@@ -51045,7 +51600,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullUserCritstructProto.class,
               com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserTaskProto_descriptor =
-            getDescriptor().getMessageTypes().get(42);
+            getDescriptor().getMessageTypes().get(43);
           internal_static_com_lvl6_proto_MinimumUserTaskProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserTaskProto_descriptor,
@@ -51053,7 +51608,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserTaskProto.class,
               com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder.class);
           internal_static_com_lvl6_proto_FullUserQuestDataLargeProto_descriptor =
-            getDescriptor().getMessageTypes().get(43);
+            getDescriptor().getMessageTypes().get(44);
           internal_static_com_lvl6_proto_FullUserQuestDataLargeProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserQuestDataLargeProto_descriptor,
@@ -51061,7 +51616,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.class,
               com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserQuestTaskProto_descriptor =
-            getDescriptor().getMessageTypes().get(44);
+            getDescriptor().getMessageTypes().get(45);
           internal_static_com_lvl6_proto_MinimumUserQuestTaskProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserQuestTaskProto_descriptor,
@@ -51069,7 +51624,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.class,
               com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserDefeatTypeJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(45);
+            getDescriptor().getMessageTypes().get(46);
           internal_static_com_lvl6_proto_MinimumUserDefeatTypeJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserDefeatTypeJobProto_descriptor,
@@ -51077,7 +51632,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.class,
               com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.Builder.class);
           internal_static_com_lvl6_proto_DefeatTypeJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(46);
+            getDescriptor().getMessageTypes().get(47);
           internal_static_com_lvl6_proto_DefeatTypeJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_DefeatTypeJobProto_descriptor,
@@ -51085,7 +51640,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.DefeatTypeJobProto.class,
               com.lvl6.proto.InfoProto.DefeatTypeJobProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserBuildStructJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(47);
+            getDescriptor().getMessageTypes().get(48);
           internal_static_com_lvl6_proto_MinimumUserBuildStructJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserBuildStructJobProto_descriptor,
@@ -51093,7 +51648,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.class,
               com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.Builder.class);
           internal_static_com_lvl6_proto_BuildStructJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(48);
+            getDescriptor().getMessageTypes().get(49);
           internal_static_com_lvl6_proto_BuildStructJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_BuildStructJobProto_descriptor,
@@ -51101,7 +51656,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.BuildStructJobProto.class,
               com.lvl6.proto.InfoProto.BuildStructJobProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(49);
+            getDescriptor().getMessageTypes().get(50);
           internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_descriptor,
@@ -51109,7 +51664,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.class,
               com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.Builder.class);
           internal_static_com_lvl6_proto_UpgradeStructJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(50);
+            getDescriptor().getMessageTypes().get(51);
           internal_static_com_lvl6_proto_UpgradeStructJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_UpgradeStructJobProto_descriptor,
@@ -51117,7 +51672,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.UpgradeStructJobProto.class,
               com.lvl6.proto.InfoProto.UpgradeStructJobProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserPossessEquipJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(51);
+            getDescriptor().getMessageTypes().get(52);
           internal_static_com_lvl6_proto_MinimumUserPossessEquipJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserPossessEquipJobProto_descriptor,
@@ -51125,7 +51680,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.class,
               com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.Builder.class);
           internal_static_com_lvl6_proto_PossessEquipJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(52);
+            getDescriptor().getMessageTypes().get(53);
           internal_static_com_lvl6_proto_PossessEquipJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_PossessEquipJobProto_descriptor,
@@ -51133,7 +51688,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.PossessEquipJobProto.class,
               com.lvl6.proto.InfoProto.PossessEquipJobProto.Builder.class);
           internal_static_com_lvl6_proto_FullQuestProto_descriptor =
-            getDescriptor().getMessageTypes().get(53);
+            getDescriptor().getMessageTypes().get(54);
           internal_static_com_lvl6_proto_FullQuestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullQuestProto_descriptor,
@@ -51141,7 +51696,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullQuestProto.class,
               com.lvl6.proto.InfoProto.FullQuestProto.Builder.class);
           internal_static_com_lvl6_proto_DialogueProto_descriptor =
-            getDescriptor().getMessageTypes().get(54);
+            getDescriptor().getMessageTypes().get(55);
           internal_static_com_lvl6_proto_DialogueProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_DialogueProto_descriptor,
@@ -51157,7 +51712,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.class,
               com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.Builder.class);
           internal_static_com_lvl6_proto_PlayerWallPostProto_descriptor =
-            getDescriptor().getMessageTypes().get(55);
+            getDescriptor().getMessageTypes().get(56);
           internal_static_com_lvl6_proto_PlayerWallPostProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_PlayerWallPostProto_descriptor,
@@ -51165,7 +51720,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.PlayerWallPostProto.class,
               com.lvl6.proto.InfoProto.PlayerWallPostProto.Builder.class);
           internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_descriptor =
-            getDescriptor().getMessageTypes().get(56);
+            getDescriptor().getMessageTypes().get(57);
           internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_descriptor,

@@ -2,6 +2,14 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+message MinimumUserProtoForClanTowerScores {
+	optional MinimumUserProtoWithLevel minUserProtoWithLevel = 1;
+	optional int32 pointsGained = 2;
+	optional int32 pointsLost = 3;
+}
+
+//------------------------------------------------------------------------------------------
+
 message EquipEnhancementProto {
 	optional int32 enhancementId = 1;
 	optional int32 userId = 2;

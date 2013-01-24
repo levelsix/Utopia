@@ -103,6 +103,7 @@ import com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores;
 import com.lvl6.proto.InfoProto.MinimumUserProtoForClans;
 import com.lvl6.proto.InfoProto.MinimumUserProtoWithBattleHistory;
 import com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel;
@@ -1079,6 +1080,14 @@ public class CreateInfoProtoUtils {
     b.addAllFeederEquips(itemProtoList);
     
     return b.build();
+  }
+  
+  public static MinimumUserProtoForClanTowerScores createMinUserProtoForClanTowerScores(User user, int pointsGained, int pointsLost) {
+    MinimumUserProtoForClanTowerScores.Builder bldr = MinimumUserProtoForClanTowerScores.newBuilder();
+    bldr.setMinUserProtoWithLevel(createMinimumUserProtoWithLevelFromUser(user));
+    bldr.setPointsGained(pointsGained);
+    bldr.setPointsLost(pointsLost);
+    return bldr.build();
   }
   
 }

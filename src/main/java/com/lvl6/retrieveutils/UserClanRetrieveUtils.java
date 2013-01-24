@@ -36,6 +36,23 @@ import com.lvl6.utils.DBConnection;
     return userClans;
   }
 
+  public List<UserClan> getUserClanMembersInClanOr(int clanId1, int clanId2) {
+    String query = "select * from " + TABLE_NAME + " where (" + DBConstants.USER_CLANS__CLAN_ID +
+        " = ? or " + DBConstants.USER_CLANS__CLAN_ID + " = ? ) and " + DBConstants.USER_CLANS__STATUS +
+        " = ?";
+    
+    List<Object> values = new ArrayList<Object>();
+    values.add(clanId1);
+    values.add(clanId2);
+    values.add(UserClanStatus.MEMBER.getNumber());
+
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
+    List<UserClan> userClans = grabUserClansFromRS(rs);
+    DBConnection.get().close(rs, null, conn);
+    return userClans;
+  }
+
   public List<UserClan> getUserClansRelatedToUser(int userId) {
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_CLANS__USER_ID, userId);
