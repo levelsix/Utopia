@@ -254,7 +254,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
       }
     } else {  //fake, just insert
-      int userEquipId = InsertUtils.get().insertUserEquip(winner.getId(), lostEquip.getEquipId(), lostEquip.getLevel());
+      int userEquipId = InsertUtils.get().insertUserEquip(winner.getId(), lostEquip.getEquipId(), lostEquip.getLevel(),
+          ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
       if (userEquipId < 0) {
         log.error("problem with giving 1 of equip " + lostEquip.getEquipId() + " to winner " + winner.getId());
         lostEquip = null;

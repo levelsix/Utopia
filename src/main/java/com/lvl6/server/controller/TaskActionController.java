@@ -148,7 +148,8 @@ public class TaskActionController extends EventController {
         if (lootEquipId != ControllerConstants.NOT_SET) {
           int userEquipId = InsertUtils.get().insertUserEquip(
               user.getId(), lootEquipId,
-              ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+              ControllerConstants.DEFAULT_USER_EQUIP_LEVEL,
+              ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
           if (userEquipId < 0) {
             log.error("problem with giving 1 of equip "
                 + lootEquipId + " to task completer "

@@ -515,7 +515,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
           int idOfEquipToGive = MiscMethods.chooseMysteryBoxEquip(user);
           int levelOfEquipToGive = (int)(Math.random() * ControllerConstants.STARTUP__DAILY_BONUS_MYSTERY_BOX_EQUIP_FORGE_LEVEL_MAX) + 1;
-          int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), idOfEquipToGive, levelOfEquipToGive);
+          int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), idOfEquipToGive, levelOfEquipToGive,
+              ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
           if (userEquipId <= 0) {
             log.error("failed in giving user " + user + " equip with id " + idOfEquipToGive);
             return 0;

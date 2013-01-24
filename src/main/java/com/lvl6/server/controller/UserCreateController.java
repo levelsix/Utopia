@@ -271,7 +271,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (equipIds.size() > 0) {
 
       for (int i = 0; i < equipIds.size(); i++) {
-        int userEquipId = insertUtils.insertUserEquip(userId, equipIds.get(i), ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+        //since user create, equips should have no enhancement
+        int userEquipId = insertUtils.insertUserEquip(userId, equipIds.get(i),
+            ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT); 
         if (userEquipId < 0) {
           log.error("problem with giving user " + userId + " 1 " + equipIds.get(i));
         } else {
@@ -281,8 +283,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
       
       if (Globals.IDDICTION_ON()) {
+        //since user create, equips should have no enhancement
         int userEquipId = insertUtils.insertUserEquip(userId, ControllerConstants.IDDICTION__EQUIP_ID, 
-            ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+            ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
         if (userEquipId < 0) {
           log.error("problem with giving user iddiction reward to " + userId + " 1 " + ControllerConstants.IDDICTION__EQUIP_ID);
         }

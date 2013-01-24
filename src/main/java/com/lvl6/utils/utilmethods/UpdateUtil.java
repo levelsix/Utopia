@@ -9,6 +9,7 @@ import java.util.Set;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 
+import com.lvl6.info.BoosterItem;
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Task;
@@ -198,4 +199,6 @@ public interface UpdateUtil {
   public boolean updateUsersAddDiamonds(List<Integer> userIds, int diamonds) ;
   
   public boolean updateLeaderboardEventSetRewardGivenOut(int eventId);
+
+  public abstract boolean updateUserBoosterItemsForOneUser(int userId, Map<Integer, Integer> userBoosterItemIdsToQuantities);
 }
