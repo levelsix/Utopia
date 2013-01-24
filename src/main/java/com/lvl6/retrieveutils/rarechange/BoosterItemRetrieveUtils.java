@@ -22,6 +22,7 @@ import com.lvl6.utils.DBConnection;
   private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static Map<Integer, BoosterItem> boosterItemIdsToBoosterItems;
+  //key:booster pack id --> value:(key: booster item id --> value: booster item)
   private static Map<Integer, Map<Integer, BoosterItem>> 
       boosterItemIdsToBoosterItemsForBoosterPackIds;
 
@@ -33,6 +34,13 @@ import com.lvl6.utils.DBConnection;
       setStaticBoosterItemIdsToBoosterItems();
     }
     return boosterItemIdsToBoosterItems;
+  }
+  
+  public Map<Integer, Map<Integer, BoosterItem>> getBoosterItemIdsToBoosterItemsForBoosterPackIds() {
+    if(null == boosterItemIdsToBoosterItemsForBoosterPackIds) {
+      setStaticBoosterItemIdsToBoosterItemsForBoosterPackIds();
+    }
+    return boosterItemIdsToBoosterItemsForBoosterPackIds;
   }
 
   public static Map<Integer, BoosterItem> getBoosterItemIdsToBoosterItemsForBoosterPackId(int boosterPackId) {
@@ -69,6 +77,30 @@ import com.lvl6.utils.DBConnection;
     return boosterItemIdsToBoosterItems.get(boosterItemId);
   }
 
+  public static void setStaticBoosterItemIdsToBoosterItemsForBoosterPackIds() {
+    try {
+      log.debug("setting static map of boosterPackId to (boosterItemIds to boosterItems) ");
+      if (boosterItemIdsToBoosterItemsForBoosterPackIds == null) {
+        setStaticBoosterItemIdsToBoosterItems();      
+        boosterItemIdsToBoosterItemsForBoosterPackIds = new HashMap<Integer, Map<Integer, BoosterItem>>();
+      }
+      List<BoosterItem> bis = new ArrayList<BoosterItem>(boosterItemIdsToBoosterItems.values());
+      for(BoosterItem bi : bis) {
+        int packId = bi.getBoosterPackId();
+        if(!boosterItemIdsToBoosterItemsForBoosterPackIds.containsKey(packId)) {
+          Map<Integer, BoosterItem> bItemIdToBItem = new HashMap<Integer, BoosterItem>();
+          boosterItemIdsToBoosterItemsForBoosterPackIds.put(packId, bItemIdToBItem);
+        }
+        //each itemId is unique (autoincrementing in the table)
+        Map<Integer, BoosterItem> itemIdToItem =
+            boosterItemIdsToBoosterItemsForBoosterPackIds.get(packId);
+        itemIdToItem.put(bi.getId(), bi);
+      }
+    } catch (Exception e) {
+      log.error("error creating a map of booster item ids to booster items.", e);
+    }
+  }
+  
   private static void setStaticBoosterItemIdsToBoosterItems() {
     log.debug("setting static map of boosterItemIds to boosterItems");
 
@@ -99,6 +131,7 @@ import com.lvl6.utils.DBConnection;
 
   public static void reload() {
     setStaticBoosterItemIdsToBoosterItems();
+    setStaticBoosterItemIdsToBoosterItemsForBoosterPackIds();
   }
 
   /*

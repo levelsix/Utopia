@@ -2438,4 +2438,14 @@ message RetrieveClanTowerScoresResponseProto {
 	}
 }
 
+//requesting all booster packs and related booster items
+message RetrieveBoosterPackRequestProto {
+     optional MinimumUserProto sender = 1;
+}
+
+message RetrieveBoosterPackResponseProto {
+	optional MinimumUserProto sender = 1;
+	repeated BoosterPackProto packs = 2;
+}
+
 	

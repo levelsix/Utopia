@@ -2,6 +2,23 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+message BoosterPackProto {
+	optional int32 id = 1;
+	optional int32 coinCost = 2;
+	optional int32 diamondCost = 3;
+	optional string name = 4;
+	optional string description = 5;
+	optional int32 numEquips = 6;
+	repeated BoosterItemProto boosterItems = 7; 
+}
+
+message BoosterItemProto {
+	optional int32 id = 1;
+	optional int32 equipId = 2;
+	optional int32 quantity = 3;
+	optional bool isSpecial = 4;
+}
+
 message MinimumUserProtoForClanTowerScores {
 	optional MinimumUserProtoWithLevel minUserProtoWithLevel = 1;
 	optional int32 pointsGained = 2;
