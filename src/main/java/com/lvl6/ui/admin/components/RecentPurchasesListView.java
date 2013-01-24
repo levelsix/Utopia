@@ -28,7 +28,7 @@ public class RecentPurchasesListView extends ListView<InAppPurchase> {
     item.add(new Label("name", spend.getName()));
 		item.add(new Label("amountSpent", "$"+spend.getCashSpent().longValue()));
 		
-		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US);
+		DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.US);
 		df.setTimeZone(TimeZone.getTimeZone("GMT-8:00"));
 		item.add(new Label("purchaseDate", df.format(spend.getPurchasedDate())));
 	}
