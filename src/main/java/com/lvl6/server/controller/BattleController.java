@@ -390,7 +390,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     for(ClanTower aTower : towers) {
       if(!UpdateUtils.get().updateClanTowerBattleWins(
           aTower.getId(), aTower.getClanOwnerId(), aTower.getClanAttackerId(),
-          incrementOwnerBattleWins, 1)) {
+          incrementOwnerBattleWins, 1, aTower.getCurrentBattleId())) {
         log.error("(no rows updated) problem with updating tower's battle wins. " +
             "tower=" + aTower + "The " + ownerOrAttacker + "'s " +
             "battle wins were not incremented.");

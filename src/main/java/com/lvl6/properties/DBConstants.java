@@ -62,6 +62,7 @@ public class DBConstants {
   public static final String TABLE_GOLD_SALES = "gold_sales";
   public static final String TABLE_CLAN_TOWERS = "clan_towers";
   public static final String TABLE_CLAN_TOWERS_HISTORY = "clan_towers_history";
+  public static final String TABLE_CLAN_TOWER_USERS = "clan_tower_users";
   public static final String TABLE_CLAN_TIER_LEVELS = "clan_tier_levels";
   public static final String TABLE_LEADERBOARD_EVENTS = "leaderboard_events";
   public static final String TABLE_USER_LEADERBOARD_EVENTS = "user_leaderboard_events";
@@ -505,6 +506,7 @@ public class DBConstants {
   public static final String CLAN_TOWERS__OWNER_BATTLE_WINS = "owner_battle_wins";
   public static final String CLAN_TOWERS__ATTACKER_BATTLE_WINS = "attacker_battle_wins";
   public static final String CLAN_TOWERS__LAST_REWARD_GIVEN = "last_reward_given";
+  public static final String CLAN_TOWERS__CURRENT_BATTLE_ID = "current_battle_id";
   
   /*CLAN TOWERS HISTORY*/
   public static final String CLAN_TOWERS_HISTORY__OWNER_CLAN_ID = "owner_clan_id";
@@ -516,7 +518,16 @@ public class DBConstants {
   public static final String CLAN_TOWERS_HISTORY__ATTACK_START_TIME = "attack_start_time";
   public static final String CLAN_TOWERS_HISTORY__NUM_HOURS_FOR_BATTLE = "num_hours_for_battle";
   public static final String CLAN_TOWERS_HISTORY__LAST_REWARD_GIVEN = "last_reward_given";
+  public static final String CLAN_TOWERS_HISTORY__TIME_OF_ENTRY = "time_of_entry";
   public static final String CLAN_TOWERS_HISTORY__REASON_FOR_ENTRY = "reason_for_entry";
+  public static final String CLAN_TOWERS_HISTORY__CURRENT_BATTLE_ID = "current_battle_id";
+
+  /*CLAN TOWER USERS*/
+  public static final String CLAN_TOWER_USERS__BATTLE_ID = "battle_id";
+  public static final String CLAN_TOWER_USERS__USER_ID = "user_id";
+  public static final String CLAN_TOWER_USERS__IS_IN_OWNER_CLAN = "is_in_owner_clan";
+  public static final String CLAN_TOWER_USERS__POINTS_GAINED = "points_gained";
+  public static final String CLAN_TOWER_USERS__POINTS_LOST = "points_lost";
   
   /*LEADERBOARD EVENTS*/
   public static final String LEADERBOARD_EVENTS__ID = GENERIC__ID;

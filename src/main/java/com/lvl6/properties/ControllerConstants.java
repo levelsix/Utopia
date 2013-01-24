@@ -184,6 +184,7 @@ public class ControllerConstants {
   public static final int BATTLE__EXP_MIN = 1;
   public static final double BATTLE__EXP_LEVEL_DIFF_WEIGHT = 0.2;
   public static final double BATTLE__CHANCE_OF_EQUIP_LOOT_INITIAL_WALL = 0.15;
+  public static final double BATTLE__EQUIP_AND_STATS_WEIGHT = 1.08;
 
   //GENERATE ATTACK LIST
   public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;
@@ -396,6 +397,7 @@ public class ControllerConstants {
   
   //CLAN TOWER
   public static final int MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER = 2;
+  public static final int NUM_HOURS_BEFORE_REWAGING_WAR_ON_TOWER = 6;
   
   //LEADERBOARD EVENT
   public static final int LEADERBOARD_EVENT__WINS_WEIGHT = 2;

@@ -34,6 +34,7 @@ import com.lvl6.server.GameServer;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
+import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class ClanTowersScheduledTasks {
 	private static Logger log = LoggerFactory.getLogger(ClanTowersScheduledTasks.class);
@@ -185,45 +186,51 @@ public class ClanTowersScheduledTasks {
 	}
 
 	protected void updateTowerHistory(ClanTower tower) {
-		String attStart = tower.getAttackStartTime() == null ? "null" : "\""
-				+ new Timestamp(tower.getAttackStartTime().getTime()) + "\"";
-		String lastReward = tower.getLastRewardGiven() == null ? "null" : "\""
-				+ new Timestamp(tower.getLastRewardGiven().getTime()) + "\"";
-		jdbcTemplate.execute("insert into "
-				+ DBConstants.TABLE_CLAN_TOWERS_HISTORY
-				+ " ("
-				+ DBConstants.CLAN_TOWERS_HISTORY__OWNER_CLAN_ID
-				+ ", "
-				+ DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_CLAN_ID
-				+ ", "
-				+ DBConstants.CLAN_TOWERS_HISTORY__TOWER_ID
-				+ ", "
-				+ DBConstants.CLAN_TOWERS_HISTORY__ATTACK_START_TIME
-				+ ", "
-				+ DBConstants.CLAN_TOWERS_HISTORY__WINNER_ID
-				+ ", "
-				+ DBConstants.CLAN_TOWERS_HISTORY__OWNER_BATTLE_WINS
-				+ ", "
-				+ DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_BATTLE_WINS
-				+ ", "
-				+ DBConstants.CLAN_TOWERS_HISTORY__NUM_HOURS_FOR_BATTLE
-				+ ", "
-				+ DBConstants.CLAN_TOWERS_HISTORY__LAST_REWARD_GIVEN
-				+ ", "
-				+ DBConstants.CLAN_TOWERS_HISTORY__REASON_FOR_ENTRY
-				+ ") VALUES ("
-				+ tower.getClanOwnerId()
-				+ ", "
-				+ tower.getClanAttackerId()
-				+ ","
-				+ tower.getId()
-				+ ", "
-				+ attStart
-				+ ", "
-				+ (tower.getAttackerBattleWins() > tower.getOwnerBattleWins() ? tower.getClanAttackerId()
-						: tower.getClanOwnerId()) + "," + tower.getOwnerBattleWins() + ", "
-				+ tower.getAttackerBattleWins() + ", " + tower.getNumHoursForBattle() + ", " + lastReward
-				+ ", " + "\"" + Notification.CLAN_TOWER_WAR_ENDED + "\")");
+	  int winnerId = (tower.getAttackerBattleWins() > tower.getOwnerBattleWins() ? tower.getClanAttackerId()
+        : tower.getClanOwnerId());
+    List<ClanTower> tList = new ArrayList<ClanTower>();
+    tList.add(tower);
+    List<Integer> wList = new ArrayList<Integer>();
+    wList.add(winnerId);
+	  UpdateUtils.get().updateTowerHistory(tList, Notification.CLAN_TOWER_WAR_ENDED, wList);
+//		String attStart = tower.getAttackStartTime() == null ? "null" : "\""
+//				+ new Timestamp(tower.getAttackStartTime().getTime()) + "\"";
+//		String lastReward = tower.getLastRewardGiven() == null ? "null" : "\""
+//				+ new Timestamp(tower.getLastRewardGiven().getTime()) + "\"";
+//		jdbcTemplate.execute("insert into "
+//				+ DBConstants.TABLE_CLAN_TOWERS_HISTORY
+//				+ " ("
+//				+ DBConstants.CLAN_TOWERS_HISTORY__OWNER_CLAN_ID
+//				+ ", "
+//				+ DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_CLAN_ID
+//				+ ", "
+//				+ DBConstants.CLAN_TOWERS_HISTORY__TOWER_ID
+//				+ ", "
+//				+ DBConstants.CLAN_TOWERS_HISTORY__ATTACK_START_TIME
+//				+ ", "
+//				+ DBConstants.CLAN_TOWERS_HISTORY__WINNER_ID
+//				+ ", "
+//				+ DBConstants.CLAN_TOWERS_HISTORY__OWNER_BATTLE_WINS
+//				+ ", "
+//				+ DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_BATTLE_WINS
+//				+ ", "
+//				+ DBConstants.CLAN_TOWERS_HISTORY__NUM_HOURS_FOR_BATTLE
+//				+ ", "
+//				+ DBConstants.CLAN_TOWERS_HISTORY__LAST_REWARD_GIVEN
+//				+ ", "
+//				+ DBConstants.CLAN_TOWERS_HISTORY__REASON_FOR_ENTRY
+//				+ ") VALUES ("
+//				+ tower.getClanOwnerId()
+//				+ ", "
+//				+ tower.getClanAttackerId()
+//				+ ","
+//				+ tower.getId()
+//				+ ", "
+//				+ attStart
+//				+ ", "
+//				+  + "," + tower.getOwnerBattleWins() + ", "
+//				+ tower.getAttackerBattleWins() + ", " + tower.getNumHoursForBattle() + ", " + lastReward
+//				+ ", " + "\"" +  + "\")");
 	}
 
 	@Scheduled(fixedRate = 10000)

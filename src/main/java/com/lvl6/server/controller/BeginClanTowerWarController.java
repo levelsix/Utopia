@@ -19,6 +19,7 @@ import com.lvl6.events.request.BeginClanTowerWarRequestEvent;
 import com.lvl6.events.response.BeginClanTowerWarResponseEvent;
 import com.lvl6.info.Clan;
 import com.lvl6.info.ClanTower;
+import com.lvl6.info.ClanTowerHistory;
 import com.lvl6.info.User;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.misc.Notification;
@@ -32,6 +33,7 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
+import com.lvl6.retrieveutils.ClanTowerHistoryRetrieveUtils;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
@@ -215,6 +217,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
           return false;
         } else {
+          // Check if it has been long enough since last battle on this tower
+          ClanTowerHistory cth = ClanTowerHistoryRetrieveUtils.getMostRecentClanTowerHistoryForTower(clanId, aTower.getId(), 1);
+          if (cth != null && cth.getTimeOfEntry() != null && cth.getTimeOfEntry().getTime()+ControllerConstants.NUM_HOURS_BEFORE_REWAGING_WAR_ON_TOWER*3600000 > curTime.getTime()) {
+            resBuilder.setStatus(BeginClanTowerWarStatus.NOT_ENOUGH_TIME_SINCE_LAST_BATTLE);
+            
+            int minsTillRebattle = (int)Math.ceil((cth.getTimeOfEntry().getTime()+ControllerConstants.NUM_HOURS_BEFORE_REWAGING_WAR_ON_TOWER*3600000-curTime.getTime())/60000.);
+            resBuilder.setNumMinutesTillNextAttack(minsTillRebattle);
+
+            return false;
+          }
 
           //no clan attacking tower, set only the attacker
           //TODO: FIGURE OUT WHAT STATUS TO RETURN WHEN SETTING THE ATTACKER OF A TOWER
@@ -225,6 +237,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           aTower.setAttackStartTime(curTime);
           aTower.setAttackerBattleWins(0);
           aTower.setOwnerBattleWins(0);
+          aTower.setCurrentBattleId(ClanTowerRetrieveUtils.getMaxBattleId()+1);
           return true;
         } 
       } else {
@@ -243,13 +256,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private void writeChangesToDB(ClanTower newClanTower, ClanTower oldClanTower, Clan aClan, Timestamp curTime) {
     List<ClanTower> tList = new ArrayList<ClanTower>();
     tList.add(oldClanTower);
-    UpdateUtils.get().updateTowerHistory(tList, Notification.CLAN_TOWER_WAR_ENDED);
+    
+    String reason = null;
+    if (oldClanTower.getClanOwnerId() <= 0) {
+      reason = Notification.CLAN_TOWER_CLAIMED;
+    } else {
+      reason = Notification.CLAN_TOWER_WAR_BEGAN;
+    }
+    List<Integer> wList = new ArrayList<Integer>();
+    wList.add(0);
+    UpdateUtils.get().updateTowerHistory(tList, reason, wList);
 
     if (!UpdateUtils.get().updateClanTowerOwnerAndOrAttacker(
         newClanTower.getId(), 
         newClanTower.getClanOwnerId(), newClanTower.getOwnedStartTime(), newClanTower.getOwnerBattleWins(),
         newClanTower.getClanAttackerId(), newClanTower.getAttackStartTime(), newClanTower.getAttackerBattleWins(),
-        newClanTower.getLastRewardGiven())) {
+        newClanTower.getLastRewardGiven(), newClanTower.getCurrentBattleId())) {
       log.error("problem with updating a clan tower during a BeginClanTowerWarRequest." +
           " clan tower=" + newClanTower +
           " clan=" + aClan +

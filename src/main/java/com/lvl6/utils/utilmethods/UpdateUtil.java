@@ -187,13 +187,13 @@ public interface UpdateUtil {
   
   public boolean incrementCurrentTierLevelForClan(int clanId);
   public abstract boolean updateClanTowerOwnerAndOrAttacker(int clanTowerId, int ownerId, Date ownedStartTime, int ownerBattleWins, 
-		  int attackerId, Date attackStartTime, int attackerBattleWins, Date lastRewardGiven);
+		  int attackerId, Date attackStartTime, int attackerBattleWins, Date lastRewardGiven, int battleId);
   
-  public abstract boolean updateClanTowerBattleWins(int clanTowerId, int ownerId, int attackerId, boolean ownerWon, int amountToIncrementBattleWinsBy);
+  public abstract boolean updateClanTowerBattleWins(int clanTowerId, int ownerId, int attackerId, boolean ownerWon, int amountToIncrementBattleWinsBy, int battleId);
   
   public abstract boolean resetClanTowerOwnerOrAttacker(List<Integer> clanTowerOwnerOrAttackerIds, boolean resetOwner);
   
-  public abstract boolean updateTowerHistory(List<ClanTower> towers, String reasonForEntry);
+  public abstract boolean updateTowerHistory(List<ClanTower> towers, String reasonForEntry, List<Integer> winnerIds);
   
   public boolean updateUsersAddDiamonds(List<Integer> userIds, int diamonds) ;
   

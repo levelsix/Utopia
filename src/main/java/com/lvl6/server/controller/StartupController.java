@@ -179,54 +179,30 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           startupStatus = StartupStatus.USER_IN_DB;
           log.info("No major update... getting user info");
           newNumConsecutiveDaysLoggedIn = 0;//setDailyBonusInfo(resBuilder, user, now);
-          int i = 0;
-          log.info(""+(i++));
           setCitiesAndUserCityInfos(resBuilder, user);
-          log.info(""+(i++));
           setInProgressAndAvailableQuests(resBuilder, user);
-          log.info(""+(i++));
           setUserEquipsAndEquips(resBuilder, user);
-          log.info(""+(i++));
-          setAllies(resBuilder, user);
-          log.info(""+(i++));
           resBuilder.setExperienceRequiredForNextLevel(
               LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(user.getLevel() + 1));
-          log.info(""+(i++));
           resBuilder.setExperienceRequiredForCurrentLevel(
               LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(user.getLevel()));
-          log.info(""+(i++));
           setNotifications(resBuilder, user);
-          log.info(""+(i++));
           setWhetherPlayerCompletedInAppPurchase(resBuilder, user);
-          log.info(""+(i++));
           setUnhandledForgeAttempts(resBuilder, user);
-          log.info(""+(i++));
           setNoticesToPlayers(resBuilder, user);
-          log.info(""+(i++));
           setUserClanInfos(resBuilder, user);
-          log.info(""+(i++));
           setLockBoxEvents(resBuilder, user);
-          log.info(""+(i++));
           setMarketplaceSearchEquips(resBuilder);
-          log.info(""+(i++));
           setStaticEquipsAndStructs(resBuilder);
-          log.info(""+(i++));
           setChatMessages(resBuilder, user);
-          log.info(""+(i++));
           setGoldSales(resBuilder);
-          log.info(""+(i++));
           resBuilder.addAllClanTierLevels(MiscMethods.getAllClanTierLevelProtos());
-          log.info(""+(i++));
           //if(server.lockClanTowersTable()) {
             setClanTowers(resBuilder);
-            log.info(""+(i++));
           //}
           resBuilder.addAllBossEvents(MiscMethods.currentBossEvents());
-          log.info(""+(i++));
           setLeaderboardEventStuff(resBuilder);
-          log.info(""+(i++));
           setEquipEnhancementStuff(resBuilder, user);
-          log.info(""+(i++));
           
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);

@@ -501,6 +501,7 @@ public class MiscMethods {
         .setBattleAttackExpoMultiplier(ControllerConstants.BATTLE__ATTACK_EXPO_MULTIPLIER)
         .setBattlePercentOfEquipment(ControllerConstants.BATTLE__PERCENT_OF_EQUIPMENT)
         .setBattleIndividualEquipAttackCap(ControllerConstants.BATTLE__INDIVIDUAL_EQUIP_ATTACK_CAP)
+        .setBattleEquipAndStatsWeight(ControllerConstants.BATTLE__EQUIP_AND_STATS_WEIGHT)
         .build();
 
     cb = cb.setBattleConstants(battleConstants);
@@ -896,19 +897,23 @@ public class MiscMethods {
       if(0 < towersOwned.size() || 0 < towersAttacked.size()) {
         List<Integer> ownedIds = new ArrayList<Integer>();
         List<Integer> attackedIds = new ArrayList<Integer>();
+        List<Integer> wOwnedList = new ArrayList<Integer>();
+        List<Integer> wAttackedList = new ArrayList<Integer>();
         for(ClanTower ct: towersOwned) {
           ownedIds.add(ct.getId());
+          wOwnedList.add(ct.getClanAttackerId());
         }
         for(ClanTower ct: towersAttacked) {
           attackedIds.add(ct.getId());
+          wAttackedList.add(ct.getClanOwnerId());
         }
 
         //update clan_towers_history table
-        if(!UpdateUtils.get().updateTowerHistory(towersOwned, Notification.OWNER_NOT_ENOUGH_MEMBERS)) {
+        if(!UpdateUtils.get().updateTowerHistory(towersOwned, Notification.OWNER_NOT_ENOUGH_MEMBERS, wOwnedList)) {
           log.error("Added more/less towers than the clan owned to clan_towers_history table, when clan " +
               "size decreased below the minimum limit. clan=" + aClan + " towersOwned=" + towersOwned);
         }
-        if(!UpdateUtils.get().updateTowerHistory(towersAttacked, Notification.ATTACKER_NOT_ENOUGH_MEMBERS)) {
+        if(!UpdateUtils.get().updateTowerHistory(towersAttacked, Notification.ATTACKER_NOT_ENOUGH_MEMBERS, wAttackedList)) {
           log.error("Added more/less towers than the clan attacked to clan_towers_history table, when clan " +
               "size decreased below the minimum limit. clan=" + aClan + " towersAttacked=" + towersAttacked);
         }

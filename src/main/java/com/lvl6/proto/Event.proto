@@ -474,6 +474,7 @@ message StartupResponseProto {
 			optional double battleAttackExpoMultiplier = 23;
 			optional double battlePercentOfEquipment = 24;
 			optional double battleIndividualEquipAttackCap = 25;
+			optional double battleEquipAndStatsWeight = 27;
 		}
 		
 		message ForgeConstants {
@@ -2319,6 +2320,7 @@ message BeginClanTowerWarRequestProto {
 message BeginClanTowerWarResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional BeginClanTowerWarStatus status = 2;
+	optional int32 numMinutesTillNextAttack = 3;
 	
 	enum BeginClanTowerWarStatus {
 		SUCCESS = 0;
@@ -2329,6 +2331,7 @@ message BeginClanTowerWarResponseProto {
 		OTHER_FAIL = 5;
 		TOWER_ALREADY_CLAIMED = 6;
 		SAME_SIDE = 7;
+		NOT_ENOUGH_TIME_SINCE_LAST_BATTLE = 8;
 	}
 }
 

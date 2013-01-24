@@ -24,6 +24,8 @@ public class Notification {
   public static final String ATTACKER_NOT_ENOUGH_MEMBERS = "attacker does not have enough members";
   public static final String OWNER_NOT_ENOUGH_MEMBERS = "owner does not have enough members";
   public static final String CLAN_TOWER_WAR_ENDED = "battle ended";
+  public static final String CLAN_TOWER_CLAIMED = "tower claimed";
+  public static final String CLAN_TOWER_WAR_BEGAN = "battle began";
   public static final String FOUND_AN_EPIC = "found an epic";
   
   /*
