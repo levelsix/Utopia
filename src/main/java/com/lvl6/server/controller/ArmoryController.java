@@ -127,14 +127,15 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         //        }
         
         int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), 
-            equipId, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+            equipId, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
         if (userEquipId < 0) {
           resBuilder.setStatus(ArmoryStatus.OTHER_FAIL);
           log.error("problem with giving 1 of equip " + equipId + " to buyer " + user.getId());
           legitBuy = false;
         } else {
           resBuilder.setFullUserEquipOfBoughtItem(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
-              new UserEquip(userEquipId, user.getId(), equipId, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0)));
+              new UserEquip(userEquipId, user.getId(), equipId, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 
+                  ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT)));
           if (equipment.getDiamondPrice() != Equipment.NOT_SET) {
             if (!InsertUtils.get().insertDiamondEquipPurchaseHistory(user.getId(), equipId, equipment.getDiamondPrice(), date)) {
               log.error("problem with inserting diamond equip into purchase history. equip id = " + equipId);

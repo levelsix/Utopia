@@ -92,7 +92,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           diamondCut, coinCut, postId);
 
       if (legitRetract) {
-        int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), mp.getPostedEquipId(), mp.getEquipLevel());
+        int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), mp.getPostedEquipId(), 
+            mp.getEquipLevel(), mp.getEquipEnhancementPercentage());
         if (userEquipId < 0) {
           resBuilder.setStatus(RetractMarketplacePostStatus.OTHER_FAIL);
           log.error("problem with giving user 1 more of equip " + mp.getPostedEquipId());

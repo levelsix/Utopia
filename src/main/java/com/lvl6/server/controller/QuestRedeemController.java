@@ -103,7 +103,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           }
         }
         if (quest.getEquipIdGained() > 0) {
-          int userEquipId = InsertUtils.get().insertUserEquip(userQuest.getUserId(), quest.getEquipIdGained(), ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+          int userEquipId = InsertUtils.get().insertUserEquip(userQuest.getUserId(), quest.getEquipIdGained(),
+              ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
           if (userEquipId < 0) {
             resBuilder.setStatus(QuestRedeemStatus.OTHER_FAIL);
             log.error("problem with giving user 1 reward equip after completing the quest, equipId=" 
@@ -111,7 +112,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             legitRedeem = false;
           } else {
             resBuilder.setEquipRewardFromQuest(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
-                new UserEquip(userEquipId, userQuest.getUserId(), quest.getEquipIdGained(), ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0)));
+                new UserEquip(userEquipId, userQuest.getUserId(), quest.getEquipIdGained(), 
+                    ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT)));
             gainedEquip = true;
           }
         }

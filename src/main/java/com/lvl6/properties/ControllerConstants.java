@@ -38,6 +38,7 @@ public class ControllerConstants {
   public static final int AVIARY_IMG_VERTICAL_PIXEL_OFFSET = 0;
   
   public static final int DEFAULT_USER_EQUIP_LEVEL = 1;
+  public static final int DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT = 0;
   
   //--------------------------------------------------------------------------------------------------------------------------
   
