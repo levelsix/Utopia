@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 
+import com.lvl6.info.BoosterItem;
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Structure;
@@ -1112,5 +1113,27 @@ public class UpdateUtils implements UpdateUtil {
       return true;
     }
     return false;
+  }
+  
+  //this method replaces existing rows with the same (single/composite) primary key
+  public boolean updateUserBoosterItemsForOneUser(int userId, 
+      Map<Integer, Integer> userBoosterItemIdsToQuantities) {
+    String tableName = DBConstants.TABLE_USER_BOOSTER_ITEMS;
+    List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
+    for (Integer biId : userBoosterItemIdsToQuantities.keySet()) {
+      int newQuantity = userBoosterItemIdsToQuantities.get(biId);
+      Map<String, Object> row = new HashMap<String, Object>();
+      row.put(DBConstants.USER_BOOSTER_ITEMS__BOOSTER_ITEM_ID, biId);
+      row.put(DBConstants.USER_BOOSTER_ITEMS__USER_ID, userId);
+      row.put(DBConstants.USER_BOOSTER_ITEMS__NUM_RECEIVED, newQuantity);
+      newRows.add(row);
+    }
+    
+    int numInserted = DBConnection.get().replaceIntoTableValues(tableName, newRows);
+    if(userBoosterItemIdsToQuantities.size() == numInserted) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
