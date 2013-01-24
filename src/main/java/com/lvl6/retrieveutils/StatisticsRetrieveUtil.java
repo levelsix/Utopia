@@ -124,6 +124,7 @@ public class StatisticsRetrieveUtil {
 		            	InAppPurchase inAppPurchase = new InAppPurchase();
 		            	inAppPurchase.setUserId(rs.getInt(DBConstants.IAP_HISTORY__USER_ID));
 		            	inAppPurchase.setCashSpent(Math.ceil(rs.getDouble(DBConstants.IAP_HISTORY__CASH_SPENT)));
+		            	inAppPurchase.setName(rs.getString(DBConstants.USER__NAME));
 		            	inAppPurchase.setPurchasedDate(new Date(rs.getTimestamp(DBConstants.IAP_HISTORY__PURCHASE_DATE).getTime()));
 		                return inAppPurchase;
 		            }
