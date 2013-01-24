@@ -190,7 +190,8 @@ public interface UpdateUtil {
   public abstract boolean updateClanTowerOwnerAndOrAttacker(int clanTowerId, int ownerId, Date ownedStartTime, int ownerBattleWins, 
 		  int attackerId, Date attackStartTime, int attackerBattleWins, Date lastRewardGiven, int battleId);
   
-  public abstract boolean updateClanTowerBattleWins(int clanTowerId, int ownerId, int attackerId, boolean ownerWon, int amountToIncrementBattleWinsBy, int battleId);
+  public abstract boolean updateClanTowerBattleWins(int clanTowerId, int ownerId, int attackerId, boolean ownerWon, int amountToIncrementBattleWinsBy, int battleId, int ownerUserId, 
+      int attackerUserId);
   
   public abstract boolean resetClanTowerOwnerOrAttacker(List<Integer> clanTowerOwnerOrAttackerIds, boolean resetOwner);
   

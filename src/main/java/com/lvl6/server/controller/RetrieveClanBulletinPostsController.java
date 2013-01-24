@@ -54,38 +54,34 @@ import com.lvl6.utils.RetrieveUtils;
     if (reqProto.hasBeforeThisPostId()) resBuilder.setBeforeThisPostId(beforeThisPostId);
 
     try {
-      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      Clan clan = null;
+      if (reqProto.getSender().hasClan() && reqProto.getSender().getClan().hasClanId()) {
+        clan = ClanRetrieveUtils.getClanWithId(reqProto.getSender().getClan().getClanId());
+      }
 
-      if (user == null) {
-        resBuilder.setStatus(RetrieveClanBulletinPostsStatus.OTHER_FAIL);
-        log.error("no user with id " + senderProto.getUserId());
+      if (clan == null) {
+        resBuilder.setStatus(RetrieveClanBulletinPostsStatus.NOT_IN_CLAN);
+        log.error("USER not in clan.");
       } else {
-        Clan clan = ClanRetrieveUtils.getClanWithId(user.getClanId());
+        resBuilder.setStatus(RetrieveClanBulletinPostsStatus.SUCCESS);
 
-        if (clan == null) {
-          resBuilder.setStatus(RetrieveClanBulletinPostsStatus.NOT_IN_CLAN);
-          log.error("USER not in clan. user: " + user);
+        List <ClanBulletinPost> activeClanBulletinPosts;
+        if (beforeThisPostId > 0) {
+          activeClanBulletinPosts = ClanBulletinPostRetrieveUtils.getMostRecentActiveClanBulletinPostsForClanBeforePostId(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, beforeThisPostId, clan.getId());        
         } else {
-          resBuilder.setStatus(RetrieveClanBulletinPostsStatus.SUCCESS);
-
-          List <ClanBulletinPost> activeClanBulletinPosts;
-          if (beforeThisPostId > 0) {
-            activeClanBulletinPosts = ClanBulletinPostRetrieveUtils.getMostRecentActiveClanBulletinPostsForClanBeforePostId(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, beforeThisPostId, clan.getId());        
-          } else {
-            activeClanBulletinPosts = ClanBulletinPostRetrieveUtils.getMostRecentClanBulletinPostsForClan(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, clan.getId());
-          }
-          if (activeClanBulletinPosts != null) {
-            if (activeClanBulletinPosts != null && activeClanBulletinPosts.size() > 0) {
-              List <Integer> userIds = new ArrayList<Integer>();
-              for (ClanBulletinPost p : activeClanBulletinPosts) {
-                userIds.add(p.getPosterId());
-              }
-              Map<Integer, User> usersByIds = null;
-              if (userIds.size() > 0) {
-                usersByIds = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
-                for (ClanBulletinPost pwp : activeClanBulletinPosts) {
-                  resBuilder.addClanBulletinPosts(CreateInfoProtoUtils.createClanBulletinPostProtoFromClanBulletinPost(pwp, usersByIds.get(pwp.getPosterId())));
-                }
+          activeClanBulletinPosts = ClanBulletinPostRetrieveUtils.getMostRecentClanBulletinPostsForClan(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, clan.getId());
+        }
+        if (activeClanBulletinPosts != null) {
+          if (activeClanBulletinPosts != null && activeClanBulletinPosts.size() > 0) {
+            List <Integer> userIds = new ArrayList<Integer>();
+            for (ClanBulletinPost p : activeClanBulletinPosts) {
+              userIds.add(p.getPosterId());
+            }
+            Map<Integer, User> usersByIds = null;
+            if (userIds.size() > 0) {
+              usersByIds = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
+              for (ClanBulletinPost pwp : activeClanBulletinPosts) {
+                resBuilder.addClanBulletinPosts(CreateInfoProtoUtils.createClanBulletinPostProtoFromClanBulletinPost(pwp, usersByIds.get(pwp.getPosterId())));
               }
             }
           }
@@ -100,7 +96,6 @@ import com.lvl6.utils.RetrieveUtils;
       server.writeEvent(resEvent);
     } catch (Exception e) {
       log.error("exception in RetrieveClanBulletinPostsController processEvent", e);
-    } finally {
     }
 
   }

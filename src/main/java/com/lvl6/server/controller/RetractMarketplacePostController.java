@@ -100,7 +100,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           legitRetract = false;
         } else {
           resBuilder.setRetractedUserEquip(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
-              new UserEquip(userEquipId, user.getId(), mp.getPostedEquipId(), mp.getEquipLevel(), 0)));
+              new UserEquip(userEquipId, user.getId(), mp.getPostedEquipId(), mp.getEquipLevel(), mp.getEquipEnhancementPercentage())));
         }
       }
       

@@ -24,7 +24,7 @@ import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 
-  @Component @DependsOn("gameServer") public class RetrievePlayerWallPostsController extends EventController{
+@Component @DependsOn("gameServer") public class RetrievePlayerWallPostsController extends EventController{
 
   private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
@@ -55,37 +55,31 @@ import com.lvl6.utils.RetrieveUtils;
     resBuilder.setRelevantUserId(relevantUserId);
     if (reqProto.hasBeforeThisPostId()) resBuilder.setBeforeThisPostId(beforeThisPostId);
 
-    server.lockPlayer(relevantUserId, this.getClass().getSimpleName());
     try {
-      User user = RetrieveUtils.userRetrieveUtils().getUserById(relevantUserId);
-      if (user == null) {
-        resBuilder.setStatus(RetrievePlayerWallPostsStatus.OTHER_FAIL);
-        log.error("no user with id " + relevantUserId);
+      resBuilder.setStatus(RetrievePlayerWallPostsStatus.SUCCESS);
+
+      List <PlayerWallPost> activePlayerWallPosts;
+      if (beforeThisPostId > 0) {
+        activePlayerWallPosts = PlayerWallPostRetrieveUtils.getMostRecentActivePlayerWallPostsForPlayerBeforePostId(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, beforeThisPostId, relevantUserId);        
       } else {
-        resBuilder.setStatus(RetrievePlayerWallPostsStatus.SUCCESS);
-        
-        List <PlayerWallPost> activePlayerWallPosts;
-        if (beforeThisPostId > 0) {
-          activePlayerWallPosts = PlayerWallPostRetrieveUtils.getMostRecentActivePlayerWallPostsForPlayerBeforePostId(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, beforeThisPostId, relevantUserId);        
-        } else {
-          activePlayerWallPosts = PlayerWallPostRetrieveUtils.getMostRecentPlayerWallPostsForWallOwner(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, relevantUserId);
-        }
-        if (activePlayerWallPosts != null) {
-          if (activePlayerWallPosts != null && activePlayerWallPosts.size() > 0) {
-            List <Integer> userIds = new ArrayList<Integer>();
-            for (PlayerWallPost p : activePlayerWallPosts) {
-              userIds.add(p.getPosterId());
-            }
-            Map<Integer, User> usersByIds = null;
-            if (userIds.size() > 0) {
-              usersByIds = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
-              for (PlayerWallPost pwp : activePlayerWallPosts) {
-                resBuilder.addPlayerWallPosts(CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, usersByIds.get(pwp.getPosterId())));
-              }
+        activePlayerWallPosts = PlayerWallPostRetrieveUtils.getMostRecentPlayerWallPostsForWallOwner(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, relevantUserId);
+      }
+      if (activePlayerWallPosts != null) {
+        if (activePlayerWallPosts != null && activePlayerWallPosts.size() > 0) {
+          List <Integer> userIds = new ArrayList<Integer>();
+          for (PlayerWallPost p : activePlayerWallPosts) {
+            userIds.add(p.getPosterId());
+          }
+          Map<Integer, User> usersByIds = null;
+          if (userIds.size() > 0) {
+            usersByIds = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
+            for (PlayerWallPost pwp : activePlayerWallPosts) {
+              resBuilder.addPlayerWallPosts(CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, usersByIds.get(pwp.getPosterId())));
             }
           }
         }
       }
+
       RetrievePlayerWallPostsResponseProto resProto = resBuilder.build();
 
       RetrievePlayerWallPostsResponseEvent resEvent = new RetrievePlayerWallPostsResponseEvent(senderProto.getUserId());
@@ -95,8 +89,6 @@ import com.lvl6.utils.RetrieveUtils;
       server.writeEvent(resEvent);
     } catch (Exception e) {
       log.error("exception in RetrievePlayerWallPostsController processEvent", e);
-    } finally {
-      server.unlockPlayer(relevantUserId, this.getClass().getSimpleName()); 
     }
 
   }

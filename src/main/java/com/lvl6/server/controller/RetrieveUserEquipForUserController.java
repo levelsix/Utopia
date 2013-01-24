@@ -47,7 +47,6 @@ import com.lvl6.utils.RetrieveUtils;
     resBuilder.setSender(senderProto);
     resBuilder.setRelevantUserId(relevantUserId);
 
-    server.lockPlayer(relevantUserId, this.getClass().getSimpleName());
     try {
       List<UserEquip> userEquips = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsForUser(relevantUserId);
       if (userEquips != null) {
@@ -64,8 +63,6 @@ import com.lvl6.utils.RetrieveUtils;
       server.writeEvent(resEvent);
     } catch (Exception e) {
       log.error("exception in RetrieveUserEquipForUserController processEvent", e);
-    } finally {
-      server.unlockPlayer(relevantUserId, this.getClass().getSimpleName()); 
     }
   }
 

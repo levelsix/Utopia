@@ -159,7 +159,7 @@ public class UpdateUtils implements UpdateUtil {
     absoluteParams.put(DBConstants.USER_EXPANSIONS__IS_EXPANDING, isExpanding);
 
     int numUpdated = DBConnection.get().insertOnDuplicateKeyUpdate(DBConstants.TABLE_USER_EXPANSIONS, insertParams, null, absoluteParams);
-    if (numUpdated == 1) {
+    if (numUpdated >= 1) {
       return true;
     }
     return false;
@@ -906,7 +906,8 @@ public class UpdateUtils implements UpdateUtil {
   //either updates the battle_wins for the owner of a clan tower
   //or the battle_wins for the attacker of a clan tower
   public boolean updateClanTowerBattleWins(int clanTowerId, int ownerId, int attackerId,
-      boolean ownerWon, int amountToIncrementBattleWinsBy, int battleId) {
+      boolean ownerWon, int amountToIncrementBattleWinsBy, int battleId, int ownerUserId, 
+      int attackerUserId) {
     String tableName = DBConstants.TABLE_CLAN_TOWERS;
 
     String ownerOrAttackerBattleWins = "";
@@ -939,7 +940,7 @@ public class UpdateUtils implements UpdateUtil {
       String changeKey = ownerWon ? DBConstants.CLAN_TOWER_USERS__POINTS_GAINED : DBConstants.CLAN_TOWER_USERS__POINTS_LOST;
       Map <String, Object> insertParams = new HashMap<String, Object>();
       insertParams.put(DBConstants.CLAN_TOWER_USERS__BATTLE_ID, battleId);
-      insertParams.put(DBConstants.CLAN_TOWER_USERS__USER_ID, ownerId);
+      insertParams.put(DBConstants.CLAN_TOWER_USERS__USER_ID, ownerUserId);
       insertParams.put(DBConstants.CLAN_TOWER_USERS__IS_IN_OWNER_CLAN, true);
       insertParams.put(changeKey, amountToIncrementBattleWinsBy);
 
@@ -949,11 +950,11 @@ public class UpdateUtils implements UpdateUtil {
       numUpdated = DBConnection.get().insertOnDuplicateKeyUpdate(DBConstants.TABLE_CLAN_TOWER_USERS, insertParams, 
           columnsToUpdate, null);
 
-      if (numUpdated == 1) {
+      if (numUpdated >= 1) {
         changeKey = !ownerWon ? DBConstants.CLAN_TOWER_USERS__POINTS_GAINED : DBConstants.CLAN_TOWER_USERS__POINTS_LOST;
         insertParams = new HashMap<String, Object>();
         insertParams.put(DBConstants.CLAN_TOWER_USERS__BATTLE_ID, battleId);
-        insertParams.put(DBConstants.CLAN_TOWER_USERS__USER_ID, attackerId);
+        insertParams.put(DBConstants.CLAN_TOWER_USERS__USER_ID, attackerUserId);
         insertParams.put(DBConstants.CLAN_TOWER_USERS__IS_IN_OWNER_CLAN, false);
         insertParams.put(changeKey, amountToIncrementBattleWinsBy);
 
@@ -963,7 +964,7 @@ public class UpdateUtils implements UpdateUtil {
         numUpdated = DBConnection.get().insertOnDuplicateKeyUpdate(DBConstants.TABLE_CLAN_TOWER_USERS, insertParams, 
             columnsToUpdate, null);
 
-        if (numUpdated == 1) {
+        if (numUpdated >= 1) {
           return true;
         }
       }

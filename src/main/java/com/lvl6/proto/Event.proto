@@ -2421,4 +2421,25 @@ message CollectEquipEnhancementResponseProto {
 	}
 }
 
+message RetrieveClanTowerUserInformationRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 towerId = 2;
+	optional int64 clientTime = 3; //this will be the time of speed up if speedUp is true
+	optional bool speedUp = 4;
+}
+
+message RetrieveClanTowerUserInformationResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional CollectEquipStatus status = 2;
+	optional FullUserEquipProto resultingEquip = 3;
+	
+	enum CollectEquipStatus {
+		SUCCESS = 0;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 1;
+		ENHANCEMENT_NOT_COMPLETE = 2;
+		OTHER_FAIL = 3;
+		NOT_ENOUGH_GOLD = 4;
+	}
+}
+
 	

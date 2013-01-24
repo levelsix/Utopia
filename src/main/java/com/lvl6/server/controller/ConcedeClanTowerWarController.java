@@ -217,7 +217,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     List<ClanTower> tList = new ArrayList<ClanTower>();
     tList.add(oldTower);
     List<Integer> wList = new ArrayList<Integer>();
-    wList.add(newOwnerId);
+    wList.add(winnerId);
     UpdateUtils.get().updateTowerHistory(tList, reasonForEntry, wList);
 
     //write changes to clan_towers table
