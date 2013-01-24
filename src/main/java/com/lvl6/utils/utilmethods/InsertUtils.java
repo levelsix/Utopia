@@ -527,7 +527,8 @@ public class InsertUtils implements InsertUtil{
   @Override
   public boolean insertMarketplaceItem(int posterId,
       MarketplacePostType postType, int postedEquipId, int diamondCost,
-      int coinCost, Timestamp timeOfPost, int equipLevel) {
+      int coinCost, Timestamp timeOfPost, int equipLevel,
+      int equipEnhancementPercent) {
     Map<String, Object> insertParams = new HashMap<String, Object>();
 
     insertParams.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
@@ -544,6 +545,11 @@ public class InsertUtils implements InsertUtil{
     }
     if (coinCost > 0) {
       insertParams.put(DBConstants.MARKETPLACE__COIN_COST, coinCost);
+    }
+    if(equipEnhancementPercent > 0) {
+      insertParams.put(
+          DBConstants.MARKETPLACE__EQUIP_ENHANCEMENT_PERCENT,
+          equipEnhancementPercent);
     }
 
     int numInserted = DBConnection.get().insertIntoTableBasic(
@@ -602,6 +608,9 @@ public class InsertUtils implements InsertUtil{
           DBConstants.MARKETPLACE_TRANSACTION_HISTORY__COIN_COST,
           mp.getCoinCost());
     }
+    
+    insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__EQUIP_ENHANCEMENT_PERCENT,
+        mp.getEquipEnhancementPercentage());
 
     int numInserted = DBConnection.get()
         .insertIntoTableBasic(

@@ -235,9 +235,10 @@ import com.lvl6.utils.DBConnection;
     if (coinCost == 0) coinCost = ControllerConstants.NOT_SET;
     
     int equipLevel = rs.getInt(i++);
-
+    int equipEnhacementPercent = rs.getInt(i++);
+    
     MarketplacePost mp = new MarketplacePost(id, posterId, postType, timeOfPost, 
-        postedEquipId, diamondCost, coinCost, equipLevel);
+        postedEquipId, diamondCost, coinCost, equipLevel, equipEnhacementPercent);
   
     return mp;
   }

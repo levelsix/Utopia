@@ -193,8 +193,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     int postedEquipId = equip.getId();
     int diamondCost = reqProto.getDiamondCost();
     int coinCost = reqProto.getCoinCost();
+    int equipEnhancementPercent = ue.getEnhancementPercentage();
     if (!insertUtils.insertMarketplaceItem(posterId, postType, postedEquipId, 
-        diamondCost, coinCost, timeOfPost, ue.getLevel())) {
+        diamondCost, coinCost, timeOfPost, ue.getLevel(), equipEnhancementPercent)) {
       log.error("problem with inserting post into marketplace. posterId=" + posterId
           + ", postType=" + postType + ", postedEquipId=" + postedEquipId
           + ", diamondCost=" + diamondCost + ", coinCost=" + coinCost

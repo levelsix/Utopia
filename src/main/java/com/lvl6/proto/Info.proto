@@ -627,6 +627,7 @@ message FullMarketplacePostProto {
 	optional int32 diamondCost = 6;
 	optional int32 coinCost = 7;
 	optional int32 equipLevel = 8;
+	optional int32 equipEnhancementPercent = 9;
 }
 
 //------------------------------------------------------------------------------------------
