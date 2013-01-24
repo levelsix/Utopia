@@ -1290,6 +1290,7 @@ public class MiscMethods {
     }
 
     int maxChange = (mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL+1)*ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL-mainEquip.getEnhancementPercentage();
+    maxChange = Math.min(maxChange, ControllerConstants.MAX_ENHANCEMENT_LEVEL*ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL-mainEquip.getEnhancementPercentage());
     log.info("totalChange="+totalChange+" maxChange="+maxChange);
     return Math.min(maxChange, totalChange);
   }
