@@ -228,6 +228,7 @@ public class DBConstants {
   public static final String MARKETPLACE__DIAMOND_COST = "diamond_cost";
   public static final String MARKETPLACE__COIN_COST = "coin_cost";
   public static final String MARKETPLACE__EQUIP_LEVEL = "equip_level";
+  public static final String MARKETPLACE__EQUIP_ENHANCEMENT_PERCENT = "equip_enhancement_percent";
 
   /*MARKETPLACE HISTORY TABLE*/
   public static final String MARKETPLACE_TRANSACTION_HISTORY__MARKETPLACE_ID = "marketplace_id";
@@ -241,6 +242,7 @@ public class DBConstants {
   public static final String MARKETPLACE_TRANSACTION_HISTORY__COIN_COST = "coin_cost";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__EQUIP_LEVEL = "equip_level";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__SELLER_HAS_LICENSE = "seller_has_license";
+  public static final String MARKETPLACE_TRANSACTION_HISTORY__EQUIP_ENHANCEMENT_PERCENT = "equip_enhancement_percent";
   
   /*BLACKSMITH TABLE*/
   public static final String BLACKSMITH__ID = GENERIC__ID;

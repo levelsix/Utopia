@@ -97,7 +97,8 @@ public interface InsertUtil {
 
   public abstract boolean insertMarketplaceItem(int posterId,
       MarketplacePostType postType, int postedEquipId, int diamondCost,
-      int coinCost, Timestamp timeOfPost, int equipLevel);
+      int coinCost, Timestamp timeOfPost, int equipLevel,
+      int enhancementPercent);
 
   public abstract boolean insertMarketplaceItemIntoHistory(
       MarketplacePost mp, int buyerId, boolean sellerHasLicense);

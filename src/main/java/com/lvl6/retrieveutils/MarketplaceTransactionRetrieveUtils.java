@@ -75,9 +75,10 @@ import com.lvl6.utils.DBConnection;
 
     int equipLevel = rs.getInt(i++);
     boolean sellerHadLicense = rs.getBoolean(i++);
+    int equipEnhancementPercent = rs.getInt(i++);
     
     MarketplacePost mp = new MarketplacePost(marketplaceId, posterId, postType, timeOfPost, 
-        postedEquipId, diamondCost, coinCost, equipLevel);
+        postedEquipId, diamondCost, coinCost, equipLevel, equipEnhancementPercent);
     
     return new MarketplaceTransaction(mp, buyerId, timeOfPurchase, sellerHadLicense);
   }

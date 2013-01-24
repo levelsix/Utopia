@@ -298,9 +298,11 @@ public class CreateInfoProtoUtils {
   public static FullMarketplacePostProto createFullMarketplacePostProtoFromMarketplacePost(MarketplacePost mp, User poster) {
     FullMarketplacePostProto.Builder builder = FullMarketplacePostProto.newBuilder().setMarketplacePostId(mp.getId())
         .setPoster(createMinimumUserProtoFromUser(poster)).setPostType(mp.getPostType())
-        .setTimeOfPost(mp.getTimeOfPost().getTime()).setPostedEquip(createFullEquipProtoFromEquip(
-            EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(mp.getPostedEquipId())))
-            .setEquipLevel(mp.getEquipLevel());
+        .setTimeOfPost(mp.getTimeOfPost().getTime())
+        .setPostedEquip(
+            createFullEquipProtoFromEquip(
+                EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(mp.getPostedEquipId())))
+        .setEquipLevel(mp.getEquipLevel()).setEquipEnhancementPercent(mp.getEquipEnhancementPercentage());
     if (mp.getDiamondCost() != ControllerConstants.NOT_SET) {
       builder.setDiamondCost(mp.getDiamondCost());
     }

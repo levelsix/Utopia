@@ -17,10 +17,11 @@ public class MarketplacePost implements Serializable {
   private int diamondCost = ControllerConstants.NOT_SET;
   private int coinCost = ControllerConstants.NOT_SET;
   private int equipLevel;
+  private int equipEnhancementPercentage;
 
   public MarketplacePost(int id, int posterId, MarketplacePostType postType,
       Date timeOfPost, int postedEquipId, int diamondCost, int coinCost,
-      int equipLevel) {
+      int equipLevel, int equipEnhancementPercentage) {
     this.id = id;
     this.posterId = posterId;
     this.postType = postType;
@@ -29,6 +30,7 @@ public class MarketplacePost implements Serializable {
     this.diamondCost = diamondCost;
     this.coinCost = coinCost;
     this.equipLevel = equipLevel;
+    this.equipEnhancementPercentage = equipEnhancementPercentage;
   }
 
   public int getId() {
@@ -63,11 +65,20 @@ public class MarketplacePost implements Serializable {
     return equipLevel;
   }
 
+  public int getEquipEnhancementPercentage() {
+    return equipEnhancementPercentage;
+  }
+
+  public void setEquipEnhancementPercentage(int equipEnhancementPercentage) {
+    this.equipEnhancementPercentage = equipEnhancementPercentage;
+  }
+
   @Override
   public String toString() {
     return "MarketplacePost [id=" + id + ", posterId=" + posterId
         + ", postType=" + postType + ", timeOfPost=" + timeOfPost
         + ", postedEquipId=" + postedEquipId + ", diamondCost=" + diamondCost
-        + ", coinCost=" + coinCost + ", equipLevel=" + equipLevel + "]";
+        + ", coinCost=" + coinCost + ", equipLevel=" + equipLevel
+        + ", equipEnhancementPercentage=" + equipEnhancementPercentage + "]";
   }
 }
