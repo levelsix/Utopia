@@ -2359,6 +2359,11 @@ message ChangedClanTowerResponseProto {
 	repeated ClanTowerProto clanTowers = 1;
 	optional ReasonForClanTowerChange reason = 2;
 	
+	optional MinimumUserProto attackerUser = 3;
+	optional MinimumUserProto defenderUser = 4;
+	optional bool attackerWon = 5;
+	optional int32 pointsGained = 6;
+	
 	enum ReasonForClanTowerChange {
 		ATTACKER_CONCEDED = 0;
 		OWNER_CONCEDED = 1;

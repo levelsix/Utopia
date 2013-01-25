@@ -1014,6 +1014,32 @@ public class MiscMethods {
     }
   }
 
+  public static void sendClanTowerProtosToClient(Collection<ClanTower> changedTowers,
+      GameServer server, ReasonForClanTowerChange reason, User attacker, User defender,
+      boolean attackerWon, int pointsGained) {
+    if(null != changedTowers && 0 < changedTowers.size()) {
+      ArrayList<ClanTowerProto> toSend = new ArrayList<ClanTowerProto>();
+      for(ClanTower tower: changedTowers) {
+        ClanTowerProto towerProto = 
+            CreateInfoProtoUtils.createClanTowerProtoFromClanTower(tower);
+        toSend.add(towerProto);
+      }
+
+      ChangedClanTowerResponseProto.Builder t = ChangedClanTowerResponseProto.newBuilder();
+      t.addAllClanTowers(toSend);
+      t.setAttackerUser(CreateInfoProtoUtils.createMinimumUserProtoFromUser(attacker));
+      t.setDefenderUser(CreateInfoProtoUtils.createMinimumUserProtoFromUser(defender));
+      t.setAttackerWon(attackerWon);
+      t.setPointsGained(pointsGained);
+      t.setReason(reason);
+
+      ChangedClanTowerResponseEvent e = new ChangedClanTowerResponseEvent(0);
+      e.setChangedClanTowerResponseProto(t.build());
+
+      server.writeGlobalEvent(e);
+    }
+  }
+
   public static void writeGlobalNotification(Notification n, GameServer server) {
     GeneralNotificationResponseProto.Builder notificationProto = 
         n.generateNotificationBuilder();
