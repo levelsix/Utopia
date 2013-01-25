@@ -52,6 +52,7 @@ import com.lvl6.utils.RetrieveUtils;
     
     Builder resBuilder = RetrieveClanTowerScoresResponseProto.newBuilder();
     resBuilder.setSender(reqProto.getSender());
+    resBuilder.setTowerId(towerId);
 
     try {
       ClanTower clanTower = ClanTowerRetrieveUtils.getClanTower(towerId);

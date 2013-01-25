@@ -2431,6 +2431,7 @@ message RetrieveClanTowerScoresResponseProto {
 	optional RetrieveClanTowerScoresStatus status = 2;
 	repeated MinimumUserProtoForClanTowerScores ownerMembers = 3;
 	repeated MinimumUserProtoForClanTowerScores attackerMembers = 4;
+	optional int32 towerId = 5;
 	
 	enum RetrieveClanTowerScoresStatus {
 		SUCCESS = 0;
