@@ -1,6 +1,7 @@
 package com.lvl6.utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.BattleDetails;
 import com.lvl6.info.BlacksmithAttempt;
+import com.lvl6.info.BoosterItem;
+import com.lvl6.info.BoosterPack;
 import com.lvl6.info.Boss;
 import com.lvl6.info.BossEvent;
 import com.lvl6.info.City;
@@ -58,6 +61,8 @@ import com.lvl6.proto.EventProto.StartupResponseProto.AttackedNotificationProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNotificationProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.AnimatedSpriteOffsetProto;
+import com.lvl6.proto.InfoProto.BoosterItemProto;
+import com.lvl6.proto.InfoProto.BoosterPackProto;
 import com.lvl6.proto.InfoProto.BossEventProto;
 import com.lvl6.proto.InfoProto.BuildStructJobProto;
 import com.lvl6.proto.InfoProto.ClanBulletinPostProto;
@@ -117,6 +122,8 @@ import com.lvl6.proto.InfoProto.PlayerWallPostProto;
 import com.lvl6.proto.InfoProto.PossessEquipJobProto;
 import com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto;
 import com.lvl6.proto.InfoProto.UpgradeStructJobProto;
+import com.lvl6.proto.InfoProto.UserBoosterItemProto;
+import com.lvl6.proto.InfoProto.UserBoosterPackProto;
 import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.InfoProto.UserLockBoxEventProto;
 import com.lvl6.proto.InfoProto.UserLockBoxItemProto;
@@ -1088,6 +1095,49 @@ public class CreateInfoProtoUtils {
     bldr.setPointsGained(pointsGained);
     bldr.setPointsLost(pointsLost);
     return bldr.build();
+  }
+
+  public static BoosterItemProto createBoosterItemProto(BoosterItem bi) {
+    BoosterItemProto.Builder b = BoosterItemProto.newBuilder()
+        .setId(bi.getId()).setEquipId(bi.getEquipId()).setQuantity(bi.getQuantity())
+        .setIsSpecial(bi.isSpecial());
+    return b.build();
+  }
+  
+  public static BoosterPackProto createBoosterPackProto(BoosterPack bp, Collection<BoosterItem> biList) {
+    BoosterPackProto.Builder b = BoosterPackProto.newBuilder()
+        .setId(bp.getId()).setCoinCost(bp.getCoinCost()).setDiamondCost(bp.getDiamondCost())
+        .setName(bp.getName()).setImage(bp.getImage())
+        .setDescription(bp.getDescription()).setNumEquips(bp.getNumEquips());
+    
+    List<BoosterItemProto> biProtos = new ArrayList<BoosterItemProto>();
+    for(BoosterItem bi : biList) {
+      biProtos.add(createBoosterItemProto(bi));
+    }
+    b.addAllBoosterItems(biProtos);
+    return b.build();
+  }
+  
+  public static UserBoosterItemProto createUserBoosterItemProto (int boosterItemId, int userId,
+      int numReceived) {
+    UserBoosterItemProto.Builder b = UserBoosterItemProto.newBuilder()
+        .setBoosterItemId(boosterItemId).setUserId(userId).setNumReceived(numReceived);
+    return b.build();
+  }
+  
+  public static UserBoosterPackProto createUserBoosterPackProto (int boosterPackId, int userId, 
+      Map<Integer, Integer> userBoosterItemIdsToQuantities) {
+    UserBoosterPackProto.Builder  b = UserBoosterPackProto.newBuilder()
+    .setBoosterPackId(boosterPackId).setUserId(userId);
+    
+    List<UserBoosterItemProto> ubiProtoList = new ArrayList<UserBoosterItemProto>();
+    for(Integer boosterItemId : userBoosterItemIdsToQuantities.keySet()) {
+      int quantity = userBoosterItemIdsToQuantities.get(boosterItemId);
+      UserBoosterItemProto ubiProto = createUserBoosterItemProto(boosterItemId, userId, quantity);
+      ubiProtoList.add(ubiProto);
+    }
+    b.addAllUserBoosterItems(ubiProtoList);
+    return b.build();
   }
   
 }

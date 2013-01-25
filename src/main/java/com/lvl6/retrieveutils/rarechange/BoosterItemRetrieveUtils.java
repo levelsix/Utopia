@@ -36,7 +36,7 @@ import com.lvl6.utils.DBConnection;
     return boosterItemIdsToBoosterItems;
   }
   
-  public Map<Integer, Map<Integer, BoosterItem>> getBoosterItemIdsToBoosterItemsForBoosterPackIds() {
+  public static Map<Integer, Map<Integer, BoosterItem>> getBoosterItemIdsToBoosterItemsForBoosterPackIds() {
     if(null == boosterItemIdsToBoosterItemsForBoosterPackIds) {
       setStaticBoosterItemIdsToBoosterItemsForBoosterPackIds();
     }

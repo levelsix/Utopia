@@ -21,7 +21,7 @@ import com.lvl6.utils.DBConnection;
   private static final String TABLE_NAME = DBConstants.TABLE_USER_BOOSTER_ITEMS;
   
   public static Map<Integer, Integer> getBoosterItemIdsToQuantityForUser(int userId) {
-    log.debug("retrieving lock box item ids to num lock boxes map for userId " + userId);
+    log.debug("retrieving booster item ids to num booster items map for userId " + userId);
     
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
