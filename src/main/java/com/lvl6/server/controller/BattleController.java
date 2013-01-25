@@ -434,13 +434,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   //else the attacker's battle wins is incremented, does nothing if list of towers is null/empty
   //returns changed towers
   private List<ClanTower> incrementBattleWins(List<ClanTower> towers, boolean incrementOwnerBattleWins, int ownerUserId,
-      int attackerUserId) {
+      int attackerUserId, int pointsGained) {
     List<ClanTower> changedTowers = new ArrayList<ClanTower>();
     String ownerOrAttacker = incrementOwnerBattleWins ? "owner" : "attacker";
     for(ClanTower aTower : towers) {
       if(!UpdateUtils.get().updateClanTowerBattleWins(
           aTower.getId(), aTower.getClanOwnerId(), aTower.getClanAttackerId(),
-          incrementOwnerBattleWins, 1, aTower.getCurrentBattleId(), ownerUserId, attackerUserId)) {
+          incrementOwnerBattleWins, pointsGained, aTower.getCurrentBattleId(), ownerUserId, attackerUserId)) {
         log.error("(no rows updated) problem with updating tower's battle wins. " +
             "tower=" + aTower + " The " + ownerOrAttacker + "'s " +
             "battle wins were not incremented.");
@@ -461,6 +461,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int attackerId = attacker.getClanId();
     int defenderId = defender.getClanId();
     boolean ownerAndAttackerAreEnemies = true;
+    int pointsGained = 1;
     
     if (attackerId == ControllerConstants.NOT_SET || defenderId == ControllerConstants.NOT_SET) {
       return;
@@ -474,16 +475,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         defenderId, attackerId, ownerAndAttackerAreEnemies);
 
     if (winner == attacker) {
-      incrementBattleWins(attackerIsClanTowerOwner, true, attacker.getId(), defender.getId());//increment clan tower's owner battle wins
-      incrementBattleWins(defenderIsClanTowerOwner, false, defender.getId(), attacker.getId());//increment clan tower's attacker battle wins
+      incrementBattleWins(attackerIsClanTowerOwner, true, attacker.getId(), defender.getId(), pointsGained);//increment clan tower's owner battle wins
+      incrementBattleWins(defenderIsClanTowerOwner, false, defender.getId(), attacker.getId(), pointsGained);//increment clan tower's attacker battle wins
     } else if (winner == defender) {
-      incrementBattleWins(defenderIsClanTowerOwner, true, defender.getId(), attacker.getId());//increment clan tower's owner battle wins
-      incrementBattleWins(attackerIsClanTowerOwner, false, attacker.getId(), defender.getId());//increment clan tower's attacker battle wins
+      incrementBattleWins(defenderIsClanTowerOwner, true, defender.getId(), attacker.getId(), pointsGained);//increment clan tower's owner battle wins
+      incrementBattleWins(attackerIsClanTowerOwner, false, attacker.getId(), defender.getId(), pointsGained);//increment clan tower's attacker battle wins
     }
     //defenderIsClanTowerOwner contains half of the towers, so add into it the other half
     defenderIsClanTowerOwner.addAll(attackerIsClanTowerOwner);
     if(!defenderIsClanTowerOwner.isEmpty()) { //send towers only if there are towers
-      MiscMethods.sendClanTowerProtosToClient(new HashSet<ClanTower>(defenderIsClanTowerOwner), server, ReasonForClanTowerChange.NUM_BATTLE_WINS_CHANGED);
+      MiscMethods.sendClanTowerProtosToClient(new HashSet<ClanTower>(defenderIsClanTowerOwner), server, ReasonForClanTowerChange.NUM_BATTLE_WINS_CHANGED, 
+          attacker, defender, winner==attacker, pointsGained);
     }
   }
 
