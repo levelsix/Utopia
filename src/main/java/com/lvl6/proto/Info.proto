@@ -19,9 +19,10 @@ message BoosterPackProto {
 	optional int32 coinCost = 2;
 	optional int32 diamondCost = 3;
 	optional string name = 4;
-	optional string description = 5;
-	optional int32 numEquips = 6;
-	repeated BoosterItemProto boosterItems = 7; 
+	optional string image = 5;
+	optional string description = 6;
+	optional int32 numEquips = 7;
+	repeated BoosterItemProto boosterItems = 8; 
 }
 
 message BoosterItemProto {
