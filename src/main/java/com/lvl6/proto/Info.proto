@@ -2,6 +2,18 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+message UserBoosterPackProto {
+	optional int32 boosterPackId = 1;
+	optional int32 userId = 2;
+	repeated UserBoosterItemProto userBoosterItems = 3;
+}
+
+message UserBoosterItemProto {
+	optional int32 boosterItemId = 1;
+	optional int32 userId = 2;
+	optional int32 numReceived = 3;
+}
+
 message BoosterPackProto {
 	optional int32 id = 1;
 	optional int32 coinCost = 2;
