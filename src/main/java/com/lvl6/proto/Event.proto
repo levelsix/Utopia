@@ -2447,6 +2447,12 @@ message RetrieveBoosterPackResponseProto {
 	optional MinimumUserProto sender = 1;
 	repeated BoosterPackProto packs = 2;
 	repeated UserBoosterPackProto userPacks = 3;
+	optional RetrieveBoosterPackStatus status = 4;
+	
+	enum RetrieveBoosterPackStatus {
+     	SUCCESS = 0;
+     	SOME_FAIL = 1;
+     }
 }
 
 	
