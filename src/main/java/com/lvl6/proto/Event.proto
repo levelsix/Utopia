@@ -1580,12 +1580,14 @@ message SendAdminMessageResponseProto {
 message RetrieveUsersForUserIdsRequestProto {
     optional MinimumUserProto sender = 1;
 	repeated int32 requestedUserIds = 2;
+	optional bool includePotentialPointsForClanTowers = 3;
 }
 
 																						//DONE
 message RetrieveUsersForUserIdsResponseProto {
     optional MinimumUserProto sender = 1;
 	repeated FullUserProto requestedUsers = 2;
+	repeated int32 potentialPoints = 3;
 }
 
 //------------------------------------------------------------------------------------------

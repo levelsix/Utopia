@@ -1279,7 +1279,7 @@ public class MiscMethods {
     double enhance = Math.pow(ControllerConstants.ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE, enhanceLevel);
 
     int result = (int)Math.ceil(eq.getAttackBoost()*forge*enhance);
-    log.info("attack="+result);
+//    log.info("attack="+result);
     return result;
   }
   
@@ -1289,21 +1289,18 @@ public class MiscMethods {
     double enhance = Math.pow(ControllerConstants.ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE, enhanceLevel);
     
     int result = (int)Math.ceil(eq.getDefenseBoost()*forge*enhance);
-    log.info("defense="+result);
+//    log.info("defense="+result);
     return result;
   }
   
   private static int totalMinutesToLevelUpEnhancementEquip(EquipEnhancement e) {
     Equipment eq = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(e.getEquipId());
     double result = ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_A*Math.pow(e.getEquipLevel(), ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_B);
-    log.info("1="+result);
     result = Math.pow(result, (ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_C+ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_D*(eq.getRarity().getNumber()+1)));
-    log.info("2="+result);
     result *= Math.pow(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_E, (eq.getMinLevel()/ControllerConstants.AVERAGE_SIZE_OF_LEVEL_BRACKET*ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_F));
-    log.info("3="+result);
     result *= Math.pow(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_G, e.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL+1);
     
-    log.info("minutes="+result);
+//    log.info("minutes="+result);
     return (int)Math.max(result, 1);
   }
   
@@ -1316,7 +1313,7 @@ public class MiscMethods {
         Math.pow(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B, mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL+1))*
         ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL);
     
-    log.info("percentage="+result);
+//    log.info("percentage="+result);
     return result;
   }
   
@@ -1329,7 +1326,7 @@ public class MiscMethods {
 
     int maxChange = (mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL+1)*ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL-mainEquip.getEnhancementPercentage();
     maxChange = Math.min(maxChange, ControllerConstants.MAX_ENHANCEMENT_LEVEL*ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL-mainEquip.getEnhancementPercentage());
-    log.info("totalChange="+totalChange+" maxChange="+maxChange);
+//    log.info("totalChange="+totalChange+" maxChange="+maxChange);
     return Math.min(maxChange, totalChange);
   }
   
@@ -1339,7 +1336,7 @@ public class MiscMethods {
     int totalTime = totalMinutesToLevelUpEnhancementEquip(mainEquip);
     int result = (int)Math.ceil(percent*totalTime);
     
-    log.info("time for enhance="+result);
+//    log.info("time for enhance="+result);
     return result;
   }
   
@@ -1348,7 +1345,13 @@ public class MiscMethods {
     int mins = calculateMinutesToFinishEnhancing(e, feeder);
     int result = (int)Math.ceil(((float)mins)/ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
     
-    log.info("diamonds="+result);
+//    log.info("diamonds="+result);
     return result;
+  }
+  
+  public static int pointsGainedForClanTowerUserBattle(User winner, User loser) {
+    int pts = winner.getLevel()-loser.getLevel()+10;
+    
+    return Math.max(1, pts);
   }
 }

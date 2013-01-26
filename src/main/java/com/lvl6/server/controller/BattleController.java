@@ -461,7 +461,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int attackerId = attacker.getClanId();
     int defenderId = defender.getClanId();
     boolean ownerAndAttackerAreEnemies = true;
-    int pointsGained = 1;
+    int pointsGained = MiscMethods.pointsGainedForClanTowerUserBattle(winner, loser);
     
     if (attackerId == ControllerConstants.NOT_SET || defenderId == ControllerConstants.NOT_SET) {
       return;
