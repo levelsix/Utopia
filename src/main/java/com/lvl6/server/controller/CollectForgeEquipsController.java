@@ -86,12 +86,13 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           //forge quest
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.SUCCESSFULLY_FORGE_AN_ITEM, true);
         } else {
-          
-          
+          //retain the equip enhancement percents
+          int equipOneEnhancementPercent = blacksmithAttempt.getEquipOneEnhancementPercent();
+          int equipTwoEnhancementPercent = blacksmithAttempt.getEquipTwoEnhancementPercent();
           int newUserEquipId1 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1,
-              ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
+              equipOneEnhancementPercent);
           int newUserEquipId2 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1,
-              ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
+              equipTwoEnhancementPercent);
           
           if (newUserEquipId1 < 0 || newUserEquipId2 < 0) {
             resBuilder.setStatus(CollectForgeEquipsStatus.OTHER_FAIL);
@@ -99,9 +100,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
             legitCollection = false;
           } else {
               resBuilder.addUserEquips(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
-                new UserEquip(newUserEquipId1, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1, 0)));
+                new UserEquip(newUserEquipId1, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1, equipOneEnhancementPercent)));
               resBuilder.addUserEquips(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
-                new UserEquip(newUserEquipId2, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1, 0)));
+                new UserEquip(newUserEquipId2, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1, equipTwoEnhancementPercent)));
           }
         }
       }
