@@ -1116,6 +1116,7 @@ public class MiscMethods {
       //gold first then silver
       List<Integer> changesToCurrencies = new ArrayList<Integer>(amount);
       List<Integer> previousCurrencies = new ArrayList<Integer>(amount);
+      List<Integer> currentCurrencies = new ArrayList<Integer>(amount);
       List<String> reasonsForChanges = new ArrayList<String>(Collections.nCopies(amount, reasonForChange));
 
       areSilver.add(0); //gold
@@ -1128,22 +1129,28 @@ public class MiscMethods {
 
       int previousGold = 0;
       int previousSilver = 0;
+      int currentGold = aUser.getDiamonds();
+      int currentSilver = aUser.getCoins();
+      
       if(null == previousGoldSilver) {
         //difference instead of sum because of example:
         //u.gold = 10; change = -5 => u.gold = 5
         //previous_gold = 5 - -5 = 10
-        previousGold = aUser.getDiamonds() - goldChange;
-        previousSilver = aUser.getCoins() - silverChange;
+        previousGold = currentGold - goldChange;
+        previousSilver = currentSilver - silverChange;
       } else {
+        
         previousGold = previousGoldSilver.get(gold);
         previousSilver = previousGoldSilver.get(silver);
       }
       previousCurrencies.add(previousGold);
       previousCurrencies.add(previousSilver);
+      currentCurrencies.add(currentGold);
+      currentCurrencies.add(currentSilver);
       
       //using multiple rows because 2 entries: one for silver, other for gold
       InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates, areSilver,
-          changesToCurrencies, previousCurrencies, reasonsForChanges);
+          changesToCurrencies, previousCurrencies, currentCurrencies, reasonsForChanges);
     } catch(Exception e) {
       log.error("Maybe table's not there or duplicate keys? ", e);
     }
@@ -1189,7 +1196,7 @@ public class MiscMethods {
       }
       
       InsertUtils.get().insertIntoUserCurrencyHistory(
-          userId, date, isSilver, currencyChange, currencyBefore, reasonForChange);
+          userId, date, isSilver, currencyChange, currencyBefore, currentCurrency, reasonForChange);
     } catch(Exception e) {
       log.error("null pointer exception?", e);
     }

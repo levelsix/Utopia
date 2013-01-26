@@ -560,6 +560,7 @@ public class DBConstants {
   public static final String USER_CURRENCY_HISTORY__IS_SILVER = "is_silver";
   public static final String USER_CURRENCY_HISTORY__CURRENCY_CHANGE = "currency_change";
   public static final String USER_CURRENCY_HISTORY__CURRENCY_BEFORE_CHANGE = "currency_before_change";
+  public static final String USER_CURRENCY_HISTORY__CURRENCY_AFTER_CHANGE = "currency_after_change";
   public static final String USER_CURRENCY_HISTORY__REASON_FOR_CHANGE = "reason_for_change";
  
   /*BOOSTER PACK*/

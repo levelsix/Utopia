@@ -155,8 +155,10 @@ public class LeaderboardEventScheduledTasks {
 			}
 			//try catch not necessary, just precaution.
 			try {
+			  Map<Integer, User> uMap = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
+			  List<Integer> currentCurrencies = getCurrentGold(userIds, uMap);
 			  int numInserted = InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates, 
-			      areSilver, goldSilverChange, previousGoldSilver, reasonsForChanges);
+			      areSilver, goldSilverChange, previousGoldSilver, currentCurrencies, reasonsForChanges);
 			  log.info("Should be " + userIds.size() + ". Rows inserted into user_currency_history: " + numInserted);
 			} catch(Exception e) {
 			  log.error("Maybe table's not there or duplicate keys? ", e);
@@ -185,6 +187,15 @@ public class LeaderboardEventScheduledTasks {
 		
 		//SEND NOTIFICATION FOR END OF TOURNAMENT (LEADERBOARD EVENT)
 		notificationStuff(event, rewards, userIdsToUsers);
+	}
+	
+	public List<Integer> getCurrentGold (List<Integer> userIds, Map<Integer, User> uMap) {
+	  List<Integer> gold = new ArrayList<Integer>();
+	  for (Integer uId : userIds) {
+	    User aUser = uMap.get(uId);
+	    gold.add(aUser.getDiamonds());
+	  }
+	  return gold;
 	}
 	
 	private void notificationStuff(LeaderboardEvent event, List<LeaderboardEventReward> rewards,

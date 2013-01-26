@@ -932,7 +932,7 @@ public class InsertUtils implements InsertUtil{
   
   //0 for isSilver means currency is gold; 1 for isSilver means currency is silver
   public int insertIntoUserCurrencyHistory (int userId, Timestamp date, int isSilver, 
-      int currencyChange, int currencyBefore, String reasonForChange) {
+      int currencyChange, int currencyBefore, int currencyAfter, String reasonForChange) {
     String tableName = DBConstants.TABLE_USER_CURRENCY_HISTORY;
     Map<String, Object> insertParams = new HashMap<String, Object>();
     
@@ -941,6 +941,7 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.USER_CURRENCY_HISTORY__IS_SILVER, isSilver);
     insertParams.put(DBConstants.USER_CURRENCY_HISTORY__CURRENCY_CHANGE, currencyChange);
     insertParams.put(DBConstants.USER_CURRENCY_HISTORY__CURRENCY_BEFORE_CHANGE, currencyBefore);
+    insertParams.put(DBConstants.USER_CURRENCY_HISTORY__CURRENCY_AFTER_CHANGE, currencyAfter);
     insertParams.put(DBConstants.USER_CURRENCY_HISTORY__REASON_FOR_CHANGE, reasonForChange);
     
     //number of rows inserted
@@ -954,9 +955,9 @@ public class InsertUtils implements InsertUtil{
    * they make up the values for one row to insert into user_currency_history
    */
   @SuppressWarnings("unchecked") //the generics issue noted below
-  public int insertIntoUserCurrencyHistoryMultipleRows(List<Integer> userIds,
-      List<Timestamp> dates, List<Integer> areSilver, List<Integer> changesToCurrencies,
-      List<Integer> previousCurrencies, List<String> reasonsForChanges) {
+  public int insertIntoUserCurrencyHistoryMultipleRows(List<Integer> userIds, List<Timestamp> dates, 
+      List<Integer> areSilver, List<Integer> changesToCurrencies, List<Integer> previousCurrencies, 
+      List<Integer> currentCurrencies, List<String> reasonsForChanges) {
     String tablename = DBConstants.TABLE_USER_CURRENCY_HISTORY;
     
     //did not add generics because eclipse shows errors like: can't accept  (String, List<Integer>), needs (String, List<Object>)
@@ -974,6 +975,7 @@ public class InsertUtils implements InsertUtil{
     if(null != previousCurrencies && 0 < previousCurrencies.size()) {
       insertParams.put(DBConstants.USER_CURRENCY_HISTORY__CURRENCY_BEFORE_CHANGE, previousCurrencies);
     }
+    insertParams.put(DBConstants.USER_CURRENCY_HISTORY__CURRENCY_AFTER_CHANGE, currentCurrencies);
     insertParams.put(DBConstants.USER_CURRENCY_HISTORY__REASON_FOR_CHANGE, reasonsForChanges);
     
     int numInserted = DBConnection.get().insertIntoTableMultipleRows(tablename, 

@@ -432,14 +432,17 @@ public class EarnFreeDiamondsController extends EventController {
       int isSilver;
       int currencyChange = money.get(0);
       int currencyBefore;
+      int currencyAfter;
       String reasonForChange = "earn free diamonds controller";
       
       if(keys.get(0).equals(MiscMethods.silver)) {
         isSilver = 1;
-        currencyBefore = aUser.getCoins() - currencyChange;
+        currencyAfter = aUser.getCoins();
+        currencyBefore = currencyAfter - currencyChange;
       } else {
         isSilver = 0;
-        currencyBefore = aUser.getDiamonds() - currencyChange;
+        currencyAfter = aUser.getDiamonds();
+        currencyBefore = currencyAfter - currencyChange;
       }
       
       if (freeDiamondsType == EarnFreeDiamondsType.KIIP) {
@@ -449,7 +452,7 @@ public class EarnFreeDiamondsController extends EventController {
       }
       
       int inserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver,
-          currencyChange, currencyBefore, reasonForChange);
+          currencyChange, currencyBefore, currencyAfter, reasonForChange);
 
       log.info("Should be 1. Rows inserted into user_currency_history: " + inserted);
     } catch (Exception e) {

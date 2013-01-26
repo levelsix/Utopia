@@ -156,9 +156,9 @@ public interface InsertUtil {
   public abstract int insertIntoRefillStatHistory(int userId, boolean staminaRefill, int staminaMax, int goldCost);
   
   public abstract int insertIntoUserCurrencyHistory (int userId, Timestamp date, int isSilver, 
-      int currencyChange, int currencyBefore, String reasonForChange);
+      int currencyChange, int currencyBefore, int currencyAfter, String reasonForChange);
   
   public abstract int insertIntoUserCurrencyHistoryMultipleRows (List<Integer> userIds,
       List<Timestamp> dates, List<Integer> areSilver, List<Integer> currenciesChange,
-      List<Integer> currenciesBefore, List<String> reasonsForChanges);
+      List<Integer> currenciesBefore, List<Integer> currentCurrencies, List<String> reasonsForChanges);
 }

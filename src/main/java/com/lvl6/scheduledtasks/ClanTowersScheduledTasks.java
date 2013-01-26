@@ -308,11 +308,13 @@ public class ClanTowersScheduledTasks {
 			List<Timestamp> dates = new ArrayList<Timestamp>(Collections.nCopies(amount, new Timestamp(now)));
 			List<Integer> areSilver = new ArrayList<Integer>(Collections.nCopies(amount, 0));
 			List<Integer> currenciesChange = new ArrayList<Integer>(Collections.nCopies(amount, gold));
-			List<Integer> currenciesBefore = getCurrenciesBefore(users, gold);
+			List<Integer> currenciesBefore = new ArrayList<Integer>();
+			List<Integer> currenciesAfter = new ArrayList<Integer>();
+			getCurrenciesBeforeAndAfter(users, gold, currenciesBefore, currenciesAfter);
 			List<String> reasonsForChanges = new ArrayList<String>(Collections.nCopies(amount,
 					ControllerConstants.UCHRFC__CLAN_TOWER_WAR_ENDED));
 			int numInserted = InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates,
-					areSilver, currenciesChange, currenciesBefore, reasonsForChanges);
+					areSilver, currenciesChange, currenciesBefore, currenciesAfter, reasonsForChanges);
 			log.info("Should be " + userIds.size() + ". Rows inserted into user_currency_history: "
 					+ numInserted);
 		} catch (Exception e) {
@@ -320,15 +322,16 @@ public class ClanTowersScheduledTasks {
 		}
 	}
 
-	private List<Integer> getCurrenciesBefore(List<User> users, int goldRewarded) {
-		List<Integer> returnVal = new ArrayList<Integer>();
+	private void getCurrenciesBeforeAndAfter(List<User> users, int goldRewarded,
+	    List<Integer> currenciesBefore, List<Integer> currenciesAfter) {
 		for (User u : users) {
-			returnVal.add(u.getDiamonds() - goldRewarded); // the gold was
+		  int diamonds = u.getDiamonds();
+		  currenciesAfter.add(diamonds);
+			currenciesBefore.add(diamonds - goldRewarded); // the gold was
 															// rewarded to them
 															// before writing to
 															// history
 		}
-		return returnVal;
 	}
 
 	private List<Integer> getUserIds(List<User> users) {

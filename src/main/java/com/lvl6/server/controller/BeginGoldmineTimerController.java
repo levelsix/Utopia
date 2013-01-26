@@ -141,12 +141,13 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       int userId = aUser.getId();
       int isSilver = 0;
       int currencyChange = money.get(0);
-      int currencyBefore = aUser.getDiamonds() - currencyChange;
+      int currencyAfter = aUser.getDiamonds();
+      int currencyBefore = currencyAfter - currencyChange;
       String reasonForChange = ControllerConstants.UCHRFC__GOLDMINE;
-      int inserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver,
-          currencyChange, currencyBefore, reasonForChange);
+      InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver,
+          currencyChange, currencyBefore, currencyAfter, reasonForChange);
 
-      log.info("Should be 1. Rows inserted into user_currency_history: " + inserted);
+      //log.info("Should be 1. Rows inserted into user_currency_history: " + inserted);
     } catch (Exception e) {
       log.error("Maybe table's not there or duplicate keys? ", e);
     }

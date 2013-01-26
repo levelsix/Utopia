@@ -104,12 +104,13 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       Timestamp date = new Timestamp((new Date()).getTime());
       int isSilver = 0;
       int currencyChange = ControllerConstants.PURCHASE_GROUP_CHAT__DIAMOND_PRICE_FOR_PACKAGE;
-      int currencyBefore = u.getDiamonds() - currencyChange;
+      int currencyAfter = u.getDiamonds();
+      int currencyBefore = currencyAfter - currencyChange;
       String reasonForChange = ControllerConstants.UCHRFC__GROUP_CHAT;
       int inserted = InsertUtils.get().insertIntoUserCurrencyHistory(u.getId(), date, isSilver,
-          currencyChange, currencyBefore, reasonForChange);
+          currencyChange, currencyBefore, currencyAfter, reasonForChange);
 
-      log.info("Should be 1. Rows inserted into user_currency_history: " + inserted);
+      //log.info("Should be 1. Rows inserted into user_currency_history: " + inserted);
     } catch (Exception e) {
       log.error("Maybe table's not there or duplicate keys? " + e.toString());
     }

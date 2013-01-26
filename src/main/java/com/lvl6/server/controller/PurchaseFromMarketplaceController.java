@@ -112,10 +112,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         server.writeAPNSNotificationOrEvent(resEvent2);
         
         Map<String, Integer> moneyBuyer = new HashMap<String, Integer>();
-        Map<String, Integer> moneySeller = new HashMap<String, Integer>();
         List<String> goldOrSilverTransaction = new ArrayList<String>(1);
         
-        writeChangesToDB(buyer, seller, mp, timeOfPurchaseRequest, moneyBuyer, moneySeller, goldOrSilverTransaction);
+        writeChangesToDB(buyer, seller, mp, timeOfPurchaseRequest, moneyBuyer, goldOrSilverTransaction);
         UpdateClientUserResponseEvent resEventUpdate;
         if (buyer != null && seller != null && mp != null) { //won't this always execute? ~Art
           resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(buyer);
@@ -126,7 +125,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           
           QuestUtils.checkAndSendQuestsCompleteBasic(server, buyer.getId(), senderProto, SpecialQuestAction.PURCHASE_FROM_MARKETPLACE, false);
         }
-        writeToUserCurrencyHistory(buyer, seller, timeOfPurchaseRequest, moneyBuyer, moneySeller, goldOrSilverTransaction);
+        writeToUserCurrencyHistory(buyer, timeOfPurchaseRequest, moneyBuyer, goldOrSilverTransaction);
       }
     } catch (Exception e) {
       log.error("exception in PurchaseFromMarketplace processEvent", e);
@@ -140,7 +139,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
 
   private void writeChangesToDB(User buyer, User seller, MarketplacePost mp, Timestamp timeOfPurchaseRequest,
-      Map<String, Integer> moneyBuyer, Map<String, Integer> moneySeller, List<String> goldOrSilverTransaction) {
+      Map<String, Integer> moneyBuyer, List<String> goldOrSilverTransaction) {
     if (seller == null || buyer == null || mp == null) {
       log.error("parameter passed in is null. seller=" + seller + ", buyer=" + buyer + ", post=" + mp);
     }
@@ -187,10 +186,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         log.error("problem with updating seller info. diamondChange=" + totalSellerDiamondChange
             + ", coinChange=" + totalSellerCoinChange + ", num posts in marketplace decremented by 1, " +
             		"num marketplace sales unredeemed increased by 1");
-      } else {
-        //things went ok
-        moneySeller.put(MiscMethods.gold, totalSellerDiamondChange);
-        moneySeller.put(MiscMethods.silver, totalSellerCoinChange);
       }
     }
     changeNumPostsInMarketplace = false;
@@ -244,55 +239,33 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
   
   //only gold changes or silver changes, not both, seller doesn't really get the money until seller redeems purchase
-  private void writeToUserCurrencyHistory(User buyer, User seller, Timestamp date, Map<String, Integer> moneyBuyer, 
-      Map<String, Integer> moneySeller, List<String> goldOrSilverTransaction) {
+  private void writeToUserCurrencyHistory(User buyer, Timestamp date, 
+      Map<String, Integer> moneyBuyerCurrencyChange, List<String> goldOrSilverTransaction) {
     if(goldOrSilverTransaction.isEmpty()) {
       return;
     }
     try {
       String goldOrSilver = goldOrSilverTransaction.get(0); 
-      int amount = 2;
-      List<Integer> userIds = new ArrayList<Integer>(amount);
-      List<Timestamp> dates = new ArrayList<Timestamp>(Collections.nCopies(amount, date));
-      List<Integer> areSilver;
-      List<Integer> currenciesChange = new ArrayList<Integer>(amount);
-      List<Integer> currenciesBefore = new ArrayList<Integer>(amount);
-      List<String> reasonsForChanges = new ArrayList<String>(amount);
-      
-      //buyer information then seller's
-      userIds.add(buyer.getId());
-      userIds.add(seller.getId());
-      
-      int buyerCurrencyChange = moneyBuyer.get(goldOrSilver);
-      //int sellerCurrencyChange = moneySeller.get(goldOrSilver);
-      int sellerCurrencyChange = 0; //the change occurs when the person redeems the purchase
-      
+      int userId = buyer.getId();
+      int isSilver = 0;
+      int currencyChange = moneyBuyerCurrencyChange.get(goldOrSilver);
+      int currencyBefore = 0;
+      int currencyAfter = 0;
+      String reasonForChange = ControllerConstants.UCHRFC__PURCHASED_FROM_MARKETPLACE;
       
       if(goldOrSilver.equals(MiscMethods.gold)) {
         //not a silver change but gold change
-        areSilver = new ArrayList<Integer>(Collections.nCopies(amount, 0));
-        
-        int buyerGoldBeforeChange = buyer.getDiamonds() - buyerCurrencyChange;
-        int sellerGoldBeforeChange = seller.getDiamonds() - sellerCurrencyChange;
-        currenciesBefore.add(buyerGoldBeforeChange);
-        currenciesBefore.add(sellerGoldBeforeChange);
+        currencyAfter = buyer.getDiamonds();
+        currencyBefore = currencyAfter - currencyChange;
       } else {
-        areSilver = new ArrayList<Integer>(Collections.nCopies(amount, 1));
-        
-        int buyerSilverBeforeChange = buyer.getCoins() - buyerCurrencyChange;
-        int sellerSilverBeforeChange = seller.getCoins() - sellerCurrencyChange;
-        currenciesBefore.add(buyerSilverBeforeChange);
-        currenciesBefore.add(sellerSilverBeforeChange);
+        isSilver = 1;
+        currencyAfter = buyer.getCoins();
+        currencyBefore = currencyAfter - currencyChange;
       }
-      
-      currenciesChange.add(buyerCurrencyChange);
-      currenciesChange.add(sellerCurrencyChange);
-      reasonsForChanges.add(ControllerConstants.UCHRFC__PURCHASED_FROM_MARKETPLACE); //buyer reason
-      reasonsForChanges.add(ControllerConstants.UCHRFC__SOLD_ITEM_ON_MARKETPLACE); //seller reason
 
-      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates, areSilver,
-          currenciesChange, currenciesBefore, reasonsForChanges);
-      log.info("Should be 2. Rows inserted into user_currency_history: " + numInserted);
+      InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver, 
+          currencyChange, currencyBefore, currencyAfter, reasonForChange);
+      
     } catch (Exception e) {
       log.error("Maybe table's not there or duplicate keys? ", e);
     }
