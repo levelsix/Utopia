@@ -16,6 +16,7 @@ import com.lvl6.events.request.SubmitEquipEnhancementRequestEvent;
 import com.lvl6.events.response.SubmitEquipEnhancementResponseEvent;
 import com.lvl6.info.EquipEnhancement;
 import com.lvl6.info.Equipment;
+import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.proto.EventProto.SubmitEquipEnhancementRequestProto;
@@ -113,13 +114,13 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   //delete enhancing user equip; make entry in equip enhancement table
   //delete all the feeder user equips; make entries in equip enhancement feeders table
   //delete feederuserequip, write enhanceduserequip to the db
-  private boolean writeChangesToDB(Builder resBuilder, int userEquipId, UserEquip enhancedUserEquip, 
+  private boolean writeChangesToDB(Builder resBuilder, int mainUserEquipId, UserEquip mainUserEquip,
       List<Integer> feederUserEquipIds, List<UserEquip> feederUserEquips, Timestamp clientTime,
       List<Integer> enhancementInteger) {
-    int userId = enhancedUserEquip.getUserId();
-    int equipId = enhancedUserEquip.getEquipId();
-    int equipLevel = enhancedUserEquip.getLevel();
-    int enhancementPercentageBeforeEnhancement = enhancedUserEquip.getEnhancementPercentage();
+    int userId = mainUserEquip.getUserId();
+    int equipId = mainUserEquip.getEquipId();
+    int equipLevel = mainUserEquip.getLevel();
+    int enhancementPercentageBeforeEnhancement = mainUserEquip.getEnhancementPercentage();
     Timestamp startTimeOfEnhancement = clientTime;
     
     //make entry in equip enhancement table
@@ -129,21 +130,35 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     
     if(1 > equipEnhancementId) { //this rarely happens...maybe
       resBuilder.setStatus(EnhanceEquipStatus.OTHER_FAIL);
-      log.error("could not enhance equip=" + enhancedUserEquip + ". Id returned: " + equipEnhancementId);
+      log.error("could not enhance equip=" + mainUserEquip + ". Id returned: " + equipEnhancementId);
       return false;
     }
     //maybe there should be a check to see if this fails...eh
     //make entries in equip enhancement feeders table
-    List<Integer> equipEnhancementFeederIds = InsertUtils.get().insertEquipEnhancementFeeders(
-        equipEnhancementId, feederUserEquips);
+    //List<Integer> equipEnhancementFeederIds = 
+    InsertUtils.get().insertEquipEnhancementFeeders(equipEnhancementId, feederUserEquips);
     
     //maybe there should be a check to see if this fails...eh
+    //unequip all the user equips
+    User user = RetrieveUtils.userRetrieveUtils().getUserById(userId);
+    
+    List<UserEquip> userEquips = new ArrayList<UserEquip>(feederUserEquips);
+    userEquips.add(mainUserEquip);
+    for (UserEquip ue : userEquips) {
+      if (!MiscMethods.unequipUserEquipIfEquipped(user, ue)) {
+        resBuilder.setStatus(EnhanceEquipStatus.OTHER_FAIL);
+        log.error("problem with unequipping user equip" + ue.getId());
+        return false;
+      }
+    }
+    
     //delete the user equips
     List<Integer> allUserEquipIds = new ArrayList<Integer>(feederUserEquipIds);
-    allUserEquipIds.add(userEquipId);
+    allUserEquipIds.add(mainUserEquipId);
+    
     if(!DeleteUtils.get().deleteUserEquips(allUserEquipIds)) {
       resBuilder.setStatus(EnhanceEquipStatus.OTHER_FAIL);
-      log.error("could not delete userEquips with ids: "
+      log.error("could not delete user equips with ids: "
                 + MiscMethods.shallowListToString(allUserEquipIds));
       return false;
     }
