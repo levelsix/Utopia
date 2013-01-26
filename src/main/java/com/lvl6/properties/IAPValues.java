@@ -35,6 +35,12 @@ public class IAPValues {
   private static final String PACKAGES4 = Globals.APPLE_BUNDLE_ID + ".packageS4";
   private static final String PACKAGES5 = Globals.APPLE_BUNDLE_ID + ".packageS5";
 
+  private static final String PACKAGES1SALE = Globals.APPLE_BUNDLE_ID + ".packageS1sale";
+  private static final String PACKAGES2SALE = Globals.APPLE_BUNDLE_ID + ".packageS2sale";
+  private static final String PACKAGES3SALE = Globals.APPLE_BUNDLE_ID + ".packageS3sale";
+  private static final String PACKAGES4SALE = Globals.APPLE_BUNDLE_ID + ".packageS4sale";
+  private static final String PACKAGES5SALE = Globals.APPLE_BUNDLE_ID + ".packageS5sale";
+
   private static final String PACKAGE1IMG = "goldstack1.png";
   private static final String PACKAGE2IMG = "goldstack2.png";
   private static final String PACKAGE3IMG = "goldstack3.png";
@@ -84,6 +90,12 @@ public class IAPValues {
   private static final double PACKAGE_S4_PRICE = 49.99;
   private static final double PACKAGE_S5_PRICE = 99.99;
 
+  private static final double PACKAGE_S1_SALE_PRICE = 3.99;
+  private static final double PACKAGE_S2_SALE_PRICE = 7.99;
+  private static final double PACKAGE_S3_SALE_PRICE = 15.99;
+  private static final double PACKAGE_S4_SALE_PRICE = 39.99;
+  private static final double PACKAGE_S5_SALE_PRICE = 74.99;
+
   public static final List<String> iapPackageNames = 
       Arrays.asList(PACKAGE1, PACKAGES1, PACKAGE2, PACKAGES2, PACKAGE3, PACKAGES3, PACKAGE4, PACKAGES4, PACKAGE5, PACKAGES5);
 
@@ -114,19 +126,19 @@ public class IAPValues {
   }
 
   public static int getCoinsForPackageName(String packageName) {
-    if (packageName.equals(PACKAGES1)) {
+    if (packageName.equals(PACKAGES1) || packageName.equals(PACKAGES1SALE)) {
       return PACKAGE_S1_COINS;
     }
-    if (packageName.equals(PACKAGES2)) {
+    if (packageName.equals(PACKAGES2) || packageName.equals(PACKAGES2SALE)) {
       return PACKAGE_S2_COINS;
     }
-    if (packageName.equals(PACKAGES3)) {
+    if (packageName.equals(PACKAGES3) || packageName.equals(PACKAGES3SALE)) {
       return PACKAGE_S3_COINS;
     }
-    if (packageName.equals(PACKAGES4)) {
+    if (packageName.equals(PACKAGES4) || packageName.equals(PACKAGES4SALE)) {
       return PACKAGE_S4_COINS;
     }
-    if (packageName.equals(PACKAGES5)) {
+    if (packageName.equals(PACKAGES5) || packageName.equals(PACKAGES5SALE)) {
       return PACKAGE_S5_COINS;
     }
     return 0;
@@ -211,6 +223,21 @@ public class IAPValues {
     }
     if (packageName.equals(PACKAGES5)) {
       return PACKAGE_S5_PRICE;
+    }
+    if (packageName.equals(PACKAGES1SALE)) {
+      return PACKAGE_1_SALE_PRICE;
+    }
+    if (packageName.equals(PACKAGES2SALE)) {
+      return PACKAGE_2_SALE_PRICE;
+    }
+    if (packageName.equals(PACKAGES3SALE)) {
+      return PACKAGE_3_SALE_PRICE;
+    }
+    if (packageName.equals(PACKAGES4SALE)) {
+      return PACKAGE_4_SALE_PRICE;
+    }
+    if (packageName.equals(PACKAGES5SALE)) {
+      return PACKAGE_5_SALE_PRICE;
     }
     return 0;
   }
