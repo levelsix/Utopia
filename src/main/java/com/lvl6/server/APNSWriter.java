@@ -332,7 +332,7 @@ public class APNSWriter extends Wrap {
 	}
 	
 	// copied from EventWriter.processClanResponseEvent
-	public void processClanResponseEvent(GameEvent event, int clanId) {
+	public void processClanResponseEvent(ResponseEvent event, int clanId) {
 		log.debug("apnsWriter received clan event=" + event);
 		ResponseEvent e = (ResponseEvent) event;
 		List<UserClan> playersInClan = userClanRetrieveUtil.getUserClanMembersInClan(clanId);
