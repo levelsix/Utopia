@@ -1350,7 +1350,7 @@ public class MiscMethods {
   }
   
   public static int pointsGainedForClanTowerUserBattle(User winner, User loser) {
-    int pts = winner.getLevel()-loser.getLevel()+10;
+    int pts = loser.getLevel()-winner.getLevel()+10;
     
     return Math.max(1, pts);
   }
