@@ -12,7 +12,6 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
-import org.mortbay.log.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +94,7 @@ public class LeaderboardEventScheduledTasks {
 			if (lock.tryLock()) {
 				gotLock = true;
 				Collection<LeaderboardEvent> events = LeaderboardEventRetrieveUtils
-						.getIdsToLeaderboardEvents().values();
+						.getIdsToLeaderboardEvents(true).values();
 				if (events == null)
 					return;
 				for (LeaderboardEvent event : events) {
