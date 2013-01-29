@@ -66,11 +66,11 @@ public class IAPValues {
   private static final int PACKAGE_4_DIAMONDS = 650;
   private static final int PACKAGE_5_DIAMONDS = 1500;
 
-  private static final int PACKAGE_S1_COINS = 50;
-  private static final int PACKAGE_S2_COINS = 120;
-  private static final int PACKAGE_S3_COINS = 250;
-  private static final int PACKAGE_S4_COINS = 650;
-  private static final int PACKAGE_S5_COINS = 1500;
+  private static final int PACKAGE_S1_COINS = 50000;
+  private static final int PACKAGE_S2_COINS = 120000;
+  private static final int PACKAGE_S3_COINS = 250000;
+  private static final int PACKAGE_S4_COINS = 650000;
+  private static final int PACKAGE_S5_COINS = 1500000;
 
   private static final double PACKAGE_1_PRICE = 4.99;
   private static final double PACKAGE_2_PRICE = 9.99;
@@ -225,19 +225,19 @@ public class IAPValues {
       return PACKAGE_S5_PRICE;
     }
     if (packageName.equals(PACKAGES1SALE)) {
-      return PACKAGE_1_SALE_PRICE;
+      return PACKAGE_S1_SALE_PRICE;
     }
     if (packageName.equals(PACKAGES2SALE)) {
-      return PACKAGE_2_SALE_PRICE;
+      return PACKAGE_S2_SALE_PRICE;
     }
     if (packageName.equals(PACKAGES3SALE)) {
-      return PACKAGE_3_SALE_PRICE;
+      return PACKAGE_S3_SALE_PRICE;
     }
     if (packageName.equals(PACKAGES4SALE)) {
-      return PACKAGE_4_SALE_PRICE;
+      return PACKAGE_S4_SALE_PRICE;
     }
     if (packageName.equals(PACKAGES5SALE)) {
-      return PACKAGE_5_SALE_PRICE;
+      return PACKAGE_S5_SALE_PRICE;
     }
     return 0;
   }
