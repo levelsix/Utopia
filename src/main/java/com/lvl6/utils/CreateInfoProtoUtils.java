@@ -796,7 +796,8 @@ public class CreateInfoProtoUtils {
   public static UnhandledBlacksmithAttemptProto createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(BlacksmithAttempt ba) {
     UnhandledBlacksmithAttemptProto.Builder builder = UnhandledBlacksmithAttemptProto.newBuilder().setBlacksmithId(ba.getId()).setUserId(ba.getUserId())
         .setEquipId(ba.getEquipId()).setGoalLevel(ba.getGoalLevel()).setGuaranteed(ba.isGuaranteed()).setStartTime(ba.getStartTime().getTime())
-        .setAttemptComplete(ba.isAttemptComplete());
+        .setAttemptComplete(ba.isAttemptComplete()).setEquipOneEnhancementPercent(ba.getEquipOneEnhancementPercent())
+        .setEquipTwoEnhancementPercent(ba.getEquipTwoEnhancementPercent());
 
     if (ba.getDiamondGuaranteeCost() > 0) {
       builder.setDiamondGuaranteeCost(ba.getDiamondGuaranteeCost());

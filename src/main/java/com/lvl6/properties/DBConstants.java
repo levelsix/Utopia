@@ -255,7 +255,9 @@ public class DBConstants {
   public static final String BLACKSMITH__DIAMOND_GUARANTEE_COST = "diamond_guarantee_cost";
   public static final String BLACKSMITH__TIME_OF_SPEEDUP = "time_of_speedup";
   public static final String BLACKSMITH__ATTEMPT_COMPLETE = "attempt_complete";
-
+  public static final String BLACKSMITH__EQUIP_ONE_ENHANCEMENT_PERCENT = "equip_one_enhancement_percent";
+  public static final String BLACKSMITH__EQUIP_TWO_ENHANCEMENT_PERCENT = "equip_two_enhancement_percent";
+  
   /*BLACKSMITH HISTORY TABLE*/
   public static final String BLACKSMITH_HISTORY__ID = "blacksmith_id";
   public static final String BLACKSMITH_HISTORY__USER_ID = GENERIC__USER_ID;
@@ -266,6 +268,8 @@ public class DBConstants {
   public static final String BLACKSMITH_HISTORY__DIAMOND_GUARANTEE_COST = "diamond_guarantee_cost";
   public static final String BLACKSMITH_HISTORY__TIME_OF_SPEEDUP = "time_of_speedup";
   public static final String BLACKSMITH_HISTORY__SUCCESS = "success";
+  public static final String BLACKSMITH_HISTORY__EQUIP_ONE_ENHANCEMENT_PERCENT = "equip_one_enhancement_percent";
+  public static final String BLACKSMITH_HISTORY__EQUIP_TWO_ENHANCEMENT_PERCENT = "equip_two_enhancement_percent";
   
   /*USER STRUCTS TABLE*/
   public static final String USER_STRUCTS__ID = GENERIC__ID;

@@ -81,18 +81,20 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       int goalLevel = userEquips.get(0).getLevel() + 1;
       int diamondCost = calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee);
       if (legitSubmit) {
+        //need to keep track of enhancements on weapons
+        int enhancementPercentOne = userEquips.get(0).getEnhancementPercentage();
+        int enhancementPercentTwo = userEquips.get(1).getEnhancementPercentage();
+        
         int blacksmithId = InsertUtils.get().insertForgeAttemptIntoBlacksmith(user.getId(), equip.getId(), goalLevel, 
-            paidToGuarantee, startTime, 
-            diamondCost, null, false);
-
+            paidToGuarantee, startTime, diamondCost, null, false, enhancementPercentOne, enhancementPercentTwo);
+        
         if (blacksmithId <= 0) {
           resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.OTHER_FAIL);
           log.error("problem with trying to give user blacksmith attempt");
           legitSubmit = false;
         } else {
           BlacksmithAttempt ba = new BlacksmithAttempt(blacksmithId, user.getId(), equip.getId(), goalLevel, 
-              paidToGuarantee, startTime, 
-              diamondCost, null, false);
+              paidToGuarantee, startTime, diamondCost, null, false, enhancementPercentOne, enhancementPercentTwo);
           resBuilder.setUnhandledBlacksmithAttempt(CreateInfoProtoUtils.createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(ba));
         }
       }

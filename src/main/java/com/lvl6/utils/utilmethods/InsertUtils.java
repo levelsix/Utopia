@@ -90,6 +90,11 @@ public class InsertUtils implements InsertUtil{
 
     insertParams.put(DBConstants.BLACKSMITH_HISTORY__SUCCESS, successfulForge);
 
+    insertParams.put(DBConstants.BLACKSMITH_HISTORY__EQUIP_ONE_ENHANCEMENT_PERCENT,
+        ba.getEquipOneEnhancementPercent());
+    insertParams.put(DBConstants.BLACKSMITH_HISTORY__EQUIP_TWO_ENHANCEMENT_PERCENT,
+        ba.getEquipTwoEnhancementPercent());
+    
     int numInserted = DBConnection.get().insertIntoTableBasic(
         DBConstants.TABLE_BLACKSMITH_HISTORY, insertParams);
     if (numInserted == 1) {
@@ -254,7 +259,8 @@ public class InsertUtils implements InsertUtil{
 
   public int insertForgeAttemptIntoBlacksmith(int userId, int equipId,
       int goalLevel, boolean paidToGuarantee, Timestamp startTime,
-      int diamondCostForGuarantee, Timestamp timeOfSpeedup, boolean attemptComplete) {
+      int diamondCostForGuarantee, Timestamp timeOfSpeedup, boolean attemptComplete,
+      int enhancementPercentOne, int enhancementPercentTwo) {
     Map<String, Object> insertParams = new HashMap<String, Object>();
 
     insertParams.put(DBConstants.BLACKSMITH__USER_ID, userId);
@@ -263,7 +269,10 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.BLACKSMITH__GUARANTEED, paidToGuarantee);
     insertParams.put(DBConstants.BLACKSMITH__START_TIME, startTime);
     insertParams.put(DBConstants.BLACKSMITH__ATTEMPT_COMPLETE, attemptComplete);
-
+    insertParams.put(DBConstants.BLACKSMITH__EQUIP_ONE_ENHANCEMENT_PERCENT,
+        enhancementPercentOne);
+    insertParams.put(DBConstants.BLACKSMITH__EQUIP_TWO_ENHANCEMENT_PERCENT,
+        enhancementPercentTwo);
     if (diamondCostForGuarantee > 0) {
       insertParams.put(DBConstants.BLACKSMITH__DIAMOND_GUARANTEE_COST, diamondCostForGuarantee);
     }

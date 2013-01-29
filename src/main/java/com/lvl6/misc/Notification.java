@@ -3,6 +3,7 @@ package com.lvl6.misc;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -144,6 +145,50 @@ public class Notification {
 
   }
 
+  public void setAsClanTowerAttackerDeterminedAPNS(String attacker, String owner, 
+      String towerName, boolean msgForAttacker) {
+    
+    if (msgForAttacker) {
+      Object[] arguments = { owner, towerName };
+
+      MessageFormat formatTitle = new MessageFormat(NotificationConstants.ATTACKING_CLAN__TITLE_APNS);
+      Random rand = new Random();
+      String[] choices = NotificationConstants.ATTACKING_CLAN__SUBTITLE_APNS; 
+      int size = choices.length;
+      int randInt = rand.nextInt(size);
+      MessageFormat formatSubtitle = new MessageFormat(choices[randInt]);
+      String title = formatTitle.format(arguments);
+      String subtitle = formatSubtitle.format(arguments);
+      
+      keysAndValues.put("title", title);
+      keysAndValues.put("subtitle", subtitle);
+      log.info("sending apns to attacking clan " + attacker 
+          + "in clan tower war. title=" + title);
+    } else {
+      Object[] arguments = { attacker, towerName };
+
+      MessageFormat formatTitle = new MessageFormat(NotificationConstants.DEFENDING_CLAN__TITLE_APNS);
+      Random rand = new Random();
+      String[] choices = NotificationConstants.DEFENDING_CLAN__SUBTITLE_APNS; 
+      int size = choices.length;
+      int randInt = rand.nextInt(size);
+      MessageFormat formatSubtitle = new MessageFormat(choices[randInt]);
+      String title = formatTitle.format(arguments);
+      String subtitle = formatSubtitle.format(arguments);
+      
+      keysAndValues.put("title", title);
+      keysAndValues.put("subtitle", subtitle);
+      log.info("sending apns to defending clan " + owner 
+          + "in clan tower war. title=" + title);
+    }
+    
+    rgb.setRed(NotificationConstants.ATTACKING_CLAN_DETERMINED_APNS__RED);
+    rgb.setGreen(NotificationConstants.ATTACKING_CLAN_DETERMINED_APNS__GREEN);
+    rgb.setBlue(NotificationConstants.ATTACKING_CLAN_DETERMINED_APNS__BLUE);
+    
+    keysAndValues.put("rgb", rgb.build());
+  }
+  
   public void setAsClanTowerWarDistributeRewards(String towerName, int silverReward, int goldReward, int numHours) {
     String silver = "";
     String conjunction = "";

@@ -15,11 +15,15 @@ public class BlacksmithAttempt implements Serializable {
   private int diamondGuaranteeCost;
   private Date timeOfSpeedup;
   private boolean attemptComplete;
+  private int equipOneEnhancementPercent;
+  private int equipTwoEnhancementPercent;
   
   public BlacksmithAttempt(int id, int userId, int equipId,
       int goalLevel, boolean guaranteed, Date startTime,
       int diamondGuaranteeCost,
-      Date timeOfSpeedup, boolean attemptComplete) {
+      Date timeOfSpeedup, boolean attemptComplete,
+      int equipOneEnhancementPercent,
+      int equipTwoEnhancementPercent) {
     this.id = id;
     this.userId = userId;
     this.equipId = equipId;
@@ -29,6 +33,8 @@ public class BlacksmithAttempt implements Serializable {
     this.diamondGuaranteeCost = diamondGuaranteeCost;
     this.timeOfSpeedup = timeOfSpeedup;
     this.attemptComplete = attemptComplete;
+    this.equipOneEnhancementPercent = equipOneEnhancementPercent;
+    this.equipTwoEnhancementPercent = equipTwoEnhancementPercent;
   }
 
   public int getId() {
@@ -67,13 +73,31 @@ public class BlacksmithAttempt implements Serializable {
     return attemptComplete;
   }
 
+  public int getEquipOneEnhancementPercent() {
+    return equipOneEnhancementPercent;
+  }
+
+  public void setEquipOneEnhancementPercent(int equipOneEnhancementPercent) {
+    this.equipOneEnhancementPercent = equipOneEnhancementPercent;
+  }
+
+  public int getEquipTwoEnhancementPercent() {
+    return equipTwoEnhancementPercent;
+  }
+
+  public void setEquipTwoEnhancementPercent(int equipTwoEnhancementPercent) {
+    this.equipTwoEnhancementPercent = equipTwoEnhancementPercent;
+  }
+
   @Override
   public String toString() {
-    return "UnhandledBlacksmithAttempt [id=" + id + ", userId=" + userId
-        + ", equipId=" + equipId + ", goalLevel=" + goalLevel + ", guaranteed="
-        + guaranteed + ", startTime=" + startTime + ", endTimeWithoutSpeedup="
-        + ", diamondGuaranteeCost=" + diamondGuaranteeCost + ", timeOfSpeedup="
-        + timeOfSpeedup + ", attemptComplete=" + attemptComplete + "]";
+    return "BlacksmithAttempt [id=" + id + ", userId=" + userId + ", equipId="
+        + equipId + ", goalLevel=" + goalLevel + ", guaranteed=" + guaranteed
+        + ", startTime=" + startTime + ", diamondGuaranteeCost="
+        + diamondGuaranteeCost + ", timeOfSpeedup=" + timeOfSpeedup
+        + ", attemptComplete=" + attemptComplete
+        + ", equipOneEnhancementPercent=" + equipOneEnhancementPercent
+        + ", equipTwoEnhancementPercent=" + equipTwoEnhancementPercent + "]";
   }
-  
+
 }

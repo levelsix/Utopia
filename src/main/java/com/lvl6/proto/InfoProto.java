@@ -52491,6 +52491,14 @@ public final class InfoProto {
     // optional bool attemptComplete = 10;
     boolean hasAttemptComplete();
     boolean getAttemptComplete();
+    
+    // optional int32 equipOneEnhancementPercent = 11;
+    boolean hasEquipOneEnhancementPercent();
+    int getEquipOneEnhancementPercent();
+    
+    // optional int32 equipTwoEnhancementPercent = 12;
+    boolean hasEquipTwoEnhancementPercent();
+    int getEquipTwoEnhancementPercent();
   }
   public static final class UnhandledBlacksmithAttemptProto extends
       com.google.protobuf.GeneratedMessage
@@ -52611,6 +52619,26 @@ public final class InfoProto {
       return attemptComplete_;
     }
     
+    // optional int32 equipOneEnhancementPercent = 11;
+    public static final int EQUIPONEENHANCEMENTPERCENT_FIELD_NUMBER = 11;
+    private int equipOneEnhancementPercent_;
+    public boolean hasEquipOneEnhancementPercent() {
+      return ((bitField0_ & 0x00000200) == 0x00000200);
+    }
+    public int getEquipOneEnhancementPercent() {
+      return equipOneEnhancementPercent_;
+    }
+    
+    // optional int32 equipTwoEnhancementPercent = 12;
+    public static final int EQUIPTWOENHANCEMENTPERCENT_FIELD_NUMBER = 12;
+    private int equipTwoEnhancementPercent_;
+    public boolean hasEquipTwoEnhancementPercent() {
+      return ((bitField0_ & 0x00000400) == 0x00000400);
+    }
+    public int getEquipTwoEnhancementPercent() {
+      return equipTwoEnhancementPercent_;
+    }
+    
     private void initFields() {
       blacksmithId_ = 0;
       userId_ = 0;
@@ -52621,6 +52649,8 @@ public final class InfoProto {
       diamondGuaranteeCost_ = 0;
       timeOfSpeedup_ = 0L;
       attemptComplete_ = false;
+      equipOneEnhancementPercent_ = 0;
+      equipTwoEnhancementPercent_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -52660,6 +52690,12 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         output.writeBool(10, attemptComplete_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        output.writeInt32(11, equipOneEnhancementPercent_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        output.writeInt32(12, equipTwoEnhancementPercent_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -52705,6 +52741,14 @@ public final class InfoProto {
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(10, attemptComplete_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(11, equipOneEnhancementPercent_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(12, equipTwoEnhancementPercent_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -52848,6 +52892,10 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000080);
         attemptComplete_ = false;
         bitField0_ = (bitField0_ & ~0x00000100);
+        equipOneEnhancementPercent_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000200);
+        equipTwoEnhancementPercent_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000400);
         return this;
       }
       
@@ -52922,6 +52970,14 @@ public final class InfoProto {
           to_bitField0_ |= 0x00000100;
         }
         result.attemptComplete_ = attemptComplete_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000200;
+        }
+        result.equipOneEnhancementPercent_ = equipOneEnhancementPercent_;
+        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
+          to_bitField0_ |= 0x00000400;
+        }
+        result.equipTwoEnhancementPercent_ = equipTwoEnhancementPercent_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -52964,6 +53020,12 @@ public final class InfoProto {
         }
         if (other.hasAttemptComplete()) {
           setAttemptComplete(other.getAttemptComplete());
+        }
+        if (other.hasEquipOneEnhancementPercent()) {
+          setEquipOneEnhancementPercent(other.getEquipOneEnhancementPercent());
+        }
+        if (other.hasEquipTwoEnhancementPercent()) {
+          setEquipTwoEnhancementPercent(other.getEquipTwoEnhancementPercent());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -53039,6 +53101,16 @@ public final class InfoProto {
             case 80: {
               bitField0_ |= 0x00000100;
               attemptComplete_ = input.readBool();
+              break;
+            }
+            case 88: {
+              bitField0_ |= 0x00000200;
+              equipOneEnhancementPercent_ = input.readInt32();
+              break;
+            }
+            case 96: {
+              bitField0_ |= 0x00000400;
+              equipTwoEnhancementPercent_ = input.readInt32();
               break;
             }
           }
@@ -53232,6 +53304,48 @@ public final class InfoProto {
       public Builder clearAttemptComplete() {
         bitField0_ = (bitField0_ & ~0x00000100);
         attemptComplete_ = false;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 equipOneEnhancementPercent = 11;
+      private int equipOneEnhancementPercent_ ;
+      public boolean hasEquipOneEnhancementPercent() {
+        return ((bitField0_ & 0x00000200) == 0x00000200);
+      }
+      public int getEquipOneEnhancementPercent() {
+        return equipOneEnhancementPercent_;
+      }
+      public Builder setEquipOneEnhancementPercent(int value) {
+        bitField0_ |= 0x00000200;
+        equipOneEnhancementPercent_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearEquipOneEnhancementPercent() {
+        bitField0_ = (bitField0_ & ~0x00000200);
+        equipOneEnhancementPercent_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 equipTwoEnhancementPercent = 12;
+      private int equipTwoEnhancementPercent_ ;
+      public boolean hasEquipTwoEnhancementPercent() {
+        return ((bitField0_ & 0x00000400) == 0x00000400);
+      }
+      public int getEquipTwoEnhancementPercent() {
+        return equipTwoEnhancementPercent_;
+      }
+      public Builder setEquipTwoEnhancementPercent(int value) {
+        bitField0_ |= 0x00000400;
+        equipTwoEnhancementPercent_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearEquipTwoEnhancementPercent() {
+        bitField0_ = (bitField0_ & ~0x00000400);
+        equipTwoEnhancementPercent_ = 0;
         onChanged();
         return this;
       }
@@ -53927,46 +54041,47 @@ public final class InfoProto {
       "WallPostId\030\001 \001(\005\0220\n\006poster\030\002 \001(\0132 .com.l" +
       "vl6.proto.MinimumUserProto\022\023\n\013wallOwnerI",
       "d\030\003 \001(\005\022\022\n\ntimeOfPost\030\004 \001(\003\022\017\n\007content\030\005" +
-      " \001(\t\"\340\001\n\037UnhandledBlacksmithAttemptProto" +
+      " \001(\t\"\250\002\n\037UnhandledBlacksmithAttemptProto" +
       "\022\024\n\014blacksmithId\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\022\017" +
       "\n\007equipId\030\003 \001(\005\022\021\n\tgoalLevel\030\004 \001(\003\022\022\n\ngu" +
       "aranteed\030\005 \001(\010\022\021\n\tstartTime\030\006 \001(\003\022\034\n\024dia" +
       "mondGuaranteeCost\030\010 \001(\005\022\025\n\rtimeOfSpeedup" +
-      "\030\t \001(\003\022\027\n\017attemptComplete\030\n \001(\010*C\n\016Equip" +
-      "ClassType\022\013\n\007WARRIOR\020\000\022\n\n\006ARCHER\020\001\022\010\n\004MA" +
-      "GE\020\002\022\016\n\nALL_AMULET\020\003*,\n\016UserClanStatus\022\n" +
-      "\n\006MEMBER\020\000\022\016\n\nREQUESTING\020\002*@\n\016GroupChatS",
-      "cope\022\n\n\006GLOBAL\020\000\022\014\n\010ALLIANCE\020\001\022\n\n\006LEGION" +
-      "\020\002\022\010\n\004CLAN\020\003*^\n\017LeaderboardType\022\024\n\020MOST_" +
-      "BATTLES_WON\020\002\022\016\n\nMOST_COINS\020\003\022\014\n\010MOST_EX" +
-      "P\020\004\022\014\n\010BEST_KDR\020\005\022\t\n\005EVENT\020\006*f\n\020Characte" +
-      "rModType\022\016\n\nNEW_PLAYER\020\001\022\026\n\022RESET_SKILL_" +
-      "POINTS\020\002\022\031\n\025CHANGE_CHARACTER_TYPE\020\003\022\017\n\013C" +
-      "HANGE_NAME\020\004*/\n\rAnimationType\022\022\n\016GENERIC" +
-      "_ACTION\020\001\022\n\n\006ATTACK\020\002*h\n\024EarnFreeDiamond" +
-      "sType\022\010\n\004KIIP\020\001\022\014\n\010ADCOLONY\020\002\022\r\n\tFB_INVI" +
-      "TE\020\003\022\n\n\006TAPJOY\020\004\022\020\n\014FLURRY_VIDEO\020\005\022\013\n\007TW",
-      "ITTER\020\006*\371\001\n\022SpecialQuestAction\022\030\n\024PURCHA" +
-      "SE_FROM_ARMORY\020\001\022\035\n\031PURCHASE_FROM_MARKET" +
-      "PLACE\020\002\022\022\n\016SELL_TO_ARMORY\020\003\022\027\n\023POST_TO_M" +
-      "ARKETPLACE\020\004\022\024\n\020DEPOSIT_IN_VAULT\020\005\022\027\n\023WI" +
-      "THDRAW_FROM_VAULT\020\006\022\027\n\023WRITE_ON_ENEMY_WA" +
-      "LL\020\007\022\025\n\021REQUEST_JOIN_CLAN\020\010\022\036\n\032SUCCESSFU" +
-      "LLY_FORGE_AN_ITEM\020\t*k\n\010UserType\022\020\n\014GOOD_" +
-      "WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020" +
-      "\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BA" +
-      "D_MAGE\020\005*E\n\014BattleResult\022\020\n\014ATTACKER_WIN",
-      "\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*" +
-      "B\n\023MarketplacePostType\022\026\n\022PREMIUM_EQUIP_" +
-      "POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035Marketpla" +
-      "ceJobRequirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*" +
-      "c\n\016CritStructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPENT" +
-      "ER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLA" +
-      "CE\020\005\022\016\n\nBLACKSMITH\020\006*3\n\021StructOrientatio" +
-      "n\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001*P\n\022Exp" +
-      "ansionDirection\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RIG" +
-      "HT\020\001\022\r\n\tNEAR_LEFT\020\002\022\016\n\nNEAR_RIGHT\020\003B\013B\tI",
-      "nfoProto"
+      "\030\t \001(\003\022\027\n\017attemptComplete\030\n \001(\010\022\"\n\032equip" +
+      "OneEnhancementPercent\030\013 \001(\005\022\"\n\032equipTwoE" +
+      "nhancementPercent\030\014 \001(\005*C\n\016EquipClassTyp" +
+      "e\022\013\n\007WARRIOR\020\000\022\n\n\006ARCHER\020\001\022\010\n\004MAGE\020\002\022\016\n\n",
+      "ALL_AMULET\020\003*,\n\016UserClanStatus\022\n\n\006MEMBER" +
+      "\020\000\022\016\n\nREQUESTING\020\002*@\n\016GroupChatScope\022\n\n\006" +
+      "GLOBAL\020\000\022\014\n\010ALLIANCE\020\001\022\n\n\006LEGION\020\002\022\010\n\004CL" +
+      "AN\020\003*^\n\017LeaderboardType\022\024\n\020MOST_BATTLES_" +
+      "WON\020\002\022\016\n\nMOST_COINS\020\003\022\014\n\010MOST_EXP\020\004\022\014\n\010B" +
+      "EST_KDR\020\005\022\t\n\005EVENT\020\006*f\n\020CharacterModType" +
+      "\022\016\n\nNEW_PLAYER\020\001\022\026\n\022RESET_SKILL_POINTS\020\002" +
+      "\022\031\n\025CHANGE_CHARACTER_TYPE\020\003\022\017\n\013CHANGE_NA" +
+      "ME\020\004*/\n\rAnimationType\022\022\n\016GENERIC_ACTION\020" +
+      "\001\022\n\n\006ATTACK\020\002*h\n\024EarnFreeDiamondsType\022\010\n",
+      "\004KIIP\020\001\022\014\n\010ADCOLONY\020\002\022\r\n\tFB_INVITE\020\003\022\n\n\006" +
+      "TAPJOY\020\004\022\020\n\014FLURRY_VIDEO\020\005\022\013\n\007TWITTER\020\006*" +
+      "\371\001\n\022SpecialQuestAction\022\030\n\024PURCHASE_FROM_" +
+      "ARMORY\020\001\022\035\n\031PURCHASE_FROM_MARKETPLACE\020\002\022" +
+      "\022\n\016SELL_TO_ARMORY\020\003\022\027\n\023POST_TO_MARKETPLA" +
+      "CE\020\004\022\024\n\020DEPOSIT_IN_VAULT\020\005\022\027\n\023WITHDRAW_F" +
+      "ROM_VAULT\020\006\022\027\n\023WRITE_ON_ENEMY_WALL\020\007\022\025\n\021" +
+      "REQUEST_JOIN_CLAN\020\010\022\036\n\032SUCCESSFULLY_FORG" +
+      "E_AN_ITEM\020\t*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020" +
+      "\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD",
+      "_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005" +
+      "*E\n\014BattleResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DE" +
+      "FENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023Marke" +
+      "tplacePostType\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023" +
+      "\n\017NORM_EQUIP_POST\020\002*2\n\035MarketplaceJobReq" +
+      "uirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritS" +
+      "tructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005" +
+      "VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005\022\016\n\n" +
+      "BLACKSMITH\020\006*3\n\021StructOrientation\022\016\n\nPOS" +
+      "ITION_1\020\000\022\016\n\nPOSITION_2\020\001*P\n\022ExpansionDi",
+      "rection\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001\022\r\n\t" +
+      "NEAR_LEFT\020\002\022\016\n\nNEAR_RIGHT\020\003B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -54482,7 +54597,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_descriptor,
-              new java.lang.String[] { "BlacksmithId", "UserId", "EquipId", "GoalLevel", "Guaranteed", "StartTime", "DiamondGuaranteeCost", "TimeOfSpeedup", "AttemptComplete", },
+              new java.lang.String[] { "BlacksmithId", "UserId", "EquipId", "GoalLevel", "Guaranteed", "StartTime", "DiamondGuaranteeCost", "TimeOfSpeedup", "AttemptComplete", "EquipOneEnhancementPercent", "EquipTwoEnhancementPercent", },
               com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto.class,
               com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto.Builder.class);
           return null;

@@ -41,6 +41,9 @@ public class NotificationConstants {
   public static final int LEADERBOARD_EVENT_ENDED_INDIVIDUAL__GREEN = 200;
   public static final int LEADERBOARD_EVENT_ENDED_INDIVIDUAL__RED = 255;
 
+  public static final int ATTACKING_CLAN_DETERMINED_APNS__BLUE = 0;
+  public static final int ATTACKING_CLAN_DETERMINED_APNS__GREEN = 220;
+  public static final int ATTACKING_CLAN_DETERMINED_APNS__RED = 255;
   
   
   /*TITLE AND SUBTITLE CONSTANTS*/
@@ -83,4 +86,28 @@ public class NotificationConstants {
   //LEADERBOARD EVENT (TOURNAMENT) ENDED, MESSAGE FOR INDIVIDUALS THAT ARE OFFLINE
   public static final String LEADERBOARD_EVENT_ENDED_INDIVIDUAL_OFFLINE_TITLE = "The tournament ended.";
   public static final String LEADERBOARD_EVENT_ENDED_INDIVIDUAL_OFFLINE_SUBTITLE = " You were in the top {0} and won {1} gold!";
+  
+  
+  //FLAVOR TEXT FOR CLAN ATTACKING A TOWER
+  public static String ATTACKING_CLAN__TITLE_APNS = "Your clan is waging war on {0} for the {1}!"; 
+  public static final String[] ATTACKING_CLAN__SUBTITLE_APNS =  {
+    "Fight! Come on, do you want to live forever?!",
+    "By the power of Greyskull, YOU have the power! Attack!",
+    "Tulta munille!",
+    "CHARGE!",
+    "Hit\'em hard and hit\'em fast!",
+    "Attack them! Leeeroy Jennnkins!"
+  };
+  
+  //FLAVOR TEXT FOR CLAN DEFENDING A TOWER
+  public static String DEFENDING_CLAN__TITLE_APNS = "{0} is waging war against your clan for the {1}!";
+  public static final String[] DEFENDING_CLAN__SUBTITLE_APNS = {
+    "Strike back! This is where we fight! This is where they die!",
+    "Red alert! Man your battle station!",
+    "Eos oportet delenda est!",
+    "Wipe them out!",
+    "Counterattack! Today is a good day, for them, to die!",
+    "Suit up! Attack!"
+  };
+//ESCAPE APOSTROPHES
 }

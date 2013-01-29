@@ -302,6 +302,10 @@ public class APNSWriter extends Wrap {
 					handlePostOnClanBulletinApnsNotification(service, 
 							(PostOnClanBulletinResponseEvent) event, user, deviceToken);
 				}
+				if (GeneralNotificationResponseEvent.class.isInstance(event)) {
+				  handleGeneralNotification(service, 
+				      (GeneralNotificationResponseEvent) event, user, deviceToken);
+				}
 			}else {
 				log.warn("Apns service is null");
 			}

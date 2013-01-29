@@ -882,5 +882,7 @@ message UnhandledBlacksmithAttemptProto {
 	optional int32 diamondGuaranteeCost = 8;
 	optional int64 timeOfSpeedup = 9;
 	optional bool attemptComplete = 10;
+	optional int32 equipOneEnhancementPercent = 11;
+	optional int32 equipTwoEnhancementPercent = 12;
 }
 
