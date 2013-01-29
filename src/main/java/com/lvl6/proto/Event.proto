@@ -368,6 +368,7 @@ message StartupResponseProto {
 			optional int32 marketplaceMinLevel = 4;
 			optional int32 blacksmithMinLevel = 5;
 			optional int32 leaderboardMinLevel = 6;
+			optional int32 enhancingMinLevel = 7;
 		}
 		
 		message DownloadableNibConstants {

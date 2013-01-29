@@ -170,7 +170,7 @@ public class ControllerConstants {
   public static final int STARTUP__MARKETPLACE_MIN_LEVEL = 12;
   public static final int STARTUP__BLACKSMITH_MIN_LEVEL = 10;
   public static final int STARTUP__LEADERBOARD_MIN_LEVEL = 1;
-  
+  public static final int STARTUP__ENHANCING_MIN_LEVEL_TO_UNLOCK = 20; 
   
   //ARMORY
   public static final double ARMORY__SELL_RATIO = 0.15;
