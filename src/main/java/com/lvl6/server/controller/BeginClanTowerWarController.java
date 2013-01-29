@@ -296,7 +296,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     List<ClanTower> changedTowers = new ArrayList<ClanTower>();
     changedTowers.add(aTower);
 
-    Notification clanTowerWarNotification = new Notification ();
+    Notification clanTowerWarNotification = new Notification();
+    Notification apnsClanTowerWarNotificationAttacker = new Notification();
+    Notification apnsClanTowerWarNotificationOwner = new Notification();
     if (ownerBefore != ownerAfter) {//clan tower owner changed (initialized)
 
       MiscMethods.sendClanTowerProtosToClient(changedTowers, 
@@ -324,6 +326,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       clanTowerWarNotification.setAsClanTowerWarAttackerOwnerDetermined( 
           clanTowerAttackerName, clanTowerOwnerName, towerName, ownerDetermined);
+      
+      boolean msgForAttacker = true;
+      apnsClanTowerWarNotificationAttacker.setAsClanTowerAttackerDeterminedAPNS(
+          clanTowerAttackerName, clanTowerOwnerName, towerName, msgForAttacker);
+      
+      msgForAttacker = false;
+      apnsClanTowerWarNotificationOwner.setAsClanTowerAttackerDeterminedAPNS(
+          clanTowerAttackerName, clanTowerOwnerName, towerName, msgForAttacker);
     }
     else  {
       log.error("clan tower owner or attacker stayed the same. One of them" +
@@ -332,6 +342,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     
     MiscMethods.writeGlobalNotification(clanTowerWarNotification, server);
-    
+    if(attackerBefore != attackerAfter) {
+      MiscMethods.writeClanApnsNotification(apnsClanTowerWarNotificationAttacker,
+          server, attackerAfter);
+      MiscMethods.writeClanApnsNotification(apnsClanTowerWarNotificationOwner,
+          server, ownerAfter);
+    }
   }
 }
