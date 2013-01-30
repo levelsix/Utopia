@@ -152,7 +152,6 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     
     float y = goldCostToSpeedup/chanceOfSuccess;
     int x = (int) (goldCostToSpeedup/chanceOfSuccess);
-    log.info("diamonds="+x+ " "+y);
     return x;
   }
 
