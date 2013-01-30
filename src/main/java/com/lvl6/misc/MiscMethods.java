@@ -652,7 +652,7 @@ public class MiscMethods {
   }
   
   public static List<LeaderboardEventProto> currentLeaderboardEventProtos() {
-    Map<Integer, LeaderboardEvent> idsToEvents = LeaderboardEventRetrieveUtils.getIdsToLeaderboardEvents();
+    Map<Integer, LeaderboardEvent> idsToEvents = LeaderboardEventRetrieveUtils.getIdsToLeaderboardEvents(false);
     long curTime = (new Date()).getTime();
     List<Integer> activeEventIds = new ArrayList<Integer>();
     

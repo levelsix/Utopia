@@ -492,7 +492,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private void leaderBoardEventStuff(User winner, User loser, User attacker, 
       User defender, boolean attackerFled) {
     //get all leaderboard events that have not ended this is assuming all events care about wins/losses/flees
-    Collection<LeaderboardEvent> events = LeaderboardEventRetrieveUtils.getIdsToLeaderboardEvents().values();
+    Collection<LeaderboardEvent> events = LeaderboardEventRetrieveUtils.getIdsToLeaderboardEvents(false).values();
     List<LeaderboardEvent> activeEvents = new ArrayList<LeaderboardEvent>();
 
     for (LeaderboardEvent event : events) {
