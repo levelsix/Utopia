@@ -129,7 +129,7 @@ public class MiscMethods {
 
   public static int calculateDiamondCostToSpeedupForgeWaittime(Equipment equipment, int goalLevel) {
     return (int) Math.ceil(calculateMinutesToFinishForgeAttempt(equipment, goalLevel) / 
-        (float)ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
+        ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
   }
 
   public static UserEquip chooseUserEquipWithEquipIdPreferrablyNonEquippedIgnoreLevel(User user, List<UserEquip> userEquipsForEquipId) {
