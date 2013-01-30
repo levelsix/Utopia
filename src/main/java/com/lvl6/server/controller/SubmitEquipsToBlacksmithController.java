@@ -138,7 +138,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         if (!user.updateRelativeDiamondsNaive(diamondCostForGuarantee*-1)) {
           log.error("problem with taking away diamonds post forge guarantee attempt, taking away " + diamondCostForGuarantee + ", user only has " + user.getDiamonds());
         } else {
-          money.put(MiscMethods.gold, diamondCostForGuarantee);
+          money.put(MiscMethods.gold, -1 * diamondCostForGuarantee);
         }
       }
     }
@@ -152,7 +152,6 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     
     float y = goldCostToSpeedup/chanceOfSuccess;
     int x = (int) (goldCostToSpeedup/chanceOfSuccess);
-    log.info("diamonds="+x+ " "+y);
     return x;
   }
 

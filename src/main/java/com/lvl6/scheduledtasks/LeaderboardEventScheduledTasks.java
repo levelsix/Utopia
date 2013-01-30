@@ -94,7 +94,7 @@ public class LeaderboardEventScheduledTasks {
 			if (lock.tryLock()) {
 				gotLock = true;
 				Collection<LeaderboardEvent> events = LeaderboardEventRetrieveUtils
-						.getIdsToLeaderboardEvents().values();
+						.getIdsToLeaderboardEvents(true).values();
 				if (events == null)
 					return;
 				for (LeaderboardEvent event : events) {

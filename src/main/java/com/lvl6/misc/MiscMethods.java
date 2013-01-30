@@ -136,7 +136,7 @@ public class MiscMethods {
 
   public static int calculateDiamondCostToSpeedupForgeWaittime(Equipment equipment, int goalLevel) {
     return (int) Math.ceil(calculateMinutesToFinishForgeAttempt(equipment, goalLevel) / 
-        (float)ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
+        ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
   }
 
   public static UserEquip chooseUserEquipWithEquipIdPreferrablyNonEquippedIgnoreLevel(User user, List<UserEquip> userEquipsForEquipId) {
@@ -652,7 +652,7 @@ public class MiscMethods {
   }
   
   public static List<LeaderboardEventProto> currentLeaderboardEventProtos() {
-    Map<Integer, LeaderboardEvent> idsToEvents = LeaderboardEventRetrieveUtils.getIdsToLeaderboardEvents();
+    Map<Integer, LeaderboardEvent> idsToEvents = LeaderboardEventRetrieveUtils.getIdsToLeaderboardEvents(false);
     long curTime = (new Date()).getTime();
     List<Integer> activeEventIds = new ArrayList<Integer>();
     
