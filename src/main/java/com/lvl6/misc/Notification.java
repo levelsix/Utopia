@@ -20,6 +20,7 @@ public class Notification {
   private Map<String, Object> keysAndValues;
   private ColorProto.Builder rgb;
 
+  //should really move these into notification constants....
   public static final String ATTACKER_CONCEDED = "attacker conceded";
   public static final String OWNER_CONCEDED = "owner conceded";
   public static final String ATTACKER_NOT_ENOUGH_MEMBERS = "attacker does not have enough members";
@@ -29,17 +30,6 @@ public class Notification {
   public static final String CLAN_TOWER_WAR_BEGAN = "battle began";
   public static final String FOUND_AN_EPIC = "found an epic";
   
-  /*
-   * This class exists so as to not keep writing 
-   * new Runnable() {
-					@Override
-					public void run() {
-						...
-					}
-				}
-   * and passing it into executor.execute whenever a message wants to be sent to players online.
-   * Example would be in SendGroupChatController.java regarding sending to all players online.
-   */
   public Notification () {
     this.keysAndValues = new HashMap<String, Object>();
     this.rgb = ColorProto.newBuilder();
@@ -321,6 +311,26 @@ public class Notification {
     
     log.info("notification for player. player online=" + playerOnline 
         + " title=" + title + " subtitle=" + subtitle);
+  }
+  
+  public void setAsUserRequestedToJoinClan (int level, String requester) {
+    Object[] arguments = { level, requester };
+    MessageFormat formatTitle = 
+        new MessageFormat(NotificationConstants.REQUEST_TO_JOIN_A_CLAN__TITLE);
+    MessageFormat formatSubtitle = 
+        new MessageFormat(NotificationConstants.REQUEST_TO_JOIN_A_CLAN__SUBTITLE);
+    String title = formatTitle.format(arguments);
+    String subtitle = formatSubtitle.format(arguments);
+    
+    rgb.setBlue(NotificationConstants.REQUEST_TO_JOIN_A_CLAN__BLUE);
+    rgb.setGreen(NotificationConstants.REQUEST_TO_JOIN_A_CLAN__GREEN);
+    rgb.setRed(NotificationConstants.REQUEST_TO_JOIN_A_CLAN__RED);
+    
+    keysAndValues.put("title", title);
+    keysAndValues.put("subtitle", subtitle);
+    keysAndValues.put("rgb", rgb.build());
+    
+    log.info("sending join clan request for level " + level + " " + requester);
   }
   
 }

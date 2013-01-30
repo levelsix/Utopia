@@ -41,10 +41,15 @@ public class NotificationConstants {
   public static final int LEADERBOARD_EVENT_ENDED_INDIVIDUAL__GREEN = 200;
   public static final int LEADERBOARD_EVENT_ENDED_INDIVIDUAL__RED = 255;
 
+  //CLAN TOWER WAR BEGAN
   public static final int ATTACKING_CLAN_DETERMINED_APNS__BLUE = 0;
   public static final int ATTACKING_CLAN_DETERMINED_APNS__GREEN = 220;
   public static final int ATTACKING_CLAN_DETERMINED_APNS__RED = 255;
   
+  //USER REQUESTED TO JOIN A CLAN
+  public static final int REQUEST_TO_JOIN_A_CLAN__BLUE = 0;
+  public static final int REQUEST_TO_JOIN_A_CLAN__GREEN = 220;
+  public static final int REQUEST_TO_JOIN_A_CLAN__RED = 255;
   
   /*TITLE AND SUBTITLE CONSTANTS*/
   // ESCAPE APOSTROPHES
@@ -109,5 +114,10 @@ public class NotificationConstants {
     "Counterattack! Today is a good day, for them, to die!",
     "Suit up! Attack!"
   };
-//ESCAPE APOSTROPHES
+
+  //USER REQUESTED TO JOIN A CLAN
+  public static final String REQUEST_TO_JOIN_A_CLAN__TITLE = "Level {0} {1} wants to join your clan!";
+  public static final String REQUEST_TO_JOIN_A_CLAN__SUBTITLE = "See if {1} is worthy.";
+
+  //ESCAPE APOSTROPHES
 }
