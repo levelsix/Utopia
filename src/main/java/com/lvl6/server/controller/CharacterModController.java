@@ -105,7 +105,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        writeToUserCurrencyHistory(user, modType, diamondCost);
+        writeToUserCurrencyHistory(user, modType, -1 * diamondCost);
       }
 
 
@@ -229,7 +229,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       Timestamp date = new Timestamp((new Date()).getTime());
       int isSilver = 0;
       int currencyAfter = aUser.getDiamonds();
-      int currencyBefore = currencyAfter - (-1*diamondCost); //forgot to add negative before, 
+      int currencyBefore = currencyAfter - diamondCost;  
       String reasonForChange = "character mod controller";
       if (modType == CharacterModType.CHANGE_CHARACTER_TYPE) {
         reasonForChange = ControllerConstants.UCHRFC__CHARACTER_MOD_TYPE;
