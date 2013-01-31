@@ -1,6 +1,8 @@
 package com.lvl6.utils.utilmethods;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -366,8 +368,12 @@ public class InsertUtils implements InsertUtil{
       insertParams.put(DBConstants.IAP_HISTORY__USER_ID, user.getId());
       insertParams.put(DBConstants.IAP_HISTORY__TRANSACTION_ID,
           appleReceipt.getString(IAPValues.TRANSACTION_ID));
-      insertParams.put(DBConstants.IAP_HISTORY__PURCHASE_DATE,
-          appleReceipt.getString(IAPValues.PURCHASE_DATE));
+      try {
+        insertParams.put(DBConstants.IAP_HISTORY__PURCHASE_DATE,
+            new Timestamp(DateFormat.getDateTimeInstance().parse(appleReceipt.getString(IAPValues.PURCHASE_DATE)).getTime()));
+      } catch (ParseException e) {
+        e.printStackTrace();
+      }
       insertParams.put(DBConstants.IAP_HISTORY__PREMIUMCUR_PURCHASED,
           diamondChange);
       insertParams.put(DBConstants.IAP_HISTORY__CASH_SPENT, cashCost);
