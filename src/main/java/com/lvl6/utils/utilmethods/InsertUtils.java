@@ -113,21 +113,21 @@ public class InsertUtils implements InsertUtil{
         DBConstants.TABLE_USER_EQUIP, insertParams);
     return userEquipId;
   }
-
+  
   public List<Integer> insertUserEquips(int userId, List<Integer> equipIds, List<Integer> levels) {
-    String tableName = DBConstants.TABLE_USER_EQUIP;
-    List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
-    for(int i = 0; i < equipIds.size(); i++){
-      Map<String, Object> row = new HashMap<String, Object>();
-      row.put(DBConstants.USER_EQUIP__USER_ID, userId);
-      row.put(DBConstants.USER_EQUIP__EQUIP_ID, equipIds.get(i));
-      row.put(DBConstants.USER_EQUIP__LEVEL, levels.get(i));
-
-      newRows.add(row);
-    }
-    List<Integer> userEquipIds = DBConnection.get().insertIntoTableBasicReturnIds(tableName, newRows);
-    Log.info("userEquipIds= " + userEquipIds);
-    return userEquipIds;
+	  String tableName = DBConstants.TABLE_USER_EQUIP;
+	  List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
+	  for(int i = 0; i < equipIds.size(); i++){
+		  Map<String, Object> row = new HashMap<String, Object>();
+		  row.put(DBConstants.USER_EQUIP__USER_ID, userId);
+		  row.put(DBConstants.USER_EQUIP__EQUIP_ID, equipIds.get(i));
+		  row.put(DBConstants.USER_EQUIP__LEVEL, levels.get(i));
+		  
+		  newRows.add(row);
+	  }
+	  List<Integer> userEquipIds = DBConnection.get().insertIntoTableBasicReturnIds(tableName, newRows);
+	  Log.info("userEquipIds= " + userEquipIds);
+	  return userEquipIds;
   }
 
   public int insertForgeAttemptIntoBlacksmith(int userId, int equipId,
@@ -697,56 +697,56 @@ public class InsertUtils implements InsertUtil{
         DBConstants.TABLE_CLAN_WALL_POSTS, insertParams);
     return wallPostId;
   }
-
+  
   public int insertIntoBossRewardDropHistoryReturnId(int bossId, int userId, int silverDropped, int goldDropped, Timestamp timeOfDrop) {
-    String tableName = DBConstants.TABLE_BOSS_REWARD_DROP_HISTORY;
-    Map<String, Object> insertParams = new HashMap<String, Object>();
-
-    insertParams.put(DBConstants.BOSS_REWARD_DROP_HISTORY__BOSS_ID, bossId);
-    insertParams.put(DBConstants.BOSS_REWARD_DROP_HISTORY__USER_ID, userId);
-    insertParams.put(DBConstants.BOSS_REWARD_DROP_HISTORY__SILVER, silverDropped);
-    insertParams.put(DBConstants.BOSS_REWARD_DROP_HISTORY__GOLD, goldDropped);
-    insertParams.put(DBConstants.BOSS_REWARD_DROP_HISTORY__TIME_OF_DROP, timeOfDrop);
-
-    int anId = DBConnection.get().insertIntoTableBasicReturnId(tableName, insertParams);
-    return anId;
+	  String tableName = DBConstants.TABLE_BOSS_REWARD_DROP_HISTORY;
+	  Map<String, Object> insertParams = new HashMap<String, Object>();
+	  
+	  insertParams.put(DBConstants.BOSS_REWARD_DROP_HISTORY__BOSS_ID, bossId);
+	  insertParams.put(DBConstants.BOSS_REWARD_DROP_HISTORY__USER_ID, userId);
+	  insertParams.put(DBConstants.BOSS_REWARD_DROP_HISTORY__SILVER, silverDropped);
+	  insertParams.put(DBConstants.BOSS_REWARD_DROP_HISTORY__GOLD, goldDropped);
+	  insertParams.put(DBConstants.BOSS_REWARD_DROP_HISTORY__TIME_OF_DROP, timeOfDrop);
+	  
+	  int anId = DBConnection.get().insertIntoTableBasicReturnId(tableName, insertParams);
+	  return anId;
   }
-
+  
   public int insertIntoBossEquipDropHistory(int bossRewardDropHistoryId, List<Integer> equipIds) {
-    String tableName = DBConstants.TABLE_BOSS_EQUIP_DROP_HISTORY;
-    Map<String, List<Object>> insertParams = new HashMap<String, List<Object>>();
-
-    Map<Integer, Integer> equipIdsAndQuantities = generateEquipIdAndQuantitiesMap(equipIds);
-
-    List<Object> bossRewardDropHistoryIds = new ArrayList<Object>();
-    List<Object> distinctEquipIds = new ArrayList<Object>();
-
-    for(Integer distinctEquipId: equipIdsAndQuantities.keySet()) {
-      bossRewardDropHistoryIds.add(bossRewardDropHistoryId);
-      distinctEquipIds.add(distinctEquipId);
-    }
-
-    List<Object> quantities = new ArrayList<Object>();
-    for(Object equipId : distinctEquipIds) {
-      quantities.add(equipIdsAndQuantities.get((Integer) equipId));
-    }
-
-    int numRows = bossRewardDropHistoryIds.size();
-
-    insertParams.put(DBConstants.BOSS_EQUIP_DROP_HISTORY__BOSS_REWARD_DROP_HISTORY_ID, bossRewardDropHistoryIds);
-    insertParams.put(DBConstants.BOSS_EQUIP_DROP_HISTORY__EQUIP_ID, distinctEquipIds);
-    insertParams.put(DBConstants.BOSS_EQUIP_DROP_HISTORY__QUANTITY, quantities);
-
-    int numUpdated = DBConnection.get().insertIntoTableMultipleRows(tableName, insertParams, numRows);
-    return numUpdated;
-
+	  String tableName = DBConstants.TABLE_BOSS_EQUIP_DROP_HISTORY;
+	  Map<String, List<Object>> insertParams = new HashMap<String, List<Object>>();
+	  
+	  Map<Integer, Integer> equipIdsAndQuantities = generateEquipIdAndQuantitiesMap(equipIds);
+	  
+	  List<Object> bossRewardDropHistoryIds = new ArrayList<Object>();
+	  List<Object> distinctEquipIds = new ArrayList<Object>();
+	  
+	  for(Integer distinctEquipId: equipIdsAndQuantities.keySet()) {
+	    bossRewardDropHistoryIds.add(bossRewardDropHistoryId);
+	    distinctEquipIds.add(distinctEquipId);
+	  }
+	  
+	  List<Object> quantities = new ArrayList<Object>();
+	  for(Object equipId : distinctEquipIds) {
+	    quantities.add(equipIdsAndQuantities.get((Integer) equipId));
+	  }
+	  
+	  int numRows = bossRewardDropHistoryIds.size();
+	  
+	  insertParams.put(DBConstants.BOSS_EQUIP_DROP_HISTORY__BOSS_REWARD_DROP_HISTORY_ID, bossRewardDropHistoryIds);
+	  insertParams.put(DBConstants.BOSS_EQUIP_DROP_HISTORY__EQUIP_ID, distinctEquipIds);
+	  insertParams.put(DBConstants.BOSS_EQUIP_DROP_HISTORY__QUANTITY, quantities);
+	  
+	  int numUpdated = DBConnection.get().insertIntoTableMultipleRows(tableName, insertParams, numRows);
+	  return numUpdated;
+	  
   }
-
+  
   private Map<Integer, Integer> generateEquipIdAndQuantitiesMap(List<Integer> equipIds) {
     Map<Integer, Integer> equipIdsAndQuantities = new HashMap<Integer, Integer>();
     for(Integer equipId: equipIds) {
       Integer quantity = equipIdsAndQuantities.get(equipId);
-
+      
       if(null == quantity) {
         equipIdsAndQuantities.put(equipId, 0);
         quantity = 0;
@@ -755,14 +755,14 @@ public class InsertUtils implements InsertUtil{
     }
     return equipIdsAndQuantities;
   }
-
+  
   public int insertIntoUserLeaderboardEvent(int leaderboardEventId, int userId, 
       int battlesWonChange, int battlesLostChange, int battlesFledChange) {
     String tablename = DBConstants.TABLE_USER_LEADERBOARD_EVENTS;
     Map<String, Object> insertParams = new HashMap<String, Object>();
     Map<String, Object> relativeUpdates = new HashMap<String, Object>();
     Map<String, Object> absoluteUpdates = new HashMap<String, Object>();
-
+    
     insertParams.put(DBConstants.USER_LEADERBOARD_EVENTS__LEADERBOARD_EVENT_ID, leaderboardEventId);
     insertParams.put(DBConstants.USER_LEADERBOARD_EVENTS__USER_ID, userId);
     //as long as there is an existing row, setting these three values doesn't matter
@@ -770,7 +770,7 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.USER_LEADERBOARD_EVENTS__BATTLES_WON, battlesWonChange);
     insertParams.put(DBConstants.USER_LEADERBOARD_EVENTS__BATTLES_LOST, battlesLostChange);
     insertParams.put(DBConstants.USER_LEADERBOARD_EVENTS__BATTLES_FLED, battlesFledChange);
-
+    
     //this is for the case when there is already an existing row
     relativeUpdates.put(DBConstants.USER_LEADERBOARD_EVENTS__BATTLES_WON, battlesWonChange);
     relativeUpdates.put(DBConstants.USER_LEADERBOARD_EVENTS__BATTLES_LOST, battlesLostChange);
@@ -778,44 +778,44 @@ public class InsertUtils implements InsertUtil{
     DBConnection.get().insertOnDuplicateKeyUpdate(tablename, insertParams, relativeUpdates, absoluteUpdates);
     return 0;
   }
-
+  
   //at the time of this writing 12/19/12 only used to record when user spends diamonds to
   //refill energy or stamina
   public int insertIntoRefillStatHistory(int userId, boolean staminaRefill,
       int staminaMax, int goldCost) {
     String tablename = DBConstants.TABLE_REFILL_STAT_HISTORY;
     Map<String, Object> insertParams = new HashMap<String, Object>();
-
+    
     insertParams.put(DBConstants.REFILL_STAT_HISTORY__USER_ID, userId);
     insertParams.put(DBConstants.REFILL_STAT_HISTORY__STAMINA_REFILL, staminaRefill);
     insertParams.put(DBConstants.REFILL_STAT_HISTORY__STAMINA_MAX, staminaMax);
     insertParams.put(DBConstants.REFILL_STAT_HISTORY__GOLD_COST, goldCost);
-
+    
     //number of rows inserted (should be one)
     int numUpdated =  DBConnection.get().insertIntoTableBasic(tablename, insertParams);
     Log.info("number of rows inserted into refill_stat_history table: " + numUpdated);
     return numUpdated;
   }
-
+  
   //0 for isSilver means currency is gold; 1 for isSilver means currency is silver
   public int insertIntoUserCurrencyHistory (int userId, Timestamp date, int isSilver, 
       int currencyChange, int currencyBefore, String reasonForChange) {
     String tableName = DBConstants.TABLE_USER_CURRENCY_HISTORY;
     Map<String, Object> insertParams = new HashMap<String, Object>();
-
+    
     insertParams.put(DBConstants.USER_CURRENCY_HISTORY__USER_ID, userId);
     insertParams.put(DBConstants.USER_CURRENCY_HISTORY__DATE, date);
     insertParams.put(DBConstants.USER_CURRENCY_HISTORY__IS_SILVER, isSilver);
     insertParams.put(DBConstants.USER_CURRENCY_HISTORY__CURRENCY_CHANGE, currencyChange);
     insertParams.put(DBConstants.USER_CURRENCY_HISTORY__CURRENCY_BEFORE_CHANGE, currencyBefore);
     insertParams.put(DBConstants.USER_CURRENCY_HISTORY__REASON_FOR_CHANGE, reasonForChange);
-
+    
     //number of rows inserted
     int numUpdated = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
     Log.info("number of rows inserted into user_currency_history: " + numUpdated);
     return numUpdated;
   }
-
+  
   /*
    * assumptions: all the entries at index i across all the lists, 
    * they make up the values for one row to insert into user_currency_history
@@ -825,7 +825,7 @@ public class InsertUtils implements InsertUtil{
       List<Timestamp> dates, List<Integer> areSilver, List<Integer> changesToCurrencies,
       List<Integer> previousCurrencies, List<String> reasonsForChanges) {
     String tablename = DBConstants.TABLE_USER_CURRENCY_HISTORY;
-
+    
     //did not add generics because eclipse shows errors like: can't accept  (String, List<Integer>), needs (String, List<Object>)
     @SuppressWarnings("rawtypes")
     Map insertParams = new HashMap<String, List<Object>>();
@@ -842,10 +842,10 @@ public class InsertUtils implements InsertUtil{
       insertParams.put(DBConstants.USER_CURRENCY_HISTORY__CURRENCY_BEFORE_CHANGE, previousCurrencies);
     }
     insertParams.put(DBConstants.USER_CURRENCY_HISTORY__REASON_FOR_CHANGE, reasonsForChanges);
-
+    
     int numInserted = DBConnection.get().insertIntoTableMultipleRows(tablename, 
         insertParams, numRows);
-
+    
     return numInserted;
   }
 }
