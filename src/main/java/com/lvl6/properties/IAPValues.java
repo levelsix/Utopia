@@ -16,6 +16,7 @@ public class IAPValues {
   public static final String BVRS = "bvrs";
   public static final String APP_ITEM_ID = "app_item_id";
   public static final String PURCHASE_DATE = "purchase_date";
+  public static final String PURCHASE_DATE_MS = "purchase_date_ms";
 
   private static final String PACKAGE1 = Globals.APPLE_BUNDLE_ID + ".package1";
   private static final String PACKAGE2 = Globals.APPLE_BUNDLE_ID + ".package2";

@@ -498,7 +498,7 @@ public class InsertUtils implements InsertUtil{
       insertParams.put(DBConstants.IAP_HISTORY__TRANSACTION_ID,
           appleReceipt.getString(IAPValues.TRANSACTION_ID));
       insertParams.put(DBConstants.IAP_HISTORY__PURCHASE_DATE,
-          appleReceipt.getString(IAPValues.PURCHASE_DATE));
+          new Timestamp(appleReceipt.getLong(IAPValues.PURCHASE_DATE_MS)));
       insertParams.put(DBConstants.IAP_HISTORY__PREMIUMCUR_PURCHASED,
           diamondChange);
       insertParams.put(DBConstants.IAP_HISTORY__REGCUR_PURCHASED,
