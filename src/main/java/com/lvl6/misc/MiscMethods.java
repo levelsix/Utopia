@@ -1254,6 +1254,7 @@ public class MiscMethods {
   
   public static void writeIntoDUEFE(UserEquip mainUserEquip, List<UserEquip> feederUserEquips,
       int enhancementId) {
+    log.info("writing into deleted user equips for enhancing");
     List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
     Map<String, Object> newRow = new HashMap<String, Object>();
     
@@ -1280,7 +1281,11 @@ public class MiscMethods {
   }
   
   public static boolean isEquipAtMaxEnhancementLevel(UserEquip enhancingUserEquip) {
-    return false;
+    int currentEnhancementLevel = enhancingUserEquip.getEnhancementPercentage();
+    int maxEnhancementLevel = ControllerConstants.MAX_ENHANCEMENT_LEVEL 
+        * ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL;
+        
+    return currentEnhancementLevel >= maxEnhancementLevel;
   }
   
   public static int attackPowerForEquip(int equipId, int forgeLevel, int enhanceLevel) {
