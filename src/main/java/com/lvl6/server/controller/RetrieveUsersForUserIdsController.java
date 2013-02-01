@@ -57,7 +57,9 @@ import com.lvl6.utils.RetrieveUtils;
         
         if (includePotentialPoints) {
           int pointsGained = MiscMethods.pointsGainedForClanTowerUserBattle(sender, user);
-          resBuilder.addPotentialPoints(pointsGained);
+          int pointsLost = MiscMethods.pointsGainedForClanTowerUserBattle(user, sender);
+          resBuilder.addPotentialPointsGained(pointsGained);
+          resBuilder.addPotentialPointsLost(pointsLost);
         }
       }
     } else {

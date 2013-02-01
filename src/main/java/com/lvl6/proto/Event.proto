@@ -1588,7 +1588,8 @@ message RetrieveUsersForUserIdsRequestProto {
 message RetrieveUsersForUserIdsResponseProto {
     optional MinimumUserProto sender = 1;
 	repeated FullUserProto requestedUsers = 2;
-	repeated int32 potentialPoints = 3;
+	repeated int32 potentialPointsGained = 3;
+	repeated int32 potentialPointsLost = 4;
 }
 
 //------------------------------------------------------------------------------------------
