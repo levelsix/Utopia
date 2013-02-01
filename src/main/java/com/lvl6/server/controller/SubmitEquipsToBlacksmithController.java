@@ -150,7 +150,6 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     float chanceOfSuccess = MiscMethods.calculateChanceOfSuccessForForge(equip, goalLevel);
     int goldCostToSpeedup = MiscMethods.calculateDiamondCostToSpeedupForgeWaittime(equip, goalLevel);
     
-    float y = goldCostToSpeedup/chanceOfSuccess;
     int x = (int) (goldCostToSpeedup/chanceOfSuccess);
     return x;
   }
