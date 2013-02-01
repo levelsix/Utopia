@@ -52,7 +52,8 @@ public class NotificationConstants {
   public static final int REQUEST_TO_JOIN_A_CLAN__RED = 255;
   
   /*TITLE AND SUBTITLE CONSTANTS*/
-  // ESCAPE APOSTROPHES
+  //THE ESCAPE CHARACTER IN MESSAGEFORMAT IS A SINGLE APOSTROPHE CHARACTER, '.
+  //PRECEDE APOSTROPHES WITH ANOTHER APOSTROPHE TO DISPLAY ONE QUOTE TO THE USER. 
   
   //CLAN TOWER  (Formatted in accordance to MessageFormat class)
   public static String CLAN_CONCEDED__TITLE = "{0} has forfeited the {2} to {1}.";
@@ -85,7 +86,7 @@ public class NotificationConstants {
   public static final String LEADERBOARD_EVENT_ENDED_GLOBAL_SUBTITLE = "{0} has won the grand prize.";
       
   //LEADERBOARD EVENT (TOURNAMENT) ENDED, MESSAGE FOR INDIVIDUALS THAT ARE ONLINE
-  public static final String LEADERBOARD_EVENT_ENDED_INDIVIDUAL_ONLINE_TITLE = "You made it into the tournament\'s top {0}!";
+  public static final String LEADERBOARD_EVENT_ENDED_INDIVIDUAL_ONLINE_TITLE = "You made it into the tournament''s top {0}!";
   public static final String LEADERBOARD_EVENT_ENDED_INDIVIDUAL_ONLINE_SUBTITLE = "You have been awarded {1} gold.";
   
   //LEADERBOARD EVENT (TOURNAMENT) ENDED, MESSAGE FOR INDIVIDUALS THAT ARE OFFLINE
@@ -100,7 +101,7 @@ public class NotificationConstants {
     "By the power of Greyskull, YOU have the power! Attack!",
     "Tulta munille!",
     "CHARGE!",
-    "Hit\'em hard and hit\'em fast!",
+    "Hit''em hard and hit''em fast!",
     "Attack them! Leeeroy Jennnkins!"
   };
   
@@ -119,5 +120,6 @@ public class NotificationConstants {
   public static final String REQUEST_TO_JOIN_A_CLAN__TITLE = "Level {0} {1} wants to join your clan!";
   public static final String REQUEST_TO_JOIN_A_CLAN__SUBTITLE = "See if {1} is worthy.";
 
-  //ESCAPE APOSTROPHES
+  //THE ESCAPE CHARACTER IN MESSAGEFORMAT IS A SINGLE APOSTROPHE CHARACTER, '.
+  //PRECEDE APOSTROPHES WITH ANOTHER APOSTROPHE TO DISPLAY ONE QUOTE TO THE USER. 
 }
