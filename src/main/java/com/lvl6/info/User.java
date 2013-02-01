@@ -987,7 +987,6 @@ public class User implements Serializable {
 
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
-    Log.warn("num updated in updateRelativeDiamondsNaive: " + numUpdated);
     if (numUpdated == 1) {
       this.diamonds += diamondChange;
       return true;

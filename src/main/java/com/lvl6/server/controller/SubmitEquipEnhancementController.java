@@ -100,6 +100,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       resEvent.setSubmitEquipEnhancementResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
       
+      log.info("equip enhancing successful: "  + successful);
       if (successful) {
         MiscMethods.writeIntoDUEFE(enhancingUserEquip, feederUserEquips, enhancementId);
       }
