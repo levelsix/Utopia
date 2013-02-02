@@ -62,7 +62,7 @@ import com.lvl6.utils.RetrieveUtils;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-      int previousGold = user.getDiamonds();
+      int previousGold = 0;
       boolean legitPurchase = checkLegitPurchase(resBuilder, user, timeOfPurchase, type);
 
       PurchaseMarketplaceLicenseResponseEvent resEvent = new PurchaseMarketplaceLicenseResponseEvent(senderProto.getUserId());
@@ -70,6 +70,8 @@ import com.lvl6.utils.RetrieveUtils;
       server.writeEvent(resEvent);
 
       if (legitPurchase) {
+        previousGold = user.getDiamonds();
+        
         writeChangesToDB(user, type, timeOfPurchase);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());

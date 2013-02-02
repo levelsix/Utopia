@@ -58,7 +58,7 @@ import com.lvl6.utils.RetrieveUtils;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());      
-      int previousGold = user.getDiamonds();
+      int previousGold = 0;
       
       boolean legitRefill = checkLegitRefill(resBuilder, user, statType);
 
@@ -68,6 +68,8 @@ import com.lvl6.utils.RetrieveUtils;
       server.writeEvent(resEvent);
 
       if (legitRefill) {
+        previousGold = user.getDiamonds();
+        
         writeChangesToDB(user, statType);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());

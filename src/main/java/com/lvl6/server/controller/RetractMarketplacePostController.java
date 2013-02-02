@@ -69,8 +69,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       int coinCost = (mp == null) ? ControllerConstants.NOT_SET : mp.getCoinCost();
 
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-      int previousSilver = user.getCoins() + user.getVaultBalance();
-      int previousGold = user.getDiamonds();
+      int previousSilver = 0;
+      int previousGold = 0;
       
       //BEGIN MARKETPLACE LICENSE FEATURE
       //if user has license or if item has been on market past a certain amount of time, 
@@ -112,6 +112,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       server.writeEvent(resEvent);
 
       if (legitRetract) {
+        previousSilver = user.getCoins() + user.getVaultBalance();
+        previousGold = user.getDiamonds();
+        
         Map<String, Integer> money = new HashMap<String, Integer>();
         writeChangesToDB(user, mp, diamondCut, coinCut, money);
         if (mp != null) {

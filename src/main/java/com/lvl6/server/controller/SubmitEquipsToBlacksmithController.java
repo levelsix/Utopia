@@ -70,7 +70,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-      int previousGold = user.getDiamonds();
+      int previousGold = 0;
       List<Integer> userEquipIds = new ArrayList<Integer>();
       userEquipIds.add(userEquipOne);
       userEquipIds.add(userEquipTwo);
@@ -106,6 +106,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       server.writeEvent(resEvent);
 
       if (legitSubmit) {
+        previousGold = user.getDiamonds();
+        
         Map<String, Integer> money = new HashMap<String, Integer>();
         writeChangesToDB(user, diamondCost, userEquips, money);
         if (diamondCost > 0) {

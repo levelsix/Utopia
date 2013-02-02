@@ -56,8 +56,8 @@ import com.lvl6.utils.RetrieveUtils;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-      int previousSilver = user.getCoins() + user.getVaultBalance();
-      int previousGold = user.getDiamonds();
+      int previousSilver = 0;
+      int previousGold = 0;
       
       boolean legitRedeem = checkLegitRedeem(resBuilder, user);
 
@@ -67,6 +67,9 @@ import com.lvl6.utils.RetrieveUtils;
       server.writeEvent(resEvent);
 
       if (legitRedeem) {
+        previousSilver = user.getCoins() + user.getVaultBalance();
+        previousGold = user.getDiamonds();
+        
         Map<String, Integer> money = new HashMap<String, Integer>();
         writeChangesToDB(user, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);

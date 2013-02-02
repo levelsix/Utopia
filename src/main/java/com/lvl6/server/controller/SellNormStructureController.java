@@ -69,9 +69,12 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
       User user = null;
       if (userStruct != null) {
         user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-        int previousSilver = user.getCoins() + user.getVaultBalance();
-        int previousGold = user.getDiamonds();
+        int previousSilver = 0;
+        int previousGold = 0;
         if (user != null && struct != null && user.getId() == userStruct.getUserId()) {
+          previousSilver = user.getCoins() + user.getVaultBalance();
+          previousGold = user.getDiamonds();
+          
           int diamondChange = Math.max(0,  (int)Math.ceil(struct.getDiamondPrice()*ControllerConstants.SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER));
           int coinChange = Math.max(0,  (int)Math.ceil(struct.getCoinPrice()*ControllerConstants.SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER));
           

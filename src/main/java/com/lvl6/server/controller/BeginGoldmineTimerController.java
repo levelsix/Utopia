@@ -59,7 +59,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-      int previousGold = user.getDiamonds();
+      int previousGold = 0;
       
       boolean legit = checkLegit(resBuilder, user, curTime, reset);
 
@@ -69,6 +69,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       server.writeEvent(resEvent);
 
       if (legit) {
+        previousGold = user.getDiamonds();
+        
         List<Integer> money = new ArrayList<Integer>();
         writeChangesToDB(user, curTime, reset, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);

@@ -72,9 +72,9 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-      String oldName = user.getName();
-      int oldType = user.getType().getNumber();
-      int previousGold = user.getDiamonds();
+      String oldName = "";
+      int oldType = 0;
+      int previousGold = 0;
 
       int diamondCost = 0;
       if (modType == CharacterModType.CHANGE_CHARACTER_TYPE) {
@@ -90,6 +90,10 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       boolean legitMod = checkLegitMod(resBuilder, diamondCost, user, newUserType, newName, modType);
 
       if (legitMod) {
+        oldName = user.getName();
+        oldType = user.getType().getNumber();
+        previousGold = user.getDiamonds();
+        
         writeChangesToDB(user, modType, diamondCost, newUserType, newName);
         resBuilder.setSkillPointsNew(user.getSkillPoints());
         resBuilder.setAttackNew(user.getAttack());

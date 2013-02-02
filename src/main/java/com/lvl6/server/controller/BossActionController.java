@@ -80,10 +80,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       User aUser = RetrieveUtils.userRetrieveUtils().getUserById(userId);
       Boss aBoss = BossRetrieveUtils.getBossForBossId(bossId);
       resBuilder.setStatus(BossActionStatus.USER_NOT_ENOUGH_STAMINA);
-      int previousSilver = aUser.getCoins() + aUser.getVaultBalance();
-      int previousGold = aUser.getDiamonds();
+      int previousSilver = 0;
+      int previousGold = 0;
 
-      if(userHasSufficientStamina(aUser, aBoss)) {
+      if(userHasSufficientStamina(resBuilder, aUser, aBoss)) {
         UserBoss aUserBoss = UserBossRetrieveUtils.getSpecificUserBoss(userId, bossId);
 
         if(null == aUserBoss) {
@@ -93,7 +93,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         //set the BossActionStatus to return. Determine if user can attack
         boolean userCanAttack = canAttack(resBuilder, aUserBoss, aUser, aBoss, curTime);
 
-        if(userCanAttack) {    	
+        if(userCanAttack) {   
+          previousSilver = aUser.getCoins() + aUser.getVaultBalance();
+          previousGold = aUser.getDiamonds();
+          
           Map<String, Integer> damageExp = 
               attackBoss(resBuilder, aUserBoss, aUser, aBoss, curTime, isSuperAttack);
           int damageDone = damageExp.get(damage);
@@ -146,10 +149,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   /* 
    * Return true if user has stamina >= to stamina cost to attack boss
    */
-  private boolean userHasSufficientStamina(User u, Boss b) {
-    int userStamina = u.getStamina();
-    int bossStaminaCost = b.getStaminaCost();
-    return userStamina >= bossStaminaCost;
+  private boolean userHasSufficientStamina(Builder resBuilder, User u, Boss b) {
+    if(null != u && null != b) {
+      int userStamina = u.getStamina();
+      int bossStaminaCost = b.getStaminaCost();
+      boolean enough = userStamina >= bossStaminaCost;
+      if (!enough) {
+        resBuilder.setStatus(BossActionStatus.USER_NOT_ENOUGH_STAMINA);
+      } 
+      return enough;
+    } else {
+      resBuilder.setStatus(BossActionStatus.OTHER_FAIL);
+      return false;
+    }
   }
 
   /*

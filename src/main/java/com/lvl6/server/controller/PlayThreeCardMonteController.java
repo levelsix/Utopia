@@ -62,8 +62,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       MonteCard card = ThreeCardMonteRetrieveUtils.getMonteCardIdsToMonteCards().get(reqProto.getCardId());
-      int previousSilver = user.getCoins() + user.getVaultBalance();
-      int previousGold = user.getDiamonds();
+      int previousSilver = 0;
+      int previousGold = 0;
 
       boolean legitPlay = checkLegitPlay(resBuilder, user, card);
 
@@ -93,6 +93,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       server.writeEvent(resEvent);
 
       if (legitPlay) {
+        previousSilver = user.getCoins() + user.getVaultBalance();
+        previousGold = user.getDiamonds();
         int diamondsChange = diamondsGained - ControllerConstants.THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY;
         
         Map<String, Integer> money = new HashMap<String, Integer>();

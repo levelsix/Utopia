@@ -66,7 +66,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser = UnhandledBlacksmithAttemptRetrieveUtils.getUnhandledBlacksmithAttemptsForUser(senderProto.getUserId());
-      int previousGold = user.getDiamonds();
+      int previousGold = 0;
       
       boolean legitFinish = checkLegitFinish(resBuilder, blacksmithId, unhandledBlacksmithAttemptsForUser, user, timeOfSpeedup);
 
@@ -76,6 +76,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
 
       if (legitFinish) {
+        previousGold = user.getDiamonds();
+        
         BlacksmithAttempt ba = unhandledBlacksmithAttemptsForUser.get(0);
         Map<String, Integer> money = new HashMap<String, Integer>();
         

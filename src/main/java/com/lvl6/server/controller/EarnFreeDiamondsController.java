@@ -109,7 +109,7 @@ public class EarnFreeDiamondsController extends EventController {
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-      int previousGold = user.getDiamonds();
+      int previousGold = 0;
 
       boolean legitFreeDiamondsEarn = checkLegitFreeDiamondsEarnBasic(resBuilder, freeDiamondsType, clientTime, user, kiipReceiptString, adColonyDigest, adColonyAmountEarned, adColonyRewardType);
 
@@ -141,6 +141,8 @@ public class EarnFreeDiamondsController extends EventController {
       server.writeEvent(resEvent);
 
       if (legitFreeDiamondsEarn) {
+        previousGold = user.getDiamonds();
+        
         Map<String, Integer> money = new HashMap<String, Integer>();
         List<String> keys = new ArrayList<String>();
         writeChangesToDB(user, freeDiamondsType, kiipConfirmationReceipt, adColonyAmountEarned, adColonyRewardType,

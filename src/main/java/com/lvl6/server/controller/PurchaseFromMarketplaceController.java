@@ -79,8 +79,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     try {
       MarketplacePost mp = MarketplacePostRetrieveUtils.getSpecificActiveMarketplacePost(postId);
       User buyer = RetrieveUtils.userRetrieveUtils().getUserById(buyerId);
-      int previousSilverBuyer = buyer.getCoins() + buyer.getVaultBalance();
-      int previousGoldBuyer = buyer.getDiamonds();
+      int previousSilverBuyer = 0;
+      int previousGoldBuyer = 0;
 
       User seller = RetrieveUtils.userRetrieveUtils().getUserById(sellerId);        
       boolean legitPurchase = checkLegitPurchase(resBuilder, mp, buyer, seller, postId);
@@ -107,6 +107,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       server.writeEvent(resEvent);
       
       if (legitPurchase) {
+        previousSilverBuyer = buyer.getCoins() + buyer.getVaultBalance();
+        previousGoldBuyer = buyer.getDiamonds();
+        
         PurchaseFromMarketplaceResponseEvent resEvent2 = new PurchaseFromMarketplaceResponseEvent(sellerId);
         resBuilder.setMarketplacePost(CreateInfoProtoUtils.createFullMarketplacePostProtoFromMarketplacePost(mp, seller));
         resEvent2.setPurchaseFromMarketplaceResponseProto(resBuilder.build());  

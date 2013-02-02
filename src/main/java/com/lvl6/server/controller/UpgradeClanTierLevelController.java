@@ -66,12 +66,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     try {
       User possibleClanOwner = RetrieveUtils.userRetrieveUtils().getUserById(userId);
       List<Integer> currencyChange = new ArrayList<Integer>();
-      int previousGold = possibleClanOwner.getDiamonds();
+      int previousGold = 0;
       
       boolean validRequest = 
           isValidUpdateClanTierLevelRequest(resBuilder, possibleClanOwner, clanId, currencyChange);
       boolean successfulUpdate = false;
       if (validRequest) {
+        previousGold = possibleClanOwner.getDiamonds();
+        
         successfulUpdate = writeChangesToDB(resBuilder, possibleClanOwner, currencyChange, clanId);
       }
       if (successfulUpdate) {

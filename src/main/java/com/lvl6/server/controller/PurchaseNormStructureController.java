@@ -74,8 +74,8 @@ import com.lvl6.utils.utilmethods.InsertUtil;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       Structure struct = StructureRetrieveUtils.getStructForStructId(structId);
-      int previousSilver = user.getCoins() + user.getVaultBalance();
-      int previousGold = user.getDiamonds();
+      int previousSilver = 0;
+      int previousGold = 0;
 
       boolean legitPurchaseNorm = checkLegitPurchaseNorm(resBuilder, struct, user, timeOfPurchase);
 
@@ -96,6 +96,9 @@ import com.lvl6.utils.utilmethods.InsertUtil;
       server.writeEvent(resEvent);
 
       if (legitPurchaseNorm) {
+        previousSilver = user.getCoins() + user.getVaultBalance();
+        previousGold = user.getDiamonds();
+        
         Map<String, Integer> money = new HashMap<String, Integer>();
         writeChangesToDB(user, struct, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);

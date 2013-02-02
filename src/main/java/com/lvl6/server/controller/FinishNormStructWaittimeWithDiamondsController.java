@@ -66,8 +66,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-      int previousSilver = user.getCoins() + user.getVaultBalance();
-      int previousGold = user.getDiamonds();
+      int previousSilver = 0;
+      int previousGold = 0;
       UserStruct userStruct = RetrieveUtils.userStructRetrieveUtils().getSpecificUserStruct(userStructId);
       Structure struct = null;
       if (userStruct != null) {
@@ -82,6 +82,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
 
       if (legitSpeedup) {
+        previousSilver = user.getCoins() + user.getVaultBalance();
+        previousGold = user.getDiamonds();
+        
         Map<String, Integer> money = new HashMap<String, Integer>();
         writeChangesToDB(user, userStruct, timeOfSpeedup, waitTimeType, struct, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);

@@ -76,8 +76,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       LockBoxEvent lockBoxEvent = LockBoxEventRetrieveUtils.getLockBoxEventForLockBoxEventId(lockBoxEventId);
       UserLockBoxEvent userEvent = UserLockBoxEventRetrieveUtils.getUserLockBoxEventForUserAndEventId(senderProto.getUserId(), lockBoxEventId);
-      int previousSilver = user.getCoins() + user.getVaultBalance();
-      int previousGold = user.getDiamonds();
+      int previousSilver = 0;
+      int previousGold = 0;
 
       boolean legitPick = checkLegitPick(resBuilder, user, lockBoxEvent, userEvent, method, userEvent.getNumLockBoxes(), curTime);
       boolean successfulPick = false;
@@ -110,6 +110,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
 
       if (legitPick) {
+        previousSilver = user.getCoins() + user.getVaultBalance();
+        previousGold = user.getDiamonds();
+        
         Map<String, Integer> money = new HashMap<String, Integer>();
         writeChangesToDB(user, method, lockBoxEvent, userEvent, successfulPick, hadAllItems, curTime, money);
 

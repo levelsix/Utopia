@@ -89,7 +89,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       Timestamp createTime = new Timestamp(new Date().getTime());
-      int previousGold = user.getDiamonds();
+      int previousGold = 0;
       
       boolean legitCreate = checkLegitCreate(resBuilder, user, clanName, tag);
 
@@ -114,6 +114,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       resEvent.setCreateClanResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
       if (legitCreate) {
+        previousGold = user.getDiamonds();
+        
         Map<String, Integer> money = new HashMap<String, Integer>();
         writeChangesToDB(user, clanId, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);

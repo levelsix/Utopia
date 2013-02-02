@@ -55,7 +55,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-      int previousGold = user.getDiamonds();
+      int previousGold = 0;
       boolean legitPurchase = checkLegitPurchase(resBuilder, user);
 
       PurchaseGroupChatResponseEvent resEvent = new PurchaseGroupChatResponseEvent(senderProto.getUserId());
@@ -64,6 +64,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       server.writeEvent(resEvent);
 
       if (legitPurchase) {
+        previousGold = user.getDiamonds();
+        
         writeChangesToDB(user);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());

@@ -66,13 +66,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       UserCityExpansionData userCityExpansionData = UserCityExpansionRetrieveUtils.getUserCityExpansionDataForUser(senderProto.getUserId());
       boolean legitExpansionComplete = checkLegitExpansionComplete(user, resBuilder, userCityExpansionData, clientTime, speedUp);
-      int previousGold = user.getDiamonds();
+      int previousGold = 0;
       
       ExpansionWaitCompleteResponseEvent resEvent = new ExpansionWaitCompleteResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setExpansionWaitCompleteResponseProto(resBuilder.build());  
 
       if (legitExpansionComplete) {
+        previousGold = user.getDiamonds();
+        
         Map<String, Integer> money = new HashMap<String, Integer>();
         writeChangesToDB(user, userCityExpansionData, speedUp, money);
         writeToUserCurrencyHistory(user, clientTime, money, userCityExpansionData, previousGold);
