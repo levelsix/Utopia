@@ -446,9 +446,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             "battle wins were not incremented.");
       } else {
         if (incrementOwnerBattleWins) {
-          aTower.setOwnerBattleWins(aTower.getOwnerBattleWins()+1);
+          aTower.setOwnerBattleWins(aTower.getOwnerBattleWins()+pointsGained);
         } else {
-          aTower.setAttackerBattleWins(aTower.getAttackerBattleWins()+1);
+          aTower.setAttackerBattleWins(aTower.getAttackerBattleWins()+pointsGained);
         }
       }
     }

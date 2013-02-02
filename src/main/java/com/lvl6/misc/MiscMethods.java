@@ -122,12 +122,12 @@ public class MiscMethods {
   public static final String clanTowersClanOwned = "clanTowersClanOwned";
   public static final String gold = "gold";
   public static final String silver = "silver";
-  
+
   public static int calculateMinutesToFinishForgeAttempt(Equipment equipment, int goalLevel) {
     return (int)
         (equipment.getMinutesToAttemptForgeBase()*Math.pow(ControllerConstants.FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER, goalLevel));
   }
-  
+
   public static float calculateChanceOfSuccessForForge(Equipment equipment, int goalLevel) {
     return  (1-equipment.getChanceOfForgeFailureBase()) - 
         ((1-equipment.getChanceOfForgeFailureBase()) / (ControllerConstants.FORGE_MAX_EQUIP_LEVEL - 1)) * 
@@ -409,7 +409,7 @@ public class MiscMethods {
         .setBossEventSuperAttack(ControllerConstants.BOSS_EVENT__SUPER_ATTACK)
         .setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA)
         .setMinClanMembersToHoldClanTower(ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER);
- 
+
 
 
     if (ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS != null) {
@@ -574,7 +574,7 @@ public class MiscMethods {
         .setEnhancePercentConstantA(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_A)
         .setEnhancePercentConstantB(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B)
         .build();
-    
+
     cb = cb.setEnhanceConstants(enc);
 
     // For legacy purposes
@@ -582,12 +582,12 @@ public class MiscMethods {
       cb.addProductIds(IAPValues.packageNames.get(i));
       cb.addProductDiamondsGiven(IAPValues.packageGivenDiamonds.get(i));
     }
-    
+
     for (String id : IAPValues.iapPackageNames) {
       InAppPurchasePackageProto.Builder iapb = InAppPurchasePackageProto.newBuilder();
       iapb.setPackageId(id);
       iapb.setImageName(IAPValues.getImageNameForPackageName(id));
-      
+
       int diamondAmt = IAPValues.getDiamondsForPackageName(id);
       if (diamondAmt > 0) {
         iapb.setCurrencyAmount(diamondAmt);
@@ -599,7 +599,7 @@ public class MiscMethods {
       }
       cb.addInAppPurchasePackages(iapb.build());
     }
-    
+
     BazaarMinLevelConstants bmlc = BazaarMinLevelConstants.newBuilder()
         .setClanHouseMinLevel(ControllerConstants.STARTUP__CLAN_HOUSE_MIN_LEVEL)
         .setVaultMinLevel(ControllerConstants.STARTUP__VAULT_MIN_LEVEL)
@@ -610,16 +610,16 @@ public class MiscMethods {
         .setEnhancingMinLevel(ControllerConstants.STARTUP__ENHANCING_MIN_LEVEL_TO_UNLOCK)
         .build();
     cb = cb.setMinLevelConstants(bmlc);
-    
+
     LeaderboardEventConstants lec =LeaderboardEventConstants.newBuilder()
         .setWinsWeight(ControllerConstants.LEADERBOARD_EVENT__WINS_WEIGHT)
         .setLossesWeight(ControllerConstants.LEADERBOARD_EVENT__LOSSES_WEIGHT)
         .setFleesWeight(ControllerConstants.LEADERBOARD_EVENT__FLEES_WEIGHT)
         .setNumHoursToShowAfterEventEnd(ControllerConstants.LEADERBOARD_EVENT__NUM_HOURS_TO_SHOW_AFTER_EVENT_END)
         .build();
-    
+
     cb = cb.setLeaderboardConstants(lec);
-    
+
     return cb.build();  
   }
 
@@ -650,31 +650,31 @@ public class MiscMethods {
     }
     return toReturn;
   }
-  
+
   public static List<LeaderboardEventProto> currentLeaderboardEventProtos() {
     Map<Integer, LeaderboardEvent> idsToEvents = LeaderboardEventRetrieveUtils.getIdsToLeaderboardEvents(false);
     long curTime = (new Date()).getTime();
     List<Integer> activeEventIds = new ArrayList<Integer>();
-    
+
     //return value
     List<LeaderboardEventProto> protos = new ArrayList<LeaderboardEventProto>();
-    
+
     //get the ids of active leader board events
     for(LeaderboardEvent e : idsToEvents.values()) {
       if (e.getEndDate().getTime()+ControllerConstants.LEADERBOARD_EVENT__NUM_HOURS_TO_SHOW_AFTER_EVENT_END*3600000L > curTime) {
         activeEventIds.add(e.getId());
       }
     }
-    
+
     //get all the rewards for all the current leaderboard events
     Map<Integer, List<LeaderboardEventReward>> eventIdsToRewards = 
         LeaderboardEventRewardRetrieveUtils.getLeaderboardEventRewardsForIds(activeEventIds);
-    
+
     //create the protos
     for(Integer i: activeEventIds) {
       LeaderboardEvent e = idsToEvents.get(i);
       List<LeaderboardEventReward> rList = eventIdsToRewards.get(e.getId()); //rewards for the active event
-      
+
       protos.add(CreateInfoProtoUtils.createLeaderboardEventProtoFromLeaderboardEvent(e, rList));
     }
     return protos;
@@ -850,7 +850,7 @@ public class MiscMethods {
     }
     return toRet;
   }
-  
+
   //The lock for clan_towers table must be acquired before calling this function.
   //Makes 7 db calls:
   //One to retrieve clan size
@@ -1049,11 +1049,11 @@ public class MiscMethods {
     aNotification.setGeneralNotificationResponseProto(notificationProto.build());
     server.writeGlobalEvent(aNotification);
   }
-  
+
   public static void writeClanApnsNotification(Notification n, GameServer server, int clanId) {
     GeneralNotificationResponseProto.Builder notificationProto =
         n.generateNotificationBuilder();
-    
+
     GeneralNotificationResponseEvent aNotification = new GeneralNotificationResponseEvent(0);
     aNotification.setGeneralNotificationResponseProto(notificationProto.build());
     server.writeApnsClanEvent(aNotification, clanId);
@@ -1086,7 +1086,7 @@ public class MiscMethods {
         toReturn.append(w + space);
       }
     }
-    
+
     return toReturn.toString();
   }
 
@@ -1179,7 +1179,7 @@ public class MiscMethods {
       log.error("Maybe table's not there or duplicate keys? ", e);
     }
   }
-  
+
   public static void writeToUserCurrencyOneUserGoldOrSilver(
       User aUser, Timestamp date, Map<String,Integer> goldSilverChange, 
       Map<String, Integer> previousGoldSilver, Map<String, String> reasons) {
@@ -1200,7 +1200,7 @@ public class MiscMethods {
       if (0 == currencyChange) {
         return;//don't write a non change to history table to avoid bloat
       }
-      
+
       if (key.equals(gold)) {
         currentCurrency = aUser.getDiamonds();
       } else if(key.equals(silver)) {
@@ -1211,13 +1211,13 @@ public class MiscMethods {
         log.error("invalid key for map representing currency change. key=" + key);
         return;
       }
-      
+
       if(null == previousGoldSilver || previousGoldSilver.isEmpty()) {
         previousCurrency = currentCurrency - currencyChange;
       } else {
         previousCurrency = previousGoldSilver.get(key);
       }
-      
+
       InsertUtils.get().insertIntoUserCurrencyHistory(
           userId, date, isSilver, currencyChange, previousCurrency, currentCurrency, reasonForChange);
     } catch(Exception e) {
@@ -1244,7 +1244,7 @@ public class MiscMethods {
       log.error("error updating user_curency_history; reasonsForChanges=" + shallowMapToString(reasonsForChanges), e);
     }
   }
-  
+
   public static String shallowListToString(List aList) {
     StringBuilder returnValue = new StringBuilder();
     for(Object o : aList) {
@@ -1253,7 +1253,7 @@ public class MiscMethods {
     }
     return returnValue.toString();
   }
-  
+
   public static String shallowMapToString(Map aMap) {
     StringBuilder returnValue = new StringBuilder();
     returnValue.append("[");
@@ -1266,13 +1266,13 @@ public class MiscMethods {
     returnValue.append("]");
     return returnValue.toString();
   }
-  
+
   public static void writeIntoDUEFE(UserEquip mainUserEquip, List<UserEquip> feederUserEquips,
       int enhancementId) {
     log.info("writing into deleted user equips for enhancing");
     List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
     Map<String, Object> newRow = new HashMap<String, Object>();
-    
+
     newRow.put(DBConstants.DUEFE__USER_EQUIP__ID, mainUserEquip.getId());
     newRow.put(DBConstants.DUEFE__USER_EQUIP__USER_ID, mainUserEquip.getUserId());
     newRow.put(DBConstants.DUEFE__USER_EQUIP__EQUIP_ID, mainUserEquip.getEquipId());
@@ -1290,50 +1290,50 @@ public class MiscMethods {
       newRow2.put(DBConstants.DUEFE__USER_EQUIP__LEVEL, ue.getLevel());
       newRow2.put(DBConstants.DUEFE__USER_EQUIP__ENHANCEMENT_PERCENT, ue.getEnhancementPercentage());
       newRow2.put(DBConstants.DUEFE__IS_FEEDER, 1);
-      
+
       newRows.add(newRow2);
     }
   }
-  
+
   public static boolean isEquipAtMaxEnhancementLevel(UserEquip enhancingUserEquip) {
     int currentEnhancementLevel = enhancingUserEquip.getEnhancementPercentage();
     int maxEnhancementLevel = ControllerConstants.MAX_ENHANCEMENT_LEVEL 
         * ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL;
-        
+
     return currentEnhancementLevel >= maxEnhancementLevel;
   }
-  
+
   public static int attackPowerForEquip(int equipId, int forgeLevel, int enhanceLevel) {
     Equipment eq = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipId);
     double forge = Math.pow(ControllerConstants.LEVEL_EQUIP_BOOST_EXPONENT_BASE, forgeLevel-1);
     double enhance = Math.pow(ControllerConstants.ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE, enhanceLevel);
 
     int result = (int)Math.ceil(eq.getAttackBoost()*forge*enhance);
-//    log.info("attack="+result);
+    //    log.info("attack="+result);
     return result;
   }
-  
+
   public static int defensePowerForEquip(int equipId, int forgeLevel, int enhanceLevel) {
     Equipment eq = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipId);
     double forge = Math.pow(ControllerConstants.LEVEL_EQUIP_BOOST_EXPONENT_BASE, forgeLevel-1);
     double enhance = Math.pow(ControllerConstants.ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE, enhanceLevel);
-    
+
     int result = (int)Math.ceil(eq.getDefenseBoost()*forge*enhance);
-//    log.info("defense="+result);
+    //    log.info("defense="+result);
     return result;
   }
-  
+
   private static int totalMinutesToLevelUpEnhancementEquip(EquipEnhancement e) {
     Equipment eq = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(e.getEquipId());
     double result = ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_A*Math.pow(e.getEquipLevel(), ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_B);
     result = Math.pow(result, (ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_C+ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_D*(eq.getRarity().getNumber()+1)));
     result *= Math.pow(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_E, (eq.getMinLevel()/ControllerConstants.AVERAGE_SIZE_OF_LEVEL_BRACKET*ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_F));
     result *= Math.pow(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_G, e.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL+1);
-    
-//    log.info("minutes="+result);
+
+    //    log.info("minutes="+result);
     return (int)Math.max(result, 1);
   }
-  
+
   private static int calculateEnhancementForEquip(EquipEnhancement mainEquip, EquipEnhancementFeeder feederEquip) {
     int mainStats = attackPowerForEquip(mainEquip.getEquipId(), mainEquip.getEquipLevel(), mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL) +
         defensePowerForEquip(mainEquip.getEquipId(), mainEquip.getEquipLevel(), mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL);
@@ -1342,11 +1342,11 @@ public class MiscMethods {
     int result = (int)((((float)feederStats)/mainStats)/(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_A*
         Math.pow(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B, mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL+1))*
         ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL);
-    
-//    log.info("percentage="+result);
+
+    //    log.info("percentage="+result);
     return result;
   }
-  
+
   public static int calculateEnhancementForEquip(EquipEnhancement mainEquip,
       List<EquipEnhancementFeeder> feederEquips) {
     int totalChange = 0;
@@ -1356,34 +1356,41 @@ public class MiscMethods {
 
     int maxChange = (mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL+1)*ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL-mainEquip.getEnhancementPercentage();
     maxChange = Math.min(maxChange, ControllerConstants.MAX_ENHANCEMENT_LEVEL*ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL-mainEquip.getEnhancementPercentage());
-//    log.info("totalChange="+totalChange+" maxChange="+maxChange);
+    //    log.info("totalChange="+totalChange+" maxChange="+maxChange);
     return Math.min(maxChange, totalChange);
   }
-  
+
   public static int calculateMinutesToFinishEnhancing(EquipEnhancement mainEquip, List<EquipEnhancementFeeder> feederEquips) {
     int pChange = calculateEnhancementForEquip(mainEquip, feederEquips);
     float percent = ((float)pChange)/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL;
     int totalTime = totalMinutesToLevelUpEnhancementEquip(mainEquip);
     int result = (int)Math.ceil(percent*totalTime);
-    
-//    log.info("time for enhance="+result);
+
+    //    log.info("time for enhance="+result);
     return result;
   }
-  
+
   public static int calculateCostToSpeedUpEnhancing(EquipEnhancement e, List<EquipEnhancementFeeder> feeder,
       Timestamp timeOfSpeedUp) {
     int mins = calculateMinutesToFinishEnhancing(e, feeder);
     int result = (int)Math.ceil(((float)mins)/ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
-    
-//    log.info("diamonds="+result);
+
+    //    log.info("diamonds="+result);
     return result;
   }
-  
+
   public static int pointsGainedForClanTowerUserBattle(User winner, User loser) {
     int d = winner.getLevel()-loser.getLevel();
-    int pts = (int)Math.round((-0.0006*Math.pow(d, 5)+0.0601*Math.pow(d, 4)-0.779*Math.pow(d, 3)
-        +2.4946*Math.pow(d, 2)-9.7046*d+89.905)/10.);
-    
+    int pts;
+    if (d > 10) {
+      pts = 1;
+    } else if (d < -8) {
+      pts = 100;
+    } else {
+      pts = (int)Math.round((-0.0006*Math.pow(d, 5)+0.0601*Math.pow(d, 4)-0.779*Math.pow(d, 3)
+          +2.4946*Math.pow(d, 2)-9.7046*d+89.905)/10.);
+    }
+    log.info(pts+" diff:"+d);
     return Math.min(100, Math.max(1, pts));
   }
 }
