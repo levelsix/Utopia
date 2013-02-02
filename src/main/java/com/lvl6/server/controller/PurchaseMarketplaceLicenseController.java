@@ -62,6 +62,7 @@ import com.lvl6.utils.RetrieveUtils;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      int previousGold = user.getDiamonds();
       boolean legitPurchase = checkLegitPurchase(resBuilder, user, timeOfPurchase, type);
 
       PurchaseMarketplaceLicenseResponseEvent resEvent = new PurchaseMarketplaceLicenseResponseEvent(senderProto.getUserId());
@@ -73,7 +74,8 @@ import com.lvl6.utils.RetrieveUtils;
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
-        writeToUserCurrencyHistory(user, type, timeOfPurchase); //don't want to hold up thread from sending to client, hence after writeEvent
+        writeToUserCurrencyHistory(user, type, timeOfPurchase,
+            previousGold); //don't want to hold up thread from sending to client, hence after writeEvent
       }
     } catch (Exception e) {
       log.error("exception in PurchaseMarketplaceLicense processEvent", e);
@@ -136,9 +138,11 @@ import com.lvl6.utils.RetrieveUtils;
     return true;
   }
   
-  private void writeToUserCurrencyHistory(User aUser, LicenseType type, Timestamp timeOfPurchase) {
+  private void writeToUserCurrencyHistory(User aUser, LicenseType type, Timestamp timeOfPurchase,
+      int previousGold) {
     Map<String, Integer> goldSilverChange = new HashMap<String, Integer>();
-    Map<String, Integer> previousGoldSilver = null;
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
     String reasonForChange = "";
 
     int currencyChange = 0;
@@ -153,8 +157,12 @@ import com.lvl6.utils.RetrieveUtils;
       log.error("wrong LicenseType. LicenseType=" + type);
       return;
     }
+    
     goldSilverChange.put(MiscMethods.gold, currencyChange);
-    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, timeOfPurchase, goldSilverChange, previousGoldSilver, reasonForChange);
+    previousGoldSilver.put(MiscMethods.gold, previousGold);
+    reasonsForChanges.put(MiscMethods.gold, reasonForChange);
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, timeOfPurchase, goldSilverChange, previousGoldSilver, reasonsForChanges);
   }
 
 }

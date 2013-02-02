@@ -89,7 +89,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       Timestamp createTime = new Timestamp(new Date().getTime());
-
+      int previousGold = user.getDiamonds();
+      
       boolean legitCreate = checkLegitCreate(resBuilder, user, clanName, tag);
 
       int clanId = ControllerConstants.NOT_SET;
@@ -121,7 +122,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         
         sendGeneralNotification(user.getName(), clanName);
         
-        writeToUserCurrencyHistory(user, createTime, money);
+        writeToUserCurrencyHistory(user, createTime, money, previousGold);
       }
     } catch (Exception e) {
       log.error("exception in CreateClan processEvent", e);
@@ -196,10 +197,15 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 	  MiscMethods.writeGlobalNotification(createClanNotification, server);
   }
   
-  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
-    Map<String, Integer> previousGoldSilver = null;
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money,
+      int previousGold) {
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String gold = MiscMethods.gold;
     String reasonForChange = ControllerConstants.UCHRFC__CREATE_CLAN;
     
-    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonForChange);
+    previousGoldSilver.put(gold, previousGold);
+    reasonsForChanges.put(gold, reasonForChange);
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonsForChanges);
   }
 }

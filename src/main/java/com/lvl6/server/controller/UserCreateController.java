@@ -463,17 +463,26 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
   
   private void writeToUserCurrencyHistory(User aUser, int playerCoins, int playerDiamonds) {
+    String gold = MiscMethods.gold;
+    String silver = MiscMethods.silver;
+    
     Timestamp date = new Timestamp(new Date().getTime());
-    
     Map<String, Integer> goldSilverChange = new HashMap<String, Integer>();
-    goldSilverChange.put(MiscMethods.gold, playerDiamonds);
-    goldSilverChange.put(MiscMethods.silver, playerCoins);
-    
-    Map<String, Integer> previousGoldSilver = null;
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
     String reasonForChange = ControllerConstants.UCHRFC__USER_CREATED;
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    
+    goldSilverChange.put(gold, playerDiamonds);
+    goldSilverChange.put(silver, playerCoins);
+    
+    previousGoldSilver.put(gold, 0);
+    previousGoldSilver.put(silver, 0);
+    
+    reasonsForChanges.put(gold, reasonForChange);
+    reasonsForChanges.put(silver, reasonForChange);
     
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange,
-        previousGoldSilver, reasonForChange);
+        previousGoldSilver, reasonsForChanges);
   }
 
 }

@@ -436,7 +436,7 @@ public class ControllerConstants {
   public static final String UCHRFC__GROUP_CHAT = "purchased group chat"; //is controller for this even used?
   public static final String UCHRFC__BOSS_ACTION = "boss action";
   public static final String UCHRFC__REFILL_STAT = "refilled stat: ";
-  public static final String UCHRFC__FINISH_NORM_STRUCT = "finish construction or income wait time";
+  public static final String UCHRFC__FINISH_NORM_STRUCT = "finish norm stuct: ";
   public static final String UCHRFC__UPGRADE_NORM_STRUCT = "upgraded norm struct";
   public static final String UCHRFC__SELL_NORM_STRUCT = "sell norm struct";
   public static final String UCHRFC__PURCHASE_NORM_STRUCT = "purchased norm struct";
@@ -445,12 +445,12 @@ public class ControllerConstants {
   public static final String UCHRFC__PICK_LOCKBOX = "picked lockbox";
   public static final String UCHRFC__RETRACT_MARKETPLACE_POST = "retract marketplace post";
   public static final String UCHRFC__PLAY_THREE_CARD_MONTE = "played three card monte";
-  public static final String UCHRFC__SOLD_ITEM_ON_MARKETPLACE = "sold item on marketplace";
+  //public static final String UCHRFC__SOLD_ITEM_ON_MARKETPLACE = "sold item on marketplace"; //user's currency change is 0
   public static final String UCHRFC__PURCHASED_FROM_MARKETPLACE = "purchased from marketplace";
-  public static final String UCHRFC__EXPANSION_WAIT_COMPLETE = "expansion wait complete";
+  public static final String UCHRFC__EXPANSION_WAIT_COMPLETE = "expansion wait complete: ";
   public static final String UCHRFC__SUBMIT_EQUIPS_TO_BLACKSMITH = "submit equips to blacksmith";
   public static final String UCHRFC__FINISH_FORGE_ATTEMPT_WAIT_TIME = "finish forge attempt wait time";
-  public static final String UCHRFC__IN_APP_PURCHASE = "inapp purchase";
+  public static final String UCHRFC__IN_APP_PURCHASE = "inapp purchase: ";
   public static final String UCHRFC__ARMORY_TRANSACTION = "armory transaction";
   public static final String UCHRFC__UPGRADE_CLAN_TIER_LEVEL = "upgraded clan tier level";
   public static final String UCHRFC__CREATE_CLAN = "created clan";

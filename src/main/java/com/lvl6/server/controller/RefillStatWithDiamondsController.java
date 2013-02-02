@@ -58,7 +58,8 @@ import com.lvl6.utils.RetrieveUtils;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());      
-
+      int previousGold = user.getDiamonds();
+      
       boolean legitRefill = checkLegitRefill(resBuilder, user, statType);
 
       RefillStatWithDiamondsResponseEvent resEvent = new RefillStatWithDiamondsResponseEvent(senderProto.getUserId());
@@ -71,7 +72,7 @@ import com.lvl6.utils.RetrieveUtils;
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
-        writeToUserCurrencyHistory(user, statType);
+        writeToUserCurrencyHistory(user, statType, previousGold);
       }
     } catch (Exception e) {
       log.error("exception in RefillStatWithDiamondsController processEvent", e);
@@ -135,14 +136,16 @@ import com.lvl6.utils.RetrieveUtils;
     return true;  
   }
   
-  public void writeToUserCurrencyHistory(User aUser, StatType aStatType) {
+  public void writeToUserCurrencyHistory(User aUser, StatType aStatType,
+      int previousGold) {
     Timestamp date = new Timestamp((new Date()).getTime());
     Map<String, Integer> goldSilverChange = new HashMap<String, Integer>();
-    Map<String, Integer> previousGoldSilver = null;
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    int currencyChange = 0;
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String gold = MiscMethods.gold;
     String reasonForChange = ControllerConstants.UCHRFC__REFILL_STAT;
 
-    int currencyChange = 0;
-    
     if (StatType.ENERGY == aStatType) {
       currencyChange = ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL * -1;
       reasonForChange += " energy";
@@ -153,8 +156,10 @@ import com.lvl6.utils.RetrieveUtils;
       log.error("wrong StatType. StatType=" + aStatType);
       return;
     }
-    goldSilverChange.put(MiscMethods.gold, currencyChange);
-
-    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange, previousGoldSilver, reasonForChange);
+    goldSilverChange.put(gold, currencyChange);
+    previousGoldSilver.put(gold, previousGold);
+    reasonsForChanges.put(gold, reasonForChange);
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange, previousGoldSilver, reasonsForChanges);
   }
 }

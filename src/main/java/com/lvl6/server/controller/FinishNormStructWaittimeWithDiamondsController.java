@@ -65,7 +65,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
 
     try {
-      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());      
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      int previousSilver = user.getCoins() + user.getVaultBalance();
+      int previousGold = user.getDiamonds();
       UserStruct userStruct = RetrieveUtils.userStructRetrieveUtils().getSpecificUserStruct(userStructId);
       Structure struct = null;
       if (userStruct != null) {
@@ -85,7 +87,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
-        writeToUserCurrencyHistory(user, timeOfSpeedup, money);
+        writeToUserCurrencyHistory(user, timeOfSpeedup, waitTimeType, money, previousSilver, previousGold);
         if (waitTimeType == NormStructWaitTimeType.FINISH_CONSTRUCTION) {
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
         }
@@ -194,10 +196,32 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return Math.max(1, result);
   }
 
-  public void writeToUserCurrencyHistory(User aUser, Timestamp timeOfPurchase, Map<String, Integer> money) {
-    Map<String, Integer> previousGoldSilver = null;
+  public void writeToUserCurrencyHistory(User aUser, Timestamp timeOfPurchase, 
+      NormStructWaitTimeType waitTimeType, Map<String, Integer> money, 
+      int previousSilver, int previousGold) {
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
     String reasonForChange = ControllerConstants.UCHRFC__FINISH_NORM_STRUCT;
+    String gold = MiscMethods.gold;
+    String silver = MiscMethods.silver;
+    
+    previousGoldSilver.put(gold, previousGold);
+    previousGoldSilver.put(silver, previousSilver);
+    
+    if (waitTimeType == NormStructWaitTimeType.FINISH_CONSTRUCTION) {
+      reasonsForChanges.put(gold, reasonForChange + "finish construction");
+      
+    } else if (waitTimeType == NormStructWaitTimeType.FINISH_INCOME_WAITTIME) {
+      reasonsForChanges.put(gold, reasonForChange + "finish income wait time");
+      reasonsForChanges.put(silver, reasonForChange + "finish income wait time");
+      
+    } else if (waitTimeType == NormStructWaitTimeType.FINISH_UPGRADE) {
+      reasonsForChanges.put(gold, reasonForChange + "finish upgrade");
+      
+    } else {
+      return;
+    }
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, timeOfPurchase, money,
-        previousGoldSilver, reasonForChange);
+        previousGoldSilver, reasonsForChanges);
   }
 }

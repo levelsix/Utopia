@@ -76,6 +76,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       LockBoxEvent lockBoxEvent = LockBoxEventRetrieveUtils.getLockBoxEventForLockBoxEventId(lockBoxEventId);
       UserLockBoxEvent userEvent = UserLockBoxEventRetrieveUtils.getUserLockBoxEventForUserAndEventId(senderProto.getUserId(), lockBoxEventId);
+      int previousSilver = user.getCoins() + user.getVaultBalance();
+      int previousGold = user.getDiamonds();
 
       boolean legitPick = checkLegitPick(resBuilder, user, lockBoxEvent, userEvent, method, userEvent.getNumLockBoxes(), curTime);
       boolean successfulPick = false;
@@ -115,7 +117,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        writeToUserCurrencyHistory(user, curTime, money);
+        writeToUserCurrencyHistory(user, curTime, money, previousSilver, previousGold);
       }
     } catch (Exception e) {
       log.error("exception in PickLockBox processEvent", e);
@@ -233,10 +235,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return;
     } else {
       if (0 != diamondCost) {
-        money.put(MiscMethods.gold, diamondCost);
+        money.put(MiscMethods.gold, -diamondCost);
       }
       if (0 != coinCost) {
-        money.put(MiscMethods.silver, coinCost);
+        money.put(MiscMethods.silver, -coinCost);
       }
     }
 
@@ -246,11 +248,20 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
   
-  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
-    Map<String, Integer> previousGoldSilver = null;
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money,
+      int previousSilver, int previousGold) {
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String gold = MiscMethods.gold;
+    String silver = MiscMethods.silver;
     String reasonForChange = ControllerConstants.UCHRFC__PICK_LOCKBOX;
 
+    previousGoldSilver.put(gold, previousGold);
+    previousGoldSilver.put(silver, previousSilver);
+    reasonsForChanges.put(gold, reasonForChange);
+    reasonsForChanges.put(silver, reasonForChange);
+    
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, 
-        money, previousGoldSilver, reasonForChange);
+        money, previousGoldSilver, reasonsForChanges);
   }
 }

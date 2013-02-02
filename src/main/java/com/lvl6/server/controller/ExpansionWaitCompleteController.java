@@ -66,7 +66,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       UserCityExpansionData userCityExpansionData = UserCityExpansionRetrieveUtils.getUserCityExpansionDataForUser(senderProto.getUserId());
       boolean legitExpansionComplete = checkLegitExpansionComplete(user, resBuilder, userCityExpansionData, clientTime, speedUp);
-
+      int previousGold = user.getDiamonds();
+      
       ExpansionWaitCompleteResponseEvent resEvent = new ExpansionWaitCompleteResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setExpansionWaitCompleteResponseProto(resBuilder.build());  
@@ -74,7 +75,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (legitExpansionComplete) {
         Map<String, Integer> money = new HashMap<String, Integer>();
         writeChangesToDB(user, userCityExpansionData, speedUp, money);
-        writeToUserCurrencyHistory(user, clientTime, money);
+        writeToUserCurrencyHistory(user, clientTime, money, userCityExpansionData, previousGold);
       }
       server.writeEvent(resEvent);
     } catch (Exception e) {
@@ -148,9 +149,26 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return calculateMinutesForCurrentExpansion(userCityExpansionData)/ControllerConstants.EXPANSION_WAIT_COMPLETE__BASE_MINUTES_TO_ONE_GOLD;
   }
   
-  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
-    Map<String, Integer> previousGoldSilver = null;
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money,
+      UserCityExpansionData userCityExpansionData, int previousGold) {
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String gold = MiscMethods.gold;
+
+    previousGoldSilver.put(gold, previousGold);
+    
     String reasonForChange = ControllerConstants.UCHRFC__EXPANSION_WAIT_COMPLETE;
-    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonForChange);
+    if (userCityExpansionData.getLastExpandDirection() == ExpansionDirection.FAR_LEFT) {
+      reasonsForChanges.put(gold, reasonForChange + "far left");
+    } else if (userCityExpansionData.getLastExpandDirection() == ExpansionDirection.FAR_RIGHT) {
+      reasonsForChanges.put(gold, reasonForChange + "far right");
+    } else if (userCityExpansionData.getLastExpandDirection() == ExpansionDirection.NEAR_LEFT) {
+      reasonsForChanges.put(gold, reasonForChange + "near left");
+    } else if (userCityExpansionData.getLastExpandDirection() == ExpansionDirection.NEAR_RIGHT) {
+      reasonsForChanges.put(gold, reasonForChange + "near right");
+    }
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonsForChanges);
   }
 }
+

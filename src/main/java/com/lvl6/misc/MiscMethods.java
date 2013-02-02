@@ -1110,78 +1110,92 @@ public class MiscMethods {
     return posts.size();
   }
   
-  //gold silver change should be a signed number (positive or negative) and
-  //this should be called after the user is updated
   public static void writeToUserCurrencyOneUserGoldAndSilver(
       User aUser, Timestamp date, Map<String,Integer> goldSilverChange, 
-      Map<String, Integer> previousGoldSilver, String reasonForChange) {
+      Map<String, Integer> previousGoldSilver, Map<String, String> reasons) {
     //try, catch is here just in case this blows up, not really necessary;
     try {
-      int amount = 2;
+      List<Integer> userIds = new ArrayList<Integer>();
+      List<Timestamp> dates = new ArrayList<Timestamp>();
+      List<Integer> areSilver = new ArrayList<Integer>();
+      List<Integer> changesToCurrencies = new ArrayList<Integer>();
+      List<Integer> previousCurrencies = new ArrayList<Integer>();
+      List<Integer> currentCurrencies = new ArrayList<Integer>();
+      List<String> reasonsForChanges = new ArrayList<String>();
 
       int userId = aUser.getId();
-      List<Integer> userIds = new ArrayList<Integer>(Collections.nCopies(amount, userId));
-      List<Timestamp> dates = new ArrayList<Timestamp>(Collections.nCopies(amount, date));
-      List<Integer> areSilver = new ArrayList<Integer>(amount);
-      //gold first then silver
-      List<Integer> changesToCurrencies = new ArrayList<Integer>(amount);
-      List<Integer> previousCurrencies = new ArrayList<Integer>(amount);
-      List<Integer> currentCurrencies = new ArrayList<Integer>(amount);
-      List<String> reasonsForChanges = new ArrayList<String>(Collections.nCopies(amount, reasonForChange));
-
-      areSilver.add(0); //gold
-      areSilver.add(1); //silver
-
       int goldChange = goldSilverChange.get(gold);
       int silverChange = goldSilverChange.get(silver);
-      changesToCurrencies.add(goldChange);
-      changesToCurrencies.add(silverChange);
-
       int previousGold = 0;
       int previousSilver = 0;
       int currentGold = aUser.getDiamonds();
-      int currentSilver = aUser.getCoins();
-      
-      if(null == previousGoldSilver) {
-        //difference instead of sum because of example:
-        //u.gold = 10; change = -5 => u.gold = 5
-        //previous_gold = 5 - -5 = 10
-        previousGold = currentGold - goldChange;
-        previousSilver = currentSilver - silverChange;
-      } else {
-        
-        previousGold = previousGoldSilver.get(gold);
-        previousSilver = previousGoldSilver.get(silver);
+      //recording total silver user has, including the vault
+      int currentSilver = aUser.getCoins() + aUser.getVaultBalance();
+
+      //record gold change first
+      if (0 < goldChange) {
+        userIds.add(userId);
+        dates.add(date);
+        areSilver.add(0); //gold
+        changesToCurrencies.add(goldChange);
+        if(null == previousGoldSilver || previousGoldSilver.isEmpty()) {
+          //difference instead of sum because of example:
+          //(previous gold) u.gold = 10; 
+          //change = -5 
+          //current gold = 10 - 5 = 5
+          //previous gold = currenty gold - change
+          //previous_gold = 5 - -5 = 10
+          previousGold = currentGold - goldChange;
+        } else {
+          previousGold = previousGoldSilver.get(gold);
+        }
+
+        previousCurrencies.add(previousGold);
+        currentCurrencies.add(currentGold);
+        reasonsForChanges.add(reasons.get(gold));
       }
-      previousCurrencies.add(previousGold);
-      previousCurrencies.add(previousSilver);
-      currentCurrencies.add(currentGold);
-      currentCurrencies.add(currentSilver);
+
+      //record silver change next
+      if (0 < silverChange) {
+        userIds.add(userId);
+        dates.add(date);
+        areSilver.add(1); //silver
+        changesToCurrencies.add(silverChange);
+        if(null == previousGoldSilver || previousGoldSilver.isEmpty()) {
+          previousSilver = currentSilver - silverChange;
+        } else {
+          previousSilver = previousGoldSilver.get(silver);
+        }
+        
+        previousCurrencies.add(previousSilver);
+        currentCurrencies.add(currentSilver);
+        reasonsForChanges.add(reasons.get(silver));
+      }
       
-      //using multiple rows because 2 entries: one for silver, other for gold
+      //using multiple rows because could be 2 entries: one for silver, other for gold
       InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates, areSilver,
           changesToCurrencies, previousCurrencies, currentCurrencies, reasonsForChanges);
     } catch(Exception e) {
       log.error("Maybe table's not there or duplicate keys? ", e);
     }
-    
   }
   
   public static void writeToUserCurrencyOneUserGoldOrSilver(
       User aUser, Timestamp date, Map<String,Integer> goldSilverChange, 
-      Map<String, Integer> previousGoldSilver, String reasonForChange) {
+      Map<String, Integer> previousGoldSilver, Map<String, String> reasons) {
     try {
       //determine what changed, gold or silver
       Set<String> keySet = goldSilverChange.keySet();
       Object[] keyArray = keySet.toArray();
       String key = (String) keyArray[0];
-      int currentCurrency = 0;
-
+      
       //arguments to insertIntoUserCurrency
       int userId = aUser.getId();
       int isSilver = 0;
       int currencyChange = goldSilverChange.get(key);
-      int currencyBefore = 0;
+      int previousCurrency = 0;
+      int currentCurrency = 0;
+      String reasonForChange = reasons.get(key);
       
       if (0 == currencyChange) {
         return;//don't write a non change to history table to avoid bloat
@@ -1189,44 +1203,45 @@ public class MiscMethods {
       
       if (key.equals(gold)) {
         currentCurrency = aUser.getDiamonds();
-        
       } else if(key.equals(silver)) {
-        currentCurrency = aUser.getCoins();
+        //record total silver, including vault
+        currentCurrency = aUser.getCoins() + aUser.getVaultBalance();
         isSilver = 1;
-        
       } else {
         log.error("invalid key for map representing currency change. key=" + key);
         return;
       }
       
       if(null == previousGoldSilver || previousGoldSilver.isEmpty()) {
-        currencyBefore = currentCurrency - currencyChange;
+        previousCurrency = currentCurrency - currencyChange;
       } else {
-        currencyBefore = previousGoldSilver.get(key);
+        previousCurrency = previousGoldSilver.get(key);
       }
       
       InsertUtils.get().insertIntoUserCurrencyHistory(
-          userId, date, isSilver, currencyChange, currencyBefore, currentCurrency, reasonForChange);
+          userId, date, isSilver, currencyChange, previousCurrency, currentCurrency, reasonForChange);
     } catch(Exception e) {
       log.error("null pointer exception?", e);
     }
   }
   
+  //goldSilverChange should represent how much user's silver and, or gold increased or decreased and
+  //this should be called after the user is updated
   //only previousGoldSilver can be null.
   public static void writeToUserCurrencyOneUserGoldAndOrSilver(
       User aUser, Timestamp date, Map<String,Integer> goldSilverChange, 
-      Map<String, Integer> previousGoldSilver, String reasonForChange) {
+      Map<String, Integer> previousGoldSilver, Map<String, String> reasonsForChanges) {
     try {
       int amount = goldSilverChange.size();
       if(2 == amount) {
         writeToUserCurrencyOneUserGoldAndSilver(aUser, date, goldSilverChange, 
-            previousGoldSilver, reasonForChange);
+            previousGoldSilver, reasonsForChanges);
       } else if(1 == amount) {
         writeToUserCurrencyOneUserGoldOrSilver(aUser, date, goldSilverChange,
-            previousGoldSilver, reasonForChange);
+            previousGoldSilver, reasonsForChanges);
       }
     } catch(Exception e) {
-      log.error("error updating user_curency_history; reasonForChange=" + reasonForChange, e);
+      log.error("error updating user_curency_history; reasonsForChanges=" + shallowMapToString(reasonsForChanges), e);
     }
   }
   

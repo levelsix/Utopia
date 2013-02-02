@@ -56,7 +56,9 @@ import com.lvl6.utils.RetrieveUtils;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-
+      int previousSilver = user.getCoins() + user.getVaultBalance();
+      int previousGold = user.getDiamonds();
+      
       boolean legitRedeem = checkLegitRedeem(resBuilder, user);
 
       RedeemMarketplaceEarningsResponseEvent resEvent = new RedeemMarketplaceEarningsResponseEvent(senderProto.getUserId());
@@ -71,7 +73,7 @@ import com.lvl6.utils.RetrieveUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        writeToUserCurrencyHistory(user, money);
+        writeToUserCurrencyHistory(user, money, previousSilver, previousGold);
       }
 
     } catch (Exception e) {
@@ -110,13 +112,22 @@ import com.lvl6.utils.RetrieveUtils;
     return true;
   }
   
-  public void writeToUserCurrencyHistory(User aUser, Map<String, Integer> money) {
+  public void writeToUserCurrencyHistory(User aUser, Map<String, Integer> money,
+      int previousSilver, int previousGold) {
     Timestamp date = new Timestamp((new Date()).getTime());
 
-    Map<String, Integer> previousGoldSilver = null;
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String gold = MiscMethods.gold;
+    String silver = MiscMethods.silver;
     String reasonForChange = ControllerConstants.UCHRFC__REDEEM_MARKETPLACE_EARNINGS;
     
+    previousGoldSilver.put(gold, previousGold);
+    previousGoldSilver.put(silver, previousSilver);
+    reasonsForChanges.put(gold, reasonForChange);
+    reasonsForChanges.put(silver, reasonForChange);
+    
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money,
-        previousGoldSilver, reasonForChange);
+        previousGoldSilver, reasonsForChanges);
   }
 }

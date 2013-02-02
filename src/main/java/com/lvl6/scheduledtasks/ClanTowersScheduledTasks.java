@@ -302,17 +302,39 @@ public class ClanTowersScheduledTasks {
 		// try catch not necessary, but just precaution
 		try {
 			List<User> users = RetrieveUtils.userRetrieveUtils().getUsersByClanId(tower.getClanOwnerId());
-			int amount = users.size();
-			int gold = tower.getGoldReward();
-			List<Integer> userIds = getUserIds(users);
-			List<Timestamp> dates = new ArrayList<Timestamp>(Collections.nCopies(amount, new Timestamp(now)));
-			List<Integer> areSilver = new ArrayList<Integer>(Collections.nCopies(amount, 0));
-			List<Integer> currenciesChange = new ArrayList<Integer>(Collections.nCopies(amount, gold));
+			int numUsers = users.size();
+			Timestamp nowTimestamp = new Timestamp(now);
+			boolean isSilver = false;
+			int goldRewarded = tower.getGoldReward();
+			int silverRewarded = tower.getSilverReward();
+			String reason = ControllerConstants.UCHRFC__CLAN_TOWER_WAR_ENDED;
+			
+			List<Integer> userIds = new ArrayList<Integer>();
+			List<Timestamp> dates = new ArrayList<Timestamp>();
+			List<Integer> areSilver = new ArrayList<Integer>();
+			List<Integer> currenciesChange = new ArrayList<Integer>();
 			List<Integer> currenciesBefore = new ArrayList<Integer>();
 			List<Integer> currenciesAfter = new ArrayList<Integer>();
-			getCurrenciesBeforeAndAfter(users, gold, currenciesBefore, currenciesAfter);
-			List<String> reasonsForChanges = new ArrayList<String>(Collections.nCopies(amount,
-					ControllerConstants.UCHRFC__CLAN_TOWER_WAR_ENDED));
+			List<String> reasonsForChanges = new ArrayList<String>();
+			
+			if(0 < goldRewarded) {
+			  userIds.addAll(getUserIds(users));
+			  dates.addAll(Collections.nCopies(numUsers, nowTimestamp));
+			  areSilver.addAll(Collections.nCopies(numUsers, 0));
+			  currenciesChange.addAll(Collections.nCopies(numUsers, goldRewarded));
+			  getPreviousAndCurrentGoldOrSilver(users, goldRewarded, isSilver, currenciesBefore, currenciesAfter);
+			  reasonsForChanges.addAll(Collections.nCopies(numUsers, reason));
+			} 
+			if(0 < silverRewarded) {
+			  isSilver = true;
+			  userIds.addAll(getUserIds(users));
+			  dates.addAll(Collections.nCopies(numUsers, nowTimestamp));
+			  areSilver.addAll(Collections.nCopies(numUsers, 1));
+			  currenciesChange.addAll(Collections.nCopies(numUsers, silverRewarded));
+			  getPreviousAndCurrentGoldOrSilver(users, silverRewarded, isSilver, currenciesBefore, currenciesAfter);
+			  reasonsForChanges.addAll(Collections.nCopies(numUsers, reason));
+			}
+			
 			int numInserted = InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates,
 					areSilver, currenciesChange, currenciesBefore, currenciesAfter, reasonsForChanges);
 			log.info("Should be " + userIds.size() + ". Rows inserted into user_currency_history: "
@@ -322,15 +344,20 @@ public class ClanTowersScheduledTasks {
 		}
 	}
 
-	private void getCurrenciesBeforeAndAfter(List<User> users, int goldRewarded,
-	    List<Integer> currenciesBefore, List<Integer> currenciesAfter) {
+	private void getPreviousAndCurrentGoldOrSilver(List<User> users, int currencyReward,
+	    boolean isSilver, List<Integer> currenciesBefore, List<Integer> currenciesAfter) {
 		for (User u : users) {
-		  int diamonds = u.getDiamonds();
-		  currenciesAfter.add(diamonds);
-			currenciesBefore.add(diamonds - goldRewarded); // the gold was
-															// rewarded to them
-															// before writing to
-															// history
+		  int currentCurrency = 0;
+		  if(isSilver) {
+		    //record total silver, including silver in the vault
+		    currentCurrency = u.getCoins() + u.getVaultBalance(); 
+		  } else {
+		    currentCurrency = u.getDiamonds();
+		  }
+		  
+		  currenciesAfter.add(currentCurrency);
+		  //the gold,silver was rewarded to them before writing to the history table
+			currenciesBefore.add(currentCurrency - currencyReward); 
 		}
 	}
 

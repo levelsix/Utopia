@@ -72,6 +72,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       List<UserEquip> userEquipsForEquipId = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsWithEquipId(senderProto.getUserId(), equipId);;
       UserEquip userEquip = null;
+      int previousSilver = user.getCoins() + user.getVaultBalance();
+      int previousGold = user.getDiamonds();
       
       Equipment equipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipId);
 
@@ -202,7 +204,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.SELL_TO_ARMORY, true);
       }
       
-      writeToUserCurrencyHistory(user, date, key, money);
+      writeToUserCurrencyHistory(user, date, key, money, previousSilver, previousGold);
     } catch (Exception e) {
       log.error("exception in ArmoryController processEvent", e);
     } finally {
@@ -210,11 +212,19 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     }
   }
 
-  private void writeToUserCurrencyHistory(User aUser, Timestamp date, String key, Map<String, Integer> money) {
-    Map<String, Integer> previousGoldSilver = null;
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date, String key, Map<String, Integer> money,
+      int previousSilver, int previousGold) {
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String gold = MiscMethods.gold;
+    String silver = MiscMethods.silver;
     String reasonForChange = ControllerConstants.UCHRFC__ARMORY_TRANSACTION;
     
-    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonForChange);
+    previousGoldSilver.put(gold, previousGold);
+    previousGoldSilver.put(silver, previousSilver);
+    reasonsForChanges.put(gold, reasonForChange);
+    reasonsForChanges.put(silver, reasonForChange);
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonsForChanges);
   }
   
 }

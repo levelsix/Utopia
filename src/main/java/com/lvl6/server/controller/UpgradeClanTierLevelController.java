@@ -66,6 +66,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     try {
       User possibleClanOwner = RetrieveUtils.userRetrieveUtils().getUserById(userId);
       List<Integer> currencyChange = new ArrayList<Integer>();
+      int previousGold = possibleClanOwner.getDiamonds();
       
       boolean validRequest = 
           isValidUpdateClanTierLevelRequest(resBuilder, possibleClanOwner, clanId, currencyChange);
@@ -92,7 +93,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        writeToUserCurrencyHistory(possibleClanOwner, currencyChange);
+        writeToUserCurrencyHistory(possibleClanOwner, currencyChange, previousGold);
       } else {
         server.writeEvent(resEvent);
       }
@@ -183,7 +184,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return false;
   }
   
-  private void writeToUserCurrencyHistory(User aUser, List<Integer> money) {
+  private void writeToUserCurrencyHistory(User aUser, List<Integer> money, int previousGold) {
     try {
       if(money.isEmpty()) {
         return;
@@ -193,11 +194,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int isSilver = 0;
       int currencyChange = money.get(0) * -1; //forgot to make it negative before, but it is negative in writetodb
       int currencyAfter = aUser.getDiamonds();
-      int currencyBefore = currencyAfter - currencyChange;
       String reasonForChange = ControllerConstants.UCHRFC__UPGRADE_CLAN_TIER_LEVEL;
       
       InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver, 
-          currencyChange, currencyBefore, currencyAfter, reasonForChange);
+          currencyChange, previousGold, currencyAfter, reasonForChange);
       
       //log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
     } catch (Exception e) {

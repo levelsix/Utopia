@@ -70,6 +70,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      int previousGold = user.getDiamonds();
       List<Integer> userEquipIds = new ArrayList<Integer>();
       userEquipIds.add(userEquipOne);
       userEquipIds.add(userEquipTwo);
@@ -112,7 +113,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
           resEventUpdate.setTag(event.getTag());
           server.writeEvent(resEventUpdate);
         }
-        writeToUserCurrencyHistory(user, startTime, money);
+        writeToUserCurrencyHistory(user, startTime, money, previousGold);
       }
 
     } catch (Exception e) {
@@ -209,11 +210,15 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     return true;
   }
   
-  public void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
-    Map<String, Integer> previousGoldSilver = null;
+  public void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money,
+      int previousGold) {
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String gold = MiscMethods.gold;
     String reasonForChange = ControllerConstants.UCHRFC__SUBMIT_EQUIPS_TO_BLACKSMITH;
 
-    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonForChange);
-    
+    previousGoldSilver.put(gold, previousGold);
+    reasonsForChanges.put(gold, reasonForChange);
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonsForChanges);
   }
 }

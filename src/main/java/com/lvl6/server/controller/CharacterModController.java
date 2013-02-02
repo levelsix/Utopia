@@ -72,6 +72,9 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      String oldName = user.getName();
+      int oldType = user.getType().getNumber();
+      int previousGold = user.getDiamonds();
 
       int diamondCost = 0;
       if (modType == CharacterModType.CHANGE_CHARACTER_TYPE) {
@@ -105,7 +108,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        writeToUserCurrencyHistory(user, modType, -1 * diamondCost);
+        writeToUserCurrencyHistory(user, modType, -1 * diamondCost, newName, oldName, newUserType, oldType, previousGold);
       }
 
 
@@ -223,18 +226,20 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     return true;
   }
 
-  private void writeToUserCurrencyHistory(User aUser, CharacterModType modType, int diamondCost) {
+  private void writeToUserCurrencyHistory(User aUser, CharacterModType modType, int diamondCost,
+      String newName, String oldName, UserType newUserType, int oldType, int previousGold) {
     try {
       int userId = aUser.getId();
       Timestamp date = new Timestamp((new Date()).getTime());
       int isSilver = 0;
       int currencyAfter = aUser.getDiamonds();
-      int currencyBefore = currencyAfter - diamondCost;  
       String reasonForChange = "character mod controller";
       if (modType == CharacterModType.CHANGE_CHARACTER_TYPE) {
-        reasonForChange = ControllerConstants.UCHRFC__CHARACTER_MOD_TYPE;
+        reasonForChange = ControllerConstants.UCHRFC__CHARACTER_MOD_TYPE
+            + " from " + oldType + " to " + newUserType.getNumber();
       } else if (modType == CharacterModType.CHANGE_NAME) {
-        reasonForChange = ControllerConstants.UCHRFC__CHARACTER_MOD_NAME;
+        reasonForChange = ControllerConstants.UCHRFC__CHARACTER_MOD_NAME
+            + " from " + oldName + " to " + newName;
       } else if (modType == CharacterModType.NEW_PLAYER) {
         reasonForChange = ControllerConstants.UCHRFC__CHARACTER_MOD_RESET;
       } else if (modType == CharacterModType.RESET_SKILL_POINTS) {
@@ -242,7 +247,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       }
       
       InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, 
-          isSilver, diamondCost, currencyBefore, currencyAfter, reasonForChange);
+          isSilver, diamondCost, previousGold, currencyAfter, reasonForChange);
       //log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
     } catch (Exception e) {
       log.error("Maybe table's not there or duplicate keys? ", e);

@@ -80,6 +80,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       User aUser = RetrieveUtils.userRetrieveUtils().getUserById(userId);
       Boss aBoss = BossRetrieveUtils.getBossForBossId(bossId);
       resBuilder.setStatus(BossActionStatus.USER_NOT_ENOUGH_STAMINA);
+      int previousSilver = aUser.getCoins() + aUser.getVaultBalance();
+      int previousGold = aUser.getDiamonds();
 
       if(userHasSufficientStamina(aUser, aBoss)) {
         UserBoss aUserBoss = UserBossRetrieveUtils.getSpecificUserBoss(userId, bossId);
@@ -122,7 +124,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
               resBuilder, allUserEquipIds, aUser.getId(), allEquipIds, levels);
           resBuilder.addAllLootUserEquip(ueList);
           
-          writeToUserCurrencyHistory(aUser, money, curTime);
+          writeToUserCurrencyHistory(aUser, money, curTime, previousSilver, previousGold);
         }
       }
       BossActionResponseEvent resEvent = new BossActionResponseEvent(userId);
@@ -646,12 +648,21 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return fullUserEquipProtos;
   }
   
-  private void writeToUserCurrencyHistory(User aUser, Map<String, Integer> money, Timestamp curTime) {
-    Map<String, Integer> previousGoldSilver = null;
+  private void writeToUserCurrencyHistory(User aUser, Map<String, Integer> money, Timestamp curTime,
+      int previousSilver, int previousGold) {
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
     String reasonForChange = ControllerConstants.UCHRFC__BOSS_ACTION;
+    String gold = MiscMethods.gold;
+    String silver = MiscMethods.silver;
+    
+    previousGoldSilver.put(gold, previousGold);
+    previousGoldSilver.put(silver, previousSilver);
+    reasonsForChanges.put(gold, reasonForChange);
+    reasonsForChanges.put(silver, reasonForChange);
     
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, curTime, money, 
-        previousGoldSilver, reasonForChange);
+        previousGoldSilver, reasonsForChanges);
     
   }
 }

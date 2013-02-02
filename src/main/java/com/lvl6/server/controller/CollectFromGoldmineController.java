@@ -58,7 +58,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-
+      int previousGold = user.getDiamonds();
+      
       boolean legit = checkLegit(resBuilder, user, curTime);
 
       CollectFromGoldmineResponseEvent resEvent = new CollectFromGoldmineResponseEvent(senderProto.getUserId());
@@ -73,7 +74,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        writeToUserCurrencyHistory(user, curTime, money);
+        writeToUserCurrencyHistory(user, curTime, money, previousGold);
       }
     } catch (Exception e) {
       log.error("exception in CollectFromGoldmineController processEvent", e);
@@ -124,7 +125,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     }
   }
   
-  private void writeToUserCurrencyHistory(User aUser, Timestamp date, List<Integer> money) {
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date, List<Integer> money,
+      int previousGold) {
     try {
       if(money.isEmpty()) {
         return;
@@ -133,10 +135,9 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       int isSilver = 0;
       int currencyChange = money.get(0);
       int currencyAfter = aUser.getDiamonds();
-      int currencyBefore = currencyAfter - currencyChange;
       String reasonForChange = ControllerConstants.UCHRFC__COLLECT_GOLDMINE;
       InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver,
-          currencyChange, currencyBefore, currencyAfter, reasonForChange);
+          currencyChange, previousGold, currencyAfter, reasonForChange);
 
       //log.info("Should be 1. Rows inserted into user_currency_history: " + inserted);
     } catch (Exception e) {

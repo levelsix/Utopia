@@ -2,7 +2,6 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +79,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     try {
       MarketplacePost mp = MarketplacePostRetrieveUtils.getSpecificActiveMarketplacePost(postId);
       User buyer = RetrieveUtils.userRetrieveUtils().getUserById(buyerId);
+      int previousSilverBuyer = buyer.getCoins() + buyer.getVaultBalance();
+      int previousGoldBuyer = buyer.getDiamonds();
 
       User seller = RetrieveUtils.userRetrieveUtils().getUserById(sellerId);        
       boolean legitPurchase = checkLegitPurchase(resBuilder, mp, buyer, seller, postId);
@@ -125,7 +126,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           
           QuestUtils.checkAndSendQuestsCompleteBasic(server, buyer.getId(), senderProto, SpecialQuestAction.PURCHASE_FROM_MARKETPLACE, false);
         }
-        writeToUserCurrencyHistory(buyer, timeOfPurchaseRequest, moneyBuyer, goldOrSilverTransaction);
+        writeToUserCurrencyHistory(buyer, timeOfPurchaseRequest, moneyBuyer, 
+            goldOrSilverTransaction, previousSilverBuyer, previousGoldBuyer);
       }
     } catch (Exception e) {
       log.error("exception in PurchaseFromMarketplace processEvent", e);
@@ -240,7 +242,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   
   //only gold changes or silver changes, not both, seller doesn't really get the money until seller redeems purchase
   private void writeToUserCurrencyHistory(User buyer, Timestamp date, 
-      Map<String, Integer> moneyBuyerCurrencyChange, List<String> goldOrSilverTransaction) {
+      Map<String, Integer> moneyBuyerCurrencyChange, List<String> goldOrSilverTransaction,
+      int previousSilver, int previousGold) {
     if(goldOrSilverTransaction.isEmpty()) {
       return;
     }
@@ -256,20 +259,18 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       if(goldOrSilver.equals(MiscMethods.gold)) {
         //not a silver change but gold change
         currencyAfter = buyer.getDiamonds();
-        currencyBefore = currencyAfter - currencyChange;
+        currencyBefore = previousGold;
       } else {
         isSilver = 1;
         currencyAfter = buyer.getCoins();
-        currencyBefore = currencyAfter - currencyChange;
+        currencyBefore = previousSilver;
       }
 
       InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver, 
           currencyChange, currencyBefore, currencyAfter, reasonForChange);
-      
     } catch (Exception e) {
       log.error("Maybe table's not there or duplicate keys? ", e);
     }
-    
   }
   
 }
