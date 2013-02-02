@@ -1,5 +1,10 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -58,10 +63,13 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      int previousSilver = 0;
 
       boolean legitTransaction = checkLegitTransaction(resBuilder, user, amount, requestType);
             
       if (legitTransaction) {
+        previousSilver = user.getCoins() + user.getVaultBalance();
+        
         if (requestType == VaultRequestType.WITHDRAW) {
           if (!user.updateRelativeCoinsVault(amount, -1*amount)) {
             log.error("problem with vault transaction. coinChange=" + amount + ", vaultChange=" + amount*-1);
@@ -96,6 +104,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.WITHDRAW_FROM_VAULT, true);
         } else if (requestType == VaultRequestType.DEPOSIT) {
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.DEPOSIT_IN_VAULT, true);
+          
+          writeToUserCurrencyHistory(user, -1*amount, previousSilver); 
         }
       }
     } catch (Exception e) {
@@ -129,4 +139,20 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     return true;
   }
 
+  public void writeToUserCurrencyHistory(User aUser, int coinChange, int previousSilver) {
+    Timestamp date = new Timestamp((new Date()).getTime());
+
+    Map<String, Integer> goldSilverChange = new HashMap<String, Integer>();
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String silver = MiscMethods.silver;
+    String reasonForChange = ControllerConstants.UCHRFC__VAULT_DEPOSIT;
+    
+    goldSilverChange.put(silver, coinChange);
+    previousGoldSilver.put(silver, previousSilver);
+    reasonsForChanges.put(silver, reasonForChange);
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange,
+        previousGoldSilver, reasonsForChanges);
+  }
 }

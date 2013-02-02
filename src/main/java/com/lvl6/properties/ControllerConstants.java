@@ -462,6 +462,15 @@ public class ControllerConstants {
   public static final String UCHRFC__CHARACTER_MOD_SKILL_POINTS = "character skill points";
   public static final String UCHRFC__GOLDMINE = "goldmine reset";
   public static final String UCHRFC__COLLECT_GOLDMINE = "collect from goldmine";
+  //silver only reasons
+  public static final String UCHRFC__RETRIEVE_CURRENCY_FROM_NORM_STRUCT = "retrieve currency from normal structures";
+  public static final String UCHRFC__TASK_ACTION = "performed task with id ";
+  public static final String UCHRFC__STARTUP_DAILY_BONUS = "startup daily bonus";
+  public static final String UCHRFC__PURCHASE_CITY_EXPANSION = "expaned city: ";
+  public static final String UCHRFC__USER_CREATE_REFERRED_A_USER = "referred a user";
+  public static final String UCHRFC__VAULT_DEPOSIT = "vault deposit";
+  public static final String UCHRFC__BATTLE_WON = "won battle";
+  public static final String UCHRFC__BATTLE_LOST = "lost battle";
   
   //ENHANCING
   public static final int MAX_ENHANCEMENT_LEVEL = 5;

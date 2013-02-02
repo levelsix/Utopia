@@ -318,6 +318,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (!referrer.isFake()) {
       server.lockPlayer(referrer.getId(), this.getClass().getSimpleName());
       try {
+        int previousSilver = referrer.getCoins() + referrer.getVaultBalance();
+        
         int coinsGivenToReferrer = MiscMethods.calculateCoinsGivenToReferrer(referrer);
         if (!referrer.updateRelativeCoinsNumreferrals(coinsGivenToReferrer, 1)) {
           log.error("problem with rewarding the referrer " + referrer + " with this many coins: " + coinsGivenToReferrer);
@@ -333,6 +335,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
               .setCoinsGivenToReferrer(coinsGivenToReferrer).build();
           resEvent.setReferralCodeUsedResponseProto(resProto);
           server.writeAPNSNotificationOrEvent(resEvent);
+          
+          writeToUserCurrencyHistoryTwo(referrer, coinsGivenToReferrer, previousSilver);
         }
       } catch (Exception e) {
         log.error("exception in UserCreateController processEvent", e);
@@ -485,4 +489,21 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         previousGoldSilver, reasonsForChanges);
   }
 
+  public void writeToUserCurrencyHistoryTwo(User aUser, int coinChange, int previousSilver) {
+    Timestamp date = new Timestamp((new Date()).getTime());
+
+    Map<String, Integer> goldSilverChange = new HashMap<String, Integer>();
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String silver = MiscMethods.silver;
+    String reasonForChange = ControllerConstants.UCHRFC__USER_CREATE_REFERRED_A_USER;
+    
+    goldSilverChange.put(silver, coinChange);
+    previousGoldSilver.put(silver, previousSilver);
+    reasonsForChanges.put(silver, reasonForChange);
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange,
+        previousGoldSilver, reasonsForChanges);
+  }
+  
 }

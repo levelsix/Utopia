@@ -3,7 +3,9 @@ package com.lvl6.server.controller;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -132,7 +134,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
         boolean stolenEquipIsLastOne = false;
 
+        int attackerPreviousSilver = 0;
+        int defenderPreviousSilver = 0;
+        
         if (legitBattle) {
+          attackerPreviousSilver = attacker.getCoins() + attacker.getVaultBalance();
+          defenderPreviousSilver = defender.getCoins() + defender.getVaultBalance();
           if (result == BattleResult.ATTACKER_WIN) {
             winner = attacker;
             loser = defender;
@@ -171,10 +178,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         server.writeEvent(resEvent);
 
         if (legitBattle) {
+          Map<String, Integer> attackerCurrencyChange = new HashMap<String, Integer>();
+          Map<String, Integer> defenderCurrencyChange = new HashMap<String, Integer>();
           boolean attackerFled = result==BattleResult.ATTACKER_FLEE;
           writeChangesToDB(stolenEquipIsLastOne, winner, loser, attacker,
               defender, expGained, lostCoins, battleTime, attackerFled,
-              lockBoxEventId);
+              lockBoxEventId, attackerCurrencyChange, defenderCurrencyChange);
 
           //clan towers
           if (server.lockClanTowersTable()) {
@@ -224,6 +233,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
               log.error("problem with adding battle history into the db for attacker " + attacker.getId() + " and defender " + defender.getId() 
                   + " at " + battleTime);
             }
+            
+            writeToUserCurrencyHistory(winner, attacker, defender, battleTime, attackerCurrencyChange, 
+                defenderCurrencyChange, attackerPreviousSilver, defenderPreviousSilver);
           }
         }
       } catch (Exception e) {
@@ -383,7 +395,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private void writeChangesToDB(boolean stolenEquipIsLastOne, User winner, User loser, User attacker, User defender, 
-      int expGained, int lostCoins, Timestamp battleTime, boolean isFlee, int lockBoxEventId) {
+      int expGained, int lostCoins, Timestamp battleTime, boolean isFlee, int lockBoxEventId,
+      Map<String, Integer> attackerCurrencyChange, Map<String, Integer> defenderCurrencyChange) {
 
     boolean simulateStaminaRefill = (attacker.getStamina() == attacker.getStaminaMax());
 
@@ -392,11 +405,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           expGained, lostCoins, 1, 0, 0, simulateStaminaRefill, false, battleTime)) {
         log.error("problem with updating info for winner/attacker " + attacker.getId() + " in battle at " 
             + battleTime + " vs " + loser.getId());
+      } else {//for user currency history
+        attackerCurrencyChange.put(MiscMethods.silver, lostCoins);
       }
       if (!defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
           0, (defender.isFake()) ? 0 : lostCoins * -1, 0, 1, 0, false, true, battleTime)) {
         log.error("problem with updating info for defender/loser " + defender.getId() + " in battle at " 
             + battleTime + " vs " + winner.getId());
+      } else { //for user currency history
+        if(!defender.isFake()) {
+          defenderCurrencyChange.put(MiscMethods.silver, lostCoins * -1);
+        }
       }
     } else if (winner == defender) {
       if (isFlee) {
@@ -404,22 +423,34 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             0, lostCoins * -1, 0, 1, 1, simulateStaminaRefill, false, battleTime)) {
           log.error("problem with updating info for loser/attacker/flee-er " + attacker.getId() + " in battle at " 
               + battleTime + " vs " + winner.getId());
+        } else {//for user currency history
+          attackerCurrencyChange.put(MiscMethods.silver, lostCoins * -1);
         }
         if (!defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
             0, (defender.isFake()) ? 0 : lostCoins, 1, 0, 0, false, false, battleTime)) {
           log.error("problem with updating info for winner/defender " + defender.getId() + " in battle at " 
               + battleTime + " vs " + loser.getId() + " who fled");
+        } else {//for user currency history
+          if (!defender.isFake()) {
+            defenderCurrencyChange.put(MiscMethods.silver, lostCoins);
+          }
         }
       } else {
         if (!attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
             0, lostCoins * -1, 0, 1, 0, simulateStaminaRefill, false, battleTime)) {
           log.error("problem with updating info for loser/attacker " + attacker.getId() + " in battle at " 
               + battleTime + " vs " + winner.getId());
+        } else {//for user currency history
+          attackerCurrencyChange.put(MiscMethods.silver, lostCoins * -1);
         }
         if (!defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
             0, (defender.isFake()) ? 0 : lostCoins, 1, 0, 0, false, true, battleTime)) {
           log.error("problem with updating info for winner/defender " + defender.getId() + " in battle at " 
               + battleTime + " vs " + loser.getId());
+        } else {//for user currency history
+          if (!defender.isFake()) {
+            defenderCurrencyChange.put(MiscMethods.silver, lostCoins);
+          }
         }
       }
     }
@@ -642,6 +673,54 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int fleesScore = ule.getBattlesFled()*ControllerConstants.LEADERBOARD_EVENT__FLEES_WEIGHT;
       int totalScore = winsScore+lossesScore+fleesScore;
       leaderUtil.setScoreForEventAndUser(eventId, userId, (double) totalScore);
+    }
+  }
+  
+  private void writeToUserCurrencyHistory(User winner, User attacker, User defender, Timestamp date, 
+      Map<String, Integer> attackerCurrencyChange, Map<String, Integer> defenderCurrencyChange,
+      int attackerPreviousSilver, int defenderPreviousSilver) {
+    try {
+      if(null != winner) {
+        int amount = 2;
+        int isSilver = 1;
+        String silver = MiscMethods.silver;
+        int attackerSilverChange = attackerCurrencyChange.get(silver);
+        int attackerCurrentSilver = attacker.getCoins() + attacker.getVaultBalance();
+        int defenderSilverChange = defenderCurrencyChange.get(silver);
+        int defenderCurrentSilver = defender.getCoins() + defender.getVaultBalance(); 
+        String won = ControllerConstants.UCHRFC__BATTLE_WON;
+        String lost = ControllerConstants.UCHRFC__BATTLE_LOST;
+
+        List<Integer> userIds = new ArrayList<Integer>();
+        List<Timestamp> dates = new ArrayList<Timestamp>(Collections.nCopies(amount, date));
+        List<Integer> areSilver = new ArrayList<Integer>(Collections.nCopies(amount, isSilver));
+        List<Integer> currenciesChange = new ArrayList<Integer>();
+        List<Integer> currenciesBefore = new ArrayList<Integer>();
+        List<Integer> currentCurrencies = new ArrayList<Integer>();
+        List<String> reasonsForChanges = new ArrayList<String>();
+
+        userIds.add(attacker.getId());
+        currenciesChange.add(attackerSilverChange);
+        currenciesBefore.add(attackerPreviousSilver);
+        currentCurrencies.add(attackerCurrentSilver);
+
+        userIds.add(defender.getId());
+        currenciesChange.add(defenderSilverChange);
+        currenciesBefore.add(defenderPreviousSilver);
+        currentCurrencies.add(defenderCurrentSilver);
+        if (winner == attacker) {
+          reasonsForChanges.add(won);
+          reasonsForChanges.add(lost);
+        } else {
+          reasonsForChanges.add(lost);
+          reasonsForChanges.add(won);
+        }
+
+        InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates, areSilver,
+            currenciesChange, currenciesBefore, currentCurrencies, reasonsForChanges);
+      } 
+    } catch(Exception e) {
+      log.error("can't write into user_currency_history", e);
     }
   }
 }
