@@ -64,6 +64,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       int previousSilver = 0;
+      int silverChange = 0;
 
       boolean legitTransaction = checkLegitTransaction(resBuilder, user, amount, requestType);
             
@@ -76,7 +77,11 @@ import com.lvl6.utils.utilmethods.QuestUtils;
             legitTransaction = false;
           }
         } else if (requestType == VaultRequestType.DEPOSIT) {
-          if (!user.updateRelativeCoinsVault(-1*amount, (int)Math.floor((1-ControllerConstants.VAULT__DEPOSIT_PERCENT_CUT)*amount))) {
+          int onPersonCoinChange = -1*amount;
+          int vaultCoinChange = (int)Math.floor((1-ControllerConstants.VAULT__DEPOSIT_PERCENT_CUT)*amount);
+          silverChange = -onPersonCoinChange - vaultCoinChange;
+          
+          if (!user.updateRelativeCoinsVault(onPersonCoinChange, vaultCoinChange)) {
             log.error("problem with vault transaction. coinChange=" + -1*amount + ", vaultChange="
                 + (int)Math.floor((1-ControllerConstants.VAULT__DEPOSIT_PERCENT_CUT)*amount));
             legitTransaction = false;
@@ -105,7 +110,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         } else if (requestType == VaultRequestType.DEPOSIT) {
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.DEPOSIT_IN_VAULT, true);
           
-          writeToUserCurrencyHistory(user, -1*amount, previousSilver); 
+          writeToUserCurrencyHistory(user, silverChange, previousSilver, amount); 
         }
       }
     } catch (Exception e) {
@@ -139,14 +144,15 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     return true;
   }
 
-  public void writeToUserCurrencyHistory(User aUser, int coinChange, int previousSilver) {
+  public void writeToUserCurrencyHistory(User aUser, int coinChange, int previousSilver,
+      int amountDeposited) {
     Timestamp date = new Timestamp((new Date()).getTime());
 
     Map<String, Integer> goldSilverChange = new HashMap<String, Integer>();
     Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
     Map<String, String> reasonsForChanges = new HashMap<String, String>();
     String silver = MiscMethods.silver;
-    String reasonForChange = ControllerConstants.UCHRFC__VAULT_DEPOSIT;
+    String reasonForChange = ControllerConstants.UCHRFC__VAULT_DEPOSIT + " " + amountDeposited;
     
     goldSilverChange.put(silver, coinChange);
     previousGoldSilver.put(silver, previousSilver);
