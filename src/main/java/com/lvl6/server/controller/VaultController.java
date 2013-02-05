@@ -79,7 +79,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         } else if (requestType == VaultRequestType.DEPOSIT) {
           int onPersonCoinChange = -1*amount;
           int vaultCoinChange = (int)Math.floor((1-ControllerConstants.VAULT__DEPOSIT_PERCENT_CUT)*amount);
-          silverChange = -onPersonCoinChange - vaultCoinChange;
+          silverChange = onPersonCoinChange + vaultCoinChange;
           
           if (!user.updateRelativeCoinsVault(onPersonCoinChange, vaultCoinChange)) {
             log.error("problem with vault transaction. coinChange=" + -1*amount + ", vaultChange="
