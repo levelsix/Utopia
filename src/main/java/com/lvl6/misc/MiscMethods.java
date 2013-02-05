@@ -555,6 +555,7 @@ public class MiscMethods {
         .setFiltersNibName(ControllerConstants.NIB_NAME__MARKET_FILTERS)
         .setBlacksmithNibName(ControllerConstants.NIB_NAME__BLACKSMITH)
         .setGoldShoppeNibName(ControllerConstants.NIB_NAME__GOLD_SHOPPE)
+        .setBossEventNibName(ControllerConstants.NIB_NAME__BOSS_EVENT)
         .build();
 
     cb = cb.setDownloadableNibConstants(dnc);

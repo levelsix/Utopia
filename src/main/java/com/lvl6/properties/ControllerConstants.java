@@ -534,6 +534,7 @@ public class ControllerConstants {
   public static final String NIB_NAME__MARKET_FILTERS = "MarketplaceFilters.2";
   public static final String NIB_NAME__BLACKSMITH = "Blacksmith.4";
   public static final String NIB_NAME__GOLD_SHOPPE = "GoldShoppe.3";
+  public static final String NIB_NAME__BOSS_EVENT = "BossEvent.2";
   
   public static final int IDDICTION__EQUIP_ID = 282;
   public static final String IDDICTION__NOTICE = "FREE limited edition gold equip for joining today!";
