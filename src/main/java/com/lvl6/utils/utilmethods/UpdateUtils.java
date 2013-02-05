@@ -667,6 +667,7 @@ public class UpdateUtils implements UpdateUtil {
   }
 
   @Override
+  @CacheEvict(value="clanById", key="#clanId")
   public boolean updateClanOwnerDescriptionForClan(int clanId, int ownerId, String description) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.CLANS__ID, clanId);
@@ -816,6 +817,7 @@ public class UpdateUtils implements UpdateUtil {
   }
   
   //incrementing the current tier level column in clans table
+  @CacheEvict(value="clanById", key="#clanId")
   public boolean incrementCurrentTierLevelForClan(int clanId) {
 	  String tableName = DBConstants.TABLE_CLANS;
 	  
