@@ -684,9 +684,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         int amount = 2;
         int isSilver = 1;
         String silver = MiscMethods.silver;
-        int attackerSilverChange = attackerCurrencyChange.get(silver);
+        int attackerSilverChange = 0;
+        if(attackerCurrencyChange.containsKey(silver)) {
+          attackerSilverChange = attackerCurrencyChange.get(silver);
+        }
         int attackerCurrentSilver = attacker.getCoins() + attacker.getVaultBalance();
-        int defenderSilverChange = defenderCurrencyChange.get(silver);
+        int defenderSilverChange = 0;
+        if(defenderCurrencyChange.containsKey(silver)) {
+          defenderSilverChange = defenderCurrencyChange.get(silver);
+        }
         int defenderCurrentSilver = defender.getCoins() + defender.getVaultBalance(); 
         String won = ControllerConstants.UCHRFC__BATTLE_WON;
         String lost = ControllerConstants.UCHRFC__BATTLE_LOST;
