@@ -339,6 +339,8 @@ message StartupResponseProto {
 		
 		optional EnhancementConstants enhanceConstants = 96;
 		
+		optional bool useOldBattleFormula = 97;
+		
 		message EnhancementConstants {
 			optional int32 maxEnhancementLevel = 1;
 			optional int32 enhancePercentPerLevel = 2;

@@ -407,9 +407,8 @@ public class MiscMethods {
         .setBossEventNumberOfAttacksUntilSuperAttack(ControllerConstants.BOSS_EVENT__NUMBER_OF_ATTACKS_UNTIL_SUPER_ATTACK)
         .setBossEventSuperAttack(ControllerConstants.BOSS_EVENT__SUPER_ATTACK)
         .setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA)
-        .setMinClanMembersToHoldClanTower(ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER);
-
-
+        .setMinClanMembersToHoldClanTower(ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER)
+        .setUseOldBattleFormula(ControllerConstants.STARTUP__USE_OLD_BATTLE_FORMULA);
 
     if (ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS != null) {
       for (int i = 0; i < ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS.length; i++) {
@@ -1269,6 +1268,7 @@ public class MiscMethods {
   public static void writeIntoDUEFE(UserEquip mainUserEquip, List<UserEquip> feederUserEquips,
       int enhancementId) {
     log.info("writing into deleted user equips for enhancing");
+    String tableName = DBConstants.TABLE_DELETED_USER_EQUIPS_FOR_ENHANCING;
     List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
     Map<String, Object> newRow = new HashMap<String, Object>();
 
@@ -1292,6 +1292,7 @@ public class MiscMethods {
 
       newRows.add(newRow2);
     }
+    
   }
 
   public static boolean isEquipAtMaxEnhancementLevel(UserEquip enhancingUserEquip) {
