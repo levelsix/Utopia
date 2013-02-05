@@ -80,8 +80,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       User aUser = RetrieveUtils.userRetrieveUtils().getUserById(userId);
       Boss aBoss = BossRetrieveUtils.getBossForBossId(bossId);
       resBuilder.setStatus(BossActionStatus.USER_NOT_ENOUGH_STAMINA);
+      int previousSilver = 0;
+      int previousGold = 0;
 
-      if(userHasSufficientStamina(aUser, aBoss)) {
+      if(userHasSufficientStamina(resBuilder, aUser, aBoss)) {
         UserBoss aUserBoss = UserBossRetrieveUtils.getSpecificUserBoss(userId, bossId);
 
         if(null == aUserBoss) {
@@ -91,7 +93,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         //set the BossActionStatus to return. Determine if user can attack
         boolean userCanAttack = canAttack(resBuilder, aUserBoss, aUser, aBoss, curTime);
 
-        if(userCanAttack) {    	
+        if(userCanAttack) {   
+          previousSilver = aUser.getCoins() + aUser.getVaultBalance();
+          previousGold = aUser.getDiamonds();
+          
           Map<String, Integer> damageExp = 
               attackBoss(resBuilder, aUserBoss, aUser, aBoss, curTime, isSuperAttack);
           int damageDone = damageExp.get(damage);
@@ -122,7 +127,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
               resBuilder, allUserEquipIds, aUser.getId(), allEquipIds, levels);
           resBuilder.addAllLootUserEquip(ueList);
           
-          writeToUserCurrencyHistory(aUser, money, curTime);
+          writeToUserCurrencyHistory(aUser, money, curTime, previousSilver, previousGold);
         }
       }
       BossActionResponseEvent resEvent = new BossActionResponseEvent(userId);
@@ -144,10 +149,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   /* 
    * Return true if user has stamina >= to stamina cost to attack boss
    */
-  private boolean userHasSufficientStamina(User u, Boss b) {
-    int userStamina = u.getStamina();
-    int bossStaminaCost = b.getStaminaCost();
-    return userStamina >= bossStaminaCost;
+  private boolean userHasSufficientStamina(Builder resBuilder, User u, Boss b) {
+    if(null != u && null != b) {
+      int userStamina = u.getStamina();
+      int bossStaminaCost = b.getStaminaCost();
+      boolean enough = userStamina >= bossStaminaCost;
+      if (!enough) {
+        resBuilder.setStatus(BossActionStatus.USER_NOT_ENOUGH_STAMINA);
+      } 
+      return enough;
+    } else {
+      resBuilder.setStatus(BossActionStatus.OTHER_FAIL);
+      return false;
+    }
   }
 
   /*
@@ -646,12 +660,21 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return fullUserEquipProtos;
   }
   
-  private void writeToUserCurrencyHistory(User aUser, Map<String, Integer> money, Timestamp curTime) {
-    Map<String, Integer> previousGoldSilver = null;
+  private void writeToUserCurrencyHistory(User aUser, Map<String, Integer> money, Timestamp curTime,
+      int previousSilver, int previousGold) {
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
     String reasonForChange = ControllerConstants.UCHRFC__BOSS_ACTION;
+    String gold = MiscMethods.gold;
+    String silver = MiscMethods.silver;
+    
+    previousGoldSilver.put(gold, previousGold);
+    previousGoldSilver.put(silver, previousSilver);
+    reasonsForChanges.put(gold, reasonForChange);
+    reasonsForChanges.put(silver, reasonForChange);
     
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, curTime, money, 
-        previousGoldSilver, reasonForChange);
+        previousGoldSilver, reasonsForChanges);
     
   }
 }

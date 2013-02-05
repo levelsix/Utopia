@@ -206,6 +206,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int oldOwnerId = oldTower.getClanOwnerId();
     int newOwnerId = newTower.getClanOwnerId();
     String reasonForEntry = "";
+    int winnerId = newOwnerId;
 
     if(oldOwnerId == newOwnerId) { //attacker conceded
       reasonForEntry = Notification.ATTACKER_CONCEDED;
@@ -215,14 +216,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     List<ClanTower> tList = new ArrayList<ClanTower>();
     tList.add(oldTower);
-    UpdateUtils.get().updateTowerHistory(tList, reasonForEntry);
+    List<Integer> wList = new ArrayList<Integer>();
+    wList.add(winnerId);
+    UpdateUtils.get().updateTowerHistory(tList, reasonForEntry, wList);
 
     //write changes to clan_towers table
     if (!UpdateUtils.get().updateClanTowerOwnerAndOrAttacker(
         newTower.getId(), 
         newTower.getClanOwnerId(), newTower.getOwnedStartTime(), newTower.getOwnerBattleWins(),
         newTower.getClanAttackerId(), newTower.getAttackStartTime(), newTower.getAttackerBattleWins(),
-        newTower.getLastRewardGiven())) {
+        newTower.getLastRewardGiven(), newTower.getCurrentBattleId())) {
       log.error("problem with updating a clan tower during a ConcedeClanTowerWarRequest." +
           " old tower=" + oldTower +
           " new tower=" + newTower +

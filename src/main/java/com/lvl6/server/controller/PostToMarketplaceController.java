@@ -164,6 +164,13 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         return false;        
       }
     }
+    int minLevel = ControllerConstants.STARTUP__MARKETPLACE_MIN_LEVEL;
+    if (user.getLevel() < minLevel) {
+      //since user's level is below the cap, don't allow them to post to the marketplace
+      resBuilder.setStatus(PostToMarketplaceStatus.OTHER_FAIL);
+      log.error("Attempted to post to marketplace, but too low level. min level to post to marketplace=" + minLevel + ", user=" + user);
+      return false;
+    }
     resBuilder.setStatus(PostToMarketplaceStatus.SUCCESS);
     return true;
   }
@@ -186,8 +193,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     int postedEquipId = equip.getId();
     int diamondCost = reqProto.getDiamondCost();
     int coinCost = reqProto.getCoinCost();
+    int equipEnhancementPercent = ue.getEnhancementPercentage();
     if (!insertUtils.insertMarketplaceItem(posterId, postType, postedEquipId, 
-        diamondCost, coinCost, timeOfPost, ue.getLevel())) {
+        diamondCost, coinCost, timeOfPost, ue.getLevel(), equipEnhancementPercent)) {
       log.error("problem with inserting post into marketplace. posterId=" + posterId
           + ", postType=" + postType + ", postedEquipId=" + postedEquipId
           + ", diamondCost=" + diamondCost + ", coinCost=" + coinCost

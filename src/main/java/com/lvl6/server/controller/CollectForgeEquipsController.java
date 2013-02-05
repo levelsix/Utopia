@@ -71,7 +71,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         blacksmithAttempt = unhandledBlacksmithAttemptsForUser.get(0);
         successfulForge = checkIfSuccessfulForge(blacksmithAttempt, EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(blacksmithAttempt.getEquipId()));
         if (successfulForge) {
-          int newUserEquipId = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel());
+          //forging enhanced weapons deletes the enhancement percentages
+          int newUserEquipId = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel(),
+              ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
           if (newUserEquipId < 0) {
             resBuilder.setStatus(CollectForgeEquipsStatus.OTHER_FAIL);
             log.error("problem with giving 1 of equip " + blacksmithAttempt.getEquipId() + " to forger " + user.getId());
@@ -84,10 +86,13 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           //forge quest
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.SUCCESSFULLY_FORGE_AN_ITEM, true);
         } else {
-          
-          
-          int newUserEquipId1 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1);
-          int newUserEquipId2 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1);
+          //retain the equip enhancement percents
+          int equipOneEnhancementPercent = blacksmithAttempt.getEquipOneEnhancementPercent();
+          int equipTwoEnhancementPercent = blacksmithAttempt.getEquipTwoEnhancementPercent();
+          int newUserEquipId1 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1,
+              equipOneEnhancementPercent);
+          int newUserEquipId2 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1,
+              equipTwoEnhancementPercent);
           
           if (newUserEquipId1 < 0 || newUserEquipId2 < 0) {
             resBuilder.setStatus(CollectForgeEquipsStatus.OTHER_FAIL);
@@ -95,9 +100,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
             legitCollection = false;
           } else {
               resBuilder.addUserEquips(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
-                new UserEquip(newUserEquipId1, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1, 0)));
+                new UserEquip(newUserEquipId1, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1, equipOneEnhancementPercent)));
               resBuilder.addUserEquips(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
-                new UserEquip(newUserEquipId2, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1, 0)));
+                new UserEquip(newUserEquipId2, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1, equipTwoEnhancementPercent)));
           }
         }
       }

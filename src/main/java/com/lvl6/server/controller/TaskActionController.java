@@ -119,6 +119,8 @@ public class TaskActionController extends EventController {
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(
           senderProto.getUserId());
+      int previousSilver = 0;
+      
       TaskActionResponseProto.Builder resBuilder = TaskActionResponseProto
           .newBuilder();
       resBuilder.setSender(senderProto);
@@ -140,6 +142,8 @@ public class TaskActionController extends EventController {
       boolean legitAction = checkLegitAction(user, task, clientTime,
           resBuilder);
       if (legitAction) {
+        previousSilver = user.getCoins() + user.getVaultBalance();
+        
         resBuilder.setCityId(task.getCityId());
         coinsGained = calculateCoinsGained(task);
         resBuilder.setCoinsGained(coinsGained);
@@ -148,7 +152,8 @@ public class TaskActionController extends EventController {
         if (lootEquipId != ControllerConstants.NOT_SET) {
           int userEquipId = InsertUtils.get().insertUserEquip(
               user.getId(), lootEquipId,
-              ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+              ControllerConstants.DEFAULT_USER_EQUIP_LEVEL,
+              ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
           if (userEquipId < 0) {
             log.error("problem with giving 1 of equip "
                 + lootEquipId + " to task completer "
@@ -251,6 +256,9 @@ public class TaskActionController extends EventController {
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         checkQuestsPostTaskAction(user, task, senderProto, lootEquipId);
+        
+        //writeChangesToDB functionality is enclosed within an if(legitAction) block
+        writeToUserCurrencyHistory(user, taskId, totalCoinGain, previousSilver);
       }
     } catch (Exception e) {
       log.error("exception in TaskActionController processEvent", e);
@@ -604,5 +612,22 @@ public class TaskActionController extends EventController {
 		  
 		  MiscMethods.writeGlobalNotification(foundEpicNotification, server);
 	  }
+  }
+
+  public void writeToUserCurrencyHistory(User aUser, int taskId, int coinChange, int previousSilver) {
+    Timestamp date = new Timestamp((new Date()).getTime());
+
+    Map<String, Integer> goldSilverChange = new HashMap<String, Integer>();
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String silver = MiscMethods.silver;
+    String reasonForChange = ControllerConstants.UCHRFC__TASK_ACTION + taskId;
+    
+    goldSilverChange.put(silver, coinChange);
+    previousGoldSilver.put(silver, previousSilver);
+    reasonsForChanges.put(silver, reasonForChange);
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange,
+        previousGoldSilver, reasonsForChanges);
   }
 }

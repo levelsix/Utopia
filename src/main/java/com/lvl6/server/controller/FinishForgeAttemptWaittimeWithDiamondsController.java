@@ -29,7 +29,6 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
   @Component @DependsOn("gameServer") public class FinishForgeAttemptWaittimeWithDiamondsController extends EventController{
@@ -67,6 +66,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser = UnhandledBlacksmithAttemptRetrieveUtils.getUnhandledBlacksmithAttemptsForUser(senderProto.getUserId());
+      int previousGold = 0;
       
       boolean legitFinish = checkLegitFinish(resBuilder, blacksmithId, unhandledBlacksmithAttemptsForUser, user, timeOfSpeedup);
 
@@ -76,6 +76,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
 
       if (legitFinish) {
+        previousGold = user.getDiamonds();
+        
         BlacksmithAttempt ba = unhandledBlacksmithAttemptsForUser.get(0);
         Map<String, Integer> money = new HashMap<String, Integer>();
         
@@ -85,7 +87,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        writeToUserCurrencyHistory(user, timeOfSpeedup, money);
+        writeToUserCurrencyHistory(user, timeOfSpeedup, money, previousGold);
       }
     } catch (Exception e) {
       log.error("exception in FinishForgeAttemptWaittimeWithDiamondsController processEvent", e);
@@ -156,11 +158,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return true;  
   }
 
-  public void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
-    Map<String, Integer> previousGoldSilver = null;
+  public void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money,
+      int previousGold) {
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
     String reasonForChange = ControllerConstants.UCHRFC__FINISH_FORGE_ATTEMPT_WAIT_TIME;
+    String gold = MiscMethods.gold;
     
-    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonForChange);
+    previousGoldSilver.put(gold, previousGold);
+    reasonsForChanges.put(gold, reasonForChange);
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonsForChanges);
   }
   
 }

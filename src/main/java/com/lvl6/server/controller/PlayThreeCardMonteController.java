@@ -62,6 +62,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       MonteCard card = ThreeCardMonteRetrieveUtils.getMonteCardIdsToMonteCards().get(reqProto.getCardId());
+      int previousSilver = 0;
+      int previousGold = 0;
 
       boolean legitPlay = checkLegitPlay(resBuilder, user, card);
 
@@ -72,7 +74,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       
       if (legitPlay) {
         if (equipId != ControllerConstants.NOT_SET && equipId > 0 && equipLevel > 0) {
-          int newUserEquipId = InsertUtils.get().insertUserEquip(user.getId(), equipId, equipLevel);
+          int newUserEquipId = InsertUtils.get().insertUserEquip(user.getId(), equipId, equipLevel,
+              ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
           if (newUserEquipId     < 0) {
             resBuilder.setStatus(PlayThreeCardMonteStatus.OTHER_FAIL);
             log.error("problem with giving 1 of equip " + equipId + " to forger " + user.getId());
@@ -90,6 +93,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       server.writeEvent(resEvent);
 
       if (legitPlay) {
+        previousSilver = user.getCoins() + user.getVaultBalance();
+        previousGold = user.getDiamonds();
         int diamondsChange = diamondsGained - ControllerConstants.THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY;
         
         Map<String, Integer> money = new HashMap<String, Integer>();
@@ -98,7 +103,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        writeToUserCurrencyHistory(user, money);
+        writeToUserCurrencyHistory(user, money, previousSilver, previousGold);
       }
 
     } catch (Exception e) {
@@ -143,12 +148,21 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     }
   }
   
-  public void writeToUserCurrencyHistory(User aUser, Map<String, Integer> money) {
+  public void writeToUserCurrencyHistory(User aUser, Map<String, Integer> money,
+      int previousSilver, int previousGold) {
     Timestamp date = new Timestamp((new Date()).getTime());
-    Map<String, Integer> previousGoldSilver = null;
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String gold = MiscMethods.gold;
+    String silver = MiscMethods.silver;
     String reasonForChange = ControllerConstants.UCHRFC__PLAY_THREE_CARD_MONTE;
     
+    previousGoldSilver.put(gold, previousGold);
+    previousGoldSilver.put(silver, previousSilver);
+    reasonsForChanges.put(gold, reasonForChange);
+    reasonsForChanges.put(silver, reasonForChange);
+    
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money,
-        previousGoldSilver, reasonForChange);
+        previousGoldSilver, reasonsForChanges);
   }
 }

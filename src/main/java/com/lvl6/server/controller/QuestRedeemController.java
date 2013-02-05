@@ -103,7 +103,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           }
         }
         if (quest.getEquipIdGained() > 0) {
-          int userEquipId = InsertUtils.get().insertUserEquip(userQuest.getUserId(), quest.getEquipIdGained(), ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+          int userEquipId = InsertUtils.get().insertUserEquip(userQuest.getUserId(), quest.getEquipIdGained(),
+              ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
           if (userEquipId < 0) {
             resBuilder.setStatus(QuestRedeemStatus.OTHER_FAIL);
             log.error("problem with giving user 1 reward equip after completing the quest, equipId=" 
@@ -111,7 +112,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             legitRedeem = false;
           } else {
             resBuilder.setEquipRewardFromQuest(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
-                new UserEquip(userEquipId, userQuest.getUserId(), quest.getEquipIdGained(), ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0)));
+                new UserEquip(userEquipId, userQuest.getUserId(), quest.getEquipIdGained(), 
+                    ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT)));
             gainedEquip = true;
           }
         }
@@ -124,6 +126,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       if (legitRedeem) {
         User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+        int previousSilver = user.getCoins() + user.getVaultBalance();
+        int previousGold = user.getDiamonds();
+        
         Map<String, Integer> money = new HashMap<String, Integer>();
         writeChangesToDB(userQuest, quest, user, senderProto, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
@@ -133,7 +138,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
         }
         
-        writeToUserCurrencyHistory(user, money);
+        writeToUserCurrencyHistory(user, money, previousSilver, previousGold);
       }
     } catch (Exception e) {
       log.error("exception in QuestRedeem processEvent", e);
@@ -211,13 +216,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return false;
   }
 
-  public void writeToUserCurrencyHistory(User aUser, Map<String, Integer> money) {
+  public void writeToUserCurrencyHistory(User aUser, Map<String, Integer> money,
+      int previousSilver, int previousGold) {
     Timestamp date = new Timestamp((new Date()).getTime());
 
-    Map<String, Integer> previousGoldSilver = null;
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String gold = MiscMethods.gold;
+    String silver = MiscMethods.silver;
     String reasonForChange = ControllerConstants.UCHRFC__QUEST_REDEEM;
+
+    previousGoldSilver.put(gold, previousGold);
+    previousGoldSilver.put(silver, previousSilver);
+    reasonsForChanges.put(gold, reasonForChange);
+    reasonsForChanges.put(silver, reasonForChange);
     
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money,
-        previousGoldSilver, reasonForChange);
+        previousGoldSilver, reasonsForChanges);
   }
 }

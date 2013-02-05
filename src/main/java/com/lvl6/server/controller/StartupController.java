@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -182,7 +183,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           setCitiesAndUserCityInfos(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
           setUserEquipsAndEquips(resBuilder, user);
-          setAllies(resBuilder, user);
           resBuilder.setExperienceRequiredForNextLevel(
               LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(user.getLevel() + 1));
           resBuilder.setExperienceRequiredForCurrentLevel(
@@ -243,7 +243,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int userId = aUser.getId();
     List<EquipEnhancement> equipUnderEnhancements = EquipEnhancementRetrieveUtils
         .getEquipEnhancementsForUser(userId);
-    log.debug("number of equip enhancements: " + equipUnderEnhancements.size());
+    if(null == equipUnderEnhancements || equipUnderEnhancements.isEmpty()) {
+      return;
+    }
+    
     EquipEnhancement equipUnderEnhancement = equipUnderEnhancements.get(0);
     
     int equipEnhancementId = equipUnderEnhancement.getId();
@@ -513,7 +516,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
           int idOfEquipToGive = MiscMethods.chooseMysteryBoxEquip(user);
           int levelOfEquipToGive = (int)(Math.random() * ControllerConstants.STARTUP__DAILY_BONUS_MYSTERY_BOX_EQUIP_FORGE_LEVEL_MAX) + 1;
-          int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), idOfEquipToGive, levelOfEquipToGive);
+          int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), idOfEquipToGive, levelOfEquipToGive,
+              ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
           if (userEquipId <= 0) {
             log.error("failed in giving user " + user + " equip with id " + idOfEquipToGive);
             return 0;
@@ -529,8 +533,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         } else if (numConsecDaysPlayed>=ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_SMALL_BONUS) {
           int coinBonus = ControllerConstants.STARTUP__DAILY_BONUS_SMALL_BONUS_COIN_QUANTITY*numConsecDaysPlayed*user.getLevel();
           dbiBuilder.setCoinBonus(coinBonus);
+          int previousSilver = user.getCoins() + user.getVaultBalance();
           if (!user.updateRelativeCoinsNaive(coinBonus)) {
             log.error("problem with giving silver bonus of " + coinBonus + " to user " + user);
+          } else {//everything worked
+            writeToUserCurrencyHistory(user, coinBonus, previousSilver);
           }
         }
       } else { //more than a day since last login
@@ -853,5 +860,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
     }
     resBuilder.setTutorialConstants(builder.build());
+  }
+  
+  public void writeToUserCurrencyHistory(User aUser, int coinChange, int previousSilver) {
+    Timestamp date = new Timestamp((new Date()).getTime());
+
+    Map<String, Integer> goldSilverChange = new HashMap<String, Integer>();
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String silver = MiscMethods.silver;
+    String reasonForChange = ControllerConstants.UCHRFC__STARTUP_DAILY_BONUS;
+    
+    goldSilverChange.put(silver, coinChange);
+    previousGoldSilver.put(silver, previousSilver);
+    reasonsForChanges.put(silver, reasonForChange);
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange,
+        previousGoldSilver, reasonsForChanges);
   }
 }

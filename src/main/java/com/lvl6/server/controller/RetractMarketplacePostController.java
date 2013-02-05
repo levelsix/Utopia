@@ -69,7 +69,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       int coinCost = (mp == null) ? ControllerConstants.NOT_SET : mp.getCoinCost();
 
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-
+      int previousSilver = 0;
+      int previousGold = 0;
+      
       //BEGIN MARKETPLACE LICENSE FEATURE
       //if user has license or if item has been on market past a certain amount of time, 
       //then don't take a cut of their money,  
@@ -92,14 +94,15 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           diamondCut, coinCut, postId);
 
       if (legitRetract) {
-        int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), mp.getPostedEquipId(), mp.getEquipLevel());
+        int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), mp.getPostedEquipId(), 
+            mp.getEquipLevel(), mp.getEquipEnhancementPercentage());
         if (userEquipId < 0) {
           resBuilder.setStatus(RetractMarketplacePostStatus.OTHER_FAIL);
           log.error("problem with giving user 1 more of equip " + mp.getPostedEquipId());
           legitRetract = false;
         } else {
           resBuilder.setRetractedUserEquip(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
-              new UserEquip(userEquipId, user.getId(), mp.getPostedEquipId(), mp.getEquipLevel(), 0)));
+              new UserEquip(userEquipId, user.getId(), mp.getPostedEquipId(), mp.getEquipLevel(), mp.getEquipEnhancementPercentage())));
         }
       }
       
@@ -109,6 +112,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       server.writeEvent(resEvent);
 
       if (legitRetract) {
+        previousSilver = user.getCoins() + user.getVaultBalance();
+        previousGold = user.getDiamonds();
+        
         Map<String, Integer> money = new HashMap<String, Integer>();
         writeChangesToDB(user, mp, diamondCut, coinCut, money);
         if (mp != null) {
@@ -116,7 +122,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           resEventUpdate.setTag(event.getTag());
           server.writeEvent(resEventUpdate);
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
-          writeToUserCurrencyHistory(user, timeOfRetractionRequest, money);
+          writeToUserCurrencyHistory(user, timeOfRetractionRequest, money, previousSilver, previousGold);
         }
       }
     } catch (Exception e) {
@@ -222,12 +228,21 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 	  }
   }
   
-  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
-    Map<String, Integer> previousGoldSilver = null;
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money,
+      int previousSilver, int previousGold) {
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String gold = MiscMethods.gold;
+    String silver = MiscMethods.silver;
     String reasonForChange = ControllerConstants.UCHRFC__RETRACT_MARKETPLACE_POST;
 
+    previousGoldSilver.put(gold, previousGold);
+    previousGoldSilver.put(silver, previousSilver);
+    reasonsForChanges.put(gold, reasonForChange);
+    reasonsForChanges.put(silver, reasonForChange);
+    
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, 
-        money, previousGoldSilver, reasonForChange);
+        money, previousGoldSilver, reasonsForChanges);
   }
   
 }

@@ -70,6 +70,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      int previousGold = 0;
       List<Integer> userEquipIds = new ArrayList<Integer>();
       userEquipIds.add(userEquipOne);
       userEquipIds.add(userEquipTwo);
@@ -78,22 +79,23 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
       boolean legitSubmit = checkLegitSubmit(resBuilder, user, paidToGuarantee, userEquips, equip, startTime);
 
-      int goalLevel = 0;
-      goalLevel = userEquips.get(0).getLevel() + 1;
+      int goalLevel = userEquips.get(0).getLevel() + 1;
       int diamondCost = calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee);
       if (legitSubmit) {
+        //need to keep track of enhancements on weapons
+        int enhancementPercentOne = userEquips.get(0).getEnhancementPercentage();
+        int enhancementPercentTwo = userEquips.get(1).getEnhancementPercentage();
+        
         int blacksmithId = InsertUtils.get().insertForgeAttemptIntoBlacksmith(user.getId(), equip.getId(), goalLevel, 
-            paidToGuarantee, startTime, 
-            diamondCost, null, false);
-
+            paidToGuarantee, startTime, diamondCost, null, false, enhancementPercentOne, enhancementPercentTwo);
+        
         if (blacksmithId <= 0) {
           resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.OTHER_FAIL);
           log.error("problem with trying to give user blacksmith attempt");
           legitSubmit = false;
         } else {
           BlacksmithAttempt ba = new BlacksmithAttempt(blacksmithId, user.getId(), equip.getId(), goalLevel, 
-              paidToGuarantee, startTime, 
-              diamondCost, null, false);
+              paidToGuarantee, startTime, diamondCost, null, false, enhancementPercentOne, enhancementPercentTwo);
           resBuilder.setUnhandledBlacksmithAttempt(CreateInfoProtoUtils.createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(ba));
         }
       }
@@ -104,6 +106,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       server.writeEvent(resEvent);
 
       if (legitSubmit) {
+        previousGold = user.getDiamonds();
+        
         Map<String, Integer> money = new HashMap<String, Integer>();
         writeChangesToDB(user, diamondCost, userEquips, money);
         if (diamondCost > 0) {
@@ -111,7 +115,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
           resEventUpdate.setTag(event.getTag());
           server.writeEvent(resEventUpdate);
         }
-        writeToUserCurrencyHistory(user, startTime, money);
+        writeToUserCurrencyHistory(user, startTime, money, previousGold);
       }
 
     } catch (Exception e) {
@@ -149,7 +153,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     float chanceOfSuccess = MiscMethods.calculateChanceOfSuccessForForge(equip, goalLevel);
     int goldCostToSpeedup = MiscMethods.calculateDiamondCostToSpeedupForgeWaittime(equip, goalLevel);
     
-    return (int) (goldCostToSpeedup/chanceOfSuccess);
+    int x = (int) (goldCostToSpeedup/chanceOfSuccess);
+    return x;
   }
 
   private boolean checkLegitSubmit(Builder resBuilder, User user, boolean paidToGuarantee, List<UserEquip> userEquips, Equipment equip, Timestamp startTime) {
@@ -207,11 +212,15 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     return true;
   }
   
-  public void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
-    Map<String, Integer> previousGoldSilver = null;
+  public void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money,
+      int previousGold) {
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String gold = MiscMethods.gold;
     String reasonForChange = ControllerConstants.UCHRFC__SUBMIT_EQUIPS_TO_BLACKSMITH;
 
-    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonForChange);
-    
+    previousGoldSilver.put(gold, previousGold);
+    reasonsForChanges.put(gold, reasonForChange);
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonsForChanges);
   }
 }

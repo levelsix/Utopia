@@ -6,8 +6,14 @@ public class InAppPurchase {
 	protected Integer userId;
 	protected Double cashSpent;
 	protected Date purchasedDate;
-
-	
+  protected String name;
+  
+  public String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
+  }
 	public Integer getUserId() {
 		return userId;
 	}

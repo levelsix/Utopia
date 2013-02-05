@@ -14,6 +14,7 @@ public class EquipEnhancementFeeder implements Serializable {
   
   public EquipEnhancementFeeder(int id, int equipEnhancementId, int equipId, int equipLevel, 
       int enhancementPercentageBeforeEnhancement) {
+    this.id = id;
     this.equipEnhancementId = equipEnhancementId;
     this.equipId = equipId;
     this.equipLevel = equipLevel;

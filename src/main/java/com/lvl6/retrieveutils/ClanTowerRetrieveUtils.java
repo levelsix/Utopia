@@ -31,6 +31,27 @@ public class ClanTowerRetrieveUtils {
     DBConnection.get().close(rs, null, conn);
     return clanTower;
   }
+  
+  public static int getMaxBattleId() {
+    String query = "select max("+DBConstants.CLAN_TOWERS__CURRENT_BATTLE_ID+") from "+TABLE_NAME;
+    
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, null);
+    int maxBattleId = 0;
+    if (rs != null) {
+      try {
+        rs.last();
+        rs.beforeFirst();
+        if (rs.next()) {
+          maxBattleId = rs.getInt(1);
+        }
+      } catch (SQLException e) {
+        log.error("problem with database call.", e);
+      }
+    }
+    DBConnection.get().close(rs, null, conn);
+    return maxBattleId;
+  }
 
   public static List<ClanTower> getAllClanTowers() {
     Connection conn = DBConnection.get().getConnection();
@@ -199,9 +220,10 @@ public class ClanTowerRetrieveUtils {
     int blue = rs.getInt(i++);
     int green = rs.getInt(i++);
     int red = rs.getInt(i++);
+    int battleId = rs.getInt(i++);
 
     return new ClanTower(id, towerName, towerImageName, clanOwnerId, ownedStartTime, silverReward, 
         goldReward, numHrsToCollect, clanAttackerId, attackStartTime, ownerBattleWins, attackerBattleWins, 
-        numberOfHoursForBattle, lastRewardGiven, blue, green, red);
+        numberOfHoursForBattle, lastRewardGiven, blue, green, red, battleId);
   }
 }

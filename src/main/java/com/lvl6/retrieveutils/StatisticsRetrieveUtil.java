@@ -97,15 +97,17 @@ public class StatisticsRetrieveUtil {
 	
 	public List<Spender> getTopSpenders(Integer limit){
 	  final String amountSpent = "amount_spent";
+	  final String userId = DBConstants.TABLE_USER+"."+DBConstants.USER__ID;
 		List<Spender> spenders = this.jdbcTemplate.query(
-		        "select " + DBConstants.IAP_HISTORY__USER_ID + ", sum(" + DBConstants.IAP_HISTORY__CASH_SPENT + ") as " + amountSpent + "  from " +
-		            DBConstants.TABLE_IAP_HISTORY + " group by " + DBConstants.IAP_HISTORY__USER_ID + " order by sum(" + DBConstants.IAP_HISTORY__CASH_SPENT + 
-		            ") desc limit "+limit,
+		        "select " + DBConstants.IAP_HISTORY__USER_ID + ", sum(" + DBConstants.IAP_HISTORY__CASH_SPENT + ") as " + amountSpent + ", "+DBConstants.USER__NAME+" from " +
+		            DBConstants.TABLE_IAP_HISTORY + ", "+DBConstants.TABLE_USER+" where "+ userId +"="+DBConstants.IAP_HISTORY__USER_ID+
+		            " group by " + DBConstants.IAP_HISTORY__USER_ID + " order by sum(" + DBConstants.IAP_HISTORY__CASH_SPENT + ") desc limit "+limit,
 		        new RowMapper<Spender>() {
 		            public Spender mapRow(ResultSet rs, int rowNum) throws SQLException {
 		            	Spender spender = new Spender();
 		            	spender.setUserId(rs.getInt(DBConstants.IAP_HISTORY__USER_ID));
-		            	spender.setAmountSpent(rs.getDouble(amountSpent));
+                  spender.setName(rs.getString(DBConstants.USER__NAME));
+		            	spender.setAmountSpent(Math.ceil(rs.getDouble(amountSpent)));
 		                return spender;
 		            }
 		        });
@@ -114,15 +116,16 @@ public class StatisticsRetrieveUtil {
 	
 	public List<InAppPurchase> getTopInAppPurchases(Integer limit){
 		List<InAppPurchase> inAppPurchases = this.jdbcTemplate.query(
-		        "select " + DBConstants.IAP_HISTORY__USER_ID + ", " + DBConstants.IAP_HISTORY__CASH_SPENT + ", " + DBConstants.IAP_HISTORY__PURCHASE_DATE + 
-		        " from " + DBConstants.TABLE_IAP_HISTORY + 
+		        "select " + DBConstants.IAP_HISTORY__USER_ID + ", " + DBConstants.IAP_HISTORY__CASH_SPENT + ", " + DBConstants.IAP_HISTORY__PURCHASE_DATE + ", "+DBConstants.USER__NAME+
+		        " from " + DBConstants.TABLE_IAP_HISTORY + ", "+DBConstants.TABLE_USER+" where "+DBConstants.TABLE_USER+"."+DBConstants.USER__ID+"="+DBConstants.IAP_HISTORY__USER_ID +
 		        " order by " + DBConstants.IAP_HISTORY__PURCHASE_DATE + " desc limit "+limit,
 		        new RowMapper<InAppPurchase>() {
 		            public InAppPurchase mapRow(ResultSet rs, int rowNum) throws SQLException {
 		            	InAppPurchase inAppPurchase = new InAppPurchase();
 		            	inAppPurchase.setUserId(rs.getInt(DBConstants.IAP_HISTORY__USER_ID));
-		            	inAppPurchase.setCashSpent(rs.getDouble(DBConstants.IAP_HISTORY__CASH_SPENT));
-		            	inAppPurchase.setPurchasedDate(rs.getDate(DBConstants.IAP_HISTORY__PURCHASE_DATE));
+		            	inAppPurchase.setCashSpent(Math.ceil(rs.getDouble(DBConstants.IAP_HISTORY__CASH_SPENT)));
+		            	inAppPurchase.setName(rs.getString(DBConstants.USER__NAME));
+		            	inAppPurchase.setPurchasedDate(new Date(rs.getTimestamp(DBConstants.IAP_HISTORY__PURCHASE_DATE).getTime()));
 		                return inAppPurchase;
 		            }
 		        });

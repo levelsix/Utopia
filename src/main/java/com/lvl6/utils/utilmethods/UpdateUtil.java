@@ -9,6 +9,7 @@ import java.util.Set;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 
+import com.lvl6.info.BoosterItem;
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Task;
@@ -187,15 +188,18 @@ public interface UpdateUtil {
   
   public boolean incrementCurrentTierLevelForClan(int clanId);
   public abstract boolean updateClanTowerOwnerAndOrAttacker(int clanTowerId, int ownerId, Date ownedStartTime, int ownerBattleWins, 
-		  int attackerId, Date attackStartTime, int attackerBattleWins, Date lastRewardGiven);
+		  int attackerId, Date attackStartTime, int attackerBattleWins, Date lastRewardGiven, int battleId);
   
-  public abstract boolean updateClanTowerBattleWins(int clanTowerId, int ownerId, int attackerId, boolean ownerWon, int amountToIncrementBattleWinsBy);
+  public abstract boolean updateClanTowerBattleWins(int clanTowerId, int ownerId, int attackerId, boolean ownerWon, int amountToIncrementBattleWinsBy, int battleId, int ownerUserId, 
+      int attackerUserId);
   
   public abstract boolean resetClanTowerOwnerOrAttacker(List<Integer> clanTowerOwnerOrAttackerIds, boolean resetOwner);
   
-  public abstract boolean updateTowerHistory(List<ClanTower> towers, String reasonForEntry);
+  public abstract boolean updateTowerHistory(List<ClanTower> towers, String reasonForEntry, List<Integer> winnerIds);
   
   public boolean updateUsersAddDiamonds(List<Integer> userIds, int diamonds) ;
   
   public boolean updateLeaderboardEventSetRewardGivenOut(int eventId);
+
+  public abstract boolean updateUserBoosterItemsForOneUser(int userId, Map<Integer, Integer> userBoosterItemIdsToQuantities);
 }

@@ -62,11 +62,10 @@ import com.lvl6.utils.RetrieveUtils;
     if (reqProto.hasClanName()) resBuilder.setClanName(clanName);
     if (reqProto.hasClanId()) resBuilder.setClanId(clanId);
 
-    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
-      boolean legitCreate = checkLegitCreate(resBuilder, user, clanName, clanId);
+      boolean legitCreate = checkLegitCreate(resBuilder, clanName, clanId);
 
       if (legitCreate) {
         if (reqProto.hasClanName() || reqProto.hasClanId()) {
@@ -123,17 +122,10 @@ import com.lvl6.utils.RetrieveUtils;
       server.writeEvent(resEvent);
     } catch (Exception e) {
       log.error("exception in RetrieveClanInfo processEvent", e);
-    } finally {
-      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     }
   }
 
-  private boolean checkLegitCreate(Builder resBuilder, User user, String clanName, int clanId) {
-    if (user == null) {
-      resBuilder.setStatus(RetrieveClanInfoStatus.OTHER_FAIL);
-      log.error("user is null");
-      return false;
-    }
+  private boolean checkLegitCreate(Builder resBuilder, String clanName, int clanId) {
     if ((clanName == null || clanName.length() != 0) && clanId != 0) {
       resBuilder.setStatus(RetrieveClanInfoStatus.OTHER_FAIL);
       log.error("clan name and clan id set");

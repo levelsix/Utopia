@@ -62,6 +62,7 @@ public class DBConstants {
   public static final String TABLE_GOLD_SALES = "gold_sales";
   public static final String TABLE_CLAN_TOWERS = "clan_towers";
   public static final String TABLE_CLAN_TOWERS_HISTORY = "clan_towers_history";
+  public static final String TABLE_CLAN_TOWER_USERS = "clan_tower_users";
   public static final String TABLE_CLAN_TIER_LEVELS = "clan_tier_levels";
   public static final String TABLE_LEADERBOARD_EVENTS = "leaderboard_events";
   public static final String TABLE_USER_LEADERBOARD_EVENTS = "user_leaderboard_events";
@@ -74,6 +75,10 @@ public class DBConstants {
   public static final String TABLE_EQUIP_ENHANCEMENT_FEEDERS = "equip_enhancement_feeders";
   public static final String TABLE_EQUIP_ENHANCEMENT_FEEDERS_HISTORY = "equip_enhancement_feeders_history";
   public static final String TABLE_DELETED_USER_EQUIPS_FOR_ENHANCING = "deleted_user_equips_for_enhancing";
+  
+  public static final String TABLE_BOOSTER_PACK = "booster_pack";
+  public static final String TABLE_BOOSTER_ITEM = "booster_item";
+  public static final String TABLE_USER_BOOSTER_ITEMS = "user_booster_items";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -173,7 +178,7 @@ public class DBConstants {
   public static final String EQUIP_ENHANCEMENT_FEEDERS_HISTORY__EQUIP_ENHANCEMENT_ID = "equip_enhancement_id";
   public static final String EQUIP_ENHANCEMENT_FEEDERS_HISTORY__EQUIP_ID = "equip_id";
   public static final String EQUIP_ENHANCEMENT_FEEDERS_HISTORY__EQUIP_LEVEL = "equip_level";
-  public static final String EQUIP_ENHANCEMENT_FEEDERS_HISTORY__ENHANCEMENT_PERCENTAGE_BEFORE_ENHANCEMENT = "enhancement_percentage_before_enhancement";
+  public static final String EQUIP_ENHANCEMENT_FEEDERS_HISTORY__ENHANCEMENT_PERCENTAGE = "enhancement_percentage";
   
   /*DELETED USER EQUIPS FOR ENHANCING*/
   public static final String DUEFE__USER_EQUIP__ID = "user_equip_id";
@@ -224,6 +229,7 @@ public class DBConstants {
   public static final String MARKETPLACE__DIAMOND_COST = "diamond_cost";
   public static final String MARKETPLACE__COIN_COST = "coin_cost";
   public static final String MARKETPLACE__EQUIP_LEVEL = "equip_level";
+  public static final String MARKETPLACE__EQUIP_ENHANCEMENT_PERCENT = "equip_enhancement_percent";
 
   /*MARKETPLACE HISTORY TABLE*/
   public static final String MARKETPLACE_TRANSACTION_HISTORY__MARKETPLACE_ID = "marketplace_id";
@@ -237,6 +243,7 @@ public class DBConstants {
   public static final String MARKETPLACE_TRANSACTION_HISTORY__COIN_COST = "coin_cost";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__EQUIP_LEVEL = "equip_level";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__SELLER_HAS_LICENSE = "seller_has_license";
+  public static final String MARKETPLACE_TRANSACTION_HISTORY__EQUIP_ENHANCEMENT_PERCENT = "equip_enhancement_percent";
   
   /*BLACKSMITH TABLE*/
   public static final String BLACKSMITH__ID = GENERIC__ID;
@@ -248,7 +255,9 @@ public class DBConstants {
   public static final String BLACKSMITH__DIAMOND_GUARANTEE_COST = "diamond_guarantee_cost";
   public static final String BLACKSMITH__TIME_OF_SPEEDUP = "time_of_speedup";
   public static final String BLACKSMITH__ATTEMPT_COMPLETE = "attempt_complete";
-
+  public static final String BLACKSMITH__EQUIP_ONE_ENHANCEMENT_PERCENT = "equip_one_enhancement_percent";
+  public static final String BLACKSMITH__EQUIP_TWO_ENHANCEMENT_PERCENT = "equip_two_enhancement_percent";
+  
   /*BLACKSMITH HISTORY TABLE*/
   public static final String BLACKSMITH_HISTORY__ID = "blacksmith_id";
   public static final String BLACKSMITH_HISTORY__USER_ID = GENERIC__USER_ID;
@@ -259,6 +268,8 @@ public class DBConstants {
   public static final String BLACKSMITH_HISTORY__DIAMOND_GUARANTEE_COST = "diamond_guarantee_cost";
   public static final String BLACKSMITH_HISTORY__TIME_OF_SPEEDUP = "time_of_speedup";
   public static final String BLACKSMITH_HISTORY__SUCCESS = "success";
+  public static final String BLACKSMITH_HISTORY__EQUIP_ONE_ENHANCEMENT_PERCENT = "equip_one_enhancement_percent";
+  public static final String BLACKSMITH_HISTORY__EQUIP_TWO_ENHANCEMENT_PERCENT = "equip_two_enhancement_percent";
   
   /*USER STRUCTS TABLE*/
   public static final String USER_STRUCTS__ID = GENERIC__ID;
@@ -499,6 +510,7 @@ public class DBConstants {
   public static final String CLAN_TOWERS__OWNER_BATTLE_WINS = "owner_battle_wins";
   public static final String CLAN_TOWERS__ATTACKER_BATTLE_WINS = "attacker_battle_wins";
   public static final String CLAN_TOWERS__LAST_REWARD_GIVEN = "last_reward_given";
+  public static final String CLAN_TOWERS__CURRENT_BATTLE_ID = "current_battle_id";
   
   /*CLAN TOWERS HISTORY*/
   public static final String CLAN_TOWERS_HISTORY__OWNER_CLAN_ID = "owner_clan_id";
@@ -510,7 +522,16 @@ public class DBConstants {
   public static final String CLAN_TOWERS_HISTORY__ATTACK_START_TIME = "attack_start_time";
   public static final String CLAN_TOWERS_HISTORY__NUM_HOURS_FOR_BATTLE = "num_hours_for_battle";
   public static final String CLAN_TOWERS_HISTORY__LAST_REWARD_GIVEN = "last_reward_given";
+  public static final String CLAN_TOWERS_HISTORY__TIME_OF_ENTRY = "time_of_entry";
   public static final String CLAN_TOWERS_HISTORY__REASON_FOR_ENTRY = "reason_for_entry";
+  public static final String CLAN_TOWERS_HISTORY__CURRENT_BATTLE_ID = "current_battle_id";
+
+  /*CLAN TOWER USERS*/
+  public static final String CLAN_TOWER_USERS__BATTLE_ID = "battle_id";
+  public static final String CLAN_TOWER_USERS__USER_ID = "user_id";
+  public static final String CLAN_TOWER_USERS__IS_IN_OWNER_CLAN = "is_in_owner_clan";
+  public static final String CLAN_TOWER_USERS__POINTS_GAINED = "points_gained";
+  public static final String CLAN_TOWER_USERS__POINTS_LOST = "points_lost";
   
   /*LEADERBOARD EVENTS*/
   public static final String LEADERBOARD_EVENTS__ID = GENERIC__ID;
@@ -543,6 +564,27 @@ public class DBConstants {
   public static final String USER_CURRENCY_HISTORY__IS_SILVER = "is_silver";
   public static final String USER_CURRENCY_HISTORY__CURRENCY_CHANGE = "currency_change";
   public static final String USER_CURRENCY_HISTORY__CURRENCY_BEFORE_CHANGE = "currency_before_change";
+  public static final String USER_CURRENCY_HISTORY__CURRENCY_AFTER_CHANGE = "currency_after_change";
   public static final String USER_CURRENCY_HISTORY__REASON_FOR_CHANGE = "reason_for_change";
+ 
+  /*BOOSTER PACK*/
+  public static final String BOOSTER_PACK__ID = GENERIC__ID;
+  public static final String BOOSTER_PACK__COIN_COST = "coin_cost";
+  public static final String BOOSTER_PACK__DIAMOND_COST = "diamond_cost";
+  public static final String BOOSTER_PACK__NAME = "name";
+  public static final String BOOSTER_PACK__IMAGE = "image";
+  public static final String BOOSTER_PACK__DESCRIPTION = "description";
+  public static final String BOOSTER_PACK__NUM_EQUIPS = "num_equips";
   
+  /*BOOSTER ITEM*/
+  public static final String BOOSTER_ITEM__ID = GENERIC__ID;
+  public static final String BOOSTER_ITEM__BOOSTER_PACK_ID = "booster_pack_id";
+  public static final String BOOSTER_ITEM__EQUIP_ID = "equip_id";
+  public static final String BOOSTER_ITEM__QUANTITY = "quantity";
+  public static final String BOOSTER_ITEM__IS_SPECIAL = "is_special";
+  
+  /*USER BOOSTER ITEMS*/
+  public static final String USER_BOOSTER_ITEMS__BOOSTER_ITEM_ID = "booster_item_id";
+  public static final String USER_BOOSTER_ITEMS__USER_ID = "user_id";
+  public static final String USER_BOOSTER_ITEMS__NUM_RECEIVED = "num_received";
 }

@@ -3,17 +3,23 @@ package com.lvl6.server.controller;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RequestJoinClanRequestEvent;
+import com.lvl6.events.response.GeneralNotificationResponseEvent;
 import com.lvl6.events.response.RequestJoinClanResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Clan;
 import com.lvl6.info.User;
 import com.lvl6.info.UserClan;
 import com.lvl6.misc.MiscMethods;
+import com.lvl6.misc.Notification;
+import com.lvl6.properties.ControllerConstants;
+import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.EventProto.RequestJoinClanRequestProto;
 import com.lvl6.proto.EventProto.RequestJoinClanResponseProto;
 import com.lvl6.proto.EventProto.RequestJoinClanResponseProto.Builder;
@@ -69,10 +75,14 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       RequestJoinClanResponseEvent resEvent = new RequestJoinClanResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setRequestJoinClanResponseProto(resBuilder.build());
+      /* I think I meant write to the clan leader if leader is not on
+       
       //in case user is not online write an apns
       server.writeAPNSNotificationOrEvent(resEvent);
       //server.writeEvent(resEvent);
-
+       */
+      server.writeEvent(resEvent);
+      
       if (legitRequest) {
         server.writeClanEvent(resEvent, clan.getId());
 
@@ -81,6 +91,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
+        notifyClanLeaderApns(user, clan); //write to clan leader
         QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.REQUEST_JOIN_CLAN, true);
       }
     } catch (Exception e) {
@@ -112,6 +123,12 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       log.error("user clan already exists for this: " + uc);
       return false;      
     }
+    int minLevel = ControllerConstants.STARTUP__CLAN_HOUSE_MIN_LEVEL;
+    if (user.getLevel() < minLevel) {
+      resBuilder.setStatus(RequestJoinClanStatus.OTHER_FAIL);
+      log.error("Attemped to send join request to clan, but too low level. min level to join clan=" + minLevel + ", user=" + user);
+      return false;
+    }
     resBuilder.setStatus(RequestJoinClanStatus.SUCCESS);
     return true;
   }
@@ -120,5 +137,22 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     if (!InsertUtils.get().insertUserClan(user.getId(), clanId, UserClanStatus.REQUESTING, new Timestamp(new Date().getTime()))) {
       log.error("problem with inserting user clan data for user " + user + ", and clan id " + clanId);
     }
+  }
+  
+  private void notifyClanLeaderApns(User aUser, Clan aClan) {
+    int clanOwnerId = aClan.getOwnerId();
+    
+    int level = aUser.getLevel();
+    String requester = aUser.getName();
+    Notification aNote = new Notification();
+    aNote.setAsUserRequestedToJoinClan(level, requester);
+    
+    GeneralNotificationResponseProto.Builder notificationProto =
+        aNote.generateNotificationBuilder();
+    GeneralNotificationResponseEvent aNotification =
+        new GeneralNotificationResponseEvent(clanOwnerId);
+    aNotification.setGeneralNotificationResponseProto(notificationProto.build());
+    
+    server.writeAPNSNotificationOrEvent(aNotification);
   }
 }

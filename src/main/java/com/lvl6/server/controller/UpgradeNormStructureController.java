@@ -72,6 +72,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      int previousSilver = 0;
+      int previousGold = 0;
+      
       boolean legitUpgrade = checkLegitUpgrade(resBuilder, user, userStruct, struct, timeOfUpgrade);
       UpgradeNormStructureResponseEvent resEvent = new UpgradeNormStructureResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
@@ -79,13 +82,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
 
       if (legitUpgrade) {
+        previousSilver = user.getCoins() + user.getVaultBalance();
+        previousGold = user.getDiamonds();
+        
         Map<String, Integer> money = new HashMap<String, Integer>();
         writeChangesToDB(user, userStruct, struct, timeOfUpgrade, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        writeToUserCurrencyHistory(user, timeOfUpgrade, money);
+        writeToUserCurrencyHistory(user, timeOfUpgrade, money, previousSilver, previousGold);
       }
     } catch (Exception e) {
       log.error("exception in UpgradeNormStructure processEvent", e);
@@ -187,11 +193,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return Math.max(0, (int)(struct.getDiamondPrice() * Math.pow(ControllerConstants.UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_DIAMOND_COST_EXPONENT_BASE, oldLevel)));
   }
   
-  private void writeToUserCurrencyHistory(User aUser, Timestamp timeOfUpgrade, Map<String, Integer> money) {
-    Map<String, Integer> previousGoldSilver = null;
+  private void writeToUserCurrencyHistory(User aUser, Timestamp timeOfUpgrade, Map<String, Integer> money,
+      int previousGold, int previousSilver) {
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
     String reasonForChange = ControllerConstants.UCHRFC__UPGRADE_NORM_STRUCT;
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String gold = MiscMethods.gold;
+    String silver = MiscMethods.silver;
+    
+    previousGoldSilver.put(silver, previousSilver);
+    previousGoldSilver.put(gold, previousGold);
+    
+    reasonsForChanges.put(gold, reasonForChange);
+    reasonsForChanges.put(silver,  reasonForChange);
+    
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, timeOfUpgrade, 
-        money, previousGoldSilver, reasonForChange);
+        money, previousGoldSilver, reasonsForChanges);
   }
 
 }

@@ -1,12 +1,16 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseCityExpansionRequestEvent;
 import com.lvl6.events.response.PurchaseCityExpansionResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -75,6 +79,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       UserCityExpansionData userCityExpansionData = UserCityExpansionRetrieveUtils.getUserCityExpansionDataForUser(senderProto.getUserId());
+      int previousSilver = 0;
       
       boolean legitExpansion = checkLegitExpansion(resBuilder, direction, timeOfPurchase, user, userCityExpansionData);
       
@@ -84,10 +89,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
 
       if (legitExpansion) {
-        writeChangesToDB(user, timeOfPurchase, direction, userCityExpansionData);
+        previousSilver = user.getCoins() + user.getVaultBalance();
+        
+        Map<String, Integer> currencyChange = new HashMap<String, Integer>();
+        writeChangesToDB(user, timeOfPurchase, direction, userCityExpansionData, currencyChange);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        
+        writeToUserCurrencyHistory(user, timeOfPurchase, direction, currencyChange, previousSilver);
       }
     } catch (Exception e) {
       log.error("exception in PurchaseCityExpansion processEvent", e);
@@ -96,9 +106,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private void writeChangesToDB(User user, Timestamp timeOfPurchase, ExpansionDirection direction, UserCityExpansionData userCityExpansionData) {
-    if (!user.updateRelativeCoinsNaive(calculateExpansionCost(userCityExpansionData)*-1)) {
+  private void writeChangesToDB(User user, Timestamp timeOfPurchase, ExpansionDirection direction, 
+      UserCityExpansionData userCityExpansionData, Map<String, Integer> currencyChange) {
+//    if (!user.updateRelativeCoinsNaive(calculateExpansionCost(userCityExpansionData)*-1)) {
+    int coinChange = calculateExpansionCost(userCityExpansionData)*-1;
+    if (!user.updateRelativeCoinsNaive(coinChange)) {
       log.error("problem with updating coins after purchasing a city");
+    } else {//everything went ok
+      currencyChange.put(MiscMethods.silver, coinChange);
     }
     if (!UpdateUtils.get().updateUserExpansionLastexpandtimeLastexpanddirectionIsexpanding(user.getId(), timeOfPurchase, direction, true)) {
       log.error("problem with updating user expansion info after purchase");
@@ -129,5 +144,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private int calculateExpansionCost(UserCityExpansionData userCityExpansionData) {
     int curNumExpansions = userCityExpansionData != null ? userCityExpansionData.getTotalNumCompletedExpansions() : 0;
     return (int) (ControllerConstants.PURCHASE_EXPANSION__COST_CONSTANT*Math.pow(ControllerConstants.PURCHASE_EXPANSION__COST_EXPONENT_BASE, curNumExpansions));
+  }
+  
+  public void writeToUserCurrencyHistory(User aUser, Timestamp date, ExpansionDirection direction,
+      Map<String, Integer> goldSilverChange, int previousSilver) {
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String silver = MiscMethods.silver;
+    String reasonForChange = ControllerConstants.UCHRFC__PURCHASE_CITY_EXPANSION + direction.getNumber();
+    
+    previousGoldSilver.put(silver, previousSilver);
+    reasonsForChanges.put(silver, reasonForChange);
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange,
+        previousGoldSilver, reasonsForChanges);
   }
 }

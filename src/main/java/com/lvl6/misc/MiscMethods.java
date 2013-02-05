@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -57,6 +56,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BazaarMin
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.CharacterModConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ClanConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.DownloadableNibConstants;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.EnhancementConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ExpansionConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ForgeConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants;
@@ -80,6 +80,8 @@ import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.BoosterItemRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.BoosterPackRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRewardRetrieveUtils;
@@ -119,12 +121,12 @@ public class MiscMethods {
   public static final String clanTowersClanOwned = "clanTowersClanOwned";
   public static final String gold = "gold";
   public static final String silver = "silver";
-  
+
   public static int calculateMinutesToFinishForgeAttempt(Equipment equipment, int goalLevel) {
     return (int)
         (equipment.getMinutesToAttemptForgeBase()*Math.pow(ControllerConstants.FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER, goalLevel));
   }
-  
+
   public static float calculateChanceOfSuccessForForge(Equipment equipment, int goalLevel) {
     return  (1-equipment.getChanceOfForgeFailureBase()) - 
         ((1-equipment.getChanceOfForgeFailureBase()) / (ControllerConstants.FORGE_MAX_EQUIP_LEVEL - 1)) * 
@@ -133,7 +135,7 @@ public class MiscMethods {
 
   public static int calculateDiamondCostToSpeedupForgeWaittime(Equipment equipment, int goalLevel) {
     return (int) Math.ceil(calculateMinutesToFinishForgeAttempt(equipment, goalLevel) / 
-        ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
+        (float)ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
   }
 
   public static UserEquip chooseUserEquipWithEquipIdPreferrablyNonEquippedIgnoreLevel(User user, List<UserEquip> userEquipsForEquipId) {
@@ -405,9 +407,8 @@ public class MiscMethods {
         .setBossEventNumberOfAttacksUntilSuperAttack(ControllerConstants.BOSS_EVENT__NUMBER_OF_ATTACKS_UNTIL_SUPER_ATTACK)
         .setBossEventSuperAttack(ControllerConstants.BOSS_EVENT__SUPER_ATTACK)
         .setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA)
-        .setMinClanMembersToHoldClanTower(ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER);
- 
-
+        .setMinClanMembersToHoldClanTower(ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER)
+        .setUseOldBattleFormula(ControllerConstants.STARTUP__USE_OLD_BATTLE_FORMULA);
 
     if (ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS != null) {
       for (int i = 0; i < ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS.length; i++) {
@@ -498,6 +499,7 @@ public class MiscMethods {
         .setBattleAttackExpoMultiplier(ControllerConstants.BATTLE__ATTACK_EXPO_MULTIPLIER)
         .setBattlePercentOfEquipment(ControllerConstants.BATTLE__PERCENT_OF_EQUIPMENT)
         .setBattleIndividualEquipAttackCap(ControllerConstants.BATTLE__INDIVIDUAL_EQUIP_ATTACK_CAP)
+        .setBattleEquipAndStatsWeight(ControllerConstants.BATTLE__EQUIP_AND_STATS_WEIGHT)
         .build();
 
     cb = cb.setBattleConstants(battleConstants);
@@ -556,17 +558,34 @@ public class MiscMethods {
 
     cb = cb.setDownloadableNibConstants(dnc);
 
+    EnhancementConstants enc = EnhancementConstants.newBuilder()
+        .setMaxEnhancementLevel(ControllerConstants.MAX_ENHANCEMENT_LEVEL)
+        .setEnhanceLevelExponentBase(ControllerConstants.ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE)
+        .setEnhancePercentPerLevel(ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL)
+        .setEnhanceTimeConstantA(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_A)
+        .setEnhanceTimeConstantB(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_B)
+        .setEnhanceTimeConstantC(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_C)
+        .setEnhanceTimeConstantD(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_D)
+        .setEnhanceTimeConstantE(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_E)
+        .setEnhanceTimeConstantF(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_F)
+        .setEnhanceTimeConstantG(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_G)
+        .setEnhancePercentConstantA(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_A)
+        .setEnhancePercentConstantB(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B)
+        .build();
+
+    cb = cb.setEnhanceConstants(enc);
+
     // For legacy purposes
     for (int i = 0; i < IAPValues.packageNames.size(); i++) {
       cb.addProductIds(IAPValues.packageNames.get(i));
       cb.addProductDiamondsGiven(IAPValues.packageGivenDiamonds.get(i));
     }
-    
+
     for (String id : IAPValues.iapPackageNames) {
       InAppPurchasePackageProto.Builder iapb = InAppPurchasePackageProto.newBuilder();
       iapb.setPackageId(id);
       iapb.setImageName(IAPValues.getImageNameForPackageName(id));
-      
+
       int diamondAmt = IAPValues.getDiamondsForPackageName(id);
       if (diamondAmt > 0) {
         iapb.setCurrencyAmount(diamondAmt);
@@ -578,7 +597,7 @@ public class MiscMethods {
       }
       cb.addInAppPurchasePackages(iapb.build());
     }
-    
+
     BazaarMinLevelConstants bmlc = BazaarMinLevelConstants.newBuilder()
         .setClanHouseMinLevel(ControllerConstants.STARTUP__CLAN_HOUSE_MIN_LEVEL)
         .setVaultMinLevel(ControllerConstants.STARTUP__VAULT_MIN_LEVEL)
@@ -586,20 +605,19 @@ public class MiscMethods {
         .setMarketplaceMinLevel(ControllerConstants.STARTUP__MARKETPLACE_MIN_LEVEL)
         .setBlacksmithMinLevel(ControllerConstants.STARTUP__BLACKSMITH_MIN_LEVEL)
         .setLeaderboardMinLevel(ControllerConstants.STARTUP__LEADERBOARD_MIN_LEVEL)
+        .setEnhancingMinLevel(ControllerConstants.STARTUP__ENHANCING_MIN_LEVEL_TO_UNLOCK)
         .build();
     cb = cb.setMinLevelConstants(bmlc);
-    
+
     LeaderboardEventConstants lec =LeaderboardEventConstants.newBuilder()
         .setWinsWeight(ControllerConstants.LEADERBOARD_EVENT__WINS_WEIGHT)
         .setLossesWeight(ControllerConstants.LEADERBOARD_EVENT__LOSSES_WEIGHT)
         .setFleesWeight(ControllerConstants.LEADERBOARD_EVENT__FLEES_WEIGHT)
         .setNumHoursToShowAfterEventEnd(ControllerConstants.LEADERBOARD_EVENT__NUM_HOURS_TO_SHOW_AFTER_EVENT_END)
         .build();
-    
+
     cb = cb.setLeaderboardConstants(lec);
-    
-    cb = cb.setMaxEnhancementLevel(ControllerConstants.MAX_ENHANCEMENT_LEVEL);
-    
+
     return cb.build();  
   }
 
@@ -630,31 +648,31 @@ public class MiscMethods {
     }
     return toReturn;
   }
-  
+
   public static List<LeaderboardEventProto> currentLeaderboardEventProtos() {
     Map<Integer, LeaderboardEvent> idsToEvents = LeaderboardEventRetrieveUtils.getIdsToLeaderboardEvents(false);
     long curTime = (new Date()).getTime();
     List<Integer> activeEventIds = new ArrayList<Integer>();
-    
+
     //return value
     List<LeaderboardEventProto> protos = new ArrayList<LeaderboardEventProto>();
-    
+
     //get the ids of active leader board events
     for(LeaderboardEvent e : idsToEvents.values()) {
       if (e.getEndDate().getTime()+ControllerConstants.LEADERBOARD_EVENT__NUM_HOURS_TO_SHOW_AFTER_EVENT_END*3600000L > curTime) {
         activeEventIds.add(e.getId());
       }
     }
-    
+
     //get all the rewards for all the current leaderboard events
     Map<Integer, List<LeaderboardEventReward>> eventIdsToRewards = 
         LeaderboardEventRewardRetrieveUtils.getLeaderboardEventRewardsForIds(activeEventIds);
-    
+
     //create the protos
     for(Integer i: activeEventIds) {
       LeaderboardEvent e = idsToEvents.get(i);
       List<LeaderboardEventReward> rList = eventIdsToRewards.get(e.getId()); //rewards for the active event
-      
+
       protos.add(CreateInfoProtoUtils.createLeaderboardEventProtoFromLeaderboardEvent(e, rList));
     }
     return protos;
@@ -685,6 +703,8 @@ public class MiscMethods {
     LeaderboardEventRetrieveUtils.reload();
     LeaderboardEventRewardRetrieveUtils.reload();
     ProfanityRetrieveUtils.reload();
+    BoosterPackRetrieveUtils.reload();
+    BoosterItemRetrieveUtils.reload();
   }
 
   public static UserType getUserTypeFromDefeatTypeJobUserType(
@@ -828,7 +848,7 @@ public class MiscMethods {
     }
     return toRet;
   }
-  
+
   //The lock for clan_towers table must be acquired before calling this function.
   //Makes 7 db calls:
   //One to retrieve clan size
@@ -876,19 +896,23 @@ public class MiscMethods {
       if(0 < towersOwned.size() || 0 < towersAttacked.size()) {
         List<Integer> ownedIds = new ArrayList<Integer>();
         List<Integer> attackedIds = new ArrayList<Integer>();
+        List<Integer> wOwnedList = new ArrayList<Integer>();
+        List<Integer> wAttackedList = new ArrayList<Integer>();
         for(ClanTower ct: towersOwned) {
           ownedIds.add(ct.getId());
+          wOwnedList.add(ct.getClanAttackerId());
         }
         for(ClanTower ct: towersAttacked) {
           attackedIds.add(ct.getId());
+          wAttackedList.add(ct.getClanOwnerId());
         }
 
         //update clan_towers_history table
-        if(!UpdateUtils.get().updateTowerHistory(towersOwned, Notification.OWNER_NOT_ENOUGH_MEMBERS)) {
+        if(!UpdateUtils.get().updateTowerHistory(towersOwned, Notification.OWNER_NOT_ENOUGH_MEMBERS, wOwnedList)) {
           log.error("Added more/less towers than the clan owned to clan_towers_history table, when clan " +
               "size decreased below the minimum limit. clan=" + aClan + " towersOwned=" + towersOwned);
         }
-        if(!UpdateUtils.get().updateTowerHistory(towersAttacked, Notification.ATTACKER_NOT_ENOUGH_MEMBERS)) {
+        if(!UpdateUtils.get().updateTowerHistory(towersAttacked, Notification.ATTACKER_NOT_ENOUGH_MEMBERS, wAttackedList)) {
           log.error("Added more/less towers than the clan attacked to clan_towers_history table, when clan " +
               "size decreased below the minimum limit. clan=" + aClan + " towersAttacked=" + towersAttacked);
         }
@@ -989,6 +1013,32 @@ public class MiscMethods {
     }
   }
 
+  public static void sendClanTowerProtosToClient(Collection<ClanTower> changedTowers,
+      GameServer server, ReasonForClanTowerChange reason, User attacker, User defender,
+      boolean attackerWon, int pointsGained) {
+    if(null != changedTowers && 0 < changedTowers.size()) {
+      ArrayList<ClanTowerProto> toSend = new ArrayList<ClanTowerProto>();
+      for(ClanTower tower: changedTowers) {
+        ClanTowerProto towerProto = 
+            CreateInfoProtoUtils.createClanTowerProtoFromClanTower(tower);
+        toSend.add(towerProto);
+      }
+
+      ChangedClanTowerResponseProto.Builder t = ChangedClanTowerResponseProto.newBuilder();
+      t.addAllClanTowers(toSend);
+      t.setAttackerUser(CreateInfoProtoUtils.createMinimumUserProtoFromUser(attacker));
+      t.setDefenderUser(CreateInfoProtoUtils.createMinimumUserProtoFromUser(defender));
+      t.setAttackerWon(attackerWon);
+      t.setPointsGained(pointsGained);
+      t.setReason(reason);
+
+      ChangedClanTowerResponseEvent e = new ChangedClanTowerResponseEvent(0);
+      e.setChangedClanTowerResponseProto(t.build());
+
+      server.writeGlobalEvent(e);
+    }
+  }
+
   public static void writeGlobalNotification(Notification n, GameServer server) {
     GeneralNotificationResponseProto.Builder notificationProto = 
         n.generateNotificationBuilder();
@@ -996,6 +1046,15 @@ public class MiscMethods {
     GeneralNotificationResponseEvent aNotification = new GeneralNotificationResponseEvent(0);
     aNotification.setGeneralNotificationResponseProto(notificationProto.build());
     server.writeGlobalEvent(aNotification);
+  }
+
+  public static void writeClanApnsNotification(Notification n, GameServer server, int clanId) {
+    GeneralNotificationResponseProto.Builder notificationProto =
+        n.generateNotificationBuilder();
+
+    GeneralNotificationResponseEvent aNotification = new GeneralNotificationResponseEvent(0);
+    aNotification.setGeneralNotificationResponseProto(notificationProto.build());
+    server.writeApnsClanEvent(aNotification, clanId);
   }
 
   //Simple (inefficient) word by word censor. If a word appears in 
@@ -1025,7 +1084,7 @@ public class MiscMethods {
         toReturn.append(w + space);
       }
     }
-    
+
     return toReturn.toString();
   }
 
@@ -1049,56 +1108,141 @@ public class MiscMethods {
     return posts.size();
   }
   
-  //gold silver change should be a signed number (positive or negative) and
-  //this should be called after the user is updated
   public static void writeToUserCurrencyOneUserGoldAndSilver(
       User aUser, Timestamp date, Map<String,Integer> goldSilverChange, 
-      Map<String, Integer> previousGoldSilver, String reasonForChange) {
+      Map<String, Integer> previousGoldSilver, Map<String, String> reasons) {
     //try, catch is here just in case this blows up, not really necessary;
     try {
-      int amount = 2;
+      List<Integer> userIds = new ArrayList<Integer>();
+      List<Timestamp> dates = new ArrayList<Timestamp>();
+      List<Integer> areSilver = new ArrayList<Integer>();
+      List<Integer> changesToCurrencies = new ArrayList<Integer>();
+      List<Integer> previousCurrencies = new ArrayList<Integer>();
+      List<Integer> currentCurrencies = new ArrayList<Integer>();
+      List<String> reasonsForChanges = new ArrayList<String>();
 
       int userId = aUser.getId();
-      List<Integer> userIds = new ArrayList<Integer>(Collections.nCopies(amount, userId));
-      List<Timestamp> dates = new ArrayList<Timestamp>(Collections.nCopies(amount, date));
-      List<Integer> areSilver = new ArrayList<Integer>(amount);
-      //gold first then silver
-      List<Integer> changesToCurrencies = new ArrayList<Integer>(amount);
-      List<Integer> previousCurrencies = new ArrayList<Integer>(amount);
-      List<String> reasonsForChanges = new ArrayList<String>(Collections.nCopies(amount, reasonForChange));
-
-      areSilver.add(0); //gold
-      areSilver.add(1); //silver
-
       int goldChange = goldSilverChange.get(gold);
       int silverChange = goldSilverChange.get(silver);
-      changesToCurrencies.add(goldChange);
-      changesToCurrencies.add(silverChange);
-
       int previousGold = 0;
       int previousSilver = 0;
-      if(null == previousGoldSilver) {
-        //difference instead of sum because of example:
-        //u.gold = 10; change = -5 => u.gold = 5
-        //previous_gold = 5 - -5 = 10
-        previousGold = aUser.getDiamonds() - goldChange;
-        previousSilver = aUser.getCoins() - silverChange;
-      } else {
-        previousGold = previousGoldSilver.get(gold);
-        previousSilver = previousGoldSilver.get(silver);
+      int currentGold = aUser.getDiamonds();
+      //recording total silver user has, including the vault
+      int currentSilver = aUser.getCoins() + aUser.getVaultBalance();
+
+      //record gold change first
+      if (0 < goldChange) {
+        userIds.add(userId);
+        dates.add(date);
+        areSilver.add(0); //gold
+        changesToCurrencies.add(goldChange);
+        if(null == previousGoldSilver || previousGoldSilver.isEmpty()) {
+          //difference instead of sum because of example:
+          //(previous gold) u.gold = 10; 
+          //change = -5 
+          //current gold = 10 - 5 = 5
+          //previous gold = currenty gold - change
+          //previous_gold = 5 - -5 = 10
+          previousGold = currentGold - goldChange;
+        } else {
+          previousGold = previousGoldSilver.get(gold);
+        }
+
+        previousCurrencies.add(previousGold);
+        currentCurrencies.add(currentGold);
+        reasonsForChanges.add(reasons.get(gold));
       }
-      previousCurrencies.add(previousGold);
-      previousCurrencies.add(previousSilver);
+
+      //record silver change next
+      if (0 < silverChange) {
+        userIds.add(userId);
+        dates.add(date);
+        areSilver.add(1); //silver
+        changesToCurrencies.add(silverChange);
+        if(null == previousGoldSilver || previousGoldSilver.isEmpty()) {
+          previousSilver = currentSilver - silverChange;
+        } else {
+          previousSilver = previousGoldSilver.get(silver);
+        }
+        
+        previousCurrencies.add(previousSilver);
+        currentCurrencies.add(currentSilver);
+        reasonsForChanges.add(reasons.get(silver));
+      }
       
-      //using multiple rows because 2 entries: one for silver, other for gold
+      //using multiple rows because could be 2 entries: one for silver, other for gold
       InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates, areSilver,
-          changesToCurrencies, previousCurrencies, reasonsForChanges);
+          changesToCurrencies, previousCurrencies, currentCurrencies, reasonsForChanges);
     } catch(Exception e) {
       log.error("Maybe table's not there or duplicate keys? ", e);
     }
-    
+  }
+
+  public static void writeToUserCurrencyOneUserGoldOrSilver(
+      User aUser, Timestamp date, Map<String,Integer> goldSilverChange, 
+      Map<String, Integer> previousGoldSilver, Map<String, String> reasons) {
+    try {
+      //determine what changed, gold or silver
+      Set<String> keySet = goldSilverChange.keySet();
+      Object[] keyArray = keySet.toArray();
+      String key = (String) keyArray[0];
+      
+      //arguments to insertIntoUserCurrency
+      int userId = aUser.getId();
+      int isSilver = 0;
+      int currencyChange = goldSilverChange.get(key);
+      int previousCurrency = 0;
+      int currentCurrency = 0;
+      String reasonForChange = reasons.get(key);
+      
+      if (0 == currencyChange) {
+        return;//don't write a non change to history table to avoid bloat
+      }
+
+      if (key.equals(gold)) {
+        currentCurrency = aUser.getDiamonds();
+      } else if(key.equals(silver)) {
+        //record total silver, including vault
+        currentCurrency = aUser.getCoins() + aUser.getVaultBalance();
+        isSilver = 1;
+      } else {
+        log.error("invalid key for map representing currency change. key=" + key);
+        return;
+      }
+
+      if(null == previousGoldSilver || previousGoldSilver.isEmpty()) {
+        previousCurrency = currentCurrency - currencyChange;
+      } else {
+        previousCurrency = previousGoldSilver.get(key);
+      }
+
+      InsertUtils.get().insertIntoUserCurrencyHistory(
+          userId, date, isSilver, currencyChange, previousCurrency, currentCurrency, reasonForChange);
+    } catch(Exception e) {
+      log.error("null pointer exception?", e);
+    }
   }
   
+
+  //goldSilverChange should represent how much user's silver and, or gold increased or decreased and
+  //this should be called after the user is updated
+  //only previousGoldSilver can be null.
+  public static void writeToUserCurrencyOneUserGoldAndOrSilver(
+      User aUser, Timestamp date, Map<String,Integer> goldSilverChange, 
+      Map<String, Integer> previousGoldSilver, Map<String, String> reasonsForChanges) {
+    try {
+      int amount = goldSilverChange.size();
+      if(2 == amount) {
+        writeToUserCurrencyOneUserGoldAndSilver(aUser, date, goldSilverChange, 
+            previousGoldSilver, reasonsForChanges);
+      } else if(1 == amount) {
+        writeToUserCurrencyOneUserGoldOrSilver(aUser, date, goldSilverChange,
+            previousGoldSilver, reasonsForChanges);
+      }
+    } catch(Exception e) {
+      log.error("error updating user_curency_history; reasonsForChanges=" + shallowMapToString(reasonsForChanges), e);
+    }
+  }
 
   public static String shallowListToString(List aList) {
     StringBuilder returnValue = new StringBuilder();
@@ -1108,7 +1252,7 @@ public class MiscMethods {
     }
     return returnValue.toString();
   }
-  
+
   public static String shallowMapToString(Map aMap) {
     StringBuilder returnValue = new StringBuilder();
     returnValue.append("[");
@@ -1121,12 +1265,14 @@ public class MiscMethods {
     returnValue.append("]");
     return returnValue.toString();
   }
-  
+
   public static void writeIntoDUEFE(UserEquip mainUserEquip, List<UserEquip> feederUserEquips,
       int enhancementId) {
+    log.info("writing into deleted user equips for enhancing");
+    String tableName = DBConstants.TABLE_DELETED_USER_EQUIPS_FOR_ENHANCING;
     List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
     Map<String, Object> newRow = new HashMap<String, Object>();
-    
+
     newRow.put(DBConstants.DUEFE__USER_EQUIP__ID, mainUserEquip.getId());
     newRow.put(DBConstants.DUEFE__USER_EQUIP__USER_ID, mainUserEquip.getUserId());
     newRow.put(DBConstants.DUEFE__USER_EQUIP__EQUIP_ID, mainUserEquip.getEquipId());
@@ -1144,94 +1290,108 @@ public class MiscMethods {
       newRow2.put(DBConstants.DUEFE__USER_EQUIP__LEVEL, ue.getLevel());
       newRow2.put(DBConstants.DUEFE__USER_EQUIP__ENHANCEMENT_PERCENT, ue.getEnhancementPercentage());
       newRow2.put(DBConstants.DUEFE__IS_FEEDER, 1);
-      
+
       newRows.add(newRow2);
     }
+    
   }
-  
+
   public static boolean isEquipAtMaxEnhancementLevel(UserEquip enhancingUserEquip) {
-    return false;
+    int currentEnhancementLevel = enhancingUserEquip.getEnhancementPercentage();
+    int maxEnhancementLevel = ControllerConstants.MAX_ENHANCEMENT_LEVEL 
+        * ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL;
+
+    return currentEnhancementLevel >= maxEnhancementLevel;
   }
-  
+
+  public static int attackPowerForEquip(int equipId, int forgeLevel, int enhanceLevel) {
+    Equipment eq = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipId);
+    double forge = Math.pow(ControllerConstants.LEVEL_EQUIP_BOOST_EXPONENT_BASE, forgeLevel-1);
+    double enhance = Math.pow(ControllerConstants.ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE, enhanceLevel);
+
+    int result = (int)Math.ceil(eq.getAttackBoost()*forge*enhance);
+    //    log.info("attack="+result);
+    return result;
+  }
+
+  public static int defensePowerForEquip(int equipId, int forgeLevel, int enhanceLevel) {
+    Equipment eq = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipId);
+    double forge = Math.pow(ControllerConstants.LEVEL_EQUIP_BOOST_EXPONENT_BASE, forgeLevel-1);
+    double enhance = Math.pow(ControllerConstants.ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE, enhanceLevel);
+
+    int result = (int)Math.ceil(eq.getDefenseBoost()*forge*enhance);
+    //    log.info("defense="+result);
+    return result;
+  }
+
+  private static int totalMinutesToLevelUpEnhancementEquip(EquipEnhancement e) {
+    Equipment eq = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(e.getEquipId());
+    double result = ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_A*Math.pow(e.getEquipLevel(), ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_B);
+    result = Math.pow(result, (ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_C+ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_D*(eq.getRarity().getNumber()+1)));
+    result *= Math.pow(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_E, (eq.getMinLevel()/ControllerConstants.AVERAGE_SIZE_OF_LEVEL_BRACKET*ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_F));
+    result *= Math.pow(ControllerConstants.ENHANCEMENT__TIME_FORMULA_CONSTANT_G, e.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL+1);
+
+    //    log.info("minutes="+result);
+    return (int)Math.max(result, 1);
+  }
+
+  private static int calculateEnhancementForEquip(EquipEnhancement mainEquip, EquipEnhancementFeeder feederEquip) {
+    int mainStats = attackPowerForEquip(mainEquip.getEquipId(), mainEquip.getEquipLevel(), mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL) +
+        defensePowerForEquip(mainEquip.getEquipId(), mainEquip.getEquipLevel(), mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL);
+    int feederStats = attackPowerForEquip(feederEquip.getEquipId(), feederEquip.getEquipLevel(), feederEquip.getEnhancementPercentageBeforeEnhancement()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL) +
+        defensePowerForEquip(feederEquip.getEquipId(), feederEquip.getEquipLevel(), feederEquip.getEnhancementPercentageBeforeEnhancement()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL);
+    int result = (int)((((float)feederStats)/mainStats)/(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_A*
+        Math.pow(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B, mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL+1))*
+        ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL);
+
+    //    log.info("percentage="+result);
+    return result;
+  }
+
   public static int calculateEnhancementForEquip(EquipEnhancement mainEquip,
       List<EquipEnhancementFeeder> feederEquips) {
-    
-    return 0;
+    int totalChange = 0;
+    for (EquipEnhancementFeeder f : feederEquips) {
+      totalChange += calculateEnhancementForEquip(mainEquip, f);
+    }
+
+    int maxChange = (mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL+1)*ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL-mainEquip.getEnhancementPercentage();
+    maxChange = Math.min(maxChange, ControllerConstants.MAX_ENHANCEMENT_LEVEL*ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL-mainEquip.getEnhancementPercentage());
+    //    log.info("totalChange="+totalChange+" maxChange="+maxChange);
+    return Math.min(maxChange, totalChange);
   }
-  
-  public static int calculateMinutesToFinishEnhancing(EquipEnhancement e, List<EquipEnhancementFeeder> feeder) {
-    
-    return 0;
+
+  public static int calculateMinutesToFinishEnhancing(EquipEnhancement mainEquip, List<EquipEnhancementFeeder> feederEquips) {
+    int pChange = calculateEnhancementForEquip(mainEquip, feederEquips);
+    float percent = ((float)pChange)/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL;
+    int totalTime = totalMinutesToLevelUpEnhancementEquip(mainEquip);
+    int result = (int)Math.ceil(percent*totalTime);
+
+    //    log.info("time for enhance="+result);
+    return result;
   }
-  
+
   public static int calculateCostToSpeedUpEnhancing(EquipEnhancement e, List<EquipEnhancementFeeder> feeder,
-      Timestamp timeOfSpeedUp) {
-    
-    return 0;
-  }
-  
-  
-  public static void writeToUserCurrencyOneUserGoldOrSilver(
-      User aUser, Timestamp date, Map<String,Integer> goldSilverChange, 
-      Map<String, Integer> previousGoldSilver, String reasonForChange) {
-    try {
-      //determine what changed, gold or silver
-      Set<String> keySet = goldSilverChange.keySet();
-      Object[] keyArray = keySet.toArray();
-      String key = (String) keyArray[0];
-      int currentCurrency = 0;
+	      Timestamp timeOfSpeedUp) {
+	    int mins = calculateMinutesToFinishEnhancing(e, feeder);
+	    int result = (int)Math.ceil(((float)mins)/ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
 
-      //arguments to insertIntoUserCurrency
-      int userId = aUser.getId();
-      int isSilver = 0;
-      int currencyChange = goldSilverChange.get(key);
-      int currencyBefore = 0;
-      
-      if (0 == currencyChange) {
-        return;//don't write a non change to history table to avoid bloat
-      }
-      
-      if (key.equals(gold)) {
-        currentCurrency = aUser.getDiamonds();
-        
-      } else if(key.equals(silver)) {
-        currentCurrency = aUser.getCoins();
-        isSilver = 1;
-        
-      } else {
-        log.error("invalid key for map representing currency change. key=" + key);
-        return;
-      }
-      
-      if(null == previousGoldSilver || previousGoldSilver.isEmpty()) {
-        currencyBefore = currentCurrency - currencyChange;
-      } else {
-        currencyBefore = previousGoldSilver.get(key);
-      }
-      
-      InsertUtils.get().insertIntoUserCurrencyHistory(
-          userId, date, isSilver, currencyChange, currencyBefore, reasonForChange);
-    } catch(Exception e) {
-      log.error("null pointer exception?", e);
-    }
-  }
-  
-  //only previousGoldSilver can be null.
-  public static void writeToUserCurrencyOneUserGoldAndOrSilver(
-      User aUser, Timestamp date, Map<String,Integer> goldSilverChange, 
-      Map<String, Integer> previousGoldSilver, String reasonForChange) {
-    try {
-      int amount = goldSilverChange.size();
-      if(2 == amount) {
-        writeToUserCurrencyOneUserGoldAndSilver(aUser, date, goldSilverChange, 
-            previousGoldSilver, reasonForChange);
-      } else if(1 == amount) {
-        writeToUserCurrencyOneUserGoldOrSilver(aUser, date, goldSilverChange,
-            previousGoldSilver, reasonForChange);
-      }
-    } catch(Exception e) {
-      log.error("error updating user_curency_history; reasonForChange=" + reasonForChange, e);
-    }
+	    // log.info("diamonds="+result);
+	    return result;
+	  }
 
-  }
-}
+	  public static int pointsGainedForClanTowerUserBattle(User winner, User loser) {
+	    int d = winner.getLevel()-loser.getLevel();
+	    int pts;
+	    if (d > 10) {
+	      pts = 1;
+	    } else if (d < -8) {
+	      pts = 100;
+	    } else {
+	      pts = (int)Math.round((-0.0006*Math.pow(d, 5)+0.0601*Math.pow(d, 4)-0.779*Math.pow(d, 3)
+	          +2.4946*Math.pow(d, 2)-9.7046*d+89.905)/10.);
+	    }
+	    log.info(pts+" diff:"+d);
+	    return Math.min(100, Math.max(1, pts));
+	  }
+	}

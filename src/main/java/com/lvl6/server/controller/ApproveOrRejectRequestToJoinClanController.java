@@ -149,7 +149,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int maxSize = ClanTierLevelRetrieveUtils.getClanTierLevel(clan.getCurrentTierLevel()).getMaxClanSize();
     if (ucs.size() >= maxSize && accept) {
       resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.OTHER_FAIL);
-      log.error("trying to upgrade full clan with id " + user.getClanId());
+      log.error("trying to add user into already full clan with id " + user.getClanId());
       return false;      
     }
     resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.SUCCESS);

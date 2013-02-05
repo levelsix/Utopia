@@ -69,7 +69,12 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
       User user = null;
       if (userStruct != null) {
         user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+        int previousSilver = 0;
+        int previousGold = 0;
         if (user != null && struct != null && user.getId() == userStruct.getUserId()) {
+          previousSilver = user.getCoins() + user.getVaultBalance();
+          previousGold = user.getDiamonds();
+          
           int diamondChange = Math.max(0,  (int)Math.ceil(struct.getDiamondPrice()*ControllerConstants.SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER));
           int coinChange = Math.max(0,  (int)Math.ceil(struct.getCoinPrice()*ControllerConstants.SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER));
           
@@ -83,7 +88,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
             } else {
               resBuilder.setStatus(SellNormStructureStatus.SUCCESS);                      
             }
-            writeToUserCurrencyHistory(user, diamondChange, coinChange);
+            writeToUserCurrencyHistory(user, diamondChange, coinChange, previousSilver, previousGold);
           }
         } else {
           resBuilder.setStatus(SellNormStructureStatus.FAIL);
@@ -113,21 +118,29 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
     }
   }
   
-  public void writeToUserCurrencyHistory(User aUser, int diamondChange, int coinChange) {
+  public void writeToUserCurrencyHistory(User aUser, int diamondChange, int coinChange,
+      int previousSilver, int previousGold) {
     Timestamp date = new Timestamp((new Date()).getTime());
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String gold = MiscMethods.gold;
+    String silver = MiscMethods.silver;
+    String reasonForChange = ControllerConstants.UCHRFC__SELL_NORM_STRUCT;
 
     Map<String, Integer> money = new HashMap<String, Integer>();
     if (0 != diamondChange) {
-      money.put(MiscMethods.gold, diamondChange);
+      money.put(gold, diamondChange);
+      previousGoldSilver.put(gold, previousGold);
+      reasonsForChanges.put(gold, reasonForChange);
     }
     if (0 != coinChange) {
-      money.put(MiscMethods.silver, coinChange);
+      money.put(silver, coinChange);
+      previousGoldSilver.put(silver, previousSilver);
+      reasonsForChanges.put(silver, reasonForChange);
     }
-    Map<String, Integer> previousGoldSilver = null;
-    String reasonForChange = ControllerConstants.UCHRFC__SELL_NORM_STRUCT;
     
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money,
-        previousGoldSilver, reasonForChange);
+        previousGoldSilver, reasonsForChanges);
     
   }
 }

@@ -74,6 +74,8 @@ import com.lvl6.utils.utilmethods.InsertUtil;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       Structure struct = StructureRetrieveUtils.getStructForStructId(structId);
+      int previousSilver = 0;
+      int previousGold = 0;
 
       boolean legitPurchaseNorm = checkLegitPurchaseNorm(resBuilder, struct, user, timeOfPurchase);
 
@@ -94,13 +96,16 @@ import com.lvl6.utils.utilmethods.InsertUtil;
       server.writeEvent(resEvent);
 
       if (legitPurchaseNorm) {
+        previousSilver = user.getCoins() + user.getVaultBalance();
+        previousGold = user.getDiamonds();
+        
         Map<String, Integer> money = new HashMap<String, Integer>();
         writeChangesToDB(user, struct, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        writeToUserCurrencyHistory(user, timeOfPurchase, money);
+        writeToUserCurrencyHistory(user, timeOfPurchase, money, previousSilver, previousGold);
       }
     } catch (Exception e) {
       log.error("exception in PurchaseNormStructure processEvent", e);
@@ -183,12 +188,21 @@ import com.lvl6.utils.utilmethods.InsertUtil;
     return true;
   }
   
-  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
-    Map<String, Integer> previousGoldSilver = null;
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money,
+      int previousSilver, int previousGold) {
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String gold = MiscMethods.gold;
+    String silver = MiscMethods.silver;
     String reasonForChange = ControllerConstants.UCHRFC__PURCHASE_NORM_STRUCT;
+
+    previousGoldSilver.put(gold, previousGold);
+    previousGoldSilver.put(silver, previousSilver);
+    reasonsForChanges.put(gold, reasonForChange);
+    reasonsForChanges.put(silver, reasonForChange);
     
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money,
-        previousGoldSilver, reasonForChange);
+        previousGoldSilver, reasonsForChanges);
     
   }
 }

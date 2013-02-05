@@ -38,6 +38,7 @@ public class ControllerConstants {
   public static final int AVIARY_IMG_VERTICAL_PIXEL_OFFSET = 0;
   
   public static final int DEFAULT_USER_EQUIP_LEVEL = 1;
+  public static final int DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT = 0;
   
   //--------------------------------------------------------------------------------------------------------------------------
   
@@ -169,7 +170,8 @@ public class ControllerConstants {
   public static final int STARTUP__MARKETPLACE_MIN_LEVEL = 12;
   public static final int STARTUP__BLACKSMITH_MIN_LEVEL = 10;
   public static final int STARTUP__LEADERBOARD_MIN_LEVEL = 1;
-  
+  public static final int STARTUP__ENHANCING_MIN_LEVEL_TO_UNLOCK = 20; 
+  public static final boolean STARTUP__USE_OLD_BATTLE_FORMULA = true;
   
   //ARMORY
   public static final double ARMORY__SELL_RATIO = 0.15;
@@ -184,6 +186,7 @@ public class ControllerConstants {
   public static final int BATTLE__EXP_MIN = 1;
   public static final double BATTLE__EXP_LEVEL_DIFF_WEIGHT = 0.2;
   public static final double BATTLE__CHANCE_OF_EQUIP_LOOT_INITIAL_WALL = 0.15;
+  public static final double BATTLE__EQUIP_AND_STATS_WEIGHT = 1.08;
 
   //GENERATE ATTACK LIST
   public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;
@@ -416,7 +419,8 @@ public class ControllerConstants {
   public static final int LEVEL_TO_SHOW_RATE_US_POPUP = 8;
   
   //CLAN TOWER
-  public static final int MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER = 25;
+  public static final int MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER = 2;
+  public static final int NUM_HOURS_BEFORE_REWAGING_WAR_ON_TOWER = 6;
   
   //LEADERBOARD EVENT
   public static final int LEADERBOARD_EVENT__WINS_WEIGHT = 2;
@@ -433,7 +437,7 @@ public class ControllerConstants {
   public static final String UCHRFC__GROUP_CHAT = "purchased group chat"; //is controller for this even used?
   public static final String UCHRFC__BOSS_ACTION = "boss action";
   public static final String UCHRFC__REFILL_STAT = "refilled stat: ";
-  public static final String UCHRFC__FINISH_NORM_STRUCT = "finish construction or income wait time";
+  public static final String UCHRFC__FINISH_NORM_STRUCT = "finish norm stuct: ";
   public static final String UCHRFC__UPGRADE_NORM_STRUCT = "upgraded norm struct";
   public static final String UCHRFC__SELL_NORM_STRUCT = "sell norm struct";
   public static final String UCHRFC__PURCHASE_NORM_STRUCT = "purchased norm struct";
@@ -442,12 +446,12 @@ public class ControllerConstants {
   public static final String UCHRFC__PICK_LOCKBOX = "picked lockbox";
   public static final String UCHRFC__RETRACT_MARKETPLACE_POST = "retract marketplace post";
   public static final String UCHRFC__PLAY_THREE_CARD_MONTE = "played three card monte";
-  public static final String UCHRFC__SOLD_ITEM_ON_MARKETPLACE = "sold item on marketplace";
+  //public static final String UCHRFC__SOLD_ITEM_ON_MARKETPLACE = "sold item on marketplace"; //user's currency change is 0
   public static final String UCHRFC__PURCHASED_FROM_MARKETPLACE = "purchased from marketplace";
-  public static final String UCHRFC__EXPANSION_WAIT_COMPLETE = "expansion wait complete";
+  public static final String UCHRFC__EXPANSION_WAIT_COMPLETE = "expansion wait complete: ";
   public static final String UCHRFC__SUBMIT_EQUIPS_TO_BLACKSMITH = "submit equips to blacksmith";
   public static final String UCHRFC__FINISH_FORGE_ATTEMPT_WAIT_TIME = "finish forge attempt wait time";
-  public static final String UCHRFC__IN_APP_PURCHASE = "inapp purchase";
+  public static final String UCHRFC__IN_APP_PURCHASE = "inapp purchase: ";
   public static final String UCHRFC__ARMORY_TRANSACTION = "armory transaction";
   public static final String UCHRFC__UPGRADE_CLAN_TIER_LEVEL = "upgraded clan tier level";
   public static final String UCHRFC__CREATE_CLAN = "created clan";
@@ -459,9 +463,29 @@ public class ControllerConstants {
   public static final String UCHRFC__CHARACTER_MOD_SKILL_POINTS = "character skill points";
   public static final String UCHRFC__GOLDMINE = "goldmine reset";
   public static final String UCHRFC__COLLECT_GOLDMINE = "collect from goldmine";
+  //silver only reasons
+  public static final String UCHRFC__RETRIEVE_CURRENCY_FROM_NORM_STRUCT = "retrieve currency from normal structures";
+  public static final String UCHRFC__TASK_ACTION = "performed task with id ";
+  public static final String UCHRFC__STARTUP_DAILY_BONUS = "startup daily bonus";
+  public static final String UCHRFC__PURCHASE_CITY_EXPANSION = "expaned city: ";
+  public static final String UCHRFC__USER_CREATE_REFERRED_A_USER = "referred a user";
+  public static final String UCHRFC__VAULT_DEPOSIT = "vault deposit";
+  public static final String UCHRFC__BATTLE_WON = "won battle";
+  public static final String UCHRFC__BATTLE_LOST = "lost battle";
   
   //ENHANCING
-  public static final int MAX_ENHANCEMENT_LEVEL = 12;
+  public static final int MAX_ENHANCEMENT_LEVEL = 5;
+  public static final int ENHANCEMENT__PERCENTAGE_PER_LEVEL = 10000;
+  public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_A = .25f;
+  public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_B = 1.5f;
+  public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_C = 1;
+  public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_D = 0.1f;
+  public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_E = 1.5f;
+  public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_F = 2.1f;
+  public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_G = 1.365f;
+  public static final float ENHANCEMENT__PERCENT_FORMULA_CONSTANT_A = 1.67f;
+  public static final float ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B = 3.f;
+  public static final float ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE = 1.2f;
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),
@@ -508,7 +532,7 @@ public class ControllerConstants {
   public static final String NIB_NAME__GOLD_MINE = "GoldMine.2";
   public static final String NIB_NAME__EXPANSION = "Expansion.2";
   public static final String NIB_NAME__MARKET_FILTERS = "MarketplaceFilters.2";
-  public static final String NIB_NAME__BLACKSMITH = "Blacksmith.3";
+  public static final String NIB_NAME__BLACKSMITH = "Blacksmith.4";
   public static final String NIB_NAME__GOLD_SHOPPE = "GoldShoppe.3";
   
   public static final int IDDICTION__EQUIP_ID = 282;

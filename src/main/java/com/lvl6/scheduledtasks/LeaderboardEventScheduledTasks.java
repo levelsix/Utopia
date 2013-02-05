@@ -122,7 +122,8 @@ public class LeaderboardEventScheduledTasks {
 		List<Timestamp> dates  = new ArrayList<Timestamp>();
 		List<Integer> areSilver = new ArrayList<Integer>();
 		List<Integer> goldSilverChange = new ArrayList<Integer>();
-		List<Integer> previousGoldSilver = null;
+		List<Integer> previousGoldSilver = new ArrayList<Integer>();
+		List<Integer> currentGoldSilver = new ArrayList<Integer>();
 		List<String> reasonsForChanges = new ArrayList<String>();
 
 		List<LeaderboardEventReward> rewards = LeaderboardEventRewardRetrieveUtils
@@ -134,6 +135,7 @@ public class LeaderboardEventScheduledTasks {
 			List<Integer> userIds = new ArrayList<Integer>();
 			Iterator<Tuple> it = set.iterator();
 			
+			int goldRewarded = reward.getGoldRewarded();
 			while (it.hasNext()) {
 				Tuple t = it.next();
 				Integer userId = Integer.valueOf(t.getElement());
@@ -147,15 +149,18 @@ public class LeaderboardEventScheduledTasks {
 				goldSilverChange.add(reward.getGoldRewarded());
 				reasonsForChanges.add(ControllerConstants.UCHRFC__LEADERBOARD);
 			}
-
+			
 			log.info("Awarding " + reward.getGoldRewarded() + " gold for ranks "+reward.getMinRank()+"-"+reward.getMaxRank()+" to users "+userIds);
 			if (!UpdateUtils.get().updateUsersAddDiamonds(userIds, reward.getGoldRewarded())) {
 				log.error("Error updating user diamonds for userIds " + userIds + " and reward " + reward);
 			}
 			//try catch not necessary, just precaution.
 			try {
+			  Map<Integer, User> uMap = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
+			  //may not be correct as user might have concluded a transaction right when this executes
+			  getPreviousAndCurrentGold(userIds, uMap, previousGoldSilver, currentGoldSilver, goldRewarded);
 			  int numInserted = InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates, 
-			      areSilver, goldSilverChange, previousGoldSilver, reasonsForChanges);
+			      areSilver, goldSilverChange, previousGoldSilver, currentGoldSilver, reasonsForChanges);
 			  log.info("Should be " + userIds.size() + ". Rows inserted into user_currency_history: " + numInserted);
 			} catch(Exception e) {
 			  log.error("Maybe table's not there or duplicate keys? ", e);
@@ -164,6 +169,8 @@ public class LeaderboardEventScheduledTasks {
 			dates.clear();
 			areSilver.clear();
 			goldSilverChange.clear();
+			previousGoldSilver.clear();
+			currentGoldSilver.clear();
 			reasonsForChanges.clear();
 			
 			allUserIds.addAll(userIds);
@@ -184,6 +191,16 @@ public class LeaderboardEventScheduledTasks {
 		
 		//SEND NOTIFICATION FOR END OF TOURNAMENT (LEADERBOARD EVENT)
 		notificationStuff(event, rewards, userIdsToUsers);
+	}
+	
+	public void getPreviousAndCurrentGold (List<Integer> userIds, Map<Integer, User> uMap,
+	    List<Integer> previousGoldSilver, List<Integer> currentGoldSilver, int reward) {
+	  for (Integer uId : userIds) {
+	    User aUser = uMap.get(uId);
+	    int gold = aUser.getDiamonds();
+	    previousGoldSilver.add(gold - reward);
+	    currentGoldSilver.add(gold);
+	  }
 	}
 	
 	private void notificationStuff(LeaderboardEvent event, List<LeaderboardEventReward> rewards,

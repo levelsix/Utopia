@@ -55,7 +55,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-
+      int previousGold = 0;
       boolean legitPurchase = checkLegitPurchase(resBuilder, user);
 
       PurchaseGroupChatResponseEvent resEvent = new PurchaseGroupChatResponseEvent(senderProto.getUserId());
@@ -64,11 +64,13 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       server.writeEvent(resEvent);
 
       if (legitPurchase) {
+        previousGold = user.getDiamonds();
+        
         writeChangesToDB(user);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
-        writeToUserCurrencyHistory(user); //don't want to hold up thread from sending to client, hence after writeEvent
+        writeToUserCurrencyHistory(user, previousGold); //don't want to hold up thread from sending to client, hence after writeEvent
       }
     } catch (Exception e) {
       log.error("exception in PurchaseGroupChat processEvent", e);
@@ -98,18 +100,19 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     return true;
   }
   
-  private void writeToUserCurrencyHistory(User u) {
+  private void writeToUserCurrencyHistory(User u, int previousGold) {
     //try, catch just a precaution
     try {
       Timestamp date = new Timestamp((new Date()).getTime());
       int isSilver = 0;
-      int currencyChange = ControllerConstants.PURCHASE_GROUP_CHAT__DIAMOND_PRICE_FOR_PACKAGE;
-      int currencyBefore = u.getDiamonds() - currencyChange;
+      int currencyChange = -1 * ControllerConstants.PURCHASE_GROUP_CHAT__DIAMOND_PRICE_FOR_PACKAGE;
+      int currencyAfter = u.getDiamonds();
+      //int currencyBefore = currencyAfter - currencyChange;
       String reasonForChange = ControllerConstants.UCHRFC__GROUP_CHAT;
-      int inserted = InsertUtils.get().insertIntoUserCurrencyHistory(u.getId(), date, isSilver,
-          currencyChange, currencyBefore, reasonForChange);
-
-      log.info("Should be 1. Rows inserted into user_currency_history: " + inserted);
+    
+      InsertUtils.get().insertIntoUserCurrencyHistory(u.getId(), date, isSilver,
+          currencyChange, previousGold, currencyAfter, reasonForChange);
+    
     } catch (Exception e) {
       log.error("Maybe table's not there or duplicate keys? " + e.toString());
     }

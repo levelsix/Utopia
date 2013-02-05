@@ -66,11 +66,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     try {
       User possibleClanOwner = RetrieveUtils.userRetrieveUtils().getUserById(userId);
       List<Integer> currencyChange = new ArrayList<Integer>();
+      int previousGold = 0;
       
       boolean validRequest = 
           isValidUpdateClanTierLevelRequest(resBuilder, possibleClanOwner, clanId, currencyChange);
       boolean successfulUpdate = false;
       if (validRequest) {
+        previousGold = possibleClanOwner.getDiamonds();
+        
         successfulUpdate = writeChangesToDB(resBuilder, possibleClanOwner, currencyChange, clanId);
       }
       if (successfulUpdate) {
@@ -92,7 +95,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        writeToUserCurrencyHistory(possibleClanOwner, currencyChange);
+        writeToUserCurrencyHistory(possibleClanOwner, currencyChange, previousGold);
       } else {
         server.writeEvent(resEvent);
       }
@@ -183,7 +186,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return false;
   }
   
-  private void writeToUserCurrencyHistory(User aUser, List<Integer> money) {
+  private void writeToUserCurrencyHistory(User aUser, List<Integer> money, int previousGold) {
     try {
       if(money.isEmpty()) {
         return;
@@ -192,13 +195,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       Timestamp date = new Timestamp((new Date()).getTime());
       int isSilver = 0;
       int currencyChange = money.get(0) * -1; //forgot to make it negative before, but it is negative in writetodb
-      int currencyBefore = aUser.getDiamonds() - currencyChange;
+      int currencyAfter = aUser.getDiamonds();
       String reasonForChange = ControllerConstants.UCHRFC__UPGRADE_CLAN_TIER_LEVEL;
       
-      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver, 
-          currencyChange, currencyBefore, reasonForChange);
+      InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver, 
+          currencyChange, previousGold, currencyAfter, reasonForChange);
       
-      log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
+      //log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
     } catch (Exception e) {
       log.error("Maybe table's not there or duplicate keys? ", e);
     }

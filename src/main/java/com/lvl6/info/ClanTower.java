@@ -24,12 +24,13 @@ public class ClanTower implements Serializable {
   private int blue;
   private int green;
   private int red;
+  private int currentBattleId;
   //if a new property is added, make sure all files referencing ClanTower objects, tables reflect the change.
   public ClanTower(int id, String towerName, String towerImageName,
       int clanOwnerId, Date ownedStartTime, int silverReward, int goldReward,
       int numHoursToCollect, int clanAttackerId, Date attackStartTime,
       int ownerBattleWins, int attackerBattleWins, int numHoursForBattle, 
-      Date lastRewardGiven, int blue, int green, int red) {
+      Date lastRewardGiven, int blue, int green, int red, int currentBattleId) {
     super();
     this.id = id;
     this.towerName = towerName;
@@ -48,6 +49,15 @@ public class ClanTower implements Serializable {
     this.blue = blue;
     this.green = green;
     this.red = red;
+    this.currentBattleId = currentBattleId;
+  }
+
+  public int getCurrentBattleId() {
+    return currentBattleId;
+  }
+
+  public void setCurrentBattleId(int currentBattleId) {
+    this.currentBattleId = currentBattleId;
   }
 
   public int getId() {
@@ -176,16 +186,16 @@ public class ClanTower implements Serializable {
 
   @Override
   public String toString() {
-    return ToStringBuilder.reflectionToString(this);
-    /*
     return "ClanTower [id=" + id + ", towerName=" + towerName
         + ", towerImageName=" + towerImageName + ", clanOwnerId=" + clanOwnerId
         + ", ownedStartTime=" + ownedStartTime + ", silverReward="
         + silverReward + ", goldReward=" + goldReward + ", numHoursToCollect="
         + numHoursToCollect + ", clanAttackerId=" + clanAttackerId
         + ", attackStartTime=" + attackStartTime + ", ownerBattleWins="
-        + ownerBattleWins + ", attackerBattleWins=" + attackerBattleWins 
-        + ", lastRewardGiven=" + lastRewardGiven +"]";*/
+        + ownerBattleWins + ", attackerBattleWins=" + attackerBattleWins
+        + ", numHoursForBattle=" + numHoursForBattle + ", lastRewardGiven="
+        + lastRewardGiven + ", blue=" + blue + ", green=" + green + ", red="
+        + red + ", currentBattleId=" + currentBattleId + "]";
   }
 
   public int getNumHoursForBattle() {
@@ -200,6 +210,6 @@ public class ClanTower implements Serializable {
     return new ClanTower(
         id, towerName, towerImageName, clanOwnerId, ownedStartTime, silverReward, goldReward,
         numHoursToCollect, clanAttackerId, attackStartTime, ownerBattleWins, attackerBattleWins,
-        numHoursForBattle, lastRewardGiven, blue, green, red);
+        numHoursForBattle, lastRewardGiven, blue, green, red, currentBattleId);
   }
 }

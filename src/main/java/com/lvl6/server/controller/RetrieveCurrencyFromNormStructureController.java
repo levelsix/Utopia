@@ -23,6 +23,7 @@ import com.lvl6.info.User;
 import com.lvl6.info.UserQuest;
 import com.lvl6.info.UserStruct;
 import com.lvl6.misc.MiscMethods;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureRequestProto;
 import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval;
 import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureResponseProto;
@@ -74,6 +75,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      int previousSilver = 0;
       List<Integer> userStructIds = new ArrayList<Integer>(userStructIdsToTimesOfRetrieval.keySet());
       
       Map<Integer, UserStruct> userStructIdsToUserStructs = getUserStructIdsToUserStructs(userStructIds);
@@ -84,12 +86,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           userStructIdsToStructures, userStructIdsToTimesOfRetrieval, duplicates, coinGain);
       
       if (legitRetrieval) {
+        previousSilver = user.getCoins() + user.getVaultBalance();
+        
         if (!user.updateRelativeCoinsCoinsretrievedfromstructs(coinGain)) {
           log.error("problem with updating user stats after retrieving " + coinGain + " silver");
           legitRetrieval = false;
         }
         if (!UpdateUtils.get().updateUserStructsLastretrieved(userStructIdsToTimesOfRetrieval, userStructIdsToUserStructs)) {
-          log.error("problem with updating user structs last retrieved for userStructIds " + shallowMapToString(userStructIdsToTimesOfRetrieval));
+          log.error("problem with updating user structs last retrieved for userStructIds " 
+              + MiscMethods.shallowMapToString(userStructIdsToTimesOfRetrieval));
           legitRetrieval = false;
         }
       }
@@ -104,7 +109,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        updateAndCheckUserQuests(server, coinGain, senderProto);        
+        updateAndCheckUserQuests(server, coinGain, senderProto);      
+        
+        writeToUserCurrencyHistory(user, coinGain, previousSilver);
       }
     } catch (Exception e) {
       log.error("exception in RetrieveCurrencyFromNormStructureController processEvent", e);
@@ -145,8 +152,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         returnValue.put(us.getId(), us);
       } else {
         log.error("could not retrieve one of the user structs. userStructIds to retrieve="
-            + shallowListToString(userStructIds) + ". user structs retrieved=" 
-            + shallowListToString(userStructList) + ". Continuing with processing.");
+            + MiscMethods.shallowListToString(userStructIds) + ". user structs retrieved=" 
+            + MiscMethods.shallowListToString(userStructList) + ". Continuing with processing.");
         return new HashMap<Integer, UserStruct>();
       }
     }
@@ -225,13 +232,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         || userStructIdsToStructures.isEmpty() || userStructIdsToTimesOfRetrieval.isEmpty()) { //|| timeOfRetrieval == null || userStruct.getLastRetrieved() == null) {
       resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL);
       log.error("user is null, or no struct ids, or no user structs, or no structures, or no retrieval times . user=" + user
-          + shallowListToString(userStructIds) + " " + shallowMapToString(userStructIdsToUserStructs) + " " 
-          + shallowMapToString(userStructIdsToStructures) + shallowMapToString(userStructIdsToTimesOfRetrieval));
+          + MiscMethods.shallowListToString(userStructIds) + " " + MiscMethods.shallowMapToString(userStructIdsToUserStructs) + " " 
+          + MiscMethods.shallowMapToString(userStructIdsToStructures) + MiscMethods.shallowMapToString(userStructIdsToTimesOfRetrieval));
       return false;
     }
     if (!duplicates.isEmpty()) {
       resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL);
-      log.error("duplicate struct ids in request. ids=" + shallowListToString(duplicates));
+      log.error("duplicate struct ids in request. ids=" + MiscMethods.shallowListToString(duplicates));
       return false;
     }
     for (Integer id : userStructIds) {
@@ -266,26 +273,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return true;
     
   }
+  
+  public void writeToUserCurrencyHistory(User aUser, int coinChange, int previousSilver) {
+    Timestamp date = new Timestamp((new Date()).getTime());
 
-  private String shallowListToString(List aList) {
-    StringBuilder returnValue = new StringBuilder();
-    for(Object o : aList) {
-      returnValue.append(" ");
-      returnValue.append(o.toString()); 
-    }
-    return returnValue.toString();
+    Map<String, Integer> goldSilverChange = new HashMap<String, Integer>();
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String silver = MiscMethods.silver;
+    String reasonForChange = ControllerConstants.UCHRFC__RETRIEVE_CURRENCY_FROM_NORM_STRUCT;
+    
+    goldSilverChange.put(silver, coinChange);
+    previousGoldSilver.put(silver, previousSilver);
+    reasonsForChanges.put(silver, reasonForChange);
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange,
+        previousGoldSilver, reasonsForChanges);
   }
   
-  private String shallowMapToString(Map aMap) {
-    StringBuilder returnValue = new StringBuilder();
-    returnValue.append("[");
-    for(Object key : aMap.keySet()) {
-      returnValue.append(" ");
-      returnValue.append(key);
-      returnValue.append("=");
-      returnValue.append(aMap.get(key).toString());
-    }
-    returnValue.append("]");
-    return returnValue.toString();
-  }
 }

@@ -73,8 +73,11 @@ import com.lvl6.utils.DBConnection;
     }
     
     boolean attemptComplete = rs.getBoolean(i++);
+    int enhancementPercentOne = rs.getInt(i++);
+    int enhancementPercentTwo = rs.getInt(i++);
     
     return new BlacksmithAttempt(id, userId, equipId, goalLevel, guaranteed, startTime,
-        diamondGuaranteeCost, timeOfSpeedup, attemptComplete);
+        diamondGuaranteeCost, timeOfSpeedup, attemptComplete, enhancementPercentOne,
+        enhancementPercentTwo);
   }
 }

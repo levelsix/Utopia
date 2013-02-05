@@ -109,6 +109,7 @@ public class EarnFreeDiamondsController extends EventController {
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      int previousGold = 0;
 
       boolean legitFreeDiamondsEarn = checkLegitFreeDiamondsEarnBasic(resBuilder, freeDiamondsType, clientTime, user, kiipReceiptString, adColonyDigest, adColonyAmountEarned, adColonyRewardType);
 
@@ -140,6 +141,8 @@ public class EarnFreeDiamondsController extends EventController {
       server.writeEvent(resEvent);
 
       if (legitFreeDiamondsEarn) {
+        previousGold = user.getDiamonds();
+        
         Map<String, Integer> money = new HashMap<String, Integer>();
         List<String> keys = new ArrayList<String>();
         writeChangesToDB(user, freeDiamondsType, kiipConfirmationReceipt, adColonyAmountEarned, adColonyRewardType,
@@ -149,7 +152,7 @@ public class EarnFreeDiamondsController extends EventController {
         server.writeEvent(resEventUpdate);
 
         writeToDBHistory(user, freeDiamondsType, clientTime, kiipConfirmationReceipt, adColonyDigest, adColonyRewardType, adColonyAmountEarned);
-        writeToUserCurrencyHistory(user, clientTime, money, keys, freeDiamondsType);
+        writeToUserCurrencyHistory(user, clientTime, money, keys, freeDiamondsType, previousGold);
       }
     } catch (Exception e) {
       log.error("exception in earn free gold processEvent", e);
@@ -423,7 +426,7 @@ public class EarnFreeDiamondsController extends EventController {
   }
 
   private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money, List<String> keys,
-      EarnFreeDiamondsType freeDiamondsType) {
+      EarnFreeDiamondsType freeDiamondsType, int previousGold) {
     try {
       if(keys.isEmpty()) {
         return;
@@ -431,15 +434,15 @@ public class EarnFreeDiamondsController extends EventController {
       int userId = aUser.getId();
       int isSilver;
       int currencyChange = money.get(0);
-      int currencyBefore;
+      int currencyAfter;
       String reasonForChange = "earn free diamonds controller";
       
       if(keys.get(0).equals(MiscMethods.silver)) {
         isSilver = 1;
-        currencyBefore = aUser.getCoins() - currencyChange;
+        currencyAfter = aUser.getCoins();
       } else {
         isSilver = 0;
-        currencyBefore = aUser.getDiamonds() - currencyChange;
+        currencyAfter = aUser.getDiamonds();
       }
       
       if (freeDiamondsType == EarnFreeDiamondsType.KIIP) {
@@ -449,7 +452,7 @@ public class EarnFreeDiamondsController extends EventController {
       }
       
       int inserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver,
-          currencyChange, currencyBefore, reasonForChange);
+          currencyChange, previousGold, currencyAfter, reasonForChange);
 
       log.info("Should be 1. Rows inserted into user_currency_history: " + inserted);
     } catch (Exception e) {

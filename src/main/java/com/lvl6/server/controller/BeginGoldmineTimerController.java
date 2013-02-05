@@ -59,7 +59,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-
+      int previousGold = 0;
+      
       boolean legit = checkLegit(resBuilder, user, curTime, reset);
 
       BeginGoldmineTimerResponseEvent resEvent = new BeginGoldmineTimerResponseEvent(senderProto.getUserId());
@@ -68,13 +69,15 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       server.writeEvent(resEvent);
 
       if (legit) {
+        previousGold = user.getDiamonds();
+        
         List<Integer> money = new ArrayList<Integer>();
         writeChangesToDB(user, curTime, reset, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        writeToUserCurrencyHistory(user, curTime, money);
+        writeToUserCurrencyHistory(user, curTime, money, previousGold);
       }
     } catch (Exception e) {
       log.error("exception in BeginGoldmineTimerController processEvent", e);
@@ -133,7 +136,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     }
   }
   
-  private void writeToUserCurrencyHistory(User aUser, Timestamp date, List<Integer> money) {
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date, List<Integer> money,
+      int previousGold) {
     try {
       if(money.isEmpty()) {
         return;
@@ -141,12 +145,12 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       int userId = aUser.getId();
       int isSilver = 0;
       int currencyChange = money.get(0);
-      int currencyBefore = aUser.getDiamonds() - currencyChange;
+      int currencyAfter = aUser.getDiamonds();
       String reasonForChange = ControllerConstants.UCHRFC__GOLDMINE;
-      int inserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver,
-          currencyChange, currencyBefore, reasonForChange);
+      InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver,
+          currencyChange, previousGold, currencyAfter, reasonForChange);
 
-      log.info("Should be 1. Rows inserted into user_currency_history: " + inserted);
+      //log.info("Should be 1. Rows inserted into user_currency_history: " + inserted);
     } catch (Exception e) {
       log.error("Maybe table's not there or duplicate keys? ", e);
     }

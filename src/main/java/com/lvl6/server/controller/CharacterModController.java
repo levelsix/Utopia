@@ -72,6 +72,9 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      String oldName = "";
+      int oldType = 0;
+      int previousGold = 0;
 
       int diamondCost = 0;
       if (modType == CharacterModType.CHANGE_CHARACTER_TYPE) {
@@ -87,6 +90,10 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       boolean legitMod = checkLegitMod(resBuilder, diamondCost, user, newUserType, newName, modType);
 
       if (legitMod) {
+        oldName = user.getName();
+        oldType = user.getType().getNumber();
+        previousGold = user.getDiamonds();
+        
         writeChangesToDB(user, modType, diamondCost, newUserType, newName);
         resBuilder.setSkillPointsNew(user.getSkillPoints());
         resBuilder.setAttackNew(user.getAttack());
@@ -105,7 +112,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        writeToUserCurrencyHistory(user, modType, diamondCost);
+        writeToUserCurrencyHistory(user, modType, -1 * diamondCost, newName, oldName, newUserType, oldType, previousGold);
       }
 
 
@@ -223,26 +230,29 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     return true;
   }
 
-  private void writeToUserCurrencyHistory(User aUser, CharacterModType modType, int diamondCost) {
+  private void writeToUserCurrencyHistory(User aUser, CharacterModType modType, int diamondCost,
+      String newName, String oldName, UserType newUserType, int oldType, int previousGold) {
     try {
       int userId = aUser.getId();
       Timestamp date = new Timestamp((new Date()).getTime());
       int isSilver = 0;
-      int currencyBefore = aUser.getDiamonds() - (-1*diamondCost); //forgot to add negative before, 
+      int currencyAfter = aUser.getDiamonds();
       String reasonForChange = "character mod controller";
       if (modType == CharacterModType.CHANGE_CHARACTER_TYPE) {
-        reasonForChange = ControllerConstants.UCHRFC__CHARACTER_MOD_TYPE;
+        reasonForChange = ControllerConstants.UCHRFC__CHARACTER_MOD_TYPE
+            + " from " + oldType + " to " + newUserType.getNumber();
       } else if (modType == CharacterModType.CHANGE_NAME) {
-        reasonForChange = ControllerConstants.UCHRFC__CHARACTER_MOD_NAME;
+        reasonForChange = ControllerConstants.UCHRFC__CHARACTER_MOD_NAME
+            + " from " + oldName + " to " + newName;
       } else if (modType == CharacterModType.NEW_PLAYER) {
         reasonForChange = ControllerConstants.UCHRFC__CHARACTER_MOD_RESET;
       } else if (modType == CharacterModType.RESET_SKILL_POINTS) {
         reasonForChange = ControllerConstants.UCHRFC__CHARACTER_MOD_SKILL_POINTS;
       }
       
-      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, 
-          isSilver, -1 * diamondCost, currencyBefore, reasonForChange);
-      log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
+      InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, 
+          isSilver, diamondCost, previousGold, currencyAfter, reasonForChange);
+      //log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
     } catch (Exception e) {
       log.error("Maybe table's not there or duplicate keys? ", e);
     }

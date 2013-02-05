@@ -76,6 +76,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       LockBoxEvent lockBoxEvent = LockBoxEventRetrieveUtils.getLockBoxEventForLockBoxEventId(lockBoxEventId);
       UserLockBoxEvent userEvent = UserLockBoxEventRetrieveUtils.getUserLockBoxEventForUserAndEventId(senderProto.getUserId(), lockBoxEventId);
+      int previousSilver = 0;
+      int previousGold = 0;
 
       boolean legitPick = checkLegitPick(resBuilder, user, lockBoxEvent, userEvent, method, userEvent.getNumLockBoxes(), curTime);
       boolean successfulPick = false;
@@ -108,6 +110,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
 
       if (legitPick) {
+        previousSilver = user.getCoins() + user.getVaultBalance();
+        previousGold = user.getDiamonds();
+        
         Map<String, Integer> money = new HashMap<String, Integer>();
         writeChangesToDB(user, method, lockBoxEvent, userEvent, successfulPick, hadAllItems, curTime, money);
 
@@ -115,7 +120,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        writeToUserCurrencyHistory(user, curTime, money);
+        writeToUserCurrencyHistory(user, curTime, money, previousSilver, previousGold);
       }
     } catch (Exception e) {
       log.error("exception in PickLockBox processEvent", e);
@@ -209,7 +214,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (hasAllItems) {
       boolean success = UpdateUtils.get().decrementLockBoxItemsForUser(forUpdate, user.getId(), 1);
       if (success) {
-        int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), lockBoxEvent.getPrizeEquipId(), 1);
+        int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), lockBoxEvent.getPrizeEquipId(), 1,
+            ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
         if (userEquipId > 0) {
           return new UserEquip(userEquipId, user.getId(), lockBoxEvent.getPrizeEquipId(), 1, 0);
         }
@@ -232,10 +238,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return;
     } else {
       if (0 != diamondCost) {
-        money.put(MiscMethods.gold, diamondCost);
+        money.put(MiscMethods.gold, -diamondCost);
       }
       if (0 != coinCost) {
-        money.put(MiscMethods.silver, coinCost);
+        money.put(MiscMethods.silver, -coinCost);
       }
     }
 
@@ -245,11 +251,20 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
   
-  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
-    Map<String, Integer> previousGoldSilver = null;
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money,
+      int previousSilver, int previousGold) {
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String gold = MiscMethods.gold;
+    String silver = MiscMethods.silver;
     String reasonForChange = ControllerConstants.UCHRFC__PICK_LOCKBOX;
 
+    previousGoldSilver.put(gold, previousGold);
+    previousGoldSilver.put(silver, previousSilver);
+    reasonsForChanges.put(gold, reasonForChange);
+    reasonsForChanges.put(silver, reasonForChange);
+    
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, 
-        money, previousGoldSilver, reasonForChange);
+        money, previousGoldSilver, reasonsForChanges);
   }
 }

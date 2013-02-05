@@ -49,7 +49,6 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.IAPHistoryRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
-import com.lvl6.utils.utilmethods.InsertUtils;
 
 @Component
 @DependsOn("gameServer")
@@ -103,6 +102,8 @@ public class InAppPurchaseController extends EventController {
     server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      int previousSilver = user.getCoins() + user.getVaultBalance();
+      int previousGold = user.getDiamonds();
 
       JSONObject response;
 
@@ -182,7 +183,7 @@ public class InAppPurchaseController extends EventController {
                 + receiptFromApple.getString(IAPValues.PRODUCT_ID));
             
             Timestamp date = new Timestamp((new Date()).getTime());
-            writeToUserCurrencyHistory(user, date, diamondChange);
+            writeToUserCurrencyHistory(user, date, diamondChange, coinChange, previousSilver, previousGold);
           } catch (Exception e) {
             log.error("problem with in app purchase flow", e);
           }
@@ -307,15 +308,26 @@ public class InAppPurchaseController extends EventController {
     return sb.toString();
   }
   
-  private void writeToUserCurrencyHistory(User aUser, Timestamp date, int diamondChange) {
-    int currencyBefore = aUser.getDiamonds() - diamondChange;
-    Map<String, Integer> goldSilverChange = new HashMap<String, Integer>();
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date,
+      int diamondChange, int coinChange, int previousSilver, int previousGold) {
     Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, Integer> goldSilverChange = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String gold = MiscMethods.gold;
+    String silver = MiscMethods.silver;
     String reasonForChange = ControllerConstants.UCHRFC__IN_APP_PURCHASE;
+
+    if (0 < diamondChange) {
+      goldSilverChange.put(gold, diamondChange);
+      previousGoldSilver.put(gold, previousGold);
+      reasonsForChanges.put(gold, reasonForChange + gold);
+    } else {
+      goldSilverChange.put(silver, coinChange);
+      previousGoldSilver.put(silver, previousSilver);
+      reasonsForChanges.put(gold, reasonForChange + silver);
+    }
     
-    goldSilverChange.put(MiscMethods.gold, diamondChange);
-    previousGoldSilver.put(MiscMethods.gold, currencyBefore);
-    
-    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange, previousGoldSilver, reasonForChange);
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date,
+        goldSilverChange, previousGoldSilver, reasonsForChanges);
   }
 }

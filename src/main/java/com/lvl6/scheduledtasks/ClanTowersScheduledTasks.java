@@ -34,6 +34,7 @@ import com.lvl6.server.GameServer;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
+import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class ClanTowersScheduledTasks {
 	private static Logger log = LoggerFactory.getLogger(ClanTowersScheduledTasks.class);
@@ -185,45 +186,51 @@ public class ClanTowersScheduledTasks {
 	}
 
 	protected void updateTowerHistory(ClanTower tower) {
-		String attStart = tower.getAttackStartTime() == null ? "null" : "\""
-				+ new Timestamp(tower.getAttackStartTime().getTime()) + "\"";
-		String lastReward = tower.getLastRewardGiven() == null ? "null" : "\""
-				+ new Timestamp(tower.getLastRewardGiven().getTime()) + "\"";
-		jdbcTemplate.execute("insert into "
-				+ DBConstants.TABLE_CLAN_TOWERS_HISTORY
-				+ " ("
-				+ DBConstants.CLAN_TOWERS_HISTORY__OWNER_CLAN_ID
-				+ ", "
-				+ DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_CLAN_ID
-				+ ", "
-				+ DBConstants.CLAN_TOWERS_HISTORY__TOWER_ID
-				+ ", "
-				+ DBConstants.CLAN_TOWERS_HISTORY__ATTACK_START_TIME
-				+ ", "
-				+ DBConstants.CLAN_TOWERS_HISTORY__WINNER_ID
-				+ ", "
-				+ DBConstants.CLAN_TOWERS_HISTORY__OWNER_BATTLE_WINS
-				+ ", "
-				+ DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_BATTLE_WINS
-				+ ", "
-				+ DBConstants.CLAN_TOWERS_HISTORY__NUM_HOURS_FOR_BATTLE
-				+ ", "
-				+ DBConstants.CLAN_TOWERS_HISTORY__LAST_REWARD_GIVEN
-				+ ", "
-				+ DBConstants.CLAN_TOWERS_HISTORY__REASON_FOR_ENTRY
-				+ ") VALUES ("
-				+ tower.getClanOwnerId()
-				+ ", "
-				+ tower.getClanAttackerId()
-				+ ","
-				+ tower.getId()
-				+ ", "
-				+ attStart
-				+ ", "
-				+ (tower.getAttackerBattleWins() > tower.getOwnerBattleWins() ? tower.getClanAttackerId()
-						: tower.getClanOwnerId()) + "," + tower.getOwnerBattleWins() + ", "
-				+ tower.getAttackerBattleWins() + ", " + tower.getNumHoursForBattle() + ", " + lastReward
-				+ ", " + "\"" + Notification.CLAN_TOWER_WAR_ENDED + "\")");
+	  int winnerId = (tower.getAttackerBattleWins() > tower.getOwnerBattleWins() ? tower.getClanAttackerId()
+        : tower.getClanOwnerId());
+    List<ClanTower> tList = new ArrayList<ClanTower>();
+    tList.add(tower);
+    List<Integer> wList = new ArrayList<Integer>();
+    wList.add(winnerId);
+	  UpdateUtils.get().updateTowerHistory(tList, Notification.CLAN_TOWER_WAR_ENDED, wList);
+//		String attStart = tower.getAttackStartTime() == null ? "null" : "\""
+//				+ new Timestamp(tower.getAttackStartTime().getTime()) + "\"";
+//		String lastReward = tower.getLastRewardGiven() == null ? "null" : "\""
+//				+ new Timestamp(tower.getLastRewardGiven().getTime()) + "\"";
+//		jdbcTemplate.execute("insert into "
+//				+ DBConstants.TABLE_CLAN_TOWERS_HISTORY
+//				+ " ("
+//				+ DBConstants.CLAN_TOWERS_HISTORY__OWNER_CLAN_ID
+//				+ ", "
+//				+ DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_CLAN_ID
+//				+ ", "
+//				+ DBConstants.CLAN_TOWERS_HISTORY__TOWER_ID
+//				+ ", "
+//				+ DBConstants.CLAN_TOWERS_HISTORY__ATTACK_START_TIME
+//				+ ", "
+//				+ DBConstants.CLAN_TOWERS_HISTORY__WINNER_ID
+//				+ ", "
+//				+ DBConstants.CLAN_TOWERS_HISTORY__OWNER_BATTLE_WINS
+//				+ ", "
+//				+ DBConstants.CLAN_TOWERS_HISTORY__ATTACKER_BATTLE_WINS
+//				+ ", "
+//				+ DBConstants.CLAN_TOWERS_HISTORY__NUM_HOURS_FOR_BATTLE
+//				+ ", "
+//				+ DBConstants.CLAN_TOWERS_HISTORY__LAST_REWARD_GIVEN
+//				+ ", "
+//				+ DBConstants.CLAN_TOWERS_HISTORY__REASON_FOR_ENTRY
+//				+ ") VALUES ("
+//				+ tower.getClanOwnerId()
+//				+ ", "
+//				+ tower.getClanAttackerId()
+//				+ ","
+//				+ tower.getId()
+//				+ ", "
+//				+ attStart
+//				+ ", "
+//				+  + "," + tower.getOwnerBattleWins() + ", "
+//				+ tower.getAttackerBattleWins() + ", " + tower.getNumHoursForBattle() + ", " + lastReward
+//				+ ", " + "\"" +  + "\")");
 	}
 
 	@Scheduled(fixedRate = 10000)
@@ -295,17 +302,41 @@ public class ClanTowersScheduledTasks {
 		// try catch not necessary, but just precaution
 		try {
 			List<User> users = RetrieveUtils.userRetrieveUtils().getUsersByClanId(tower.getClanOwnerId());
-			int amount = users.size();
-			int gold = tower.getGoldReward();
-			List<Integer> userIds = getUserIds(users);
-			List<Timestamp> dates = new ArrayList<Timestamp>(Collections.nCopies(amount, new Timestamp(now)));
-			List<Integer> areSilver = new ArrayList<Integer>(Collections.nCopies(amount, 0));
-			List<Integer> currenciesChange = new ArrayList<Integer>(Collections.nCopies(amount, gold));
-			List<Integer> currenciesBefore = getCurrenciesBefore(users, gold);
-			List<String> reasonsForChanges = new ArrayList<String>(Collections.nCopies(amount,
-					ControllerConstants.UCHRFC__CLAN_TOWER_WAR_ENDED));
+			int numUsers = users.size();
+			Timestamp nowTimestamp = new Timestamp(now);
+			boolean isSilver = false;
+			int goldRewarded = tower.getGoldReward();
+			int silverRewarded = tower.getSilverReward();
+			String reason = ControllerConstants.UCHRFC__CLAN_TOWER_WAR_ENDED;
+			
+			List<Integer> userIds = new ArrayList<Integer>();
+			List<Timestamp> dates = new ArrayList<Timestamp>();
+			List<Integer> areSilver = new ArrayList<Integer>();
+			List<Integer> currenciesChange = new ArrayList<Integer>();
+			List<Integer> currenciesBefore = new ArrayList<Integer>();
+			List<Integer> currenciesAfter = new ArrayList<Integer>();
+			List<String> reasonsForChanges = new ArrayList<String>();
+			
+			if(0 < goldRewarded) {
+			  userIds.addAll(getUserIds(users));
+			  dates.addAll(Collections.nCopies(numUsers, nowTimestamp));
+			  areSilver.addAll(Collections.nCopies(numUsers, 0));
+			  currenciesChange.addAll(Collections.nCopies(numUsers, goldRewarded));
+			  getPreviousAndCurrentGoldOrSilver(users, goldRewarded, isSilver, currenciesBefore, currenciesAfter);
+			  reasonsForChanges.addAll(Collections.nCopies(numUsers, reason));
+			} 
+			if(0 < silverRewarded) {
+			  isSilver = true;
+			  userIds.addAll(getUserIds(users));
+			  dates.addAll(Collections.nCopies(numUsers, nowTimestamp));
+			  areSilver.addAll(Collections.nCopies(numUsers, 1));
+			  currenciesChange.addAll(Collections.nCopies(numUsers, silverRewarded));
+			  getPreviousAndCurrentGoldOrSilver(users, silverRewarded, isSilver, currenciesBefore, currenciesAfter);
+			  reasonsForChanges.addAll(Collections.nCopies(numUsers, reason));
+			}
+			
 			int numInserted = InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates,
-					areSilver, currenciesChange, currenciesBefore, reasonsForChanges);
+					areSilver, currenciesChange, currenciesBefore, currenciesAfter, reasonsForChanges);
 			log.info("Should be " + userIds.size() + ". Rows inserted into user_currency_history: "
 					+ numInserted);
 		} catch (Exception e) {
@@ -313,15 +344,21 @@ public class ClanTowersScheduledTasks {
 		}
 	}
 
-	private List<Integer> getCurrenciesBefore(List<User> users, int goldRewarded) {
-		List<Integer> returnVal = new ArrayList<Integer>();
+	private void getPreviousAndCurrentGoldOrSilver(List<User> users, int currencyReward,
+	    boolean isSilver, List<Integer> currenciesBefore, List<Integer> currenciesAfter) {
 		for (User u : users) {
-			returnVal.add(u.getDiamonds() - goldRewarded); // the gold was
-															// rewarded to them
-															// before writing to
-															// history
+		  int currentCurrency = 0;
+		  if(isSilver) {
+		    //record total silver, including silver in the vault
+		    currentCurrency = u.getCoins() + u.getVaultBalance(); 
+		  } else {
+		    currentCurrency = u.getDiamonds();
+		  }
+		  
+		  currenciesAfter.add(currentCurrency);
+		  //the gold,silver was rewarded to them before writing to the history table
+			currenciesBefore.add(currentCurrency - currencyReward); 
 		}
-		return returnVal;
 	}
 
 	private List<Integer> getUserIds(List<User> users) {

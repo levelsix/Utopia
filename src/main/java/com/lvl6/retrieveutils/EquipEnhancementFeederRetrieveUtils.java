@@ -4,9 +4,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -23,8 +26,11 @@ import com.lvl6.utils.DBConnection;
   public static List<EquipEnhancementFeeder> getEquipEnhancementFeedersForEquipEnhancementId(int equipEnhancementId) {
     log.debug("retrieving equip enhancement feeders for equip enhancement id " + equipEnhancementId);
     
+    Map<String, Object> absoluteConditionParams = new HashMap<String, Object>();
+    absoluteConditionParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS__EQUIP_ENHANCEMENT_ID, equipEnhancementId);
+    
     Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsByUserId(conn, equipEnhancementId, TABLE_NAME);
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, absoluteConditionParams, TABLE_NAME);
     List<EquipEnhancementFeeder> equipEnhancementFeeders = convertRSToEquipEnhancementFeeders(rs);
     DBConnection.get().close(rs, null, conn);
     return equipEnhancementFeeders;
@@ -44,7 +50,6 @@ import com.lvl6.utils.DBConnection;
         return equipEnhancementFeederList;
       } catch (SQLException e) {
         log.error("problem with database call.", e);
-        
       }
     }
     return null;

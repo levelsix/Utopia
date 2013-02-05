@@ -16,6 +16,7 @@ public class IAPValues {
   public static final String BVRS = "bvrs";
   public static final String APP_ITEM_ID = "app_item_id";
   public static final String PURCHASE_DATE = "purchase_date";
+  public static final String PURCHASE_DATE_MS = "purchase_date_ms";
 
   private static final String PACKAGE1 = Globals.APPLE_BUNDLE_ID + ".package1";
   private static final String PACKAGE2 = Globals.APPLE_BUNDLE_ID + ".package2";
@@ -34,6 +35,12 @@ public class IAPValues {
   private static final String PACKAGES3 = Globals.APPLE_BUNDLE_ID + ".packageS3";
   private static final String PACKAGES4 = Globals.APPLE_BUNDLE_ID + ".packageS4";
   private static final String PACKAGES5 = Globals.APPLE_BUNDLE_ID + ".packageS5";
+
+  private static final String PACKAGES1SALE = Globals.APPLE_BUNDLE_ID + ".packageS1sale";
+  private static final String PACKAGES2SALE = Globals.APPLE_BUNDLE_ID + ".packageS2sale";
+  private static final String PACKAGES3SALE = Globals.APPLE_BUNDLE_ID + ".packageS3sale";
+  private static final String PACKAGES4SALE = Globals.APPLE_BUNDLE_ID + ".packageS4sale";
+  private static final String PACKAGES5SALE = Globals.APPLE_BUNDLE_ID + ".packageS5sale";
 
   private static final String PACKAGE1IMG = "goldstack1.png";
   private static final String PACKAGE2IMG = "goldstack2.png";
@@ -60,11 +67,11 @@ public class IAPValues {
   private static final int PACKAGE_4_DIAMONDS = 650;
   private static final int PACKAGE_5_DIAMONDS = 1500;
 
-  private static final int PACKAGE_S1_COINS = 50;
-  private static final int PACKAGE_S2_COINS = 120;
-  private static final int PACKAGE_S3_COINS = 250;
-  private static final int PACKAGE_S4_COINS = 650;
-  private static final int PACKAGE_S5_COINS = 1500;
+  private static final int PACKAGE_S1_COINS = 50000;
+  private static final int PACKAGE_S2_COINS = 120000;
+  private static final int PACKAGE_S3_COINS = 250000;
+  private static final int PACKAGE_S4_COINS = 650000;
+  private static final int PACKAGE_S5_COINS = 1500000;
 
   private static final double PACKAGE_1_PRICE = 4.99;
   private static final double PACKAGE_2_PRICE = 9.99;
@@ -83,6 +90,12 @@ public class IAPValues {
   private static final double PACKAGE_S3_PRICE = 19.99;
   private static final double PACKAGE_S4_PRICE = 49.99;
   private static final double PACKAGE_S5_PRICE = 99.99;
+
+  private static final double PACKAGE_S1_SALE_PRICE = 3.99;
+  private static final double PACKAGE_S2_SALE_PRICE = 7.99;
+  private static final double PACKAGE_S3_SALE_PRICE = 15.99;
+  private static final double PACKAGE_S4_SALE_PRICE = 39.99;
+  private static final double PACKAGE_S5_SALE_PRICE = 74.99;
 
   public static final List<String> iapPackageNames = 
       Arrays.asList(PACKAGE1, PACKAGES1, PACKAGE2, PACKAGES2, PACKAGE3, PACKAGES3, PACKAGE4, PACKAGES4, PACKAGE5, PACKAGES5);
@@ -114,19 +127,19 @@ public class IAPValues {
   }
 
   public static int getCoinsForPackageName(String packageName) {
-    if (packageName.equals(PACKAGES1)) {
+    if (packageName.equals(PACKAGES1) || packageName.equals(PACKAGES1SALE)) {
       return PACKAGE_S1_COINS;
     }
-    if (packageName.equals(PACKAGES2)) {
+    if (packageName.equals(PACKAGES2) || packageName.equals(PACKAGES2SALE)) {
       return PACKAGE_S2_COINS;
     }
-    if (packageName.equals(PACKAGES3)) {
+    if (packageName.equals(PACKAGES3) || packageName.equals(PACKAGES3SALE)) {
       return PACKAGE_S3_COINS;
     }
-    if (packageName.equals(PACKAGES4)) {
+    if (packageName.equals(PACKAGES4) || packageName.equals(PACKAGES4SALE)) {
       return PACKAGE_S4_COINS;
     }
-    if (packageName.equals(PACKAGES5)) {
+    if (packageName.equals(PACKAGES5) || packageName.equals(PACKAGES5SALE)) {
       return PACKAGE_S5_COINS;
     }
     return 0;
@@ -211,6 +224,21 @@ public class IAPValues {
     }
     if (packageName.equals(PACKAGES5)) {
       return PACKAGE_S5_PRICE;
+    }
+    if (packageName.equals(PACKAGES1SALE)) {
+      return PACKAGE_S1_SALE_PRICE;
+    }
+    if (packageName.equals(PACKAGES2SALE)) {
+      return PACKAGE_S2_SALE_PRICE;
+    }
+    if (packageName.equals(PACKAGES3SALE)) {
+      return PACKAGE_S3_SALE_PRICE;
+    }
+    if (packageName.equals(PACKAGES4SALE)) {
+      return PACKAGE_S4_SALE_PRICE;
+    }
+    if (packageName.equals(PACKAGES5SALE)) {
+      return PACKAGE_S5_SALE_PRICE;
     }
     return 0;
   }

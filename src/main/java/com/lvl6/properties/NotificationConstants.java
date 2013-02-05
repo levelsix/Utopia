@@ -41,10 +41,19 @@ public class NotificationConstants {
   public static final int LEADERBOARD_EVENT_ENDED_INDIVIDUAL__GREEN = 200;
   public static final int LEADERBOARD_EVENT_ENDED_INDIVIDUAL__RED = 255;
 
+  //CLAN TOWER WAR BEGAN
+  public static final int ATTACKING_CLAN_DETERMINED_APNS__BLUE = 0;
+  public static final int ATTACKING_CLAN_DETERMINED_APNS__GREEN = 220;
+  public static final int ATTACKING_CLAN_DETERMINED_APNS__RED = 255;
   
+  //USER REQUESTED TO JOIN A CLAN
+  public static final int REQUEST_TO_JOIN_A_CLAN__BLUE = 0;
+  public static final int REQUEST_TO_JOIN_A_CLAN__GREEN = 220;
+  public static final int REQUEST_TO_JOIN_A_CLAN__RED = 255;
   
   /*TITLE AND SUBTITLE CONSTANTS*/
-  // ESCAPE APOSTROPHES
+  //THE ESCAPE CHARACTER IN MESSAGEFORMAT IS A SINGLE APOSTROPHE CHARACTER, '.
+  //PRECEDE APOSTROPHES WITH ANOTHER APOSTROPHE TO DISPLAY ONE QUOTE TO THE USER. 
   
   //CLAN TOWER  (Formatted in accordance to MessageFormat class)
   public static String CLAN_CONCEDED__TITLE = "{0} has forfeited the {2} to {1}.";
@@ -77,10 +86,40 @@ public class NotificationConstants {
   public static final String LEADERBOARD_EVENT_ENDED_GLOBAL_SUBTITLE = "{0} has won the grand prize.";
       
   //LEADERBOARD EVENT (TOURNAMENT) ENDED, MESSAGE FOR INDIVIDUALS THAT ARE ONLINE
-  public static final String LEADERBOARD_EVENT_ENDED_INDIVIDUAL_ONLINE_TITLE = "You made it into the tournament\'s top {0}!";
+  public static final String LEADERBOARD_EVENT_ENDED_INDIVIDUAL_ONLINE_TITLE = "You made it into the tournament''s top {0}!";
   public static final String LEADERBOARD_EVENT_ENDED_INDIVIDUAL_ONLINE_SUBTITLE = "You have been awarded {1} gold.";
   
   //LEADERBOARD EVENT (TOURNAMENT) ENDED, MESSAGE FOR INDIVIDUALS THAT ARE OFFLINE
   public static final String LEADERBOARD_EVENT_ENDED_INDIVIDUAL_OFFLINE_TITLE = "The tournament ended.";
   public static final String LEADERBOARD_EVENT_ENDED_INDIVIDUAL_OFFLINE_SUBTITLE = " You were in the top {0} and won {1} gold!";
+  
+  
+  //FLAVOR TEXT FOR CLAN ATTACKING A TOWER
+  public static String ATTACKING_CLAN__TITLE_APNS = "Your clan is waging war on {0} for the {1}!"; 
+  public static final String[] ATTACKING_CLAN__SUBTITLE_APNS =  {
+    "Fight! Come on, do you want to live forever?!",
+    "By the power of Greyskull, YOU have the power! Attack!",
+    "Tulta munille!",
+    "CHARGE!",
+    "Hit''em hard and hit''em fast!",
+    "Attack them! Leeeroy Jennnkins!"
+  };
+  
+  //FLAVOR TEXT FOR CLAN DEFENDING A TOWER
+  public static String DEFENDING_CLAN__TITLE_APNS = "{0} is waging war against your clan for the {1}!";
+  public static final String[] DEFENDING_CLAN__SUBTITLE_APNS = {
+    "Strike back! This is where we fight! This is where they die!",
+    "Red alert! Man your battle station!",
+    "Eos oportet delenda est!",
+    "Wipe them out!",
+    "Counterattack! Today is a good day, for them, to die!",
+    "Suit up! Attack!"
+  };
+
+  //USER REQUESTED TO JOIN A CLAN
+  public static final String REQUEST_TO_JOIN_A_CLAN__TITLE = "Level {0} {1} wants to join your clan!";
+  public static final String REQUEST_TO_JOIN_A_CLAN__SUBTITLE = "See if {1} is worthy.";
+
+  //THE ESCAPE CHARACTER IN MESSAGEFORMAT IS A SINGLE APOSTROPHE CHARACTER, '.
+  //PRECEDE APOSTROPHES WITH ANOTHER APOSTROPHE TO DISPLAY ONE QUOTE TO THE USER. 
 }
