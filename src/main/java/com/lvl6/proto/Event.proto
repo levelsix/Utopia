@@ -382,6 +382,7 @@ message StartupResponseProto {
 			optional string filtersNibName = 6;
 			optional string blacksmithNibName = 7;
 			optional string goldShoppeNibName = 8;
+			optional string bossEventNibName = 9;
 		}
 		
 		message ThreeCardMonteConstants {
