@@ -59,8 +59,8 @@ public interface UpdateUtil {
    * changin orientation
    */
   @Caching(evict = {
-      @CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
-      @CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
+      //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
+      //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
       @CacheEvict(value = "specificUserStruct", key = "#userStructId") })
   public abstract boolean updateUserStructOrientation(int userStructId,
       StructOrientation orientation);
@@ -83,8 +83,8 @@ public interface UpdateUtil {
    * used for updating last retrieved and/or last upgrade user struct time and is_complete
    */
   @Caching(evict = {
-      @CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
-      @CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
+      //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
+      //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
       @CacheEvict(value = "specificUserStruct", key = "#userStructId") })
   public abstract boolean updateUserStructLastretrievedIscompleteLevelchange(
       int userStructId, Timestamp lastRetrievedTime, boolean isComplete,
@@ -100,8 +100,8 @@ public interface UpdateUtil {
    * used for updating last retrieved and/or last upgrade user struct time and is_complete
    */
   @Caching(evict = {
-      @CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
-      @CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
+      //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
+      //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
       @CacheEvict(value = "specificUserStruct", key = "#userStructId") })
   public abstract boolean updateUserStructLastretrievedLastupgradeIscomplete(
       int userStructId, Timestamp lastRetrievedTime,
@@ -111,8 +111,8 @@ public interface UpdateUtil {
    * used for updating last retrieved user struct times
    */
   @Caching(evict = {
-      @CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
-      @CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
+      //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
+      //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
       @CacheEvict(value = "specificUserStruct", key = "#userStructId") })
   public abstract boolean updateUserStructsLastretrieved(
       Map<Integer, Timestamp> userStructIdsToLastRetrievedTime,
@@ -122,8 +122,8 @@ public interface UpdateUtil {
    * used for upgrading user structs level
    */
   @Caching(evict = {
-      @CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
-      @CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
+      //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
+      //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
       @CacheEvict(value = "specificUserStruct", key = "#userStructId") })
   public abstract boolean updateUserStructLevel(int userStructId,
       int levelChange);
@@ -132,8 +132,8 @@ public interface UpdateUtil {
    * used for moving user structs
    */
   @Caching(evict = {
-      @CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
-      @CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
+      //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
+      //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
       @CacheEvict(value = "specificUserStruct", key = "#userStructId") })
   public abstract boolean updateUserStructCoord(int userStructId,
       CoordinatePair coordinates);

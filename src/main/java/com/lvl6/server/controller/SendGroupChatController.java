@@ -3,6 +3,7 @@ package com.lvl6.server.controller;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -30,6 +31,7 @@ import com.lvl6.proto.InfoProto.GroupChatMessageProto;
 import com.lvl6.proto.InfoProto.GroupChatScope;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.rarechange.BannedUserRetrieveUtils;
 import com.lvl6.server.EventWriter;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
@@ -247,6 +249,13 @@ public class SendGroupChatController extends EventController {
 					+ ControllerConstants.SEND_GROUP_CHAT__MAX_LENGTH_OF_CHAT_STRING + ", length is "
 					+ chatMessage.length() + ", chatMessage is " + chatMessage);
 			return false;
+		}
+		
+		Set<Integer> banned = BannedUserRetrieveUtils.getAllBannedUsers();
+		if(banned.contains(user.getId())) {
+		  resBuilder.setStatus(SendGroupChatStatus.BANNED);
+		  log.warn("banned user tried to send a post. user=" + user);
+		  return false;
 		}
 
 		resBuilder.setStatus(SendGroupChatStatus.SUCCESS);

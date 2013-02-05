@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.PlayerWallPostProto;
 import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.rarechange.BannedUserRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
@@ -142,6 +144,12 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       log.error("wall post is too long. content length is " + content.length() 
           +", max post length=" + ControllerConstants.POST_ON_PLAYER_WALL__MAX_CHAR_LENGTH 
           + ", posterId " + posterId + " tries to post on wall with owner " + wallOwnerId);
+      return false;
+    }
+    Set<Integer> banned = BannedUserRetrieveUtils.getAllBannedUsers();
+    if(null != banned && banned.contains(posterId)) {
+      resBuilder.setStatus(PostOnPlayerWallStatus.BANNED);
+      log.warn("banned user tried to send a post. posterId=" + posterId);
       return false;
     }
     resBuilder.setStatus(PostOnPlayerWallStatus.SUCCESS);

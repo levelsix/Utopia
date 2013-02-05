@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.slf4j.*;
-import org.springframework.cache.annotation.Cacheable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +26,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
   private final String TABLE_NAME = DBConstants.TABLE_USER_EQUIP;
 
 
-  @Cacheable(value="userEquipsForUser", key="#userId")
+  //@Cacheable(value="userEquipsForUser", key="#userId")
   public List<UserEquip> getUserEquipsForUser(int userId) {
     log.debug("retrieving user equips for userId " + userId);
 
@@ -37,7 +37,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     return userEquips;
   }
 
-  @Cacheable(value="equipsToUserEquipsForUser", key="#userId")
+  //@Cacheable(value="equipsToUserEquipsForUser", key="#userId")
   public Map<Integer, List<UserEquip>> getEquipIdsToUserEquipsForUser(int userId) {
     log.debug("retrieving map of equip id to userequips for userId " + userId);
 
@@ -48,7 +48,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     return equipIdsToUserEquips;
   }
 
-  @Cacheable(value="specificUserEquip", key="#userEquipId")
+  //@Cacheable(value="specificUserEquip", key="#userEquipId")
   public UserEquip getSpecificUserEquip(int userEquipId) {
     log.debug("retrieving user equip for userEquipId: " + userEquipId);
 
@@ -82,7 +82,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     return userEquips;
   }
 
-  @Cacheable(value="userEquipsWithEquipId", key="#userId+':'+#equipId")
+  //@Cacheable(value="userEquipsWithEquipId", key="#userId+':'+#equipId")
   public List<UserEquip> getUserEquipsWithEquipId(int userId, int equipId) {
     log.debug("retrieving user equip for user: " + userId + ", equipId: " + equipId);
 

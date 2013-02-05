@@ -1615,6 +1615,7 @@ message PostOnPlayerWallResponseProto {
      	NO_CONTENT_SENT = 1;
      	POST_TOO_LARGE = 2;
      	OTHER_FAIL = 3;
+     	BANNED = 4;
 	}
 }
 
@@ -1876,6 +1877,7 @@ message SendGroupChatResponseProto {
 		NOT_ENOUGH_GROUP_CHATS = 2;
 		TOO_LONG = 3;
 		OTHER_FAIL = 4;
+		BANNED = 5;
 	}
 }
 

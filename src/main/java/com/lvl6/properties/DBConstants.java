@@ -80,6 +80,8 @@ public class DBConstants {
   public static final String TABLE_BOOSTER_ITEM = "booster_item";
   public static final String TABLE_USER_BOOSTER_ITEMS = "user_booster_items";
   
+  public static final String TABLE_BANNED_USER = "banned_user";
+  
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
   public static final String GENERIC__ID = "id";
