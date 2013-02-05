@@ -681,7 +681,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int attackerPreviousSilver, int defenderPreviousSilver) {
     try {
       if(null != winner) {
-        int amount = 2;
         int isSilver = 1;
         String silver = MiscMethods.silver;
         int attackerSilverChange = 0;
@@ -698,32 +697,46 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         String lost = ControllerConstants.UCHRFC__BATTLE_LOST;
 
         List<Integer> userIds = new ArrayList<Integer>();
-        List<Timestamp> dates = new ArrayList<Timestamp>(Collections.nCopies(amount, date));
-        List<Integer> areSilver = new ArrayList<Integer>(Collections.nCopies(amount, isSilver));
+        List<Timestamp> dates = new ArrayList<Timestamp>();
+        List<Integer> areSilver = new ArrayList<Integer>();
         List<Integer> currenciesChange = new ArrayList<Integer>();
         List<Integer> currenciesBefore = new ArrayList<Integer>();
         List<Integer> currentCurrencies = new ArrayList<Integer>();
         List<String> reasonsForChanges = new ArrayList<String>();
 
-        userIds.add(attacker.getId());
-        currenciesChange.add(attackerSilverChange);
-        currenciesBefore.add(attackerPreviousSilver);
-        currentCurrencies.add(attackerCurrentSilver);
+        boolean attackerWon = winner == attacker;
 
-        userIds.add(defender.getId());
-        currenciesChange.add(defenderSilverChange);
-        currenciesBefore.add(defenderPreviousSilver);
-        currentCurrencies.add(defenderCurrentSilver);
-        if (winner == attacker) {
-          reasonsForChanges.add(won);
-          reasonsForChanges.add(lost);
-        } else {
-          reasonsForChanges.add(lost);
-          reasonsForChanges.add(won);
+        if (0 != attackerSilverChange) {
+          userIds.add(attacker.getId());
+          dates.add(date);
+          areSilver.add(isSilver);
+          currenciesChange.add(attackerSilverChange);
+          currenciesBefore.add(attackerPreviousSilver);
+          currentCurrencies.add(attackerCurrentSilver);
+          if(attackerWon) {
+            reasonsForChanges.add(won);
+          } else {
+            reasonsForChanges.add(lost);
+          }
         }
-
-        InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates, areSilver,
-            currenciesChange, currenciesBefore, currentCurrencies, reasonsForChanges);
+        if (0 != defenderSilverChange) {
+          userIds.add(defender.getId());
+          dates.add(date);
+          areSilver.add(isSilver);
+          currenciesChange.add(defenderSilverChange);
+          currenciesBefore.add(defenderPreviousSilver);
+          currentCurrencies.add(defenderCurrentSilver);
+          if (attackerWon) {
+            reasonsForChanges.add(lost);
+          } else {
+            reasonsForChanges.add(won);
+          }
+        }
+        
+        if(!userIds.isEmpty()) {
+          InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates, areSilver,
+              currenciesChange, currenciesBefore, currentCurrencies, reasonsForChanges);
+        }
       } 
     } catch(Exception e) {
       log.error("can't write into user_currency_history", e);
