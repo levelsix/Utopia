@@ -20,8 +20,8 @@ public interface DeleteUtil {
 	public abstract boolean deleteMarketplacePost(int mpId);
 
 	@Caching(evict = {
-			@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
-			@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
+			//@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
+			//@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
 			@CacheEvict(value = "specificUserStruct", key = "#userStructId") })
 	public abstract boolean deleteUserStruct(int userStructId);
 	

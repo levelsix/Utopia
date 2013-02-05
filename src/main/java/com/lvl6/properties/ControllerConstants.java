@@ -171,7 +171,7 @@ public class ControllerConstants {
   public static final int STARTUP__BLACKSMITH_MIN_LEVEL = 10;
   public static final int STARTUP__LEADERBOARD_MIN_LEVEL = 1;
   public static final int STARTUP__ENHANCING_MIN_LEVEL_TO_UNLOCK = 20; 
-  public static final boolean STARTUP__USE_OLD_BATTLE_FORMULA = false;
+  public static final boolean STARTUP__USE_OLD_BATTLE_FORMULA = true;
   
   //ARMORY
   public static final double ARMORY__SELL_RATIO = 0.15;
@@ -388,11 +388,11 @@ public class ControllerConstants {
   public static final int CREATE_CLAN__INITIAL_CLAN_LEVEL = 1;
   
   //THREE CARD MONTE
-  public static final int THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY = 20;
+  public static final int THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY = 10;
   public static final int THREE_CARD_MONTE__MIN_LEVEL = 5;
-  public static final float THREE_CARD_MONTE__BAD_PERCENTAGE = 0.55f;
-  public static final float THREE_CARD_MONTE__MEDIUM_PERCENTAGE = 0.25f;
-  public static final float THREE_CARD_MONTE__GOOD_PERCENTAGE = 0.2f;
+  public static final float THREE_CARD_MONTE__BAD_PERCENTAGE = 0.63f;
+  public static final float THREE_CARD_MONTE__MEDIUM_PERCENTAGE = 0.35f;
+  public static final float THREE_CARD_MONTE__GOOD_PERCENTAGE = 0.02f;
   
   //GOLDMINE
   public static final int GOLDMINE__NUM_HOURS_BEFORE_RETRIEVAL = 11;
@@ -532,7 +532,7 @@ public class ControllerConstants {
   public static final String NIB_NAME__GOLD_MINE = "GoldMine.2";
   public static final String NIB_NAME__EXPANSION = "Expansion.2";
   public static final String NIB_NAME__MARKET_FILTERS = "MarketplaceFilters.2";
-  public static final String NIB_NAME__BLACKSMITH = "Blacksmith.3";
+  public static final String NIB_NAME__BLACKSMITH = "Blacksmith.4";
   public static final String NIB_NAME__GOLD_SHOPPE = "GoldShoppe.3";
   
   public static final int IDDICTION__EQUIP_ID = 282;

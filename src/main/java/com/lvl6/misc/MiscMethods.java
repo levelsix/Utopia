@@ -1225,6 +1225,7 @@ public class MiscMethods {
     }
   }
   
+
   //goldSilverChange should represent how much user's silver and, or gold increased or decreased and
   //this should be called after the user is updated
   //only previousGoldSilver can be null.
@@ -1373,26 +1374,26 @@ public class MiscMethods {
   }
 
   public static int calculateCostToSpeedUpEnhancing(EquipEnhancement e, List<EquipEnhancementFeeder> feeder,
-      Timestamp timeOfSpeedUp) {
-    int mins = calculateMinutesToFinishEnhancing(e, feeder);
-    int result = (int)Math.ceil(((float)mins)/ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
+	      Timestamp timeOfSpeedUp) {
+	    int mins = calculateMinutesToFinishEnhancing(e, feeder);
+	    int result = (int)Math.ceil(((float)mins)/ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
 
-    //    log.info("diamonds="+result);
-    return result;
-  }
+	    // log.info("diamonds="+result);
+	    return result;
+	  }
 
-  public static int pointsGainedForClanTowerUserBattle(User winner, User loser) {
-    int d = winner.getLevel()-loser.getLevel();
-    int pts;
-    if (d > 10) {
-      pts = 1;
-    } else if (d < -8) {
-      pts = 100;
-    } else {
-      pts = (int)Math.round((-0.0006*Math.pow(d, 5)+0.0601*Math.pow(d, 4)-0.779*Math.pow(d, 3)
-          +2.4946*Math.pow(d, 2)-9.7046*d+89.905)/10.);
-    }
-    log.info(pts+" diff:"+d);
-    return Math.min(100, Math.max(1, pts));
-  }
-}
+	  public static int pointsGainedForClanTowerUserBattle(User winner, User loser) {
+	    int d = winner.getLevel()-loser.getLevel();
+	    int pts;
+	    if (d > 10) {
+	      pts = 1;
+	    } else if (d < -8) {
+	      pts = 100;
+	    } else {
+	      pts = (int)Math.round((-0.0006*Math.pow(d, 5)+0.0601*Math.pow(d, 4)-0.779*Math.pow(d, 3)
+	          +2.4946*Math.pow(d, 2)-9.7046*d+89.905)/10.);
+	    }
+	    log.info(pts+" diff:"+d);
+	    return Math.min(100, Math.max(1, pts));
+	  }
+	}
