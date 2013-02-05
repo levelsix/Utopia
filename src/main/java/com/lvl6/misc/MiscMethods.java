@@ -80,6 +80,7 @@ import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.BannedUserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterPackRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossEventRetrieveUtils;
@@ -705,6 +706,7 @@ public class MiscMethods {
     ProfanityRetrieveUtils.reload();
     BoosterPackRetrieveUtils.reload();
     BoosterItemRetrieveUtils.reload();
+    BannedUserRetrieveUtils.reload();
   }
 
   public static UserType getUserTypeFromDefeatTypeJobUserType(
