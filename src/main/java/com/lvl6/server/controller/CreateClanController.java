@@ -85,7 +85,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     CreateClanResponseProto.Builder resBuilder = CreateClanResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       Timestamp createTime = new Timestamp(new Date().getTime());
@@ -126,7 +126,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     } catch (Exception e) {
       log.error("exception in CreateClan processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     }
   }
 
@@ -197,21 +197,9 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   }
   
   private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
-    try {
-      if(money.isEmpty()) {
-        return;
-      }
-      int userId = aUser.getId();
-      int isSilver = 0;
-      int currencyChange = money.get(MiscMethods.gold);
-      int currencyBefore = aUser.getDiamonds() - currencyChange;
-      String reasonForChange = ControllerConstants.UCHRFC__CREATE_CLAN;
-      int inserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver,
-          currencyChange, currencyBefore, reasonForChange);
-
-      log.info("Should be 1. Rows inserted into user_currency_history: " + inserted);
-    } catch (Exception e) {
-      log.error("Maybe table's not there or duplicate keys? " + e.toString());
-    }
+    Map<String, Integer> previousGoldSilver = null;
+    String reasonForChange = ControllerConstants.UCHRFC__CREATE_CLAN;
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonForChange);
   }
 }

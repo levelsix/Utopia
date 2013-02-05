@@ -3,8 +3,6 @@ package com.lvl6.retrieveutils.rarechange;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,9 +25,9 @@ import com.lvl6.utils.DBConnection;
 
   private static final String TABLE_NAME = DBConstants.TABLE_LEADERBOARD_EVENTS;
 
-  public static Map<Integer, LeaderboardEvent> getIdsToLeaderboardEvents() {
+  public static Map<Integer, LeaderboardEvent> getIdsToLeaderboardEvents(Boolean reloadStaticData) {
     log.debug("retrieving leaderboard event data");
-    if (idsToLeaderBoardEvents == null) {
+    if (idsToLeaderBoardEvents == null || reloadStaticData) {
       setStaticIdsToLeaderboardEvents();
     }
     return idsToLeaderBoardEvents;

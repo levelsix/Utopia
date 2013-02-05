@@ -52,7 +52,7 @@ import com.lvl6.utils.RetrieveUtils;
     resBuilder.setSender(senderProto);
     resBuilder.setStatus(UserQuestDetailsStatus.SUCCESS);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       List<UserQuest> questsToCheck = null;
       if (questId > 0) {
@@ -80,7 +80,7 @@ import com.lvl6.utils.RetrieveUtils;
       log.error("exception in UserQuestDetailsController processEvent", e);
     } finally {
     	log.debug("Unlocking player "+ senderProto.getUserId());
-      server.unlockPlayer(senderProto.getUserId()); 
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName()); 
     }
   }
 

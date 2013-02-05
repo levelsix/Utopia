@@ -62,7 +62,7 @@ import com.lvl6.utils.RetrieveUtils;
     CriticalStructureActionResponseProto.Builder resBuilder = CriticalStructureActionResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
@@ -80,7 +80,7 @@ import com.lvl6.utils.RetrieveUtils;
     } catch (Exception e) {
       log.error("exception in CriticalStructureAction processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());      
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
     }
   }
 

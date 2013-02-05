@@ -1,11 +1,8 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -31,7 +28,6 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
@@ -42,9 +38,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   public FinishNormStructWaittimeWithDiamondsController() {
     numAllocatedThreads = 2;
   }
-  
-  public static String silver = "silver";
-  public static String gold = "gold";
   
   @Override
   public RequestEvent createRequestEvent() {
@@ -69,7 +62,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     FinishNormStructWaittimeWithDiamondsResponseProto.Builder resBuilder = FinishNormStructWaittimeWithDiamondsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());      
@@ -103,7 +96,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } catch (Exception e) {
       log.error("exception in FinishNormStructWaittimeWithDiamondsController processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());      
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
     }
   }
 
@@ -117,8 +110,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         if (!UpdateUtils.get().updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), timeOfPurchase, null, true)) {
           log.error("problem with using diamonds to finish norm struct build");
         }
-        money.put(gold, goldCost);
-        money.put(silver, null);
+        money.put(MiscMethods.gold, goldCost);
       }
     }
     if (waitTimeType == NormStructWaitTimeType.FINISH_INCOME_WAITTIME) {
@@ -130,8 +122,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         if (!UpdateUtils.get().updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), timeOfPurchase, null, true)) {
           log.error("problem with using diamonds to finish norm struct income waittime");
         }
-        money.put(gold, goldCost);
-        money.put(silver, silverCost);
+        money.put(MiscMethods.gold, goldCost);
+        money.put(MiscMethods.silver, silverCost);
       }
     }
     if (waitTimeType == NormStructWaitTimeType.FINISH_UPGRADE) {
@@ -142,8 +134,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         if (!UpdateUtils.get().updateUserStructLastretrievedIscompleteLevelchange(userStruct.getId(), timeOfPurchase, true, 1)) {
           log.error("problem with using diamodns to finish upgrade waittime");
         }
-        money.put(gold, goldCost);
-        money.put(silver, null);
+        money.put(MiscMethods.gold, goldCost);
       }
     }
   }
@@ -204,27 +195,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   public void writeToUserCurrencyHistory(User aUser, Timestamp timeOfPurchase, Map<String, Integer> money) {
-    try {
-      int amount = money.size();
-      String reasonForChange = ControllerConstants.UCHRFC__FINISH_NORM_STRUCT;
-      
-      int numInserted = 0;
-      if(2 == amount) {
-        Map<String, Integer> previousGoldSilver = null;
-        MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, timeOfPurchase, 
-            money, previousGoldSilver, reasonForChange);
-      } else if (1 == amount) {
-        int userId = aUser.getId();
-        int isSilver = 0;
-        int currencyChange = money.get(gold);
-        int currencyBefore = aUser.getDiamonds() - currencyChange;
-        
-        numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, timeOfPurchase, isSilver, 
-            currencyChange, currencyBefore, reasonForChange);
-        log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
-      }
-    } catch (Exception e) {
-      log.error("Maybe table's not there or duplicate keys? " + e.toString());
-    }
+    Map<String, Integer> previousGoldSilver = null;
+    String reasonForChange = ControllerConstants.UCHRFC__FINISH_NORM_STRUCT;
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, timeOfPurchase, money,
+        previousGoldSilver, reasonForChange);
   }
 }

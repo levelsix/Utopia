@@ -9,7 +9,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +25,8 @@ import com.lvl6.utils.DBConnection;
 
   private static final String TABLE_NAME = DBConstants.TABLE_CLANS;
 
+  
+  @Cacheable(value="clanWithId", key="#clanId")
   public static Clan getClanWithId(int clanId) {
     log.debug("retrieving clan with id " + clanId);
     

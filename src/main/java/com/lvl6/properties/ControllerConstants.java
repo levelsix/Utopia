@@ -238,7 +238,7 @@ public class ControllerConstants {
   public static final double VAULT__DEPOSIT_PERCENT_CUT = 0.1;
   
   //REFILL STAT WITH DIAMONDS
-  public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL = 20;
+  public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL = 10;
   public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL = 10;
 
   //LOAD PLAYER CITY
@@ -268,7 +268,7 @@ public class ControllerConstants {
   
   //LEVEL UP
   public static final int LEVEL_UP__SKILL_POINTS_GAINED = 3;
-  public static final int LEVEL_UP__MAX_LEVEL_FOR_USER = 70; //add level up equipment for fake players if increasing
+  public static final int LEVEL_UP__MAX_LEVEL_FOR_USER = 100; //add level up equipment for fake players if increasing
 //  public static final double LEVEL_UP_HEALTH_GAINED = 5.0;
   public static final double LEVEL_UP_ATTACK_GAINED = 2.0;
   public static final double LEVEL_UP_DEFENSE_GAINED = 2.0;
@@ -281,6 +281,9 @@ public class ControllerConstants {
     34,34,34,34,34, 34,34,34,34,34,
     287,287,287,287,287, 287,287,287,287,287,
     365,365,365,365,365, 365,365,365,365,365,
+    365,365,365,365,365, 365,365,365,365,365,
+    365,365,365,365,365, 365,365,365,365,365,
+    365,365,365,365,365, 365,365,365,365,365,
     365,365,365,365,365, 365,365,365,365,365};
   public static final int[] WARRIOR_ARMOR_ID_LEVEL = 
     {41,41,41,43,43, 44,44,45,45,45, 
@@ -288,6 +291,9 @@ public class ControllerConstants {
     71,71,72,72,72, 76,76,76,77,77,
     77,77,77,77,77, 77,77,77,77,77,
     292,292,292,292,292, 292,292,292,292,292,
+    370,370,370,370,370, 370,370,370,370,370,
+    370,370,370,370,370, 370,370,370,370,370,
+    370,370,370,370,370, 370,370,370,370,370,
     370,370,370,370,370, 370,370,370,370,370,
     370,370,370,370,370, 370,370,370,370,370};
   public static final int[] ARCHER_WEAPON_ID_LEVEL = 
@@ -297,6 +303,9 @@ public class ControllerConstants {
     153,153,153,153,153, 153,153,153,153,153,
     304,304,304,304,304, 304,304,304,304,304,
     381,381,381,381,381, 381,381,381,381,381,
+    381,381,381,381,381, 381,381,381,381,381,
+    381,381,381,381,381, 381,381,381,381,381,
+    381,381,381,381,381, 381,381,381,381,381,
     381,381,381,381,381, 381,381,381,381,381};
   public static final int[] ARCHER_ARMOR_ID_LEVEL = 
     {159,159,159,161,161, 162,162,162,163,163, 
@@ -304,6 +313,9 @@ public class ControllerConstants {
     174,174,175,175,175, 179,179,179,180,180,      
     180,180,180,180,180, 180,180,180,180,180,
     309,309,309,309,309, 309,309,309,309,309,
+    386,386,386,386,386, 386,386,386,386,386,
+    386,386,386,386,386, 386,386,386,386,386,
+    386,386,386,386,386, 386,386,386,386,386,
     386,386,386,386,386, 386,386,386,386,386,
     386,386,386,386,386, 386,386,386,386,386};
   public static final int[] MAGE_WEAPON_ID_LEVEL = 
@@ -313,6 +325,9 @@ public class ControllerConstants {
     218,218,218,218,218, 218,218,218,218,218,
     316,316,316,316,316, 316,316,316,316,316,
     392,392,392,392,392, 392,392,392,392,392,
+    392,392,392,392,392, 392,392,392,392,392,
+    392,392,392,392,392, 392,392,392,392,392,
+    392,392,392,392,392, 392,392,392,392,392,
     392,392,392,392,392, 392,392,392,392,392};
   public static final int[] MAGE_ARMOR_ID_LEVEL = 
     {224,224,224,226,226, 227,227,227,228,228, 
@@ -321,6 +336,9 @@ public class ControllerConstants {
     245,245,245,245,245, 245,245,245,245,245,
     321,321,321,321,321, 321,321,321,321,321,
     397,397,397,397,397, 397,397,397,397,397,
+    397,397,397,397,397, 397,397,397,397,397,
+    397,397,397,397,397, 397,397,397,397,397,
+    397,397,397,397,397, 397,397,397,397,397,
     397,397,397,397,397, 397,397,397,397,397};
   public static final int[] ALL_CHARACTERS_EQUIP_LEVEL = 
     {250,250,250,251,252, 254,254,255,255,256,
@@ -328,6 +346,9 @@ public class ControllerConstants {
     270,270,271,271,272, 276,276,276,277,277,
     277,277,277,277,277, 277,277,277,277,277,
     297,297,297,297,297, 297,297,297,297,297,
+    375,375,375,375,375, 375,375,375,375,375,
+    375,375,375,375,375, 375,375,375,375,375,
+    375,375,375,375,375, 375,375,375,375,375,
     375,375,375,375,375, 375,375,375,375,375,
     375,375,375,375,375, 375,375,375,375,375};
   
@@ -346,6 +367,7 @@ public class ControllerConstants {
   //LEADERBOARD
   public static final int LEADERBOARD__MIN_BATTLES_REQUIRED_FOR_KDR_CONSIDERATION = 100;
   public static final int LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE = 15;
+  public static final int LEADERBOARD_EVENT__MAX_PLAYERS_SENT_AT_ONCE = 200;
   
   //SEND GROUP CHAT
   public static final int SEND_GROUP_CHAT__MAX_LENGTH_OF_CHAT_STRING = 200;
@@ -363,11 +385,11 @@ public class ControllerConstants {
   public static final int CREATE_CLAN__INITIAL_CLAN_LEVEL = 1;
   
   //THREE CARD MONTE
-  public static final int THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY = 20;
+  public static final int THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY = 10;
   public static final int THREE_CARD_MONTE__MIN_LEVEL = 5;
-  public static final float THREE_CARD_MONTE__BAD_PERCENTAGE = 0.55f;
-  public static final float THREE_CARD_MONTE__MEDIUM_PERCENTAGE = 0.25f;
-  public static final float THREE_CARD_MONTE__GOOD_PERCENTAGE = 0.2f;
+  public static final float THREE_CARD_MONTE__BAD_PERCENTAGE = 0.63f;
+  public static final float THREE_CARD_MONTE__MEDIUM_PERCENTAGE = 0.35f;
+  public static final float THREE_CARD_MONTE__GOOD_PERCENTAGE = 0.02f;
   
   //GOLDMINE
   public static final int GOLDMINE__NUM_HOURS_BEFORE_RETRIEVAL = 11;
@@ -394,7 +416,7 @@ public class ControllerConstants {
   public static final int LEVEL_TO_SHOW_RATE_US_POPUP = 8;
   
   //CLAN TOWER
-  public static final int MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER = 5;
+  public static final int MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER = 25;
   
   //LEADERBOARD EVENT
   public static final int LEADERBOARD_EVENT__WINS_WEIGHT = 2;
@@ -410,7 +432,7 @@ public class ControllerConstants {
   public static final String UCHRFC__LONG_MARKET_PLACE_LICENSE = "purchased long market place license";
   public static final String UCHRFC__GROUP_CHAT = "purchased group chat"; //is controller for this even used?
   public static final String UCHRFC__BOSS_ACTION = "boss action";
-  public static final String UCHRFC__REFILL_STAT = "refill stat, energy or stamina";
+  public static final String UCHRFC__REFILL_STAT = "refilled stat: ";
   public static final String UCHRFC__FINISH_NORM_STRUCT = "finish construction or income wait time";
   public static final String UCHRFC__UPGRADE_NORM_STRUCT = "upgraded norm struct";
   public static final String UCHRFC__SELL_NORM_STRUCT = "sell norm struct";

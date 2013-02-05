@@ -58,7 +58,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     PlayThreeCardMonteResponseProto.Builder resBuilder = PlayThreeCardMonteResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       MonteCard card = ThreeCardMonteRetrieveUtils.getMonteCardIdsToMonteCards().get(reqProto.getCardId());
@@ -104,7 +104,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     } catch (Exception e) {
       log.error("exception in PlayThreeCardMonte processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     }
   }
 
@@ -134,18 +134,21 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         0, changeNumPostsInMarketplace)) {
       log.error("problem with changing user's diamonds/coins");
     } else {
-      money.put(MiscMethods.gold, diamondsChange);
-      money.put(MiscMethods.silver, coinsGained);
+      if (0 != diamondsChange) {
+        money.put(MiscMethods.gold, diamondsChange);
+      }
+      if (0 != coinsGained) {
+        money.put(MiscMethods.silver, coinsGained);
+      }
     }
   }
   
   public void writeToUserCurrencyHistory(User aUser, Map<String, Integer> money) {
     Timestamp date = new Timestamp((new Date()).getTime());
-
     Map<String, Integer> previousGoldSilver = null;
     String reasonForChange = ControllerConstants.UCHRFC__PLAY_THREE_CARD_MONTE;
     
-    MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, date, money,
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money,
         previousGoldSilver, reasonForChange);
   }
 }

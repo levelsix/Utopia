@@ -62,7 +62,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     FinishForgeAttemptWaittimeWithDiamondsResponseProto.Builder resBuilder = FinishForgeAttemptWaittimeWithDiamondsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
@@ -90,7 +90,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } catch (Exception e) {
       log.error("exception in FinishForgeAttemptWaittimeWithDiamondsController processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());      
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
     }
   }
 
@@ -157,21 +157,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   public void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
-    try {
-      if(money.isEmpty()) {
-        return;
-      }
-      int userId = aUser.getId();
-      int isSilver = 0;
-      int currencyChange = money.get(MiscMethods.gold);
-      int currencyBefore = aUser.getDiamonds() - currencyChange;
-      String reasonForChange = ControllerConstants.UCHRFC__FINISH_FORGE_ATTEMPT_WAIT_TIME;
-      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver, 
-          currencyChange, currencyBefore, reasonForChange);
-      log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
-    } catch (Exception e) {
-      log.error("Maybe table's not there or duplicate keys? " + e.toString());
-    }
+    Map<String, Integer> previousGoldSilver = null;
+    String reasonForChange = ControllerConstants.UCHRFC__FINISH_FORGE_ATTEMPT_WAIT_TIME;
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonForChange);
   }
   
 }

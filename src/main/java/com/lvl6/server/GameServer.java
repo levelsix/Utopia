@@ -27,12 +27,13 @@ import com.lvl6.properties.Globals;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.ConnectedPlayer;
+import com.lvl6.utils.PlayerInAction;
 import com.lvl6.utils.PlayerSet;
 
 public class GameServer implements InitializingBean, HazelcastInstanceAware {
 
 	private static final int LOCK_TIMEOUT = 10000;
-	public static int LOCK_WAIT_SECONDS = 60;
+	public static int LOCK_WAIT_SECONDS = 10;
 
 	
 	private static final Logger log = LoggerFactory.getLogger(GameServer.class);
@@ -287,14 +288,15 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware {
 	  try {
 	    String lockName = clanTowersTableLockName();
 	    if(lockMap.isLocked(lockName)) {
-	      lockMap.unlock(lockName);
+	      //TODO: Figure out hazelcast issue with unlock and change this back to unlock
+	    	lockMap.forceUnlock(lockName);
 	    }
 	    log.debug("Unlocked all clan towers");
 	    if (lockMap.containsKey(lockName)) {
 	      lockMap.remove(lockName);
 	    }
 	  } catch (Exception e) {
-	    log.error("Error unlocking all clan towers.");
+	    log.error("Error unlocking all clan towers.", e);
 	  }
 	}
 	
@@ -362,55 +364,65 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware {
 		}
 	}
 
-	public boolean lockPlayer(int playerId) {
-		log.debug("Locking player: " + playerId);
+	public boolean lockPlayer(int playerId, String lockedByClass) {
+		log.info("Locking player {} from class {}", playerId, lockedByClass);
 		// Lock playerLock = hazel.getLock(playersInAction.lockName(playerId));
 		if (lockMap.tryLock(playersInAction.lockName(playerId), LOCK_WAIT_SECONDS, TimeUnit.SECONDS)) {
 			log.debug("Got lock for player " + playerId);
-			playersInAction.addPlayer(playerId);
+			playersInAction.addPlayer(playerId, lockedByClass);
 			return true;
 		} else {
-			log.warn("failed to aquire lock for " + playersInAction.lockName(playerId));
+			log.warn("failed to aquire lock for " + playersInAction.lockName(playerId)+" from class "+lockedByClass);
+			PlayerInAction playa = playersInAction.getPlayerInAction(playerId);
+			if(playa != null) {
+				log.warn("Player {} already locked by class: {}", playerId, playa.getLockedByClass());
+			}
 			throw new RuntimeException("Unable to obtain lock after " + LOCK_WAIT_SECONDS + " seconds");
 		}
 	}
 
-	public boolean lockPlayers(int playerId1, int playerId2) {
+	public boolean lockPlayers(int playerId1, int playerId2, String lockedByClass) {
 		log.info("Locking players: " + playerId1 + ", " + playerId2);
 		if (playerId1 == playerId2) {
-			return lockPlayer(playerId1);
+			return lockPlayer(playerId1, lockedByClass);
 		}
 		if (playerId1 > playerId2) {
-			return lockPlayer(playerId2) && lockPlayer(playerId1);
+			return lockPlayer(playerId2, lockedByClass) && lockPlayer(playerId1, lockedByClass);
 		} else {
-			return lockPlayer(playerId1) && lockPlayer(playerId2);
+			return lockPlayer(playerId1, lockedByClass) && lockPlayer(playerId2, lockedByClass);
 		}
 	}
 
-	public void unlockPlayer(int playerId) {
-		log.debug("Unlocking player: " + playerId);
+	public void unlockPlayer(int playerId, String fromClass) {
+		log.info("Unlocking player: " + playerId+" from class: "+fromClass);
 		// ILock lock = hazel.getLock(playersInAction.lockName(playerId));
 		try {
 			if (lockMap.isLocked(playersInAction.lockName(playerId))) {
-				lockMap.unlock(playersInAction.lockName(playerId));
+				//TODO: temporary hack... should revert back to regular unlock once we figure out the issue with 'Thread not owner of lock'
+				lockMap.forceUnlock(playersInAction.lockName(playerId));
 			}
-			log.debug("Unlocked player " + playerId);
+			log.debug("Unlocked player " + playerId+" from class: "+fromClass);
 			if (playersInAction.containsPlayer(playerId)) {
 				playersInAction.removePlayer(playerId);
 			}
 		} catch (Exception e) {
-			log.error("Error unlocking player " + playerId, e);
+			PlayerInAction playa = playersInAction.getPlayerInAction(playerId);
+			if(playa != null) {
+				log.error("Error unlocking player "+playerId+" from class: "+fromClass+". Locked by class: "+ playa.getLockedByClass(), e);
+			}else {
+				log.error("Error unlocking player " + playerId+" from class: "+fromClass, e);
+			}
 		}
 	}
 
-	public void unlockPlayers(int playerId1, int playerId2) {
-		log.info("Unlocking players: " + playerId1 + ", " + playerId2);
+	public void unlockPlayers(int playerId1, int playerId2, String fromClass) {
+		log.info("Unlocking players: " + playerId1 + ", " + playerId2+" from class: "+fromClass);
 		if (playerId1 > playerId2) {
-			unlockPlayer(playerId2);
-			unlockPlayer(playerId1);
+			unlockPlayer(playerId2, fromClass);
+			unlockPlayer(playerId1, fromClass);
 		} else {
-			unlockPlayer(playerId1);
-			unlockPlayer(playerId2);
+			unlockPlayer(playerId1, fromClass);
+			unlockPlayer(playerId2, fromClass);
 		}
 	}
 

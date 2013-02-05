@@ -83,7 +83,7 @@
 	</bean>
 
 	<rabbit:listener-container
-		connection-factory="amqpConnectionFactory" concurrency="13"
+		connection-factory="amqpConnectionFactory" concurrency="33"
 		error-handler="amqpErrorHandler">
 		<rabbit:listener queues="clientMessages" ref="clientEventHandler"
 			method="onMessage" />

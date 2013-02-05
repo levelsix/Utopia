@@ -76,7 +76,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       return;
     }
 
-    if(server.lockPlayers(sellerId, buyerId)) {
+    if(server.lockPlayers(sellerId, buyerId, this.getClass().getSimpleName())) {
     try {
       MarketplacePost mp = MarketplacePostRetrieveUtils.getSpecificActiveMarketplacePost(postId);
       User buyer = RetrieveUtils.userRetrieveUtils().getUserById(buyerId);
@@ -130,7 +130,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     } catch (Exception e) {
       log.error("exception in PurchaseFromMarketplace processEvent", e);
     } finally {
-      server.unlockPlayers(sellerId, buyerId);      
+      server.unlockPlayers(sellerId, buyerId, this.getClass().getSimpleName());      
     }
     }else {
     	log.warn("Unable to obtain lock in PurchaseFromMarketplaceController");
@@ -242,7 +242,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     return true;
   }
   
-  //only gold changes or silver changes, not both
+  //only gold changes or silver changes, not both, seller doesn't really get the money until seller redeems purchase
   private void writeToUserCurrencyHistory(User buyer, User seller, Timestamp date, Map<String, Integer> moneyBuyer, 
       Map<String, Integer> moneySeller, List<String> goldOrSilverTransaction) {
     if(goldOrSilverTransaction.isEmpty()) {
@@ -263,10 +263,11 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       userIds.add(seller.getId());
       
       int buyerCurrencyChange = moneyBuyer.get(goldOrSilver);
-      int sellerCurrencyChange = moneySeller.get(goldOrSilver);
+      //int sellerCurrencyChange = moneySeller.get(goldOrSilver);
+      int sellerCurrencyChange = 0; //the change occurs when the person redeems the purchase
       
       
-      if(MiscMethods.gold == goldOrSilver) {
+      if(goldOrSilver.equals(MiscMethods.gold)) {
         //not a silver change but gold change
         areSilver = new ArrayList<Integer>(Collections.nCopies(amount, 0));
         
@@ -285,14 +286,14 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       
       currenciesChange.add(buyerCurrencyChange);
       currenciesChange.add(sellerCurrencyChange);
-      reasonsForChanges.add(ControllerConstants.UCHRFC__SOLD_ITEM_ON_MARKETPLACE); //buyer reason
-      reasonsForChanges.add(ControllerConstants.UCHRFC__PURCHASED_FROM_MARKETPLACE); //seller reason
+      reasonsForChanges.add(ControllerConstants.UCHRFC__PURCHASED_FROM_MARKETPLACE); //buyer reason
+      reasonsForChanges.add(ControllerConstants.UCHRFC__SOLD_ITEM_ON_MARKETPLACE); //seller reason
 
       int numInserted = InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates, areSilver,
           currenciesChange, currenciesBefore, reasonsForChanges);
       log.info("Should be 2. Rows inserted into user_currency_history: " + numInserted);
     } catch (Exception e) {
-      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+      log.error("Maybe table's not there or duplicate keys? ", e);
     }
     
   }

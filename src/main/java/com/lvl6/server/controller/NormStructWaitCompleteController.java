@@ -56,7 +56,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     NormStructWaitCompleteResponseProto.Builder resBuilder = NormStructWaitCompleteResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
 
     try {
       List<UserStruct> userStructs = RetrieveUtils.userStructRetrieveUtils().getUserStructs(userStructIds);
@@ -95,7 +95,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } catch (Exception e) {
       log.error("exception in NormStructWaitCompleteController processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());      
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
     }
   }
 

@@ -174,7 +174,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (updateStatus != UpdateStatus.MAJOR_UPDATE) {
       user = RetrieveUtils.userRetrieveUtils().getUserByUDID(udid);
       if (user != null) {
-        server.lockPlayer(user.getId());
+        server.lockPlayer(user.getId(), this.getClass().getSimpleName());
         try {
           startupStatus = StartupStatus.USER_IN_DB;
           log.info("No major update... getting user info");
@@ -198,9 +198,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           setChatMessages(resBuilder, user);
           setGoldSales(resBuilder);
           resBuilder.addAllClanTierLevels(MiscMethods.getAllClanTierLevelProtos());
-          if(server.lockClanTowersTable()) {
+          //if(server.lockClanTowersTable()) {
             setClanTowers(resBuilder);
-          }
+          //}
           resBuilder.addAllBossEvents(MiscMethods.currentBossEvents());
           setLeaderboardEventStuff(resBuilder);
           setEquipEnhancementStuff(resBuilder, user);
@@ -210,8 +210,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         } catch (Exception e) {
           log.error("exception in StartupController processEvent", e);
         } finally {
-          server.unlockClanTowersTable();
-          server.unlockPlayer(user.getId()); 
+          //server.unlockClanTowersTable();
+          server.unlockPlayer(user.getId(), this.getClass().getSimpleName()); 
         }
       } else {
         log.info("new player with udid " + udid);

@@ -1,12 +1,15 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.mortbay.log.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseMarketplaceLicenseRequestEvent;
 import com.lvl6.events.response.PurchaseMarketplaceLicenseResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -21,7 +24,6 @@ import com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.Purchas
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.InsertUtils;
 
 /*
  * NOT READY/BEING USED YET
@@ -56,7 +58,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     PurchaseMarketplaceLicenseResponseProto.Builder resBuilder = PurchaseMarketplaceLicenseResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
@@ -76,7 +78,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     } catch (Exception e) {
       log.error("exception in PurchaseMarketplaceLicense processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());      
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
     }
   }
 
@@ -134,32 +136,25 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     return true;
   }
   
-  private void writeToUserCurrencyHistory(User user, LicenseType type, Timestamp timeOfPurchase) {
-    //try, catch just a precaution
-    try {
-      int isSilver = 0;
-      int numInserted = 0;
-      if (type == LicenseType.SHORT) {
-        int currencyChange = ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__SHORT_DIAMOND_COST*-1;
-        int currencyBefore = user.getDiamonds() - currencyChange;
-        String reasonForChange = ControllerConstants.UCHRFC__SHORT_MARKET_PLACE_LICENSE;
+  private void writeToUserCurrencyHistory(User aUser, LicenseType type, Timestamp timeOfPurchase) {
+    Map<String, Integer> goldSilverChange = new HashMap<String, Integer>();
+    Map<String, Integer> previousGoldSilver = null;
+    String reasonForChange = "";
 
-        numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(user.getId(), timeOfPurchase, isSilver, 
-            currencyChange, currencyBefore, reasonForChange);
-
-      } else if (type == LicenseType.LONG) {
-        int currencyChange = ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__LONG_DIAMOND_COST*-1;
-        int currencyBefore = user.getDiamonds() - currencyChange;
-        String reasonForChange = ControllerConstants.UCHRFC__LONG_MARKET_PLACE_LICENSE;
-
-        numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(user.getId(), timeOfPurchase, isSilver, 
-            currencyChange, currencyBefore, reasonForChange);
-      } //don't do anything if type is something else
-
-      log.info("Should be 1. Num rows inserted into user_currency_history: " + numInserted);
-    } catch (Exception e) {
-      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+    int currencyChange = 0;
+    
+    if (LicenseType.SHORT == type) {
+      currencyChange = ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__SHORT_DIAMOND_COST*-1;
+      reasonForChange = ControllerConstants.UCHRFC__SHORT_MARKET_PLACE_LICENSE;
+    } else if (LicenseType.LONG == type) {
+      currencyChange = ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__LONG_DIAMOND_COST*-1;
+      reasonForChange = ControllerConstants.UCHRFC__LONG_MARKET_PLACE_LICENSE;
+    } else {
+      log.error("wrong LicenseType. LicenseType=" + type);
+      return;
     }
+    goldSilverChange.put(MiscMethods.gold, currencyChange);
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, timeOfPurchase, goldSilverChange, previousGoldSilver, reasonForChange);
   }
 
 }

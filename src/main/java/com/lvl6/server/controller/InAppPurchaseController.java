@@ -10,6 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -99,7 +100,7 @@ public class InAppPurchaseController extends EventController {
     resBuilder.setReceipt(reqProto.getReceipt());
 
     // Lock this player's ID
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
@@ -222,7 +223,7 @@ public class InAppPurchaseController extends EventController {
       log.error("exception in InAppPurchaseController processEvent", e);
     } finally {
       // Unlock this player
-      server.unlockPlayer(senderProto.getUserId());
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     }
   }
 
@@ -307,16 +308,14 @@ public class InAppPurchaseController extends EventController {
   }
   
   private void writeToUserCurrencyHistory(User aUser, Timestamp date, int diamondChange) {
-    try {
-      int userId = aUser.getId();
-      int isSilver = 0;
-      int currencyBefore = aUser.getDiamonds() - diamondChange;
-      String reasonForChange = ControllerConstants.UCHRFC__IN_APP_PURCHASE;
-      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver, 
-          diamondChange, currencyBefore, reasonForChange);
-      log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
-    } catch (Exception e) {
-      log.error("Maybe table's not there or duplicate keys? " + e.toString());
-    }
+    int currencyBefore = aUser.getDiamonds() - diamondChange;
+    Map<String, Integer> goldSilverChange = new HashMap<String, Integer>();
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    String reasonForChange = ControllerConstants.UCHRFC__IN_APP_PURCHASE;
+    
+    goldSilverChange.put(MiscMethods.gold, diamondChange);
+    previousGoldSilver.put(MiscMethods.gold, currencyBefore);
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange, previousGoldSilver, reasonForChange);
   }
 }

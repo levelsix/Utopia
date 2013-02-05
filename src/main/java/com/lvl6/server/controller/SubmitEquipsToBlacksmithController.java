@@ -66,7 +66,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     SubmitEquipsToBlacksmithResponseProto.Builder resBuilder = SubmitEquipsToBlacksmithResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
@@ -79,10 +79,9 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       boolean legitSubmit = checkLegitSubmit(resBuilder, user, paidToGuarantee, userEquips, equip, startTime);
 
       int goalLevel = 0;
+      goalLevel = userEquips.get(0).getLevel() + 1;
       int diamondCost = calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee);
       if (legitSubmit) {
-        goalLevel = userEquips.get(0).getLevel() + 1;
-
         int blacksmithId = InsertUtils.get().insertForgeAttemptIntoBlacksmith(user.getId(), equip.getId(), goalLevel, 
             paidToGuarantee, startTime, 
             diamondCost, null, false);
@@ -118,7 +117,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     } catch (Exception e) {
       log.error("exception in SubmitEquipsToBlacksmith processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());      
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
     }
   }
 
@@ -138,7 +137,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         if (!user.updateRelativeDiamondsNaive(diamondCostForGuarantee*-1)) {
           log.error("problem with taking away diamonds post forge guarantee attempt, taking away " + diamondCostForGuarantee + ", user only has " + user.getDiamonds());
         } else {
-          money.put(MiscMethods.gold, diamondCostForGuarantee);
+          money.put(MiscMethods.gold, -1 * diamondCostForGuarantee);
         }
       }
     }
@@ -209,20 +208,10 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   }
   
   public void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
-    try {
-      if(money.isEmpty()) {
-        return;
-      }
-      int userId = aUser.getId();
-      int isSilver = 0;
-      int currencyChange = money.get(MiscMethods.gold);
-      int currencyBefore = aUser.getDiamonds() - currencyChange;
-      String reasonForChange = ControllerConstants.UCHRFC__SUBMIT_EQUIPS_TO_BLACKSMITH;
-      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver, 
-          currencyChange, currencyBefore, reasonForChange);
-      log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
-    } catch (Exception e) {
-      log.error("Maybe table's not there or duplicate keys? " + e.toString());
-    }
+    Map<String, Integer> previousGoldSilver = null;
+    String reasonForChange = ControllerConstants.UCHRFC__SUBMIT_EQUIPS_TO_BLACKSMITH;
+
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonForChange);
+    
   }
 }

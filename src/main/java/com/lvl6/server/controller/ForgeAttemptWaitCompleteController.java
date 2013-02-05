@@ -54,7 +54,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     ForgeAttemptWaitCompleteResponseProto.Builder resBuilder = ForgeAttemptWaitCompleteResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
@@ -73,7 +73,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } catch (Exception e) {
       log.error("exception in ForgeAttemptWaitCompleteController processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());      
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
     }
   }
 

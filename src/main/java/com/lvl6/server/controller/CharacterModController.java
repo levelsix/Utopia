@@ -68,7 +68,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     resBuilder.setModType(modType);
 
     // Lock this player's ID
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
@@ -112,7 +112,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     } catch (Exception e) {
       log.error("exception in CharacterModController processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     }
   }
 
@@ -228,7 +228,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       int userId = aUser.getId();
       Timestamp date = new Timestamp((new Date()).getTime());
       int isSilver = 0;
-      int currencyBefore = aUser.getDiamonds() - diamondCost;
+      int currencyBefore = aUser.getDiamonds() - (-1*diamondCost); //forgot to add negative before, 
       String reasonForChange = "character mod controller";
       if (modType == CharacterModType.CHANGE_CHARACTER_TYPE) {
         reasonForChange = ControllerConstants.UCHRFC__CHARACTER_MOD_TYPE;
@@ -241,10 +241,10 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       }
       
       int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, 
-          isSilver, diamondCost, currencyBefore, reasonForChange);
+          isSilver, -1 * diamondCost, currencyBefore, reasonForChange);
       log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
     } catch (Exception e) {
-      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+      log.error("Maybe table's not there or duplicate keys? ", e);
     }
   }
   

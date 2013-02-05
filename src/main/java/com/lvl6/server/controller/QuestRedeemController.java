@@ -69,7 +69,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     UserQuest userQuest = null;
     Quest quest = null;
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
 
     try {
       userQuest = RetrieveUtils.userQuestRetrieveUtils().getSpecificUnredeemedUserQuest(senderProto.getUserId(), questId);
@@ -138,7 +138,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } catch (Exception e) {
       log.error("exception in QuestRedeem processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());      
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
     }
     if (legitRedeem && quest != null && userQuest != null && senderProto.getUserType() != null) {
       clearUserQuestData(quest, userQuest, senderProto.getUserType());
@@ -182,8 +182,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           + " coins, " + expGained + " exp");
     } else {
       //things worked
-      money.put(MiscMethods.gold, diamondsGained);
-      money.put(MiscMethods.silver, coinsGained);
+      if (0 != diamondsGained) {
+        money.put(MiscMethods.gold, diamondsGained);
+      }
+      if (0 != coinsGained) {
+        money.put(MiscMethods.silver, coinsGained);
+      }
     }
   }
 
@@ -213,7 +217,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     Map<String, Integer> previousGoldSilver = null;
     String reasonForChange = ControllerConstants.UCHRFC__QUEST_REDEEM;
     
-    MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, date, money,
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money,
         previousGoldSilver, reasonForChange);
   }
 }

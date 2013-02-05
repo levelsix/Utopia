@@ -62,7 +62,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     UpgradeClanTierLevelResponseProto.Builder resBuilder = UpgradeClanTierLevelResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User possibleClanOwner = RetrieveUtils.userRetrieveUtils().getUserById(userId);
       List<Integer> currencyChange = new ArrayList<Integer>();
@@ -100,7 +100,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } catch (Exception e) {
       log.error("exception in UpgradeClanTierLevelController processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     }
   }
 
@@ -176,7 +176,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         aBuilder.setStatus(UpgradeClanTierLevelStatus.OTHER_FAIL);
       }
     } else {
-      log.error("could not take " + upgradeCost + " diamonds form user: " + aUser);
+      log.error("could not take " + refund + " diamonds form user: " + aUser);
       aBuilder.setStatus(UpgradeClanTierLevelStatus.OTHER_FAIL);
     }
     currencyChange.clear();
@@ -191,7 +191,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int userId = aUser.getId();
       Timestamp date = new Timestamp((new Date()).getTime());
       int isSilver = 0;
-      int currencyChange = money.get(0);
+      int currencyChange = money.get(0) * -1; //forgot to make it negative before, but it is negative in writetodb
       int currencyBefore = aUser.getDiamonds() - currencyChange;
       String reasonForChange = ControllerConstants.UCHRFC__UPGRADE_CLAN_TIER_LEVEL;
       
@@ -200,7 +200,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       
       log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
     } catch (Exception e) {
-      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+      log.error("Maybe table's not there or duplicate keys? ", e);
     }
   }
 }

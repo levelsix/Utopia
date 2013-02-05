@@ -71,7 +71,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     resBuilder.setLockBoxEventId(reqProto.getLockBoxEventId());
     resBuilder.setClientTime(reqProto.getClientTime());
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       LockBoxEvent lockBoxEvent = LockBoxEventRetrieveUtils.getLockBoxEventForLockBoxEventId(lockBoxEventId);
@@ -120,7 +120,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } catch (Exception e) {
       log.error("exception in PickLockBox processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     }
   }
 
@@ -231,8 +231,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("problem with updating users currency.");
       return;
     } else {
-      money.put(MiscMethods.gold, diamondCost);
-      money.put(MiscMethods.silver, coinCost);
+      if (0 != diamondCost) {
+        money.put(MiscMethods.gold, diamondCost);
+      }
+      if (0 != coinCost) {
+        money.put(MiscMethods.silver, coinCost);
+      }
     }
 
     if (!UpdateUtils.get().decrementNumLockBoxesIncrementNumTimesCompletedForUser(event.getId(), user.getId(), successfulPick ? 1 : 0, hadAllItems, curTime)) {
@@ -242,13 +246,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
   
   private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money) {
-    int amount = money.size();
+    Map<String, Integer> previousGoldSilver = null;
     String reasonForChange = ControllerConstants.UCHRFC__PICK_LOCKBOX;
-    
-    if(2 == amount) {
-      Map<String, Integer> previousGoldSilver = null;
-      MiscMethods.writeToUserCurrencyOneUserGoldAndSilver(aUser, date, 
-          money, previousGoldSilver, reasonForChange);
-    }
+
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, 
+        money, previousGoldSilver, reasonForChange);
   }
 }

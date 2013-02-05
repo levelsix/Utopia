@@ -10,7 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -39,7 +40,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
   }
 
   
-  @Cacheable(value="structIdsToUserStructsForUser", key="#userId")
+  //@Cacheable(value="structIdsToUserStructsForUser", key="#userId")
   public Map<Integer, List<UserStruct>> getStructIdsToUserStructsForUser(int userId) {
     log.debug("retrieving map of struct id to userstructs for userId " + userId);
     

@@ -67,7 +67,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     boolean legitBuy = false;
     boolean legitSell = false;
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       List<UserEquip> userEquipsForEquipId = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsWithEquipId(senderProto.getUserId(), equipId);;
@@ -162,7 +162,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         }
         resBuilder.setStatus(ArmoryStatus.SUCCESS);
       }
-      if (legitSell) {
+      if (legitSell && null != userEquip) {
         if (userEquipsForEquipId.size() <= 1) {
           if (!MiscMethods.unequipUserEquipIfEquipped(user, userEquip)) {
             log.error("problem with unequipping userequip" + userEquip.getId());
@@ -205,31 +205,15 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     } catch (Exception e) {
       log.error("exception in ArmoryController processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId()); 
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName()); 
     }
   }
 
   private void writeToUserCurrencyHistory(User aUser, Timestamp date, String key, Map<String, Integer> money) {
-    try{
-      int userId = aUser.getId();
-      int isSilver;
-      int currencyChange = money.get(key);
-      int currencyBefore;
-      String reasonForChange = ControllerConstants.UCHRFC__ARMORY_TRANSACTION;
-      if(MiscMethods.silver.equals(key)) {
-        isSilver = 1;
-        currencyBefore = aUser.getCoins() - currencyChange;
-      } else {
-        isSilver = 0;
-        currencyBefore = aUser.getDiamonds() - currencyChange;
-      }
-      
-      int numInserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, 
-          isSilver, currencyChange, currencyBefore, reasonForChange);
-      log.info("Should be 1. Rows inserted into user_currency_history: " + numInserted);
-    } catch (Exception e) {
-      log.error("Maybe table's not there or duplicate keys? " + e.toString());
-    }
+    Map<String, Integer> previousGoldSilver = null;
+    String reasonForChange = ControllerConstants.UCHRFC__ARMORY_TRANSACTION;
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonForChange);
   }
   
 }

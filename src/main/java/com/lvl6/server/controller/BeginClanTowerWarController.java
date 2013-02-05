@@ -8,11 +8,13 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.BeginClanTowerWarRequestEvent;
 import com.lvl6.events.response.BeginClanTowerWarResponseEvent;
 import com.lvl6.info.Clan;
@@ -87,10 +89,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     BeginClanTowerWarResponseProto.Builder resBuilder = BeginClanTowerWarResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
+    if(server.lockClanTowersTable()) {
     try {
 
-      if(server.lockClanTowersTable()) {
         User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
         Clan clanOfRequester = ClanRetrieveUtils.getClanWithId(senderProto.getClan().getClanId());
@@ -117,12 +119,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           sendClanTowerProtosAndNotifications(ownerIdBefore, ownerIdAfter,
               attackerIdBefore, attackerIdAfter, clanOfRequester, newTower);
         }
-      }
     } catch (Exception e) {
       log.error("exception in BeginClanTowerWarController processEvent", e);
     } finally {
       server.unlockClanTowersTable();
-      server.unlockPlayer(senderProto.getUserId());      
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
+    }
+    }else {
+    	log.error("Failed to lock ClanTower table");
     }
   }
 

@@ -55,7 +55,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     CollectFromGoldmineResponseProto.Builder resBuilder = CollectFromGoldmineResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
@@ -78,7 +78,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     } catch (Exception e) {
       log.error("exception in CollectFromGoldmineController processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());      
+      server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());      
     }
   }
 
@@ -139,7 +139,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
       log.info("Should be 1. Rows inserted into user_currency_history: " + inserted);
     } catch (Exception e) {
-      log.error("Maybe table's not there or duplicate keys? " + e.toString());
+      log.error("Maybe table's not there or duplicate keys? ", e);
     }
   }
 }
