@@ -194,7 +194,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
   
   private void writeToUserCurrencyHistory(User aUser, Timestamp timeOfUpgrade, Map<String, Integer> money,
-      int previousGold, int previousSilver) {
+      int previousSilver, int previousGold) {
     Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
     String reasonForChange = ControllerConstants.UCHRFC__UPGRADE_NORM_STRUCT;
     Map<String, String> reasonsForChanges = new HashMap<String, String>();
