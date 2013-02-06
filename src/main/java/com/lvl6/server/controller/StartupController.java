@@ -235,7 +235,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     //for things that client doesn't need
     log.debug("After response tasks");
 
-    retrieveKabamNaid(user, reqProto.getIOS5Udid(), reqProto.getMacAddress(), reqProto.getAdvertiserId());
+    retrieveKabamNaid(user, udid, reqProto.getIOS5Udid(), reqProto.getMacAddress(), reqProto.getAdvertiserId());
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);    
   }
 
@@ -271,47 +271,47 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     resBuilder.addAllLeaderboardEvents(MiscMethods.currentLeaderboardEventProtos());
   }
   
-  private void retrieveKabamNaid(User user, String udid, String mac, String advertiserId) {
-    if (user != null) {
-      String host;
-      int port = 443;
-      int clientId;
-      String secret;
-      if (Globals.IS_SANDBOX()) {
-        host = KabamProperties.SANDBOX_API_URL;
-        clientId = KabamProperties.SANDBOX_CLIENT_ID;
-        secret = KabamProperties.SANDBOX_SECRET;
-      } else {
-        host = KabamProperties.PRODUCTION_API_URL;
-        clientId = KabamProperties.PRODUCTION_CLIENT_ID;
-        secret = KabamProperties.PRODUCTION_SECRET;
-      }
+  private void retrieveKabamNaid(User user, String openUdid, String udid, String mac, String advertiserId) {
+    String host;
+    int port = 443;
+    int clientId;
+    String secret;
+    if (Globals.IS_SANDBOX()) {
+      host = KabamProperties.SANDBOX_API_URL;
+      clientId = KabamProperties.SANDBOX_CLIENT_ID;
+      secret = KabamProperties.SANDBOX_SECRET;
+    } else {
+      host = KabamProperties.PRODUCTION_API_URL;
+      clientId = KabamProperties.PRODUCTION_CLIENT_ID;
+      secret = KabamProperties.PRODUCTION_SECRET;
+    }
 
-      KabamApi kabamApi = new KabamApi(host, port, secret);
-      String userId = user.getUdid();
-      String platform = "iphone";
-      
-      String biParams = "{\"open_udid\":\"" + userId +
-          "\",\"udid\":\"" + udid +
-          "\",\"mac\":\"" + mac +
-          "\",\"mac_hash\":\"" + DigestUtils.md5Hex(mac) +
-          "\",\"advertiser_id\":\"" + advertiserId +
-          "\"}";
-      
-      MobileNaidResponse naidResponse;
-      try {
-        naidResponse = kabamApi.mobileGetNaid(userId, clientId, platform, biParams, user.getCreateTime().getTime()/1000);
-      }
-      catch (Exception e) {
-        e.printStackTrace();
-        return;
-      }
-      
-      if (naidResponse.getReturnCode() == ResponseCode.Success) {
+    KabamApi kabamApi = new KabamApi(host, port, secret);
+    String userId = openUdid;
+    String platform = "iphone";
+
+    String biParams = "{\"open_udid\":\"" + userId +
+        "\",\"udid\":\"" + udid +
+        "\",\"mac\":\"" + mac +
+        "\",\"mac_hash\":\"" + DigestUtils.md5Hex(mac) +
+        "\",\"advertiser_id\":\"" + advertiserId +
+        "\"}";
+
+    MobileNaidResponse naidResponse;
+    try {
+      naidResponse = kabamApi.mobileGetNaid(userId, clientId, platform, biParams, new Date().getTime()/1000);
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+      return;
+    }
+
+    if (naidResponse.getReturnCode() == ResponseCode.Success) {
+      if (user != null) {
         user.updateSetKabamNaid(naidResponse.getNaid());
-      } else {
-        log.error("Error retrieving kabam naid: " + naidResponse.getReturnCode());
       }
+    } else {
+      log.error("Error retrieving kabam naid: " + naidResponse.getReturnCode());
     }
   }
 
