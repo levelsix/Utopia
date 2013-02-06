@@ -169,6 +169,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     StartupStatus startupStatus = StartupStatus.USER_NOT_IN_DB;
 
     Timestamp now = new Timestamp(new Date().getTime());
+    boolean isLogin = true;
 
     int newNumConsecutiveDaysLoggedIn = 0;
 
@@ -207,6 +208,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
+          
+          boolean isNewUser = false;
+          InsertUtils.get().insertIntoLoginHistory(udid, user.getId(), now, isLogin, isNewUser);
         } catch (Exception e) {
           log.error("exception in StartupController processEvent", e);
         } finally {
@@ -215,6 +219,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
       } else {
         log.info("new player with udid " + udid);
+        boolean isNewUser = true;
+        InsertUtils.get().insertIntoLoginHistory(udid, 0, now, isLogin, isNewUser);
       }
       resBuilder.setStartupStatus(startupStatus);
       setConstants(resBuilder, startupStatus);      

@@ -162,4 +162,6 @@ public interface InsertUtil {
   public abstract int insertIntoUserCurrencyHistoryMultipleRows (List<Integer> userIds,
       List<Timestamp> dates, List<Integer> areSilver, List<Integer> currenciesChange,
       List<Integer> currenciesBefore, List<Integer> currentCurrencies, List<String> reasonsForChanges);
+  
+  public abstract int insertIntoLoginHistory(String udid, int userId, Timestamp now, boolean isLogin, boolean isNewUser);
 }
