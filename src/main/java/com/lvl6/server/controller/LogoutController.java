@@ -73,6 +73,12 @@ public class LogoutController extends EventController {
 			    if (!InsertUtils.get().insertLastLoginLastLogoutToUserSessions(user.getId(), null, lastLogout)) {
 			      log.error("problem with inserting last logout time for user " + user + ", logout=" + lastLogout);
 			    }
+			    String udid = user.getUdid();
+			    int userId = user.getId();
+			    boolean isLogin = false;
+			    boolean isNewUser = false;
+			    InsertUtils.get().insertIntoLoginHistory(udid, userId, lastLogout,
+			        isLogin, isNewUser);
 				}
 				log.info("Player logged out: "+playerId);
 				playersByPlayerId.remove(playerId);
