@@ -79,7 +79,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     try {
       User aUser = RetrieveUtils.userRetrieveUtils().getUserById(userId);
       Boss aBoss = BossRetrieveUtils.getBossForBossId(bossId);
-      resBuilder.setStatus(BossActionStatus.USER_NOT_ENOUGH_STAMINA);
+      resBuilder.setStatus(BossActionStatus.OTHER_FAIL);
       int previousSilver = 0;
       int previousGold = 0;
 
