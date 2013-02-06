@@ -321,10 +321,11 @@ public class InAppPurchaseController extends EventController {
       goldSilverChange.put(gold, diamondChange);
       previousGoldSilver.put(gold, previousGold);
       reasonsForChanges.put(gold, reasonForChange + gold);
-    } else {
+    } 
+    if (0 < coinChange) {
       goldSilverChange.put(silver, coinChange);
       previousGoldSilver.put(silver, previousSilver);
-      reasonsForChanges.put(gold, reasonForChange + silver);
+      reasonsForChanges.put(silver, reasonForChange + silver);
     }
     
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date,
