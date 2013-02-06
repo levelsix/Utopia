@@ -24,6 +24,7 @@ public class TopSpendersListView extends ListView<Spender> {
     item.add(new Label("spender", spend.getUserId().toString()));
     item.add(new Label("name", spend.getName()));
 		item.add(new Label("amountSpent", "$"+spend.getAmountSpent().longValue()));
+		item.add(new Label("userName", spend.getUserName()));
 		
 	}
 

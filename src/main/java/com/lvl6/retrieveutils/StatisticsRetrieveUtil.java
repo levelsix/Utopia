@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
-import org.slf4j.*;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -102,6 +102,7 @@ public class StatisticsRetrieveUtil {
 		        "select " + DBConstants.IAP_HISTORY__USER_ID + ", sum(" + DBConstants.IAP_HISTORY__CASH_SPENT + ") as " + amountSpent + ", "+DBConstants.USER__NAME+" from " +
 		            DBConstants.TABLE_IAP_HISTORY + ", "+DBConstants.TABLE_USER+" where "+ userId +"="+DBConstants.IAP_HISTORY__USER_ID+
 		            " group by " + DBConstants.IAP_HISTORY__USER_ID + " order by sum(" + DBConstants.IAP_HISTORY__CASH_SPENT + ") desc limit "+limit,
+
 		        new RowMapper<Spender>() {
 		            public Spender mapRow(ResultSet rs, int rowNum) throws SQLException {
 		            	Spender spender = new Spender();
