@@ -310,6 +310,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (user != null) {
         user.updateSetKabamNaid(naidResponse.getNaid());
       }
+      log.info("Successfully got kabam naid.");
     } else {
       log.error("Error retrieving kabam naid: " + naidResponse.getReturnCode());
     }
