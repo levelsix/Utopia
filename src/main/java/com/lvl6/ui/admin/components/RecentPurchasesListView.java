@@ -24,6 +24,7 @@ public class RecentPurchasesListView extends ListView<InAppPurchase> {
 		item.add(new Label("spender", spend.getUserId().toString()));
 		item.add(new Label("amountSpent", "$"+spend.getCashSpent().longValue()));
 		item.add(new Label("purchaseDate", spend.getPurchasedDate().toString()));
+		item.add(new Label("userName", spend.getUserName()));
 	}
 
 }
