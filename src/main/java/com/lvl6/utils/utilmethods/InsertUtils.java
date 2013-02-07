@@ -11,8 +11,6 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.mortbay.log.Log;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Caching;
 
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.CoordinatePair;
@@ -107,10 +105,10 @@ public class InsertUtils implements InsertUtil{
    * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserEquip(int, int)
    */
   @Override
-  @Caching(evict = {
+  /*@Caching(evict = {
       @CacheEvict(value = "userEquipsForUser", key = "#userId"),
       @CacheEvict(value = "equipsToUserEquipsForUser", key = "#userId"),
-      @CacheEvict(value = "userEquipsWithEquipId", key = "#userId+':'+#equipId") })
+      @CacheEvict(value = "userEquipsWithEquipId", key = "#userId+':'+#equipId") })*/
   public int insertUserEquip(int userId, int equipId, int level) {
     Map<String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_EQUIP__USER_ID, userId);
@@ -361,9 +359,9 @@ public class InsertUtils implements InsertUtil{
    * @see com.lvl6.utils.utilmethods.InsertUtil#insertUnredeemedUserQuest(int, int, boolean, boolean)
    */
   @Override
-  @Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+  /*@Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
       @CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
-      @CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
+      @CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})*/
   public boolean insertUnredeemedUserQuest(int userId, int questId,
       boolean hasNoRequiredTasks, boolean hasNoRequiredDefeatTypeJobs) {
     Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -388,7 +386,7 @@ public class InsertUtils implements InsertUtil{
    * @see com.lvl6.utils.utilmethods.InsertUtil#insertCompletedDefeatTypeJobIdForUserQuest(int, int, int)
    */
   @Override
-  @CacheEvict(value="questIdToUserTasksCompletedForQuestForUserCache", key="#userId")
+  //@CacheEvict(value="questIdToUserTasksCompletedForQuestForUserCache", key="#userId")
   public boolean insertCompletedDefeatTypeJobIdForUserQuest(int userId,
       int dtjId, int questId) {
     Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -416,7 +414,7 @@ public class InsertUtils implements InsertUtil{
    * @see com.lvl6.utils.utilmethods.InsertUtil#insertCompletedTaskIdForUserQuest(int, int, int)
    */
   @Override
-  @CacheEvict(value = "questIdToUserTasksCompletedForQuestForUserCache", key="#userId")
+  //@CacheEvict(value = "questIdToUserTasksCompletedForQuestForUserCache", key="#userId")
   public boolean insertCompletedTaskIdForUserQuest(int userId, int taskId,
       int questId) {
     Map<String, Object> insertParams = new HashMap<String, Object>();

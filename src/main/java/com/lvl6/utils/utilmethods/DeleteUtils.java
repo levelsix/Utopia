@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.mortbay.log.Log;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Caching;
 
 import com.lvl6.properties.DBConstants;
 import com.lvl6.spring.AppContext;
@@ -36,7 +35,7 @@ public class DeleteUtils implements DeleteUtil {
   }
 
   
-  @CacheEvict(value ="specificUserEquip", key="#userEquipId")
+  //@CacheEvict(value ="specificUserEquip", key="#userEquipId")
   public boolean deleteUserEquip(int userEquipId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_EQUIP__ID, userEquipId);
@@ -84,7 +83,7 @@ public class DeleteUtils implements DeleteUtil {
    * @see com.lvl6.utils.utilmethods.DeleteUtil#deleteUserQuestInfoInTaskProgressAndCompletedTasks(int, int, int)
    */
   @Override
-  @CacheEvict(value = "questIdToUserTasksCompletedForQuestForUserCache", key="#userId")
+ // @CacheEvict(value = "questIdToUserTasksCompletedForQuestForUserCache", key="#userId")
   public boolean deleteUserQuestInfoInTaskProgressAndCompletedTasks(int userId, int questId, int numTasks) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__USER_ID, userId);
@@ -110,7 +109,7 @@ public class DeleteUtils implements DeleteUtil {
    * @see com.lvl6.utils.utilmethods.DeleteUtil#deleteUserQuestInfoInDefeatTypeJobProgressAndCompletedDefeatTypeJobs(int, int, int)
    */
   @Override
-  @CacheEvict(value="questIdToUserDefeatTypeJobsCompletedForQuestForUserCache", key="#userId")
+  //@CacheEvict(value="questIdToUserDefeatTypeJobsCompletedForQuestForUserCache", key="#userId")
   public boolean deleteUserQuestInfoInDefeatTypeJobProgressAndCompletedDefeatTypeJobs(int userId, int questId, int numDefeatJobs) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__USER_ID, userId);
@@ -150,9 +149,9 @@ public class DeleteUtils implements DeleteUtil {
    * @see com.lvl6.utils.utilmethods.DeleteUtil#deleteUserStruct(int)
    */
   @Override
-  @Caching(evict= {
+  /*@Caching(evict= {
       @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-      @CacheEvict(value="specificUserStruct", key="#userStructId")})
+      @CacheEvict(value="specificUserStruct", key="#userStructId")})*/
   public boolean deleteUserStruct(int userStructId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
@@ -197,6 +196,8 @@ public class DeleteUtils implements DeleteUtil {
     return false;
   }
 
+  
+  @CacheEvict(value="clanById", key="#clanId")
   public boolean deleteClanWithClanId(int clanId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.CLANS__ID, clanId);

@@ -12,7 +12,6 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -51,7 +50,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     return structIdToUserStructs;
   }
 
-  @Cacheable(value="specificUserStruct", key="#userStructId")
+  //@Cacheable(value="specificUserStruct", key="#userStructId")
   public UserStruct getSpecificUserStruct(int userStructId) {
     log.debug("retrieving user struct with id " + userStructId);
     

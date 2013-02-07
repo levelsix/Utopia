@@ -46,9 +46,9 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserQuestsCoinsretrievedforreq(int, java.util.List, int)
    */
   @Override
-  @Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+  /*@Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
       @CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
-      @CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
+      @CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})*/
   public boolean updateUserQuestsCoinsretrievedforreq(int userId, List <Integer> questIds, int coinGain) {
     String query = "update " + DBConstants.TABLE_USER_QUESTS + " set " + DBConstants.USER_QUESTS__COINS_RETRIEVED_FOR_REQ
         + "=" + DBConstants.USER_QUESTS__COINS_RETRIEVED_FOR_REQ + "+? where " 
@@ -169,9 +169,9 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserQuestIscomplete(int, int)
    */
   @Override
-  @Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+  /*@Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
       @CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
-      @CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
+      @CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})*/
   public boolean updateUserQuestIscomplete(int userId, int questId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
@@ -196,9 +196,9 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateRedeemUserQuest(int, int)
    */
   @Override
-  @Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+  /*@Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
       @CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
-      @CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
+      @CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})*/
   public boolean updateRedeemUserQuest(int userId, int questId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
@@ -225,9 +225,9 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructOrientation(int, com.lvl6.proto.InfoProto.StructOrientation)
    */
   @Override
-  @Caching(evict= {
+  /*@Caching(evict= {
       @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-      @CacheEvict(value="specificUserStruct", key="#userStructId")})
+      @CacheEvict(value="specificUserStruct", key="#userStructId")})*/
   public boolean updateUserStructOrientation(int userStructId,
       StructOrientation orientation) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
@@ -252,9 +252,9 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserQuestsSetCompleted(int, int, boolean, boolean)
    */
   @Override
-  @Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+  /*@Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
       @CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
-      @CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
+      @CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})*/
   public boolean updateUserQuestsSetCompleted(int userId, int questId, boolean setTasksCompleteTrue, boolean setDefeatTypeJobsCompleteTrue) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
@@ -278,12 +278,12 @@ public class UpdateUtils implements UpdateUtil {
 
 
 
-  @Caching(evict= {
+  /*@Caching(evict= {
       @CacheEvict(value ="specificUserEquip", key="#userEquipId"),
       @CacheEvict(value="userEquipsForUser", key="#newOwnerId"),
       @CacheEvict(value="equipsToUserEquipsForUser", key="#newOwnerId"),
       @CacheEvict(value="userEquipsWithEquipId", key="#newOwnerId+':'+#equipId")  
-  })
+  })*/
   public boolean updateUserEquipOwner(int userEquipId, int newOwnerId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_EQUIP__ID, userEquipId);
@@ -344,9 +344,9 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructLastretrievedIscompleteLevelchange(int, java.sql.Timestamp, boolean, int)
    */
   @Override
-  @Caching(evict= {
+  /*@Caching(evict= {
       @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-      @CacheEvict(value="specificUserStruct", key="#userStructId")})
+      @CacheEvict(value="specificUserStruct", key="#userStructId")})*/
   public boolean updateUserStructLastretrievedIscompleteLevelchange(int userStructId, Timestamp lastRetrievedTime, boolean isComplete, int levelChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
@@ -398,9 +398,9 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructLastretrievedLastupgradeIscomplete(int, java.sql.Timestamp, java.sql.Timestamp, boolean)
    */
   @Override
-  @Caching(evict= {
+  /*@Caching(evict= {
       @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-      @CacheEvict(value="specificUserStruct", key="#userStructId")})
+      @CacheEvict(value="specificUserStruct", key="#userStructId")})*/
   public boolean updateUserStructLastretrievedLastupgradeIscomplete(int userStructId, Timestamp lastRetrievedTime, Timestamp lastUpgradeTime, boolean isComplete) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
@@ -474,9 +474,9 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructLevel(int, int)
    */
   @Override
-  @Caching(evict= {
+  /*@Caching(evict= {
       @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-      @CacheEvict(value="specificUserStruct", key="#userStructId")})
+      @CacheEvict(value="specificUserStruct", key="#userStructId")})*/
   public boolean updateUserStructLevel(int userStructId, int levelChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
@@ -499,9 +499,9 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructCoord(int, com.lvl6.info.CoordinatePair)
    */
   @Override
-  @Caching(evict= {
+  /*@Caching(evict= {
       @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-      @CacheEvict(value="specificUserStruct", key="#userStructId")})
+      @CacheEvict(value="specificUserStruct", key="#userStructId")})*/
   public boolean updateUserStructCoord(int userStructId, CoordinatePair coordinates) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);

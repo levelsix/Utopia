@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-import org.slf4j.*;
-import org.springframework.cache.annotation.Cacheable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -38,7 +38,7 @@ import com.lvl6.utils.DBConnection;
   }
   
   
-  @Cacheable(value="incompleteUserQuestsForUser", key="#userId")
+  //@Cacheable(value="incompleteUserQuestsForUser", key="#userId")
   public List<UserQuest> getIncompleteUserQuestsForUser(int userId) {
     log.debug("retrieving incomplete user quests for userId " + userId);
     
@@ -55,7 +55,7 @@ import com.lvl6.utils.DBConnection;
   }
   
   
-  @Cacheable(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId")
+  //@Cacheable(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId")
   public List<UserQuest> getUnredeemedAndRedeemedUserQuestsForUser(int userId) {
     log.debug("retrieving unredeemed and redeemed user quests for userId " + userId);
     
@@ -67,7 +67,7 @@ import com.lvl6.utils.DBConnection;
   }
   
   
-  @Cacheable(value="unredeemedUserQuestsForUser", key="#userId")
+  //@Cacheable(value="unredeemedUserQuestsForUser", key="#userId")
   public List<UserQuest> getUnredeemedUserQuestsForUser(int userId) {
     log.debug("retrieving unredeemed user quests for userId " + userId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
@@ -82,7 +82,7 @@ import com.lvl6.utils.DBConnection;
   }
   
   
-  @Cacheable(value="userQuestsForUser", key="#userId")
+  //@Cacheable(value="userQuestsForUser", key="#userId")
   public List<UserQuest> getUserQuestsForUser(int userId) {
     log.debug("retrieving user quests for userId " + userId);
     

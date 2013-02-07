@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.json.JSONObject;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Caching;
 
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.CoordinatePair;
@@ -28,10 +26,10 @@ public interface InsertUtil {
   //	public abstract void setCache(CacheManager cache);
 
 
-  @Caching(evict = {
+  /*@Caching(evict = {
       @CacheEvict(value = "userEquipsForUser", key = "#userId"),
       @CacheEvict(value = "equipsToUserEquipsForUser", key = "#userId"),
-      @CacheEvict(value = "userEquipsWithEquipId", key = "#userId+':'+#equipId") })
+      @CacheEvict(value = "userEquipsWithEquipId", key = "#userId+':'+#equipId") })*/
   public abstract int insertUserEquip(int userId, int equipId, int level);
 
   public abstract int insertUserEquip(int userId, int equipId, int level, int enhancementPercentage);

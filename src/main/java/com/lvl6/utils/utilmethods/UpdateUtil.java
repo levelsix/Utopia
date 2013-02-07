@@ -6,10 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Caching;
-
-import com.lvl6.info.BoosterItem;
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Task;
@@ -20,10 +16,10 @@ import com.lvl6.proto.InfoProto.UserClanStatus;
 
 public interface UpdateUtil {
 
-  @Caching(evict = {
+  /*@Caching(evict = {
       @CacheEvict(value = "unredeemedAndRedeemedUserQuestsForUser", key = "#userId"),
       @CacheEvict(value = "incompleteUserQuestsForUser", key = "#userId"),
-      @CacheEvict(value = "unredeemedUserQuestsForUser", key = "#userId") })
+      @CacheEvict(value = "unredeemedUserQuestsForUser", key = "#userId") })*/
   public abstract boolean updateUserQuestsCoinsretrievedforreq(int userId,
       List<Integer> questIds, int coinGain);
 
@@ -43,32 +39,32 @@ public interface UpdateUtil {
       int userId, Timestamp lastExpandTime,
       ExpansionDirection lastExpansionDirection, boolean isExpanding);
 
-  @Caching(evict = {
+  /*@Caching(evict = {
       @CacheEvict(value = "unredeemedAndRedeemedUserQuestsForUser", key = "#userId"),
       @CacheEvict(value = "incompleteUserQuestsForUser", key = "#userId"),
-      @CacheEvict(value = "unredeemedUserQuestsForUser", key = "#userId") })
+      @CacheEvict(value = "unredeemedUserQuestsForUser", key = "#userId") })*/
   public abstract boolean updateUserQuestIscomplete(int userId, int questId);
 
-  @Caching(evict = {
+  /*@Caching(evict = {
       @CacheEvict(value = "unredeemedAndRedeemedUserQuestsForUser", key = "#userId"),
       @CacheEvict(value = "incompleteUserQuestsForUser", key = "#userId"),
-      @CacheEvict(value = "unredeemedUserQuestsForUser", key = "#userId") })
+      @CacheEvict(value = "unredeemedUserQuestsForUser", key = "#userId") })*/
   public abstract boolean updateRedeemUserQuest(int userId, int questId);
 
   /*
    * changin orientation
    */
-  @Caching(evict = {
+  /*@Caching(evict = {
       //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
       //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
-      @CacheEvict(value = "specificUserStruct", key = "#userStructId") })
+      @CacheEvict(value = "specificUserStruct", key = "#userStructId") })*/
   public abstract boolean updateUserStructOrientation(int userStructId,
       StructOrientation orientation);
 
-  @Caching(evict = {
+  /*@Caching(evict = {
       @CacheEvict(value = "unredeemedAndRedeemedUserQuestsForUser", key = "#userId"),
       @CacheEvict(value = "incompleteUserQuestsForUser", key = "#userId"),
-      @CacheEvict(value = "unredeemedUserQuestsForUser", key = "#userId") })
+      @CacheEvict(value = "unredeemedUserQuestsForUser", key = "#userId") })*/
   public abstract boolean updateUserQuestsSetCompleted(int userId,
       int questId, boolean setTasksCompleteTrue,
       boolean setDefeatTypeJobsCompleteTrue);
@@ -82,10 +78,10 @@ public interface UpdateUtil {
   /*
    * used for updating last retrieved and/or last upgrade user struct time and is_complete
    */
-  @Caching(evict = {
+  /*@Caching(evict = {
       //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
       //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
-      @CacheEvict(value = "specificUserStruct", key = "#userStructId") })
+      @CacheEvict(value = "specificUserStruct", key = "#userStructId") })*/
   public abstract boolean updateUserStructLastretrievedIscompleteLevelchange(
       int userStructId, Timestamp lastRetrievedTime, boolean isComplete,
       int levelChange);
@@ -99,10 +95,10 @@ public interface UpdateUtil {
   /*
    * used for updating last retrieved and/or last upgrade user struct time and is_complete
    */
-  @Caching(evict = {
+  /*@Caching(evict = {
       //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
       //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
-      @CacheEvict(value = "specificUserStruct", key = "#userStructId") })
+      @CacheEvict(value = "specificUserStruct", key = "#userStructId") })*/
   public abstract boolean updateUserStructLastretrievedLastupgradeIscomplete(
       int userStructId, Timestamp lastRetrievedTime,
       Timestamp lastUpgradeTime, boolean isComplete);
@@ -110,10 +106,10 @@ public interface UpdateUtil {
   /*
    * used for updating last retrieved user struct times
    */
-  @Caching(evict = {
+  /*@Caching(evict = {
       //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
       //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
-      @CacheEvict(value = "specificUserStruct", key = "#userStructId") })
+      @CacheEvict(value = "specificUserStruct", key = "#userStructId") })*/
   public abstract boolean updateUserStructsLastretrieved(
       Map<Integer, Timestamp> userStructIdsToLastRetrievedTime,
       Map<Integer, UserStruct> structIdsToUserStructs);
@@ -121,29 +117,29 @@ public interface UpdateUtil {
   /*
    * used for upgrading user structs level
    */
-  @Caching(evict = {
+  /*@Caching(evict = {
       //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
       //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
-      @CacheEvict(value = "specificUserStruct", key = "#userStructId") })
+      @CacheEvict(value = "specificUserStruct", key = "#userStructId") })*/
   public abstract boolean updateUserStructLevel(int userStructId,
       int levelChange);
 
   /*
    * used for moving user structs
    */
-  @Caching(evict = {
+  /*@Caching(evict = {
       //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
       //@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
-      @CacheEvict(value = "specificUserStruct", key = "#userStructId") })
+      @CacheEvict(value = "specificUserStruct", key = "#userStructId") })*/
   public abstract boolean updateUserStructCoord(int userStructId,
       CoordinatePair coordinates);
 
   /*
    * used for tasks
    */
-  @Caching(evict = {
+  /*@Caching(evict = {
       @CacheEvict(value = "cityIdToUserCityRankCache", key = "#userId"),
-      @CacheEvict(value = "currentCityRankForUserCache", key = "#userId+':'+#cityId") })
+      @CacheEvict(value = "currentCityRankForUserCache", key = "#userId+':'+#cityId") })*/
   public abstract boolean incrementCityRankForUserCity(int userId,
       int cityId, int increment);
 
