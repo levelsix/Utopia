@@ -419,7 +419,7 @@ public class ControllerConstants {
   public static final int LEVEL_TO_SHOW_RATE_US_POPUP = 8;
   
   //CLAN TOWER
-  public static final int MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER = 25;
+  public static final int MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER = 2;
   public static final int NUM_HOURS_BEFORE_REWAGING_WAR_ON_TOWER = 6;
   
   //LEADERBOARD EVENT
