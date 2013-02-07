@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.slf4j.*;
-import org.springframework.cache.annotation.Cacheable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +25,7 @@ import com.lvl6.utils.DBConnection;
   private final String TABLE_NAME = DBConstants.TABLE_USER_CITIES;
   
   
-  @Cacheable(value="cityIdToUserCityRankCache", key="#userId")
+  //@Cacheable(value="cityIdToUserCityRankCache", key="#userId")
   public Map<Integer, Integer> getCityIdToUserCityRank(int userId) {
     log.debug("retrieving city id to user city rank map for userId " + userId);
 
@@ -38,7 +38,7 @@ import com.lvl6.utils.DBConnection;
   
   
   
-  @Cacheable(value="currentCityRankForUserCache", key="#userId+':'+#cityId")
+  //@Cacheable(value="currentCityRankForUserCache", key="#userId+':'+#cityId")
   public int getCurrentCityRankForUser(int userId, int cityId) {
     log.debug("retrieving user city info for userId " + userId + " and cityId " + cityId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();

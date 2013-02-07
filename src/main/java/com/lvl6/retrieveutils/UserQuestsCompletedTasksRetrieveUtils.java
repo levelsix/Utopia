@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.*;
-import org.springframework.cache.annotation.Cacheable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +23,7 @@ import com.lvl6.utils.DBConnection;
   private final String TABLE_NAME = DBConstants.TABLE_USER_QUESTS_COMPLETED_TASKS;
 
   
-  @Cacheable(value="questIdToUserTasksCompletedForQuestForUserCache", key="#userId")
+  //@Cacheable(value="questIdToUserTasksCompletedForQuestForUserCache", key="#userId")
   public Map<Integer, List<Integer>> getQuestIdToUserTasksCompletedForQuestForUser(int userId) {
     log.debug("retrieving user's quest id to completed tasks map for user " + userId);
     Map <Integer, List<Integer>> questIdToUserTasksCompleted = new HashMap<Integer, List<Integer>>();
