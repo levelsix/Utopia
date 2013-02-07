@@ -82,6 +82,8 @@ public class DBConstants {
   
   public static final String TABLE_BANNED_USER = "banned_user";
   
+  public static final String TABLE_LOGIN_HISTORY = "login_history";
+  
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
   public static final String GENERIC__ID = "id";
@@ -589,4 +591,11 @@ public class DBConstants {
   public static final String USER_BOOSTER_ITEMS__BOOSTER_ITEM_ID = "booster_item_id";
   public static final String USER_BOOSTER_ITEMS__USER_ID = "user_id";
   public static final String USER_BOOSTER_ITEMS__NUM_RECEIVED = "num_received";
+  
+  /*LOGIN HISTORY*/
+  public static final String LOGIN_HISTORY__ID = GENERIC__ID;
+  public static final String LOGIN_HISTORY__UDID = "udid";
+  public static final String LOGIN_HISTORY__USER_ID = GENERIC__USER_ID;
+  public static final String LOGIN_HISTORY__DATE = "date";
+  public static final String LOGIN_HISTORY__IS_LOGIN = "is_login";
 }

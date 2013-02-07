@@ -144,7 +144,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private int calculateMinutesForCurrentExpansion(UserCityExpansionData userCityExpansionData) {
     int numCompletedExpansionsSoFar = userCityExpansionData.getTotalNumCompletedExpansions();
       return (ControllerConstants.EXPANSION_WAIT_COMPLETE__HOUR_CONSTANT + 
-          ControllerConstants.EXPANSION_WAIT_COMPLETE__HOUR_INCREMENT_BASE*numCompletedExpansionsSoFar)*60;
+          ControllerConstants.EXPANSION_WAIT_COMPLETE__HOUR_INCREMENT_BASE*(numCompletedExpansionsSoFar + 1))*60;
   }
 
   private int calculateExpansionSpeedupCost(UserCityExpansionData userCityExpansionData) {
