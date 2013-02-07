@@ -576,9 +576,10 @@ public class DBConstants {
   public static final String BOOSTER_PACK__COIN_COST = "coin_cost";
   public static final String BOOSTER_PACK__DIAMOND_COST = "diamond_cost";
   public static final String BOOSTER_PACK__NAME = "name";
-  public static final String BOOSTER_PACK__IMAGE = "image";
-  public static final String BOOSTER_PACK__DESCRIPTION = "description";
-  public static final String BOOSTER_PACK__NUM_EQUIPS = "num_equips";
+  public static final String BOOSTER_PACK__CHEST_IMAGE = "chest_image";
+  public static final String BOOSTER_PACK__MIDDLE_IMAGE = "middle_image";
+  public static final String BOOSTER_PACK__MIN_LEVEL = "min_level";
+  public static final String BOOSTER_PACK__MAX_LEVEL = "max_level";
   
   /*BOOSTER ITEM*/
   public static final String BOOSTER_ITEM__ID = GENERIC__ID;

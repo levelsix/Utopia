@@ -80,12 +80,13 @@ import com.lvl6.utils.DBConnection;
     int coinCost = rs.getInt(i++);
     int diamondCost = rs.getInt(i++);
     String name = rs.getString(i++);
-    String image = rs.getString(i++);
-    String description = rs.getString(i++);
-    int numEquips = rs.getInt(i++);
+    String chestImage = rs.getString(i++);
+    String middleImage = rs.getString(i++);
+    int minLevel = rs.getInt(i++);
+    int maxLevel = rs.getInt(i++);
     
     BoosterPack boosterPack = new BoosterPack(id, coinCost, diamondCost, 
-        name, image, description, numEquips);
+        name, chestImage, middleImage, minLevel, maxLevel);
     return boosterPack; 
   }
 }
