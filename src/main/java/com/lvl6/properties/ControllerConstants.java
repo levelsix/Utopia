@@ -463,6 +463,7 @@ public class ControllerConstants {
   public static final String UCHRFC__CHARACTER_MOD_SKILL_POINTS = "character skill points";
   public static final String UCHRFC__GOLDMINE = "goldmine reset";
   public static final String UCHRFC__COLLECT_GOLDMINE = "collect from goldmine";
+  public static final String UCHRFC__SPED_UP_ENHANCING = "sped up enhancing ";
   //silver only reasons
   public static final String UCHRFC__RETRIEVE_CURRENCY_FROM_NORM_STRUCT = "retrieve currency from normal structures";
   public static final String UCHRFC__TASK_ACTION = "performed task with id ";
