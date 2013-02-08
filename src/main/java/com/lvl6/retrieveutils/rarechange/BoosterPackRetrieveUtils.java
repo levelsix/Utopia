@@ -77,16 +77,18 @@ import com.lvl6.utils.DBConnection;
   private static BoosterPack convertRSRowToBoosterPack(ResultSet rs) throws SQLException {
     int i = 1;
     int id = rs.getInt(i++);
-    int coinCost = rs.getInt(i++);
-    int diamondCost = rs.getInt(i++);
+    boolean costsCoins = rs.getBoolean(i++);
+    int salePrice = rs.getInt(i++);
+    int retailPrice = rs.getInt(i++);
     String name = rs.getString(i++);
     String chestImage = rs.getString(i++);
     String middleImage = rs.getString(i++);
+    String backgroundImage = rs.getString(i++);
     int minLevel = rs.getInt(i++);
     int maxLevel = rs.getInt(i++);
     
-    BoosterPack boosterPack = new BoosterPack(id, coinCost, diamondCost, 
-        name, chestImage, middleImage, minLevel, maxLevel);
+    BoosterPack boosterPack = new BoosterPack(id, costsCoins, salePrice, retailPrice, 
+        name, chestImage, middleImage, backgroundImage, minLevel, maxLevel);
     return boosterPack; 
   }
 }
