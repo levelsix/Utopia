@@ -110,6 +110,7 @@ import com.lvl6.server.GameServer;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
@@ -1271,32 +1272,51 @@ public class MiscMethods {
 
   public static void writeIntoDUEFE(UserEquip mainUserEquip, List<UserEquip> feederUserEquips,
       int enhancementId) {
-    log.info("writing into deleted user equips for enhancing");
-    String tableName = DBConstants.TABLE_DELETED_USER_EQUIPS_FOR_ENHANCING;
-    List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
-    Map<String, Object> newRow = new HashMap<String, Object>();
+    try {
+      log.info("writing into deleted user equips for enhancing");
+      int numRows = 1 + feederUserEquips.size();
+      String tableName = DBConstants.TABLE_DELETED_USER_EQUIPS_FOR_ENHANCING;
 
-    newRow.put(DBConstants.DUEFE__USER_EQUIP__ID, mainUserEquip.getId());
-    newRow.put(DBConstants.DUEFE__USER_EQUIP__USER_ID, mainUserEquip.getUserId());
-    newRow.put(DBConstants.DUEFE__USER_EQUIP__EQUIP_ID, mainUserEquip.getEquipId());
-    newRow.put(DBConstants.DUEFE__USER_EQUIP__LEVEL, mainUserEquip.getLevel());
-    newRow.put(DBConstants.DUEFE__USER_EQUIP__ENHANCEMENT_PERCENT, mainUserEquip.getEnhancementPercentage());
-    newRow.put(DBConstants.DUEFE__IS_FEEDER, 0);
-    newRow.put(DBConstants.DUEFE__EQUIP_ENHANCEMENT_ID, enhancementId);
+      Map<String, List<Object>> insertParams = new HashMap<String, List<Object>>();
 
-    newRows.add(newRow);
-    for(UserEquip ue : feederUserEquips) {
-      Map<String, Object> newRow2 = new HashMap<String, Object>();
-      newRow2.put(DBConstants.DUEFE__USER_EQUIP__ID, ue.getId());
-      newRow2.put(DBConstants.DUEFE__USER_EQUIP__USER_ID, ue.getUserId());
-      newRow2.put(DBConstants.DUEFE__USER_EQUIP__EQUIP_ID, ue.getEquipId());
-      newRow2.put(DBConstants.DUEFE__USER_EQUIP__LEVEL, ue.getLevel());
-      newRow2.put(DBConstants.DUEFE__USER_EQUIP__ENHANCEMENT_PERCENT, ue.getEnhancementPercentage());
-      newRow2.put(DBConstants.DUEFE__IS_FEEDER, 1);
+      List<Object> userEquipIds = new ArrayList<Object>();
+      List<Object> userIds = new ArrayList<Object>();
+      List<Object> equipIds = new ArrayList<Object>();
+      List<Object> levels = new ArrayList<Object>();
+      List<Object> enhancementPercents = new ArrayList<Object>();
+      List<Object> areFeeders = new ArrayList<Object>();
+      List<Object> equipEnhancementIds = new ArrayList<Object>();
 
-      newRows.add(newRow2);
+      userEquipIds.add(mainUserEquip.getId());
+      userIds.add(mainUserEquip.getUserId());
+      equipIds.add(mainUserEquip.getEquipId());
+      levels.add(mainUserEquip.getLevel());
+      enhancementPercents.add(mainUserEquip.getEnhancementPercentage());
+      areFeeders.add(0);
+      equipEnhancementIds.add(enhancementId);
+
+      for(UserEquip ue : feederUserEquips) {
+        userEquipIds.add(ue.getId());
+        userIds.add(ue.getUserId());
+        equipIds.add(ue.getEquipId());
+        levels.add(ue.getLevel());
+        levels.add(ue.getEnhancementPercentage());
+        areFeeders.add(1);
+        equipEnhancementIds.add(0);
+      }
+
+      insertParams.put(DBConstants.DUEFE__USER_EQUIP__ID, userEquipIds);
+      insertParams.put(DBConstants.DUEFE__USER_EQUIP__USER_ID, userIds);
+      insertParams.put(DBConstants.DUEFE__USER_EQUIP__EQUIP_ID, equipIds);
+      insertParams.put(DBConstants.DUEFE__USER_EQUIP__LEVEL, levels);
+      insertParams.put(DBConstants.DUEFE__USER_EQUIP__ENHANCEMENT_PERCENT, enhancementPercents);
+      insertParams.put(DBConstants.DUEFE__IS_FEEDER, areFeeders);
+      insertParams.put(DBConstants.DUEFE__EQUIP_ENHANCEMENT_ID, equipEnhancementIds);
+
+      DBConnection.get().insertIntoTableMultipleRows(tableName, insertParams, numRows);
+    } catch (Exception e) {
+      log.error("could not write into deleted_user_equips_for_enhancing", e);
     }
-    
   }
 
   public static boolean isEquipAtMaxEnhancementLevel(UserEquip enhancingUserEquip) {
