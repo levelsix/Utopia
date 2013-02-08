@@ -3,7 +3,9 @@ package com.lvl6.server.controller;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import com.lvl6.info.EquipEnhancement;
 import com.lvl6.info.EquipEnhancementFeeder;
 import com.lvl6.info.User;
 import com.lvl6.misc.MiscMethods;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.CollectEquipEnhancementRequestProto;
 import com.lvl6.proto.EventProto.CollectEquipEnhancementResponseProto;
 import com.lvl6.proto.EventProto.CollectEquipEnhancementResponseProto.Builder;
@@ -74,6 +77,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
           .getEquipEnhancementFeedersForEquipEnhancementId(equipEnhancementId);
 
       User aUser = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId()); 
+      int previousGold = 0;
       
       //check if the time is right, if speed up, check if user has enough gold, check if enhancement is complete
       boolean legitEquip = checkEquip(resBuilder, aUser, equipUnderEnhancement, feedersForEnhancement, 
@@ -81,11 +85,13 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
       boolean successful = false;
       FullUserEquipProto.Builder userEquipBuilder = FullUserEquipProto.newBuilder();
+      Map<String, Integer> goldSilverChange = new HashMap<String, Integer>();
       if (legitEquip) {
+        previousGold = aUser.getDiamonds();
         //add the user equip, delete the equip enhancement and equip enhancement feeders,
         //record what happened
         successful = writeChangesToDB(resBuilder, equipEnhancementId, equipUnderEnhancement,
-            feedersForEnhancement, clientTime, speedUp, userEquipBuilder, aUser);
+            feedersForEnhancement, clientTime, speedUp, userEquipBuilder, aUser, goldSilverChange);
       }
       
       if (successful) {
@@ -99,12 +105,13 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       server.writeEvent(resEvent);
       
       if (successful) {
-        writeIntoEquipEnhancementHistory(equipUnderEnhancement, userEquipBuilder, speedUp, clientTime);
-        writeIntoEquipEnhancementFeederHistory(equipEnhancementId, feedersForEnhancement);
-
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(aUser);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+
+        writeIntoEquipEnhancementHistory(equipUnderEnhancement, userEquipBuilder, speedUp, clientTime);
+        writeIntoEquipEnhancementFeederHistory(equipEnhancementId, feedersForEnhancement);
+        writeToUserCurrencyHistory(aUser, clientTime, goldSilverChange, previousGold);
       }
       
     } catch (Exception e) {
@@ -118,7 +125,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   //record what happened
   private boolean writeChangesToDB(Builder resBuilder, int equipEnhancementId, EquipEnhancement equipUnderEnhancement, 
       List<EquipEnhancementFeeder> feedersForEnhancement, Timestamp clientTime, boolean speedUp, 
-      FullUserEquipProto.Builder userEquipBuilder, User aUser) {
+      FullUserEquipProto.Builder userEquipBuilder, User aUser, Map<String, Integer> goldSilverChange) {
     //stuff to create user equip
     int userId = equipUnderEnhancement.getUserId();
     int equipId = equipUnderEnhancement.getEquipId();
@@ -162,7 +169,13 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     
     if (speedUp) {
       int cost = MiscMethods.calculateCostToSpeedUpEnhancing(equipUnderEnhancement, feedersForEnhancement, clientTime);
-      aUser.updateRelativeDiamondsNaive(-cost);
+      if(!aUser.updateRelativeDiamondsNaive(-cost)) {
+        log.error("Could not deduct cost to speed up enhancing for user:" + aUser);
+      } else {
+        if(0 != cost) {
+          goldSilverChange.put(MiscMethods.gold, -cost);
+        }
+      }
     }
     
     return true;
@@ -274,5 +287,18 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     if(size != numInserted) {
       log.error("numInserted into feeder history table: " + numInserted + ", should have been:" + size);
     }
+  }
+  
+  private void writeToUserCurrencyHistory(User aUser, Timestamp date,
+      Map<String, Integer> goldSilverChange, int previousGold) {
+    String gold = MiscMethods.gold;
+    String reasonForChange = ControllerConstants.UCHRFC__SPED_UP_ENHANCING;
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    
+    previousGoldSilver.put(gold, previousGold);
+    reasonsForChanges.put(gold, reasonForChange);
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange, previousGoldSilver, reasonsForChanges);
   }
 }
