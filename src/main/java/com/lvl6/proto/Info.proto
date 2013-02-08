@@ -23,15 +23,17 @@ message UserBoosterItemProto {
 message BoosterPackProto {
 	optional int32 id = 1;
 	optional bool costsCoins = 2;
-	optional int32 salePrice = 3;
-	optional int32 retailPrice = 4;
-	optional string name = 5;
-	optional string chestImage = 6;
-	optional string middleImage = 7;
-	optional string backgroundImage = 8;
-	optional int32 minLevel = 9;
-	optional int32 maxLevel = 10;
-	repeated BoosterItemProto boosterItems = 11; 
+	optional string name = 3;
+	optional string chestImage = 4;
+	optional string middleImage = 5;
+	optional string backgroundImage = 6;
+	optional int32 minLevel = 7;
+	optional int32 maxLevel = 8;
+	repeated BoosterItemProto boosterItems = 9;
+	optional int32 salePriceOne = 10;
+	optional int32 retailPriceOne = 11;
+	optional int32 salePriceTwo = 12;
+	optional int32 retailPriceTwo = 13; 
 }
 
 message BoosterItemProto {
