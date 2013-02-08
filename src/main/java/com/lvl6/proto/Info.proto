@@ -486,8 +486,9 @@ message FullEquipProto {
 		COMMON = 0;
 		UNCOMMON = 1;
 		RARE = 2;
-		EPIC = 3;
-		LEGENDARY = 4;
+		SUPERRARE = 3;
+		EPIC = 4;
+		LEGENDARY = 5;
 	}
 	
 	enum EquipType {

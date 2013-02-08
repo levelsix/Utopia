@@ -26,8 +26,6 @@ public class GenerateFakeUsersWithoutInput {
   private static int syllablesInName1 = 2;
   private static int syllablesInName2 = 3;
 
-  protected InsertUtil insertUtils;
-
   public static void main(String[] args) {
     ApplicationContext context = new FileSystemXmlApplicationContext("target/utopia-server-1.0-SNAPSHOT/WEB-INF/spring-application-context.xml");
     NameGenerator nameGenerator = null;
