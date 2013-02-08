@@ -1107,10 +1107,11 @@ public class CreateInfoProtoUtils {
   
   public static BoosterPackProto createBoosterPackProto(BoosterPack bp, Collection<BoosterItem> biList) {
     BoosterPackProto.Builder b = BoosterPackProto.newBuilder()
-        .setId(bp.getId()).setCoinCost(bp.getCoinCost()).setDiamondCost(bp.getDiamondCost())
+        .setId(bp.getId()).setCostsCoins(bp.isCostsCoins())
+        .setSalePrice(bp.getSalePrice()).setRetailPrice(bp.getRetailPrice())
         .setName(bp.getName()).setChestImage(bp.getChestImage())
-        .setMiddleImage(bp.getMiddleImage()).setMinLevel(bp.getMinLevel())
-        .setMaxLevel(bp.getMaxLevel());
+        .setMiddleImage(bp.getMiddleImage()).setBackgroundImage(bp.getBackgroundImage())
+        .setMinLevel(bp.getMinLevel()).setMaxLevel(bp.getMaxLevel());
     
     List<BoosterItemProto> biProtos = new ArrayList<BoosterItemProto>();
     for(BoosterItem bi : biList) {

@@ -5,23 +5,27 @@ import java.io.Serializable;
 public class BoosterPack implements Serializable {
   private static final long serialVersionUID = -5134245989644009715L;
   private int id;
-  private int coinCost;
-  private int diamondCost;
+  private boolean costsCoins;
+  private int salePrice;
+  private int retailPrice;
   private String name;
   private String chestImage;
   private String middleImage;
+  private String backgroundImage;
   private int minLevel;
   private int maxLevel;
   
-  public BoosterPack(int id, int coinCost, int diamondCost, String name, 
-      String chestImage, String middleImage, int minLevel, int maxLevel) {
+  public BoosterPack(int id, boolean costsCoins, int salePrice, int retailPrice, String name, 
+      String chestImage, String middleImage, String backgroundImage, int minLevel, int maxLevel) {
     super();
     this.id = id;
-    this.coinCost = coinCost;
-    this.diamondCost = diamondCost;
+    this.costsCoins = costsCoins;
+    this.salePrice = salePrice;
+    this.retailPrice = retailPrice;
     this.name = name;
     this.chestImage = chestImage;
     this.middleImage = middleImage;
+    this.backgroundImage = backgroundImage;
     this.minLevel = minLevel;
     this.maxLevel = maxLevel;
   }
@@ -34,20 +38,28 @@ public class BoosterPack implements Serializable {
     this.id = id;
   }
 
-  public int getCoinCost() {
-    return coinCost;
+  public boolean isCostsCoins() {
+    return costsCoins;
   }
 
-  public void setCoinCost(int coinCost) {
-    this.coinCost = coinCost;
+  public void setCostsCoins(boolean costsCoins) {
+    this.costsCoins = costsCoins;
   }
 
-  public int getDiamondCost() {
-    return diamondCost;
+  public int getSalePrice() {
+    return salePrice;
   }
 
-  public void setDiamondCost(int diamondCost) {
-    this.diamondCost = diamondCost;
+  public void setSalePrice(int salePrice) {
+    this.salePrice = salePrice;
+  }
+
+  public int getRetailPrice() {
+    return retailPrice;
+  }
+
+  public void setRetailPrice(int retailPrice) {
+    this.retailPrice = retailPrice;
   }
 
   public String getName() {
@@ -74,6 +86,14 @@ public class BoosterPack implements Serializable {
     this.middleImage = middleImage;
   }
 
+  public String getBackgroundImage() {
+    return backgroundImage;
+  }
+
+  public void setBackgroundImage(String backgroundImage) {
+    this.backgroundImage = backgroundImage;
+  }
+
   public int getMinLevel() {
     return minLevel;
   }
@@ -96,9 +116,10 @@ public class BoosterPack implements Serializable {
 
   @Override
   public String toString() {
-    return "BoosterPack [id=" + id + ", coinCost=" + coinCost
-        + ", diamondCost=" + diamondCost + ", name=" + name + ", chestImage="
-        + chestImage + ", middleImage=" + middleImage + ", minLevel="
+    return "BoosterPack [id=" + id + ", costsCoins=" + costsCoins
+        + ", salePrice=" + salePrice + ", retailPrice=" + retailPrice
+        + ", name=" + name + ", chestImage=" + chestImage + ", middleImage="
+        + middleImage + ", backgroundImage=" + backgroundImage + ", minLevel="
         + minLevel + ", maxLevel=" + maxLevel + "]";
   }
 
