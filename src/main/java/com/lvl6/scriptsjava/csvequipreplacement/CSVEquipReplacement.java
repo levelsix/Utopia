@@ -10,7 +10,6 @@ import au.com.bytecode.opencsv.CSVReader;
 
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
-import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class CSVEquipReplacement {
   private static String csvFileName = "src/main/java/com/lvl6/scriptsjava/csvequipreplacement/weaponchanges.csv";
