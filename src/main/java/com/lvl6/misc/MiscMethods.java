@@ -31,6 +31,7 @@ import com.lvl6.info.Dialogue;
 import com.lvl6.info.EquipEnhancement;
 import com.lvl6.info.EquipEnhancementFeeder;
 import com.lvl6.info.Equipment;
+import com.lvl6.info.GoldSale;
 import com.lvl6.info.LeaderboardEvent;
 import com.lvl6.info.LeaderboardEventReward;
 import com.lvl6.info.Location;
@@ -74,6 +75,7 @@ import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker
 import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.InAppPurchasePackageProto;
+import com.lvl6.proto.InfoProto.GoldSaleProto;
 import com.lvl6.proto.InfoProto.LeaderboardEventProto;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
 import com.lvl6.proto.InfoProto.UserType;
@@ -1111,7 +1113,7 @@ public class MiscMethods {
             userId);
     return posts.size();
   }
-  
+
   public static void writeToUserCurrencyOneUserGoldAndSilver(
       User aUser, Timestamp date, Map<String,Integer> goldSilverChange, 
       Map<String, Integer> previousGoldSilver, Map<String, String> reasons) {
@@ -1168,12 +1170,12 @@ public class MiscMethods {
         } else {
           previousSilver = previousGoldSilver.get(silver);
         }
-        
+
         previousCurrencies.add(previousSilver);
         currentCurrencies.add(currentSilver);
         reasonsForChanges.add(reasons.get(silver));
       }
-      
+
       //using multiple rows because could be 2 entries: one for silver, other for gold
       InsertUtils.get().insertIntoUserCurrencyHistoryMultipleRows(userIds, dates, areSilver,
           changesToCurrencies, previousCurrencies, currentCurrencies, reasonsForChanges);
@@ -1190,7 +1192,7 @@ public class MiscMethods {
       Set<String> keySet = goldSilverChange.keySet();
       Object[] keyArray = keySet.toArray();
       String key = (String) keyArray[0];
-      
+
       //arguments to insertIntoUserCurrency
       int userId = aUser.getId();
       int isSilver = 0;
@@ -1198,7 +1200,7 @@ public class MiscMethods {
       int previousCurrency = 0;
       int currentCurrency = 0;
       String reasonForChange = reasons.get(key);
-      
+
       if (0 == currencyChange) {
         return;//don't write a non change to history table to avoid bloat
       }
@@ -1226,7 +1228,7 @@ public class MiscMethods {
       log.error("null pointer exception?", e);
     }
   }
-  
+
 
   //goldSilverChange should represent how much user's silver and, or gold increased or decreased and
   //this should be called after the user is updated
@@ -1395,26 +1397,54 @@ public class MiscMethods {
   }
 
   public static int calculateCostToSpeedUpEnhancing(EquipEnhancement e, List<EquipEnhancementFeeder> feeder,
-	      Timestamp timeOfSpeedUp) {
-	    int mins = calculateMinutesToFinishEnhancing(e, feeder);
-	    int result = (int)Math.ceil(((float)mins)/ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
+      Timestamp timeOfSpeedUp) {
+    int mins = calculateMinutesToFinishEnhancing(e, feeder);
+    int result = (int)Math.ceil(((float)mins)/ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
 
-	    // log.info("diamonds="+result);
-	    return result;
-	  }
+    // log.info("diamonds="+result);
+    return result;
+  }
 
-	  public static int pointsGainedForClanTowerUserBattle(User winner, User loser) {
-	    int d = winner.getLevel()-loser.getLevel();
-	    int pts;
-	    if (d > 10) {
-	      pts = 1;
-	    } else if (d < -8) {
-	      pts = 100;
-	    } else {
-	      pts = (int)Math.round((-0.0006*Math.pow(d, 5)+0.0601*Math.pow(d, 4)-0.779*Math.pow(d, 3)
-	          +2.4946*Math.pow(d, 2)-9.7046*d+89.905)/10.);
-	    }
-	    log.info(pts+" diff:"+d);
-	    return Math.min(100, Math.max(1, pts));
-	  }
-	}
+  public static int pointsGainedForClanTowerUserBattle(User winner, User loser) {
+    int d = winner.getLevel()-loser.getLevel();
+    int pts;
+    if (d > 10) {
+      pts = 1;
+    } else if (d < -8) {
+      pts = 100;
+    } else {
+      pts = (int)Math.round((-0.0006*Math.pow(d, 5)+0.0601*Math.pow(d, 4)-0.779*Math.pow(d, 3)
+          +2.4946*Math.pow(d, 2)-9.7046*d+89.905)/10.);
+    }
+    return Math.min(100, Math.max(1, pts));
+  }
+
+  public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
+    int id = 0;
+    Date startDate = user.getCreateTime();
+    Date endDate = new Date(startDate.getTime()+ControllerConstants.NUM_DAYS_FOR_NEW_USER_GOLD_SALE*24*60*60);
+
+    if (endDate.getTime() < new Date().getTime()) {
+      return null;
+    }
+
+    String package1SaleIdentifier = IAPValues.PACKAGE1SALE;
+    String package2SaleIdentifier = IAPValues.PACKAGE2SALE;
+    String package3SaleIdentifier = IAPValues.PACKAGE3SALE;
+    String package4SaleIdentifier = IAPValues.PACKAGE4SALE;
+    String package5SaleIdentifier = IAPValues.PACKAGE5SALE;
+    String packageS1SaleIdentifier = IAPValues.PACKAGES1SALE;
+    String packageS2SaleIdentifier = IAPValues.PACKAGES2SALE;
+    String packageS3SaleIdentifier = IAPValues.PACKAGES3SALE;
+    String packageS4SaleIdentifier = IAPValues.PACKAGES4SALE;
+    String packageS5SaleIdentifier = IAPValues.PACKAGES5SALE;
+
+    String goldShoppeImageName = ControllerConstants.GOLD_SHOPPE_IMAGE_NAME_NEW_USER_GOLD_SALE;
+    String goldBarImageName = ControllerConstants.GOLD_BAR_IMAGE_NAME_NEW_USER_GOLD_SALE;
+
+    GoldSale sale = new GoldSale(id, startDate, endDate, goldShoppeImageName, goldBarImageName, package1SaleIdentifier, package2SaleIdentifier, package3SaleIdentifier, package4SaleIdentifier, package5SaleIdentifier,
+        packageS1SaleIdentifier, packageS2SaleIdentifier, packageS3SaleIdentifier, packageS4SaleIdentifier, packageS5SaleIdentifier);
+
+    return CreateInfoProtoUtils.createGoldSaleProtoFromGoldSale(sale);
+  }
+}
