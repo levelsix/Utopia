@@ -1422,7 +1422,7 @@ public class MiscMethods {
   public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     int id = 0;
     Date startDate = user.getCreateTime();
-    Date endDate = new Date(startDate.getTime()+ControllerConstants.NUM_DAYS_FOR_NEW_USER_GOLD_SALE*24*60*60);
+    Date endDate = new Date(startDate.getTime()+ControllerConstants.NUM_DAYS_FOR_NEW_USER_GOLD_SALE*24l*60l*60l*1000l);
 
     if (endDate.getTime() < new Date().getTime()) {
       return null;
