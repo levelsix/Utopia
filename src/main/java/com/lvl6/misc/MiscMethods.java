@@ -30,6 +30,7 @@ import com.lvl6.info.ClanTierLevel;
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
+import com.lvl6.info.GoldSale;
 import com.lvl6.info.LeaderboardEvent;
 import com.lvl6.info.LeaderboardEventReward;
 import com.lvl6.info.Location;
@@ -70,6 +71,7 @@ import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
+import com.lvl6.proto.InfoProto.GoldSaleProto;
 import com.lvl6.proto.InfoProto.LeaderboardEventProto;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
 import com.lvl6.proto.InfoProto.UserType;
@@ -1136,5 +1138,28 @@ public class MiscMethods {
     } catch(Exception e) {
       log.error("error updating user_curency_history; reasonForChange=" + reasonForChange, e);
     }
+  }
+  
+  public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
+    int id = 0;
+    Date startDate = user.getCreateTime();
+    Date endDate = new Date(startDate.getTime()+ControllerConstants.NUM_DAYS_FOR_NEW_USER_GOLD_SALE*24*60*60);
+    
+    if (endDate.getTime() < new Date().getTime()) {
+      return null;
+    }
+
+    String package1SaleIdentifier = IAPValues.PACKAGE1SALE;
+    String package2SaleIdentifier = IAPValues.PACKAGE2SALE;
+    String package3SaleIdentifier = IAPValues.PACKAGE3SALE;
+    String package4SaleIdentifier = IAPValues.PACKAGE4SALE;
+    String package5SaleIdentifier = IAPValues.PACKAGE5SALE;
+
+    String goldShoppeImageName = ControllerConstants.GOLD_SHOPPE_IMAGE_NAME_NEW_USER_GOLD_SALE;
+    String goldBarImageName = ControllerConstants.GOLD_BAR_IMAGE_NAME_NEW_USER_GOLD_SALE;
+    
+    GoldSale sale = new GoldSale(id, startDate, endDate, package1SaleIdentifier, package2SaleIdentifier, package3SaleIdentifier, package4SaleIdentifier, package5SaleIdentifier, goldShoppeImageName, goldBarImageName);
+    
+    return CreateInfoProtoUtils.createGoldSaleProtoFromGoldSale(sale);
   }
 }

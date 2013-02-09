@@ -67,6 +67,7 @@ import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
+import com.lvl6.proto.InfoProto.GoldSaleProto;
 import com.lvl6.proto.InfoProto.GroupChatMessageProto;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
 import com.lvl6.proto.InfoProto.UserType;
@@ -191,14 +192,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           setMarketplaceSearchEquips(resBuilder);
           setStaticEquipsAndStructs(resBuilder);
           setChatMessages(resBuilder, user);
-          setGoldSales(resBuilder);
+          setGoldSales(resBuilder, user);
           resBuilder.addAllClanTierLevels(MiscMethods.getAllClanTierLevelProtos());
           //if(server.lockClanTowersTable()) {
-            setClanTowers(resBuilder);
+          setClanTowers(resBuilder);
           //}
           resBuilder.addAllBossEvents(MiscMethods.currentBossEvents());
           setLeaderboardEventStuff(resBuilder);
-          
+
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
         } catch (Exception e) {
@@ -235,7 +236,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private void setClanTowers(StartupResponseProto.Builder resBuilder) {
     List<ClanTower> towers = ClanTowerRetrieveUtils.getAllClanTowers();
-    
+
     for (ClanTower tower : towers) {
       resBuilder.addClanTowers(CreateInfoProtoUtils.createClanTowerProtoFromClanTower(tower));
     }
@@ -245,7 +246,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private void setLeaderboardEventStuff(StartupResponseProto.Builder resBuilder) {
     resBuilder.addAllLeaderboardEvents(MiscMethods.currentLeaderboardEventProtos());
   }
-  
+
   private void retrieveKabamNaid(User user, String openUdid, String udid, String mac, String advertiserId) {
     String host;
     int port = 443;
@@ -371,10 +372,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private void setGoldSales(StartupResponseProto.Builder resBuilder) {
+  private void setGoldSales(StartupResponseProto.Builder resBuilder, User user) {
     List<GoldSale> sales = GoldSaleRetrieveUtils.getCurrentAndFutureGoldSales();
-    for (GoldSale sale : sales) {
-      resBuilder.addGoldSales(CreateInfoProtoUtils.createGoldSaleProtoFromGoldSale(sale));
+    if (sales != null && sales.size() > 0) {
+      for (GoldSale sale : sales) {
+        resBuilder.addGoldSales(CreateInfoProtoUtils.createGoldSaleProtoFromGoldSale(sale));
+      }
+    } else {
+      GoldSaleProto sale = MiscMethods.createFakeGoldSaleForNewPlayer(user);
+      if (sale != null) {
+        resBuilder.addGoldSales(sale);
+      }
     }
   }
 
