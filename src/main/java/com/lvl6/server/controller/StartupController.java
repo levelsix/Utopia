@@ -380,7 +380,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
     } else {
       GoldSaleProto sale = MiscMethods.createFakeGoldSaleForNewPlayer(user);
+      log.info("Found no gold sale");
       if (sale != null) {
+        log.info("Setting fake gold sale");
         resBuilder.addGoldSales(sale);
       }
     }
