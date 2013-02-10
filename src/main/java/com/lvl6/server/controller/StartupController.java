@@ -81,6 +81,7 @@ import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.retrieveutils.EquipEnhancementFeederRetrieveUtils;
 import com.lvl6.retrieveutils.EquipEnhancementRetrieveUtils;
 import com.lvl6.retrieveutils.IAPHistoryRetrieveUtils;
+import com.lvl6.retrieveutils.LoginHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
 import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
 import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
@@ -219,6 +220,18 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
       } else {
         log.info("new player with udid " + udid);
+        
+        boolean userLoggedIn = LoginHistoryRetrieveUtils.userLoggedInByUDID(udid);
+        boolean isFirstTimeUser = false;
+        if (!userLoggedIn) {
+          isFirstTimeUser = true;
+        }
+        
+        if (isFirstTimeUser) {
+          InsertUtils.get().insertIntoFirstTimeUsers(udid, reqProto.getIOS5Udid(),
+              reqProto.getMacAddress(), reqProto.getAdvertiserId(), now);
+        }
+        
         boolean isNewUser = true;
         InsertUtils.get().insertIntoLoginHistory(udid, 0, now, isLogin, isNewUser);
       }
@@ -884,4 +897,5 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange,
         previousGoldSilver, reasonsForChanges);
   }
+ 
 }

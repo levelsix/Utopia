@@ -164,4 +164,6 @@ public interface InsertUtil {
       List<Integer> currenciesBefore, List<Integer> currentCurrencies, List<String> reasonsForChanges);
   
   public abstract int insertIntoLoginHistory(String udid, int userId, Timestamp now, boolean isLogin, boolean isNewUser);
+  
+  public abstract int insertIntoFirstTimeUsers(String openUdid, String udid, String mac, String advertiserId, Timestamp now);
 }

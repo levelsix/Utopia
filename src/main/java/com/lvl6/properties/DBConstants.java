@@ -78,11 +78,13 @@ public class DBConstants {
   
   public static final String TABLE_BOOSTER_PACK = "booster_pack";
   public static final String TABLE_BOOSTER_ITEM = "booster_item";
+  public static final String TABLE_USER_BOOSTER_PACK_HISTORY = "user_booster_pack_history";
   public static final String TABLE_USER_BOOSTER_ITEMS = "user_booster_items";
   
   public static final String TABLE_BANNED_USER = "banned_user";
   
   public static final String TABLE_LOGIN_HISTORY = "login_history";
+  public static final String TABLE_FIRST_TIME_USERS = "first_time_users";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -582,6 +584,12 @@ public class DBConstants {
   public static final String BOOSTER_PACK__BACKGROUND_IMAGE = "background_image";
   public static final String BOOSTER_PACK__MIN_LEVEL = "min_level";
   public static final String BOOSTER_PACK__MAX_LEVEL = "max_level";
+
+  /*USER BOOSTER PACK HISTORY*/
+  public static final String USER_BOOSTER_PACK_HISTORY__USER_ID = GENERIC__USER_ID;
+  public static final String USER_BOOSTER_PACK_HISTORY__BOOSTER_PACK_ID = "booster_pack_id"; 
+  public static final String USER_BOOSTER_PACK_HISTORY__NUM_BOUGHT = "num_bought";
+  public static final String USER_BOSTER_PACK_HISTORY__TIME_OF_PURCHASE = "time_of_purchase";
   
   /*BOOSTER ITEM*/
   public static final String BOOSTER_ITEM__ID = GENERIC__ID;
@@ -593,7 +601,7 @@ public class DBConstants {
   /*USER BOOSTER ITEMS*/
   public static final String USER_BOOSTER_ITEMS__BOOSTER_ITEM_ID = "booster_item_id";
   public static final String USER_BOOSTER_ITEMS__USER_ID = "user_id";
-  public static final String USER_BOOSTER_ITEMS__NUM_RECEIVED = "num_received";
+  public static final String USER_BOOSTER_ITEMS__NUM_COLLECTED = "num_collected";
   
   /*LOGIN HISTORY*/
   public static final String LOGIN_HISTORY__ID = GENERIC__ID;
@@ -601,4 +609,13 @@ public class DBConstants {
   public static final String LOGIN_HISTORY__USER_ID = GENERIC__USER_ID;
   public static final String LOGIN_HISTORY__DATE = "date";
   public static final String LOGIN_HISTORY__IS_LOGIN = "is_login";
+  
+  /*FIRST TIME USERS*/
+  public static final String FIRST_TIME_USERS__ID = GENERIC__ID;
+  public static final String FIRST_TIME_USERS__OPEN_UDID = "open_udid";
+  public static final String FIRST_TIME_USERS__UDID = "udid";
+  public static final String FIRST_TIME_USERS__MAC = "mac";
+  public static final String FIRST_TIME_USERS__ADVERTISER_ID = "advertiser_id";
+  public static final String FIRST_TIME_USERS__CREATE_TIME = "create_time";
+  
 }
