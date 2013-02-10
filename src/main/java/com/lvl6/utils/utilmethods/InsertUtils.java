@@ -848,4 +848,38 @@ public class InsertUtils implements InsertUtil{
     
     return numInserted;
   }
+  
+  public int insertIntoLoginHistory(String udid, int userId, Timestamp now, boolean isLogin,
+      boolean isNewUser) {
+    String tableName = DBConstants.TABLE_LOGIN_HISTORY;
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    
+    insertParams.put(DBConstants.LOGIN_HISTORY__UDID, udid);
+    //isNewUser==true means user going through tutorial, so no id exists
+    if(!isNewUser) {
+      insertParams.put(DBConstants.LOGIN_HISTORY__USER_ID, userId);
+    }
+    insertParams.put(DBConstants.LOGIN_HISTORY__DATE, now);
+    insertParams.put(DBConstants.LOGIN_HISTORY__IS_LOGIN, isLogin);
+    
+    int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
+    
+    return numInserted;
+  }
+  
+  public int insertIntoFirstTimeUsers(String openUdid, String udid, String mac, String advertiserId,
+      Timestamp now) {
+    String tableName = DBConstants.TABLE_FIRST_TIME_USERS;
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    
+    insertParams.put(DBConstants.FIRST_TIME_USERS__OPEN_UDID, openUdid);
+    insertParams.put(DBConstants.FIRST_TIME_USERS__UDID, udid);
+    insertParams.put(DBConstants.FIRST_TIME_USERS__MAC, mac);
+    insertParams.put(DBConstants.FIRST_TIME_USERS__ADVERTISER_ID, advertiserId);
+    insertParams.put(DBConstants.FIRST_TIME_USERS__CREATE_TIME, now);
+    
+    int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
+    
+    return numInserted;
+  }
 }

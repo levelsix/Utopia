@@ -70,6 +70,9 @@ public class DBConstants {
   public static final String TABLE_PROFANITY = "profanity";
   public static final String TABLE_USER_CURRENCY_HISTORY = "user_currency_history";
   
+  public static final String TABLE_LOGIN_HISTORY = "login_history";
+  public static final String TABLE_FIRST_TIME_USERS = "first_time_users";
+
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
   public static final String GENERIC__ID = "id";
@@ -495,5 +498,20 @@ public class DBConstants {
   public static final String USER_CURRENCY_HISTORY__CURRENCY_CHANGE = "currency_change";
   public static final String USER_CURRENCY_HISTORY__CURRENCY_BEFORE_CHANGE = "currency_before_change";
   public static final String USER_CURRENCY_HISTORY__REASON_FOR_CHANGE = "reason_for_change";
+  
+  /*LOGIN HISTORY*/
+  public static final String LOGIN_HISTORY__ID = GENERIC__ID;
+  public static final String LOGIN_HISTORY__UDID = "udid";
+  public static final String LOGIN_HISTORY__USER_ID = GENERIC__USER_ID;
+  public static final String LOGIN_HISTORY__DATE = "date";
+  public static final String LOGIN_HISTORY__IS_LOGIN = "is_login";
+  
+  /*FIRST TIME USERS*/
+  public static final String FIRST_TIME_USERS__ID = GENERIC__ID;
+  public static final String FIRST_TIME_USERS__OPEN_UDID = "open_udid";
+  public static final String FIRST_TIME_USERS__UDID = "udid";
+  public static final String FIRST_TIME_USERS__MAC = "mac";
+  public static final String FIRST_TIME_USERS__ADVERTISER_ID = "advertiser_id";
+  public static final String FIRST_TIME_USERS__CREATE_TIME = "create_time";
   
 }

@@ -76,6 +76,7 @@ import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
 import com.lvl6.retrieveutils.ClanChatPostRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.retrieveutils.IAPHistoryRetrieveUtils;
+import com.lvl6.retrieveutils.LoginHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
 import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
 import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
@@ -164,6 +165,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     StartupStatus startupStatus = StartupStatus.USER_NOT_IN_DB;
 
     Timestamp now = new Timestamp(new Date().getTime());
+    boolean isLogin = true;
 
     int newNumConsecutiveDaysLoggedIn = 0;
 
@@ -202,6 +204,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
+          
+          boolean isNewUser = false;
+          InsertUtils.get().insertIntoLoginHistory(udid, user.getId(), now, isLogin, isNewUser);
         } catch (Exception e) {
           log.error("exception in StartupController processEvent", e);
         } finally {
@@ -210,6 +215,20 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
       } else {
         log.info("new player with udid " + udid);
+        
+        boolean userLoggedIn = LoginHistoryRetrieveUtils.userLoggedInByUDID(udid);
+        boolean isFirstTimeUser = false;
+        if (!userLoggedIn) {
+          isFirstTimeUser = true;
+        }
+        
+        if (isFirstTimeUser) {
+          InsertUtils.get().insertIntoFirstTimeUsers(udid, reqProto.getIOS5Udid(),
+              reqProto.getMacAddress(), reqProto.getAdvertiserId(), now);
+        }
+        
+        boolean isNewUser = true;
+        InsertUtils.get().insertIntoLoginHistory(udid, 0, now, isLogin, isNewUser);
       }
       resBuilder.setStartupStatus(startupStatus);
       setConstants(resBuilder, startupStatus);      
