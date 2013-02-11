@@ -166,4 +166,6 @@ public interface InsertUtil {
   public abstract int insertIntoLoginHistory(String udid, int userId, Timestamp now, boolean isLogin, boolean isNewUser);
   
   public abstract int insertIntoFirstTimeUsers(String openUdid, String udid, String mac, String advertiserId, Timestamp now);
+  
+  public abstract int insertIntoUserBoosterPackHistory(int userId, int boosterPackId, int numBought, Timestamp timeOfPurchase);
 }

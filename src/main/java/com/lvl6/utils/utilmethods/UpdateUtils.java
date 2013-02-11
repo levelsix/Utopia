@@ -1171,7 +1171,7 @@ public class UpdateUtils implements UpdateUtil {
       Map<String, Object> row = new HashMap<String, Object>();
       row.put(DBConstants.USER_BOOSTER_ITEMS__BOOSTER_ITEM_ID, biId);
       row.put(DBConstants.USER_BOOSTER_ITEMS__USER_ID, userId);
-      row.put(DBConstants.USER_BOOSTER_ITEMS__NUM_RECEIVED, newQuantity);
+      row.put(DBConstants.USER_BOOSTER_ITEMS__NUM_COLLECTED, newQuantity);
       newRows.add(row);
     }
     

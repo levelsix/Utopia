@@ -586,10 +586,11 @@ public class DBConstants {
   public static final String BOOSTER_PACK__MAX_LEVEL = "max_level";
 
   /*USER BOOSTER PACK HISTORY*/
+  public static final String USER_BOOSTER_PACK_HISTORY__ID = GENERIC__ID;
   public static final String USER_BOOSTER_PACK_HISTORY__USER_ID = GENERIC__USER_ID;
   public static final String USER_BOOSTER_PACK_HISTORY__BOOSTER_PACK_ID = "booster_pack_id"; 
   public static final String USER_BOOSTER_PACK_HISTORY__NUM_BOUGHT = "num_bought";
-  public static final String USER_BOSTER_PACK_HISTORY__TIME_OF_PURCHASE = "time_of_purchase";
+  public static final String USER_BOOSTER_PACK_HISTORY__TIME_OF_PURCHASE = "time_of_purchase";
   
   /*BOOSTER ITEM*/
   public static final String BOOSTER_ITEM__ID = GENERIC__ID;

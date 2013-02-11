@@ -4,8 +4,8 @@ option java_outer_classname = "InfoProto";
 
 enum PurchaseOption {
 	//these specify quantity, e.g. 1 for ONE, and 10 for TWO
-	ONE = 0;	
-	TWO = 1;	
+	ONE = 0;	//Check ControllerConstants.BOOSTER_PACK__PURCHASE_OPTION_ONE;
+	TWO = 1;	//Check ControllerConstants.BOOSTER_PACK__PURCHASE_OPTION_TWO;
 }
 
 message UserBoosterPackProto {

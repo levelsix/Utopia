@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -1403,18 +1404,39 @@ public class MiscMethods {
 	    return result;
 	  }
 
-	  public static int pointsGainedForClanTowerUserBattle(User winner, User loser) {
-	    int d = winner.getLevel()-loser.getLevel();
-	    int pts;
-	    if (d > 10) {
-	      pts = 1;
-	    } else if (d < -8) {
-	      pts = 100;
-	    } else {
-	      pts = (int)Math.round((-0.0006*Math.pow(d, 5)+0.0601*Math.pow(d, 4)-0.779*Math.pow(d, 3)
-	          +2.4946*Math.pow(d, 2)-9.7046*d+89.905)/10.);
-	    }
-	    log.info(pts+" diff:"+d);
-	    return Math.min(100, Math.max(1, pts));
-	  }
-	}
+  public static int pointsGainedForClanTowerUserBattle(User winner, User loser) {
+    int d = winner.getLevel()-loser.getLevel();
+    int pts;
+    if (d > 10) {
+      pts = 1;
+    } else if (d < -8) {
+      pts = 100;
+    } else {
+      pts = (int)Math.round((-0.0006*Math.pow(d, 5)+0.0601*Math.pow(d, 4)-0.779*Math.pow(d, 3)
+          +2.4946*Math.pow(d, 2)-9.7046*d+89.905)/10.);
+    }
+    log.info(pts+" diff:"+d);
+    return Math.min(100, Math.max(1, pts));
+  }
+  
+  //given a date time, e.g. 2013-02-08 00:33:57 (UTC),
+  //spits out the start of day in UTC relative to PST
+  //using prior example, returns 2013-02-07 08:00:00
+  public static Timestamp getPstDateAndHourFromUtcTime(Date now) {
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(now);
+    
+    //PST = UTC - 8 hours
+    int offset = -8;
+    cal.add(Calendar.HOUR_OF_DAY, offset);
+    //hopefully this gives me YYYY-MM-DD HH:00:00
+    cal.set(Calendar.MINUTE, 0);
+    cal.set(Calendar.SECOND, 0);
+    cal.set(Calendar.MILLISECOND, 0);
+    
+    cal.set(Calendar.HOUR_OF_DAY, -offset);
+    long millis = cal.getTimeInMillis();
+    Timestamp PSTDateAndHourInUTC = new Timestamp(millis);
+    return PSTDateAndHourInUTC;
+  }
+}
