@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -1229,7 +1230,6 @@ public class MiscMethods {
     }
   }
 
-
   //goldSilverChange should represent how much user's silver and, or gold increased or decreased and
   //this should be called after the user is updated
   //only previousGoldSilver can be null.
@@ -1446,5 +1446,26 @@ public class MiscMethods {
         packageS1SaleIdentifier, packageS2SaleIdentifier, packageS3SaleIdentifier, packageS4SaleIdentifier, packageS5SaleIdentifier);
 
     return CreateInfoProtoUtils.createGoldSaleProtoFromGoldSale(sale);
+  }
+
+  //given a date time, e.g. 2013-02-08 00:33:57 (UTC),
+  //spits out the start of day in UTC relative to PST
+  //using prior example, returns 2013-02-07 08:00:00
+  public static Timestamp getPstDateAndHourFromUtcTime(Date now) {
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(now);
+    
+    //PST = UTC - 8 hours
+    int offset = -8;
+    cal.add(Calendar.HOUR_OF_DAY, offset);
+    //hopefully this gives me YYYY-MM-DD HH:00:00
+    cal.set(Calendar.MINUTE, 0);
+    cal.set(Calendar.SECOND, 0);
+    cal.set(Calendar.MILLISECOND, 0);
+    
+    cal.set(Calendar.HOUR_OF_DAY, -offset);
+    long millis = cal.getTimeInMillis();
+    Timestamp PSTDateAndHourInUTC = new Timestamp(millis);
+    return PSTDateAndHourInUTC;
   }
 }

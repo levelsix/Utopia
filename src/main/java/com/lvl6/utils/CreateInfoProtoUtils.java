@@ -1110,9 +1110,23 @@ public class CreateInfoProtoUtils {
         .setId(bp.getId()).setCostsCoins(bp.isCostsCoins())
         .setName(bp.getName()).setChestImage(bp.getChestImage())
         .setMiddleImage(bp.getMiddleImage()).setBackgroundImage(bp.getBackgroundImage())
-        .setMinLevel(bp.getMinLevel()).setMaxLevel(bp.getMaxLevel())
-        .setSalePriceOne(bp.getSalePriceOne()).setRetailPriceOne(bp.getRetailPriceOne())
-        .setSalePriceTwo(bp.getSalePriceTwo()).setRetailPriceTwo(bp.getRetailPriceTwo());
+        .setMinLevel(bp.getMinLevel()).setMaxLevel(bp.getMaxLevel());
+    int sale1 = bp.getSalePriceOne();
+    if(ControllerConstants.NOT_SET != sale1) {
+      b.setSalePriceOne(sale1);
+    }
+    int retail1 = bp.getRetailPriceOne();
+    if(ControllerConstants.NOT_SET != retail1) {
+      b.setRetailPriceOne(retail1);
+    }
+    int sale2 = bp.getSalePriceTwo();
+    if(ControllerConstants.NOT_SET != sale2) {
+      b.setSalePriceTwo(sale2);
+    }
+    int retail2 = bp.getRetailPriceTwo();
+    if(ControllerConstants.NOT_SET != retail2) {
+      b.setRetailPriceTwo(retail2);
+    }
     
     List<BoosterItemProto> biProtos = new ArrayList<BoosterItemProto>();
     for(BoosterItem bi : biList) {

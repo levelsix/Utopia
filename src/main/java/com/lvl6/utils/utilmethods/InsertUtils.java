@@ -1024,4 +1024,19 @@ public class InsertUtils implements InsertUtil{
     
     return numInserted;
   }
+  
+  public int insertIntoUserBoosterPackHistory(int userId, int boosterPackId, 
+      int numBought, Timestamp timeOfPurchase) {
+    String tableName = DBConstants.TABLE_USER_BOOSTER_PACK_HISTORY;
+    
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    
+    insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__USER_ID, userId);
+    insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__BOOSTER_PACK_ID, boosterPackId);
+    insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__NUM_BOUGHT, numBought);
+    insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__TIME_OF_PURCHASE, timeOfPurchase);
+    
+    int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
+    return numInserted;
+  }
 }

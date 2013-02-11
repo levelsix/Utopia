@@ -493,6 +493,13 @@ public class ControllerConstants {
   public static final float ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B = 3.f;
   public static final float ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE = 1.2f;
   
+  //BOOSTER PACKS
+  //at the moment, a daily limit
+  public static final int BOOSTER_PACK__PURCHASE_LIMIT = 10; 
+  //amount of booster packs user can buy at one time
+  public static final int BOOSTER_PACK__PURCHASE_OPTION_ONE = 1;
+  public static final int BOOSTER_PACK__PURCHASE_OPTION_TWO = 10;
+  
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),
     new ValidLocationBox(-118.76606, 50.595863, 27.16478, 9.0692883, "CANADA"),

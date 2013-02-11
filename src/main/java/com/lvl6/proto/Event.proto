@@ -2470,4 +2470,26 @@ message RetrieveBoosterPackResponseProto {
      }
 }
 
+message PurchaseBoosterPackRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 boosterPackId = 2;
+	optional PurchaseOption purchaseOption = 3;
+	optional int64 clientTime = 4; 
+}
+
+message PurchaseBoosterPackResponseProto {
+	optional MinimumUserProto sender = 1;
+	repeated FullUserEquipProto userEquips = 2;
+	optional UserBoosterPackProto userBoosterPack = 3;
+	optional PurchaseBoosterPackStatus status = 4;
+	
+	enum PurchaseBoosterPackStatus {
+		SUCCESS = 0;
+		NOT_ENOUGH_GOLD = 1;
+		NOT_ENOUGH_SILVER = 2;
+		EXCEEDING_PURCHASE_LIMIT = 3;
+		OTHER_FAIL = 4;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 5;
+	}
+}
 	
