@@ -37,7 +37,7 @@ message BoosterPackProto {
 }
 
 message BoosterItemProto {
-	optional int32 id = 1;
+	optional int32 boosterItemId = 1;
 	optional int32 equipId = 2;
 	optional int32 quantity = 3;
 	optional bool isSpecial = 4;
