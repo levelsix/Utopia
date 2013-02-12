@@ -21,7 +21,7 @@ message UserBoosterItemProto {
 }
 
 message BoosterPackProto {
-	optional int32 id = 1;
+	optional int32 boosterPackId = 1;
 	optional bool costsCoins = 2;
 	optional string name = 3;
 	optional string chestImage = 4;

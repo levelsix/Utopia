@@ -1100,14 +1100,14 @@ public class CreateInfoProtoUtils {
 
   public static BoosterItemProto createBoosterItemProto(BoosterItem bi) {
     BoosterItemProto.Builder b = BoosterItemProto.newBuilder()
-        .setId(bi.getId()).setEquipId(bi.getEquipId()).setQuantity(bi.getQuantity())
+        .setBoosterItemId(bi.getId()).setEquipId(bi.getEquipId()).setQuantity(bi.getQuantity())
         .setIsSpecial(bi.isSpecial());
     return b.build();
   }
   
   public static BoosterPackProto createBoosterPackProto(BoosterPack bp, Collection<BoosterItem> biList) {
     BoosterPackProto.Builder b = BoosterPackProto.newBuilder()
-        .setId(bp.getId()).setCostsCoins(bp.isCostsCoins())
+        .setBoosterPackId(bp.getId()).setCostsCoins(bp.isCostsCoins())
         .setName(bp.getName()).setChestImage(bp.getChestImage())
         .setMiddleImage(bp.getMiddleImage()).setBackgroundImage(bp.getBackgroundImage())
         .setMinLevel(bp.getMinLevel()).setMaxLevel(bp.getMaxLevel());
