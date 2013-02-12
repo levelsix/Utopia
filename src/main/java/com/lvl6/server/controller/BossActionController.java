@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import org.mortbay.log.Log;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -627,8 +626,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     if (allEquipIds != null && allEquipIds.size() > 0) {
       //update user_equips table with equipment rewards.
+      List<Integer> enhancement = null;
       List<Integer> createdUserEquipIds = InsertUtils.get().insertUserEquips(
-          aUser.getId(), allEquipIds, levels);
+          aUser.getId(), allEquipIds, levels, enhancement);
 
       allUserEquipIds.addAll(createdUserEquipIds);
     }

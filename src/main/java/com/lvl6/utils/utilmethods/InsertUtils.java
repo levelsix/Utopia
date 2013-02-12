@@ -241,7 +241,8 @@ public class InsertUtils implements InsertUtil{
     return numInserted;
   }
   
-  public List<Integer> insertUserEquips(int userId, List<Integer> equipIds, List<Integer> levels) {
+  public List<Integer> insertUserEquips(int userId, List<Integer> equipIds, List<Integer> levels,
+      List<Integer> enhancement) {
 	  String tableName = DBConstants.TABLE_USER_EQUIP;
 	  List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
 	  for(int i = 0; i < equipIds.size(); i++){
@@ -249,7 +250,9 @@ public class InsertUtils implements InsertUtil{
 		  row.put(DBConstants.USER_EQUIP__USER_ID, userId);
 		  row.put(DBConstants.USER_EQUIP__EQUIP_ID, equipIds.get(i));
 		  row.put(DBConstants.USER_EQUIP__LEVEL, levels.get(i));
-		  
+		  if (null == enhancement || enhancement.isEmpty()) {
+		    row.put(DBConstants.USER_EQUIP__ENHANCEMENT_PERCENT, enhancement.get(i));
+		  }
 		  newRows.add(row);
 	  }
 	  List<Integer> userEquipIds = DBConnection.get().insertIntoTableBasicReturnIds(tableName, newRows);

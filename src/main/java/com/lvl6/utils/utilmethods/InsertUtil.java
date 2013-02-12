@@ -146,7 +146,7 @@ public interface InsertUtil {
   public abstract int insertClanChatPost(int userId, int clanId, String content,
       Timestamp timeOfPost);
   
-  public abstract List<Integer> insertUserEquips(int userId, List<Integer> equipIds, List<Integer> levels);
+  public abstract List<Integer> insertUserEquips(int userId, List<Integer> equipIds, List<Integer> levels, List<Integer> enhancement);
   
   public abstract int insertIntoBossRewardDropHistoryReturnId(int bossId, int userId, int silverDropped, int goldDropped, Timestamp timeOfDrop);
   
