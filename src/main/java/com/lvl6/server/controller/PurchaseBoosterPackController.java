@@ -30,6 +30,7 @@ import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto.PurchaseBooste
 import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.PurchaseOption;
+import com.lvl6.proto.InfoProto.UserBoosterPackProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserBoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.UserBoosterPackRetrieveUtils;
@@ -93,17 +94,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       boolean successful = false;
       List<Integer> userEquipIds = new ArrayList<Integer>();
-      List<FullUserEquipProto> protos;
+      Map<Integer, Integer> newUserBoosterItemIdsToQuantities = new HashMap<Integer, Integer>();
       if (legit) {
         previousSilver  = user.getCoins() + user.getVaultBalance();
         previousGold = user.getDiamonds();
         successful = writeChangesToDB(resBuilder, user, userItemIdsToQuantities,
-            itemsUserReceives, goldSilverChange, userEquipIds);
+            itemsUserReceives, goldSilverChange, userEquipIds, newUserBoosterItemIdsToQuantities);
       }
       
       if (successful) {
-        protos = createFullUserEquipProtos(userEquipIds, userId, itemsUserReceives);
-        resBuilder.addAllUserEquips(protos);
+        List<FullUserEquipProto> fullUserEquipProtos = 
+            createFullUserEquipProtos(userEquipIds, userId, itemsUserReceives);
+        UserBoosterPackProto aUserBoosterPackProto = 
+            CreateInfoProtoUtils.createUserBoosterPackProto(boosterPackId, userId, newUserBoosterItemIdsToQuantities);
+        
+        resBuilder.addAllUserEquips(fullUserEquipProtos);
+        resBuilder.setUserBoosterPack(aUserBoosterPackProto);
       }
       
       PurchaseBoosterPackResponseProto resProto = resBuilder.build();
@@ -151,10 +157,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return false; //resBuilder status set in called function 
     }
     
-    //check if user is within the limit of booster packs purchased within a day
-    if (!underPurchaseLimit(resBuilder, userId, boosterPackId, nowTimestamp, option)) {
-      return false; //resBuilder status set in called function
-    }
+//    //check if user is within the limit of booster packs purchased within a day
+//    if (!underPurchaseLimit(resBuilder, userId, boosterPackId, nowTimestamp, option)) {
+//      return false; //resBuilder status set in called function
+//    }
     
     //check if user has bought up all the booster items in the booster pack
     if (didBuyOutBoosterPack(resBuilder, userId, boosterPackId, items, userItemIdsToQuantities,
@@ -366,8 +372,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
   
+  //sets values for newUserBoosterItemIdsToQuantities
   private boolean writeChangesToDB(Builder resBuilder, User user, Map<Integer, Integer> userItemIdsToQuantities,
-      List<BoosterItem> itemsUserReceives, Map<String, Integer> goldSilverChange, List<Integer> uEquipIds) {
+      List<BoosterItem> itemsUserReceives, Map<String, Integer> goldSilverChange, List<Integer> uEquipIds,
+      Map<Integer, Integer> newUserBoosterItemIdsToQuantities) {
     //insert into user_equips, update user, update user_booster_items
     int userId = user.getId();
     List<Integer> userEquipIds = insertNewUserEquips(userId, itemsUserReceives);
@@ -398,7 +406,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     
     uEquipIds.addAll(userEquipIds);
-    return updateUserBoosterItems(itemsUserReceives, userItemIdsToQuantities, userId);
+    return updateUserBoosterItems(itemsUserReceives, userItemIdsToQuantities,
+        userId, newUserBoosterItemIdsToQuantities);
     
   }
   
@@ -419,8 +428,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
   
   private boolean updateUserBoosterItems(List<BoosterItem> itemsUserReceives,
-      Map<Integer, Integer> userItemIdsToQuantities, int userId) {
-    Map<Integer, Integer> newUserBoosterItemIdsToQuantities = new HashMap<Integer, Integer>();
+      Map<Integer, Integer> userItemIdsToQuantities, int userId,
+      Map<Integer, Integer> newUserBoosterItemIdsToQuantities) {
     for(BoosterItem received : itemsUserReceives) {
       int boosterItemId = received.getId();
       //default quantity user gets if user has no quantity of specific boosterItem
