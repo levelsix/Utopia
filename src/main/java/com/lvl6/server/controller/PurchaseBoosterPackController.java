@@ -162,6 +162,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       resBuilder.setStatus(PurchaseBoosterPackStatus.BOOSTER_PACK_SOLD_OUT);
       return false;
     }
+    
+    resBuilder.setStatus(PurchaseBoosterPackStatus.SUCCESS);
     return true;
   }
   
