@@ -12,14 +12,15 @@ public class BoosterPack implements Serializable {
   private String backgroundImage;
   private int minLevel;
   private int maxLevel;
+  private int dailyLimit;
   private int salePriceOne;
   private int retailPriceOne;
   private int salePriceTwo;
   private int retailPriceTwo;
   
   public BoosterPack(int id, boolean costsCoins, String name, String chestImage, String middleImage,
-      String backgroundImage, int minLevel, int maxLevel, int salePriceOne, int retailPriceOne,
-      int salePriceTwo, int retailPriceTwo) {
+      String backgroundImage, int minLevel, int maxLevel, int dailyLimit, int salePriceOne,
+      int retailPriceOne, int salePriceTwo, int retailPriceTwo) {
     super();
     this.id = id;
     this.costsCoins = costsCoins;
@@ -29,6 +30,7 @@ public class BoosterPack implements Serializable {
     this.backgroundImage = backgroundImage;
     this.minLevel = minLevel;
     this.maxLevel = maxLevel;
+    this.dailyLimit = dailyLimit;
     this.salePriceOne = salePriceOne;
     this.retailPriceOne = retailPriceOne;
     this.salePriceTwo = salePriceTwo;
@@ -99,6 +101,14 @@ public class BoosterPack implements Serializable {
     this.maxLevel = maxLevel;
   }
 
+  public int getDailyLimit() {
+    return dailyLimit;
+  }
+
+  public void setDailyLimit(int dailyLimit) {
+    this.dailyLimit = dailyLimit;
+  }
+
   public int getSalePriceOne() {
     return salePriceOne;
   }
@@ -140,9 +150,10 @@ public class BoosterPack implements Serializable {
     return "BoosterPack [id=" + id + ", costsCoins=" + costsCoins + ", name="
         + name + ", chestImage=" + chestImage + ", middleImage=" + middleImage
         + ", backgroundImage=" + backgroundImage + ", minLevel=" + minLevel
-        + ", maxLevel=" + maxLevel + ", salePriceOne=" + salePriceOne
-        + ", retailPriceOne=" + retailPriceOne + ", salePriceTwo="
-        + salePriceTwo + ", retailPriceTwo=" + retailPriceTwo + "]";
+        + ", maxLevel=" + maxLevel + ", dailyLimit=" + dailyLimit
+        + ", salePriceOne=" + salePriceOne + ", retailPriceOne="
+        + retailPriceOne + ", salePriceTwo=" + salePriceTwo
+        + ", retailPriceTwo=" + retailPriceTwo + "]";
   }
 
 }

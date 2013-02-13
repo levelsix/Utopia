@@ -84,14 +84,15 @@ import com.lvl6.utils.DBConnection;
     String backgroundImage = rs.getString(i++);
     int minLevel = rs.getInt(i++);
     int maxLevel = rs.getInt(i++);
+    int dailyLimit = rs.getInt(i++);
     int salePriceOne = rs.getInt(i++);
     int retailPriceOne = rs.getInt(i++);
     int salePriceTwo = rs.getInt(i++);
     int retailPriceTwo = rs.getInt(i++);
     
     BoosterPack boosterPack = new BoosterPack(id, costsCoins, name, chestImage,
-        middleImage, backgroundImage, minLevel, maxLevel, salePriceOne, retailPriceOne,
-        salePriceTwo, retailPriceTwo);
+        middleImage, backgroundImage, minLevel, maxLevel, dailyLimit, salePriceOne, 
+        retailPriceOne, salePriceTwo, retailPriceTwo);
     return boosterPack; 
   }
 }
