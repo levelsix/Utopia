@@ -408,6 +408,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     List<Integer> levels = new ArrayList<Integer>(Collections.nCopies(amount, forgeLevel));
     List<Integer> enhancement = new ArrayList<Integer>(Collections.nCopies(amount, enhancementLevel));
     
+    for(BoosterItem bi : itemsUserReceives) {
+      int equipId = bi.getEquipId();
+      equipIds.add(equipId);
+    }
+    
     return InsertUtils.get().insertUserEquips(userId, equipIds, levels, enhancement);
   }
   
