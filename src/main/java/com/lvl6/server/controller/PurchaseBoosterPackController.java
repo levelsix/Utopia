@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -157,10 +158,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return false; //resBuilder status set in called function 
     }
     
-//    //check if user is within the limit of booster packs purchased within a day
-//    if (!underPurchaseLimit(resBuilder, userId, boosterPackId, nowTimestamp, option)) {
-//      return false; //resBuilder status set in called function
-//    }
+    //check if user is within the limit of booster packs purchased within a day
+    if (!underPurchaseLimit(resBuilder, userId, aPack, boosterPackId, nowTimestamp, option)) {
+      return false; //resBuilder status set in called function
+    }
     
     //check if user has bought up all the booster items in the booster pack
     if (didBuyOutBoosterPack(resBuilder, userId, boosterPackId, items, userItemIdsToQuantities,
@@ -225,8 +226,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return cost;
   }
   
-  private boolean underPurchaseLimit(Builder resBuilder, int userId, int boosterPackId,
-      Date now, PurchaseOption option) {
+  private boolean underPurchaseLimit(Builder resBuilder, int userId, BoosterPack aPack, 
+      int boosterPackId, Date now, PurchaseOption option) {
     Timestamp startOfDayPstInUtc = MiscMethods.getPstDateAndHourFromUtcTime(now);
     int numPurchased = UserBoosterPackRetrieveUtils
         .getNumPacksPurchasedAfterDateForUserAndPackId(userId, boosterPackId, startOfDayPstInUtc);
@@ -241,16 +242,36 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return false;
     }
     
-    int total = numPurchased + numToBuy;
-    if (ControllerConstants.BOOSTER_PACK__PURCHASE_LIMIT < total) {
+    boolean limitSet = true;
+    int dailyLimit = aPack.getDailyLimit();
+    if (ControllerConstants.NOT_SET == dailyLimit) {
+      limitSet = false;
+    }
+    int numUserWillHave = numPurchased + numToBuy;
+    if (limitSet && numUserWillHave > dailyLimit) {
       //user will have more than the limit
+      int numMorePacksUserCanBuy = dailyLimit - numPurchased;
+      int minutesUntilLimitReset = determineTimeUntilReset(startOfDayPstInUtc, now);
+      
       resBuilder.setStatus(PurchaseBoosterPackStatus.EXCEEDING_PURCHASE_LIMIT);
-      log.error("user will have more booster packs than the limit. user has "
-          + numPurchased + " and wants to buy " + numToBuy + " more.");
+      resBuilder.setNumPacksToExceedLimit(numMorePacksUserCanBuy);
+      resBuilder.setMinutesUntilLimitReset(minutesUntilLimitReset);
+      log.error("user will have more booster packs than the limit: " + dailyLimit
+          + " user has " + numPurchased + " and wants to buy " + numToBuy + " more.");
       return false;
     }
     
     return true;
+  }
+  
+  private int determineTimeUntilReset(Timestamp startOfDayPstInUtc, Date now) {
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(startOfDayPstInUtc);
+    cal.add(Calendar.DATE, 1);
+    long nextDayInMillis = cal.getTimeInMillis();
+    long nowInMillis = now.getTime();
+    
+    return (int) Math.ceil((nextDayInMillis - nowInMillis)/60000);
   }
   
   //successful purchase, this function returns false

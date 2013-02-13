@@ -495,8 +495,6 @@ public class ControllerConstants {
   public static final float ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE = 1.2f;
   
   //BOOSTER PACKS
-  //at the moment, a daily limit
-  public static final int BOOSTER_PACK__PURCHASE_LIMIT = 10; 
   //amount of booster packs user can buy at one time
   public static final int BOOSTER_PACK__PURCHASE_OPTION_ONE = 1;
   public static final int BOOSTER_PACK__PURCHASE_OPTION_TWO = 10;
