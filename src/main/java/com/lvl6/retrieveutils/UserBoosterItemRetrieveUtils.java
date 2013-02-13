@@ -37,10 +37,8 @@ import com.lvl6.utils.DBConnection;
         rs.beforeFirst();
         Map<Integer, Integer> boosterItemIdsToNumReceived = new HashMap<Integer, Integer>();
         while(rs.next()) {  //should only be one
-          int i = 1;
-          int boosterItemId = rs.getInt(i++);
-          i++; //Skip user_id column
-          int numReceived = rs.getInt(i++);
+          int boosterItemId = rs.getInt(DBConstants.USER_BOOSTER_ITEMS__BOOSTER_ITEM_ID);
+          int numReceived = rs.getInt(DBConstants.USER_BOOSTER_ITEMS__NUM_COLLECTED);
           boosterItemIdsToNumReceived.put(boosterItemId, numReceived);
         }
         return boosterItemIdsToNumReceived;

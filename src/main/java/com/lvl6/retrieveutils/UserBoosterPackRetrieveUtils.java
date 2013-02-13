@@ -58,8 +58,7 @@ import com.lvl6.utils.DBConnection;
         rs.beforeFirst();
         int numPurchased = 0;
         while(rs.next()) {
-          int i = 1;
-          int numBought = rs.getInt(i); //only retrieved the num bought column
+          int numBought = rs.getInt(DBConstants.USER_BOOSTER_PACK_HISTORY__NUM_BOUGHT);
           numPurchased += numBought;
         }
         return numPurchased;
