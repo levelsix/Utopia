@@ -1314,7 +1314,8 @@ public class MiscMethods {
       insertParams.put(DBConstants.DUEFE__IS_FEEDER, areFeeders);
       insertParams.put(DBConstants.DUEFE__EQUIP_ENHANCEMENT_ID, equipEnhancementIds);
 
-      DBConnection.get().insertIntoTableMultipleRows(tableName, insertParams, numRows);
+      int numInserted = DBConnection.get().insertIntoTableMultipleRows(tableName, insertParams, numRows);
+      log.info("num deleted user equips: " + numInserted);
     } catch (Exception e) {
       log.error("could not write into deleted_user_equips_for_enhancing", e);
     }
