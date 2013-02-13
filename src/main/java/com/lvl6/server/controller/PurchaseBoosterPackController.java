@@ -387,7 +387,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         return false;
       }
     } else if (MiscMethods.silver.equals(key)){
-      if (user.updateRelativeCoinsNaive(currencyChange)) {
+      if (!user.updateRelativeCoinsNaive(currencyChange)) {
         log.error("could not change user's money. Deleting equips bought: "
             + MiscMethods.shallowListToString(userEquipIds));
         DeleteUtils.get().deleteUserEquips(userEquipIds);
