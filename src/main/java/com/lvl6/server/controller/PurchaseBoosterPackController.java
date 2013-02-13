@@ -418,11 +418,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   
   private boolean updateUserBoosterItems(List<BoosterItem> itemsUserReceives,
       Map<Integer, Integer> userItemIdsToQuantities, int userId) {
-    log.info("booster items: " + MiscMethods.shallowListToString(itemsUserReceives));
-    log.info("boosterItemIds to quantities: " + MiscMethods.shallowMapToString(userItemIdsToQuantities));
+    //log.info("booster items: " + MiscMethods.shallowListToString(itemsUserReceives));
+    //log.info("boosterItemIds to quantities: " + MiscMethods.shallowMapToString(userItemIdsToQuantities));
     for(BoosterItem received : itemsUserReceives) {
       int boosterItemId = received.getId();
-      int newQuantity = userItemIdsToQuantities.get(boosterItemId) + 1;
+      //default quantity user gets if user has no quantity of specific boosterItem
+      int newQuantity = 1; 
+      if(userItemIdsToQuantities.containsKey(boosterItemId)) {
+        newQuantity = userItemIdsToQuantities.get(boosterItemId) + 1;
+      }
       userItemIdsToQuantities.put(boosterItemId, newQuantity);
     }
     return UpdateUtils.get().updateUserBoosterItemsForOneUser(userId, userItemIdsToQuantities);
