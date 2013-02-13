@@ -2483,6 +2483,9 @@ message PurchaseBoosterPackResponseProto {
 	optional UserBoosterPackProto userBoosterPack = 3;
 	optional PurchaseBoosterPackStatus status = 4;
 	
+	optional int32 minutesUntilLimitReset = 5;
+	optional int32 numPacksToExceedLimit = 6;
+	
 	enum PurchaseBoosterPackStatus {
 		SUCCESS = 0;
 		NOT_ENOUGH_GOLD = 1;
