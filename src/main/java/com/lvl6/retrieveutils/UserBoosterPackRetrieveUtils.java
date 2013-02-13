@@ -31,7 +31,7 @@ import com.lvl6.utils.DBConnection;
     Connection conn = DBConnection.get().getConnection();
     List<String> columns = new ArrayList<String>();
     Map<String, Object> absoluteConditionParams = new HashMap<String, Object>();
-    String orderByColumn = " ";
+    String orderByColumn = null;
     Map<String, Object> greaterThanConditionParams = new HashMap<String, Object>();
     
     columns.add(DBConstants.USER_BOOSTER_PACK_HISTORY__NUM_BOUGHT);
