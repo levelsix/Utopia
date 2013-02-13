@@ -120,7 +120,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             goldSilverChange, previousSilver, previousGold);
       }
     } catch (Exception e) {
-      log.error("exception in ArmoryController processEvent", e);
+      log.error("exception in PurchaseBoosterPackController processEvent", e);
     } finally {
       server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName()); 
     }
@@ -349,7 +349,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           } else if (1 < quantity){
             //booster item id has more than one quantity
             int decrementedQuantity = newQuantities.remove(i) - 1;
-            newQuantities.add(decrementedQuantity, i);
+            newQuantities.add(i, decrementedQuantity);
           } else {
             //quantity should not be 0
             log.error("quantity for booster item with id " + bItemId
