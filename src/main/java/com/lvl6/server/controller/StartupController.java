@@ -207,6 +207,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           resBuilder.addAllBossEvents(MiscMethods.currentBossEvents());
           setLeaderboardEventStuff(resBuilder);
           setEquipEnhancementStuff(resBuilder, user);
+          setAllies(resBuilder, user);
           
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);

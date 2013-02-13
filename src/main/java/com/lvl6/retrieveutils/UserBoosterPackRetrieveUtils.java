@@ -58,6 +58,7 @@ import com.lvl6.utils.DBConnection;
         rs.beforeFirst();
         int numPurchased = 0;
         while(rs.next()) {
+          log.info(rs.getTimestamp(4)+"");
           int numBought = rs.getInt(DBConstants.USER_BOOSTER_PACK_HISTORY__NUM_BOUGHT);
           numPurchased += numBought;
         }

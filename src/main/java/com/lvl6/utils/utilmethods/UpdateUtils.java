@@ -1176,7 +1176,8 @@ public class UpdateUtils implements UpdateUtil {
     }
     
     int numInserted = DBConnection.get().replaceIntoTableValues(tableName, newRows);
-    if(userBoosterItemIdsToQuantities.size() == numInserted) {
+    log.info("num inserted: "+numInserted);
+    if(userBoosterItemIdsToQuantities.size()*2 >= numInserted) {
       return true;
     } else {
       return false;
