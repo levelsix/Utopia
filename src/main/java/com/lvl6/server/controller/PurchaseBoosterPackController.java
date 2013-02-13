@@ -420,8 +420,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   
   private boolean updateUserBoosterItems(List<BoosterItem> itemsUserReceives,
       Map<Integer, Integer> userItemIdsToQuantities, int userId) {
-    //log.info("booster items: " + MiscMethods.shallowListToString(itemsUserReceives));
-    //log.info("boosterItemIds to quantities: " + MiscMethods.shallowMapToString(userItemIdsToQuantities));
+    Map<Integer, Integer> newUserBoosterItemIdsToQuantities = new HashMap<Integer, Integer>();
     for(BoosterItem received : itemsUserReceives) {
       int boosterItemId = received.getId();
       //default quantity user gets if user has no quantity of specific boosterItem
@@ -429,9 +428,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if(userItemIdsToQuantities.containsKey(boosterItemId)) {
         newQuantity = userItemIdsToQuantities.get(boosterItemId) + 1;
       }
-      userItemIdsToQuantities.put(boosterItemId, newQuantity);
+      newUserBoosterItemIdsToQuantities.put(boosterItemId, newQuantity);
     }
-    return UpdateUtils.get().updateUserBoosterItemsForOneUser(userId, userItemIdsToQuantities);
+    return UpdateUtils.get().updateUserBoosterItemsForOneUser(userId, newUserBoosterItemIdsToQuantities);
   }
   
   private List<FullUserEquipProto> createFullUserEquipProtos(List<Integer> userEquipIds, 
