@@ -29,11 +29,12 @@ message BoosterPackProto {
 	optional string backgroundImage = 6;
 	optional int32 minLevel = 7;
 	optional int32 maxLevel = 8;
-	repeated BoosterItemProto boosterItems = 9;
-	optional int32 salePriceOne = 10;
-	optional int32 retailPriceOne = 11;
-	optional int32 salePriceTwo = 12;
-	optional int32 retailPriceTwo = 13; 
+	optional int32 dailyLimit = 9;
+	repeated BoosterItemProto boosterItems = 10;
+	optional int32 salePriceOne = 11;
+	optional int32 retailPriceOne = 12;
+	optional int32 salePriceTwo = 13;
+	optional int32 retailPriceTwo = 14; 
 }
 
 message BoosterItemProto {

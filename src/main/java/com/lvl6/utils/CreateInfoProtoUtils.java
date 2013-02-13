@@ -1111,6 +1111,10 @@ public class CreateInfoProtoUtils {
         .setName(bp.getName()).setChestImage(bp.getChestImage())
         .setMiddleImage(bp.getMiddleImage()).setBackgroundImage(bp.getBackgroundImage())
         .setMinLevel(bp.getMinLevel()).setMaxLevel(bp.getMaxLevel());
+    int dailyLimit = bp.getDailyLimit();
+    if(ControllerConstants.NOT_SET != dailyLimit) {
+      b.setDailyLimit(dailyLimit);
+    }
     int sale1 = bp.getSalePriceOne();
     if(ControllerConstants.NOT_SET != sale1) {
       b.setSalePriceOne(sale1);
