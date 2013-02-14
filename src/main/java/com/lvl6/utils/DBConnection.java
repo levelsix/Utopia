@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.utilmethods.StringUtils;
@@ -451,6 +452,7 @@ public class DBConnection {
       Connection conn = null;
       PreparedStatement stmt = null;
       try {
+        log.warn("query: " + query + ", values:" + MiscMethods.shallowListToString(values));
         conn = dataSource.getConnection();
         stmt = conn.prepareStatement(query);
         if (values.size() > 0) {

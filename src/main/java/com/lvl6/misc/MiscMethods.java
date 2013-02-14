@@ -1274,10 +1274,10 @@ public class MiscMethods {
 
   public static void writeIntoDUEFE(UserEquip mainUserEquip, List<UserEquip> feederUserEquips,
       int enhancementId) {
+    String tableName = DBConstants.TABLE_DELETED_USER_EQUIPS_FOR_ENHANCING;
     try {
       log.info("writing into deleted user equips for enhancing");
       int numRows = 1 + feederUserEquips.size();
-      String tableName = DBConstants.TABLE_DELETED_USER_EQUIPS_FOR_ENHANCING;
 
       Map<String, List<Object>> insertParams = new HashMap<String, List<Object>>();
 
@@ -1319,7 +1319,7 @@ public class MiscMethods {
       log.info("num deleted user equips: " + numInserted + " numRows: " + numRows
           + ", size: " + userEquipIds.size());
     } catch (Exception e) {
-      log.error("could not write into deleted_user_equips_for_enhancing", e);
+      log.error("could not write into " + tableName, e);
     }
   }
 
