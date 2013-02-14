@@ -496,8 +496,8 @@ public class ControllerConstants {
   
   //BOOSTER PACKS
   //amount of booster packs user can buy at one time
-  public static final int BOOSTER_PACK__PURCHASE_OPTION_ONE = 1;
-  public static final int BOOSTER_PACK__PURCHASE_OPTION_TWO = 10;
+  public static final int BOOSTER_PACK__PURCHASE_OPTION_ONE_NUM_BOOSTER_ITEMS = 1;
+  public static final int BOOSTER_PACK__PURCHASE_OPTION_TWO_NUM_BOOSTER_ITEMS = 10;
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),

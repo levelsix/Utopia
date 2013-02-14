@@ -47,7 +47,7 @@ import com.lvl6.utils.DBConnection;
         
       }
     }
-    return null;
+    return new HashMap<Integer, Integer>();
   }
   
 }

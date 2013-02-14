@@ -2493,7 +2493,6 @@ message PurchaseBoosterPackResponseProto {
 		EXCEEDING_PURCHASE_LIMIT = 3;
 		OTHER_FAIL = 4;
 		CLIENT_TOO_APART_FROM_SERVER_TIME = 5;
-		BOOSTER_PACK_SOLD_OUT = 6;
 	}
 }
 	

@@ -81,33 +81,43 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int previousSilver = 0;
       int previousGold = 0;
       BoosterPack aPack = BoosterPackRetrieveUtils.getBoosterPackForBoosterPackId(boosterPackId);
-      Map<Integer, BoosterItem> idsToItems = BoosterItemRetrieveUtils.getBoosterItemIdsToBoosterItemsForBoosterPackId(boosterPackId);
-      Map<Integer, Integer> userItemIdsToQuantities = UserBoosterItemRetrieveUtils.getBoosterItemIdsToQuantityForUser(userId);
+      Map<Integer, BoosterItem> allBoosterItemIdsToBoosterItems = BoosterItemRetrieveUtils.getBoosterItemIdsToBoosterItemsForBoosterPackId(boosterPackId);
+      Map<Integer, Integer> boosterItemIdsToNumCollected = UserBoosterItemRetrieveUtils.getBoosterItemIdsToQuantityForUser(userId);
+
+      //values to send to client
       List<BoosterItem> itemsUserReceives = new ArrayList<BoosterItem>();
+      Map<Integer, Integer> newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>(boosterItemIdsToNumCollected);
+      List<Integer> userEquipIds = new ArrayList<Integer>();
+      
       //keep track of amount user spent
       Map<String, Integer> goldSilverChange = new HashMap<String, Integer>();
           
       //check if user has enough money, has not purchased more than the limit for a booster pack,
       //and can still buy from the booster pack
       boolean legit = checkLegitPurchase(resBuilder, user, userId, now,
-          aPack, boosterPackId, idsToItems, userItemIdsToQuantities,
-          option, goldSilverChange, itemsUserReceives);
+          aPack, boosterPackId, allBoosterItemIdsToBoosterItems, option, goldSilverChange);
 
       boolean successful = false;
-      List<Integer> userEquipIds = new ArrayList<Integer>();
-      Map<Integer, Integer> newUserBoosterItemIdsToQuantities = new HashMap<Integer, Integer>();
       if (legit) {
+        //check if user has bought up all the booster items in the booster pack
+        int numBoosterItemsUserWants = determineNumBoosterItemsFromPurchaseOption(option);
+        //boosterItemIdsToNumCollected will only be modified if the amount the user buys
+        //is more than what is left in the deck
+        itemsUserReceives = getAllBoosterItemsForUser(allBoosterItemIdsToBoosterItems,
+            boosterItemIdsToNumCollected, numBoosterItemsUserWants);
+        
+        
         previousSilver  = user.getCoins() + user.getVaultBalance();
         previousGold = user.getDiamonds();
-        successful = writeChangesToDB(resBuilder, user, userItemIdsToQuantities,
-            itemsUserReceives, goldSilverChange, userEquipIds, newUserBoosterItemIdsToQuantities);
+        successful = writeChangesToDB(resBuilder, user, boosterItemIdsToNumCollected,
+            itemsUserReceives, goldSilverChange, userEquipIds, newBoosterItemIdsToNumCollected);
       }
       
       if (successful) {
         List<FullUserEquipProto> fullUserEquipProtos = 
             createFullUserEquipProtos(userEquipIds, userId, itemsUserReceives);
         UserBoosterPackProto aUserBoosterPackProto = 
-            CreateInfoProtoUtils.createUserBoosterPackProto(boosterPackId, userId, newUserBoosterItemIdsToQuantities);
+            CreateInfoProtoUtils.createUserBoosterPackProto(boosterPackId, userId, newBoosterItemIdsToNumCollected);
         
         resBuilder.addAllUserEquips(fullUserEquipProtos);
         resBuilder.setUserBoosterPack(aUserBoosterPackProto);
@@ -135,8 +145,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   
   private boolean checkLegitPurchase(Builder resBuilder, User aUser, int userId, 
       Date now, BoosterPack aPack, int boosterPackId, Map<Integer, BoosterItem> items,
-      Map<Integer, Integer> userItemIdsToQuantities, PurchaseOption option, 
-      Map<String, Integer> goldSilverChange, List<BoosterItem> itemsUserReceives) {
+      PurchaseOption option, Map<String, Integer> goldSilverChange) {
     
     if (null == aUser || null == aPack || null == items || items.isEmpty()) {
       resBuilder.setStatus(PurchaseBoosterPackStatus.OTHER_FAIL);
@@ -151,32 +160,57 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           + ", servertime~=" + new Date());
       return false;
     }
+
+    List<Integer> cost = new ArrayList<Integer>();
+    boolean validPurchaseOption = determineCostForPurchaseOption(aPack, option, cost);
+    if(!validPurchaseOption) {
+      resBuilder.setStatus(PurchaseBoosterPackStatus.OTHER_FAIL);
+      log.error("Invalid purchase option: " + option + ", "
+          + option.name() + ", " + option.getNumber());
+      return false;
+    }
     
-    List<Integer> numBoosterItemsUserWants = new ArrayList<Integer>();
     //check if user can afford to buy however many more user wants to buy
-    if (!sufficientFunds(resBuilder, aUser, aPack, boosterPackId, option, goldSilverChange, numBoosterItemsUserWants)) {
+    if (!sufficientFunds(resBuilder, aUser, aPack, boosterPackId, cost.get(0), goldSilverChange)) {
       return false; //resBuilder status set in called function 
     }
     
     //check if user is within the limit of booster packs purchased within a day
-    if (!underPurchaseLimit(resBuilder, userId, aPack, boosterPackId, nowTimestamp, option)) {
+    int numUserWantsToBuy = determineNumBoosterItemsFromPurchaseOption(option);
+    if (!underDailyPurchaseLimit(resBuilder, userId, aPack, boosterPackId, nowTimestamp, numUserWantsToBuy)) {
       return false; //resBuilder status set in called function
-    }
-    
-    //check if user has bought up all the booster items in the booster pack
-    if (didBuyOutBoosterPack(resBuilder, userId, boosterPackId, items, userItemIdsToQuantities,
-        option, itemsUserReceives, numBoosterItemsUserWants)) {
-      resBuilder.setStatus(PurchaseBoosterPackStatus.BOOSTER_PACK_SOLD_OUT);
-      return false;
     }
     
     resBuilder.setStatus(PurchaseBoosterPackStatus.SUCCESS);
     return true;
   }
   
+  private boolean determineCostForPurchaseOption(BoosterPack aPack,
+      PurchaseOption option, List<Integer> cost) {
+    int costTemp = 0;
+    if (PurchaseOption.ONE == option) {
+      costTemp = aPack.getRetailPriceOne();
+      if (ControllerConstants.NOT_SET == costTemp) {
+        costTemp = aPack.getSalePriceOne();
+      }
+    } else if (PurchaseOption.TWO == option) {
+      costTemp = aPack.getRetailPriceTwo();
+      if (ControllerConstants.NOT_SET == costTemp) {
+        costTemp = aPack.getSalePriceTwo();
+      }
+    } 
+    
+    if (ControllerConstants.NOT_SET == costTemp) {
+      return false;
+    } else {
+      cost.add(costTemp);
+      return true;
+    }
+  }
+  
   private boolean sufficientFunds(Builder resBuilder, User aUser, 
-      BoosterPack aPack, int boosterPackId, PurchaseOption option,
-      Map<String, Integer> goldSilverChange, List<Integer> numBoosterItemsUserWants) {
+      BoosterPack aPack, int boosterPackId, int cost,
+      Map<String, Integer> goldSilverChange) {
     String key = "";
     boolean costsSilver = aPack.isCostsCoins();
     int userFunds = 0;
@@ -190,7 +224,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       notEnough = PurchaseBoosterPackStatus.NOT_ENOUGH_GOLD;
       key = MiscMethods.gold;
     }
-    int cost = determineCost(aPack, option, numBoosterItemsUserWants);
+    
     if (ControllerConstants.NOT_SET == cost) {
       resBuilder.setStatus(PurchaseBoosterPackStatus.OTHER_FAIL);
       log.warn("booster pack with id=" + boosterPackId + " has no price.");
@@ -207,47 +241,26 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return true;
   }
 
-  private int determineCost(BoosterPack aPack, PurchaseOption option,
-      List<Integer> numBoosterItemsUserWants) {
-    int cost = 0;
-    if(PurchaseOption.ONE == option) { //one item
-      numBoosterItemsUserWants.add(ControllerConstants.BOOSTER_PACK__PURCHASE_OPTION_ONE);
-      cost = aPack.getRetailPriceOne();
-      if (ControllerConstants.NOT_SET == cost) {
-        cost = aPack.getSalePriceOne();
-      }
-    } else {// ten items
-      numBoosterItemsUserWants.add(ControllerConstants.BOOSTER_PACK__PURCHASE_OPTION_TWO);
-      cost = aPack.getRetailPriceTwo();
-      if (ControllerConstants.NOT_SET == cost) {
-        cost = aPack.getSalePriceTwo();
-      }
-    }
-    return cost;
+  private int determineNumBoosterItemsFromPurchaseOption(PurchaseOption option) {
+    if (PurchaseOption.ONE == option) {
+      return ControllerConstants.BOOSTER_PACK__PURCHASE_OPTION_ONE_NUM_BOOSTER_ITEMS;
+    } else {//if (PurchaseOption.TWO == option) {
+      return ControllerConstants.BOOSTER_PACK__PURCHASE_OPTION_TWO_NUM_BOOSTER_ITEMS;
+    } 
   }
   
-  private boolean underPurchaseLimit(Builder resBuilder, int userId, BoosterPack aPack, 
-      int boosterPackId, Date now, PurchaseOption option) {
+  private boolean underDailyPurchaseLimit(Builder resBuilder, int userId, BoosterPack aPack, 
+      int boosterPackId, Date now, int numUserWantsToBuy) {
     Timestamp startOfDayPstInUtc = MiscMethods.getPstDateAndHourFromUtcTime(now);
     int numPurchased = UserBoosterPackRetrieveUtils
         .getNumPacksPurchasedAfterDateForUserAndPackId(userId, boosterPackId, startOfDayPstInUtc);
-    int numToBuy = 0;
-    if(PurchaseOption.ONE == option) {
-      numToBuy += ControllerConstants.BOOSTER_PACK__PURCHASE_OPTION_ONE;
-    } else if (PurchaseOption.TWO == option){
-      numToBuy += ControllerConstants.BOOSTER_PACK__PURCHASE_OPTION_TWO;
-    } else {
-      resBuilder.setStatus(PurchaseBoosterPackStatus.OTHER_FAIL);
-      log.error("invalid purchase option: " + option + ", " + option.getNumber());
-      return false;
-    }
     
     boolean limitSet = true;
     int dailyLimit = aPack.getDailyLimit();
     if (ControllerConstants.NOT_SET == dailyLimit) {
       limitSet = false;
     }
-    int numUserWillHave = numPurchased + numToBuy;
+    int numUserWillHave = numPurchased + numUserWantsToBuy;
     if (limitSet && numUserWillHave > dailyLimit) {
       //user will have more than the limit
       int numMorePacksUserCanBuy = dailyLimit - numPurchased;
@@ -257,7 +270,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       resBuilder.setNumPacksToExceedLimit(numMorePacksUserCanBuy);
       resBuilder.setMinutesUntilLimitReset(minutesUntilLimitReset);
       log.error("user will have more booster packs than the limit: " + dailyLimit
-          + " user has " + numPurchased + " and wants to buy " + numToBuy + " more.");
+          + " user has " + numPurchased + " and wants to buy " + numUserWantsToBuy + " more.");
       return false;
     }
     
@@ -274,115 +287,121 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return (int) Math.ceil((nextDayInMillis - nowInMillis)/60000);
   }
   
-  //successful purchase, this function returns false
-  private boolean didBuyOutBoosterPack(Builder resBuilder, int userId, int boosterPackId, 
-      Map<Integer, BoosterItem> boosterItems, Map<Integer, Integer> userItemIdsToQuantities, 
-      PurchaseOption option, List<BoosterItem> itemsUserReceives,
-      List<Integer> numBoosterItemsUserWants) {
-    List<Integer> boosterItemIds = new ArrayList<Integer>();
+  //Returns all the booster items the user purchased, if the user buys out deck
+  //start over from a fresh deck (boosterItemIdsToNumCollected is changed to reflect none have been collected)
+  private List<BoosterItem> getAllBoosterItemsForUser(Map<Integer, BoosterItem> allBoosterItemIdsToBoosterItems, 
+      Map<Integer, Integer> boosterItemIdsToNumCollected, int numBoosterItemsUserWants) {
+    List<BoosterItem> returnValue = new ArrayList<BoosterItem>();
+    
+    //the possible items user can get
+    List<Integer> boosterItemIdsUserCanGet = new ArrayList<Integer>();
     List<Integer> quantitiesInStock = new ArrayList<Integer>();
     
-    //max number randon number can go
-    int totalAvailableItems = determineBoosterItemsLeft(boosterItems, userItemIdsToQuantities, 
-        boosterItemIds, quantitiesInStock);
+    //populate boosterItemIdsUserCanGet, and quantitiesInStock
+    int sumQuantitiesInStock = determineBoosterItemsLeft(allBoosterItemIdsToBoosterItems, 
+        boosterItemIdsToNumCollected, boosterItemIdsUserCanGet, quantitiesInStock);
     
-    if (0 == totalAvailableItems) {
-      resBuilder.setStatus(PurchaseBoosterPackStatus.BOOSTER_PACK_SOLD_OUT);
-      log.error("No more booster items in booster pack with id: " + boosterPackId);
-      return true;
-    } 
-    
-    if (numBoosterItemsUserWants.isEmpty()){
-      resBuilder.setStatus(PurchaseBoosterPackStatus.OTHER_FAIL);
-      log.error("wrong type of PurchaseOption sent: " + option + ", " + option.getNumber());
-      return true;
+    if (numBoosterItemsUserWants > sumQuantitiesInStock) {
+      //give all the remaining booster items to the user, 
+      for (int bItemId : boosterItemIdsUserCanGet) {
+        returnValue.add(allBoosterItemIdsToBoosterItems.get(bItemId));
+      }
+      //decrement number user still needs to receive, and then reset deck
+      numBoosterItemsUserWants -= sumQuantitiesInStock;
+      
+      //start from a clean slate as if it is the first time user is purchasing
+      boosterItemIdsUserCanGet.clear();
+      boosterItemIdsToNumCollected.clear();
+      quantitiesInStock.clear();
+      sumQuantitiesInStock = 0;
+      
+      for (int boosterItemId : allBoosterItemIdsToBoosterItems.keySet()) {
+        BoosterItem boosterItemUserCanGet = allBoosterItemIdsToBoosterItems.get(boosterItemIdsUserCanGet);
+        boosterItemIdsUserCanGet.add(boosterItemId);
+        boosterItemIdsToNumCollected.put(boosterItemId, 0);
+        int quantityInStock = boosterItemUserCanGet.getQuantity();
+        quantitiesInStock.add(quantityInStock);
+        sumQuantitiesInStock += quantityInStock;
+      }
     }
-    int amountUserWantsToPurchase = numBoosterItemsUserWants.get(0);
-    
-    if(amountUserWantsToPurchase > totalAvailableItems) {
-      resBuilder.setStatus(PurchaseBoosterPackStatus.EXCEEDING_PURCHASE_LIMIT);
-      log.error("user " + userId + " wants to buy " + amountUserWantsToPurchase
-          + " and there are only " + totalAvailableItems + " items left");
-      return true;
-    }
-    
+
     //set the booster item(s) the user will receieve
-    determineBoosterItemsUserReceives(boosterItemIds, quantitiesInStock,
-        amountUserWantsToPurchase, totalAvailableItems, boosterItems, itemsUserReceives);
-    
-    return false;
+    List<BoosterItem> itemUserReceives = determineBoosterItemsUserReceives(boosterItemIdsUserCanGet, 
+        quantitiesInStock, numBoosterItemsUserWants, sumQuantitiesInStock, allBoosterItemIdsToBoosterItems);
+   
+    returnValue.addAll(itemUserReceives);
+    return returnValue;
   }
   
-  private int determineBoosterItemsLeft(Map<Integer, BoosterItem> items, 
-      Map<Integer, Integer> userItemIdsToQuantities, List<Integer> ids,
+  //populates ids, quantitiesInStock; determines the remaining booster items the user can get
+  private int determineBoosterItemsLeft(Map<Integer, BoosterItem> allBoosterItemIdsToBoosterItems, 
+      Map<Integer, Integer> boosterItemIdsToNumCollected, List<Integer> boosterItemIdsUserCanGet, 
       List<Integer> quantitiesInStock) {
     //max number randon number can go
-    int totalAvailableItems = 0;
+    int sumQuantitiesInStock = 0;
 
     //determine how many BoosterItems are left that user can get
-    for (int boosterItemId : items.keySet()) {
-      BoosterItem potentialEquip = items.get(boosterItemId);
+    for (int boosterItemId : allBoosterItemIdsToBoosterItems.keySet()) {
+      BoosterItem potentialEquip = allBoosterItemIdsToBoosterItems.get(boosterItemId);
       int quantityLimit = potentialEquip.getQuantity();
-      int quantityPurchased = ControllerConstants.NOT_SET;
+      int quantityPurchasedPreviously = ControllerConstants.NOT_SET;
 
-      if (userItemIdsToQuantities.containsKey(boosterItemId)) {
-        quantityPurchased = userItemIdsToQuantities.get(boosterItemId);
+      if (boosterItemIdsToNumCollected.containsKey(boosterItemId)) {
+        quantityPurchasedPreviously = boosterItemIdsToNumCollected.get(boosterItemId);
       }
 
-      //if user bought item before and is under the limit
-      if(ControllerConstants.NOT_SET == quantityPurchased) {
+      if(ControllerConstants.NOT_SET == quantityPurchasedPreviously) {
         //user has never bought this BoosterItem before
-        ids.add(boosterItemId);
+        boosterItemIdsUserCanGet.add(boosterItemId);
         quantitiesInStock.add(quantityLimit);
-        totalAvailableItems += quantityLimit;
-      } else if (quantityPurchased < quantityLimit) {
+        sumQuantitiesInStock += quantityLimit;
+      } else if (quantityPurchasedPreviously < quantityLimit) {
         //user bought before, but has not reached the limit
-        int numLeftToGet = quantityLimit - quantityPurchased;
-        ids.add(boosterItemId);
-        quantitiesInStock.add(numLeftToGet);
-        totalAvailableItems += numLeftToGet;
+        int numLeftInStock = quantityLimit - quantityPurchasedPreviously;
+        boosterItemIdsUserCanGet.add(boosterItemId);
+        quantitiesInStock.add(numLeftInStock);
+        sumQuantitiesInStock += numLeftInStock;
       }
     }
     
-    return totalAvailableItems;
+    return sumQuantitiesInStock;
   }
   
-  private void determineBoosterItemsUserReceives(List<Integer> boosterItemIds, 
-      List<Integer> quantities, int amountUserWantsToPurchase, int sumOfQuantities,
-      Map<Integer, BoosterItem> boosterItems, List<BoosterItem> itemsUserReceives) {
+  private List<BoosterItem> determineBoosterItemsUserReceives(List<Integer> boosterItemIdsUserCanGet, 
+      List<Integer> quantitiesInStock, int amountUserWantsToPurchase, int sumOfQuantitiesInStock,
+      Map<Integer, BoosterItem> allBoosterItemIdsToBoosterItems) {
+    List<BoosterItem> itemsUserReceives = new ArrayList<BoosterItem>();
     Random rand = new Random();
-    List<Integer> newBoosterItemIds = new ArrayList<Integer>(boosterItemIds);
-    List<Integer> newQuantities = new ArrayList<Integer>(quantities);
-    int newSumOfQuantities = sumOfQuantities;
+    List<Integer> newBoosterItemIdsUserCanGet = new ArrayList<Integer>(boosterItemIdsUserCanGet);
+    List<Integer> newQuantitiesInStock = new ArrayList<Integer>(quantitiesInStock);
+    int newSumOfQuantities = sumOfQuantitiesInStock;
     
     //selects one of the ids at random without replacement
     for(int purchaseN = 0; purchaseN < amountUserWantsToPurchase; purchaseN++) {
       int sumSoFar = 0;
       int randomNum = rand.nextInt(newSumOfQuantities) + 1; //range [1, newSumOfQuantities]
       
-      for(int i = 0; i < newBoosterItemIds.size(); i++) {
-        int bItemId = boosterItemIds.get(i);
-        int quantity = newQuantities.get(i);
+      for(int i = 0; i < newBoosterItemIdsUserCanGet.size(); i++) {
+        int bItemId = boosterItemIdsUserCanGet.get(i);
+        int quantity = newQuantitiesInStock.get(i);
         
         sumSoFar += quantity;
         
         if(randomNum <= sumSoFar) {
           //we have a winner! current boosterItemId is what the user gets
-          BoosterItem selectedBoosterItem = boosterItems.get(bItemId);
+          BoosterItem selectedBoosterItem = allBoosterItemIdsToBoosterItems.get(bItemId);
           itemsUserReceives.add(selectedBoosterItem);
           
           //preparation for next BoosterItem to be selected
           if (1 == quantity) {
-            newBoosterItemIds.remove(i);
-            newQuantities.remove(i);
+            newBoosterItemIdsUserCanGet.remove(i);
+            newQuantitiesInStock.remove(i);
           } else if (1 < quantity){
             //booster item id has more than one quantity
-            int decrementedQuantity = newQuantities.remove(i) - 1;
-            newQuantities.add(i, decrementedQuantity);
+            int decrementedQuantity = newQuantitiesInStock.remove(i) - 1;
+            newQuantitiesInStock.add(i, decrementedQuantity);
           } else {
-            //quantity should not be 0
-            log.error("quantity for booster item with id " + bItemId
-                + " has a quantity of 0");
+            //ignore those with quantity of 0
             continue;
           }
           
@@ -391,12 +410,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
       }
     }
+    
+    return itemsUserReceives;
   }
   
-  //sets values for newUserBoosterItemIdsToQuantities
-  private boolean writeChangesToDB(Builder resBuilder, User user, Map<Integer, Integer> userItemIdsToQuantities,
+  //sets values for newBoosterItemIdsToNumCollected
+  private boolean writeChangesToDB(Builder resBuilder, User user, Map<Integer, Integer> boosterItemIdsToNumCollected,
       List<BoosterItem> itemsUserReceives, Map<String, Integer> goldSilverChange, List<Integer> uEquipIds,
-      Map<Integer, Integer> newUserBoosterItemIdsToQuantities) {
+      Map<Integer, Integer> newBoosterItemIdsToNumCollected) {
     //insert into user_equips, update user, update user_booster_items
     int userId = user.getId();
     List<Integer> userEquipIds = insertNewUserEquips(userId, itemsUserReceives);
@@ -408,8 +429,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     
     //user received the correct number of equips
     String key = (String) (goldSilverChange.keySet().toArray())[0];
-    int currencyChange = goldSilverChange.get(key);
+    int currencyChange = goldSilverChange.get(key); //should be negative
     
+    //update user's money
     if (MiscMethods.gold.equals(key)) {
       if (!user.updateRelativeDiamondsNaive(currencyChange)) {
         log.error("could not change user's money. Deleting equips bought: "
@@ -424,12 +446,30 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         DeleteUtils.get().deleteUserEquips(userEquipIds);
         return false;
       }
+    } else {
+      log.error("could not change user's money. Deleting equips bought: "
+          + MiscMethods.shallowListToString(userEquipIds));
+      DeleteUtils.get().deleteUserEquips(userEquipIds);
     }
     
     uEquipIds.addAll(userEquipIds);
-    return updateUserBoosterItems(itemsUserReceives, userItemIdsToQuantities,
-        userId, newUserBoosterItemIdsToQuantities);
+    //update user_booster_items
+    if (!updateUserBoosterItems(itemsUserReceives, boosterItemIdsToNumCollected,
+        userId, newBoosterItemIdsToNumCollected)) {
+      //failed to update user_booster_items
+      log.error("failed to update user_booster_items for user: " + user
+          + " attempting to give money back and delete equips bought: "
+          + MiscMethods.shallowListToString(userEquipIds));
+      if (MiscMethods.gold.equals(key)) {
+        user.updateRelativeDiamondsNaive(-currencyChange);
+      } else if (MiscMethods.silver.equals(key)){
+        user.updateRelativeCoinsNaive(-currencyChange);
+      }
+      DeleteUtils.get().deleteUserEquips(userEquipIds);
+      return false;
+    }
     
+    return true;
   }
   
   private List<Integer> insertNewUserEquips(int userId, List<BoosterItem> itemsUserReceives) {
@@ -449,18 +489,23 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
   
   private boolean updateUserBoosterItems(List<BoosterItem> itemsUserReceives,
-      Map<Integer, Integer> userItemIdsToQuantities, int userId,
-      Map<Integer, Integer> newUserBoosterItemIdsToQuantities) {
+      Map<Integer, Integer> boosterItemIdsToNumCollected, int userId,
+      Map<Integer, Integer> newBoosterItemIdsToNumCollected) {
+    Map<Integer, Integer> changedBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>();
+    
+    //for each booster item received record it in the map above, and record how many
+    //booster items user has in aggregate
     for(BoosterItem received : itemsUserReceives) {
       int boosterItemId = received.getId();
       //default quantity user gets if user has no quantity of specific boosterItem
       int newQuantity = 1; 
-      if(userItemIdsToQuantities.containsKey(boosterItemId)) {
-        newQuantity = userItemIdsToQuantities.get(boosterItemId) + 1;
+      if(boosterItemIdsToNumCollected.containsKey(boosterItemId)) {
+        newQuantity = boosterItemIdsToNumCollected.get(boosterItemId) + 1;
       }
-      newUserBoosterItemIdsToQuantities.put(boosterItemId, newQuantity);
+      changedBoosterItemIdsToNumCollected.put(boosterItemId, newQuantity);
+      newBoosterItemIdsToNumCollected.put(boosterItemId, newQuantity);
     }
-    return UpdateUtils.get().updateUserBoosterItemsForOneUser(userId, newUserBoosterItemIdsToQuantities);
+    return UpdateUtils.get().updateUserBoosterItemsForOneUser(userId, changedBoosterItemIdsToNumCollected);
   }
   
   private List<FullUserEquipProto> createFullUserEquipProtos(List<Integer> userEquipIds, 
