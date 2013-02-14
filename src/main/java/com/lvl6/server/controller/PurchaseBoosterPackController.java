@@ -290,13 +290,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     TimeZone pst = TimeZone.getTimeZone("America/Los_Angeles");
     Calendar calPST = Calendar.getInstance(pst);
     
+    int offSet = pst.getOffset(nextDayInMillis);
     
     
     log.info("startOfDayPstInUtc: " + new Date(startOfDayPstInUtc.getTime())
     + ", nextDay: " + new Date(nextDayInMillis) + ", now: " + now
     + ", nowInUTC_system: " + new Date(System.currentTimeMillis())
     + ", timeInUTC_timezone: " + new Date(calUTC.getTimeInMillis())
-    + ", timeInPST_timezone: " + new Date(calPST.getTimeInMillis()));
+    + ", timeInPST_timezone: " + new Date(calPST.getTimeInMillis())
+    + ", offsetPST millis: " + offSet + ", offsetPST min: " + (offSet/60000));
     
     return (int) Math.ceil((nextDayInMillis - nowInMillis)/60000);
   }
