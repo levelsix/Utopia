@@ -112,7 +112,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 	        if (legit) {
 	          writeChangesToDB(oldTower, newTower, curTime, user);
 	
-	          sendTowersAndNotifications(oldTower.getClanOwnerId(), newTower.getClanAttackerId(), 
+	          sendTowersAndNotifications(oldTower.getClanOwnerId(), newTower.getClanOwnerId(), 
 	              newTower, oldClanTowerAttacker, oldClanTowerOwner);
 	        }
 	    } catch (Exception e) {
