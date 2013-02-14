@@ -285,20 +285,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     long nextDayInMillis = cal.getTimeInMillis();
     long nowInMillis = now.getTime();
     
-    TimeZone utc = TimeZone.getTimeZone("Europe/London");
-    Calendar calUTC = Calendar.getInstance(utc);
-    TimeZone pst = TimeZone.getTimeZone("America/Los_Angeles");
-    Calendar calPST = Calendar.getInstance(pst);
-    
-    int offSet = pst.getOffset(nextDayInMillis);
-    
+    int edtOffset = TimeZone.getTimeZone("Europe/London").getOffset(nowInMillis);
+    int gmtOffset = TimeZone.getTimeZone("America/Los_Angeles").getOffset(nowInMillis);
+    int hourDifference = (gmtOffset - edtOffset) / (1000 * 60 * 60);
+    String diff = hourDifference + " hours";
     
     log.info("startOfDayPstInUtc: " + new Date(startOfDayPstInUtc.getTime())
     + ", nextDay: " + new Date(nextDayInMillis) + ", now: " + now
     + ", nowInUTC_system: " + new Date(System.currentTimeMillis())
-    + ", timeInUTC_timezone: " + new Date(calUTC.getTimeInMillis())
-    + ", timeInPST_timezone: " + new Date(calPST.getTimeInMillis())
-    + ", offsetPST millis: " + offSet + ", offsetPST min: " + (offSet/60000));
+    + ", hourDifference: " + diff);
     
     return (int) Math.ceil((nextDayInMillis - nowInMillis)/60000);
   }
