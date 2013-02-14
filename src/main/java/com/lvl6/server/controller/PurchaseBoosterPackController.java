@@ -189,14 +189,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       PurchaseOption option, List<Integer> cost) {
     int costTemp = 0;
     if (PurchaseOption.ONE == option) {
-      costTemp = aPack.getRetailPriceOne();
+      costTemp = aPack.getSalePriceOne();
       if (ControllerConstants.NOT_SET == costTemp) {
-        costTemp = aPack.getSalePriceOne();
+        costTemp = aPack.getRetailPriceOne();
       }
     } else if (PurchaseOption.TWO == option) {
-      costTemp = aPack.getRetailPriceTwo();
+      costTemp = aPack.getSalePriceTwo();
       if (ControllerConstants.NOT_SET == costTemp) {
-        costTemp = aPack.getSalePriceTwo();
+        costTemp = aPack.getRetailPriceTwo();
       }
     } 
     
@@ -283,6 +283,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     cal.add(Calendar.DATE, 1);
     long nextDayInMillis = cal.getTimeInMillis();
     long nowInMillis = now.getTime();
+    
+    log.info("startOfDayPstInUtc: " + new Date(startOfDayPstInUtc.getTime())
+    + ", nextDay: " + new Date(nextDayInMillis) + ", now: " + now);
     
     return (int) Math.ceil((nextDayInMillis - nowInMillis)/60000);
   }
