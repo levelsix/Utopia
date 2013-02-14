@@ -250,7 +250,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int numUserWillHave = numPurchased + numToBuy;
     if (limitSet && numUserWillHave > dailyLimit) {
       //user will have more than the limit
-      int numMorePacksUserCanBuy = dailyLimit - numPurchased;
+      int numMorePacksUserCanBuy = Math.max(0, dailyLimit - numPurchased);
       int minutesUntilLimitReset = determineTimeUntilReset(startOfDayPstInUtc, now);
       
       resBuilder.setStatus(PurchaseBoosterPackStatus.EXCEEDING_PURCHASE_LIMIT);
