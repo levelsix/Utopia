@@ -12,6 +12,7 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import com.lvl6.info.BoosterPack;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
@@ -84,7 +85,12 @@ import com.lvl6.utils.DBConnection;
     String backgroundImage = rs.getString(i++);
     int minLevel = rs.getInt(i++);
     int maxLevel = rs.getInt(i++);
+    
     int dailyLimit = rs.getInt(i++);
+    if (rs.wasNull()) {
+      dailyLimit = ControllerConstants.NOT_SET;
+    }
+    
     int salePriceOne = rs.getInt(i++);
     int retailPriceOne = rs.getInt(i++);
     int salePriceTwo = rs.getInt(i++);
