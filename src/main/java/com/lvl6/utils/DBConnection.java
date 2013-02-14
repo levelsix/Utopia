@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.utilmethods.StringUtils;
@@ -418,7 +419,6 @@ public class DBConnection {
     List<Object> values = new LinkedList<Object>();
 
     int numUpdated = 0;
-
     if (numRows > 0 && insertParams != null && insertParams.size() > 0) {
       boolean firstTime = true;
       for (int i = 0; i < numRows; i++) {
@@ -439,7 +439,6 @@ public class DBConnection {
 
       String query = "insert into " + tablename + "("
           + StringUtils.getListInString(columns, ",") + ") VALUES ";
-
       List<String> valuesStrings = new ArrayList<String>();
       String rowQuestionsString = StringUtils.getListInString(
           questionsPerRow, ",");
