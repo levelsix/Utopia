@@ -419,8 +419,9 @@ public class DBConnection {
     List<Object> values = new LinkedList<Object>();
 
     int numUpdated = 0;
-
+    log.info("1");
     if (numRows > 0 && insertParams != null && insertParams.size() > 0) {
+      log.info("2");
       boolean firstTime = true;
       for (int i = 0; i < numRows; i++) {
         for (String column : insertParams.keySet()) {
@@ -437,22 +438,24 @@ public class DBConnection {
         }
         firstTime = false;
       }
+      log.info("3");
 
       String query = "insert into " + tablename + "("
           + StringUtils.getListInString(columns, ",") + ") VALUES ";
-
       List<String> valuesStrings = new ArrayList<String>();
       String rowQuestionsString = StringUtils.getListInString(
           questionsPerRow, ",");
+      log.info("4");
       for (int i = 0; i < numRows; i++) {
         valuesStrings.add("(" + rowQuestionsString + ")");
       }
       query += StringUtils.getListInString(valuesStrings, ",");
 
+      log.info("5");
       Connection conn = null;
       PreparedStatement stmt = null;
       try {
-        log.warn("query: " + query + ", values:" + MiscMethods.shallowListToString(values));
+        log.info("query: " + query + ", values:" + MiscMethods.shallowListToString(values));
         conn = dataSource.getConnection();
         stmt = conn.prepareStatement(query);
         if (values.size() > 0) {
