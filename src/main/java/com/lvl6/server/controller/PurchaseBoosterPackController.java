@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.TimeZone;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -284,9 +285,18 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     long nextDayInMillis = cal.getTimeInMillis();
     long nowInMillis = now.getTime();
     
+    TimeZone utc = TimeZone.getTimeZone("Europe/London");
+    Calendar calUTC = Calendar.getInstance(utc);
+    TimeZone pst = TimeZone.getTimeZone("America/Los_Angeles");
+    Calendar calPST = Calendar.getInstance(pst);
+    
+    
+    
     log.info("startOfDayPstInUtc: " + new Date(startOfDayPstInUtc.getTime())
     + ", nextDay: " + new Date(nextDayInMillis) + ", now: " + now
-    + ", nowInUTC: " + new Date(System.currentTimeMillis()));
+    + ", nowInUTC_system: " + new Date(System.currentTimeMillis())
+    + ", timeInUTC_timezone: " + new Date(calUTC.getTimeInMillis())
+    + ", timeInPST_timezone: " + new Date(calPST.getTimeInMillis()));
     
     return (int) Math.ceil((nextDayInMillis - nowInMillis)/60000);
   }
