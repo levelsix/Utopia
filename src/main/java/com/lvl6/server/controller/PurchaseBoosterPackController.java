@@ -285,7 +285,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     long nowInMillis = now.getTime();
     
     log.info("startOfDayPstInUtc: " + new Date(startOfDayPstInUtc.getTime())
-    + ", nextDay: " + new Date(nextDayInMillis) + ", now: " + now);
+    + ", nextDay: " + new Date(nextDayInMillis) + ", now: " + now
+    + ", nowInUTC: " + new Date(System.currentTimeMillis()));
     
     return (int) Math.ceil((nextDayInMillis - nowInMillis)/60000);
   }
