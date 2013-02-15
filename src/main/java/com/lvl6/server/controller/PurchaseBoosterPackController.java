@@ -287,22 +287,27 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     cal.add(Calendar.DATE, 1);
     long nextDayInMillis = cal.getTimeInMillis();
     
+    DateFormat dfGmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    dfGmt.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
+    String stringGmt = dfGmt.format(new Date(nextDayInMillis));
+    Date dateGmt = new Date();
+    
     DateFormat dfPst = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     dfPst.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
     String stringPst = dfPst.format(now);
     Date datePst = new Date();
     
-    log.info("Date and time in PST: " + stringPst);
+    log.info("Date and time for GMT in PST: " + stringGmt + ",   Date and time in PST: " + stringPst);
     try {
+      dateGmt = dfGmt.parse(stringGmt);
       datePst = dfPst.parse(stringPst);
     } catch (ParseException e) {
       // TODO Auto-generated catch block
-      e.printStackTrace();
+      log.error("error in parsing date", e);
     }
-    log.info("num minutes user needs to wait: " + (int)Math.ceil((nextDayInMillis - datePst.getTime())/60000));
+    log.info("num minutes user needs to wait: " + (int)Math.ceil((dateGmt.getTime() - datePst.getTime())/60000));
     
     long nowInMillis = dfPst.getCalendar().getTimeInMillis();
-    
     return (int) Math.ceil((nextDayInMillis - nowInMillis)/60000);
   }
   
