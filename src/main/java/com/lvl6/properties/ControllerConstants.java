@@ -424,7 +424,7 @@ public class ControllerConstants {
   public static final String GOLD_BAR_IMAGE_NAME_NEW_USER_GOLD_SALE = "ThreeDayGoldSaleTag.png";
   
   //CLAN TOWER
-  public static final int MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER = 2;
+  public static final int MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER = Globals.IS_SANDBOX() ? 2 : 25;
   public static final int NUM_HOURS_BEFORE_REWAGING_WAR_ON_TOWER = 6;
   
   //LEADERBOARD EVENT
