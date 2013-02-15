@@ -516,7 +516,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     //to num collected is itemsUserReceives.size() amount more than boosterItemIdsToNumCollected
     int collectedQuantityChange = 0;
     for (int id : changedBoosterItemIdsToNumCollected.keySet()) {
-      collectedQuantityChange += newBoosterItemIdsToNumCollected.get(id) - boosterItemIdsToNumCollected.get(id);
+      int newAmount = newBoosterItemIdsToNumCollected.get(id);
+      int oldAmount = 0;
+      if (boosterItemIdsToNumCollected.containsKey(id)) {
+        oldAmount = boosterItemIdsToNumCollected.get(id);
+      }
+      collectedQuantityChange += newAmount - oldAmount;
     }
     if (itemsUserReceives.size() != collectedQuantityChange) {
       log.error("quantities of booster items do not match how many items user receives. "
