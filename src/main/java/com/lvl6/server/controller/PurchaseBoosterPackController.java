@@ -283,14 +283,26 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   
   private int determineTimeUntilReset(Timestamp startOfDayPstInUtc, Date now) {
     Calendar cal = Calendar.getInstance();
+    log.info("calTz: " + cal.getTimeZone());
+    
     cal.setTime(startOfDayPstInUtc);
+    log.info("calTz: " + cal.getTimeZone() + ", startOfDayPstInUtc: " + cal.getTime());
+    
     cal.add(Calendar.DATE, 1);
-    Date calDate = cal.getTime();
-    long nextDayInMillis = cal.getTimeInMillis();
+    log.info("calTz: " + cal.getTimeZone() + ", startOfNextDayPstInUtc: " + cal.getTime());
+    
+    long nextDayInMillisGmt = cal.getTimeInMillis();
+    
+    cal.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
+    log.info("calTz: " + cal.getTimeZone() + ", startOfNextDayForPstInUtc converted back to Pst: " + cal.getTime());
+    
+    long nextDayInMillisPst = cal.getTimeInMillis();
+    
+    log.info("nextDayInMillisGmt: " + nextDayInMillisGmt + "nextDayInMillisPst" + nextDayInMillisPst);
     
     DateFormat dfGmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     dfGmt.setTimeZone(TimeZone.getTimeZone("Europe/London"));
-    String stringGmt = dfGmt.format(new Date(nextDayInMillis));
+    String stringGmt = dfGmt.format(now);
     Date dateGmt = new Date();
     
     DateFormat dfPst = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -298,8 +310,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     String stringPst = dfPst.format(now);
     Date datePst = new Date();
     
-    log.info("startOfDayPstInUtc: " + startOfDayPstInUtc + ", calDate(one day after): " + calDate);
-    log.info("Date and time for GMT in PST: " + stringGmt + ",   Date and time in PST: " + stringPst);
+    log.info("now in GMT: " + stringGmt + ",   now in PST: " + stringPst);
     try {
       dateGmt = dfGmt.parse(stringGmt);
       datePst = dfPst.parse(stringPst);
@@ -307,10 +318,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       // TODO Auto-generated catch block
       log.error("error in parsing date", e);
     }
-    log.info("num minutes user needs to wait: " + (int)Math.ceil((dateGmt.getTime() - datePst.getTime())/60000));
     
-    long nowInMillis = dfPst.getCalendar().getTimeInMillis();
-    return (int) Math.ceil((nextDayInMillis - nowInMillis)/60000);
+    long nowInMillisGmt = dateGmt.getTime();
+    long nowInMillisPst = datePst.getTime();
+    log.info("nowInMillisGmt: " + nowInMillisGmt + ", nowInMillisPst: " + nowInMillisPst);
+    log.info("(GMT timezone comparison) num minutes user needs to wait: " + (int)Math.ceil((nextDayInMillisGmt - nowInMillisGmt)/60000));
+    log.info("(PST timezone comparison) num minutes user needs to wait: " + (int)Math.ceil((nextDayInMillisPst - nowInMillisPst)/60000));
+
+    return (int) Math.ceil((nextDayInMillisGmt - nowInMillisGmt)/60000);
   }
   
   //Returns all the booster items the user purchased, if the user buys out deck
