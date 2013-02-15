@@ -1084,9 +1084,11 @@ public class MiscMethods {
       if ((words.length - 1) == i) {
         space = "";
       }
-
+      //get rid of all punctuation
+      String wWithNoPunctuation = w.replaceAll("\\p{Punct}", "");
+      
       //the profanity table only holds lower case one word profanities
-      if(blackList.contains(w.toLowerCase())) {
+      if(blackList.contains(wWithNoPunctuation.toLowerCase())) {
         toReturn.append(asteriskify(w) + space);
       } else {
         toReturn.append(w + space);
