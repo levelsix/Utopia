@@ -366,7 +366,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         continue;
       } else {//will this ever be reached?
         log.error("somehow user has bought more than the allowed limit for a booster item for a booster pack. "
-            + "quantityLimit: " + quantityLimit + ", quantityPurchasedPreviously" + quantityPurchasedPreviously
+            + "quantityLimit: " + quantityLimit + ", quantityPurchasedPreviously: " + quantityPurchasedPreviously
             + ", user: " + aUser + ", boosterItem: " + potentialEquip + ", boosterPackId: " + boosterPackId);
       }
     }
