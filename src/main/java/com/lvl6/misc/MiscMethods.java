@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.TimeZone;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,8 +76,8 @@ import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
-import com.lvl6.proto.InfoProto.InAppPurchasePackageProto;
 import com.lvl6.proto.InfoProto.GoldSaleProto;
+import com.lvl6.proto.InfoProto.InAppPurchasePackageProto;
 import com.lvl6.proto.InfoProto.LeaderboardEventProto;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
 import com.lvl6.proto.InfoProto.UserType;
@@ -1453,6 +1454,7 @@ public class MiscMethods {
   //using prior example, returns 2013-02-07 08:00:00
   public static Timestamp getPstDateAndHourFromUtcTime(Date now) {
     Calendar cal = Calendar.getInstance();
+    cal.setTimeZone(TimeZone.getTimeZone("Europe/London"));
     cal.setTime(now);
     
     //PST = UTC - 8 hours
