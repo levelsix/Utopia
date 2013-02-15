@@ -1,6 +1,8 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -285,15 +287,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     long nextDayInMillis = cal.getTimeInMillis();
     long nowInMillis = now.getTime();
     
-    int edtOffset = TimeZone.getTimeZone("Europe/London").getOffset(nowInMillis);
-    int gmtOffset = TimeZone.getTimeZone("America/Los_Angeles").getOffset(nowInMillis);
-    int hourDifference = (gmtOffset - edtOffset) / (1000 * 60 * 60);
-    String diff = hourDifference + " hours";
-    
-    log.info("startOfDayPstInUtc: " + new Date(startOfDayPstInUtc.getTime())
-    + ", nextDay: " + new Date(nextDayInMillis) + ", now: " + now
-    + ", nowInUTC_system: " + new Date(System.currentTimeMillis())
-    + ", hourDifference: " + diff);
+    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    df.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
+    log.info("Date and time in PST: " + df.format(now));
     
     return (int) Math.ceil((nextDayInMillis - nowInMillis)/60000);
   }
