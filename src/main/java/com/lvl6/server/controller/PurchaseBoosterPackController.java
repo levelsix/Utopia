@@ -285,10 +285,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     Calendar cal = Calendar.getInstance();
     cal.setTime(startOfDayPstInUtc);
     cal.add(Calendar.DATE, 1);
+    Date calDate = cal.getTime();
     long nextDayInMillis = cal.getTimeInMillis();
     
     DateFormat dfGmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    dfGmt.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
+    dfGmt.setTimeZone(TimeZone.getTimeZone("Europe/London"));
     String stringGmt = dfGmt.format(new Date(nextDayInMillis));
     Date dateGmt = new Date();
     
@@ -297,6 +298,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     String stringPst = dfPst.format(now);
     Date datePst = new Date();
     
+    log.info("startOfDayPstInUtc: " + startOfDayPstInUtc + ", calDate(one day after): " + calDate);
     log.info("Date and time for GMT in PST: " + stringGmt + ",   Date and time in PST: " + stringPst);
     try {
       dateGmt = dfGmt.parse(stringGmt);
