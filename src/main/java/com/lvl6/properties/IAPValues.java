@@ -18,40 +18,40 @@ public class IAPValues {
   public static final String PURCHASE_DATE = "purchase_date";
   public static final String PURCHASE_DATE_MS = "purchase_date_ms";
 
-  private static final String PACKAGE1 = Globals.APPLE_BUNDLE_ID + ".package1";
-  private static final String PACKAGE2 = Globals.APPLE_BUNDLE_ID + ".package2";
-  private static final String PACKAGE3 = Globals.APPLE_BUNDLE_ID + ".package3";
-  private static final String PACKAGE4 = Globals.APPLE_BUNDLE_ID + ".package4";
-  private static final String PACKAGE5 = Globals.APPLE_BUNDLE_ID + ".package5";
+  public static final String PACKAGE1 = Globals.APPLE_BUNDLE_ID + ".package1";
+  public static final String PACKAGE2 = Globals.APPLE_BUNDLE_ID + ".package2";
+  public static final String PACKAGE3 = Globals.APPLE_BUNDLE_ID + ".package3";
+  public static final String PACKAGE4 = Globals.APPLE_BUNDLE_ID + ".package4";
+  public static final String PACKAGE5 = Globals.APPLE_BUNDLE_ID + ".package5";
 
-  private static final String PACKAGE1SALE = Globals.APPLE_BUNDLE_ID + ".package1sale";
-  private static final String PACKAGE2SALE = Globals.APPLE_BUNDLE_ID + ".package2sale";
-  private static final String PACKAGE3SALE = Globals.APPLE_BUNDLE_ID + ".package3sale";
-  private static final String PACKAGE4SALE = Globals.APPLE_BUNDLE_ID + ".package4sale";
-  private static final String PACKAGE5SALE = Globals.APPLE_BUNDLE_ID + ".package5sale";
+  public static final String PACKAGE1SALE = Globals.APPLE_BUNDLE_ID + ".package1sale";
+  public static final String PACKAGE2SALE = Globals.APPLE_BUNDLE_ID + ".package2sale";
+  public static final String PACKAGE3SALE = Globals.APPLE_BUNDLE_ID + ".package3sale";
+  public static final String PACKAGE4SALE = Globals.APPLE_BUNDLE_ID + ".package4sale";
+  public static final String PACKAGE5SALE = Globals.APPLE_BUNDLE_ID + ".package5sale";
 
-  private static final String PACKAGES1 = Globals.APPLE_BUNDLE_ID + ".packageS1";
-  private static final String PACKAGES2 = Globals.APPLE_BUNDLE_ID + ".packageS2";
-  private static final String PACKAGES3 = Globals.APPLE_BUNDLE_ID + ".packageS3";
-  private static final String PACKAGES4 = Globals.APPLE_BUNDLE_ID + ".packageS4";
-  private static final String PACKAGES5 = Globals.APPLE_BUNDLE_ID + ".packageS5";
+  public static final String PACKAGES1 = Globals.APPLE_BUNDLE_ID + ".packageS1";
+  public static final String PACKAGES2 = Globals.APPLE_BUNDLE_ID + ".packageS2";
+  public static final String PACKAGES3 = Globals.APPLE_BUNDLE_ID + ".packageS3";
+  public static final String PACKAGES4 = Globals.APPLE_BUNDLE_ID + ".packageS4";
+  public static final String PACKAGES5 = Globals.APPLE_BUNDLE_ID + ".packageS5";
 
-  private static final String PACKAGES1SALE = Globals.APPLE_BUNDLE_ID + ".packageS1sale";
-  private static final String PACKAGES2SALE = Globals.APPLE_BUNDLE_ID + ".packageS2sale";
-  private static final String PACKAGES3SALE = Globals.APPLE_BUNDLE_ID + ".packageS3sale";
-  private static final String PACKAGES4SALE = Globals.APPLE_BUNDLE_ID + ".packageS4sale";
-  private static final String PACKAGES5SALE = Globals.APPLE_BUNDLE_ID + ".packageS5sale";
+  public static final String PACKAGES1SALE = Globals.APPLE_BUNDLE_ID + ".packageS1sale";
+  public static final String PACKAGES2SALE = Globals.APPLE_BUNDLE_ID + ".packageS2sale";
+  public static final String PACKAGES3SALE = Globals.APPLE_BUNDLE_ID + ".packageS3sale";
+  public static final String PACKAGES4SALE = Globals.APPLE_BUNDLE_ID + ".packageS4sale";
+  public static final String PACKAGES5SALE = Globals.APPLE_BUNDLE_ID + ".packageS5sale";
 
-  private static final String PACKAGE1IMG = "goldstack1.png";
-  private static final String PACKAGE2IMG = "goldstack2.png";
-  private static final String PACKAGE3IMG = "goldstack3.png";
-  private static final String PACKAGE4IMG = "goldstack4.png";
-  private static final String PACKAGE5IMG = "goldstack5.png";
-  private static final String PACKAGES1IMG = "silverstack1.png";
-  private static final String PACKAGES2IMG = "silverstack2.png";
-  private static final String PACKAGES3IMG = "silverstack3.png";
-  private static final String PACKAGES4IMG = "silverstack4.png";
-  private static final String PACKAGES5IMG = "silverstack5.png";
+  public static final String PACKAGE1IMG = "goldstack1.png";
+  public static final String PACKAGE2IMG = "goldstack2.png";
+  public static final String PACKAGE3IMG = "goldstack3.png";
+  public static final String PACKAGE4IMG = "goldstack4.png";
+  public static final String PACKAGE5IMG = "goldstack5.png";
+  public static final String PACKAGES1IMG = "silverstack1.png";
+  public static final String PACKAGES2IMG = "silverstack2.png";
+  public static final String PACKAGES3IMG = "silverstack3.png";
+  public static final String PACKAGES4IMG = "silverstack4.png";
+  public static final String PACKAGES5IMG = "silverstack5.png";
 
   /*
    * 1- $1 for 10 diamonds
@@ -61,41 +61,41 @@ public class IAPValues {
    * 5- $1 for 15 diamonds
    */
 
-  private static final int PACKAGE_1_DIAMONDS = 50;
-  private static final int PACKAGE_2_DIAMONDS = 120;
-  private static final int PACKAGE_3_DIAMONDS = 250;
-  private static final int PACKAGE_4_DIAMONDS = 650;
-  private static final int PACKAGE_5_DIAMONDS = 1500;
+  public static final int PACKAGE_1_DIAMONDS = 50;
+  public static final int PACKAGE_2_DIAMONDS = 120;
+  public static final int PACKAGE_3_DIAMONDS = 250;
+  public static final int PACKAGE_4_DIAMONDS = 650;
+  public static final int PACKAGE_5_DIAMONDS = 1500;
 
-  private static final int PACKAGE_S1_COINS = 50000;
-  private static final int PACKAGE_S2_COINS = 120000;
-  private static final int PACKAGE_S3_COINS = 250000;
-  private static final int PACKAGE_S4_COINS = 650000;
-  private static final int PACKAGE_S5_COINS = 1500000;
+  public static final int PACKAGE_S1_COINS = 50000;
+  public static final int PACKAGE_S2_COINS = 120000;
+  public static final int PACKAGE_S3_COINS = 250000;
+  public static final int PACKAGE_S4_COINS = 650000;
+  public static final int PACKAGE_S5_COINS = 1500000;
 
-  private static final double PACKAGE_1_PRICE = 4.99;
-  private static final double PACKAGE_2_PRICE = 9.99;
-  private static final double PACKAGE_3_PRICE = 19.99;
-  private static final double PACKAGE_4_PRICE = 49.99;
-  private static final double PACKAGE_5_PRICE = 99.99;
+  public static final double PACKAGE_1_PRICE = 4.99;
+  public static final double PACKAGE_2_PRICE = 9.99;
+  public static final double PACKAGE_3_PRICE = 19.99;
+  public static final double PACKAGE_4_PRICE = 49.99;
+  public static final double PACKAGE_5_PRICE = 99.99;
 
-  private static final double PACKAGE_1_SALE_PRICE = 3.99;
-  private static final double PACKAGE_2_SALE_PRICE = 7.99;
-  private static final double PACKAGE_3_SALE_PRICE = 15.99;
-  private static final double PACKAGE_4_SALE_PRICE = 39.99;
-  private static final double PACKAGE_5_SALE_PRICE = 74.99;
+  public static final double PACKAGE_1_SALE_PRICE = 3.99;
+  public static final double PACKAGE_2_SALE_PRICE = 7.99;
+  public static final double PACKAGE_3_SALE_PRICE = 15.99;
+  public static final double PACKAGE_4_SALE_PRICE = 39.99;
+  public static final double PACKAGE_5_SALE_PRICE = 74.99;
 
-  private static final double PACKAGE_S1_PRICE = 4.99;
-  private static final double PACKAGE_S2_PRICE = 9.99;
-  private static final double PACKAGE_S3_PRICE = 19.99;
-  private static final double PACKAGE_S4_PRICE = 49.99;
-  private static final double PACKAGE_S5_PRICE = 99.99;
+  public static final double PACKAGE_S1_PRICE = 4.99;
+  public static final double PACKAGE_S2_PRICE = 9.99;
+  public static final double PACKAGE_S3_PRICE = 19.99;
+  public static final double PACKAGE_S4_PRICE = 49.99;
+  public static final double PACKAGE_S5_PRICE = 99.99;
 
-  private static final double PACKAGE_S1_SALE_PRICE = 3.99;
-  private static final double PACKAGE_S2_SALE_PRICE = 7.99;
-  private static final double PACKAGE_S3_SALE_PRICE = 15.99;
-  private static final double PACKAGE_S4_SALE_PRICE = 39.99;
-  private static final double PACKAGE_S5_SALE_PRICE = 74.99;
+  public static final double PACKAGE_S1_SALE_PRICE = 3.99;
+  public static final double PACKAGE_S2_SALE_PRICE = 7.99;
+  public static final double PACKAGE_S3_SALE_PRICE = 15.99;
+  public static final double PACKAGE_S4_SALE_PRICE = 39.99;
+  public static final double PACKAGE_S5_SALE_PRICE = 74.99;
 
   public static final List<String> iapPackageNames = 
       Arrays.asList(PACKAGE1, PACKAGES1, PACKAGE2, PACKAGES2, PACKAGE3, PACKAGES3, PACKAGE4, PACKAGES4, PACKAGE5, PACKAGES5);
