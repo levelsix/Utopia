@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -285,11 +286,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     cal.setTime(startOfDayPstInUtc);
     cal.add(Calendar.DATE, 1);
     long nextDayInMillis = cal.getTimeInMillis();
-    long nowInMillis = now.getTime();
     
-    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    df.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
-    log.info("Date and time in PST: " + df.format(now));
+    DateFormat dfPst = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    dfPst.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
+    String stringPst = dfPst.format(now);
+    Date datePst = new Date();
+    
+    log.info("Date and time in PST: " + stringPst);
+    try {
+      datePst = dfPst.parse(stringPst);
+    } catch (ParseException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    log.info("num minutes user needs to wait: " + (int)Math.ceil((nextDayInMillis - datePst.getTime())/60000));
+    
+    long nowInMillis = dfPst.getCalendar().getTimeInMillis();
     
     return (int) Math.ceil((nextDayInMillis - nowInMillis)/60000);
   }
