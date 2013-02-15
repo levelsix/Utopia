@@ -87,7 +87,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       //values to send to client
       List<BoosterItem> itemsUserReceives = new ArrayList<BoosterItem>();
-      Map<Integer, Integer> newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>(boosterItemIdsToNumCollected);
+      Map<Integer, Integer> newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>();
       List<Integer> userEquipIds = new ArrayList<Integer>();
       
       //keep track of amount user spent
@@ -102,16 +102,25 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (legit) {
         //check if user has bought up all the booster items in the booster pack
         int numBoosterItemsUserWants = determineNumBoosterItemsFromPurchaseOption(option);
+        List<Integer> numCollectedBeforePackRefilledList = new ArrayList<Integer>();
+        int numCollectedBeforePackRefilled = 0;
         //boosterItemIdsToNumCollected will only be modified if the amount the user buys
-        //is more than what is left in the deck
+        //is more than what is left in the deck, need to reflect this in newBoosterItemIdsToNumCollected
+        //and need to track how many items user received to buy out pack
         itemsUserReceives = getAllBoosterItemsForUser(allBoosterItemIdsToBoosterItems,
-            boosterItemIdsToNumCollected, numBoosterItemsUserWants, user, boosterPackId);
+            boosterItemIdsToNumCollected, numBoosterItemsUserWants, user, boosterPackId,
+            numCollectedBeforePackRefilledList);
+        newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>(boosterItemIdsToNumCollected);
         
+        if (!numCollectedBeforePackRefilledList.isEmpty()) {
+          numCollectedBeforePackRefilled = numCollectedBeforePackRefilledList.get(0);
+        }
         
         previousSilver  = user.getCoins() + user.getVaultBalance();
         previousGold = user.getDiamonds();
         successful = writeChangesToDB(resBuilder, user, boosterItemIdsToNumCollected,
-            itemsUserReceives, goldSilverChange, userEquipIds, newBoosterItemIdsToNumCollected);
+            itemsUserReceives, goldSilverChange, userEquipIds, newBoosterItemIdsToNumCollected,
+            numCollectedBeforePackRefilled);
       }
       
       if (successful) {
@@ -291,8 +300,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   //Returns all the booster items the user purchased, if the user buys out deck
   //start over from a fresh deck (boosterItemIdsToNumCollected is changed to reflect none have been collected)
   private List<BoosterItem> getAllBoosterItemsForUser(Map<Integer, BoosterItem> allBoosterItemIdsToBoosterItems, 
-      Map<Integer, Integer> boosterItemIdsToNumCollected, int numBoosterItemsUserWants, User aUser,int boosterPackId) {
+      Map<Integer, Integer> boosterItemIdsToNumCollected, int numBoosterItemsUserWants, User aUser,
+      int boosterPackId, List<Integer> numCollectedBeforePackRefilledList) {
     List<BoosterItem> returnValue = new ArrayList<BoosterItem>();
+    int numCollectedBeforePackRefilled = 0;
     
     //the possible items user can get
     List<Integer> boosterItemIdsUserCanGet = new ArrayList<Integer>();
@@ -309,6 +320,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
       //decrement number user still needs to receive, and then reset deck
       numBoosterItemsUserWants -= sumQuantitiesInStock;
+      numCollectedBeforePackRefilled = sumQuantitiesInStock;
       
       //start from a clean slate as if it is the first time user is purchasing
       boosterItemIdsUserCanGet.clear();
@@ -330,6 +342,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     List<BoosterItem> itemUserReceives = determineBoosterItemsUserReceives(boosterItemIdsUserCanGet, 
         quantitiesInStock, numBoosterItemsUserWants, sumQuantitiesInStock, allBoosterItemIdsToBoosterItems);
    
+    numCollectedBeforePackRefilledList.add(numCollectedBeforePackRefilled);
     returnValue.addAll(itemUserReceives);
     return returnValue;
   }
@@ -424,7 +437,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   //sets values for newBoosterItemIdsToNumCollected
   private boolean writeChangesToDB(Builder resBuilder, User user, Map<Integer, Integer> boosterItemIdsToNumCollected,
       List<BoosterItem> itemsUserReceives, Map<String, Integer> goldSilverChange, List<Integer> uEquipIds,
-      Map<Integer, Integer> newBoosterItemIdsToNumCollected) {
+      Map<Integer, Integer> newBoosterItemIdsToNumCollected, int numCollectedBeforePackRefilled) {
     //insert into user_equips, update user, update user_booster_items
     int userId = user.getId();
     List<Integer> userEquipIds = insertNewUserEquips(userId, itemsUserReceives);
@@ -462,7 +475,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     uEquipIds.addAll(userEquipIds);
     //update user_booster_items
     if (!updateUserBoosterItems(itemsUserReceives, boosterItemIdsToNumCollected,
-        userId, newBoosterItemIdsToNumCollected)) {
+        userId, newBoosterItemIdsToNumCollected, numCollectedBeforePackRefilled)) {
       //failed to update user_booster_items
       log.error("failed to update user_booster_items for user: " + user
           + " attempting to give money back and delete equips bought: "
@@ -497,7 +510,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   
   private boolean updateUserBoosterItems(List<BoosterItem> itemsUserReceives,
       Map<Integer, Integer> boosterItemIdsToNumCollected, int userId,
-      Map<Integer, Integer> newBoosterItemIdsToNumCollected) {
+      Map<Integer, Integer> newBoosterItemIdsToNumCollected,
+      int numCollectedBeforePackRefilled) {
     Map<Integer, Integer> changedBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>();
     
     //for each booster item received record it in the map above, and record how many
@@ -523,6 +537,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
       collectedQuantityChange += newAmount - oldAmount;
     }
+    //for when user buys out a pack and then some
+    collectedQuantityChange += numCollectedBeforePackRefilled;
     if (itemsUserReceives.size() != collectedQuantityChange) {
       log.error("quantities of booster items do not match how many items user receives. "
           + "amount user receives that is recorded (user_booster_items table): " + collectedQuantityChange
