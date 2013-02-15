@@ -105,7 +105,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         //boosterItemIdsToNumCollected will only be modified if the amount the user buys
         //is more than what is left in the deck
         itemsUserReceives = getAllBoosterItemsForUser(allBoosterItemIdsToBoosterItems,
-            boosterItemIdsToNumCollected, numBoosterItemsUserWants);
+            boosterItemIdsToNumCollected, numBoosterItemsUserWants, user, boosterPackId);
         
         
         previousSilver  = user.getCoins() + user.getVaultBalance();
@@ -291,7 +291,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   //Returns all the booster items the user purchased, if the user buys out deck
   //start over from a fresh deck (boosterItemIdsToNumCollected is changed to reflect none have been collected)
   private List<BoosterItem> getAllBoosterItemsForUser(Map<Integer, BoosterItem> allBoosterItemIdsToBoosterItems, 
-      Map<Integer, Integer> boosterItemIdsToNumCollected, int numBoosterItemsUserWants) {
+      Map<Integer, Integer> boosterItemIdsToNumCollected, int numBoosterItemsUserWants, User aUser,int boosterPackId) {
     List<BoosterItem> returnValue = new ArrayList<BoosterItem>();
     
     //the possible items user can get
@@ -300,7 +300,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     
     //populate boosterItemIdsUserCanGet, and quantitiesInStock
     int sumQuantitiesInStock = determineBoosterItemsLeft(allBoosterItemIdsToBoosterItems, 
-        boosterItemIdsToNumCollected, boosterItemIdsUserCanGet, quantitiesInStock);
+        boosterItemIdsToNumCollected, boosterItemIdsUserCanGet, quantitiesInStock, aUser, boosterPackId);
     
     if (numBoosterItemsUserWants > sumQuantitiesInStock) {
       //give all the remaining booster items to the user, 
@@ -337,7 +337,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   //populates ids, quantitiesInStock; determines the remaining booster items the user can get
   private int determineBoosterItemsLeft(Map<Integer, BoosterItem> allBoosterItemIdsToBoosterItems, 
       Map<Integer, Integer> boosterItemIdsToNumCollected, List<Integer> boosterItemIdsUserCanGet, 
-      List<Integer> quantitiesInStock) {
+      List<Integer> quantitiesInStock, User aUser, int boosterPackId) {
     //max number randon number can go
     int sumQuantitiesInStock = 0;
 
@@ -362,6 +362,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         boosterItemIdsUserCanGet.add(boosterItemId);
         quantitiesInStock.add(numLeftInStock);
         sumQuantitiesInStock += numLeftInStock;
+      } else if (quantityPurchasedPreviously == quantityLimit) {
+        continue;
+      } else {//will this ever be reached?
+        log.error("somehow user has bought more than the allowed limit for a booster item for a booster pack. "
+            + "quantityLimit: " + quantityLimit + ", quantityPurchasedPreviously" + quantityPurchasedPreviously
+            + ", user: " + aUser + ", boosterItem: " + potentialEquip + ", boosterPackId: " + boosterPackId);
       }
     }
     
@@ -500,11 +506,23 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int boosterItemId = received.getId();
       //default quantity user gets if user has no quantity of specific boosterItem
       int newQuantity = 1; 
-      if(boosterItemIdsToNumCollected.containsKey(boosterItemId)) {
-        newQuantity = boosterItemIdsToNumCollected.get(boosterItemId) + 1;
+      if(newBoosterItemIdsToNumCollected.containsKey(boosterItemId)) {
+        newQuantity = newBoosterItemIdsToNumCollected.get(boosterItemId) + 1;
       }
       changedBoosterItemIdsToNumCollected.put(boosterItemId, newQuantity);
       newBoosterItemIdsToNumCollected.put(boosterItemId, newQuantity);
+    }
+    //loop through newBoosterItemIdsToNumCollected and make sure the quantities
+    //to num collected is itemsUserReceives.size() amount more than boosterItemIdsToNumCollected
+    int collectedQuantityChange = 0;
+    for (int id : changedBoosterItemIdsToNumCollected.keySet()) {
+      collectedQuantityChange += newBoosterItemIdsToNumCollected.get(id) - boosterItemIdsToNumCollected.get(id);
+    }
+    if (itemsUserReceives.size() != collectedQuantityChange) {
+      log.error("quantities of booster items do not match how many items user receives. "
+          + "amount user receives that is recorded (user_booster_items table): " + collectedQuantityChange
+          + ", amount user receives (unrecorded): " + itemsUserReceives.size());
+      return false;
     }
     return UpdateUtils.get().updateUserBoosterItemsForOneUser(userId, changedBoosterItemIdsToNumCollected);
   }
