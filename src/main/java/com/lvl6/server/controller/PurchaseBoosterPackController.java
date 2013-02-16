@@ -329,7 +329,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       sumQuantitiesInStock = 0;
       
       for (int boosterItemId : allBoosterItemIdsToBoosterItems.keySet()) {
-        BoosterItem boosterItemUserCanGet = allBoosterItemIdsToBoosterItems.get(boosterItemIdsUserCanGet);
+        BoosterItem boosterItemUserCanGet = allBoosterItemIdsToBoosterItems.get(boosterItemId);
         boosterItemIdsUserCanGet.add(boosterItemId);
         boosterItemIdsToNumCollected.put(boosterItemId, 0);
         int quantityInStock = boosterItemUserCanGet.getQuantity();
@@ -380,7 +380,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       } else {//will this ever be reached?
         log.error("somehow user has bought more than the allowed limit for a booster item for a booster pack. "
             + "quantityLimit: " + quantityLimit + ", quantityPurchasedPreviously: " + quantityPurchasedPreviously
-            + ", user: " + aUser + ", boosterItem: " + potentialEquip + ", boosterPackId: " + boosterPackId);
+            + ", userId: " + aUser.getId() + ", boosterItem: " + potentialEquip + ", boosterPackId: " + boosterPackId);
       }
     }
     
@@ -477,7 +477,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (!updateUserBoosterItems(itemsUserReceives, boosterItemIdsToNumCollected,
         userId, newBoosterItemIdsToNumCollected, numCollectedBeforePackRefilled)) {
       //failed to update user_booster_items
-      log.error("failed to update user_booster_items for user: " + user
+      log.error("failed to update user_booster_items for userId: " + userId
           + " attempting to give money back and delete equips bought: "
           + MiscMethods.shallowListToString(userEquipIds));
       if (MiscMethods.gold.equals(key)) {
