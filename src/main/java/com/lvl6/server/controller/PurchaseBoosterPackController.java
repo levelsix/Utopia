@@ -104,23 +104,27 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         int numBoosterItemsUserWants = determineNumBoosterItemsFromPurchaseOption(option);
         List<Integer> numCollectedBeforePackRefilledList = new ArrayList<Integer>();
         int numCollectedBeforePackRefilled = 0;
+        List<Boolean> deckRefilled = new ArrayList<Boolean>();
+        boolean refilled = false;
+        
         //boosterItemIdsToNumCollected will only be modified if the amount the user buys
         //is more than what is left in the deck, need to reflect this in newBoosterItemIdsToNumCollected
         //and need to track how many items user received to buy out pack
         itemsUserReceives = getAllBoosterItemsForUser(allBoosterItemIdsToBoosterItems,
             boosterItemIdsToNumCollected, numBoosterItemsUserWants, user, boosterPackId,
-            numCollectedBeforePackRefilledList);
+            numCollectedBeforePackRefilledList, deckRefilled);
         newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>(boosterItemIdsToNumCollected);
         
         if (!numCollectedBeforePackRefilledList.isEmpty()) {
           numCollectedBeforePackRefilled = numCollectedBeforePackRefilledList.get(0);
+          refilled = deckRefilled.get(0);
         }
         
         previousSilver  = user.getCoins() + user.getVaultBalance();
         previousGold = user.getDiamonds();
         successful = writeChangesToDB(resBuilder, user, boosterItemIdsToNumCollected,
             itemsUserReceives, goldSilverChange, userEquipIds, newBoosterItemIdsToNumCollected,
-            numCollectedBeforePackRefilled);
+            numCollectedBeforePackRefilled, refilled);
       }
       
       if (successful) {
@@ -301,9 +305,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   //start over from a fresh deck (boosterItemIdsToNumCollected is changed to reflect none have been collected)
   private List<BoosterItem> getAllBoosterItemsForUser(Map<Integer, BoosterItem> allBoosterItemIdsToBoosterItems, 
       Map<Integer, Integer> boosterItemIdsToNumCollected, int numBoosterItemsUserWants, User aUser,
-      int boosterPackId, List<Integer> numCollectedBeforePackRefilledList) {
+      int boosterPackId, List<Integer> numCollectedBeforePackRefilledList, List<Boolean> deckRefilled) {
     List<BoosterItem> returnValue = new ArrayList<BoosterItem>();
     int numCollectedBeforePackRefilled = 0;
+    boolean refilled = false;
     
     //the possible items user can get
     List<Integer> boosterItemIdsUserCanGet = new ArrayList<Integer>();
@@ -336,6 +341,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         quantitiesInStock.add(quantityInStock);
         sumQuantitiesInStock += quantityInStock;
       }
+      refilled = true;
     }
 
     //set the booster item(s) the user will receieve
@@ -343,6 +349,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         quantitiesInStock, numBoosterItemsUserWants, sumQuantitiesInStock, allBoosterItemIdsToBoosterItems);
    
     numCollectedBeforePackRefilledList.add(numCollectedBeforePackRefilled);
+    deckRefilled.add(refilled);
     returnValue.addAll(itemUserReceives);
     return returnValue;
   }
@@ -437,7 +444,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   //sets values for newBoosterItemIdsToNumCollected
   private boolean writeChangesToDB(Builder resBuilder, User user, Map<Integer, Integer> boosterItemIdsToNumCollected,
       List<BoosterItem> itemsUserReceives, Map<String, Integer> goldSilverChange, List<Integer> uEquipIds,
-      Map<Integer, Integer> newBoosterItemIdsToNumCollected, int numCollectedBeforePackRefilled) {
+      Map<Integer, Integer> newBoosterItemIdsToNumCollected, int numCollectedBeforePackRefilled, boolean refilled) {
     //insert into user_equips, update user, update user_booster_items
     int userId = user.getId();
     List<Integer> userEquipIds = insertNewUserEquips(userId, itemsUserReceives);
@@ -475,7 +482,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     uEquipIds.addAll(userEquipIds);
     //update user_booster_items
     if (!updateUserBoosterItems(itemsUserReceives, boosterItemIdsToNumCollected,
-        userId, newBoosterItemIdsToNumCollected, numCollectedBeforePackRefilled)) {
+        userId, newBoosterItemIdsToNumCollected, numCollectedBeforePackRefilled, refilled)) {
       //failed to update user_booster_items
       log.error("failed to update user_booster_items for userId: " + userId
           + " attempting to give money back and delete equips bought: "
@@ -511,7 +518,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private boolean updateUserBoosterItems(List<BoosterItem> itemsUserReceives,
       Map<Integer, Integer> boosterItemIdsToNumCollected, int userId,
       Map<Integer, Integer> newBoosterItemIdsToNumCollected,
-      int numCollectedBeforePackRefilled) {
+      int numCollectedBeforePackRefilled, boolean refilled) {
     Map<Integer, Integer> changedBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>();
     
     //for each booster item received record it in the map above, and record how many
@@ -545,7 +552,24 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           + ", amount user receives (unrecorded): " + itemsUserReceives.size());
       return false;
     }
+
+    recordBoosterPacksThatRefilled(changedBoosterItemIdsToNumCollected, newBoosterItemIdsToNumCollected, refilled);
+    
     return UpdateUtils.get().updateUserBoosterItemsForOneUser(userId, changedBoosterItemIdsToNumCollected);
+  }
+  
+  //if the user has bought out the whole deck, then for the booster items
+  //the user did not get, record in the db that the user has 0 of them collected
+  private void recordBoosterPacksThatRefilled(Map<Integer, Integer> changedBoosterItemIdsToNumCollected,
+      Map<Integer, Integer> newBoosterItemIdsToNumCollected, boolean refilled) {
+    if (refilled) {
+      for (int boosterItemId : newBoosterItemIdsToNumCollected.keySet()) {
+        if (!changedBoosterItemIdsToNumCollected.containsKey(boosterItemId)) {
+          int value = newBoosterItemIdsToNumCollected.get(boosterItemId);
+          changedBoosterItemIdsToNumCollected.put(boosterItemId, value);
+        }
+      }
+    }
   }
   
   private List<FullUserEquipProto> createFullUserEquipProtos(List<Integer> userEquipIds, 
