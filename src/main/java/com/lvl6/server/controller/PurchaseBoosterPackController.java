@@ -402,7 +402,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int randomNum = rand.nextInt(newSumOfQuantities) + 1; //range [1, newSumOfQuantities]
       
       for(int i = 0; i < newBoosterItemIdsUserCanGet.size(); i++) {
-        int bItemId = boosterItemIdsUserCanGet.get(i);
+        int bItemId = newBoosterItemIdsUserCanGet.get(i);
         int quantity = newQuantitiesInStock.get(i);
         
         sumSoFar += quantity;
