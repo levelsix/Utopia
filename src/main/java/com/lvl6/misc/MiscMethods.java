@@ -1503,6 +1503,9 @@ public class MiscMethods {
     int rarityTwo = 0;
     int rarityThree = 0;
     for (int boosterItemId : boosterItemIdsToNumCollected.keySet()) {
+      if (!boosterItemIdsToBoosterItemsForOnePack.containsKey(boosterItemId)) {
+        continue;
+      }
       BoosterItem bi = boosterItemIdsToBoosterItemsForOnePack.get(boosterItemId);
       int equipId = bi.getEquipId();
       Equipment tempEquip = null;
