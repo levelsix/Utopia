@@ -1514,12 +1514,13 @@ public class MiscMethods {
         continue;
       }
       Rarity equipRarity = tempEquip.getRarity();
+      int quantity = boosterItemIdsToNumCollected.get(boosterItemId);
       if (isRarityOne(equipRarity)) {
-        rarityOne++;
+        rarityOne += quantity;
       } else if (isRarityTwo(equipRarity)) {
-        rarityTwo++;
+        rarityTwo += quantity;
       } else if (isRarityThree(equipRarity)) {
-        rarityThree++;
+        rarityThree += quantity;
       } else {
         
       }
