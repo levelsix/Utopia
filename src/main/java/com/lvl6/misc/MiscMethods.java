@@ -1488,7 +1488,7 @@ public class MiscMethods {
             boosterItemIdsToNumCollected, boosterItemIdsToBoosterItemsForOnePack);
     int rarityOne = raritiesCollected.get(0);
     int rarityTwo = raritiesCollected.get(1);
-    int rarityThree = raritiesCollected.get(3);
+    int rarityThree = raritiesCollected.get(2);
     InsertUtils.get().insertIntoUserBoosterPackHistory(userId,
         packId, numBought, nowTimestamp, rarityOne, rarityTwo, rarityThree);
   }
