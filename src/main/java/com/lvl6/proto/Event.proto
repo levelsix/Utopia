@@ -341,6 +341,13 @@ message StartupResponseProto {
 		
 		optional bool useOldBattleFormula = 97;
 		
+		optional BoosterPackConstants boosterPackConstants = 98;
+		
+		message BoosterPackConstants {
+			optional int32 purchaseOptionOneNumBoosterItems = 1;
+			optional int32 purchaseOptionTwoNumBoosterItems = 2;
+		}
+		
 		message EnhancementConstants {
 			optional int32 maxEnhancementLevel = 1;
 			optional int32 enhancePercentPerLevel = 2;
@@ -2496,3 +2503,19 @@ message PurchaseBoosterPackResponseProto {
 	}
 }
 	
+message ResetBoosterPackRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 boosterPackId = 2;
+	
+}
+
+message ResetBoosterPackResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional UserBoosterPackProto userBoosterPack = 2;
+	optional ResetBoosterPackStatus status = 3;
+	
+	enum ResetBoosterPackStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+	}
+}

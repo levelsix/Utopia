@@ -1029,7 +1029,8 @@ public class InsertUtils implements InsertUtil{
   }
   
   public int insertIntoUserBoosterPackHistory(int userId, int boosterPackId, 
-      int numBought, Timestamp timeOfPurchase) {
+      int numBought, Timestamp timeOfPurchase, int rarityOneQuantity, 
+      int rarityTwoQuantity, int rarityThreeQuantity) {
     String tableName = DBConstants.TABLE_USER_BOOSTER_PACK_HISTORY;
     
     Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -1038,6 +1039,9 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__BOOSTER_PACK_ID, boosterPackId);
     insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__NUM_BOUGHT, numBought);
     insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__TIME_OF_PURCHASE, timeOfPurchase);
+    insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__RARITY_ONE_QUANTITY, rarityOneQuantity);
+    insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__RARITY_TWO_QUANTITY, rarityTwoQuantity);
+    insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__RARITY_THREE_QUANTITY, rarityThreeQuantity);
     
     int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
     return numInserted;

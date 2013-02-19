@@ -165,5 +165,6 @@ public interface InsertUtil {
   
   public abstract int insertIntoFirstTimeUsers(String openUdid, String udid, String mac, String advertiserId, Timestamp now);
   
-  public abstract int insertIntoUserBoosterPackHistory(int userId, int boosterPackId, int numBought, Timestamp timeOfPurchase);
+  public abstract int insertIntoUserBoosterPackHistory(int userId, int boosterPackId, int numBought, Timestamp timeOfPurchase,
+      int rarityOneQuantity, int rarityTwoQuantity, int rarityThreeQuantity);
 }

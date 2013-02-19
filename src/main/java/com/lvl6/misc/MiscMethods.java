@@ -24,6 +24,7 @@ import com.lvl6.events.response.ChangedClanTowerResponseEvent;
 import com.lvl6.events.response.GeneralNotificationResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.AnimatedSpriteOffset;
+import com.lvl6.info.BoosterItem;
 import com.lvl6.info.BossEvent;
 import com.lvl6.info.City;
 import com.lvl6.info.Clan;
@@ -56,6 +57,7 @@ import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BazaarMinLevelConstants;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BoosterPackConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.CharacterModConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ClanConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.DownloadableNibConstants;
@@ -622,8 +624,13 @@ public class MiscMethods {
         .setFleesWeight(ControllerConstants.LEADERBOARD_EVENT__FLEES_WEIGHT)
         .setNumHoursToShowAfterEventEnd(ControllerConstants.LEADERBOARD_EVENT__NUM_HOURS_TO_SHOW_AFTER_EVENT_END)
         .build();
-
     cb = cb.setLeaderboardConstants(lec);
+    
+    BoosterPackConstants bpc = BoosterPackConstants.newBuilder()
+        .setPurchaseOptionOneNumBoosterItems(ControllerConstants.BOOSTER_PACK__PURCHASE_OPTION_ONE_NUM_BOOSTER_ITEMS)
+        .setPurchaseOptionTwoNumBoosterItems(ControllerConstants.BOOSTER_PACK__PURCHASE_OPTION_TWO_NUM_BOOSTER_ITEMS)
+        .build();
+    cb = cb.setBoosterPackConstants(bpc);
 
     return cb.build();  
   }
@@ -1471,5 +1478,79 @@ public class MiscMethods {
     long millis = cal.getTimeInMillis();
     Timestamp PSTDateAndHourInUTC = new Timestamp(millis);
     return PSTDateAndHourInUTC;
+  }
+  
+  public static void writeToUserBoosterPackHistoryOneUser(int userId, int packId,
+      int numBought, Timestamp nowTimestamp, 
+      Map<Integer, BoosterItem> boosterItemIdsToBoosterItemsForOnePack,
+      Map<Integer, Integer> boosterItemIdsToNumCollected) {
+    List<Integer> raritiesCollected = getRaritiesCollected(
+            boosterItemIdsToNumCollected, boosterItemIdsToBoosterItemsForOnePack);
+    int rarityOne = raritiesCollected.get(0);
+    int rarityTwo = raritiesCollected.get(1);
+    int rarityThree = raritiesCollected.get(3);
+    InsertUtils.get().insertIntoUserBoosterPackHistory(userId,
+        packId, numBought, nowTimestamp, rarityOne, rarityTwo, rarityThree);
+  }
+  
+  private static List<Integer> getRaritiesCollected(Map<Integer, Integer> boosterItemIdsToNumCollected,
+      Map<Integer, BoosterItem> boosterItemIdsToBoosterItemsForOnePack) {
+    List<Integer> raritiesCollected = new ArrayList<Integer>();
+    
+    Map<Integer, Equipment> equipIdsToEquips = 
+        EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
+    int rarityOne = 0;
+    int rarityTwo = 0;
+    int rarityThree = 0;
+    for (int boosterItemId : boosterItemIdsToNumCollected.keySet()) {
+      BoosterItem bi = boosterItemIdsToBoosterItemsForOnePack.get(boosterItemId);
+      int equipId = bi.getEquipId();
+      Equipment tempEquip = null;
+      if (equipIdsToEquips.containsKey(equipId)) {
+        tempEquip = equipIdsToEquips.get(equipId);
+      } else {
+        log.error("No equiment exists for equipId=" + equipId
+            + ". BoosterItem has invalid equipId, boosterItem=" + bi);
+        continue;
+      }
+      Rarity equipRarity = tempEquip.getRarity();
+      if (isRarityOne(equipRarity)) {
+        rarityOne++;
+      } else if (isRarityTwo(equipRarity)) {
+        rarityTwo++;
+      } else if (isRarityThree(equipRarity)) {
+        rarityThree++;
+      } else {
+        
+      }
+    }
+    raritiesCollected.add(rarityOne);
+    raritiesCollected.add(rarityTwo);
+    raritiesCollected.add(rarityThree);
+    return raritiesCollected;
+  }
+  
+  private static boolean isRarityOne(Rarity equipRarity) {
+    if (Rarity.COMMON == equipRarity || Rarity.RARE == equipRarity) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  private static boolean isRarityTwo(Rarity equipRarity) {
+    if (Rarity.UNCOMMON == equipRarity || Rarity.SUPERRARE == equipRarity) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  private static boolean isRarityThree(Rarity equipRarity) {
+    if (Rarity.RARE == equipRarity || Rarity.EPIC == equipRarity) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
