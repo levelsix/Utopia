@@ -75,8 +75,14 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       //BEGIN MARKETPLACE LICENSE FEATURE
       //if user has license or if item has been on market past a certain amount of time, 
       //then don't take a cut of their money,  
-      boolean hasMarketplacePostLicense = MiscMethods.validateMarketplaceLicense(user, timeOfRetractionRequest);
-      boolean passedTimeLimit = validateTimeItemHasBeenOnMarketplace(mp, timeOfRetractionRequest);
+      boolean hasMarketplacePostLicense = false;
+      if (null != user) {
+        hasMarketplacePostLicense = MiscMethods.validateMarketplaceLicense(user, timeOfRetractionRequest);
+      }
+      boolean passedTimeLimit = false;
+      if (null != mp) {
+        passedTimeLimit = validateTimeItemHasBeenOnMarketplace(mp, timeOfRetractionRequest);
+      }
       
       int diamondCut;
       int coinCut;
@@ -200,7 +206,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
    */
   private boolean validateTimeItemHasBeenOnMarketplace(MarketplacePost mp, Timestamp timeOfRetractionRequest) {
 	  int daysToMilliseconds = 24 * 60 * 60 * 1000;
-	  
+	   
 	  double minTimeItemNeedsToBeOnMarketplace = 
 			  ControllerConstants.RETRACT_MARKETPLACE_POST__MIN_NUM_DAYS_UNTIL_FREE_TO_RETRACT_ITEM *
 			  daysToMilliseconds;
