@@ -629,6 +629,7 @@ public class MiscMethods {
     BoosterPackConstants bpc = BoosterPackConstants.newBuilder()
         .setPurchaseOptionOneNumBoosterItems(ControllerConstants.BOOSTER_PACK__PURCHASE_OPTION_ONE_NUM_BOOSTER_ITEMS)
         .setPurchaseOptionTwoNumBoosterItems(ControllerConstants.BOOSTER_PACK__PURCHASE_OPTION_TWO_NUM_BOOSTER_ITEMS)
+        .setInfoImageName(ControllerConstants.BOOSTER_PACK__INFO_IMAGE_NAME)
         .build();
     cb = cb.setBoosterPackConstants(bpc);
 
