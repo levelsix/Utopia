@@ -19,9 +19,9 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseBoosterPackRequestEvent;
 import com.lvl6.events.response.PurchaseBoosterPackResponseEvent;
+import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.BoosterItem;
 import com.lvl6.info.BoosterPack;
-import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.misc.MiscMethods;
@@ -30,7 +30,6 @@ import com.lvl6.proto.EventProto.PurchaseBoosterPackRequestProto;
 import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto;
 import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto.Builder;
 import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto.PurchaseBoosterPackStatus;
-import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.PurchaseOption;
@@ -40,7 +39,6 @@ import com.lvl6.retrieveutils.UserBoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.UserBoosterPackRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterPackRetrieveUtils;
-import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
@@ -139,6 +137,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
       
       if (successful) {
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
+        resEventUpdate.setTag(event.getTag());
+        server.writeEvent(resEventUpdate);
+        
         Timestamp nowTimestamp = new Timestamp(now.getTime());
         int numBought = itemsUserReceives.size();
         writeToUserBoosterPackHistory(userId, boosterPackId, numBought, nowTimestamp,
