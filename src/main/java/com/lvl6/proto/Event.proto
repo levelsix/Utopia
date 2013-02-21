@@ -346,6 +346,7 @@ message StartupResponseProto {
 		message BoosterPackConstants {
 			optional int32 purchaseOptionOneNumBoosterItems = 1;
 			optional int32 purchaseOptionTwoNumBoosterItems = 2;
+			optional string infoImageName = 3; 
 		}
 		
 		message EnhancementConstants {
