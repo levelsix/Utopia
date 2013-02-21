@@ -46,8 +46,10 @@ import com.lvl6.utils.DBConnection;
   public static Map<Integer, BoosterItem> getBoosterItemIdsToBoosterItemsForBoosterPackId(int boosterPackId) {
     try {
       log.debug("retrieve boosterPack data for boosterPack " + boosterPackId);
+      if (boosterItemIdsToBoosterItems == null) {
+        setStaticBoosterItemIdsToBoosterItems();
+      }
       if (boosterItemIdsToBoosterItemsForBoosterPackIds == null) {
-        setStaticBoosterItemIdsToBoosterItems();      
         boosterItemIdsToBoosterItemsForBoosterPackIds = new HashMap<Integer, Map<Integer, BoosterItem>>();
       }
       List<BoosterItem> bis = new ArrayList<BoosterItem>(boosterItemIdsToBoosterItems.values());
