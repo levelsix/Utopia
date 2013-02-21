@@ -1429,11 +1429,11 @@ public class MiscMethods {
     }
     return Math.min(100, Math.max(1, pts));
   }
-
-  public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
+  
+public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     int id = 0;
     Date startDate = user.getCreateTime();
-    Date endDate = new Date(startDate.getTime()+ControllerConstants.NUM_DAYS_FOR_NEW_USER_GOLD_SALE*24l*60l*60l*1000l);
+    Date endDate = new Date(startDate.getTime()+(long)(ControllerConstants.NUM_DAYS_FOR_NEW_USER_GOLD_SALE*24*60*60*1000));
 
     if (endDate.getTime() < new Date().getTime()) {
       return null;
@@ -1458,7 +1458,7 @@ public class MiscMethods {
 
     return CreateInfoProtoUtils.createGoldSaleProtoFromGoldSale(sale);
   }
-
+  
   //given a date time, e.g. 2013-02-08 00:33:57 (UTC),
   //spits out the start of day in UTC relative to PST
   //using prior example, returns 2013-02-07 08:00:00

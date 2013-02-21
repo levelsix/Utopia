@@ -490,8 +490,8 @@ public class ControllerConstants {
   public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_E = 1.5f;
   public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_F = 2.1f;
   public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_G = 1.365f;
-  public static final float ENHANCEMENT__PERCENT_FORMULA_CONSTANT_A = 1.67f;
-  public static final float ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B = 3.f;
+  public static final float ENHANCEMENT__PERCENT_FORMULA_CONSTANT_A = 0.75f;
+  public static final float ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B = 2.f;
   public static final float ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE = 1.2f;
   
   //BOOSTER PACKS
