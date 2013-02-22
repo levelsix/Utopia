@@ -609,10 +609,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
         int equipId = defenderEquip.getEquipId();
         Equipment equip = equipmentIdsToEquipment.get(equipId);
-        if (equip.getDiamondPrice() == Equipment.NOT_SET
-            && equip.getMinLevel() < defender.getLevel() 
+        if (equip.getMinLevel() < defender.getLevel() 
             && defenderEquip.getLevel() < ControllerConstants.BATTLE__MAX_LEVEL_TO_STEAL
-            && ((equip.getRarity() == Rarity.EPIC && defenderEquip.getLevel() < ControllerConstants.BATTLE__MAX_LEVEL_TO_STEAL_EPICS) || equip.getRarity() != Rarity.EPIC)) {
+            && equip.getRarity().getNumber() < Rarity.RARE_VALUE) {
           double rand = Math.random();
           if (rand <= equip.getChanceOfLoss() / defenderEquip.getLevel()) {
             potentialLosses.add(defenderEquip);

@@ -447,7 +447,7 @@ public class ControllerConstants {
   // GOLD SALE NEW USERS
   public static final int NUM_DAYS_FOR_NEW_USER_GOLD_SALE = 3;
   public static final String GOLD_SHOPPE_IMAGE_NAME_NEW_USER_GOLD_SALE = "salesign.png";
-  public static final String GOLD_BAR_IMAGE_NAME_NEW_USER_GOLD_SALE = "ThreeDayGoldSaleTag.png";
+  public static final String GOLD_BAR_IMAGE_NAME_NEW_USER_GOLD_SALE = "BeginnerSale.png";
   
   //CLAN TOWER
   public static final int MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER = Globals.IS_SANDBOX() ? 2 : 25;
@@ -516,8 +516,8 @@ public class ControllerConstants {
   public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_E = 1.5f;
   public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_F = 2.1f;
   public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_G = 1.365f;
-  public static final float ENHANCEMENT__PERCENT_FORMULA_CONSTANT_A = 1.67f;
-  public static final float ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B = 3.f;
+  public static final float ENHANCEMENT__PERCENT_FORMULA_CONSTANT_A = 0.75f;
+  public static final float ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B = 2.f;
   public static final float ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE = 1.2f;
   
   //BOOSTER PACKS
@@ -570,8 +570,8 @@ public class ControllerConstants {
   public static final String NIB_NAME__TRAVELING_MAP = "TravelingMap.2";
   public static final String NIB_NAME__GOLD_MINE = "GoldMine.2";
   public static final String NIB_NAME__EXPANSION = "Expansion.2";
-  public static final String NIB_NAME__MARKET_FILTERS = "MarketplaceFilters.2";
-  public static final String NIB_NAME__BLACKSMITH = "Blacksmith.4";
+  public static final String NIB_NAME__MARKET_FILTERS = "MarketplaceFilters.3";
+  public static final String NIB_NAME__BLACKSMITH = "Blacksmith.5";
   public static final String NIB_NAME__GOLD_SHOPPE = "GoldShoppe.3";
   public static final String NIB_NAME__BOSS_EVENT = "BossEvent.2";
   
