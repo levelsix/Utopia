@@ -981,6 +981,7 @@ message RetrieveCurrentMarketplacePostsRequestProto {
 	optional bool commonEquips = 5;
 	optional bool uncommonEquips = 6;
 	optional bool rareEquips = 7;
+	optional bool superRareEquips = 17;
 	optional bool epicEquips = 8;
 	optional bool legendaryEquips = 9;
 	optional bool myClassOnly = 10;

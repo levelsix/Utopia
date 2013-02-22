@@ -89,11 +89,12 @@ import com.lvl6.utils.RetrieveUtils;
    * 
    */
   private List<Integer> getActiveEquipmentRarities(boolean commonEquips, boolean uncommonEquips,
-      boolean rareEquips, boolean epicEquips, boolean legendaryEquips) {
+      boolean rareEquips, boolean superRareEquips, boolean epicEquips, boolean legendaryEquips) {
     List<Integer> equipRarities = new ArrayList<Integer>();
     if(commonEquips){ equipRarities.add(Rarity.COMMON_VALUE); }
     if(uncommonEquips){ equipRarities.add(Rarity.UNCOMMON_VALUE); }
     if(rareEquips){ equipRarities.add(Rarity.RARE_VALUE); }
+    if(superRareEquips){ equipRarities.add(Rarity.SUPERRARE_VALUE); }
     if(epicEquips){ equipRarities.add(Rarity.EPIC_VALUE); }
     if(legendaryEquips){ equipRarities.add(Rarity.LEGENDARY_VALUE); }
 
@@ -185,6 +186,7 @@ import com.lvl6.utils.RetrieveUtils;
     boolean commonEquips = reqProto.getCommonEquips();
     boolean uncommonEquips = reqProto.getUncommonEquips();
     boolean rareEquips = reqProto.getRareEquips();
+    boolean superRareEquips = reqProto.getSuperRareEquips();
     boolean epicEquips = reqProto.getEpicEquips();
     boolean legendaryEquips = reqProto.getLegendaryEquips();
     boolean myClassOnly = reqProto.getMyClassOnly();
@@ -225,7 +227,7 @@ import com.lvl6.utils.RetrieveUtils;
         } else {
           int equipmentType = getEquipType(marketEquipType);
 
-          List<Integer> activeEquipRarities = getActiveEquipmentRarities(commonEquips, uncommonEquips, rareEquips, epicEquips, legendaryEquips);
+          List<Integer> activeEquipRarities = getActiveEquipmentRarities(commonEquips, uncommonEquips, rareEquips, superRareEquips, epicEquips, legendaryEquips);
           
           int characterClassType = getClassType(senderProto.getUserType(), myClassOnly);
           Map<String, Integer> levelRanges = getLevelRanges(minEquipLevel, maxEquipLevel, minForgeLevel, maxForgeLevel);
