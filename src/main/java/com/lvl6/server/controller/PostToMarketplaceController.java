@@ -151,14 +151,14 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       return false;
     }
     if (diamondCost > 0) {
-      if (equip.getDiamondPrice() <= 0 && equip.getRarity() != Rarity.EPIC && equip.getRarity() != Rarity.LEGENDARY) {
+      if (equip.getRarity().getNumber() < Rarity.RARE_VALUE) {
         resBuilder.setStatus(PostToMarketplaceStatus.INVALID_COST_TYPE_FOR_POST);
         log.error("can't list diamond price for this equip: " + equip + ". must have a diamond price or be legendary/epic");
         return false;        
       }
     }
     if (coinCost > 0) {
-      if (equip.getCoinPrice() <= 0 || equip.getRarity() == Rarity.EPIC || equip.getRarity() == Rarity.LEGENDARY) {
+      if (equip.getRarity().getNumber() >= Rarity.RARE_VALUE) {
         resBuilder.setStatus(PostToMarketplaceStatus.INVALID_COST_TYPE_FOR_POST);
         log.error("can't list coin price for this equip: " + equip + ". must have a coin price and cannot be rare or legenday");
         return false;        
