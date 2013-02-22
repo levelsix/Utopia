@@ -366,7 +366,11 @@ public class CreateInfoProtoUtils {
       UserEquip weaponUserEquip = null;
       UserEquip armorUserEquip = null;
       UserEquip amuletUserEquip = null;
-
+      
+      weaponUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ALL_CHARACTERS_WEAPON_ID_PER_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0);
+      armorUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ALL_CHARACTERS_ARMOR_ID_PER_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0);
+      amuletUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0);
+      /*//rendered useless by booster pack feature
       if (u.getType() == UserType.GOOD_WARRIOR || u.getType() == UserType.BAD_WARRIOR) {
         weaponUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.WARRIOR_WEAPON_ID_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0);
         armorUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.WARRIOR_ARMOR_ID_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0);
@@ -381,7 +385,8 @@ public class CreateInfoProtoUtils {
         weaponUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.MAGE_WEAPON_ID_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0);
         armorUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.MAGE_ARMOR_ID_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0);
         amuletUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0);
-      }
+      }*/
+      
       builder.setWeaponEquippedUserEquip(createFullUserEquipProtoFromUserEquip(weaponUserEquip));
       builder.setArmorEquippedUserEquip(createFullUserEquipProtoFromUserEquip(armorUserEquip));
       builder.setAmuletEquippedUserEquip(createFullUserEquipProtoFromUserEquip(amuletUserEquip));
