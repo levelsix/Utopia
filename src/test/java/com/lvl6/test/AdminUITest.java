@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.lvl6.elasticsearch.LoggingElasticSearchQuery;
 import com.lvl6.server.DevOps;
 import com.lvl6.spring.AppContext;
-import com.lvl6.ui.admin.components.StatsPanel;
+import com.lvl6.ui.admin.components.StatsPanelDynamic;
 import com.lvl6.ui.admin.pages.AdminPage;
 import com.lvl6.ui.admin.pages.HealthCheckPage;
 import com.lvl6.ui.admin.pages.LogViewerPage;
@@ -36,7 +36,7 @@ public class AdminUITest extends TestCase {
 		tester.startPage(AdminPage.class);
 		tester.startPage(MainPage.class);
 		tester.startPage(StatsGraphsPage.class);
-		tester.startComponentInPage(StatsPanel.class);
+		tester.startComponentInPage(StatsPanelDynamic.class);
 		tester.startPage(HealthCheckPage.class);
 	}
 	

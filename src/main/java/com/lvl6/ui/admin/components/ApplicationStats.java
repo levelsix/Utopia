@@ -2,23 +2,23 @@ package com.lvl6.ui.admin.components;
 
 public class ApplicationStats {
 
-	public  Integer connectedPlayersCount = 0;
-	public  Integer totalPlayersCount = 0;
-	public  Integer loggedInToday = 0;
-	public  Integer loggedInThisWeek = 0;
-	public  Integer totalPayingPlayers = 0;
-	public  Long totalInAppPurchases = 0l;
-	public  Long sumOfInAppPurchases = 0l;
-	public  Long afterAppleTax = 0l;
-	public  Double revenuePerUser = 0d;
-	public  Double revenuePerPayingUser = 0d;
+	public Integer connectedPlayersCount = 0;
+	public Integer totalPlayersCount = 0;
+	public Integer loggedInToday = 0;
+	public Integer loggedInThisWeek = 0;
+	public Integer totalPayingPlayers = 0;
+	public Long totalInAppPurchases = 0l;
+	public Long sumOfInAppPurchases = 0l;
+	public Long afterAppleTax = 0l;
+	public Double revenuePerUser = 0d;
+	public Double revenuePerPayingUser = 0d;
 	public Double percentageOfPaidPlayers = 0d;
 	public Double purchasesPerPaidPlayer = 0d;
-	public  Long countNumberKiipRewardsRedeemed = 0l;
-	public  Long countMarketplaceTransactions = 0l;
-	public  Long countMarketplacePosts = 0l;
-	public  Long sumOfSilverInWorld = 0l;
-	public  Long sumOfDiamondsInWorld = 0l;
+	public Long countNumberKiipRewardsRedeemed = 0l;
+	public Long countMarketplaceTransactions = 0l;
+	public Long countMarketplacePosts = 0l;
+	public Long sumOfSilverInWorld = 0l;
+	public Long sumOfDiamondsInWorld = 0l;
 
 	public Integer getLoggedInThisWeek() {
 		return loggedInThisWeek;
@@ -45,29 +45,32 @@ public class ApplicationStats {
 	}
 
 	protected void setRevenuePerPlayer() {
-		if(getSumOfInAppPurchases() > 0 && getTotalPayingPlayers() > 0) {
-			revenuePerPayingUser = getSumOfInAppPurchases().doubleValue() / getTotalPayingPlayers().doubleValue();
+		if (getSumOfInAppPurchases() > 0 && getTotalPayingPlayers() > 0) {
+			revenuePerPayingUser = getSumOfInAppPurchases().doubleValue()
+					/ getTotalPayingPlayers().doubleValue();
 		}
 	}
-	
+
 	protected void setPurchasesPerPaidPlayer() {
-		if(getTotalInAppPurchases() > 0 && getTotalPayingPlayers() > 0) {
-			purchasesPerPaidPlayer = getTotalInAppPurchases().doubleValue() / getTotalPayingPlayers().doubleValue();
+		if (getTotalInAppPurchases() > 0 && getTotalPayingPlayers() > 0) {
+			purchasesPerPaidPlayer = getTotalInAppPurchases().doubleValue()
+					/ getTotalPayingPlayers().doubleValue();
 		}
 	}
-	
-	
+
 	protected void setRevenuePerPayingPlayer() {
-		if(getSumOfInAppPurchases() > 0 && getTotalPlayersCount() > 0) {
+		if (getSumOfInAppPurchases() > 0 && getTotalPlayersCount() > 0) {
 			revenuePerUser = getSumOfInAppPurchases().doubleValue() / getTotalPlayersCount();
 		}
 	}
+
 	protected void setPercentagePaidPlayers() {
-		if(getTotalPayingPlayers() > 0 && getTotalPlayersCount() > 0) {
-			percentageOfPaidPlayers = getTotalPayingPlayers().doubleValue() / getTotalPlayersCount().doubleValue();
+		if (getTotalPayingPlayers() > 0 && getTotalPlayersCount() > 0) {
+			percentageOfPaidPlayers = getTotalPayingPlayers().doubleValue()
+					/ getTotalPlayersCount().doubleValue();
 		}
 	}
-	
+
 	public void setPercentageOfPlayersPaying(Integer value) {
 	}
 
@@ -94,7 +97,7 @@ public class ApplicationStats {
 
 	public Long getTotalInAppPurchases() {
 		return totalInAppPurchases;
-		
+
 	}
 
 	public void setTotalInAppPurchases(Long totalInAppPurchases) {
@@ -116,8 +119,7 @@ public class ApplicationStats {
 		return countNumberKiipRewardsRedeemed;
 	}
 
-	public void setCountNumberKiipRewardsRedeemed(
-			Long countNumberKiipRewardsRedeemed) {
+	public void setCountNumberKiipRewardsRedeemed(Long countNumberKiipRewardsRedeemed) {
 		this.countNumberKiipRewardsRedeemed = countNumberKiipRewardsRedeemed;
 	}
 
@@ -125,8 +127,7 @@ public class ApplicationStats {
 		return countMarketplaceTransactions;
 	}
 
-	public void setCountMarketplaceTransactions(
-			Long countMarketplaceTransactions) {
+	public void setCountMarketplaceTransactions(Long countMarketplaceTransactions) {
 		this.countMarketplaceTransactions = countMarketplaceTransactions;
 	}
 
@@ -164,7 +165,7 @@ public class ApplicationStats {
 
 	public Integer getTotalPlayersCount() {
 		return totalPlayersCount;
-		
+
 	}
 
 	public void setTotalPlayersCount(Integer totalPlayersCount) {
@@ -172,6 +173,22 @@ public class ApplicationStats {
 		setRevenuePerPlayer();
 		setRevenuePerPayingPlayer();
 		setPercentagePaidPlayers();
+	}
+
+	public Double getRevenuePerUser() {
+		return revenuePerUser;
+	}
+
+	public Double getRevenuePerPayingUser() {
+		return revenuePerPayingUser;
+	}
+
+	public Double getPercentageOfPaidPlayers() {
+		return percentageOfPaidPlayers;
+	}
+
+	public Double getPurchasesPerPaidPlayer() {
+		return purchasesPerPaidPlayer;
 	}
 
 }
