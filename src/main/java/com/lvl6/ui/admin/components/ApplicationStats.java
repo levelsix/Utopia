@@ -10,8 +10,8 @@ public class ApplicationStats {
 	public Long totalInAppPurchases = 0l;
 	public Long sumOfInAppPurchases = 0l;
 	public Long afterAppleTax = 0l;
-	public Double revenuePerUser = 0d;
-	public Double revenuePerPayingUser = 0d;
+	public Double revenuePerPlayer = 0d;
+	public Double revenuePerPayingPlayer = 0d;
 	public Double percentageOfPaidPlayers = 0d;
 	public Double purchasesPerPaidPlayer = 0d;
 	public Long countNumberKiipRewardsRedeemed = 0l;
@@ -46,7 +46,7 @@ public class ApplicationStats {
 
 	protected void setRevenuePerPlayer() {
 		if (getSumOfInAppPurchases() > 0 && getTotalPayingPlayers() > 0) {
-			revenuePerPayingUser = getSumOfInAppPurchases().doubleValue()
+			revenuePerPayingPlayer = getSumOfInAppPurchases().doubleValue()
 					/ getTotalPlayersCount().doubleValue();
 		}
 	}
@@ -60,7 +60,7 @@ public class ApplicationStats {
 
 	protected void setRevenuePerPayingPlayer() {
 		if (getSumOfInAppPurchases() > 0 && getTotalPlayersCount() > 0) {
-			revenuePerUser = getSumOfInAppPurchases().doubleValue() / getTotalPayingPlayers().doubleValue();
+			revenuePerPlayer = getSumOfInAppPurchases().doubleValue() / getTotalPayingPlayers().doubleValue();
 		}
 	}
 
@@ -176,11 +176,11 @@ public class ApplicationStats {
 	}
 
 	public Double getRevenuePerUser() {
-		return revenuePerUser;
+		return revenuePerPlayer;
 	}
 
 	public Double getRevenuePerPayingUser() {
-		return revenuePerPayingUser;
+		return revenuePerPayingPlayer;
 	}
 
 	public Double getPercentageOfPaidPlayers() {
