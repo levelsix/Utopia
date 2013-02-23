@@ -47,7 +47,7 @@ public class ApplicationStats {
 	protected void setRevenuePerPlayer() {
 		if (getSumOfInAppPurchases() > 0 && getTotalPayingPlayers() > 0) {
 			revenuePerPayingUser = getSumOfInAppPurchases().doubleValue()
-					/ getTotalPayingPlayers().doubleValue();
+					/ getTotalPlayersCount().doubleValue();
 		}
 	}
 
@@ -60,7 +60,7 @@ public class ApplicationStats {
 
 	protected void setRevenuePerPayingPlayer() {
 		if (getSumOfInAppPurchases() > 0 && getTotalPlayersCount() > 0) {
-			revenuePerUser = getSumOfInAppPurchases().doubleValue() / getTotalPlayersCount();
+			revenuePerUser = getSumOfInAppPurchases().doubleValue() / getTotalPayingPlayers().doubleValue();
 		}
 	}
 

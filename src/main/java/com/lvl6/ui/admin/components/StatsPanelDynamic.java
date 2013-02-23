@@ -46,7 +46,14 @@ public class StatsPanelDynamic extends Panel {
 			Label displayNameLabel = new Label("statDisplayName", StringUtils.displayName(field.getName()));
 			bookmarkablePageLink.add(displayNameLabel);
 			try {
-				Label label = new Label("statValue", field.get(statsModel.getObject()).toString());
+				Object statValue = field.get(statsModel.getObject());
+				String formatted = "";
+				if(statValue instanceof Double) {
+					String result = String.format("%.2f", (Double) statValue);
+				}else {
+					formatted = statValue.toString();
+				}
+				Label label = new Label("statValue", formatted);
 				label.setOutputMarkupId(true);
 				itm.add(label);
 			} catch (Exception e) {
