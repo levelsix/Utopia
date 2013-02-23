@@ -49,7 +49,7 @@ public class StatsPanelDynamic extends Panel {
 				Object statValue = field.get(statsModel.getObject());
 				String formatted = "";
 				if(statValue instanceof Double) {
-					String result = String.format("%.2f", (Double) statValue);
+					formatted = String.format("%.2f", (Double) statValue);
 				}else {
 					formatted = statValue.toString();
 				}
