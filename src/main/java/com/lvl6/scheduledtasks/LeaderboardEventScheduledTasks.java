@@ -100,6 +100,8 @@ public class LeaderboardEventScheduledTasks {
 				for (LeaderboardEvent event : events) {
 					checkEndOfEvent(event);
 				}
+			}else {
+				log.warn("Failed to aquire lock for checkEventsEnded scheduled task");
 			}
 		} catch (Exception e) {
 			log.error("Error checking leaderboard events ended", e);
