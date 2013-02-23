@@ -10,6 +10,10 @@ public class ApplicationStats {
 	public  Long totalInAppPurchases = 0l;
 	public  Long sumOfInAppPurchases = 0l;
 	public  Long afterAppleTax = 0l;
+	public  Double revenuePerUser = 0d;
+	public  Double revenuePerPayingUser = 0d;
+	public Double percentageOfPaidPlayers = 0d;
+	public Double purchasesPerPaidPlayer = 0d;
 	public  Long countNumberKiipRewardsRedeemed = 0l;
 	public  Long countMarketplaceTransactions = 0l;
 	public  Long countMarketplacePosts = 0l;
@@ -40,13 +44,30 @@ public class ApplicationStats {
 		this.afterAppleTax = afterAppleTax;
 	}
 
-	public Double getPercentageOfPlayersPaying() {
-		if (getTotalPlayersCount() == 0) {
-			return 0d;
+	protected void setRevenuePerPlayer() {
+		if(getSumOfInAppPurchases() > 0 && getTotalPayingPlayers() > 0) {
+			revenuePerPayingUser = getSumOfInAppPurchases().doubleValue() / getTotalPayingPlayers().doubleValue();
 		}
-		return 100d * (getTotalPayingPlayers().doubleValue() / getTotalPlayersCount().doubleValue());
 	}
-
+	
+	protected void setPurchasesPerPaidPlayer() {
+		if(getTotalInAppPurchases() > 0 && getTotalPayingPlayers() > 0) {
+			purchasesPerPaidPlayer = getTotalInAppPurchases().doubleValue() / getTotalPayingPlayers().doubleValue();
+		}
+	}
+	
+	
+	protected void setRevenuePerPayingPlayer() {
+		if(getSumOfInAppPurchases() > 0 && getTotalPlayersCount() > 0) {
+			revenuePerUser = getSumOfInAppPurchases().doubleValue() / getTotalPlayersCount();
+		}
+	}
+	protected void setPercentagePaidPlayers() {
+		if(getTotalPayingPlayers() > 0 && getTotalPlayersCount() > 0) {
+			percentageOfPaidPlayers = getTotalPayingPlayers().doubleValue() / getTotalPlayersCount().doubleValue();
+		}
+	}
+	
 	public void setPercentageOfPlayersPaying(Integer value) {
 	}
 
@@ -66,14 +87,19 @@ public class ApplicationStats {
 
 	public void setTotalPayingPlayers(Integer totalPayingPlayers) {
 		this.totalPayingPlayers = totalPayingPlayers;
+		setRevenuePerPayingPlayer();
+		setPercentagePaidPlayers();
+		setPurchasesPerPaidPlayer();
 	}
 
 	public Long getTotalInAppPurchases() {
 		return totalInAppPurchases;
+		
 	}
 
 	public void setTotalInAppPurchases(Long totalInAppPurchases) {
 		this.totalInAppPurchases = totalInAppPurchases;
+		setPurchasesPerPaidPlayer();
 	}
 
 	public Long getSumOfInAppPurchases() {
@@ -82,6 +108,8 @@ public class ApplicationStats {
 
 	public void setSumOfInAppPurchases(Long sumOfInAppPurchases) {
 		this.sumOfInAppPurchases = sumOfInAppPurchases;
+		setRevenuePerPayingPlayer();
+		setRevenuePerPlayer();
 	}
 
 	public Long getCountNumberKiipRewardsRedeemed() {
@@ -136,10 +164,14 @@ public class ApplicationStats {
 
 	public Integer getTotalPlayersCount() {
 		return totalPlayersCount;
+		
 	}
 
 	public void setTotalPlayersCount(Integer totalPlayersCount) {
 		this.totalPlayersCount = totalPlayersCount;
+		setRevenuePerPlayer();
+		setRevenuePerPayingPlayer();
+		setPercentagePaidPlayers();
 	}
 
 }
