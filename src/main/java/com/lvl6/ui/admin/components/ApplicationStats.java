@@ -59,20 +59,18 @@ public class ApplicationStats {
 	}
 
 	protected void setRevenuePerPayingPlayer() {
-		if (getSumOfInAppPurchases() > 0 && getTotalPlayersCount() > 0) {
+		if (getSumOfInAppPurchases() > 0 && getTotalPayingPlayers() > 0) {
 			revenuePerPlayer = getSumOfInAppPurchases().doubleValue() / getTotalPayingPlayers().doubleValue();
 		}
 	}
 
 	protected void setPercentagePaidPlayers() {
 		if (getTotalPayingPlayers() > 0 && getTotalPlayersCount() > 0) {
-			percentageOfPaidPlayers = getTotalPayingPlayers().doubleValue()
-					/ getTotalPlayersCount().doubleValue();
+			percentageOfPaidPlayers = 100d * (getTotalPayingPlayers().doubleValue()
+					/ getTotalPlayersCount().doubleValue());
 		}
 	}
 
-	public void setPercentageOfPlayersPaying(Integer value) {
-	}
 
 	public Long getAverageSilverPerPlayer() {
 		if (getTotalPlayersCount() == 0) {
