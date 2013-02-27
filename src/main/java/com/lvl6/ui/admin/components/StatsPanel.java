@@ -32,7 +32,10 @@ public class StatsPanel extends Panel {
 	protected PropertyModel<Long> sumOfSilverInWorldPM = new PropertyModel<Long>(stats, "sumOfSilverInWorld");
 	protected PropertyModel<Long> sumOfDiamondsInWorldPM = new PropertyModel<Long>(stats, "sumOfDiamondsInWorld");
 	protected PropertyModel<Long> averageSilverPerPlayerPM = new PropertyModel<Long>(stats, "averageSilverPerPlayer");
-	protected PropertyModel<Long> percentageOfPlayersPayingPM = new PropertyModel<Long>(stats, "percentageOfPlayersPaying");
+	protected PropertyModel<Long> percentageOfPaidPlayersPM = new PropertyModel<Long>(stats, "percentageOfPaidPlayers");
+	protected PropertyModel<Long> revenuePerUserPM = new PropertyModel<Long>(stats, "revenuePerUser");
+	protected PropertyModel<Long> revenuePerPayingUserPM = new PropertyModel<Long>(stats, "revenuePerPayingUser");
+	protected PropertyModel<Long> purchasesPerPaidPlayerPM = new PropertyModel<Long>(stats, "purchasesPerPaidPlayer");
 
 
 	protected Label cplayersLabel = new Label("connectedPlayers", cplayers);
@@ -49,7 +52,10 @@ public class StatsPanel extends Panel {
 	protected Label sumOfSilverInWorldLabel = new Label("sumOfSilverInWorld", sumOfSilverInWorldPM);
 	protected Label sumOfDiamondsInWorldLabel = new Label("sumOfDiamondsInWorld", sumOfDiamondsInWorldPM);
 	protected Label averageSilverPerPlayerLabel = new Label("averageSilverPerPlayer", averageSilverPerPlayerPM);
-	protected Label percentageOfPlayersPayingLabel = new Label("percentageOfPlayersPaying", percentageOfPlayersPayingPM);
+	protected Label percentageOfPaidPlayersLabel = new Label("percentageOfPaidPlayers", percentageOfPaidPlayersPM);
+	protected Label revenuePerUserLabel = new Label("revenuePerUser", revenuePerUserPM);
+	protected Label revenuePerPayingUserLabel = new Label("revenuePerPayingUser", revenuePerPayingUserPM);
+	protected Label purchasesPerPaidPlayerLabel = new Label("purchasesPerPaidPlayer", purchasesPerPaidPlayerPM);
 	
 	//"totalPayingPlayers","totalInAppPurchases","sumOfInAppPurchases","countNumberKiipRewardsRedeemed","countMarketplaceTransactions","countMarketplacePosts","sumOfSilverInWorld","sumOfDiamondsInWorld"
 
@@ -75,7 +81,10 @@ public class StatsPanel extends Panel {
 			target.add(sumOfSilverInWorldLabel);
 			target.add(sumOfDiamondsInWorldLabel);
 			target.add(averageSilverPerPlayerLabel);
-			target.add(percentageOfPlayersPayingLabel);
+			target.add(revenuePerUserLabel);
+			target.add(revenuePerPayingUserLabel);
+			target.add(percentageOfPaidPlayersLabel);
+			target.add(purchasesPerPaidPlayerLabel);
 		}
 	};
 	
@@ -94,7 +103,10 @@ public class StatsPanel extends Panel {
 		sumOfSilverInWorldLabel.setOutputMarkupId(true);
 		sumOfDiamondsInWorldLabel.setOutputMarkupId(true);
 		averageSilverPerPlayerLabel.setOutputMarkupId(true);
-		percentageOfPlayersPayingLabel.setOutputMarkupId(true);
+		revenuePerUserLabel.setOutputMarkupId(true);
+		revenuePerPayingUserLabel.setOutputMarkupId(true);
+		percentageOfPaidPlayersLabel.setOutputMarkupId(true);
+		purchasesPerPaidPlayerLabel.setOutputMarkupId(true);
 		add(cplayersLabel);
 		add(tplayersLabel);
 		add(totalPayingPlayersLabel);
@@ -109,8 +121,11 @@ public class StatsPanel extends Panel {
 		add(sumOfSilverInWorldLabel);
 		add(sumOfDiamondsInWorldLabel);
 		add(averageSilverPerPlayerLabel);
-		add(percentageOfPlayersPayingLabel);
 		add(abstractAjaxTimerBehavior);
+		add(revenuePerUserLabel);
+		add(revenuePerPayingUserLabel);
+		add(percentageOfPaidPlayersLabel);
+		add(purchasesPerPaidPlayerLabel);
 	}
 
 	private static final long serialVersionUID = -2625835646085053890L;
