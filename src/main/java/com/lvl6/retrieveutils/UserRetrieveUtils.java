@@ -39,7 +39,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     params.add(udid);
     Connection conn = DBConnection.get().getConnection();
     String query = "select  count(*) from " +
-    		TABLE_NAME + " udid like \"%" + udid + "%\"";
+    		TABLE_NAME + " udid like \"%?%\"";
     ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, params);
     log.info("query=" + query);
     int count = 0;
