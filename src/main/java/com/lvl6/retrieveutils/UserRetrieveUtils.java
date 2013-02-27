@@ -41,7 +41,6 @@ import com.lvl6.utils.utilmethods.StringUtils;
     String query = "select count(*) from " +
     		TABLE_NAME + " where udid like concat(\"%\", ?, \"%\");";
     ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, params);
-    log.warn("query=" + query);
     int count = 0;
     try {
       if (null != rs) {
@@ -58,7 +57,6 @@ import com.lvl6.utils.utilmethods.StringUtils;
     } finally {
       DBConnection.get().close(null, null, conn);
     }
-    log.warn("num accounts: " + count);
     return count;
   }
   

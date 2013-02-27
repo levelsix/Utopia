@@ -221,17 +221,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           server.unlockPlayer(user.getId(), this.getClass().getSimpleName()); 
         }
       } else {
-        log.info("new player with udid " + udid);
+        log.info("tutorial player with udid " + udid);
         
         boolean userLoggedIn = LoginHistoryRetrieveUtils.userLoggedInByUDID(udid);
         int numOldAccounts = RetrieveUtils.userRetrieveUtils().numAccountsForUDID(udid);
-        log.warn("num accounts: " + numOldAccounts);
         boolean isFirstTimeUser = false;
         if (!userLoggedIn && 0 >= numOldAccounts) {
           isFirstTimeUser = true;
         }
         
         if (isFirstTimeUser) {
+          log.info("new player with udid " + udid);
           InsertUtils.get().insertIntoFirstTimeUsers(udid, reqProto.getIOS5Udid(),
               reqProto.getMacAddress(), reqProto.getAdvertiserId(), now);
         }
