@@ -141,7 +141,9 @@ import com.lvl6.utils.DBConnection;
     String tag = rs.getString(i++);
     boolean isGood = rs.getBoolean(i++);
     int currentTierLevel = rs.getInt(i++);
+    boolean requestToJoinRequired = rs.getBoolean(i++);
     
-    return new Clan(clanId, name, ownerId, clanCreateTime, description, tag, isGood, currentTierLevel);
+    return new Clan(clanId, name, ownerId, clanCreateTime, description, tag,
+        isGood, currentTierLevel, requestToJoinRequired);
   }
 }

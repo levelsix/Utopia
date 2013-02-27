@@ -1919,6 +1919,7 @@ message CreateClanRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional string name = 2;
 	optional string tag = 3;
+	optional bool requestToJoinClanRequired = 4;
 }
 
 message CreateClanResponseProto {
@@ -2519,5 +2520,25 @@ message ResetBoosterPackResponseProto {
 	enum ResetBoosterPackStatus {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
+	}
+}
+
+message ChangeClanJoinTypeRequestProto {
+	//from an open (no request to join necessary) to request to join necessary
+	optional MinimumUserProto sender = 1;
+	optional bool requestToJoinRequired = 2;
+}
+
+message ChangeClanJoinTypeResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional ChangeClanJoinTypeStatus status = 2;
+	optional MinimumClanProto minClan = 3;
+	optional FullClanProtoWithClanSize fullClan = 4;
+	
+	enum ChangeClanJoinTypeStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+		NOT_IN_CLAN = 2;
+		NOT_OWNER = 3;
 	}
 }

@@ -11,9 +11,11 @@ public class Clan {
   private String tag;
   private boolean isGood;
   private int currentTierLevel;
+  private boolean requestToJoinRequired;
   
   public Clan(int id, String name, int ownerId, Date createTime,
-      String description, String tag, boolean isGood, int tier) {
+      String description, String tag, boolean isGood, int tier,
+      boolean requestToJoinRequired) {
     this.id = id;
     this.name = name;
     this.ownerId = ownerId;
@@ -22,6 +24,7 @@ public class Clan {
     this.tag = tag;
     this.isGood = isGood;
     this.currentTierLevel = tier;
+    this.requestToJoinRequired = requestToJoinRequired; 
   }
 
   public int getId() {
@@ -56,12 +59,21 @@ public class Clan {
 	  return currentTierLevel;
   }
 
+  public boolean isRequestToJoinRequired() {
+    return requestToJoinRequired;
+  }
+
+  public void setRequestToJoinRequired(boolean requestToJoinRequired) {
+    this.requestToJoinRequired = requestToJoinRequired;
+  }
+
   @Override
   public String toString() {
     return "Clan [id=" + id + ", name=" + name + ", ownerId=" + ownerId
         + ", createTime=" + createTime + ", description=" + description
-        + ", tag=" + tag + ", isGood=" + isGood + "tier=" + currentTierLevel + "]";
+        + ", tag=" + tag + ", isGood=" + isGood + ", currentTierLevel="
+        + currentTierLevel + ", requestToJoinRequired=" + requestToJoinRequired
+        + "]";
   }
-
 }
 

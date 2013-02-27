@@ -405,7 +405,8 @@ public class DBConstants {
   public static final String CLANS__TAG = "tag";
   public static final String CLANS__IS_GOOD = "is_good";
   public static final String CLANS__CURRENT_TIER_LEVEL = "current_tier_level";
-
+  public static final String CLANS__REQUEST_TO_JOIN_REQUIRED = "request_to_join_required";
+  
   /*CLAN TIER LEVELS*/
   public static final String CLAN_TIER_LEVELS__TIER_LEVEL = "tier_level";
   public static final String CLAN_TIER_LEVELS__MAX_CLAN_SIZE = "max_clan_size";

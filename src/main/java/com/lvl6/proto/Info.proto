@@ -322,6 +322,7 @@ message FullClanProto {
 	optional string tag = 6;
 	optional bool isGood = 7;
 	optional int32 currentTierLevel = 8;
+	optional bool requestToJoinRequired = 9;
 }
 
 message MinimumClanProto {
@@ -333,6 +334,7 @@ message MinimumClanProto {
 	optional string tag = 6;
 	optional bool isGood = 7;
 	optional int32 currentTierLevel = 8;
+	optional bool requestToJoinRequired = 9;
 }
 
 //------------------------------------------------------------------------------------------

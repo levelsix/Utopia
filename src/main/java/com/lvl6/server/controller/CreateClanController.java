@@ -81,6 +81,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     String clanName = reqProto.getName();
     String tag = reqProto.getTag();
     int initialClanLevel = ControllerConstants.CREATE_CLAN__INITIAL_CLAN_LEVEL; 
+    boolean requestToJoinRequired = reqProto.getRequestToJoinClanRequired();
     
     CreateClanResponseProto.Builder resBuilder = CreateClanResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -96,7 +97,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       int clanId = ControllerConstants.NOT_SET;
       if (legitCreate) {
         String description = "Welcome to " + clanName + "!";
-        clanId = InsertUtils.get().insertClan(clanName, user.getId(), createTime, description, tag, MiscMethods.checkIfGoodSide(user.getType()));
+        clanId = InsertUtils.get().insertClan(clanName, user.getId(), createTime, description,
+            tag, MiscMethods.checkIfGoodSide(user.getType()), requestToJoinRequired);
         if (clanId <= 0) {
           legitCreate = false;
           resBuilder.setStatus(CreateClanStatus.OTHER_FAIL);
@@ -104,7 +106,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
           resBuilder.setClanInfo(CreateInfoProtoUtils.createMinimumClanProtoFromClan(
               new Clan(
         		  clanId, clanName, user.getId(), createTime, description, tag, 
-        		  MiscMethods.checkIfGoodSide(user.getType()), initialClanLevel)
+        		  MiscMethods.checkIfGoodSide(user.getType()), initialClanLevel,
+        		  requestToJoinRequired)
               ));
         }
       }

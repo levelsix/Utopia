@@ -198,4 +198,6 @@ public interface UpdateUtil {
   public boolean updateLeaderboardEventSetRewardGivenOut(int eventId);
 
   public abstract boolean updateUserBoosterItemsForOneUser(int userId, Map<Integer, Integer> userBoosterItemIdsToQuantities);
+  
+  public abstract boolean updateClanJoinTypeForClan(int clanId, boolean requestToJoinRequired);
 }

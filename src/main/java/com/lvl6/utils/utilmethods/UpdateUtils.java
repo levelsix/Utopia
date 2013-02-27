@@ -1183,4 +1183,19 @@ public class UpdateUtils implements UpdateUtil {
       return false;
     }
   }
+  
+  public boolean updateClanJoinTypeForClan(int clanId, boolean requestToJoinRequired) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.CLANS__ID, clanId);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.CLANS__REQUEST_TO_JOIN_REQUIRED, requestToJoinRequired);
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_CLANS, null, absoluteParams, 
+        conditionParams, "or");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
 }
