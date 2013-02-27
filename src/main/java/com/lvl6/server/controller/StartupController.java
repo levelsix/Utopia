@@ -225,6 +225,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         
         boolean userLoggedIn = LoginHistoryRetrieveUtils.userLoggedInByUDID(udid);
         int numOldAccounts = RetrieveUtils.userRetrieveUtils().numAccountsForUDID(udid);
+        log.warn("num accounts: " + numOldAccounts);
         boolean isFirstTimeUser = false;
         if (!userLoggedIn && 0 >= numOldAccounts) {
           isFirstTimeUser = true;
