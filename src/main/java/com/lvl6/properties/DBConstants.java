@@ -617,7 +617,7 @@ public class DBConstants {
   /*FIRST TIME USERS*/
   public static final String FIRST_TIME_USERS__ID = GENERIC__ID;
   public static final String FIRST_TIME_USERS__OPEN_UDID = "open_udid";
-  public static final String FIRST_TIME_USERS__UDID = "udid";
+  public static final String FIRST_TIME_USERS__IOS_FIVE_UDID = "ios_five_udid";
   public static final String FIRST_TIME_USERS__MAC = "mac";
   public static final String FIRST_TIME_USERS__ADVERTISER_ID = "advertiser_id";
   public static final String FIRST_TIME_USERS__CREATE_TIME = "create_time";
