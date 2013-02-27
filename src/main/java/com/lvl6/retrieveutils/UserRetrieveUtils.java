@@ -34,14 +34,14 @@ import com.lvl6.utils.utilmethods.StringUtils;
   private final int MAX_BATTLE_DB_HITS = 5;
   private final int EXTREME_MAX_BATTLE_DB_HITS = 30;
   
-  public boolean udidHasOldAccounts(String udid) {
+  public int numAccountsForUDID(String udid) {
     List<Object> params = new ArrayList<Object>();
     params.add(udid);
     Connection conn = DBConnection.get().getConnection();
     String query = "select count(*) from " +
     		TABLE_NAME + " where udid like concat(\"%\", ?, \"%\");";
     ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, params);
-    log.info("query=" + query);
+    log.debug("query=" + query);
     int count = 0;
     try {
       if (null != rs) {
@@ -50,21 +50,16 @@ import com.lvl6.utils.utilmethods.StringUtils;
             count = rs.getInt(1);
           }
         } catch (SQLException e) {
+          log.error("sql query wrong", e);
         }
       }
     } catch (Exception e) {
-      
+      log.error("sql query wrong 2", e);
     } finally {
       DBConnection.get().close(null, null, conn);
     }
-    log.debug("Num users found with id: " + count);
-    if (0 >= count) {
-      //new user!
-      return false;
-    } else {
-      log.debug("Users found when checking if udid is tied to previous user ids. udid=" + udid);
-      return true;
-    }
+    log.debug("num accounts: " + count);
+    return count;
   }
   
   public Integer countUsers(Boolean isFake){

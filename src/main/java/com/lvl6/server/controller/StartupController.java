@@ -224,9 +224,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         log.info("new player with udid " + udid);
         
         boolean userLoggedIn = LoginHistoryRetrieveUtils.userLoggedInByUDID(udid);
-        boolean hasOldAccounts = RetrieveUtils.userRetrieveUtils().udidHasOldAccounts(udid);
+        int numOldAccounts = RetrieveUtils.userRetrieveUtils().numAccountsForUDID(udid);
         boolean isFirstTimeUser = false;
-        if (!userLoggedIn && !hasOldAccounts) {
+        if (!userLoggedIn && 0 >= numOldAccounts) {
           isFirstTimeUser = true;
         }
         
