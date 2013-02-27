@@ -995,13 +995,13 @@ public class InsertUtils implements InsertUtil{
   }
   
   public int insertIntoLoginHistory(String udid, int userId, Timestamp now, boolean isLogin,
-      boolean isNewUser) {
+      boolean goingThroughTutorial) {
     String tableName = DBConstants.TABLE_LOGIN_HISTORY;
     Map<String, Object> insertParams = new HashMap<String, Object>();
     
     insertParams.put(DBConstants.LOGIN_HISTORY__UDID, udid);
-    //isNewUser==true means user going through tutorial, so no id exists
-    if(!isNewUser) {
+    //if going through tutorial, no id exists
+    if(!goingThroughTutorial) {
       insertParams.put(DBConstants.LOGIN_HISTORY__USER_ID, userId);
     }
     insertParams.put(DBConstants.LOGIN_HISTORY__DATE, now);

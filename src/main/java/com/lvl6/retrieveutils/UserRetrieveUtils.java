@@ -34,6 +34,37 @@ import com.lvl6.utils.utilmethods.StringUtils;
   private final int MAX_BATTLE_DB_HITS = 5;
   private final int EXTREME_MAX_BATTLE_DB_HITS = 30;
   
+  public boolean udidHasOldAccounts(String udid) {
+    List<Object> params = new ArrayList<Object>();
+    params.add(udid);
+    Connection conn = DBConnection.get().getConnection();
+    String query = "select  count(*) from " +
+    		TABLE_NAME + " udid like \"%" + udid + "%\"";
+    ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, params);
+    log.info("query=" + query);
+    int count = 0;
+    try {
+      if (null != rs) {
+        try {
+          if (rs.first()) {
+            count = rs.getInt(1);
+          }
+        } catch (SQLException e) {
+        }
+      }
+    } catch (Exception e) {
+      
+    } finally {
+      DBConnection.get().close(null, null, conn);
+    }
+    if (0 >= count) {
+      //new user!
+      return false;
+    } else {
+      log.warn("Users found when checking if udid is tied to previous user ids. udid=" + udid);
+      return true;
+    }
+  }
   
   public Integer countUsers(Boolean isFake){
 	  List<Object> params = new ArrayList<Object>();

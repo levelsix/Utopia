@@ -224,8 +224,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         log.info("new player with udid " + udid);
         
         boolean userLoggedIn = LoginHistoryRetrieveUtils.userLoggedInByUDID(udid);
+        boolean hasOldAccounts = RetrieveUtils.userRetrieveUtils().udidHasOldAccounts(udid);
         boolean isFirstTimeUser = false;
-        if (!userLoggedIn) {
+        if (!userLoggedIn && !hasOldAccounts) {
           isFirstTimeUser = true;
         }
         
@@ -234,8 +235,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
               reqProto.getMacAddress(), reqProto.getAdvertiserId(), now);
         }
         
-        boolean isNewUser = true;
-        InsertUtils.get().insertIntoLoginHistory(udid, 0, now, isLogin, isNewUser);
+        boolean goingThroughTutorial = true;
+        InsertUtils.get().insertIntoLoginHistory(udid, 0, now, isLogin, goingThroughTutorial);
       }
       resBuilder.setStartupStatus(startupStatus);
       setConstants(resBuilder, startupStatus);      
@@ -255,7 +256,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     log.debug("Wrote response event: "+resEvent);
     //for things that client doesn't need
     log.debug("After response tasks");
-
+    
+    //if force tutorial don't execute this function
     retrieveKabamNaid(user, udid, reqProto.getIOS5Udid(), reqProto.getMacAddress(), reqProto.getAdvertiserId());
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);    
   }
