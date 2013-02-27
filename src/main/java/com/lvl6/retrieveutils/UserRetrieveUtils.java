@@ -39,7 +39,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     params.add(udid);
     Connection conn = DBConnection.get().getConnection();
     String query = "select count(*) from " +
-    		TABLE_NAME + " where udid like ?;";
+    		TABLE_NAME + " where udid like concat(\"%\", ?, \"%\");";
     ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, params);
     log.info("query=" + query);
     int count = 0;
@@ -57,11 +57,12 @@ import com.lvl6.utils.utilmethods.StringUtils;
     } finally {
       DBConnection.get().close(null, null, conn);
     }
+    log.debug("Num users found with id: " + count);
     if (0 >= count) {
       //new user!
       return false;
     } else {
-      log.warn("Users found when checking if udid is tied to previous user ids. udid=" + udid);
+      log.debug("Users found when checking if udid is tied to previous user ids. udid=" + udid);
       return true;
     }
   }
