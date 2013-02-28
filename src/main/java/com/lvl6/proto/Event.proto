@@ -120,6 +120,7 @@ message StartupRequestProto {				//client will also send ChangeUserLocationReque
      optional string iOS5Udid = 4;
      optional string macAddress = 5;
      optional string advertiserId = 6;
+     optional bool isForceTutorial = 7;
 }
 
 message StartupResponseProto {

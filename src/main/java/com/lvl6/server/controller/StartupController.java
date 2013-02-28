@@ -258,8 +258,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     //for things that client doesn't need
     log.debug("After response tasks");
     
-    //if force tutorial don't execute this function
-    retrieveKabamNaid(user, udid, reqProto.getIOS5Udid(), reqProto.getMacAddress(), reqProto.getAdvertiserId());
+    //if app is not in force tutorial execute this function, 
+    //regardless of whether the user is new or restarting from an account reset
+    if (!reqProto.getIsForceTutorial()) {
+      retrieveKabamNaid(user, udid, reqProto.getIOS5Udid(), reqProto.getMacAddress(), reqProto.getAdvertiserId());
+    }
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);    
   }
 
