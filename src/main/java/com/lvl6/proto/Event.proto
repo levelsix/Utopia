@@ -1964,18 +1964,23 @@ message RequestJoinClanRequestProto {
 	optional int32 clanId = 2;
 }
 
+//since clanless user can directly join open clan,
+//two successes: request_success, join_success
 message RequestJoinClanResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional RequestJoinClanStatus status = 2;
 	optional int32 clanId = 3;
 	optional MinimumUserProtoForClans requester = 4;
+	optional MinimumClanProto minClan = 5;
+	optional FullClanProtoWithClanSize fullClan = 6;
 	
 	enum RequestJoinClanStatus {
-		SUCCESS = 0;
+		REQUEST_SUCCESS = 0;
 		OTHER_FAIL = 1;
 		ALREADY_IN_CLAN = 2;
 		REQUEST_ALREADY_FILED = 3;
 		WRONG_SIDE = 5;
+		JOIN_SUCCESS = 6;
 	}	
 }
 

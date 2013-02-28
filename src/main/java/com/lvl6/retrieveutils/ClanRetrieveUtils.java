@@ -142,6 +142,10 @@ import com.lvl6.utils.DBConnection;
     boolean isGood = rs.getBoolean(i++);
     int currentTierLevel = rs.getInt(i++);
     boolean requestToJoinRequired = rs.getBoolean(i++);
+    if (rs.wasNull()) {
+      //for legacy clans, they were by default a request to join was required
+      requestToJoinRequired = true;
+    }
     
     return new Clan(clanId, name, ownerId, clanCreateTime, description, tag,
         isGood, currentTierLevel, requestToJoinRequired);

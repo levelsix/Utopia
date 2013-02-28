@@ -31,6 +31,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.QuestUtils;
 
@@ -71,7 +72,15 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       boolean legitRequest = checkLegitRequest(resBuilder, user, clan);
 
       resBuilder.setRequester(CreateInfoProtoUtils.createMinimumUserProtoForClans(user, UserClanStatus.REQUESTING));
-
+      boolean successful = false;
+      if (legitRequest) {
+        successful = writeChangesToDB(resBuilder, user, clan);
+      }
+      
+      if (successful) {
+        resBuilder.setMinClan(CreateInfoProtoUtils.createMinimumClanProtoFromClan(clan));
+        resBuilder.setFullClan(CreateInfoProtoUtils.createFullClanProtoWithClanSize(clan));
+      }
       RequestJoinClanResponseEvent resEvent = new RequestJoinClanResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setRequestJoinClanResponseProto(resBuilder.build());
@@ -83,10 +92,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
        */
       server.writeEvent(resEvent);
       
-      if (legitRequest) {
+      if (successful) {
         server.writeClanEvent(resEvent, clan.getId());
-
-        writeChangesToDB(user, clanId);
+        
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
@@ -129,13 +137,32 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       log.error("Attemped to send join request to clan, but too low level. min level to join clan=" + minLevel + ", user=" + user);
       return false;
     }
-    resBuilder.setStatus(RequestJoinClanStatus.SUCCESS);
+    //resBuilder.setStatus(RequestJoinClanStatus.SUCCESS);
     return true;
   }
 
-  private void writeChangesToDB(User user, int clanId) {
-    if (!InsertUtils.get().insertUserClan(user.getId(), clanId, UserClanStatus.REQUESTING, new Timestamp(new Date().getTime()))) {
-      log.error("problem with inserting user clan data for user " + user + ", and clan id " + clanId);
+  private boolean writeChangesToDB(Builder resBuilder, User user, Clan clan) {
+    //clan can be open, or user needs to send a request to join the clan
+    boolean requestToJoinRequired = clan.isRequestToJoinRequired();
+    UserClanStatus userClanStatus;
+    if (requestToJoinRequired) {
+      userClanStatus = UserClanStatus.REQUESTING;
+      resBuilder.setStatus(RequestJoinClanStatus.REQUEST_SUCCESS);
+    } else {
+      userClanStatus = UserClanStatus.MEMBER;
+      resBuilder.setStatus(RequestJoinClanStatus.JOIN_SUCCESS);
+    }
+    
+    if (!InsertUtils.get().insertUserClan(user.getId(), clan.getId(), userClanStatus, new Timestamp(new Date().getTime()))) {
+      log.error("problem with inserting user clan data for user " + user + ", and clan id " + clan.getId());
+      resBuilder.setStatus(RequestJoinClanStatus.OTHER_FAIL);
+      return false;
+    } else {
+      if (!requestToJoinRequired) {
+        //user joined clan, get rid of all other requests
+        DeleteUtils.get().deleteUserClansForUserExceptSpecificClan(user.getId(), user.getClanId());
+      }
+      return true;
     }
   }
   
