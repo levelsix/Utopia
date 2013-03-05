@@ -807,10 +807,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     UserType aBadType = UserType.BAD_ARCHER;
 
     Task task = TaskRetrieveUtils.getTaskForTaskId(ControllerConstants.TUTORIAL__FIRST_TASK_ID);
+    task.setPotentialLootEquipIds(new ArrayList<Integer>());
     FullTaskProto ftpGood = CreateInfoProtoUtils.createFullTaskProtoFromTask(aGoodType, task);
     FullTaskProto ftpBad = CreateInfoProtoUtils.createFullTaskProtoFromTask(aBadType, task);
     
     task = TaskRetrieveUtils.getTaskForTaskId(ControllerConstants.TUTORIAL__FAKE_QUEST_TASK_ID);
+    task.setPotentialLootEquipIds(new ArrayList<Integer>());
     FullTaskProto questFtpGood = CreateInfoProtoUtils.createFullTaskProtoFromTask(aGoodType, task);
     FullTaskProto questFtpBad = CreateInfoProtoUtils.createFullTaskProtoFromTask(aBadType, task);
 
