@@ -750,7 +750,7 @@ public class MiscMethods {
     double randItem = Math.random();
     double randSelection = Math.random();
     double totalPercentage = 0;
-    int retEquipId = ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID;
+    int retEquipId = ControllerConstants.TUTORIAL__FAKE_QUEST_AMULET_LOOT_EQUIP_ID;
 
     List<Equipment> allEquipment = EquipmentRetrieveUtils.getAllEquipmentForClassType(getClassTypeFromUserType(user.getType()));
     List<Equipment> commonEquips = new ArrayList<Equipment>();
