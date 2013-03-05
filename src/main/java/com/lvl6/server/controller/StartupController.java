@@ -858,7 +858,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         .setInitCoins(ControllerConstants.TUTORIAL__INIT_COINS)
         .setFirstBattleCoinGain(ControllerConstants.TUTORIAL__FIRST_BATTLE_COIN_GAIN)
         .setFirstBattleExpGain(ControllerConstants.TUTORIAL__FIRST_BATTLE_EXP_GAIN)
-        .setFirstTaskGood(questFtpGood).setFirstTaskBad(questFtpBad)
+        .setFirstTaskGood(ftpGood).setFirstTaskBad(ftpBad)
         .setExpRequiredForLevelTwo(LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(2))
         .setExpRequiredForLevelThree(LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(3))
         .setFirstWallPost(CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, poster));
