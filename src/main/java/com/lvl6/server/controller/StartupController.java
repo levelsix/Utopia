@@ -807,9 +807,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     UserType aBadType = UserType.BAD_ARCHER;
 
     Task task = TaskRetrieveUtils.getTaskForTaskId(ControllerConstants.TUTORIAL__FIRST_TASK_ID);
-    task.setPotentialLootEquipIds(new ArrayList<Integer>());
     FullTaskProto ftpGood = CreateInfoProtoUtils.createFullTaskProtoFromTask(aGoodType, task);
     FullTaskProto ftpBad = CreateInfoProtoUtils.createFullTaskProtoFromTask(aBadType, task);
+    
+    task = TaskRetrieveUtils.getTaskForTaskId(ControllerConstants.TUTORIAL__FAKE_QUEST_TASK_ID);
+    FullTaskProto questFtpGood = CreateInfoProtoUtils.createFullTaskProtoFromTask(aGoodType, task);
+    FullTaskProto questFtpBad = CreateInfoProtoUtils.createFullTaskProtoFromTask(aBadType, task);
 
     Dialogue goodAcceptDialogue = MiscMethods.createDialogue(ControllerConstants.TUTORIAL__FAKE_QUEST_GOOD_ACCEPT_DIALOGUE);
     Dialogue badAcceptDialogue = MiscMethods.createDialogue(ControllerConstants.TUTORIAL__FAKE_QUEST_BAD_ACCEPT_DIALOGUE);
@@ -826,12 +829,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         .setAssetNumWithinCity(ControllerConstants.TUTORIAL__FAKE_QUEST_ASSET_NUM_WITHIN_CITY)
         .setCoinsGained(ControllerConstants.TUTORIAL__FAKE_QUEST_COINS_GAINED)
         .setExpGained(ControllerConstants.TUTORIAL__FAKE_QUEST_EXP_GAINED)
-        .setFirstTaskGood(ftpGood).setFirstTaskBad(ftpBad)
-        .setFirstTaskCompleteCoinGain(MiscMethods.calculateCoinsGainedFromTutorialTask(task))
-        .setFirstDefeatTypeJobBattleCoinGain(ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_COIN_GAIN)
-        .setFirstDefeatTypeJobBattleExpGain(ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN)
-        .setFirstDefeatTypeJobBattleLootAmulet
-        (CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment.get(ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID)))
+        .setTaskGood(questFtpGood).setTaskBad(questFtpBad)
+        .setTaskCompleteCoinGain(MiscMethods.calculateCoinsGainedFromTutorialTask(task))
+        .setEquipReward(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment.get(ControllerConstants.TUTORIAL__FAKE_QUEST_AMULET_LOOT_EQUIP_ID)))
         .build();
 
     PlayerWallPost pwp = new PlayerWallPost(-1, ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL, -1, 
@@ -856,6 +856,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         .setCoinRewardForBeingReferred(ControllerConstants.USER_CREATE__COIN_REWARD_FOR_BEING_REFERRED)
         .setInitDiamonds(ControllerConstants.TUTORIAL__INIT_DIAMONDS)
         .setInitCoins(ControllerConstants.TUTORIAL__INIT_COINS)
+        .setFirstBattleCoinGain(ControllerConstants.TUTORIAL__FIRST_BATTLE_COIN_GAIN)
+        .setFirstBattleExpGain(ControllerConstants.TUTORIAL__FIRST_BATTLE_EXP_GAIN)
+        .setFirstTaskGood(questFtpGood).setFirstTaskBad(questFtpBad)
         .setExpRequiredForLevelTwo(LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(2))
         .setExpRequiredForLevelThree(LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(3))
         .setFirstWallPost(CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, poster));

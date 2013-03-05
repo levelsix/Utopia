@@ -541,6 +541,11 @@ message StartupResponseProto {
 	    repeated FullStructureProto newlyAvailableStructsAfterLevelup = 32;					//only new ones
      	
      	optional PlayerWallPostProto firstWallPost = 33;
+
+		optional FullTaskProto firstTaskGood = 34;
+		optional FullTaskProto firstTaskBad = 35;
+		optional int32 firstBattleCoinGain = 36;
+		optional int32 firstBattleExpGain = 37;
      	
 		message FullTutorialQuestProto {
 				//do one task once, kill one enemy
@@ -556,13 +561,11 @@ message StartupResponseProto {
 			optional int32 coinsGained = 10;
 			optional int32 expGained = 11;
 			
-			optional FullTaskProto firstTaskGood = 12;
-			optional FullTaskProto firstTaskBad = 13;
-			optional int32 firstTaskCompleteCoinGain = 14;	//tasks coin gain should sum to this
-
-			optional int32 firstDefeatTypeJobBattleCoinGain = 17;
-			optional int32 firstDefeatTypeJobBattleExpGain = 18;
-			optional FullEquipProto firstDefeatTypeJobBattleLootAmulet = 19;
+			optional FullTaskProto taskGood = 12;
+			optional FullTaskProto taskBad = 13;
+			optional int32 taskCompleteCoinGain = 14;	//tasks coin gain should sum to this
+			
+			optional FullEquipProto equipReward = 15;
 		}
 	}
 		     
