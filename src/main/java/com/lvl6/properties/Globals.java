@@ -47,10 +47,10 @@ public class Globals {
 
 	/** size of ByteBuffer for reading/writing from channels */
 
-    public static final int NET_BUFFER_SIZE=16384*16;
+    public static final int NET_BUFFER_SIZE=16384*32;
 
     /** maximum event size in bytes */
-    public static final int MAX_EVENT_SIZE=16384*16;
+    public static final int MAX_EVENT_SIZE=16384*32;
 
     /** interval to sleep between attempts to write to a channel. */
     public static final long CHANNEL_WRITE_SLEEP = 10L;
