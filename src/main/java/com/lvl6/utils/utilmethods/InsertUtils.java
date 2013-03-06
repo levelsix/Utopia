@@ -1018,7 +1018,7 @@ public class InsertUtils implements InsertUtil{
     Map<String, Object> insertParams = new HashMap<String, Object>();
     
     insertParams.put(DBConstants.FIRST_TIME_USERS__OPEN_UDID, openUdid);
-    insertParams.put(DBConstants.FIRST_TIME_USERS__IOS_FIVE_UDID, udid);
+    insertParams.put(DBConstants.FIRST_TIME_USERS__UDID, udid);
     insertParams.put(DBConstants.FIRST_TIME_USERS__MAC, mac);
     insertParams.put(DBConstants.FIRST_TIME_USERS__ADVERTISER_ID, advertiserId);
     insertParams.put(DBConstants.FIRST_TIME_USERS__CREATE_TIME, now);
