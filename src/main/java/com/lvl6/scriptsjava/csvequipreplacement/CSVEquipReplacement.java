@@ -2,7 +2,6 @@ package com.lvl6.scriptsjava.csvequipreplacement;
 
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -11,9 +10,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import au.com.bytecode.opencsv.CSVReader;
 
-import com.lvl6.info.Task;
 import com.lvl6.properties.DBConstants;
-import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.utils.DBConnection;
 
 public class CSVEquipReplacement {
@@ -59,80 +56,84 @@ public class CSVEquipReplacement {
         dict.put((Integer)ids.get(1), (Integer)ids.get(0));
         dict.put((Integer)ids.get(2), (Integer)ids.get(0));
 
-//        String query = "update "+DBConstants.TABLE_USER_EQUIP+" set equip_id=? where equip_id in (?, ?)";
-//        int rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
-//        System.out.println("Updated user_equip: "+rowsUpdated+" rows.");
-//
-//        query = "update "+DBConstants.TABLE_MARKETPLACE+" set posted_equip_id=? where posted_equip_id in (?, ?)";
-//        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
-//        System.out.println("Updated marketplace: "+rowsUpdated+" rows.");
-//
-//        query = "update "+DBConstants.TABLE_BLACKSMITH+" set equip_id=? where equip_id in (?, ?)";
-//        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
-//        System.out.println("Updated blacksmith: "+rowsUpdated+" rows.");
-//
-//        query = "update "+DBConstants.TABLE_BLACKSMITH_HISTORY+" set equip_id=? where equip_id in (?, ?)";
-//        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
-//        System.out.println("Updated blacksmith history: "+rowsUpdated+" rows.");
-//
-//        query = "update "+DBConstants.TABLE_EQUIP_ENHANCEMENT+" set equip_id=? where equip_id in (?, ?)";
-//        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
-//        System.out.println("Updated enhancement: "+rowsUpdated+" rows.");
-//
-//        query = "update "+DBConstants.TABLE_EQUIP_ENHANCEMENT_FEEDERS+" set equip_id=? where equip_id in (?, ?)";
-//        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
-//        System.out.println("Updated enhancement feeders: "+rowsUpdated+" rows.");
-//
-//        query = "update "+DBConstants.TABLE_EQUIP_ENHANCEMENT_HISTORY+" set equip_id=? where equip_id in (?, ?)";
-//        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
-//        System.out.println("Updated enhancement history: "+rowsUpdated+" rows.");
-//
-//        query = "update "+DBConstants.TABLE_EQUIP_ENHANCEMENT_FEEDERS_HISTORY+" set equip_id=? where equip_id in (?, ?)";
-//        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
-//        System.out.println("Updated enhancement feeders history: "+rowsUpdated+" rows.");
-//
-//        query = "update "+DBConstants.TABLE_BATTLE_HISTORY+" set equip_stolen=? where equip_stolen in (?, ?)";
-//        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
-//        System.out.println("Updated battle history: "+rowsUpdated+" rows.");
-//
-//        query = "update diamond_equip_purchase_history set equip_id=? where equip_id in (?, ?)";
-//        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
-//        System.out.println("Updated enhancement: "+rowsUpdated+" rows.");
-//
-//        ids.remove(0);
-//        query = "delete from "+DBConstants.TABLE_EQUIPMENT+" where id in (?, ?)";
-//        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
-//        System.out.println("Deleted equipment: "+rowsUpdated+" rows.");
+        String query = "update "+DBConstants.TABLE_USER_EQUIP+" set equip_id=? where equip_id in (?, ?)";
+        int rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
+        if (rowsUpdated > 0) System.out.println("Updated user_equip: "+rowsUpdated+" rows.");
+
+        query = "update "+DBConstants.TABLE_MARKETPLACE+" set posted_equip_id=? where posted_equip_id in (?, ?)";
+        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
+        if (rowsUpdated > 0) System.out.println("Updated marketplace: "+rowsUpdated+" rows.");
+
+        query = "update "+DBConstants.TABLE_MARKETPLACE_TRANSACTION_HISTORY+" set posted_equip_id=? where posted_equip_id in (?, ?)";
+        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
+        if (rowsUpdated > 0) System.out.println("Updated marketplace transaction history: "+rowsUpdated+" rows.");
+
+        query = "update "+DBConstants.TABLE_BLACKSMITH+" set equip_id=? where equip_id in (?, ?)";
+        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
+        if (rowsUpdated > 0) System.out.println("Updated blacksmith: "+rowsUpdated+" rows.");
+
+        query = "update "+DBConstants.TABLE_BLACKSMITH_HISTORY+" set equip_id=? where equip_id in (?, ?)";
+        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
+        if (rowsUpdated > 0) System.out.println("Updated blacksmith history: "+rowsUpdated+" rows.");
+
+        query = "update "+DBConstants.TABLE_EQUIP_ENHANCEMENT+" set equip_id=? where equip_id in (?, ?)";
+        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
+        if (rowsUpdated > 0) System.out.println("Updated enhancement: "+rowsUpdated+" rows.");
+
+        query = "update "+DBConstants.TABLE_EQUIP_ENHANCEMENT_FEEDERS+" set equip_id=? where equip_id in (?, ?)";
+        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
+        if (rowsUpdated > 0) System.out.println("Updated enhancement feeders: "+rowsUpdated+" rows.");
+
+        query = "update "+DBConstants.TABLE_EQUIP_ENHANCEMENT_HISTORY+" set equip_id=? where equip_id in (?, ?)";
+        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
+        if (rowsUpdated > 0) System.out.println("Updated enhancement history: "+rowsUpdated+" rows.");
+
+        query = "update "+DBConstants.TABLE_EQUIP_ENHANCEMENT_FEEDERS_HISTORY+" set equip_id=? where equip_id in (?, ?)";
+        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
+        if (rowsUpdated > 0) System.out.println("Updated enhancement feeders history: "+rowsUpdated+" rows.");
+
+        query = "update "+DBConstants.TABLE_BATTLE_HISTORY+" set equip_stolen=? where equip_stolen in (?, ?)";
+        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
+        if (rowsUpdated > 0) System.out.println("Updated battle history: "+rowsUpdated+" rows.");
+
+        query = "update diamond_equip_purchase_history set equip_id=? where equip_id in (?, ?)";
+        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
+        if (rowsUpdated > 0) System.out.println("Updated enhancement: "+rowsUpdated+" rows.");
+
+        ids.remove(0);
+        query = "delete from "+DBConstants.TABLE_EQUIPMENT+" where id in (?, ?)";
+        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
+        if (rowsUpdated > 0) System.out.println("Deleted equipment: "+rowsUpdated+" rows.");
       }
       
       // Update tasks potential loot
-      for (Task t : TaskRetrieveUtils.getTaskIdsToTasks().values()) {
-        List<Integer> loot = t.getPotentialLootEquipIds();
-        if (loot != null && loot.size() > 0) {
-          System.out.println("Task "+t.getId()+" prior loot equips: "+loot);
-          boolean needsChange = false;
-          String newLoot = "";
-          for (Integer l : loot) {
-            Integer newId = dict.get(l);
-            if (newId == null) newId = l;
-            if (!newId.equals(l)) {
-              needsChange = true;
-            }
-            newLoot += newId + ", ";
-          }
-
-          newLoot = newLoot.substring(0, newLoot.length()-2);
-          System.out.println("Needs change: "+needsChange+" new loot: "+newLoot);
-          if (needsChange) {
-            ArrayList<Object> x = new ArrayList<Object>();
-            x.add(newLoot);
-            x.add(t.getId());
-            String query = "update "+DBConstants.TABLE_TASKS+" set potential_loot_equip_ids=? where id=?";
-            int rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, x);
-            System.out.println("Updated tasks: "+rowsUpdated+" rows.");
-          }
-        }
-      }
+//      for (Task t : TaskRetrieveUtils.getTaskIdsToTasks().values()) {
+//        List<Integer> loot = t.getPotentialLootEquipIds();
+//        if (loot != null && loot.size() > 0) {
+//          System.out.println("Task "+t.getId()+" prior loot equips: "+loot);
+//          boolean needsChange = false;
+//          String newLoot = "";
+//          for (Integer l : loot) {
+//            Integer newId = dict.get(l);
+//            if (newId == null) newId = l;
+//            if (!newId.equals(l)) {
+//              needsChange = true;
+//            }
+//            newLoot += newId + ", ";
+//          }
+//
+//          newLoot = newLoot.substring(0, newLoot.length()-2);
+//          System.out.println("Needs change: "+needsChange+" new loot: "+newLoot);
+//          if (needsChange) {
+//            ArrayList<Object> x = new ArrayList<Object>();
+//            x.add(newLoot);
+//            x.add(t.getId());
+//            String query = "update "+DBConstants.TABLE_TASKS+" set potential_loot_equip_ids=? where id=?";
+//            int rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, x);
+//            System.out.println("Updated tasks: "+rowsUpdated+" rows.");
+//          }
+//        }
+//      }
     } catch (Exception e) {
       e.printStackTrace();
     }
