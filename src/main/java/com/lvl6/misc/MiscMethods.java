@@ -1481,11 +1481,8 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
   }
   
   public static void writeToUserBoosterPackHistoryOneUser(int userId, int packId,
-      int numBought, Timestamp nowTimestamp, 
-      Map<Integer, BoosterItem> boosterItemIdsToBoosterItemsForOnePack,
-      Map<Integer, Integer> boosterItemIdsToNumCollected) {
-    List<Integer> raritiesCollected = getRaritiesCollected(
-            boosterItemIdsToNumCollected, boosterItemIdsToBoosterItemsForOnePack);
+      int numBought, Timestamp nowTimestamp, List<BoosterItem> itemsUserReceives) {
+    List<Integer> raritiesCollected = getRaritiesCollected(itemsUserReceives);
     int rarityOne = raritiesCollected.get(0);
     int rarityTwo = raritiesCollected.get(1);
     int rarityThree = raritiesCollected.get(2);
@@ -1493,8 +1490,7 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
         packId, numBought, nowTimestamp, rarityOne, rarityTwo, rarityThree);
   }
   
-  private static List<Integer> getRaritiesCollected(Map<Integer, Integer> boosterItemIdsToNumCollected,
-      Map<Integer, BoosterItem> boosterItemIdsToBoosterItemsForOnePack) {
+  private static List<Integer> getRaritiesCollected(List<BoosterItem> itemsUserReceives) {
     List<Integer> raritiesCollected = new ArrayList<Integer>();
     
     Map<Integer, Equipment> equipIdsToEquips = 
@@ -1502,11 +1498,7 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     int rarityOne = 0;
     int rarityTwo = 0;
     int rarityThree = 0;
-    for (int boosterItemId : boosterItemIdsToNumCollected.keySet()) {
-      if (!boosterItemIdsToBoosterItemsForOnePack.containsKey(boosterItemId)) {
-        continue;
-      }
-      BoosterItem bi = boosterItemIdsToBoosterItemsForOnePack.get(boosterItemId);
+    for (BoosterItem bi : itemsUserReceives) {
       int equipId = bi.getEquipId();
       Equipment tempEquip = null;
       if (equipIdsToEquips.containsKey(equipId)) {
@@ -1517,15 +1509,15 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
         continue;
       }
       Rarity equipRarity = tempEquip.getRarity();
-      int quantity = boosterItemIdsToNumCollected.get(boosterItemId);
       if (isRarityOne(equipRarity)) {
-        rarityOne += quantity;
+        rarityOne++;
       } else if (isRarityTwo(equipRarity)) {
-        rarityTwo += quantity;
+        rarityTwo++;
       } else if (isRarityThree(equipRarity)) {
-        rarityThree += quantity;
+        rarityThree++;
       } else {
-        
+        log.error("unexpected_error: booster item has unknown equip rarity. " +
+        		"booster item=" + bi + ".  Equip rarity=" + equipRarity);
       }
     }
     raritiesCollected.add(rarityOne);

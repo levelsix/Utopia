@@ -144,7 +144,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         Timestamp nowTimestamp = new Timestamp(now.getTime());
         int numBought = itemsUserReceives.size();
         writeToUserBoosterPackHistory(userId, boosterPackId, numBought, nowTimestamp,
-            boosterItemIdsToBoosterItems, newBoosterItemIdsToNumCollected);
+            itemsUserReceives);
         writeToUserCurrencyHistory(user, boosterPackId, nowTimestamp,
             goldSilverChange, previousSilver, previousGold);
       }
@@ -299,9 +299,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return (int) Math.ceil((nextDayInMillisGmt - now.getTime())/60000);
   }
   
-  //Returns all the booster items the user purchased, if the user buys out deck
-  //start over from a fresh deck (boosterItemIdsToNumCollected is changed to reflect none have been collected)
-  //and records which items were purchased before and the reset
+  //Returns all the booster items the user purchased.
+  //If the user buys out deck start over from a fresh deck 
+  //(boosterItemIdsToNumCollected is changed to reflect none have been collected).
+  //Also, keep track of which items were purchased before and/or after the reset (via collectedBeforeReset)
   private void getAllBoosterItemsForUser(Map<Integer, BoosterItem> allBoosterItemIdsToBoosterItems, 
       Map<Integer, Integer> boosterItemIdsToNumCollected, int numBoosterItemsUserWants, User aUser, 
       int boosterPackId, List<BoosterItem> returnValue, List<Boolean> collectedBeforeReset) {
@@ -599,12 +600,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return protos;
   }
   
+  //boosterItemIdsToNumCollected contain ids of booster items across different booster packs
   private void writeToUserBoosterPackHistory(int userId, int packId,
-      int numBought, Timestamp nowTimestamp, 
-      Map<Integer, BoosterItem> boosterItemIdsToBoosterItemsForOnePack,
-      Map<Integer, Integer> boosterItemIdsToNumCollected) {
+      int numBought, Timestamp nowTimestamp, List<BoosterItem> itemsUserReceives) {
     MiscMethods.writeToUserBoosterPackHistoryOneUser(userId, packId, numBought, 
-        nowTimestamp, boosterItemIdsToBoosterItemsForOnePack, boosterItemIdsToNumCollected);
+        nowTimestamp, itemsUserReceives);
   }
   
   private void writeToUserCurrencyHistory(User aUser, int packId, Timestamp date, Map<String, Integer> money,
