@@ -88,7 +88,7 @@ public class LeaderboardEventScheduledTasks {
 
 	@Scheduled(fixedRate = 10000)
 	public void checkForEventsEnded() {
-		log.debug("Checking for ended events");
+		//log.debug("Checking for ended events");
 		ILock lock = hazel.getLock("EventsEndedScheduledTaskLock");
 		boolean gotLock = false;
 		try {
@@ -97,7 +97,7 @@ public class LeaderboardEventScheduledTasks {
 				Collection<LeaderboardEvent> events = LeaderboardEventRetrieveUtils
 						.getIdsToLeaderboardEvents(true).values();
 				if (events == null) {
-					log.debug("There are no events to check");
+					//log.debug("There are no events to check");
 					return;
 				}
 				for (LeaderboardEvent event : events) {
@@ -116,18 +116,18 @@ public class LeaderboardEventScheduledTasks {
 
 	public void checkEndOfEvent(LeaderboardEvent event) {
 		if (event.isRewardsGivenOut()) {
-			log.debug("Reward already given out for event: {}", event.getEventName());
+			//log.debug("Reward already given out for event: {}", event.getEventName());
 			return;
 		}
-		log.debug("Checking event: {}, {}", event.getEventName(), event.getId());
+		//log.debug("Checking event: {}, {}", event.getEventName(), event.getId());
 		Date now = new Date();
 		Timestamp nowCopy = new Timestamp(now.getTime());
 		if (event.getEndDate().getTime() > now.getTime()) {
-			log.debug("Event {} hasn't ended yet. Ends in {} seconds", event.getEventName(), (event
-					.getEndDate().getTime() - now.getTime()) / 1000);
+			//log.debug("Event {} hasn't ended yet. Ends in {} seconds", event.getEventName(), (event
+					//.getEndDate().getTime() - now.getTime()) / 1000);
 			return;
 		}
-		log.debug("Giving rewards for event: {}", event.getEventName());
+		//log.debug("Giving rewards for event: {}", event.getEventName());
 		List<Integer> allUserIds = new ArrayList<Integer>();
 		// user_currency_history
 		List<Timestamp> dates = new ArrayList<Timestamp>();
