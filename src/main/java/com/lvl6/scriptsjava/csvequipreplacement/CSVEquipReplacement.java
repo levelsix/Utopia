@@ -100,6 +100,10 @@ public class CSVEquipReplacement {
         rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
         if (rowsUpdated > 0) System.out.println("Updated enhancement: "+rowsUpdated+" rows.");
 
+        query = "update quests set equip_id_gained=? where equip_id_gained in (?, ?)";
+        rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
+        if (rowsUpdated > 0) System.out.println("Updated quests: "+rowsUpdated+" rows.");
+
         ids.remove(0);
         query = "delete from "+DBConstants.TABLE_EQUIPMENT+" where id in (?, ?)";
         rowsUpdated = DBConnection.get().updateDirectQueryNaive(query, ids);
