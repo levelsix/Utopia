@@ -81,6 +81,7 @@ import com.lvl6.retrieveutils.ClanChatPostRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.retrieveutils.EquipEnhancementFeederRetrieveUtils;
 import com.lvl6.retrieveutils.EquipEnhancementRetrieveUtils;
+import com.lvl6.retrieveutils.FirstTimeUsersRetrieveUtils;
 import com.lvl6.retrieveutils.IAPHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.LoginHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
@@ -225,8 +226,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         
         boolean userLoggedIn = LoginHistoryRetrieveUtils.userLoggedInByUDID(udid);
         int numOldAccounts = RetrieveUtils.userRetrieveUtils().numAccountsForUDID(udid);
+        boolean alreadyInFirstTimeUsers = FirstTimeUsersRetrieveUtils.userExistsWithUDID(udid);
         boolean isFirstTimeUser = false;
-        if (!userLoggedIn && 0 >= numOldAccounts) {
+        if (!userLoggedIn && 0 >= numOldAccounts && !alreadyInFirstTimeUsers) {
           isFirstTimeUser = true;
         }
         
