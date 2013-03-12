@@ -228,8 +228,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         int numOldAccounts = RetrieveUtils.userRetrieveUtils().numAccountsForUDID(udid);
         boolean alreadyInFirstTimeUsers = FirstTimeUsersRetrieveUtils.userExistsWithUDID(udid);
         boolean isFirstTimeUser = false;
-        log.info("userLoggedIn=" + userLoggedIn + ", numOldAccounts=" + numOldAccounts
-            + ", alreadyInFirstTimeUsers=" + alreadyInFirstTimeUsers);
+//        log.info("userLoggedIn=" + userLoggedIn + ", numOldAccounts=" + numOldAccounts
+//            + ", alreadyInFirstTimeUsers=" + alreadyInFirstTimeUsers);
         if (!userLoggedIn && 0 >= numOldAccounts && !alreadyInFirstTimeUsers) {
           isFirstTimeUser = true;
         }
