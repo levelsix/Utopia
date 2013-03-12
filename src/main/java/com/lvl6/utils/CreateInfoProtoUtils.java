@@ -1145,6 +1145,8 @@ public class CreateInfoProtoUtils {
       b.setRetailPriceTwo(retail2);
     }
     
+    b.setIsStarterPack(bp.isStarterPack());
+    
     List<BoosterItemProto> biProtos = new ArrayList<BoosterItemProto>();
     for(BoosterItem bi : biList) {
       biProtos.add(createBoosterItemProto(bi));

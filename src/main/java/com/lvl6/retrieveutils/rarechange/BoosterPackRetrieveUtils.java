@@ -95,10 +95,11 @@ import com.lvl6.utils.DBConnection;
     int retailPriceOne = rs.getInt(i++);
     int salePriceTwo = rs.getInt(i++);
     int retailPriceTwo = rs.getInt(i++);
+    boolean isStarterPack = rs.getBoolean(i++);
     
     BoosterPack boosterPack = new BoosterPack(id, costsCoins, name, chestImage,
         middleImage, backgroundImage, minLevel, maxLevel, dailyLimit, salePriceOne, 
-        retailPriceOne, salePriceTwo, retailPriceTwo);
+        retailPriceOne, salePriceTwo, retailPriceTwo, isStarterPack);
     return boosterPack; 
   }
 }

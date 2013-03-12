@@ -17,10 +17,11 @@ public class BoosterPack implements Serializable {
   private int retailPriceOne;
   private int salePriceTwo;
   private int retailPriceTwo;
+  private boolean isStarterPack;
   
   public BoosterPack(int id, boolean costsCoins, String name, String chestImage, String middleImage,
       String backgroundImage, int minLevel, int maxLevel, int dailyLimit, int salePriceOne,
-      int retailPriceOne, int salePriceTwo, int retailPriceTwo) {
+      int retailPriceOne, int salePriceTwo, int retailPriceTwo, boolean isStarterPack) {
     super();
     this.id = id;
     this.costsCoins = costsCoins;
@@ -35,6 +36,7 @@ public class BoosterPack implements Serializable {
     this.retailPriceOne = retailPriceOne;
     this.salePriceTwo = salePriceTwo;
     this.retailPriceTwo = retailPriceTwo;
+    this.isStarterPack = isStarterPack;
   }
 
   public int getId() {
@@ -145,6 +147,14 @@ public class BoosterPack implements Serializable {
     return serialVersionUID;
   }
 
+  public boolean isStarterPack() {
+    return isStarterPack;
+  }
+
+  public void setStarterPack(boolean isStarterPack) {
+    this.isStarterPack = isStarterPack;
+  }
+
   @Override
   public String toString() {
     return "BoosterPack [id=" + id + ", costsCoins=" + costsCoins + ", name="
@@ -153,7 +163,8 @@ public class BoosterPack implements Serializable {
         + ", maxLevel=" + maxLevel + ", dailyLimit=" + dailyLimit
         + ", salePriceOne=" + salePriceOne + ", retailPriceOne="
         + retailPriceOne + ", salePriceTwo=" + salePriceTwo
-        + ", retailPriceTwo=" + retailPriceTwo + "]";
+        + ", retailPriceTwo=" + retailPriceTwo + ", isStarterPack="
+        + isStarterPack + "]";
   }
 
 }

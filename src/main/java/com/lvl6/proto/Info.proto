@@ -35,6 +35,7 @@ message BoosterPackProto {
 	optional int32 retailPriceOne = 12;
 	optional int32 salePriceTwo = 13;
 	optional int32 retailPriceTwo = 14; 
+	optional bool isStarterPack = 15;
 }
 
 message BoosterItemProto {
