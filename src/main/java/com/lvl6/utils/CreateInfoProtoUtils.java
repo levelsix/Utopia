@@ -1121,8 +1121,7 @@ public class CreateInfoProtoUtils {
   public static BoosterPackProto createBoosterPackProto(BoosterPack bp, Collection<BoosterItem> biList) {
     BoosterPackProto.Builder b = BoosterPackProto.newBuilder()
         .setBoosterPackId(bp.getId()).setCostsCoins(bp.isCostsCoins())
-        .setName(bp.getName()).setChestImage(bp.getChestImage())
-        .setMiddleImage(bp.getMiddleImage()).setBackgroundImage(bp.getBackgroundImage())
+        .setName(bp.getName()).setBackgroundImage(bp.getBackgroundImage())
         .setMinLevel(bp.getMinLevel()).setMaxLevel(bp.getMaxLevel());
     int dailyLimit = bp.getDailyLimit();
     if(ControllerConstants.NOT_SET != dailyLimit) {
@@ -1143,6 +1142,12 @@ public class CreateInfoProtoUtils {
     int retail2 = bp.getRetailPriceTwo();
     if(ControllerConstants.NOT_SET != retail2) {
       b.setRetailPriceTwo(retail2);
+    }
+    if(null != bp.getMiddleImage()) {
+      b.setMiddleImage(bp.getMiddleImage());
+    }
+    if(null != bp.getChestImage()) {
+      b.setChestImage(bp.getChestImage());
     }
     
     b.setIsStarterPack(bp.isStarterPack());
