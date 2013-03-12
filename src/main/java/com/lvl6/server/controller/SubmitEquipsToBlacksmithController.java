@@ -79,9 +79,11 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
       boolean legitSubmit = checkLegitSubmit(resBuilder, user, paidToGuarantee, userEquips, equip, startTime);
 
-      int goalLevel = userEquips.get(0).getLevel() + 1;
-      int diamondCost = calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee);
+      int goalLevel = 0; 
+      int diamondCost = 0;
       if (legitSubmit) {
+        goalLevel = userEquips.get(0).getLevel() + 1;
+        diamondCost = calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee);
         //need to keep track of enhancements on weapons
         int enhancementPercentOne = userEquips.get(0).getEnhancementPercentage();
         int enhancementPercentTwo = userEquips.get(1).getEnhancementPercentage();
