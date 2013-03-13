@@ -318,7 +318,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int sumQuantitiesInStock = determineBoosterItemsLeft(allBoosterItemIdsToBoosterItems, 
         boosterItemIdsToNumCollected, boosterItemIdsUserCanGet, quantitiesInStock, aUser, boosterPackId);
     
-    if (numBoosterItemsUserWants > sumQuantitiesInStock) {
+    if (numBoosterItemsUserWants >= sumQuantitiesInStock) {
       //give all the remaining booster items to the user, 
       for (int i = 0; i < boosterItemIdsUserCanGet.size(); i++) {
         int bItemId = boosterItemIdsUserCanGet.get(i);
