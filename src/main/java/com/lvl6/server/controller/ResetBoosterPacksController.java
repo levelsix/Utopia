@@ -1,11 +1,12 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+ 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
@@ -29,7 +30,6 @@ import com.lvl6.retrieveutils.UserBoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterPackRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
-import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
   @Component @DependsOn("gameServer") public class ResetBoosterPacksController extends EventController{
@@ -92,8 +92,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
       
       if (success) {
-        writeToUserBoosterPackHistory(userId, boosterPackId, boosterItemIdsToBoosterItems,
-            newBoosterItemIdsToQuantitiesForUser);
+        writeToUserBoosterPackHistory(userId, boosterPackId);
       }
     } catch (Exception e) {
       log.error("exception in ResetBoosterPacksController processEvent", e);
@@ -153,12 +152,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return ubpProto;
   }
   
-  private void writeToUserBoosterPackHistory(int userId, int packId,
-      Map<Integer, BoosterItem> boosterItemIdsToBoosterItemsForOnePack,
-      Map<Integer, Integer> boosterItemIdsToNumCollected) {
+  private void writeToUserBoosterPackHistory(int userId, int packId) {
     Timestamp nowTimestamp = new Timestamp((new Date()).getTime());
     int numBought = 0; //indicates a reset
     MiscMethods.writeToUserBoosterPackHistoryOneUser(userId, packId, numBought, nowTimestamp,
-        boosterItemIdsToBoosterItemsForOnePack, boosterItemIdsToNumCollected);
+        new ArrayList<BoosterItem>());
   }
 }
