@@ -105,6 +105,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (legit) {
         //check if user has bought up all the booster items in the booster pack
         int numBoosterItemsUserWants = determineNumBoosterItemsFromPurchaseOption(option);
+//        if (aPack.isStarterPack()) {
+//          numBoosterItemsUserWants = 3;
+//        }
         
         //boosterItemIdsToNumCollected will only be modified if the amount the user buys
         //is more than what is left in the deck, need to reflect this in newBoosterItemIdsToNumCollected
@@ -315,7 +318,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int sumQuantitiesInStock = determineBoosterItemsLeft(allBoosterItemIdsToBoosterItems, 
         boosterItemIdsToNumCollected, boosterItemIdsUserCanGet, quantitiesInStock, aUser, boosterPackId);
     
-    if (numBoosterItemsUserWants > sumQuantitiesInStock) {
+    if (numBoosterItemsUserWants >= sumQuantitiesInStock) {
       //give all the remaining booster items to the user, 
       for (int i = 0; i < boosterItemIdsUserCanGet.size(); i++) {
         int bItemId = boosterItemIdsUserCanGet.get(i);
@@ -392,10 +395,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return sumQuantitiesInStock;
   }
   
+  //no arguments are modified
   private List<BoosterItem> determineBoosterItemsUserReceives(List<Integer> boosterItemIdsUserCanGet, 
       List<Integer> quantitiesInStock, int amountUserWantsToPurchase, int sumOfQuantitiesInStock,
       Map<Integer, BoosterItem> allBoosterItemIdsToBoosterItems) {
+    //return value
     List<BoosterItem> itemsUserReceives = new ArrayList<BoosterItem>();
+    
     Random rand = new Random();
     List<Integer> newBoosterItemIdsUserCanGet = new ArrayList<Integer>(boosterItemIdsUserCanGet);
     List<Integer> newQuantitiesInStock = new ArrayList<Integer>(quantitiesInStock);
