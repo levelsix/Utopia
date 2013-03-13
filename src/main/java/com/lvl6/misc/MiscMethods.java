@@ -1472,13 +1472,15 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     //PST = UTC - 8 or 7(because of daylight savings time) hours
     TimeZone laTimeZone = TimeZone.getTimeZone("America/Los_Angeles");
     Calendar laCal = Calendar.getInstance(laTimeZone);
-    log.info("laCal: " + laCal);
-    int offset = laCal.get(Calendar.ZONE_OFFSET) + laCal.get(Calendar.DST_OFFSET);
-    log.info("zone offset: " + laCal.get(Calendar.ZONE_OFFSET) + ", dst offset: " 
-        + laCal.get(Calendar.DST_OFFSET) + ", offset:" + offset);
-    log.info("cal: " + cal);
+    log.info("laCal: " + laCal.getTime());
+    //get the offset from gmt in hours
+    int hourOffset = laCal.get(Calendar.ZONE_OFFSET) / (1000*60*60);
+    int daylightSavingsOffset = laCal.get(Calendar.DST_OFFSET) / (1000*60*60);
+    int offset = (laCal.get(Calendar.ZONE_OFFSET) + laCal.get(Calendar.DST_OFFSET)) / (1000*60*60);
+    log.info("zone offset: " + hourOffset + ", dst offset: " + daylightSavingsOffset + ", offset:" + offset);
+    log.info("cal: " + cal.getTime());
     cal.setTimeZone(TimeZone.getTimeZone("Europe/London"));
-    log.info("cal: " + cal);
+    log.info("cal: " + cal.getTime());
     
     cal.add(Calendar.HOUR_OF_DAY, offset);
     //hopefully this gives me YYYY-MM-DD HH:00:00
