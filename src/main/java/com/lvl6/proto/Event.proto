@@ -348,7 +348,7 @@ message StartupResponseProto {
 			optional int32 purchaseOptionOneNumBoosterItems = 1;
 			optional int32 purchaseOptionTwoNumBoosterItems = 2;
 			optional string infoImageName = 3; 
-			optional int32 numTimesToBuyBoosterPack = 4;
+			optional int32 numTimesToBuyStarterPack = 4;
 			optional int32 numDaysToBuyStarterPack = 5;
 		}
 		

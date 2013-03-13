@@ -526,7 +526,7 @@ public class ControllerConstants {
   public static final int BOOSTER_PACK__PURCHASE_OPTION_ONE_NUM_BOOSTER_ITEMS = 1;
   public static final int BOOSTER_PACK__PURCHASE_OPTION_TWO_NUM_BOOSTER_ITEMS = 10;
   public static final String BOOSTER_PACK__INFO_IMAGE_NAME = "insertstringhere";
-  public static final int BOOSTER_PACK__NUM_TIMES_TO_BUY_BOOSTER_PACK = 10;
+  public static final int BOOSTER_PACK__NUM_TIMES_TO_BUY_STARTER_PACK = 4;
   public static final int BOOSTER_PACK__NUM_DAYS_TO_BUY_STARTER_PACK = 3;
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
