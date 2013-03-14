@@ -77,9 +77,13 @@ import com.lvl6.utils.RetrieveUtils;
         userTypes.add(UserType.GOOD_MAGE);
         userTypes.add(UserType.GOOD_WARRIOR);
       }
-
+      
+      boolean fakePlayersOnly = false;
+      if (5 > user.getLevel()) {
+        fakePlayersOnly = true;
+      }
       List<User> enemies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, numEnemies, user.getLevel(), user.getId(), false, 
-          latLowerBound, latUpperBound, longLowerBound, longUpperBound, true, null);
+          latLowerBound, latUpperBound, longLowerBound, longUpperBound, true, fakePlayersOnly, null);
       if (enemies != null) {
         for (User enemy : enemies) {
           if (Math.abs(enemy.getLevel() - user.getLevel()) <= ControllerConstants.BATTLE__MAX_LEVEL_DIFFERENCE) {

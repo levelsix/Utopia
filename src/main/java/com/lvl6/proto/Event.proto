@@ -344,6 +344,8 @@ message StartupResponseProto {
 		
 		optional BoosterPackConstants boosterPackConstants = 98;
 		
+		optional int32 questIdForFirstLossTutorial = 99;
+		
 		message BoosterPackConstants {
 			optional int32 purchaseOptionOneNumBoosterItems = 1;
 			optional int32 purchaseOptionTwoNumBoosterItems = 2;

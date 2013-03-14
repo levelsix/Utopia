@@ -692,11 +692,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       userTypes.add(UserType.BAD_WARRIOR);
     }
 
+    boolean fakePlayersOnly = false;
     List<Integer> forbiddenUserIds = new ArrayList<Integer>();
     forbiddenUserIds.add(user.getId());
 
     List<User> allies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, ControllerConstants.STARTUP__APPROX_NUM_ALLIES_TO_SEND, user.getLevel(), user.getId(), false, 
-        null, null, null, null, false, forbiddenUserIds);
+        null, null, null, null, false, fakePlayersOnly, forbiddenUserIds);
     if (allies != null && allies.size() > 0) {
       for (User ally : allies) {
         resBuilder.addAllies(CreateInfoProtoUtils.createMinimumUserProtoWithLevelFromUser(ally));
