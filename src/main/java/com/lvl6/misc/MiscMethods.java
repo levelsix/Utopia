@@ -635,6 +635,8 @@ public class MiscMethods {
         .build();
     cb = cb.setBoosterPackConstants(bpc);
 
+    cb.setQuestIdForFirstLossTutorial(ControllerConstants.STARTUP__QUEST_ID_FOR_FIRST_LOSS_TUTORIAL);
+    
     return cb.build();  
   }
 
