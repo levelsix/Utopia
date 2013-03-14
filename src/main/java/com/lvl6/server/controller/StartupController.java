@@ -183,7 +183,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         try {
           startupStatus = StartupStatus.USER_IN_DB;
           log.info("No major update... getting user info");
-          newNumConsecutiveDaysLoggedIn = 0;//setDailyBonusInfo(resBuilder, user, now);
+          newNumConsecutiveDaysLoggedIn = setDailyBonusInfo(resBuilder, user, now);
           setCitiesAndUserCityInfos(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
           setUserEquipsAndEquips(resBuilder, user);
