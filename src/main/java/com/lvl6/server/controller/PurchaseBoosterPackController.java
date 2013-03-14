@@ -6,9 +6,11 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.TimeZone;
 
 import org.slf4j.Logger;
@@ -22,6 +24,7 @@ import com.lvl6.events.response.PurchaseBoosterPackResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.BoosterItem;
 import com.lvl6.info.BoosterPack;
+import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.misc.MiscMethods;
@@ -30,6 +33,7 @@ import com.lvl6.proto.EventProto.PurchaseBoosterPackRequestProto;
 import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto;
 import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto.Builder;
 import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto.PurchaseBoosterPackStatus;
+import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.PurchaseOption;
@@ -39,6 +43,7 @@ import com.lvl6.retrieveutils.UserBoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.UserBoosterPackRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterPackRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
@@ -105,19 +110,23 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (legit) {
         //check if user has bought up all the booster items in the booster pack
         int numBoosterItemsUserWants = determineNumBoosterItemsFromPurchaseOption(option);
+        if (aPack.isStarterPack()) {
+          //starter pack means user gets one weapon, one armor, and one equip
+          numBoosterItemsUserWants = 3;
+        }
         
         //boosterItemIdsToNumCollected will only be modified if the amount the user buys
         //is more than what is left in the deck, need to reflect this in newBoosterItemIdsToNumCollected
         //and need to track how many items user received to buy out pack
-        getAllBoosterItemsForUser(boosterItemIdsToBoosterItems, boosterItemIdsToNumCollected,
-            numBoosterItemsUserWants, user, boosterPackId, itemsUserReceives, collectedBeforeReset);
+        boolean resetOccurred = getAllBoosterItemsForUser(boosterItemIdsToBoosterItems, boosterItemIdsToNumCollected,
+            numBoosterItemsUserWants, user, aPack, itemsUserReceives, collectedBeforeReset);
         newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>(boosterItemIdsToNumCollected);
         
         previousSilver  = user.getCoins() + user.getVaultBalance();
         previousGold = user.getDiamonds();
         successful = writeChangesToDB(resBuilder, user, boosterItemIdsToNumCollected,
             newBoosterItemIdsToNumCollected, itemsUserReceives, collectedBeforeReset, 
-            goldSilverChange, userEquipIds);
+            goldSilverChange, userEquipIds, resetOccurred);
       }
       
       if (successful) {
@@ -299,13 +308,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return (int) Math.ceil((nextDayInMillisGmt - now.getTime())/60000);
   }
   
-  //Returns all the booster items the user purchased.
+  //Returns all the booster items the user purchased and whether or not the use reset the chesst.
   //If the user buys out deck start over from a fresh deck 
   //(boosterItemIdsToNumCollected is changed to reflect none have been collected).
   //Also, keep track of which items were purchased before and/or after the reset (via collectedBeforeReset)
-  private void getAllBoosterItemsForUser(Map<Integer, BoosterItem> allBoosterItemIdsToBoosterItems, 
+  private boolean getAllBoosterItemsForUser(Map<Integer, BoosterItem> allBoosterItemIdsToBoosterItems, 
       Map<Integer, Integer> boosterItemIdsToNumCollected, int numBoosterItemsUserWants, User aUser, 
-      int boosterPackId, List<BoosterItem> returnValue, List<Boolean> collectedBeforeReset) {
+      BoosterPack aPack, List<BoosterItem> returnValue, List<Boolean> collectedBeforeReset) {
+    boolean resetOccurred = false;
+    int boosterPackId = aPack.getId();
     
     //the possible items user can get
     List<Integer> boosterItemIdsUserCanGet = new ArrayList<Integer>();
@@ -315,7 +326,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int sumQuantitiesInStock = determineBoosterItemsLeft(allBoosterItemIdsToBoosterItems, 
         boosterItemIdsToNumCollected, boosterItemIdsUserCanGet, quantitiesInStock, aUser, boosterPackId);
     
-    if (numBoosterItemsUserWants > sumQuantitiesInStock) {
+    //just in case user is allowed to purchase a lot more than what is available in a chest
+    //should take care of the case where user buys out the exact amount remaining in the chest
+    while (numBoosterItemsUserWants >= sumQuantitiesInStock) {
+      resetOccurred = true;
       //give all the remaining booster items to the user, 
       for (int i = 0; i < boosterItemIdsUserCanGet.size(); i++) {
         int bItemId = boosterItemIdsUserCanGet.get(i);
@@ -344,12 +358,18 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
     }
 
-    //set the booster item(s) the user will receieve
-    List<BoosterItem> itemUserReceives = determineBoosterItemsUserReceives(boosterItemIdsUserCanGet, 
-        quantitiesInStock, numBoosterItemsUserWants, sumQuantitiesInStock, allBoosterItemIdsToBoosterItems);
-   
+    //set the booster item(s) the user will receieve  
+    List<BoosterItem> itemUserReceives = new ArrayList<BoosterItem>();
+    if (aPack.isStarterPack()) {
+      itemUserReceives = determineStarterBoosterItemsUserReceives(boosterItemIdsUserCanGet,
+          quantitiesInStock, numBoosterItemsUserWants, sumQuantitiesInStock, allBoosterItemIdsToBoosterItems);
+    } else {
+      itemUserReceives = determineBoosterItemsUserReceives(boosterItemIdsUserCanGet, 
+          quantitiesInStock, numBoosterItemsUserWants, sumQuantitiesInStock, allBoosterItemIdsToBoosterItems);
+    }
     returnValue.addAll(itemUserReceives);
     collectedBeforeReset.addAll(Collections.nCopies(itemUserReceives.size(), false));
+    return resetOccurred;
   }
   
   //populates ids, quantitiesInStock; determines the remaining booster items the user can get
@@ -392,10 +412,59 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return sumQuantitiesInStock;
   }
   
+  //no arguments are modified
+  private List<BoosterItem> determineStarterBoosterItemsUserReceives(List<Integer> boosterItemIdsUserCanGet, 
+      List<Integer> quantitiesInStock, int amountUserWantsToPurchase, int sumOfQuantitiesInStock,
+      Map<Integer, BoosterItem> allBoosterItemIdsToBoosterItems) {
+    //return value
+    List<BoosterItem> returnValue = new ArrayList<BoosterItem>();
+    if (0 == amountUserWantsToPurchase) {
+      return returnValue;
+    } else if (3 != amountUserWantsToPurchase) {
+      log.error("unexpected error: buying " + amountUserWantsToPurchase + " more equips instead of 3.");
+      return returnValue; 
+    } else if (0 != (sumOfQuantitiesInStock % 3)) {
+      log.error("unexpected error: num remaining equips, " + sumOfQuantitiesInStock
+          + ", for this chest is not a multiple of 3");
+      return returnValue;
+    }
+    
+    Map<Integer, Equipment> allEquips = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
+    Set<EquipType> receivedEquipTypes = new HashSet<EquipType>();
+    
+    //loop through equips user can get; select one weapon, one armor, one amulet
+    for (int boosterItemId : boosterItemIdsUserCanGet) {
+      BoosterItem bi = allBoosterItemIdsToBoosterItems.get(boosterItemId);
+      int equipId = bi.getEquipId();
+      Equipment equip = allEquips.get(equipId);
+      EquipType eType = equip.getType();
+      
+      if (receivedEquipTypes.contains(eType)) {
+        //user already got this equip type
+        continue;
+      } else {
+        //record user got a new equip type
+        returnValue.add(bi);
+        receivedEquipTypes.add(eType);
+      }
+    }
+    
+    if (3 != returnValue.size()) {
+      log.error("unexpected error: user did not receive one type of each equip."
+      		+ " User would have received (but now will not receive): " + MiscMethods.shallowListToString(returnValue) 
+      		+ ". Chest either intialized improperly or code assigns equips incorrectly.");
+      return new ArrayList<BoosterItem>();
+    }
+    return returnValue;
+  }
+  
+  //no arguments are modified
   private List<BoosterItem> determineBoosterItemsUserReceives(List<Integer> boosterItemIdsUserCanGet, 
       List<Integer> quantitiesInStock, int amountUserWantsToPurchase, int sumOfQuantitiesInStock,
       Map<Integer, BoosterItem> allBoosterItemIdsToBoosterItems) {
+    //return value
     List<BoosterItem> itemsUserReceives = new ArrayList<BoosterItem>();
+    
     Random rand = new Random();
     List<Integer> newBoosterItemIdsUserCanGet = new ArrayList<Integer>(boosterItemIdsUserCanGet);
     List<Integer> newQuantitiesInStock = new ArrayList<Integer>(quantitiesInStock);
@@ -442,7 +511,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   //sets values for newBoosterItemIdsToNumCollected
   private boolean writeChangesToDB(Builder resBuilder, User user, Map<Integer, Integer> boosterItemIdsToNumCollected,
       Map<Integer, Integer> newBoosterItemIdsToNumCollected, List<BoosterItem> itemsUserReceives, 
-      List<Boolean> collectedBeforeReset, Map<String, Integer> goldSilverChange, List<Integer> uEquipIds) {
+      List<Boolean> collectedBeforeReset, Map<String, Integer> goldSilverChange, List<Integer> uEquipIds, boolean resetOccurred) {
     //insert into user_equips, update user, update user_booster_items
     int userId = user.getId();
     List<Integer> userEquipIds = insertNewUserEquips(userId, itemsUserReceives);
@@ -480,7 +549,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     uEquipIds.addAll(userEquipIds);
     //update user_booster_items
     if (!updateUserBoosterItems(itemsUserReceives, collectedBeforeReset, 
-        boosterItemIdsToNumCollected, newBoosterItemIdsToNumCollected, userId)) {
+        boosterItemIdsToNumCollected, newBoosterItemIdsToNumCollected, userId, resetOccurred)) {
       //failed to update user_booster_items
       log.error("failed to update user_booster_items for userId: " + userId
           + " attempting to give money back and delete equips bought: "
@@ -515,10 +584,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   
   private boolean updateUserBoosterItems(List<BoosterItem> itemsUserReceives, 
       List<Boolean> collectedBeforeReset, Map<Integer, Integer> boosterItemIdsToNumCollected, 
-      Map<Integer, Integer> newBoosterItemIdsToNumCollected, int userId) {
+      Map<Integer, Integer> newBoosterItemIdsToNumCollected, int userId, boolean resetOccurred) {
+    
     Map<Integer, Integer> changedBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>();
     int numCollectedBeforeReset = 0;
-    boolean resetOccurred = false;
 
     //for each booster item received record it in the map above, and record how many
     //booster items user has in aggregate
@@ -527,6 +596,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (!beforeReset) {
         BoosterItem received = itemsUserReceives.get(i);
         int boosterItemId = received.getId();
+        
         //default quantity user gets if user has no quantity of specific boosterItem
         int newQuantity = 1; 
         if(newBoosterItemIdsToNumCollected.containsKey(boosterItemId)) {
@@ -535,9 +605,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         changedBoosterItemIdsToNumCollected.put(boosterItemId, newQuantity);
         newBoosterItemIdsToNumCollected.put(boosterItemId, newQuantity);
       } else {
-        if(false == resetOccurred) {
-          resetOccurred = true;
-        }
         numCollectedBeforeReset++;
       }
     }
