@@ -72,16 +72,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       boolean legitReset = checkLegitReset(resBuilder, aPack, boosterItemIdsToBoosterItems);
       boolean success = false;
-      Map<Integer, Integer> newBoosterItemIdsToQuantitiesForUser = new HashMap<Integer, Integer>();
+      Map<Integer, Integer> clientNewBoosterItemIdsToQuantitiesForUser = new HashMap<Integer, Integer>();
+      Map<Integer, Integer> dbNewBoosterItemIdsToQuantitiesForUser = new HashMap<Integer, Integer>();
       if (legitReset) {
-        newBoosterItemIdsToQuantitiesForUser = resetQuantities(boosterItemIdsToQuantitiesForAUser);
-        success = writeChangesToDB(resBuilder, userId, newBoosterItemIdsToQuantitiesForUser);
+        //reset ONLY the booster item quantities for the booster pack user requested
+        clientNewBoosterItemIdsToQuantitiesForUser = resetQuantities(boosterItemIdsToQuantitiesForAUser, 
+            boosterItemIdsToBoosterItems, dbNewBoosterItemIdsToQuantitiesForUser);
+        success = writeChangesToDB(resBuilder, userId, dbNewBoosterItemIdsToQuantitiesForUser);
       }
       
       if (success) {
         //proto to insert into builder
         UserBoosterPackProto ubpp = generateUserBoosterPackProto(
-            boosterPackId, userId, boosterItemIdsToBoosterItems, newBoosterItemIdsToQuantitiesForUser);
+            boosterPackId, userId, boosterItemIdsToBoosterItems, clientNewBoosterItemIdsToQuantitiesForUser);
         resBuilder.setUserBoosterPack(ubpp);
       }
 
@@ -114,12 +117,23 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return true;
   }
 
-  private Map<Integer, Integer> resetQuantities(Map<Integer, Integer> boosterItemIdsQuantitiesForUser) {
-    Map<Integer, Integer> newBoosterItemIdsToQuantitiesForUser = new HashMap<Integer, Integer>();
+  private Map<Integer, Integer> resetQuantities(Map<Integer, Integer> boosterItemIdsQuantitiesForUser,
+     Map<Integer, BoosterItem> boosterItemIdsToBoosterItems, Map<Integer, Integer> dbNewBoosterItemIdsToQuantitiesForUser) {
+    
+    Map<Integer, Integer> clientNewBoosterItemIdsToQuantitiesForUser = new HashMap<Integer, Integer>();
+    //for each user booster item, check if the item belongs in the booster items for a pack
     for (int boosterItemId : boosterItemIdsQuantitiesForUser.keySet()) {
-      newBoosterItemIdsToQuantitiesForUser.put(boosterItemId, 0);
+      
+      if (boosterItemIdsToBoosterItems.containsKey(boosterItemId)) {
+        dbNewBoosterItemIdsToQuantitiesForUser.put(boosterItemId, 0);
+        clientNewBoosterItemIdsToQuantitiesForUser.put(boosterItemId, 0);
+      } else {
+        //the client needs a copy of all the user booster items the user has
+        int quantity = boosterItemIdsQuantitiesForUser.get(boosterItemId);
+        clientNewBoosterItemIdsToQuantitiesForUser.put(boosterItemId, quantity);
+      }
     }
-    return newBoosterItemIdsToQuantitiesForUser;
+    return clientNewBoosterItemIdsToQuantitiesForUser;
   }
   
   private boolean writeChangesToDB(Builder resBuilder, int userId,
