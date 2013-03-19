@@ -162,16 +162,36 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     }
     
     if (!InsertUtils.get().insertUserClan(userId, clanId, userClanStatus, new Timestamp(new Date().getTime()))) {
-      log.error("problem with inserting user clan data for user " + user + ", and clan id " + clanId);
+      log.error("unexpected error: problem with inserting user clan data for user " + user + ", and clan id " + clanId);
       resBuilder.setStatus(RequestJoinClanStatus.OTHER_FAIL);
       return false;
+    } 
+    
+    boolean deleteUserClanInserted = false;
+    //update user to reflect he joined clan
+    if (!user.updateRelativeDiamondsAbsoluteClan(0, clanId)) {
+      //could not change clan_id for user
+      log.error("unexpected error: could not change clan id for requester " + user + " to " + clanId 
+          + ". Deleting user clan that was just created.");
+      deleteUserClanInserted = true;
     } else {
+      //successfully changed clan_id in current user
       if (!requestToJoinRequired) {
-        //user joined clan, get rid of all other requests
+        //get rid of all other join clan requests
+        //don't know if this next line will always work...
         DeleteUtils.get().deleteUserClansForUserExceptSpecificClan(userId, clanId);
       }
-      return true;
     }
+    
+    boolean successful = true;
+    if (deleteUserClanInserted) {
+      if (!DeleteUtils.get().deleteUserClan(userId, clanId)){
+        log.error("unexpected error: could not delete user clan inserted.");
+      }
+      resBuilder.setStatus(RequestJoinClanStatus.OTHER_FAIL);
+      successful = false;
+    }
+    return successful;
   }
   
   private void notifyClan(User aUser, Clan aClan, boolean requestToJoinRequired) {
