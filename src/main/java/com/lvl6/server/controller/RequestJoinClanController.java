@@ -70,8 +70,14 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       Clan clan = ClanRetrieveUtils.getClanWithId(clanId);
 
       boolean legitRequest = checkLegitRequest(resBuilder, user, clan);
-
-      resBuilder.setRequester(CreateInfoProtoUtils.createMinimumUserProtoForClans(user, UserClanStatus.REQUESTING));
+      
+      boolean requestToJoinRequired = clan.isRequestToJoinRequired();
+      if (requestToJoinRequired) {
+        resBuilder.setRequester(CreateInfoProtoUtils.createMinimumUserProtoForClans(user, UserClanStatus.REQUESTING));
+      } else {
+        resBuilder.setRequester(CreateInfoProtoUtils.createMinimumUserProtoForClans(user, UserClanStatus.MEMBER));
+      }
+      
       boolean successful = false;
       if (legitRequest) {
         successful = writeChangesToDB(resBuilder, user, clan);
@@ -99,7 +105,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        notifyClanLeaderApns(user, clan); //write to clan leader
+        notifyClan(user, clan, requestToJoinRequired); //write to clan leader or clan
         QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.REQUEST_JOIN_CLAN, true);
       }
     } catch (Exception e) {
@@ -144,6 +150,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   private boolean writeChangesToDB(Builder resBuilder, User user, Clan clan) {
     //clan can be open, or user needs to send a request to join the clan
     boolean requestToJoinRequired = clan.isRequestToJoinRequired();
+    int userId = user.getId();
+    int clanId = clan.getId(); //user.getClanId(); //this is null still...
     UserClanStatus userClanStatus;
     if (requestToJoinRequired) {
       userClanStatus = UserClanStatus.REQUESTING;
@@ -153,33 +161,44 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       resBuilder.setStatus(RequestJoinClanStatus.JOIN_SUCCESS);
     }
     
-    if (!InsertUtils.get().insertUserClan(user.getId(), clan.getId(), userClanStatus, new Timestamp(new Date().getTime()))) {
-      log.error("problem with inserting user clan data for user " + user + ", and clan id " + clan.getId());
+    if (!InsertUtils.get().insertUserClan(userId, clanId, userClanStatus, new Timestamp(new Date().getTime()))) {
+      log.error("problem with inserting user clan data for user " + user + ", and clan id " + clanId);
       resBuilder.setStatus(RequestJoinClanStatus.OTHER_FAIL);
       return false;
     } else {
       if (!requestToJoinRequired) {
         //user joined clan, get rid of all other requests
-        DeleteUtils.get().deleteUserClansForUserExceptSpecificClan(user.getId(), user.getClanId());
+        DeleteUtils.get().deleteUserClansForUserExceptSpecificClan(userId, clanId);
       }
       return true;
     }
   }
   
-  private void notifyClanLeaderApns(User aUser, Clan aClan) {
+  private void notifyClan(User aUser, Clan aClan, boolean requestToJoinRequired) {
     int clanOwnerId = aClan.getOwnerId();
+    int clanId = aClan.getId();
     
     int level = aUser.getLevel();
     String requester = aUser.getName();
     Notification aNote = new Notification();
-    aNote.setAsUserRequestedToJoinClan(level, requester);
     
-    GeneralNotificationResponseProto.Builder notificationProto =
-        aNote.generateNotificationBuilder();
-    GeneralNotificationResponseEvent aNotification =
-        new GeneralNotificationResponseEvent(clanOwnerId);
-    aNotification.setGeneralNotificationResponseProto(notificationProto.build());
+    if (requestToJoinRequired) {
+      //notify leader someone requested to join clan
+      aNote.setAsUserRequestedToJoinClan(level, requester);
+      MiscMethods.writeNotificationToUser(aNote, server, clanOwnerId);
+    } else {
+      //notify whole clan someone joined the clan
+      //TODO: Maybe exclude the guy who joined from receiving the notification?
+      aNote.setAsUserJoinedClan(level, requester);
+      MiscMethods.writeClanApnsNotification(aNote, server, clanId);
+    }
     
-    server.writeAPNSNotificationOrEvent(aNotification);
+//    GeneralNotificationResponseProto.Builder notificationProto =
+//        aNote.generateNotificationBuilder();
+//    GeneralNotificationResponseEvent aNotification =
+//        new GeneralNotificationResponseEvent(clanOwnerId);
+//    aNotification.setGeneralNotificationResponseProto(notificationProto.build());
+//    
+//    server.writeAPNSNotificationOrEvent(aNotification);
   }
 }

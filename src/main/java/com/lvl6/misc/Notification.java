@@ -333,4 +333,31 @@ public class Notification {
     log.info("sending join clan request for level " + level + " " + requester);
   }
   
+  public void setAsUserJoinedClan(int level, String newMember) {
+    Object[] arguments = { level, newMember };
+    String title = NotificationConstants.USER_JOINED_A_CLAN__TITLE;
+    String subtitle = NotificationConstants.USER_JOINED_A_CLAN__SUBTITLE;
+    int blue = NotificationConstants.USER_JOINED_A_CLAN__BLUE;
+    int green = NotificationConstants.USER_JOINED_A_CLAN__GREEN;
+    int red = NotificationConstants.USER_JOINED_A_CLAN__RED;
+    
+    setUpNotification(arguments, title, subtitle, blue, green, red);
+    log.info("created joined clan notification for level" + level + " " + newMember);
+  }
+  
+  private void setUpNotification(Object[] argumentsToMsgFormat, String title, String subtitle,
+      int blue, int green, int red) {
+    MessageFormat formatTitle = new MessageFormat(title);
+    MessageFormat formatSubtitle = new MessageFormat(subtitle);
+    String apnsTitle = formatTitle.format(argumentsToMsgFormat);
+    String apnsSubtitle = formatSubtitle.format(argumentsToMsgFormat);
+    
+    rgb.setBlue(blue);
+    rgb.setGreen(green);
+    rgb.setRed(red);
+    
+    keysAndValues.put("title", apnsTitle);
+    keysAndValues.put("subtitle", apnsSubtitle);
+    keysAndValues.put("rgb", rgb.build());
+  }
 }

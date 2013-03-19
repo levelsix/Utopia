@@ -1076,6 +1076,16 @@ public class MiscMethods {
     aNotification.setGeneralNotificationResponseProto(notificationProto.build());
     server.writeApnsClanEvent(aNotification, clanId);
   }
+  
+  public static void writeNotificationToUser(Notification aNote, GameServer server, int userId) {
+    GeneralNotificationResponseProto.Builder notificationProto =
+        aNote.generateNotificationBuilder();
+    GeneralNotificationResponseEvent aNotification =
+        new GeneralNotificationResponseEvent(userId);
+    aNotification.setGeneralNotificationResponseProto(notificationProto.build());
+    
+    server.writeAPNSNotificationOrEvent(aNotification);
+  }
 
   //Simple (inefficient) word by word censor. If a word appears in 
   //a blacklist then that word is replaced by a number of asterisks 
