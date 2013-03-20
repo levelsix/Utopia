@@ -168,15 +168,15 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     } 
     
     boolean deleteUserClanInserted = false;
-    //update user to reflect he joined clan
-    if (!user.updateRelativeDiamondsAbsoluteClan(0, clanId)) {
-      //could not change clan_id for user
-      log.error("unexpected error: could not change clan id for requester " + user + " to " + clanId 
-          + ". Deleting user clan that was just created.");
-      deleteUserClanInserted = true;
-    } else {
-      //successfully changed clan_id in current user
-      if (!requestToJoinRequired) {
+    //update user to reflect he joined clan if the clan does not require a request to join
+    if (!requestToJoinRequired) {
+      if (!user.updateRelativeDiamondsAbsoluteClan(0, clanId)) {
+        //could not change clan_id for user
+        log.error("unexpected error: could not change clan id for requester " + user + " to " + clanId 
+            + ". Deleting user clan that was just created.");
+        deleteUserClanInserted = true;
+      } else {
+        //successfully changed clan_id in current user
         //get rid of all other join clan requests
         //don't know if this next line will always work...
         DeleteUtils.get().deleteUserClansForUserExceptSpecificClan(userId, clanId);
