@@ -19,6 +19,7 @@ import com.lvl6.info.Location;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType;
@@ -1044,6 +1045,30 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__RARITY_ONE_QUANTITY, rarityOneQuantity);
     insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__RARITY_TWO_QUANTITY, rarityTwoQuantity);
     insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__RARITY_THREE_QUANTITY, rarityThreeQuantity);
+    
+    int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
+    return numInserted;
+  }
+  
+  public int insertIntoUserDailyRewardHistory(int userId, int currencyRewarded, boolean isCoins,
+      int equipIdRewarded, int nthConsecutiveDay, Date aDate) {
+    String tableName = DBConstants.TABLE_USER_DAILY_BONUS_REWARD_HISTORY;
+    
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    
+    insertParams.put(DBConstants.USER_DAILY_BONUS_REWARD_HISTORY__USER_ID, userId);
+    if (ControllerConstants.NOT_SET != currencyRewarded) {
+      //currency and equip rewarded as of this moment are mutually exclusive, one or the other not both
+      insertParams.put(DBConstants.USER_DAILY_BONUS_REWARD_HISTORY__CURRENCY_REWARDED, currencyRewarded);
+    }
+    insertParams.put(DBConstants.USER_DAILY_BONUS_REWARD_HISTORY__IS_COINS, isCoins);
+    if (ControllerConstants.NOT_SET != equipIdRewarded) {
+      insertParams.put(DBConstants.USER_DAILY_BONUS_REWARD_HISTORY__EQUIP_ID_REWARDED, equipIdRewarded);
+    }
+    insertParams.put(DBConstants.USER_DAILY_BONUS_REWARD_HISTORY__NTH_CONSECUTIVE_DAY, nthConsecutiveDay);
+    
+    Timestamp dateAwarded = new Timestamp(aDate.getTime());
+    insertParams.put(DBConstants.USER_DAILY_BONUS_REWARD_HISTORY__DATE_AWARDED, dateAwarded);
     
     int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
     return numInserted;

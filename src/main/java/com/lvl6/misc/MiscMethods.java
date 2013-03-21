@@ -95,6 +95,7 @@ import com.lvl6.retrieveutils.rarechange.BossRewardRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.ClanTierLevelRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.DailyBonusRewardRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.GoldSaleRetrieveUtils;
@@ -129,6 +130,9 @@ public class MiscMethods {
   public static final String clanTowersClanOwned = "clanTowersClanOwned";
   public static final String gold = "gold";
   public static final String silver = "silver";
+  public static final String equipId = "equipId";
+  public static final String coins = "coins";
+  public static final String diamonds = "diamonds";
 
   public static int calculateMinutesToFinishForgeAttempt(Equipment equipment, int goalLevel) {
     return (int)
@@ -725,6 +729,7 @@ public class MiscMethods {
     BoosterPackRetrieveUtils.reload();
     BoosterItemRetrieveUtils.reload();
     BannedUserRetrieveUtils.reload();
+    DailyBonusRewardRetrieveUtils.reload();
   }
 
   public static UserType getUserTypeFromDefeatTypeJobUserType(
@@ -748,68 +753,68 @@ public class MiscMethods {
     }
   }
 
-  public static int chooseMysteryBoxEquip(User user) {
-    int userLevelMin = user.getLevel()-ControllerConstants.STARTUP__DAILY_BONUS_RECEIVE_EQUIP_LEVEL_RANGE;
-    int userLevelMax = user.getLevel()+ControllerConstants.STARTUP__DAILY_BONUS_RECEIVE_EQUIP_LEVEL_RANGE;
-    double randItem = Math.random();
-    double randSelection = Math.random();
-    double totalPercentage = 0;
-    int retEquipId = ControllerConstants.TUTORIAL__FAKE_QUEST_AMULET_LOOT_EQUIP_ID;
-
-    List<Equipment> allEquipment = EquipmentRetrieveUtils.getAllEquipmentForClassType(getClassTypeFromUserType(user.getType()));
-    List<Equipment> commonEquips = new ArrayList<Equipment>();
-    List<Equipment> uncommonEquips = new ArrayList<Equipment>();
-    List<Equipment> rareEquips = new ArrayList<Equipment>();
-    List<Equipment> epicEquips = new ArrayList<Equipment>();
-    List<Equipment> legendaryEquips = new ArrayList<Equipment>();
-
-    for (Equipment e:allEquipment) {
-      if (e.getMinLevel()>=userLevelMin && e.getMinLevel()<=userLevelMax) {
-        //the equipment is at the right level	
-        if (e.getRarity().equals(Rarity.COMMON)) {
-          commonEquips.add(e);
-        } else if (e.getRarity().equals(Rarity.UNCOMMON)) {
-          uncommonEquips.add(e);
-        } else if (e.getRarity().equals(Rarity.RARE)) {
-          rareEquips.add(e);
-        } else if (e.getRarity().equals(Rarity.EPIC)) {
-          epicEquips.add(e);
-        } else if (e.getRarity().equals(Rarity.LEGENDARY)) {
-          legendaryEquips.add(e);
-        } else {
-          log.error("ERROR! equipment " + e + " has no rarity");
-        }
-      }
-    }
-    if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_COMMON_EQUIP)) {
-      if (commonEquips !=  null) {
-        int selection = (int) randSelection*commonEquips.size();
-        retEquipId = commonEquips.get(selection).getId();
-      }
-    } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_UNCOMMON_EQUIP)) {
-      if (uncommonEquips != null) {
-        int selection = (int) randSelection*uncommonEquips.size();	
-        retEquipId = uncommonEquips.get(selection).getId();
-      }
-    } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_RARE_EQUIP)) {
-      if (rareEquips != null) {
-        int selection = (int) randSelection*rareEquips.size();	
-        retEquipId = rareEquips.get(selection).getId();
-      }
-    } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_EPIC_EQUIP)) {
-      if (epicEquips != null) {
-        int selection = (int) randSelection*epicEquips.size();	
-        retEquipId = epicEquips.get(selection).getId();
-      }
-    } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_LEGENDARY_EQUIP)) {
-      if (legendaryEquips != null) {
-        int selection = (int) randSelection*legendaryEquips.size();
-        retEquipId = legendaryEquips.get(selection).getId();
-      }
-    } 
-
-    return retEquipId;
-  }
+//  public static int chooseMysteryBoxEquip(User user) {
+//    int userLevelMin = user.getLevel()-ControllerConstants.STARTUP__DAILY_BONUS_RECEIVE_EQUIP_LEVEL_RANGE;
+//    int userLevelMax = user.getLevel()+ControllerConstants.STARTUP__DAILY_BONUS_RECEIVE_EQUIP_LEVEL_RANGE;
+//    double randItem = Math.random();
+//    double randSelection = Math.random();
+//    double totalPercentage = 0;
+//    int retEquipId = ControllerConstants.TUTORIAL__FAKE_QUEST_AMULET_LOOT_EQUIP_ID;
+//
+//    List<Equipment> allEquipment = EquipmentRetrieveUtils.getAllEquipmentForClassType(getClassTypeFromUserType(user.getType()));
+//    List<Equipment> commonEquips = new ArrayList<Equipment>();
+//    List<Equipment> uncommonEquips = new ArrayList<Equipment>();
+//    List<Equipment> rareEquips = new ArrayList<Equipment>();
+//    List<Equipment> epicEquips = new ArrayList<Equipment>();
+//    List<Equipment> legendaryEquips = new ArrayList<Equipment>();
+//
+//    for (Equipment e:allEquipment) {
+//      if (e.getMinLevel()>=userLevelMin && e.getMinLevel()<=userLevelMax) {
+//        //the equipment is at the right level	
+//        if (e.getRarity().equals(Rarity.COMMON)) {
+//          commonEquips.add(e);
+//        } else if (e.getRarity().equals(Rarity.UNCOMMON)) {
+//          uncommonEquips.add(e);
+//        } else if (e.getRarity().equals(Rarity.RARE)) {
+//          rareEquips.add(e);
+//        } else if (e.getRarity().equals(Rarity.EPIC)) {
+//          epicEquips.add(e);
+//        } else if (e.getRarity().equals(Rarity.LEGENDARY)) {
+//          legendaryEquips.add(e);
+//        } else {
+//          log.error("ERROR! equipment " + e + " has no rarity");
+//        }
+//      }
+//    }
+//    if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_COMMON_EQUIP)) {
+//      if (commonEquips !=  null) {
+//        int selection = (int) randSelection*commonEquips.size();
+//        retEquipId = commonEquips.get(selection).getId();
+//      }
+//    } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_UNCOMMON_EQUIP)) {
+//      if (uncommonEquips != null) {
+//        int selection = (int) randSelection*uncommonEquips.size();	
+//        retEquipId = uncommonEquips.get(selection).getId();
+//      }
+//    } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_RARE_EQUIP)) {
+//      if (rareEquips != null) {
+//        int selection = (int) randSelection*rareEquips.size();	
+//        retEquipId = rareEquips.get(selection).getId();
+//      }
+//    } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_EPIC_EQUIP)) {
+//      if (epicEquips != null) {
+//        int selection = (int) randSelection*epicEquips.size();	
+//        retEquipId = epicEquips.get(selection).getId();
+//      }
+//    } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_LEGENDARY_EQUIP)) {
+//      if (legendaryEquips != null) {
+//        int selection = (int) randSelection*legendaryEquips.size();
+//        retEquipId = legendaryEquips.get(selection).getId();
+//      }
+//    } 
+//
+//    return retEquipId;
+//  }
 
   /*
    * Returns true if the user's (short or long) marketplace license is still in effect
@@ -1567,5 +1572,47 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     } else {
       return false;
     }
+  }
+  
+  //csi: comma separated ints
+  public static List<Integer> unCsvStringIntoIntList(String csi) {
+    List<Integer> ints = new ArrayList<Integer>();
+    if (null != csi) {
+      StringTokenizer st = new StringTokenizer(csi, ", ");
+      while (st.hasMoreTokens()) {
+        ints.add(Integer.parseInt(st.nextToken()));
+      }
+    }
+    return ints;
+  }
+  
+  //one of the arguments will be set and the other one will be null
+  public static long getDateDMYinMillis(Timestamp nowTimestamp, Date nowDate) {
+    Date nowTemp = null;
+    
+    if (null == nowTimestamp) {
+      nowTemp = nowDate;
+    } else {
+      nowTemp = new Date(nowTimestamp.getTime());
+    }
+    Calendar curDate = Calendar.getInstance();
+    curDate.setTime(nowTemp);
+    curDate.set(Calendar.HOUR_OF_DAY, 0);
+    curDate.set(Calendar.HOUR, 0);
+    curDate.set(Calendar.MINUTE, 0);
+    curDate.set(Calendar.SECOND, 0);
+    curDate.set(Calendar.MILLISECOND, 0);
+    curDate.set(Calendar.AM_PM, 0);
+    
+    return curDate.getTimeInMillis();
+  }
+  
+  public static int getRandomIntFromList(List<Integer> numList) {
+    int upperBound = numList.size();
+    Random rand = new Random();
+    int randInt = rand.nextInt(upperBound);
+    
+    int returnValue = numList.get(randInt);
+    return returnValue;
   }
 }

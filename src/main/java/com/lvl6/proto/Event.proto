@@ -186,9 +186,11 @@ message StartupResponseProto {
 	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
-		optional bool firstTimeToday = 2;
-		optional int32 coinBonus = 3;
-		optional FullUserEquipProto userEquipBonus = 4;
+		optional int32 dayOneCoins = 2;
+		optional int32 dayTwoCoins = 3;
+		optional int32 dayThreeDiamonds = 4;
+		optional int32 dayFourCoins = 5;
+		optional int32 equipId = 6;		//value set only if user has been on for 5 consecutive days
 	}
 
 	message MarketplacePostPurchasedNotificationProto {

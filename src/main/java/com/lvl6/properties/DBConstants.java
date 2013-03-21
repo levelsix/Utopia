@@ -86,6 +86,9 @@ public class DBConstants {
   public static final String TABLE_LOGIN_HISTORY = "login_history";
   public static final String TABLE_FIRST_TIME_USERS = "first_time_users";
   
+  public static final String TABLE_DAILY_BONUS_REWARD = "daily_bonus_reward";
+  public static final String TABLE_USER_DAILY_BONUS_REWARD_HISTORY = "user_daily_bonus_reward_history";
+  
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
   public static final String GENERIC__ID = "id";
@@ -622,5 +625,24 @@ public class DBConstants {
   public static final String FIRST_TIME_USERS__MAC = "mac";
   public static final String FIRST_TIME_USERS__ADVERTISER_ID = "advertiser_id";
   public static final String FIRST_TIME_USERS__CREATE_TIME = "create_time";
+
+  /*DAILY BONUS REWARD*/
+  public static final String DAILY_BONUS_REWARD__ID = GENERIC__ID;
+  public static final String DAILY_BONUS_REWARD__MIN_LEVEL = "min_level";
+  public static final String DAILY_BONUS_REWARD__MAX_LEVEL = "max_level";
+  public static final String DAILY_BONUS_REWARD__DAY_ONE_COINS = "day_one_coins";
+  public static final String DAILY_BONUS_REWARD__DAY_TWO_COINS = "day_two_coins"; 
+  public static final String DAILY_BONUS_REWARD__DAY_THREE_DIAMONDS = "day_three_diamonds";
+  public static final String DAILY_BONUS_REWARD__DAY_FOUR_COINS = "day_four_coins";
+  public static final String DAILY_BONUS_REWARD__DAY_FIVE_EQUIP_IDS = "day_five_equip_ids";
+  
+  /*USER DAILY BONUS REWARD HISTORY*/
+  public static final String USER_DAILY_BONUS_REWARD_HISTORY__ID = GENERIC__ID;
+  public static final String USER_DAILY_BONUS_REWARD_HISTORY__USER_ID = GENERIC__USER_ID;
+  public static final String USER_DAILY_BONUS_REWARD_HISTORY__CURRENCY_REWARDED = "currency_rewarded";
+  public static final String USER_DAILY_BONUS_REWARD_HISTORY__IS_COINS = "is_coins";
+  public static final String USER_DAILY_BONUS_REWARD_HISTORY__EQUIP_ID_REWARDED = "equip_id_rewarded";
+  public static final String USER_DAILY_BONUS_REWARD_HISTORY__NTH_CONSECUTIVE_DAY = "nth_consecutive_day";
+  public static final String USER_DAILY_BONUS_REWARD_HISTORY__DATE_AWARDED = "date_awarded";
   
 }

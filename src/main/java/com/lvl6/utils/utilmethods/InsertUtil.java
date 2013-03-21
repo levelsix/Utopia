@@ -167,4 +167,7 @@ public interface InsertUtil {
   
   public abstract int insertIntoUserBoosterPackHistory(int userId, int boosterPackId, int numBought, Timestamp timeOfPurchase,
       int rarityOneQuantity, int rarityTwoQuantity, int rarityThreeQuantity);
+  
+  public abstract int insertIntoUserDailyRewardHistory(int userId, int currencyRewarded, boolean isCoins, int equipIdRewarded,
+      int nthConsecutiveDay, Date dateAwarded);
 }
