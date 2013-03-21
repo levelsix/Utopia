@@ -78,9 +78,9 @@ import com.lvl6.utils.DBConnection;
     int dayThreeDiamonds = rs.getInt(i++);
     int dayFourCoins = rs.getInt(i++);
     
-    String csvEquipIds = rs.getString(i++);
-    List<Integer> equipIds = MiscMethods.unCsvStringIntoIntList(csvEquipIds);
+    String csvBoosterPackIds = rs.getString(i++);
+    List<Integer> boosterPackIds = MiscMethods.unCsvStringIntoIntList(csvBoosterPackIds);
     
-    return new DailyBonusReward(id, minLevel, maxLevel, dayOneCoins, dayTwoCoins, dayThreeDiamonds, dayFourCoins, equipIds);
+    return new DailyBonusReward(id, minLevel, maxLevel, dayOneCoins, dayTwoCoins, dayThreeDiamonds, dayFourCoins, boosterPackIds);
   }
 }

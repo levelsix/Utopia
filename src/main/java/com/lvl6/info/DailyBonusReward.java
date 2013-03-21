@@ -11,11 +11,11 @@ public class DailyBonusReward {
   private int dayTwoCoins;
   private int dayThreeDiamonds;
   private int dayFourCoins;
-  private List<Integer> dayFiveEquipIds;
+  private List<Integer> dayFiveBoosterPackIds;
   
   public DailyBonusReward(int id, int minLevel, int maxLevel, int dayOneCoins,
       int dayTwoCoins, int dayThreeDiamonds, int dayFourCoins,
-      List<Integer> equipIds) {
+      List<Integer> dayFiveBoosterPackIds) {
     super();
     this.id = id;
     this.minLevel = minLevel;
@@ -24,7 +24,7 @@ public class DailyBonusReward {
     this.dayTwoCoins = dayTwoCoins;
     this.dayThreeDiamonds = dayThreeDiamonds;
     this.dayFourCoins = dayFourCoins;
-    this.dayFiveEquipIds = equipIds;
+    this.dayFiveBoosterPackIds = dayFiveBoosterPackIds;
   }
 
   public int getId() {
@@ -83,12 +83,12 @@ public class DailyBonusReward {
     this.dayFourCoins = dayFourCoins;
   }
 
-  public List<Integer> getEquipIds() {
-    return dayFiveEquipIds;
+  public List<Integer> getDayFiveBoosterPackIds() {
+    return dayFiveBoosterPackIds;
   }
 
-  public void setEquipIds(List<Integer> equipIds) {
-    this.dayFiveEquipIds = equipIds;
+  public void setDayFiveBoosterPackIds(List<Integer> dayFiveBoosterPackIds) {
+    this.dayFiveBoosterPackIds = dayFiveBoosterPackIds;
   }
 
   @Override
@@ -96,8 +96,8 @@ public class DailyBonusReward {
     return "DailyBonusReward [id=" + id + ", minLevel=" + minLevel
         + ", maxLevel=" + maxLevel + ", dayOneCoins=" + dayOneCoins
         + ", dayTwoCoins=" + dayTwoCoins + ", dayThreeDiamonds="
-        + dayThreeDiamonds + ", dayFourCoins=" + dayFourCoins + ", equipIds="
-        + dayFiveEquipIds + "]";
+        + dayThreeDiamonds + ", dayFourCoins=" + dayFourCoins
+        + ", dayFiveBoosterPackIds=" + dayFiveBoosterPackIds + "]";
   }
   
 }

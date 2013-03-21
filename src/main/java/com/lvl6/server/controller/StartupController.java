@@ -31,6 +31,8 @@ import com.lvl6.events.response.RetrieveStaticDataResponseEvent;
 import com.lvl6.events.response.StartupResponseEvent;
 import com.lvl6.info.BattleDetails;
 import com.lvl6.info.BlacksmithAttempt;
+import com.lvl6.info.BoosterItem;
+import com.lvl6.info.BoosterPack;
 import com.lvl6.info.City;
 import com.lvl6.info.ClanChatPost;
 import com.lvl6.info.ClanTower;
@@ -88,9 +90,12 @@ import com.lvl6.retrieveutils.LoginHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
 import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
 import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
+import com.lvl6.retrieveutils.UserBoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.UserDailyBonusRewardHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.UserLockBoxEventRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.BoosterItemRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.BoosterPackRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DailyBonusRewardRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
@@ -104,6 +109,7 @@ import com.lvl6.server.GameServer;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
@@ -513,6 +519,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   //returns the number of consecutive days the user played
   private int setDailyBonusInfo(Builder resBuilder, User user, Timestamp now) {
+    //SETTING STUFF UP
     int userId = user.getId();
     UserDailyBonusRewardHistory lastReward = UserDailyBonusRewardHistoryRetrieveUtils.getLastDailyRewardAwardedForUserId(userId);
     //numConsecDaysPlayed will be reset back to one if the user has not logged in for a day
@@ -528,22 +535,31 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       lastLogin = new Date();
     }
     long lastLoginDate = MiscMethods.getDateDMYinMillis(null, lastLogin);
-
+    //---
+    
+    //CHECKING WHAT TYPE OF LOGIN IT IS
     if (currentLoginDate<lastLoginDate) {
+      //wtf how did this happen? lol
       log.error("ERROR in setDailyBonusInfo, Current login, "+currentLoginDate+" is dated before last login "+lastLoginDate);
-    } else if (currentLoginDate > lastLoginDate) { //first time logging in today
+    } else if (currentLoginDate > lastLoginDate) { 
+      //first time logging in today
       newNumConsecutiveDaysPlayed = oldNumConsecutiveDaysPlayed + 1;
-    } 
+    } //else not first time user logged in today
+    
     
     List<DailyBonusReward> rewardList = new ArrayList<DailyBonusReward>();
     DailyBonusReward rewardForUser = null;
-    boolean giveToUser = determineDailyBonusReward(lastReward, newNumConsecutiveDaysPlayed, user, rewardList);
+    boolean giveToUser = determineWhetherToRewardUser(lastReward, newNumConsecutiveDaysPlayed, user, rewardList);
     if (!rewardList.isEmpty()) {
       rewardForUser = rewardList.get(0);
     }
+    
+    //function does nothing if no reward was returned from determineWhetherToRewardUser
     Map<String, Integer> currentDayReward = 
-        setCurrentDailyRewardAndOnwards(dbib, rewardForUser, newNumConsecutiveDaysPlayed);
-    boolean successful = giveDailyBonusRewardToUser(user, currentDayReward, giveToUser);
+        selectRewardFromDailyBonusReward(dbib, rewardForUser, newNumConsecutiveDaysPlayed);
+    //function does nothing if previous function returned null, or updates user's money or 
+    //"purchases" booster pack for user 
+    boolean successful = writeDailyBonusRewardToDB(dbib, user, currentDayReward, giveToUser, now);
     if (successful) {
       writeToUserDailyBonusRewardHistory(user, currentDayReward, newNumConsecutiveDaysPlayed, now);
     }
@@ -552,31 +568,34 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   //possible outcomes:
-  //return true and rewardList contains a DailyBonusReward
-  //return false but rewardList contains a DailyBonusReward
-  //return false but rewardList does not contain anything
+  //return true and rewardList contains a DailyBonusReward: user logged in one more consecutive day
+  //return false but rewardList contains a DailyBonusReward: user logged in multiple times this day
+  //return false but rewardList does not contain anything: something bad happened
   //numConsecutiveDaysPlayed (at time of this writing) should be a value from [1,5] inclusive
-  private boolean determineDailyBonusReward(UserDailyBonusRewardHistory previousReward,
+  private boolean determineWhetherToRewardUser(UserDailyBonusRewardHistory previousReward,
       int numConsecutiveDaysPlayed, User aUser, List<DailyBonusReward> rewardList) {
     boolean giveToUser = false;
     DailyBonusReward reward = null;
     Map<Integer, DailyBonusReward> allDailyRewards = 
         DailyBonusRewardRetrieveUtils.getDailyBonusRewardIdsToDailyBonusRewards();
-    //sanity check
+    //sanity check, exit if it fails
     if (null == allDailyRewards || allDailyRewards.isEmpty()) {
       log.error("unexpected error: There are no daily bonus rewards set up in the daily_bonus_reward table");
       return giveToUser; //false
     }
     
     int level = aUser.getLevel();
-    //determine daily bonus reward user should get on this nth consecutive day
+    //determine daily bonus reward for this user's level, exit if there it doesn't exist
     reward = selectDailyBonusReward(allDailyRewards, level);
     if (null == reward) {
       log.error("unexpected error: no daily bonus rewards available for level=" + level);
       return giveToUser; //false
     }
     
+    //determine if user ever received a reward
     if (null == previousReward) {
+      //NO PRIOR REWARDS GIVEN; EXIT IF NUM CONSECUTIVE DAYS IS LESS THAN ONE;
+      //ELSE USER SHOULD BE REWARDED
       if (1 < numConsecutiveDaysPlayed) {
         int maxConsecDays = ControllerConstants.STARTUP__DAILY_BONUS_MAX_CONSECUTIVE_DAYS;
         log.error("unexpected error: (if on prod, else expected error on dev) user has been " +
@@ -593,7 +612,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         return giveToUser; //false
       }
       
-    } else { //user has history of daily bonus rewards awarded
+    } else { 
+      //USER HAS HISTORY OF DAILY BONUS REWARDS
+      //IF NUM CONSECUTIVE DAYS USER LOGGED IN IS EQUAL TO THE DAYS FOR THE LAST REWARD, USER
+      //SHOULD NOT GET THE REWARD, BUT JUST RETURN THE CORRESPONDING REWARD;
+      //IF USER HAS LOGGED IN FOR ONE MORE CONSECUTIVE DAY, USER SHOULD GET REWARD; RETURN THE REWARD
+      //ELSE EXIT
       int previousRewardConsecutiveDays = previousReward.getNthConsecutiveDay();
       int maxConsecutiveDays = ControllerConstants.STARTUP__DAILY_BONUS_MAX_CONSECUTIVE_DAYS;
       if((1 == numConsecutiveDaysPlayed && maxConsecutiveDays == previousRewardConsecutiveDays) ||
@@ -624,7 +648,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return returnValue;
   }
   
-  private Map<String, Integer> setCurrentDailyRewardAndOnwards (DailyBonusInfo.Builder dbi, 
+  private Map<String, Integer> selectRewardFromDailyBonusReward (DailyBonusInfo.Builder dbi, 
       DailyBonusReward rewardForUser, int numConsecutiveDaysPlayed) {
     if (null == rewardForUser) {
       return null;
@@ -635,12 +659,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return null;
     }
     Map<String, Integer> reward = 
-        selectRewardFromDailyBonusReward(dbi, rewardForUser, numConsecutiveDaysPlayed);
+        setCurrentDailyRewardAndOnwards(dbi, rewardForUser, numConsecutiveDaysPlayed);//setCurrentDailyRewardAndOnwards
     return reward;
   }
   
-  //
-  private Map<String, Integer> selectRewardFromDailyBonusReward(DailyBonusInfo.Builder dbi, DailyBonusReward reward,
+  private Map<String, Integer> setCurrentDailyRewardAndOnwards(DailyBonusInfo.Builder dbi, DailyBonusReward reward,
       int numConsecutiveDaysPlayed) {
     Map<String, Integer> returnValue = new HashMap<String, Integer>();
     String key = "";
@@ -648,15 +671,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     
     String silver = MiscMethods.silver;
     String gold = MiscMethods.gold;
-    String equipIdString = MiscMethods.equipId;
+    String boosterPackIdString = MiscMethods.boosterPackId;
     
-    //mimicking fall through in switch statement, need to set reward user just got
-    //today or will get in future logins
-    if (5 >= numConsecutiveDaysPlayed) {
-      key = equipIdString;
-      List<Integer> equipIds = reward.getEquipIds(); 
-      value = MiscMethods.getRandomIntFromList(equipIds);
-      dbi.setEquipId(value);
+    //mimicking fall through in switch statement, setting reward user just got
+    //today and will get in future logins in 5 consecutive day spans
+    if (5 == numConsecutiveDaysPlayed) {
+      //can't set reward in the builder; currently have booster pack id need equip id
+      key = boosterPackIdString;
+      List<Integer> boosterPackIds = reward.getDayFiveBoosterPackIds(); 
+      value = MiscMethods.getRandomIntFromList(boosterPackIds);
     }
     if (4 >= numConsecutiveDaysPlayed) {
       key = silver;
@@ -682,7 +705,76 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
    return returnValue; 
   }
   
-  private boolean giveDailyBonusRewardToUser(User aUser, Map<String, Integer> currentDayReward, boolean giveToUser) {
+  //returns the equip id user "purchased" by logging in
+  //mimics purchase booster pack controller except the argument checking and dealing with money
+  private int purchaseBoosterPack (int boosterPackId, User aUser, int numBoosterItemsUserWants, Timestamp now) {
+    int equipId = ControllerConstants.NOT_SET;
+    try {
+      //local vars
+      int userId = aUser.getId();
+      BoosterPack aPack = BoosterPackRetrieveUtils.getBoosterPackForBoosterPackId(boosterPackId);
+      Map<Integer, BoosterItem> boosterItemIdsToBoosterItems = 
+          BoosterItemRetrieveUtils.getBoosterItemIdsToBoosterItemsForBoosterPackId(boosterPackId);
+      Map<Integer, Integer> boosterItemIdsToNumCollected = 
+          UserBoosterItemRetrieveUtils.getBoosterItemIdsToQuantityForUser(userId);
+      Map<Integer, Integer> newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>();
+      List<BoosterItem> itemsUserReceives = new ArrayList<BoosterItem>();
+      List<Boolean> collectedBeforeReset = new ArrayList<Boolean>();
+
+      //actually selecting equips
+      boolean resetOccurred = MiscMethods.getAllBoosterItemsForUser(boosterItemIdsToBoosterItems, boosterItemIdsToNumCollected,
+          numBoosterItemsUserWants, aUser, aPack, itemsUserReceives, collectedBeforeReset);
+      newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>(boosterItemIdsToNumCollected);
+      boolean successful = writeBoosterStuffToDB(aUser, boosterItemIdsToNumCollected, newBoosterItemIdsToNumCollected,
+          itemsUserReceives, collectedBeforeReset, resetOccurred);
+      if (successful) {
+        MiscMethods.writeToUserBoosterPackHistoryOneUser(userId, boosterPackId, numBoosterItemsUserWants, 
+            now, itemsUserReceives);
+        equipId = getEquipId(numBoosterItemsUserWants, itemsUserReceives);
+      } 
+      
+    } catch (Exception e) {
+      log.error("unexpected error: ", e);
+    }
+    return equipId;
+  }
+  
+  private int getEquipId (int numBoosterItemsUserWants, List<BoosterItem> itemsUserReceives) {
+    if (1 != numBoosterItemsUserWants) {
+      log.error("unexpected error: trying to buy more than one equip from booster pack. boosterItems=" +
+          MiscMethods.shallowListToString(itemsUserReceives));
+      return ControllerConstants.NOT_SET;
+    }
+    BoosterItem bi = itemsUserReceives.get(0);
+    return bi.getEquipId();
+  }
+  
+  private boolean writeBoosterStuffToDB(User aUser, Map<Integer, Integer> boosterItemIdsToNumCollected,
+      Map<Integer, Integer> newBoosterItemIdsToNumCollected, List<BoosterItem> itemsUserReceives, 
+      List<Boolean> collectedBeforeReset, boolean resetOccurred) {
+    int userId = aUser.getId();
+    List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId, itemsUserReceives);
+    if (null == userEquipIds || userEquipIds.isEmpty() 
+        || userEquipIds.size() != itemsUserReceives.size()) {
+      log.error("unexpected error: failed to insert equip for user. boosteritems=" +
+        MiscMethods.shallowListToString(itemsUserReceives));
+      return false;
+    }
+    
+    if (!MiscMethods.updateUserBoosterItems(itemsUserReceives, collectedBeforeReset, 
+        boosterItemIdsToNumCollected, newBoosterItemIdsToNumCollected, userId, resetOccurred)) {
+      //failed to update user_booster_items
+      log.error("unexpected error: failed to update user_booster_items for userId: " + userId
+          + " attempting to delete equips given: "
+          + MiscMethods.shallowListToString(userEquipIds));
+      DeleteUtils.get().deleteUserEquips(userEquipIds);
+      return false;
+    }
+    return true;
+  }
+  
+  private boolean writeDailyBonusRewardToDB(DailyBonusInfo.Builder dbib, User aUser, 
+      Map<String, Integer> currentDayReward, boolean giveToUser, Timestamp now) {
     if (!giveToUser || null == currentDayReward || 0 == currentDayReward.size()) {
       return false;
     }
@@ -703,13 +795,23 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int userId = aUser.getId();
     int previousSilver = aUser.getCoins() + aUser.getVaultBalance();
     int previousGold = aUser.getDiamonds(); 
-    if (key.equals(MiscMethods.equipId)) {
-      int userEquipId = InsertUtils.get().insertUserEquip(userId, value, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL,
-          ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
-      if (userEquipId <= 0) {
-        log.error("unexpected error: failed in giving equip with id " + value + "to user " + aUser);
+    if (key.equals(MiscMethods.boosterPackId)) {
+      //since user got a booster pack id as reward, need to "buy it" for him
+      int numBoosterItemsUserWants = 1;
+      int equipId = purchaseBoosterPack(value, aUser, numBoosterItemsUserWants, now);
+      if (ControllerConstants.NOT_SET == equipId) {
+        log.error("unexpected error: failed to buy booster pack for user. packId=" + value
+            + ", user=" + aUser);
         return false;
       }
+      int userEquipId = InsertUtils.get().insertUserEquip(userId, equipId, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL,
+          ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
+      if (userEquipId <= 0) {
+        log.error("unexpected error: failed in giving equip with id " + equipId + "to user " + aUser);
+        return false;
+      }
+      //need to tell client user got this specific equip
+      dbib.setEquipId(equipId);
     }
     if (key.equals(MiscMethods.gold)) {
       if (!aUser.updateRelativeCoinsNaive(value)) {
@@ -737,7 +839,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     boolean isCoins = false;
     int equipIdRewarded = ControllerConstants.NOT_SET;
     
-    String equipId = MiscMethods.equipId;
+    String equipId = MiscMethods.boosterPackId;
     String silver = MiscMethods.silver;
     String gold = MiscMethods.gold;
     if (rewardForUser.containsKey(equipId)) {

@@ -6,8 +6,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -25,6 +27,7 @@ import com.lvl6.events.response.GeneralNotificationResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.BoosterItem;
+import com.lvl6.info.BoosterPack;
 import com.lvl6.info.BossEvent;
 import com.lvl6.info.City;
 import com.lvl6.info.Clan;
@@ -77,6 +80,7 @@ import com.lvl6.proto.InfoProto.ClanTowerProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.proto.InfoProto.EquipClassType;
+import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.GoldSaleProto;
 import com.lvl6.proto.InfoProto.InAppPurchasePackageProto;
@@ -130,7 +134,7 @@ public class MiscMethods {
   public static final String clanTowersClanOwned = "clanTowersClanOwned";
   public static final String gold = "gold";
   public static final String silver = "silver";
-  public static final String equipId = "equipId";
+  public static final String boosterPackId = "boosterPackId";
   public static final String coins = "coins";
   public static final String diamonds = "diamonds";
 
@@ -1614,5 +1618,291 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     
     int returnValue = numList.get(randInt);
     return returnValue;
+  }
+  
+  /*cut out from purchase booster pack controller*/
+  //Returns all the booster items the user purchased and whether or not the use reset the chesst.
+  //If the user buys out deck start over from a fresh deck 
+  //(boosterItemIdsToNumCollected is changed to reflect none have been collected).
+  //Also, keep track of which items were purchased before and/or after the reset (via collectedBeforeReset)
+  public static boolean getAllBoosterItemsForUser(Map<Integer, BoosterItem> allBoosterItemIdsToBoosterItems, 
+      Map<Integer, Integer> boosterItemIdsToNumCollected, int numBoosterItemsUserWants, User aUser, 
+      BoosterPack aPack, List<BoosterItem> returnValue, List<Boolean> collectedBeforeReset) {
+    boolean resetOccurred = false;
+    int boosterPackId = aPack.getId();
+    
+    //the possible items user can get
+    List<Integer> boosterItemIdsUserCanGet = new ArrayList<Integer>();
+    List<Integer> quantitiesInStock = new ArrayList<Integer>();
+    
+    //populate boosterItemIdsUserCanGet, and quantitiesInStock
+    int sumQuantitiesInStock = determineBoosterItemsLeft(allBoosterItemIdsToBoosterItems, 
+        boosterItemIdsToNumCollected, boosterItemIdsUserCanGet, quantitiesInStock, aUser, boosterPackId);
+    
+    //just in case user is allowed to purchase a lot more than what is available in a chest
+    //should take care of the case where user buys out the exact amount remaining in the chest
+    while (numBoosterItemsUserWants >= sumQuantitiesInStock) {
+      resetOccurred = true;
+      //give all the remaining booster items to the user, 
+      for (int i = 0; i < boosterItemIdsUserCanGet.size(); i++) {
+        int bItemId = boosterItemIdsUserCanGet.get(i);
+        BoosterItem bi = allBoosterItemIdsToBoosterItems.get(bItemId);
+        int quantityInStock = quantitiesInStock.get(i);
+        for (int quant = 0; quant < quantityInStock; quant++) {
+          returnValue.add(bi);
+          collectedBeforeReset.add(true);
+        }
+      }
+      //decrement number user still needs to receive, and then reset deck
+      numBoosterItemsUserWants -= sumQuantitiesInStock;
+      
+      //start from a clean slate as if it is the first time user is purchasing
+      boosterItemIdsUserCanGet.clear();
+      boosterItemIdsToNumCollected.clear();
+      quantitiesInStock.clear();
+      sumQuantitiesInStock = 0;
+      for (int boosterItemId : allBoosterItemIdsToBoosterItems.keySet()) {
+        BoosterItem boosterItemUserCanGet = allBoosterItemIdsToBoosterItems.get(boosterItemId);
+        boosterItemIdsUserCanGet.add(boosterItemId);
+        boosterItemIdsToNumCollected.put(boosterItemId, 0);
+        int quantityInStock = boosterItemUserCanGet.getQuantity();
+        quantitiesInStock.add(quantityInStock);
+        sumQuantitiesInStock += quantityInStock;
+      }
+    }
+
+    //set the booster item(s) the user will receieve  
+    List<BoosterItem> itemUserReceives = new ArrayList<BoosterItem>();
+    if (aPack.isStarterPack()) {
+      itemUserReceives = determineStarterBoosterItemsUserReceives(boosterItemIdsUserCanGet,
+          quantitiesInStock, numBoosterItemsUserWants, sumQuantitiesInStock, allBoosterItemIdsToBoosterItems);
+    } else {
+      itemUserReceives = determineBoosterItemsUserReceives(boosterItemIdsUserCanGet, 
+          quantitiesInStock, numBoosterItemsUserWants, sumQuantitiesInStock, allBoosterItemIdsToBoosterItems);
+    }
+    returnValue.addAll(itemUserReceives);
+    collectedBeforeReset.addAll(Collections.nCopies(itemUserReceives.size(), false));
+    return resetOccurred;
+  }
+
+  /*cut out from purchase booster pack controller*/
+  //populates ids, quantitiesInStock; determines the remaining booster items the user can get
+  private static int determineBoosterItemsLeft(Map<Integer, BoosterItem> allBoosterItemIdsToBoosterItems, 
+      Map<Integer, Integer> boosterItemIdsToNumCollected, List<Integer> boosterItemIdsUserCanGet, 
+      List<Integer> quantitiesInStock, User aUser, int boosterPackId) {
+    //max number randon number can go
+    int sumQuantitiesInStock = 0;
+
+    //determine how many BoosterItems are left that user can get
+    for (int boosterItemId : allBoosterItemIdsToBoosterItems.keySet()) {
+      BoosterItem potentialEquip = allBoosterItemIdsToBoosterItems.get(boosterItemId);
+      int quantityLimit = potentialEquip.getQuantity();
+      int quantityPurchasedPreviously = ControllerConstants.NOT_SET;
+
+      if (boosterItemIdsToNumCollected.containsKey(boosterItemId)) {
+        quantityPurchasedPreviously = boosterItemIdsToNumCollected.get(boosterItemId);
+      }
+
+      if(ControllerConstants.NOT_SET == quantityPurchasedPreviously) {
+        //user has never bought this BoosterItem before
+        boosterItemIdsUserCanGet.add(boosterItemId);
+        quantitiesInStock.add(quantityLimit);
+        sumQuantitiesInStock += quantityLimit;
+      } else if (quantityPurchasedPreviously < quantityLimit) {
+        //user bought before, but has not reached the limit
+        int numLeftInStock = quantityLimit - quantityPurchasedPreviously;
+        boosterItemIdsUserCanGet.add(boosterItemId);
+        quantitiesInStock.add(numLeftInStock);
+        sumQuantitiesInStock += numLeftInStock;
+      } else if (quantityPurchasedPreviously == quantityLimit) {
+        continue;
+      } else {//will this ever be reached?
+        log.error("somehow user has bought more than the allowed limit for a booster item for a booster pack. "
+            + "quantityLimit: " + quantityLimit + ", quantityPurchasedPreviously: " + quantityPurchasedPreviously
+            + ", userId: " + aUser.getId() + ", boosterItem: " + potentialEquip + ", boosterPackId: " + boosterPackId);
+      }
+    }
+
+    return sumQuantitiesInStock;
+  }
+  
+  /*cut out from purchase booster pack controller*/
+  //no arguments are modified
+  private static List<BoosterItem> determineStarterBoosterItemsUserReceives(List<Integer> boosterItemIdsUserCanGet, 
+      List<Integer> quantitiesInStock, int amountUserWantsToPurchase, int sumOfQuantitiesInStock,
+      Map<Integer, BoosterItem> allBoosterItemIdsToBoosterItems) {
+    //return value
+    List<BoosterItem> returnValue = new ArrayList<BoosterItem>();
+    if (0 == amountUserWantsToPurchase) {
+      return returnValue;
+    } else if (3 != amountUserWantsToPurchase) {
+      log.error("unexpected error: buying " + amountUserWantsToPurchase + " more equips instead of 3.");
+      return returnValue; 
+    } else if (0 != (sumOfQuantitiesInStock % 3)) {
+      log.error("unexpected error: num remaining equips, " + sumOfQuantitiesInStock
+          + ", for this chest is not a multiple of 3");
+      return returnValue;
+    }
+    
+    Map<Integer, Equipment> allEquips = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
+    Set<EquipType> receivedEquipTypes = new HashSet<EquipType>();
+    
+    //loop through equips user can get; select one weapon, one armor, one amulet
+    for (int boosterItemId : boosterItemIdsUserCanGet) {
+      BoosterItem bi = allBoosterItemIdsToBoosterItems.get(boosterItemId);
+      int equipId = bi.getEquipId();
+      Equipment equip = allEquips.get(equipId);
+      EquipType eType = equip.getType();
+      
+      if (receivedEquipTypes.contains(eType)) {
+        //user already got this equip type
+        continue;
+      } else {
+        //record user got a new equip type
+        returnValue.add(bi);
+        receivedEquipTypes.add(eType);
+      }
+    }
+    
+    if (3 != returnValue.size()) {
+      log.error("unexpected error: user did not receive one type of each equip."
+          + " User would have received (but now will not receive): " + MiscMethods.shallowListToString(returnValue) 
+          + ". Chest either intialized improperly or code assigns equips incorrectly.");
+      return new ArrayList<BoosterItem>();
+    }
+    return returnValue;
+  }
+  
+  /*cut out from purchase booster pack controller*/
+  //no arguments are modified
+  private static List<BoosterItem> determineBoosterItemsUserReceives(List<Integer> boosterItemIdsUserCanGet, 
+      List<Integer> quantitiesInStock, int amountUserWantsToPurchase, int sumOfQuantitiesInStock,
+      Map<Integer, BoosterItem> allBoosterItemIdsToBoosterItems) {
+    //return value
+    List<BoosterItem> itemsUserReceives = new ArrayList<BoosterItem>();
+    
+    Random rand = new Random();
+    List<Integer> newBoosterItemIdsUserCanGet = new ArrayList<Integer>(boosterItemIdsUserCanGet);
+    List<Integer> newQuantitiesInStock = new ArrayList<Integer>(quantitiesInStock);
+    int newSumOfQuantities = sumOfQuantitiesInStock;
+    
+    //selects one of the ids at random without replacement
+    for(int purchaseN = 0; purchaseN < amountUserWantsToPurchase; purchaseN++) {
+      int sumSoFar = 0;
+      int randomNum = rand.nextInt(newSumOfQuantities) + 1; //range [1, newSumOfQuantities]
+      
+      for(int i = 0; i < newBoosterItemIdsUserCanGet.size(); i++) {
+        int bItemId = newBoosterItemIdsUserCanGet.get(i);
+        int quantity = newQuantitiesInStock.get(i);
+        
+        sumSoFar += quantity;
+        
+        if(randomNum <= sumSoFar) {
+          //we have a winner! current boosterItemId is what the user gets
+          BoosterItem selectedBoosterItem = allBoosterItemIdsToBoosterItems.get(bItemId);
+          itemsUserReceives.add(selectedBoosterItem);
+          
+          //preparation for next BoosterItem to be selected
+          if (1 == quantity) {
+            newBoosterItemIdsUserCanGet.remove(i);
+            newQuantitiesInStock.remove(i);
+          } else if (1 < quantity){
+            //booster item id has more than one quantity
+            int decrementedQuantity = newQuantitiesInStock.remove(i) - 1;
+            newQuantitiesInStock.add(i, decrementedQuantity);
+          } else {
+            //ignore those with quantity of 0
+            continue;
+          }
+          
+          newSumOfQuantities -= 1;
+          break;
+        }
+      }
+    }
+    
+    return itemsUserReceives;
+  }
+  /*cut out from purchase booster pack controller*/
+  public static List<Integer> insertNewUserEquips(int userId, List<BoosterItem> itemsUserReceives) {
+    int amount = itemsUserReceives.size();
+    int forgeLevel = ControllerConstants.DEFAULT_USER_EQUIP_LEVEL;
+    int enhancementLevel = ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT;
+    List<Integer> equipIds = new ArrayList<Integer>();
+    List<Integer> levels = new ArrayList<Integer>(Collections.nCopies(amount, forgeLevel));
+    List<Integer> enhancement = new ArrayList<Integer>(Collections.nCopies(amount, enhancementLevel));
+    
+    for(BoosterItem bi : itemsUserReceives) {
+      int equipId = bi.getEquipId();
+      equipIds.add(equipId);
+    }
+    
+    return InsertUtils.get().insertUserEquips(userId, equipIds, levels, enhancement);
+  }
+  /*cut out from purchase booster pack controller*/
+  public static boolean updateUserBoosterItems(List<BoosterItem> itemsUserReceives, 
+      List<Boolean> collectedBeforeReset, Map<Integer, Integer> boosterItemIdsToNumCollected, 
+      Map<Integer, Integer> newBoosterItemIdsToNumCollected, int userId, boolean resetOccurred) {
+    
+    Map<Integer, Integer> changedBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>();
+    int numCollectedBeforeReset = 0;
+
+    //for each booster item received record it in the map above, and record how many
+    //booster items user has in aggregate
+    for (int i = 0; i < itemsUserReceives.size(); i++) {
+      boolean beforeReset = collectedBeforeReset.get(i);
+      if (!beforeReset) {
+        BoosterItem received = itemsUserReceives.get(i);
+        int boosterItemId = received.getId();
+        
+        //default quantity user gets if user has no quantity of specific boosterItem
+        int newQuantity = 1; 
+        if(newBoosterItemIdsToNumCollected.containsKey(boosterItemId)) {
+          newQuantity = newBoosterItemIdsToNumCollected.get(boosterItemId) + 1;
+        }
+        changedBoosterItemIdsToNumCollected.put(boosterItemId, newQuantity);
+        newBoosterItemIdsToNumCollected.put(boosterItemId, newQuantity);
+      } else {
+        numCollectedBeforeReset++;
+      }
+    }
+    
+    //loop through newBoosterItemIdsToNumCollected and make sure the quantities
+    //collected is itemsUserReceives.size() amount more than boosterItemIdsToNumCollected
+    int changeInCollectedQuantity = 0;
+    for (int id : changedBoosterItemIdsToNumCollected.keySet()) {
+      int newAmount = newBoosterItemIdsToNumCollected.get(id);
+      int oldAmount = 0;
+      if (boosterItemIdsToNumCollected.containsKey(id)) {
+        oldAmount = boosterItemIdsToNumCollected.get(id);
+      }
+      changeInCollectedQuantity += newAmount - oldAmount;
+    }
+    //for when user buys out a pack and then some
+    changeInCollectedQuantity += numCollectedBeforeReset;
+    if (itemsUserReceives.size() != changeInCollectedQuantity) {
+      log.error("quantities of booster items do not match how many items user receives. "
+          + "amount user receives that is recorded (user_booster_items table): " + changeInCollectedQuantity
+          + ", amount user receives (unrecorded): " + itemsUserReceives.size());
+      return false;
+    }
+
+    recordBoosterItemsThatReset(changedBoosterItemIdsToNumCollected, newBoosterItemIdsToNumCollected, resetOccurred);
+    
+    return UpdateUtils.get().updateUserBoosterItemsForOneUser(userId, changedBoosterItemIdsToNumCollected);
+  }
+  /*cut out from purchase booster pack controller*/
+  //if the user has bought out the whole deck, then for the booster items
+  //the user did not get, record in the db that the user has 0 of them collected
+  private static void recordBoosterItemsThatReset(Map<Integer, Integer> changedBoosterItemIdsToNumCollected,
+      Map<Integer, Integer> newBoosterItemIdsToNumCollected, boolean refilled) {
+    if (refilled) {
+      for (int boosterItemId : newBoosterItemIdsToNumCollected.keySet()) {
+        if (!changedBoosterItemIdsToNumCollected.containsKey(boosterItemId)) {
+          int value = newBoosterItemIdsToNumCollected.get(boosterItemId);
+          changedBoosterItemIdsToNumCollected.put(boosterItemId, value);
+        }
+      }
+    }
   }
 }

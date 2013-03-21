@@ -634,7 +634,7 @@ public class DBConstants {
   public static final String DAILY_BONUS_REWARD__DAY_TWO_COINS = "day_two_coins"; 
   public static final String DAILY_BONUS_REWARD__DAY_THREE_DIAMONDS = "day_three_diamonds";
   public static final String DAILY_BONUS_REWARD__DAY_FOUR_COINS = "day_four_coins";
-  public static final String DAILY_BONUS_REWARD__DAY_FIVE_EQUIP_IDS = "day_five_equip_ids";
+  public static final String DAILY_BONUS_REWARD__DAY_FIVE_BOOSTER_PACK_IDS = "day_five_booster_pack_ids";
   
   /*USER DAILY BONUS REWARD HISTORY*/
   public static final String USER_DAILY_BONUS_REWARD_HISTORY__ID = GENERIC__ID;

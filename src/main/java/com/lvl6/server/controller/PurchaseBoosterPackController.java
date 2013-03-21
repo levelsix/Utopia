@@ -3,14 +3,10 @@ package com.lvl6.server.controller;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import java.util.Set;
 import java.util.TimeZone;
 
 import org.slf4j.Logger;
@@ -24,7 +20,6 @@ import com.lvl6.events.response.PurchaseBoosterPackResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.BoosterItem;
 import com.lvl6.info.BoosterPack;
-import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.misc.MiscMethods;
@@ -33,7 +28,6 @@ import com.lvl6.proto.EventProto.PurchaseBoosterPackRequestProto;
 import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto;
 import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto.Builder;
 import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto.PurchaseBoosterPackStatus;
-import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.PurchaseOption;
@@ -43,12 +37,9 @@ import com.lvl6.retrieveutils.UserBoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.UserBoosterPackRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterPackRetrieveUtils;
-import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
-import com.lvl6.utils.utilmethods.InsertUtils;
-import com.lvl6.utils.utilmethods.UpdateUtils;
 
 @Component @DependsOn("gameServer") public class PurchaseBoosterPackController extends EventController {
 
@@ -118,7 +109,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         //boosterItemIdsToNumCollected will only be modified if the amount the user buys
         //is more than what is left in the deck, need to reflect this in newBoosterItemIdsToNumCollected
         //and need to track how many items user received to buy out pack
-        boolean resetOccurred = getAllBoosterItemsForUser(boosterItemIdsToBoosterItems, boosterItemIdsToNumCollected,
+        boolean resetOccurred = MiscMethods.getAllBoosterItemsForUser(boosterItemIdsToBoosterItems, boosterItemIdsToNumCollected,
             numBoosterItemsUserWants, user, aPack, itemsUserReceives, collectedBeforeReset);
         newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>(boosterItemIdsToNumCollected);
         
@@ -152,8 +143,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         
         Timestamp nowTimestamp = new Timestamp(now.getTime());
         int numBought = itemsUserReceives.size();
-        writeToUserBoosterPackHistory(userId, boosterPackId, numBought, nowTimestamp,
-            itemsUserReceives);
+        MiscMethods.writeToUserBoosterPackHistoryOneUser(userId, boosterPackId, numBought, 
+            nowTimestamp, itemsUserReceives);
         writeToUserCurrencyHistory(user, boosterPackId, nowTimestamp,
             goldSilverChange, previousSilver, previousGold);
       }
@@ -308,6 +299,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return (int) Math.ceil((nextDayInMillisGmt - now.getTime())/60000);
   }
   
+  /*moved all to misc methods
   //Returns all the booster items the user purchased and whether or not the use reset the chesst.
   //If the user buys out deck start over from a fresh deck 
   //(boosterItemIdsToNumCollected is changed to reflect none have been collected).
@@ -506,7 +498,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     
     return itemsUserReceives;
-  }
+  } */
   
   //sets values for newBoosterItemIdsToNumCollected
   private boolean writeChangesToDB(Builder resBuilder, User user, Map<Integer, Integer> boosterItemIdsToNumCollected,
@@ -514,7 +506,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       List<Boolean> collectedBeforeReset, Map<String, Integer> goldSilverChange, List<Integer> uEquipIds, boolean resetOccurred) {
     //insert into user_equips, update user, update user_booster_items
     int userId = user.getId();
-    List<Integer> userEquipIds = insertNewUserEquips(userId, itemsUserReceives);
+    List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId, itemsUserReceives);
     if (null == userEquipIds || userEquipIds.isEmpty() 
         || userEquipIds.size() != itemsUserReceives.size()) {
       resBuilder.setStatus(PurchaseBoosterPackStatus.OTHER_FAIL);
@@ -548,7 +540,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     
     uEquipIds.addAll(userEquipIds);
     //update user_booster_items
-    if (!updateUserBoosterItems(itemsUserReceives, collectedBeforeReset, 
+    if (!MiscMethods.updateUserBoosterItems(itemsUserReceives, collectedBeforeReset, 
         boosterItemIdsToNumCollected, newBoosterItemIdsToNumCollected, userId, resetOccurred)) {
       //failed to update user_booster_items
       log.error("failed to update user_booster_items for userId: " + userId
@@ -565,7 +557,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     
     return true;
   }
-  
+  /* Moved to misc methods
   private List<Integer> insertNewUserEquips(int userId, List<BoosterItem> itemsUserReceives) {
     int amount = itemsUserReceives.size();
     int forgeLevel = ControllerConstants.DEFAULT_USER_EQUIP_LEVEL;
@@ -646,7 +638,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
       }
     }
-  }
+  }*/
   
   private List<FullUserEquipProto> createFullUserEquipProtos(List<Integer> userEquipIds, 
       int userId, List<BoosterItem> boosterItems) {
@@ -665,13 +657,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     
     return protos;
-  }
-  
-  //boosterItemIdsToNumCollected contain ids of booster items across different booster packs
-  private void writeToUserBoosterPackHistory(int userId, int packId,
-      int numBought, Timestamp nowTimestamp, List<BoosterItem> itemsUserReceives) {
-    MiscMethods.writeToUserBoosterPackHistoryOneUser(userId, packId, numBought, 
-        nowTimestamp, itemsUserReceives);
   }
   
   private void writeToUserCurrencyHistory(User aUser, int packId, Timestamp date, Map<String, Integer> money,
