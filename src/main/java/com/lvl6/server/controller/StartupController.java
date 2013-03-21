@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -526,26 +527,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int totalConsecDaysPlayed = user.getNumConsecutiveDaysPlayed();
     //consecutive days
     int oldNumConsecutiveDaysPlayed = totalConsecDaysPlayed % ControllerConstants.STARTUP__DAILY_BONUS_MAX_CONSECUTIVE_DAYS;
-    int newNumConsecutiveDaysPlayed = oldNumConsecutiveDaysPlayed;
+    int newNumConsecutiveDaysPlayed = determineCurrentConsecutiveDay(user, now, oldNumConsecutiveDaysPlayed, lastReward);
     DailyBonusInfo.Builder dbib = DailyBonusInfo.newBuilder();
-    
-    long currentLoginDate = MiscMethods.getDateDMYinMillis(now, null);
-    Date lastLogin = user.getLastLogin();
-    if (null == lastLogin) {
-      lastLogin = new Date();
-    }
-    long lastLoginDate = MiscMethods.getDateDMYinMillis(null, lastLogin);
     //---
-    
-    //CHECKING WHAT TYPE OF LOGIN IT IS
-    if (currentLoginDate<lastLoginDate) {
-      //wtf how did this happen? lol
-      log.error("ERROR in setDailyBonusInfo, Current login, "+currentLoginDate+" is dated before last login "+lastLoginDate);
-    } else if (currentLoginDate > lastLoginDate) { 
-      //first time logging in today
-      newNumConsecutiveDaysPlayed = oldNumConsecutiveDaysPlayed + 1;
-    } //else not first time user logged in today
-    
     
     List<DailyBonusReward> rewardList = new ArrayList<DailyBonusReward>();
     DailyBonusReward rewardForUser = null;
@@ -567,6 +551,59 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return newNumConsecutiveDaysPlayed;
   }
 
+  private int determineCurrentConsecutiveDay(User user, Timestamp now, int oldNumConsecutiveDaysPlayed, UserDailyBonusRewardHistory lastReward) {
+    int newNumConsecutiveDaysPlayed = 1;
+    long currentLoginDate = MiscMethods.getDateDMYinMillis(now, null);
+    Date lastLogin = user.getLastLogin();
+    if (null == lastLogin) {
+      lastLogin = new Date();
+    }
+    long lastLoginDate = MiscMethods.getDateDMYinMillis(null, lastLogin);
+    
+    if (currentLoginDate<lastLoginDate) {
+      //wtf how did this happen? lol, keep the newNumConsecutiveDaysPlayed to 1
+      log.error("ERROR in setDailyBonusInfo, Current login, "+currentLoginDate+" is dated before last login "+lastLoginDate);
+    } else if (currentLoginDate > lastLoginDate) { 
+      //first time logging in today
+      //1) user has just extended his consecutive day logging in streak or
+      //2) user could have broke the cycle of consecutively logging in 
+      Date dayLastAwarded = lastReward.getDateAwarded();
+      long previousRewardDate = MiscMethods.getDateDMYinMillis(null, dayLastAwarded);
+      boolean oneDayApart = isNowOneDayAhead(currentLoginDate, previousRewardDate);
+      if (oneDayApart) {
+        newNumConsecutiveDaysPlayed = oldNumConsecutiveDaysPlayed + 1;
+      } else {
+        //else scenario 2) occurred, so default to 1 
+        log.info("user restarted num consecutive days played to 1. now=" + now
+            + ", last day user got reward=" + dayLastAwarded);
+      }
+    } else {
+      //else not first time user logged in today
+      newNumConsecutiveDaysPlayed = oldNumConsecutiveDaysPlayed;
+    }
+    
+    //this is to account for users who have 0 num consecutive days played in the db, or could just make default 1
+    if (0 == oldNumConsecutiveDaysPlayed) {
+      newNumConsecutiveDaysPlayed = 1;
+    }
+    
+    return newNumConsecutiveDaysPlayed;
+  }
+  
+  private boolean isNowOneDayAhead (long newerDate, long olderDate) {
+    Calendar older = Calendar.getInstance();
+    older.setTime(new Date(olderDate));
+    older.add(Calendar.DATE, 1);
+    
+    long olderDatePlusOne = older.getTimeInMillis();
+    
+    if(newerDate == olderDatePlusOne) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
   //possible outcomes:
   //return true and rewardList contains a DailyBonusReward: user logged in one more consecutive day
   //return false but rewardList contains a DailyBonusReward: user logged in multiple times this day
