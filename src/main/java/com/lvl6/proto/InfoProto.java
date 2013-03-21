@@ -453,10 +453,12 @@ public final class InfoProto {
       implements com.google.protobuf.ProtocolMessageEnum {
     GENERIC_ACTION(0, 1),
     ATTACK(1, 2),
+    DRAGON(2, 3),
     ;
     
     public static final int GENERIC_ACTION_VALUE = 1;
     public static final int ATTACK_VALUE = 2;
+    public static final int DRAGON_VALUE = 3;
     
     
     public final int getNumber() { return value; }
@@ -465,6 +467,7 @@ public final class InfoProto {
       switch (value) {
         case 1: return GENERIC_ACTION;
         case 2: return ATTACK;
+        case 3: return DRAGON;
         default: return null;
       }
     }
@@ -495,7 +498,7 @@ public final class InfoProto {
     }
     
     private static final AnimationType[] VALUES = {
-      GENERIC_ACTION, ATTACK, 
+      GENERIC_ACTION, ATTACK, DRAGON, 
     };
     
     public static AnimationType valueOf(
@@ -54687,31 +54690,31 @@ public final class InfoProto {
       "\014\n\010MOST_EXP\020\004\022\014\n\010BEST_KDR\020\005\022\t\n\005EVENT\020\006*f" +
       "\n\020CharacterModType\022\016\n\nNEW_PLAYER\020\001\022\026\n\022RE" +
       "SET_SKILL_POINTS\020\002\022\031\n\025CHANGE_CHARACTER_T" +
-      "YPE\020\003\022\017\n\013CHANGE_NAME\020\004*/\n\rAnimationType\022" +
-      "\022\n\016GENERIC_ACTION\020\001\022\n\n\006ATTACK\020\002*h\n\024EarnF" +
-      "reeDiamondsType\022\010\n\004KIIP\020\001\022\014\n\010ADCOLONY\020\002\022" +
-      "\r\n\tFB_INVITE\020\003\022\n\n\006TAPJOY\020\004\022\020\n\014FLURRY_VID" +
-      "EO\020\005\022\013\n\007TWITTER\020\006*\371\001\n\022SpecialQuestAction",
-      "\022\030\n\024PURCHASE_FROM_ARMORY\020\001\022\035\n\031PURCHASE_F" +
-      "ROM_MARKETPLACE\020\002\022\022\n\016SELL_TO_ARMORY\020\003\022\027\n" +
-      "\023POST_TO_MARKETPLACE\020\004\022\024\n\020DEPOSIT_IN_VAU" +
-      "LT\020\005\022\027\n\023WITHDRAW_FROM_VAULT\020\006\022\027\n\023WRITE_O" +
-      "N_ENEMY_WALL\020\007\022\025\n\021REQUEST_JOIN_CLAN\020\010\022\036\n" +
-      "\032SUCCESSFULLY_FORGE_AN_ITEM\020\t*k\n\010UserTyp" +
-      "e\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\t" +
-      "GOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCH" +
-      "ER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResult\022\020\n\014AT" +
-      "TACKER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTACK",
-      "ER_FLEE\020\002*B\n\023MarketplacePostType\022\026\n\022PREM" +
-      "IUM_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n" +
-      "\035MarketplaceJobRequirementType\022\007\n\003BUY\020\000\022" +
-      "\010\n\004SELL\020\001*c\n\016CritStructType\022\n\n\006AVIARY\020\000\022" +
-      "\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n" +
-      "\013MARKETPLACE\020\005\022\016\n\nBLACKSMITH\020\006*3\n\021Struct" +
-      "Orientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_" +
-      "2\020\001*P\n\022ExpansionDirection\022\014\n\010FAR_LEFT\020\000\022" +
-      "\r\n\tFAR_RIGHT\020\001\022\r\n\tNEAR_LEFT\020\002\022\016\n\nNEAR_RI" +
-      "GHT\020\003B\013B\tInfoProto"
+      "YPE\020\003\022\017\n\013CHANGE_NAME\020\004*;\n\rAnimationType\022" +
+      "\022\n\016GENERIC_ACTION\020\001\022\n\n\006ATTACK\020\002\022\n\n\006DRAGO" +
+      "N\020\003*h\n\024EarnFreeDiamondsType\022\010\n\004KIIP\020\001\022\014\n" +
+      "\010ADCOLONY\020\002\022\r\n\tFB_INVITE\020\003\022\n\n\006TAPJOY\020\004\022\020" +
+      "\n\014FLURRY_VIDEO\020\005\022\013\n\007TWITTER\020\006*\371\001\n\022Specia",
+      "lQuestAction\022\030\n\024PURCHASE_FROM_ARMORY\020\001\022\035" +
+      "\n\031PURCHASE_FROM_MARKETPLACE\020\002\022\022\n\016SELL_TO" +
+      "_ARMORY\020\003\022\027\n\023POST_TO_MARKETPLACE\020\004\022\024\n\020DE" +
+      "POSIT_IN_VAULT\020\005\022\027\n\023WITHDRAW_FROM_VAULT\020" +
+      "\006\022\027\n\023WRITE_ON_ENEMY_WALL\020\007\022\025\n\021REQUEST_JO" +
+      "IN_CLAN\020\010\022\036\n\032SUCCESSFULLY_FORGE_AN_ITEM\020" +
+      "\t*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_" +
+      "ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003" +
+      "\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014Battle" +
+      "Result\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDER_WIN",
+      "\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023MarketplacePost" +
+      "Type\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NORM_EQU" +
+      "IP_POST\020\002*2\n\035MarketplaceJobRequirementTy" +
+      "pe\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritStructType\022" +
+      "\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n" +
+      "\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005\022\016\n\nBLACKSMITH" +
+      "\020\006*3\n\021StructOrientation\022\016\n\nPOSITION_1\020\000\022" +
+      "\016\n\nPOSITION_2\020\001*P\n\022ExpansionDirection\022\014\n" +
+      "\010FAR_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001\022\r\n\tNEAR_LEFT\020" +
+      "\002\022\016\n\nNEAR_RIGHT\020\003B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

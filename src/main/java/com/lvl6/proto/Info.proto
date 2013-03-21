@@ -362,6 +362,7 @@ enum CharacterModType {
 enum AnimationType {
 	GENERIC_ACTION = 1;
 	ATTACK = 2;
+	DRAGON = 3;
 }
 
 //------------------------------------------------------------------------------------------
