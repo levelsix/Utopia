@@ -17,6 +17,9 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 
+import org.joda.time.DateMidnight;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -1508,6 +1511,13 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     return PSTDateAndHourInUTC;
   }
   
+  public static int dateDifferenceInDays(Date day1, Date day2) {
+    DateMidnight d1 = (new DateTime(day1)).toDateMidnight(); //
+    DateMidnight d2 = (new DateTime(day2)).toDateMidnight();
+    int days = Days.daysBetween(d1, d2).getDays();
+    return days;
+  }
+  
   public static void writeToUserBoosterPackHistoryOneUser(int userId, int packId,
       int numBought, Timestamp nowTimestamp, List<BoosterItem> itemsUserReceives) {
     List<Integer> raritiesCollected = getRaritiesCollected(itemsUserReceives);
@@ -1590,26 +1600,26 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     return ints;
   }
   
-  //one of the arguments will be set and the other one will be null
-  public static long getDateDMYinMillis(Timestamp nowTimestamp, Date nowDate) {
-    Date nowTemp = null;
-    
-    if (null == nowTimestamp) {
-      nowTemp = nowDate;
-    } else {
-      nowTemp = new Date(nowTimestamp.getTime());
-    }
-    Calendar curDate = Calendar.getInstance();
-    curDate.setTime(nowTemp);
-    curDate.set(Calendar.HOUR_OF_DAY, 0);
-    curDate.set(Calendar.HOUR, 0);
-    curDate.set(Calendar.MINUTE, 0);
-    curDate.set(Calendar.SECOND, 0);
-    curDate.set(Calendar.MILLISECOND, 0);
-    curDate.set(Calendar.AM_PM, 0);
-    
-    return curDate.getTimeInMillis();
-  }
+//  //one of the arguments will be set and the other one will be null
+//  public static long getDateDMYinMillis(Timestamp nowTimestamp, Date nowDate) {
+//    Date nowTemp = null;
+//    
+//    if (null == nowTimestamp) {
+//      nowTemp = nowDate;
+//    } else {
+//      nowTemp = new Date(nowTimestamp.getTime());
+//    }
+//    Calendar curDate = Calendar.getInstance();
+//    curDate.setTime(nowTemp);
+//    curDate.set(Calendar.HOUR_OF_DAY, 0);
+//    curDate.set(Calendar.HOUR, 0);
+//    curDate.set(Calendar.MINUTE, 0);
+//    curDate.set(Calendar.SECOND, 0);
+//    curDate.set(Calendar.MILLISECOND, 0);
+//    curDate.set(Calendar.AM_PM, 0);
+//    
+//    return curDate.getTimeInMillis();
+//  }
   
   public static int getRandomIntFromList(List<Integer> numList) {
     int upperBound = numList.size();

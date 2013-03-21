@@ -2,7 +2,6 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -518,159 +517,102 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     resBuilder.setPlayerHasBoughtInAppPurchase(hasPurchased);
   }
 
-  //returns the number of consecutive days the user played
+  //returns the total number of consecutive days the user logged in, 
+  //awards user if user logged in for an additional consecutive day
   private int setDailyBonusInfo(Builder resBuilder, User user, Timestamp now) {
+    //will keep track of total consecutive days user has logged in, just for funzies
+    List<Integer> numConsecDaysList = new ArrayList<Integer>();
+    int totalConsecutiveDaysPlayed = 1;
+    List<Boolean> rewardUserList = new ArrayList<Boolean>();
+    boolean rewardUser = false;
+    
+    int consecutiveDaysPlayed = determineCurrentConsecutiveDay(user, now, numConsecDaysList, rewardUserList);
+    if (!numConsecDaysList.isEmpty()) {
+      totalConsecutiveDaysPlayed = numConsecDaysList.get(0);
+      rewardUser = rewardUserList.get(0);
+    }
+    DailyBonusInfo.Builder dbib = DailyBonusInfo.newBuilder();
+    
+    DailyBonusReward rewardForUser = determineRewardForUser(user, consecutiveDaysPlayed);
+    
+    //function does nothing if null reward was returned from determineRewardForUser
+    Map<String, Integer> currentDayReward = 
+        selectRewardFromDailyBonusReward(dbib, rewardForUser, consecutiveDaysPlayed);
+    //function does nothing if previous function returned null, or updates user's money or 
+    //"purchases" booster pack for user 
+    boolean successful = writeDailyBonusRewardToDB(dbib, user, currentDayReward, rewardUser, now);
+    if (successful) {
+      writeToUserDailyBonusRewardHistory(user, currentDayReward, consecutiveDaysPlayed, now);
+    }
+    resBuilder.setDailyBonusInfo(dbib.build());
+    return totalConsecutiveDaysPlayed;
+  }
+
+  //totalConsecutiveDaysList will contain one element the actual number of consecutive
+  //days the user has logged into our game, not really necessary to keep track...
+  private int determineCurrentConsecutiveDay(User user, Timestamp now, 
+      List<Integer> totalConsecutiveDaysList, List<Boolean> rewardUserList) {
     //SETTING STUFF UP
     int userId = user.getId();
     UserDailyBonusRewardHistory lastReward = UserDailyBonusRewardHistoryRetrieveUtils.getLastDailyRewardAwardedForUserId(userId);
-    //numConsecDaysPlayed will be reset back to one if the user has not logged in for a day
-    int totalConsecDaysPlayed = user.getNumConsecutiveDaysPlayed();
-    //consecutive days
-    int oldNumConsecutiveDaysPlayed = totalConsecDaysPlayed % ControllerConstants.STARTUP__DAILY_BONUS_MAX_CONSECUTIVE_DAYS;
-    int newNumConsecutiveDaysPlayed = determineCurrentConsecutiveDay(user, now, oldNumConsecutiveDaysPlayed, lastReward);
-    DailyBonusInfo.Builder dbib = DailyBonusInfo.newBuilder();
-    //---
+    Date nowDate = new Date(now.getTime());
+    long nowDateMillis = nowDate.getTime();
     
-    List<DailyBonusReward> rewardList = new ArrayList<DailyBonusReward>();
-    DailyBonusReward rewardForUser = null;
-    boolean giveToUser = determineWhetherToRewardUser(lastReward, newNumConsecutiveDaysPlayed, user, rewardList);
-    if (!rewardList.isEmpty()) {
-      rewardForUser = rewardList.get(0);
+    if (null == lastReward) {
+      log.info("user has never received a daily bonus reward. Setting consecutive days played to 1.");
+      totalConsecutiveDaysList.add(1);
+      rewardUserList.add(true);
+      return 1;
     }
+    //let days = consecutive day amount corresponding to the reward user was given
+    //if reward was more than one day ago (in past), return 1
+    //else if user was rewarded yesterday return the (1 + days) 
+    //else reward was today return days
+    int nthConsecutiveDay = lastReward.getNthConsecutiveDay();
+    Date dateLastAwarded = lastReward.getDateAwarded();
+    long dateLastMillis = dateLastAwarded.getTime();
+    boolean awardedInThePast = nowDateMillis > dateLastMillis;
     
-    //function does nothing if no reward was returned from determineWhetherToRewardUser
-    Map<String, Integer> currentDayReward = 
-        selectRewardFromDailyBonusReward(dbib, rewardForUser, newNumConsecutiveDaysPlayed);
-    //function does nothing if previous function returned null, or updates user's money or 
-    //"purchases" booster pack for user 
-    boolean successful = writeDailyBonusRewardToDB(dbib, user, currentDayReward, giveToUser, now);
-    if (successful) {
-      writeToUserDailyBonusRewardHistory(user, currentDayReward, newNumConsecutiveDaysPlayed, now);
-    }
-    resBuilder.setDailyBonusInfo(dbib.build());
-    return newNumConsecutiveDaysPlayed;
-  }
-
-  private int determineCurrentConsecutiveDay(User user, Timestamp now, int oldNumConsecutiveDaysPlayed, UserDailyBonusRewardHistory lastReward) {
-    int newNumConsecutiveDaysPlayed = 1;
-    long currentLoginDate = MiscMethods.getDateDMYinMillis(now, null);
-    Date lastLogin = user.getLastLogin();
-    if (null == lastLogin) {
-      lastLogin = new Date();
-    }
-    long lastLoginDate = MiscMethods.getDateDMYinMillis(null, lastLogin);
-    
-    if (currentLoginDate<lastLoginDate) {
-      //wtf how did this happen? lol, keep the newNumConsecutiveDaysPlayed to 1
-      log.error("ERROR in setDailyBonusInfo, Current login, "+currentLoginDate+" is dated before last login "+lastLoginDate);
-    } else if (currentLoginDate > lastLoginDate) { 
-      //first time logging in today
-      //1) user has just extended his consecutive day logging in streak or
-      //2) user could have broke the cycle of consecutively logging in 
-      Date dayLastAwarded = lastReward.getDateAwarded();
-      long previousRewardDate = MiscMethods.getDateDMYinMillis(null, dayLastAwarded);
-      boolean oneDayApart = isNowOneDayAhead(currentLoginDate, previousRewardDate);
-      if (oneDayApart) {
-        newNumConsecutiveDaysPlayed = oldNumConsecutiveDaysPlayed + 1;
-      } else {
-        //else scenario 2) occurred, so default to 1 
-        log.info("user restarted num consecutive days played to 1. now=" + now
-            + ", last day user got reward=" + dayLastAwarded);
-      }
+    int dayDiff = MiscMethods.dateDifferenceInDays(nowDate, dateLastAwarded);
+    if (1 < dayDiff && awardedInThePast) {
+      //been a while since user last logged in
+      totalConsecutiveDaysList.add(1);
+      rewardUserList.add(true);
+      return 1;
+    } else if (1 == dayDiff && awardedInThePast){
+      log.info("previous daily bonus reward: " + lastReward + ", now=" + now);
+      //user logged in yesterday
+      totalConsecutiveDaysList.add(user.getNumConsecutiveDaysPlayed() + 1);
+      rewardUserList.add(true);
+      return nthConsecutiveDay % ControllerConstants.STARTUP__DAILY_BONUS_MAX_CONSECUTIVE_DAYS + 1;
     } else {
-      //else not first time user logged in today
-      newNumConsecutiveDaysPlayed = oldNumConsecutiveDaysPlayed;
-    }
-    
-    //this is to account for users who have 0 num consecutive days played in the db, or could just make default 1
-    if (0 == oldNumConsecutiveDaysPlayed) {
-      newNumConsecutiveDaysPlayed = 1;
-    }
-    
-    return newNumConsecutiveDaysPlayed;
-  }
-  
-  private boolean isNowOneDayAhead (long newerDate, long olderDate) {
-    Calendar older = Calendar.getInstance();
-    older.setTime(new Date(olderDate));
-    older.add(Calendar.DATE, 1);
-    
-    long olderDatePlusOne = older.getTimeInMillis();
-    
-    if(newerDate == olderDatePlusOne) {
-      return true;
-    } else {
-      return false;
+      //either user logged in today or user tried faking time, but who cares...
+      totalConsecutiveDaysList.add(user.getNumConsecutiveDaysPlayed());
+      rewardUserList.add(false);
+      return nthConsecutiveDay;
     }
   }
   
-  //possible outcomes:
-  //return true and rewardList contains a DailyBonusReward: user logged in one more consecutive day
-  //return false but rewardList contains a DailyBonusReward: user logged in multiple times this day
-  //return false but rewardList does not contain anything: something bad happened
-  //numConsecutiveDaysPlayed (at time of this writing) should be a value from [1,5] inclusive
-  private boolean determineWhetherToRewardUser(UserDailyBonusRewardHistory previousReward,
-      int numConsecutiveDaysPlayed, User aUser, List<DailyBonusReward> rewardList) {
-    boolean giveToUser = false;
-    DailyBonusReward reward = null;
+  private DailyBonusReward determineRewardForUser(User aUser, int numConsecutiveDaysPlayed) {
     Map<Integer, DailyBonusReward> allDailyRewards = 
         DailyBonusRewardRetrieveUtils.getDailyBonusRewardIdsToDailyBonusRewards();
     //sanity check, exit if it fails
     if (null == allDailyRewards || allDailyRewards.isEmpty()) {
       log.error("unexpected error: There are no daily bonus rewards set up in the daily_bonus_reward table");
-      return giveToUser; //false
+      return null;
     }
     
     int level = aUser.getLevel();
     //determine daily bonus reward for this user's level, exit if there it doesn't exist
-    reward = selectDailyBonusReward(allDailyRewards, level);
+    DailyBonusReward reward = selectDailyBonusRewardForLevel(allDailyRewards, level);
     if (null == reward) {
       log.error("unexpected error: no daily bonus rewards available for level=" + level);
-      return giveToUser; //false
     }
+    return reward;
     
-    //determine if user ever received a reward
-    if (null == previousReward) {
-      //NO PRIOR REWARDS GIVEN; EXIT IF NUM CONSECUTIVE DAYS IS LESS THAN ONE;
-      //ELSE USER SHOULD BE REWARDED
-      if (1 < numConsecutiveDaysPlayed) {
-        int maxConsecDays = ControllerConstants.STARTUP__DAILY_BONUS_MAX_CONSECUTIVE_DAYS;
-        log.error("unexpected error: (if on prod, else expected error on dev) user has been " +
-        		"logged in for more than one consecutive day, but no daily bonus reward history " +
-        		"exists for this user. Will still give reward. (num consecutive days logged in % " +
-        		maxConsecDays + ")= " + numConsecutiveDaysPlayed + ". user=" + aUser);
-        giveToUser = true;
-      } else if (1 == numConsecutiveDaysPlayed) {
-        log.info("user is getting their first ever daily reward. reward=" + reward);
-        giveToUser = true;
-      } else {
-        log.error("unexpected error: user has been logged in for 0 or less consecutive days. " +
-            "consecutiveDays=" + numConsecutiveDaysPlayed);
-        return giveToUser; //false
-      }
-      
-    } else { 
-      //USER HAS HISTORY OF DAILY BONUS REWARDS
-      //IF NUM CONSECUTIVE DAYS USER LOGGED IN IS EQUAL TO THE DAYS FOR THE LAST REWARD, USER
-      //SHOULD NOT GET THE REWARD, BUT JUST RETURN THE CORRESPONDING REWARD;
-      //IF USER HAS LOGGED IN FOR ONE MORE CONSECUTIVE DAY, USER SHOULD GET REWARD; RETURN THE REWARD
-      //ELSE EXIT
-      int previousRewardConsecutiveDays = previousReward.getNthConsecutiveDay();
-      int maxConsecutiveDays = ControllerConstants.STARTUP__DAILY_BONUS_MAX_CONSECUTIVE_DAYS;
-      if((1 == numConsecutiveDaysPlayed && maxConsecutiveDays == previousRewardConsecutiveDays) ||
-          (numConsecutiveDaysPlayed > previousRewardConsecutiveDays)) {
-        //scenario 1) user's consecutive-days-played has wrapped around to start all over again
-        //scenario 2) user has logged in one more consecutive day
-        giveToUser = true;
-      } else if (numConsecutiveDaysPlayed != previousRewardConsecutiveDays) {
-        return giveToUser; //false
-      }
-    }
-    rewardList.add(reward);
-    return giveToUser;
   }
   
-  private DailyBonusReward selectDailyBonusReward(Map<Integer, DailyBonusReward> allRewards, int userLevel) {
+  private DailyBonusReward selectDailyBonusRewardForLevel(Map<Integer, DailyBonusReward> allRewards, int userLevel) {
     DailyBonusReward returnValue = null;
     for (int id : allRewards.keySet()) {
       DailyBonusReward dbr = allRewards.get(id);
@@ -837,7 +779,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int numBoosterItemsUserWants = 1;
       int equipId = purchaseBoosterPack(value, aUser, numBoosterItemsUserWants, now);
       if (ControllerConstants.NOT_SET == equipId) {
-        log.error("unexpected error: failed to buy booster pack for user. packId=" + value
+        log.error("unexpected error: failed to 'buy' booster pack for user. packId=" + value
             + ", user=" + aUser);
         return false;
       }
@@ -850,7 +792,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       //need to tell client user got this specific equip
       dbib.setEquipId(equipId);
     }
-    if (key.equals(MiscMethods.gold)) {
+    if (key.equals(MiscMethods.silver)) {
       if (!aUser.updateRelativeCoinsNaive(value)) {
         log.error("unexpected error: could not give silver bonus of " + value + " to user " + aUser);
         return false;
@@ -858,7 +800,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         writeToUserCurrencyHistory(aUser, key, previousSilver, currentDayReward);
       }
     } 
-    if (key.equals(MiscMethods.silver)) {
+    if (key.equals(MiscMethods.gold)) {
       if (!aUser.updateRelativeDiamondsNaive(value)) {
         log.error("unexpected error: could not give silver bonus of " + value + " to user " + aUser);
         return false;
