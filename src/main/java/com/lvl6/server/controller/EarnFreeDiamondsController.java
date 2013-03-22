@@ -448,11 +448,12 @@ public class EarnFreeDiamondsController extends EventController {
       }
       int userId = aUser.getId();
       int isSilver;
-      int currencyChange = money.get(0);
+      String key = keys.get(0);
+      int currencyChange = money.get(key);
       int currencyAfter;
       String reasonForChange = "earn free diamonds controller";
       
-      if(keys.get(0).equals(MiscMethods.silver)) {
+      if(key.equals(MiscMethods.silver)) {
         isSilver = 1;
         currencyAfter = aUser.getCoins();
       } else {
