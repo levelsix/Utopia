@@ -238,6 +238,7 @@ public class ControllerConstants {
   
   //EARN FREE DIAMONDS
   public static final int EARN_FREE_DIAMONDS__NUM_VIDEOS_FOR_DIAMOND_REWARD = 20;
+  public static final int EARN_FREE_DIAMONDS__FB_CONNECT_REWARD = 10;
   
   //VAULT
   public static final double VAULT__DEPOSIT_PERCENT_CUT = 0.1;
@@ -490,6 +491,7 @@ public class ControllerConstants {
   public static final String UCHRFC__CREATE_CLAN = "created clan";
   public static final String UCHRFC__EARN_FREE_DIAMONDS_KIIP = "kiip";
   public static final String UCHRFC__EARN_FREE_DIAMONDS_ADCOLONY = "adcolony";
+  public static final String UCHRFC__EARN_FREE_DIAMONDS_FB_CONNECT = "connecting to facebook";
   public static final String UCHRFC__CHARACTER_MOD_TYPE = "character type, class";
   public static final String UCHRFC__CHARACTER_MOD_NAME = "character name";
   public static final String UCHRFC__CHARACTER_MOD_RESET = "character reset";

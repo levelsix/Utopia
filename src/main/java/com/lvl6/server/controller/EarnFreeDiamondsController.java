@@ -270,6 +270,16 @@ public class EarnFreeDiamondsController extends EventController {
         }
       }
     }
+    if (EarnFreeDiamondsType.FB_CONNECT == freeDiamondsType) {
+      int diamondChange = ControllerConstants.EARN_FREE_DIAMONDS__FB_CONNECT_REWARD;
+      if (!user.updateRelativeDiamondsForFree(diamondChange, freeDiamondsType)) {
+        log.error("unexpected error: user was not awarded for connecting to facebook");
+      } else {
+        String key = MiscMethods.gold;
+        money.put(key, diamondChange);
+        keys.add(key);
+      }
+    }
   }
 
   private void writeToDBHistory(User user, EarnFreeDiamondsType freeDiamondsType, Timestamp clientTime, JSONObject kiipConfirmationReceipt, String adColonyDigest,
@@ -322,6 +332,11 @@ public class EarnFreeDiamondsController extends EventController {
       //    } else if (freeDiamondsType == EarnFreeDiamondsType.TAPJOY) {
       //    } else if (freeDiamondsType == EarnFreeDiamondsType.FLURRY_VIDEO) {
       //    } else if (freeDiamondsType == EarnFreeDiamondsType.TWITTER) {
+    } else if (EarnFreeDiamondsType.FB_CONNECT == freeDiamondsType) {
+      if (user.isHasReceivedfbReward()) {
+        log.error("unexpected error: user already received fb connect diamonds");
+        return false;
+      }
     } else {
       resBuilder.setStatus(EarnFreeDiamondsStatus.METHOD_NOT_SUPPORTED);
       log.error("earn free gold type passed in not supported. type=" + freeDiamondsType);
@@ -449,6 +464,8 @@ public class EarnFreeDiamondsController extends EventController {
         reasonForChange = ControllerConstants.UCHRFC__EARN_FREE_DIAMONDS_KIIP;
       } else if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
         reasonForChange = ControllerConstants.UCHRFC__EARN_FREE_DIAMONDS_ADCOLONY;
+      } else if (EarnFreeDiamondsType.FB_CONNECT == freeDiamondsType) {
+        reasonForChange = ControllerConstants.UCHRFC__EARN_FREE_DIAMONDS_FB_CONNECT;
       }
       
       int inserted = InsertUtils.get().insertIntoUserCurrencyHistory(userId, date, isSilver,

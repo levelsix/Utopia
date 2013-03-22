@@ -75,6 +75,7 @@ public class User implements Serializable {
   private Date lastMarketplaceNotificationTime;
   private Date lastWallPostNotificationTime;
   private int kabamNaid;
+  private boolean hasReceivedfbReward;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime, int energy,
@@ -94,7 +95,7 @@ public class User implements Serializable {
       int numTimesKiipRewarded, int numConsecutiveDaysPlayed,
       int numGroupChatsRemaining, int clanId, Date lastGoldmineRetrieval,
       Date lastMarketplaceNotificationTime, Date lastWallPostNotificationTime,
-      int kabamNaid) {
+      int kabamNaid, boolean hasReceivedfbReward) {
     super();
     this.id = id;
     this.name = name;
@@ -150,6 +151,7 @@ public class User implements Serializable {
     this.lastMarketplaceNotificationTime = lastMarketplaceNotificationTime;
     this.lastWallPostNotificationTime = lastWallPostNotificationTime;
     this.kabamNaid = kabamNaid;
+    this.hasReceivedfbReward = hasReceivedfbReward;
   }
 
   public boolean updateAbsoluteUserLocation(Location location) {
@@ -1151,6 +1153,7 @@ public class User implements Serializable {
     conditionParams.put(DBConstants.USER__ID, id);
 
     Map <String, Object> relativeParams = new HashMap<String, Object>();
+    Map<String, Object> absoluteParams = null;
     if (diamondChange <= 0) return false;
 
     relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
@@ -1160,8 +1163,12 @@ public class User implements Serializable {
     if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
       relativeParams.put(DBConstants.USER__NUM_ADCOLONY_VIDEOS_WATCHED, 1);
     }
+    if (EarnFreeDiamondsType.FB_CONNECT == freeDiamondsType) {
+      absoluteParams = new HashMap<String, Object>();
+      absoluteParams.put(DBConstants.USER__HAS_RECEIVED_FB_REWARD, 1);
+    }
 
-    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.diamonds += diamondChange;
@@ -1170,6 +1177,9 @@ public class User implements Serializable {
       }
       if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
         this.numAdColonyVideosWatched++;
+      }
+      if (EarnFreeDiamondsType.FB_CONNECT == freeDiamondsType) {
+        this.hasReceivedfbReward = true;
       }
       return true;
     }
@@ -1460,6 +1470,14 @@ public class User implements Serializable {
   public int getKabamNaid() {
     return kabamNaid;
   }
+  
+  public boolean isHasReceivedfbReward() {
+    return hasReceivedfbReward;
+  }
+
+  public void setHasReceivedfbReward(boolean hasReceivedfbReward) {
+    this.hasReceivedfbReward = hasReceivedfbReward;
+  }
 
   @Override
   public String toString() {
@@ -1497,9 +1515,9 @@ public class User implements Serializable {
         + clanId + ", lastGoldmineRetrieval=" + lastGoldmineRetrieval
         + ", lastMarketplaceNotificationTime="
         + lastMarketplaceNotificationTime + ", lastWallPostNotificationTime="
-        + lastWallPostNotificationTime + ", kabamNaid=" + kabamNaid + "]";
+        + lastWallPostNotificationTime + ", kabamNaid=" + kabamNaid
+        + ", hasReceivedfbReward=" + hasReceivedfbReward + "]";
   }
-
 
   public Date getLastGoldmineRetrieval() {
     return lastGoldmineRetrieval;

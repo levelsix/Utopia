@@ -647,7 +647,7 @@ public class MiscMethods {
     cb = cb.setBoosterPackConstants(bpc);
 
     cb.setQuestIdForFirstLossTutorial(ControllerConstants.STARTUP__QUEST_ID_FOR_FIRST_LOSS_TUTORIAL);
-    
+    cb.setFbConnectRewardDiamonds(ControllerConstants.EARN_FREE_DIAMONDS__FB_CONNECT_REWARD);
     return cb.build();  
   }
 

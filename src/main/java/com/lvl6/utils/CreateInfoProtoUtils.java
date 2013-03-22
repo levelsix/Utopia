@@ -358,7 +358,8 @@ public class CreateInfoProtoUtils {
         .setIsAdmin(u.isAdmin())
         .setNumCoinsRetrievedFromStructs(u.getNumCoinsRetrievedFromStructs())
         .setNumAdColonyVideosWatched(u.getNumAdColonyVideosWatched())
-        .setNumGroupChatsRemaining(u.getNumGroupChatsRemaining());
+        .setNumGroupChatsRemaining(u.getNumGroupChatsRemaining())
+        .setHasReceivedfbReward(u.isHasReceivedfbReward());
 
     if (u.isFake()) {
       int equipmentLevel = u.getLevel();
