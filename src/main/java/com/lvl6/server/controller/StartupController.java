@@ -532,7 +532,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       rewardUser = rewardUserList.get(0);
     }
     DailyBonusInfo.Builder dbib = DailyBonusInfo.newBuilder();
-    
+    dbib.setNumConsecutiveDaysPlayed(consecutiveDaysPlayed);
     DailyBonusReward rewardForUser = determineRewardForUser(user, consecutiveDaysPlayed);
     
     //function does nothing if null reward was returned from determineRewardForUser
