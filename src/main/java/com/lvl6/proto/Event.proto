@@ -347,8 +347,10 @@ message StartupResponseProto {
 		optional BoosterPackConstants boosterPackConstants = 98;
 		
 		optional int32 questIdForFirstLossTutorial = 99;
+		repeated int32 questIdsGuaranteedWin = 101;
 		
 		optional int32 fbConnectRewardDiamonds = 100;
+		
 		
 		message BoosterPackConstants {
 			optional int32 purchaseOptionOneNumBoosterItems = 1;

@@ -647,6 +647,13 @@ public class MiscMethods {
     cb = cb.setBoosterPackConstants(bpc);
 
     cb.setQuestIdForFirstLossTutorial(ControllerConstants.STARTUP__QUEST_ID_FOR_FIRST_LOSS_TUTORIAL);
+    List<Integer> questIdsGuaranteedWin = new ArrayList<Integer>();
+    int[] questIdsForWin = ControllerConstants.STARTUP__QUEST_IDS_FOR_GUARANTEED_LOSS; 
+    for(int i = 0; i < questIdsForWin.length; i++) {
+      questIdsGuaranteedWin.add(questIdsForWin[i]);
+    }
+    cb.addAllQuestIdsGuaranteedWin(questIdsGuaranteedWin);
+    
     cb.setFbConnectRewardDiamonds(ControllerConstants.EARN_FREE_DIAMONDS__FB_CONNECT_REWARD);
     return cb.build();  
   }
@@ -1511,10 +1518,10 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     return PSTDateAndHourInUTC;
   }
   
-  public static int dateDifferenceInDays(Date day1, Date day2) {
-    DateMidnight d1 = (new DateTime(day1)).toDateMidnight(); //
-    DateMidnight d2 = (new DateTime(day2)).toDateMidnight();
-    int days = Days.daysBetween(d1, d2).getDays();
+  public static int dateDifferenceInDays(Date start, Date end) {
+    DateMidnight previous = (new DateTime(start)).toDateMidnight(); //
+    DateMidnight current = (new DateTime(end)).toDateMidnight();
+    int days = Days.daysBetween(previous, current).getDays();
     return days;
   }
   

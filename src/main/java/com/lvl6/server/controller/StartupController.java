@@ -573,7 +573,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     long dateLastMillis = dateLastAwarded.getTime();
     boolean awardedInThePast = nowDateMillis > dateLastMillis;
     
-    int dayDiff = MiscMethods.dateDifferenceInDays(nowDate, dateLastAwarded);
+    int dayDiff = MiscMethods.dateDifferenceInDays(dateLastAwarded, nowDate);
     log.info("dateLastAwarded=" + dateLastAwarded + ", nowDate=" + nowDate + ", day difference=" + dayDiff);
     if (1 < dayDiff && awardedInThePast) {
       log.info("user broke their logging in streak. previous daily bonus reward: " + lastReward
