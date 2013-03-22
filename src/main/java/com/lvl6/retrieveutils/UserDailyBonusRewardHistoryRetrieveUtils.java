@@ -78,6 +78,6 @@ import com.lvl6.utils.DBConnection;
     int nthConsecutiveDay = rs.getInt(i++);
     Date dateAwarded = new Date(rs.getTimestamp(i++).getTime()); //should not be null
     
-    return new UserDailyBonusRewardHistory(userId, userId, currencyRewarded, isCoins, equipIdRewarded, nthConsecutiveDay, dateAwarded);
+    return new UserDailyBonusRewardHistory(id, userId, currencyRewarded, isCoins, equipIdRewarded, nthConsecutiveDay, dateAwarded);
   }
 }
