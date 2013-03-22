@@ -574,7 +574,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     boolean awardedInThePast = nowDateMillis > dateLastMillis;
     
     int dayDiff = MiscMethods.dateDifferenceInDays(nowDate, dateLastAwarded);
+    log.info("dateLastAwarded=" + dateLastAwarded + ", nowDate=" + nowDate + ", day difference=" + dayDiff);
     if (1 < dayDiff && awardedInThePast) {
+      log.info("user broke their logging in streak. previous daily bonus reward: " + lastReward
+          + ", now=" + now);
       //been a while since user last logged in
       totalConsecutiveDaysList.add(1);
       rewardUserList.add(true);
@@ -589,6 +592,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       //either user logged in today or user tried faking time, but who cares...
       totalConsecutiveDaysList.add(user.getNumConsecutiveDaysPlayed());
       rewardUserList.add(false);
+      log.info("user already collected his daily reward. previous daily bonus reward: " + lastReward + ", now=" + now);
       return nthConsecutiveDay;
     }
   }
