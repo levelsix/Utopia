@@ -568,8 +568,8 @@ public class ControllerConstants {
   public static final int[] STARTUP__LEVELS_THAT_TRIGGER_KIIP_REWARDS = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
     19, 20, 21, 23, 24, 25, 26};
   public static final int[] STARTUP__QUESTS_THAT_TRIGGER_KIIP_REWARDS_ON_REDEEM = {};
-  public static final int STARTUP__QUEST_ID_FOR_FIRST_LOSS_TUTORIAL = 326;
-  public static final int[] STARTUP__QUEST_IDS_FOR_GUARANTEED_LOSS = {324, 325};
+  public static final int STARTUP__QUEST_ID_FOR_FIRST_LOSS_TUTORIAL = 325;
+  public static final int[] STARTUP__QUEST_IDS_FOR_GUARANTEED_LOSS = {323, 324};
   public static final float CHANCE_TO_GET_KIIP_ON_BATTLE_WIN = 1.f;
   public static final float CHANCE_TO_GET_KIIP_ON_QUEST_REDEEM = 1.f;
 
