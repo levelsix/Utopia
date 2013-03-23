@@ -191,6 +191,7 @@ message StartupResponseProto {
 		optional int32 dayThreeDiamonds = 4;
 		optional int32 dayFourCoins = 5;
 		optional int32 equipId = 6;		//value set only if user has been on for 5 consecutive days
+		optional BoosterPackProto boosterPack = 7;
 	}
 
 	message MarketplacePostPurchasedNotificationProto {
