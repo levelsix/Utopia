@@ -783,16 +783,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (key.equals(MiscMethods.boosterPackId)) {
       //since user got a booster pack id as reward, need to "buy it" for him
       int numBoosterItemsUserWants = 1;
+      //calling this will already give the user an equip
       equipId = purchaseBoosterPack(value, aUser, numBoosterItemsUserWants, now);
       if (ControllerConstants.NOT_SET == equipId) {
         log.error("unexpected error: failed to 'buy' booster pack for user. packId=" + value
             + ", user=" + aUser);
-        return false;
-      }
-      int userEquipId = InsertUtils.get().insertUserEquip(userId, equipId, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL,
-          ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
-      if (userEquipId <= 0) {
-        log.error("unexpected error: failed in giving equip with id " + equipId + "to user " + aUser);
         return false;
       }
     }
