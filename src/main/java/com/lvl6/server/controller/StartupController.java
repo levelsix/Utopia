@@ -69,6 +69,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus;
 import com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus;
+import com.lvl6.proto.InfoProto.BoosterPackProto;
 import com.lvl6.proto.InfoProto.EquipEnhancementProto;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.FullStructureProto;
@@ -690,7 +691,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   
   //returns the equip id user "purchased" by logging in
   //mimics purchase booster pack controller except the argument checking and dealing with money
-  private int purchaseBoosterPack (int boosterPackId, User aUser, int numBoosterItemsUserWants, Timestamp now) {
+  private int purchaseBoosterPack (DailyBonusInfo.Builder dbib, int boosterPackId, 
+      User aUser, int numBoosterItemsUserWants, Timestamp now) {
     int equipId = ControllerConstants.NOT_SET;
     try {
       //local vars
@@ -714,6 +716,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         MiscMethods.writeToUserBoosterPackHistoryOneUser(userId, boosterPackId, numBoosterItemsUserWants, 
             now, itemsUserReceives);
         equipId = getEquipId(numBoosterItemsUserWants, itemsUserReceives);
+        
+        BoosterPackProto bpp = CreateInfoProtoUtils.createBoosterPackProto(aPack, boosterItemIdsToBoosterItems.values());
+        dbib.setBoosterPack(bpp);
       } 
       
     } catch (Exception e) {
@@ -781,7 +786,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (key.equals(MiscMethods.boosterPackId)) {
       //since user got a booster pack id as reward, need to "buy it" for him
       int numBoosterItemsUserWants = 1;
-      int equipId = purchaseBoosterPack(value, aUser, numBoosterItemsUserWants, now);
+      int equipId = purchaseBoosterPack(dbib, value, aUser, numBoosterItemsUserWants, now);
       if (ControllerConstants.NOT_SET == equipId) {
         log.error("unexpected error: failed to 'buy' booster pack for user. packId=" + value
             + ", user=" + aUser);
