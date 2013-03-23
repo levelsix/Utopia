@@ -1051,7 +1051,7 @@ public class InsertUtils implements InsertUtil{
   }
   
   public int insertIntoUserDailyRewardHistory(int userId, int currencyRewarded, boolean isCoins,
-      int equipIdRewarded, int nthConsecutiveDay, Date aDate) {
+      int boosterPackId, int equipIdRewarded, int nthConsecutiveDay, Date aDate) {
     String tableName = DBConstants.TABLE_USER_DAILY_BONUS_REWARD_HISTORY;
     
     Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -1062,6 +1062,9 @@ public class InsertUtils implements InsertUtil{
       insertParams.put(DBConstants.USER_DAILY_BONUS_REWARD_HISTORY__CURRENCY_REWARDED, currencyRewarded);
     }
     insertParams.put(DBConstants.USER_DAILY_BONUS_REWARD_HISTORY__IS_COINS, isCoins);
+    if (ControllerConstants.NOT_SET != boosterPackId) {
+      insertParams.put(DBConstants.USER_DAILY_BONUS_REWARD_HISTORY__BOOSTER_PACK_ID_REWARDED, boosterPackId);
+    }
     if (ControllerConstants.NOT_SET != equipIdRewarded) {
       insertParams.put(DBConstants.USER_DAILY_BONUS_REWARD_HISTORY__EQUIP_ID_REWARDED, equipIdRewarded);
     }

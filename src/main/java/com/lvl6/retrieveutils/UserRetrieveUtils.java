@@ -199,7 +199,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     }
     
     if (fakePlayersOnly) {
-      query += "(" +DBConstants.USER__IS_FAKE + "=? and ";
+      query += DBConstants.USER__IS_FAKE + "=? and ";
       values.add(1);
     }
 

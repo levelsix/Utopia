@@ -8,18 +8,20 @@ public class UserDailyBonusRewardHistory {
   private int userId;
   private int currencyRewarded;
   private boolean isCoins;
+  private int boosterPackIdRewarded;
   private int equipIdRewarded;
   private int nthConsecutiveDay;
   private Date dateAwarded;
   
   public UserDailyBonusRewardHistory(int id, int userId, int currencyRewarded,
-      boolean isCoins, int equipIdRewarded, int nthConsecutiveDay,
-      Date dateAwarded) {
+      boolean isCoins, int boosterPackIdRewarded, int equipIdRewarded,
+      int nthConsecutiveDay, Date dateAwarded) {
     super();
     this.id = id;
     this.userId = userId;
     this.currencyRewarded = currencyRewarded;
     this.isCoins = isCoins;
+    this.boosterPackIdRewarded = boosterPackIdRewarded;
     this.equipIdRewarded = equipIdRewarded;
     this.nthConsecutiveDay = nthConsecutiveDay;
     this.dateAwarded = dateAwarded;
@@ -57,6 +59,14 @@ public class UserDailyBonusRewardHistory {
     this.isCoins = isCoins;
   }
 
+  public int getBoosterPackIdRewarded() {
+    return boosterPackIdRewarded;
+  }
+
+  public void setBoosterPackIdRewarded(int boosterPackIdRewarded) {
+    this.boosterPackIdRewarded = boosterPackIdRewarded;
+  }
+
   public int getEquipIdRewarded() {
     return equipIdRewarded;
   }
@@ -85,6 +95,7 @@ public class UserDailyBonusRewardHistory {
   public String toString() {
     return "UserDailyBonusRewardHistory [id=" + id + ", userId=" + userId
         + ", currencyRewarded=" + currencyRewarded + ", isCoins=" + isCoins
+        + ", boosterPackIdRewarded=" + boosterPackIdRewarded
         + ", equipIdRewarded=" + equipIdRewarded + ", nthConsecutiveDay="
         + nthConsecutiveDay + ", dateAwarded=" + dateAwarded + "]";
   }

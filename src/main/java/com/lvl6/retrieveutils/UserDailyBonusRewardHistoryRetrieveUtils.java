@@ -71,6 +71,10 @@ import com.lvl6.utils.DBConnection;
     int userId = rs.getInt(i++);
     int currencyRewarded = rs.getInt(i++);
     boolean isCoins = rs.getBoolean(i++);
+    int boosterPackIdRewarded = rs.getInt(i++);
+    if (rs.wasNull()) {
+      boosterPackIdRewarded = ControllerConstants.NOT_SET;
+    }
     int equipIdRewarded = rs.getInt(i++); //could be null
     if (rs.wasNull()) {
       equipIdRewarded = ControllerConstants.NOT_SET;
@@ -78,6 +82,7 @@ import com.lvl6.utils.DBConnection;
     int nthConsecutiveDay = rs.getInt(i++);
     Date dateAwarded = new Date(rs.getTimestamp(i++).getTime()); //should not be null
     
-    return new UserDailyBonusRewardHistory(id, userId, currencyRewarded, isCoins, equipIdRewarded, nthConsecutiveDay, dateAwarded);
+    return new UserDailyBonusRewardHistory(id, userId, currencyRewarded, isCoins, 
+        boosterPackIdRewarded, equipIdRewarded, nthConsecutiveDay, dateAwarded);
   }
 }

@@ -642,6 +642,7 @@ public class DBConstants {
   public static final String USER_DAILY_BONUS_REWARD_HISTORY__USER_ID = GENERIC__USER_ID;
   public static final String USER_DAILY_BONUS_REWARD_HISTORY__CURRENCY_REWARDED = "currency_rewarded";
   public static final String USER_DAILY_BONUS_REWARD_HISTORY__IS_COINS = "is_coins";
+  public static final String USER_DAILY_BONUS_REWARD_HISTORY__BOOSTER_PACK_ID_REWARDED = "booster_pack_id_rewarded";
   public static final String USER_DAILY_BONUS_REWARD_HISTORY__EQUIP_ID_REWARDED = "equip_id_rewarded";
   public static final String USER_DAILY_BONUS_REWARD_HISTORY__NTH_CONSECUTIVE_DAY = "nth_consecutive_day";
   public static final String USER_DAILY_BONUS_REWARD_HISTORY__DATE_AWARDED = "date_awarded";
