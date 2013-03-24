@@ -136,7 +136,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
 
   public List<User> getUsers(List<UserType> requestedTypes, int numUsers, int playerLevel, int userId, boolean guaranteeNum, 
       Double latLowerBound, Double latUpperBound, Double longLowerBound, Double longUpperBound, boolean forBattle, 
-      boolean fakePlayersOnly, List<Integer> forbiddenPlayerIds) {
+      boolean fakePlayersOnly, boolean offlinePlayersOnly, List<Integer> forbiddenPlayerIds) {
     log.debug("retrieving list of users for user " + userId + " with requested types " + requestedTypes + 
         " , " + numUsers + " users " + " around player level " + playerLevel + ", guaranteeNum="+guaranteeNum + 
         ", latLowerBound=" + latLowerBound + ", latUpperBound=" + latUpperBound + 
@@ -198,6 +198,12 @@ import com.lvl6.utils.utilmethods.StringUtils;
       values.add(null);
     }
     
+    if (offlinePlayersOnly) {
+      query += "(" + DBConstants.USER__LAST_LOGOUT + " > " + DBConstants.USER__LAST_LOGIN +  " or " +
+          DBConstants.USER__LAST_LOGIN + " is ?) and ";
+      values.add(null); //for fake players
+    }
+    
     if (fakePlayersOnly) {
       query += DBConstants.USER__IS_FAKE + "=? and ";
       values.add(1);
@@ -217,6 +223,8 @@ import com.lvl6.utils.utilmethods.StringUtils;
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
+      //this is in case there aren't enough users to satisfy caller's requested number of users
+      //so level range is widened and db requeried
       while (rs != null && MiscMethods.getRowCount(rs) < numUsers) {
         values.remove(values.size()-1);
         values.remove(values.size()-1);

@@ -777,7 +777,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return false;
     }
     
-    int userId = aUser.getId();
     int previousSilver = aUser.getCoins() + aUser.getVaultBalance();
     int previousGold = aUser.getDiamonds(); 
     if (key.equals(MiscMethods.boosterPackId)) {
@@ -984,11 +983,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
 
     boolean fakePlayersOnly = false;
+    boolean offlinePlayersOnly = false;
     List<Integer> forbiddenUserIds = new ArrayList<Integer>();
     forbiddenUserIds.add(user.getId());
 
     List<User> allies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, ControllerConstants.STARTUP__APPROX_NUM_ALLIES_TO_SEND, user.getLevel(), user.getId(), false, 
-        null, null, null, null, false, fakePlayersOnly, forbiddenUserIds);
+        null, null, null, null, false, fakePlayersOnly, offlinePlayersOnly, forbiddenUserIds);
     if (allies != null && allies.size() > 0) {
       for (User ally : allies) {
         resBuilder.addAllies(CreateInfoProtoUtils.createMinimumUserProtoWithLevelFromUser(ally));

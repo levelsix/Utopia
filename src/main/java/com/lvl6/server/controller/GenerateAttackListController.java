@@ -82,8 +82,10 @@ import com.lvl6.utils.RetrieveUtils;
       if (5 > user.getLevel()) {
         fakePlayersOnly = true;
       }
+      boolean offlinePlayersOnly = true;
+      
       List<User> enemies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, numEnemies, user.getLevel(), user.getId(), false, 
-          latLowerBound, latUpperBound, longLowerBound, longUpperBound, true, fakePlayersOnly, null);
+          latLowerBound, latUpperBound, longLowerBound, longUpperBound, true, fakePlayersOnly, offlinePlayersOnly, null);
       if (enemies != null) {
         for (User enemy : enemies) {
           if (Math.abs(enemy.getLevel() - user.getLevel()) <= ControllerConstants.BATTLE__MAX_LEVEL_DIFFERENCE) {
