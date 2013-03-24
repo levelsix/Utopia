@@ -1,12 +1,16 @@
 package com.lvl6.server.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.GenerateAttackListRequestEvent;
 import com.lvl6.events.response.GenerateAttackListResponseEvent;
 import com.lvl6.info.User;
@@ -83,15 +87,22 @@ import com.lvl6.utils.RetrieveUtils;
         fakePlayersOnly = true;
       }
       boolean offlinePlayersOnly = true;
-      
+      //offline real players
       List<User> enemies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, numEnemies, user.getLevel(), user.getId(), false, 
           latLowerBound, latUpperBound, longLowerBound, longUpperBound, true, fakePlayersOnly, offlinePlayersOnly, null);
       if (enemies != null) {
-        for (User enemy : enemies) {
-          if (Math.abs(enemy.getLevel() - user.getLevel()) <= ControllerConstants.BATTLE__MAX_LEVEL_DIFFERENCE) {
-            FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(enemy);
-            resBuilder.addEnemies(fup);
-          }
+        List<Integer> playerIds = new ArrayList<Integer>(); //ids added to builder
+        Set<Integer> forbiddenIds = new HashSet<Integer>(); //should not be added to builder
+        addPlayersToBuilder(resBuilder, enemies, user, forbiddenIds, playerIds);
+        
+        if (enemies.size() < numEnemies) {
+          //since not enough real offline players include the real online players
+          offlinePlayersOnly = false;
+          enemies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, numEnemies, user.getLevel(), user.getId(), false, 
+              latLowerBound, latUpperBound, longLowerBound, longUpperBound, true, fakePlayersOnly, offlinePlayersOnly, playerIds);
+          
+          forbiddenIds.addAll(playerIds);
+          addPlayersToBuilder(resBuilder, enemies, user, forbiddenIds, null);
         }
       } else {
         resBuilder.setStatus(GenerateAttackListStatus.SOME_FAIL);
@@ -110,4 +121,19 @@ import com.lvl6.utils.RetrieveUtils;
     server.writeEvent(resEvent);
   }
 
+  private void addPlayersToBuilder (GenerateAttackListResponseProto.Builder resBuilder,
+      List<User> enemies, User user, Set<Integer> forbiddenIds, List<Integer> playerIds) {
+    for (User enemy : enemies) {
+      int enemyId = enemy.getId();
+      //add user if within level range and not forbidden
+      if ((Math.abs(enemy.getLevel() - user.getLevel()) <= ControllerConstants.BATTLE__MAX_LEVEL_DIFFERENCE)
+          && !forbiddenIds.contains(enemyId)) {
+        FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(enemy);
+        resBuilder.addEnemies(fup);
+        if (null != playerIds) {
+          playerIds.add(enemyId);
+        }
+      }
+    }
+  }
 }
