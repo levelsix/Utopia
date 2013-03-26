@@ -887,6 +887,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     Date dateAwarded = udbrh.getDateAwarded();
     long dateAwardedMillis = dateAwarded.getTime();
     dbib.setTimeAwarded(dateAwardedMillis);
+    dbib.setNumConsecutiveDaysPlayed(consecutiveDaysPlayed);
     resBuilder.setDailyBonusInfo(dbib.build());
   }
   
