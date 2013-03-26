@@ -99,7 +99,7 @@ public interface InsertUtil {
       int enhancementPercent);
 
   public abstract boolean insertMarketplaceItemIntoHistory(
-      MarketplacePost mp, int buyerId, boolean sellerHasLicense);
+      MarketplacePost mp, int buyerId, boolean sellerHasLicense, Timestamp timeOfPurchase);
 
   public abstract boolean insertReferral(int referrerId, int referredId,
       int coinsGivenToReferrer);

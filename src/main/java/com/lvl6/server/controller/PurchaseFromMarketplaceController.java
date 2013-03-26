@@ -207,7 +207,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       }
     }
 
-    if (!InsertUtils.get().insertMarketplaceItemIntoHistory(mp, buyer.getId(), sellerHasLicense)) {
+    if (!InsertUtils.get().insertMarketplaceItemIntoHistory(mp, buyer.getId(), sellerHasLicense, timeOfPurchaseRequest)) {
       log.error("problem with adding to marketplace history the post " + mp + " with buyer " + buyer.getId());
     }
 
