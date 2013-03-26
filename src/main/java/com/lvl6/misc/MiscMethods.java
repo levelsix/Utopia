@@ -1473,16 +1473,16 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
       return null;
     }
 
-    String package1SaleIdentifier = IAPValues.PACKAGE1SALE;
-    String package2SaleIdentifier = IAPValues.PACKAGE2SALE;
-    String package3SaleIdentifier = IAPValues.PACKAGE3SALE;
-    String package4SaleIdentifier = IAPValues.PACKAGE4SALE;
-    String package5SaleIdentifier = IAPValues.PACKAGE5SALE;
-    String packageS1SaleIdentifier = IAPValues.PACKAGES1SALE;
-    String packageS2SaleIdentifier = IAPValues.PACKAGES2SALE;
-    String packageS3SaleIdentifier = IAPValues.PACKAGES3SALE;
-    String packageS4SaleIdentifier = IAPValues.PACKAGES4SALE;
-    String packageS5SaleIdentifier = IAPValues.PACKAGES5SALE;
+    String package1SaleIdentifier = IAPValues.PACKAGE1BSALE;
+    String package2SaleIdentifier = IAPValues.PACKAGE2BSALE;
+    String package3SaleIdentifier = IAPValues.PACKAGE3BSALE;
+    String package4SaleIdentifier = IAPValues.PACKAGE4BSALE;
+    String package5SaleIdentifier = IAPValues.PACKAGE5BSALE;
+    String packageS1SaleIdentifier = IAPValues.PACKAGES1BSALE;
+    String packageS2SaleIdentifier = IAPValues.PACKAGES2BSALE;
+    String packageS3SaleIdentifier = IAPValues.PACKAGES3BSALE;
+    String packageS4SaleIdentifier = IAPValues.PACKAGES4BSALE;
+    String packageS5SaleIdentifier = IAPValues.PACKAGES5BSALE;
 
     String goldShoppeImageName = ControllerConstants.GOLD_SHOPPE_IMAGE_NAME_NEW_USER_GOLD_SALE;
     String goldBarImageName = ControllerConstants.GOLD_BAR_IMAGE_NAME_NEW_USER_GOLD_SALE;
