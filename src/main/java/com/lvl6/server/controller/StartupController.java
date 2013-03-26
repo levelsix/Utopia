@@ -578,16 +578,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     boolean awardedInThePast = nowDateMillis > dateLastMillis;
 
     int dayDiff = MiscMethods.dateDifferenceInDays(dateLastAwarded, nowDate);
-    log.info("dateLastAwarded=" + dateLastAwarded + ", nowDate=" + nowDate + ", day difference=" + dayDiff);
+    //log.info("dateLastAwarded=" + dateLastAwarded + ", nowDate=" + nowDate + ", day difference=" + dayDiff);
     if (1 < dayDiff && awardedInThePast) {
-      log.info("user broke their logging in streak. previous daily bonus reward: " + lastReward
-          + ", now=" + now);
+      //log.info("user broke their logging in streak. previous daily bonus reward: " + lastReward
+      //    + ", now=" + now);
       //been a while since user last logged in
       totalConsecutiveDaysList.add(1);
       rewardUserList.add(true);
       return 1;
     } else if (1 == dayDiff && awardedInThePast){
-      log.info("awarding user. previous daily bonus reward: " + lastReward + ", now=" + now);
+      //log.info("awarding user. previous daily bonus reward: " + lastReward + ", now=" + now);
       //user logged in yesterday
       totalConsecutiveDaysList.add(user.getNumConsecutiveDaysPlayed() + 1);
       rewardUserList.add(true);
@@ -596,7 +596,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       //either user logged in today or user tried faking time, but who cares...
       totalConsecutiveDaysList.add(user.getNumConsecutiveDaysPlayed());
       rewardUserList.add(false);
-      log.info("user already collected his daily reward. previous daily bonus reward: " + lastReward + ", now=" + now);
+      //log.info("user already collected his daily reward. previous daily bonus reward: " + lastReward + ", now=" + now);
       return nthConsecutiveDay;
     }
   }
@@ -839,7 +839,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private void setDailyBonusStuff(Builder resBuilder, 
       User aUser, boolean rewardUser, DailyBonusReward rewardForUser) {
-    log.info("rewardUser=" + rewardUser + "rewardForUser=" + rewardForUser + "user=" + aUser);
+    //log.info("rewardUser=" + rewardUser + "rewardForUser=" + rewardForUser + "user=" + aUser);
 
     int userId = aUser.getId();
     //there should be a reward inserted if things saved sans a hitch
@@ -863,27 +863,27 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       BoosterPackProto aBoosterPackProto = CreateInfoProtoUtils.createBoosterPackProto(bp, biList);
       dbib.setBoosterPack(aBoosterPackProto);
 
-      log.info("setting 5th consecutive day reward");
+      //log.info("setting 5th consecutive day reward");
       int equipId = udbrh.getEquipIdRewarded();
       dbib.setEquipId(equipId);
     }
     if (4 >= consecutiveDaysPlayed) {
-      log.info("setting 4th consecutive day reward");
+      //log.info("setting 4th consecutive day reward");
       dbib.setDayFourCoins(rewardForUser.getDayFourCoins());
     }
     if (3 >= consecutiveDaysPlayed) {
-      log.info("setting 3rd consecutive day reward");
+      //log.info("setting 3rd consecutive day reward");
       dbib.setDayThreeDiamonds(rewardForUser.getDayThreeDiamonds());
     }
     if (2 >= consecutiveDaysPlayed) {
-      log.info("setting 2nd consecutive day reward");
+      //log.info("setting 2nd consecutive day reward");
       dbib.setDayTwoCoins(rewardForUser.getDayTwoCoins());
     }
     if (1 == consecutiveDaysPlayed) {
-      log.info("setting first consecutive day reward");
+      //log.info("setting first consecutive day reward");
       dbib.setDayOneCoins(rewardForUser.getDayOneCoins());
     }
-    log.info("nth consecutive day=" + consecutiveDaysPlayed);
+    //log.info("nth consecutive day=" + consecutiveDaysPlayed);
     Date dateAwarded = udbrh.getDateAwarded();
     long dateAwardedMillis = dateAwarded.getTime();
     dbib.setTimeAwarded(dateAwardedMillis);
