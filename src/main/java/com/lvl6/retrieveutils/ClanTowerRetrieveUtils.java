@@ -75,7 +75,8 @@ public class ClanTowerRetrieveUtils {
     return null;
   }
 
-  /*
+  /**
+   * To not specify owner or attacker id, set them to ControllerConstants.NOT_SET
    * Gets all the towers with:
    * 1) the specified owner and attacker id
    * 2) the specified owner id

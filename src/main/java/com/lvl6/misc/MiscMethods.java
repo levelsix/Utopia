@@ -655,6 +655,8 @@ public class MiscMethods {
     cb.addAllQuestIdsGuaranteedWin(questIdsGuaranteedWin);
     
     cb.setFbConnectRewardDiamonds(ControllerConstants.EARN_FREE_DIAMONDS__FB_CONNECT_REWARD);
+    
+    cb.setMaxNumTowersClanCanHold(ControllerConstants.CLAN_TOWER__MAX_NUM_TOWERS_CLAN_CAN_HOLD);
     return cb.build();  
   }
 
