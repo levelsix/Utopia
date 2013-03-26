@@ -138,7 +138,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       User user, Clan clanOfRequester, boolean claiming, ClanTower aTower, Timestamp curTime) {
     if (user == null) {
       resBuilder.setStatus(BeginClanTowerWarStatus.OTHER_FAIL);
-      log.error("user is null");
+      log.error("unexpected error: user is null");
       return false;
     }
 
@@ -146,13 +146,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (null == aTower) {
       //empty tower
       resBuilder.setStatus(BeginClanTowerWarStatus.OTHER_FAIL);
-      log.error("tower requested is null.");
+      log.error("unexpected error: tower requested is null.");
       return false;
     }
 
     if (!MiscMethods.checkClientTimeAroundApproximateNow(curTime)) {
       resBuilder.setStatus(BeginClanTowerWarStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
-      log.error("client time too apart of server time. client time=" + curTime + ", servertime~="
+      log.error("user error: client time too apart of server time. client time=" + curTime + ", servertime~="
           + new Date());
       return false;
     }
@@ -161,7 +161,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if(null == clanOfRequester || clanOfRequester.getOwnerId() != user.getId()) {
       //non-clan-leader, non-clanned person sent request
       resBuilder.setStatus(BeginClanTowerWarStatus.NOT_CLAN_LEADER);
-      log.error("user is not the clan leader or not in a clan. user=" + user);
+      log.error("user error: user is not the clan leader or not in a clan. user=" + user);
       return false;
     }
 
@@ -171,10 +171,24 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId).size() ){
       //not enough clan members
       resBuilder.setStatus(BeginClanTowerWarStatus.NOT_ENOUGH_CLAN_MEMBERS);
-      log.error("clan does not have enough members. clan=" + clanOfRequester);
+      log.error("user error: clan does not have enough members. clan=" + clanOfRequester);
       return false;
     }
 
+    //check if clan trying to claim a tower already has (a) tower(s)
+    int ownerId = clanOfRequester.getOwnerId();
+    int attackerId = ControllerConstants.NOT_SET;
+    boolean ownerAndAttackerAreEnemies = false;
+    List<ClanTower> possessedTowers = ClanTowerRetrieveUtils
+        .getAllClanTowersWithSpecificOwnerAndOrAttackerId(ownerId, attackerId, ownerAndAttackerAreEnemies);
+    int limit = ControllerConstants.CLAN_TOWER__MAX_NUM_TOWERS_CLAN_CAN_HOLD;
+    if (possessedTowers.size() >= limit) {
+      resBuilder.setStatus(BeginClanTowerWarStatus.ALREADY_OWNS_MAX_NUMBER_OF_TOWERS);
+      log.error("user error: clan reached max num towers owned=" + limit + " clan=" + 
+          clanOfRequester + ", towers=" + MiscMethods.shallowListToString(possessedTowers));
+      return false;
+    }
+    
     //check if the clan tower has an owner
     if (ControllerConstants.NOT_SET == aTower.getClanOwnerId() ||
         0 > aTower.getClanOwnerId()) {

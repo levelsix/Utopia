@@ -455,7 +455,7 @@ public class ControllerConstants {
   //CLAN TOWER
   public static final int MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER = Globals.IS_SANDBOX() ? 2 : 25;
   public static final int NUM_HOURS_BEFORE_REWAGING_WAR_ON_TOWER = 6;
-  public static final int MAX_NUM_TOWERS_CLAN_CAN_HOLD = 1;
+  public static final int CLAN_TOWER__MAX_NUM_TOWERS_CLAN_CAN_HOLD = 1;
   
   //LEADERBOARD EVENT
   public static final int LEADERBOARD_EVENT__WINS_WEIGHT = 2;

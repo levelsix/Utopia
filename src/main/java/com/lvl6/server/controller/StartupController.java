@@ -839,6 +839,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   
   private void setDailyBonusStuff(Builder resBuilder, 
       User aUser, boolean rewardUser, DailyBonusReward rewardForUser) {
+    log.info("rewardUser=" + rewardUser + "rewardForUser=" + rewardForUser + "user=" + aUser);
+    
     int userId = aUser.getId();
     //there should be a reward inserted if things saved sans a hitch
     UserDailyBonusRewardHistory udbrh = 
@@ -861,24 +863,31 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       BoosterPackProto aBoosterPackProto = CreateInfoProtoUtils.createBoosterPackProto(bp, biList);
       dbib.setBoosterPack(aBoosterPackProto);
       
+      log.info("setting 5th consecutive day reward");
       int equipId = udbrh.getEquipIdRewarded();
       dbib.setEquipId(equipId);
     }
-    if (4 <= consecutiveDaysPlayed) {
+    if (4 >= consecutiveDaysPlayed) {
+      log.info("setting 4th consecutive day reward");
       dbib.setDayFourCoins(rewardForUser.getDayFourCoins());
     }
-    if (3 <= consecutiveDaysPlayed) {
+    if (3 >= consecutiveDaysPlayed) {
+      log.info("setting 3rd consecutive day reward");
       dbib.setDayThreeDiamonds(rewardForUser.getDayThreeDiamonds());
     }
-    if (2 <= consecutiveDaysPlayed) {
+    if (2 >= consecutiveDaysPlayed) {
+      log.info("setting 2nd consecutive day reward");
       dbib.setDayTwoCoins(rewardForUser.getDayTwoCoins());
     }
-    if (1 <= consecutiveDaysPlayed) {
+    if (1 == consecutiveDaysPlayed) {
+      log.info("setting first consecutive day reward");
       dbib.setDayOneCoins(rewardForUser.getDayOneCoins());
     }
+    log.info("nth consecutive day=" + consecutiveDaysPlayed);
     Date dateAwarded = udbrh.getDateAwarded();
     long dateAwardedMillis = dateAwarded.getTime();
     dbib.setTimeAwarded(dateAwardedMillis);
+    dbib.setNumConsecutiveDaysPlayed(consecutiveDaysPlayed);
     resBuilder.setDailyBonusInfo(dbib.build());
   }
   
