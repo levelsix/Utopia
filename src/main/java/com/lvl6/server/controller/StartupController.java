@@ -867,19 +867,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int equipId = udbrh.getEquipIdRewarded();
       dbib.setEquipId(equipId);
     }
-    if (4 <= consecutiveDaysPlayed) {
+    if (4 >= consecutiveDaysPlayed) {
       log.info("setting 4th consecutive day reward");
       dbib.setDayFourCoins(rewardForUser.getDayFourCoins());
     }
-    if (3 <= consecutiveDaysPlayed) {
+    if (3 >= consecutiveDaysPlayed) {
       log.info("setting 3rd consecutive day reward");
       dbib.setDayThreeDiamonds(rewardForUser.getDayThreeDiamonds());
     }
-    if (2 <= consecutiveDaysPlayed) {
+    if (2 >= consecutiveDaysPlayed) {
       log.info("setting 2nd consecutive day reward");
       dbib.setDayTwoCoins(rewardForUser.getDayTwoCoins());
     }
-    if (1 <= consecutiveDaysPlayed) {
+    if (1 == consecutiveDaysPlayed) {
       log.info("setting first consecutive day reward");
       dbib.setDayOneCoins(rewardForUser.getDayOneCoins());
     }
