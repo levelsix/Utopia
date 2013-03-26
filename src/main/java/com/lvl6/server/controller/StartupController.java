@@ -219,10 +219,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           setLeaderboardEventStuff(resBuilder);
           setEquipEnhancementStuff(resBuilder, user);
           setAllies(resBuilder, user);
-          
+
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
-          
+
           boolean isNewUser = false;
           InsertUtils.get().insertIntoLoginHistory(udid, user.getId(), now, isLogin, isNewUser);
         } catch (Exception e) {
@@ -233,23 +233,23 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
       } else {
         log.info("tutorial player with udid " + udid);
-        
+
         boolean userLoggedIn = LoginHistoryRetrieveUtils.userLoggedInByUDID(udid);
         int numOldAccounts = RetrieveUtils.userRetrieveUtils().numAccountsForUDID(udid);
         boolean alreadyInFirstTimeUsers = FirstTimeUsersRetrieveUtils.userExistsWithUDID(udid);
         boolean isFirstTimeUser = false;
-//        log.info("userLoggedIn=" + userLoggedIn + ", numOldAccounts=" + numOldAccounts
-//            + ", alreadyInFirstTimeUsers=" + alreadyInFirstTimeUsers);
+        //        log.info("userLoggedIn=" + userLoggedIn + ", numOldAccounts=" + numOldAccounts
+        //            + ", alreadyInFirstTimeUsers=" + alreadyInFirstTimeUsers);
         if (!userLoggedIn && 0 >= numOldAccounts && !alreadyInFirstTimeUsers) {
           isFirstTimeUser = true;
         }
-        
+
         if (isFirstTimeUser) {
           log.info("new player with udid " + udid);
           InsertUtils.get().insertIntoFirstTimeUsers(udid, reqProto.getIOS5Udid(),
               reqProto.getMacAddress(), reqProto.getAdvertiserId(), now);
         }
-        
+
         boolean goingThroughTutorial = true;
         InsertUtils.get().insertIntoLoginHistory(udid, 0, now, isLogin, goingThroughTutorial);
       }
@@ -271,7 +271,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     log.debug("Wrote response event: "+resEvent);
     //for things that client doesn't need
     log.debug("After response tasks");
-    
+
     //if app is not in force tutorial execute this function, 
     //regardless of whether the user is new or restarting from an account reset
     if (!reqProto.getIsForceTutorial()) {
@@ -287,18 +287,18 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if(null == equipUnderEnhancements || equipUnderEnhancements.isEmpty()) {
       return;
     }
-    
+
     EquipEnhancement equipUnderEnhancement = equipUnderEnhancements.get(0);
-    
+
     int equipEnhancementId = equipUnderEnhancement.getId();
     List<EquipEnhancementFeeder> feeders = EquipEnhancementFeederRetrieveUtils
         .getEquipEnhancementFeedersForEquipEnhancementId(equipEnhancementId);
-    
+
     EquipEnhancementProto eeProto = 
         CreateInfoProtoUtils.createEquipEnhancementProto(equipUnderEnhancement, feeders);
     resBuilder.setEquipEnhancement(eeProto);
   }
-  
+
   private void setClanTowers(StartupResponseProto.Builder resBuilder) {
     List<ClanTower> towers = ClanTowerRetrieveUtils.getAllClanTowers();
 
@@ -439,15 +439,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private void setGoldSales(StartupResponseProto.Builder resBuilder, User user) {
-    List<GoldSale> sales = GoldSaleRetrieveUtils.getCurrentAndFutureGoldSales();
-    if (sales != null && sales.size() > 0) {
-      for (GoldSale sale : sales) {
-        resBuilder.addGoldSales(CreateInfoProtoUtils.createGoldSaleProtoFromGoldSale(sale));
-      }
+    GoldSaleProto sale = MiscMethods.createFakeGoldSaleForNewPlayer(user);
+    if (sale != null) {
+      resBuilder.addGoldSales(sale);
     } else {
-      GoldSaleProto sale = MiscMethods.createFakeGoldSaleForNewPlayer(user);
-      if (sale != null) {
-        resBuilder.addGoldSales(sale);
+      List<GoldSale> sales = GoldSaleRetrieveUtils.getCurrentAndFutureGoldSales();
+      if (sales != null && sales.size() > 0) {
+        for (GoldSale s : sales) {
+          resBuilder.addGoldSales(CreateInfoProtoUtils.createGoldSaleProtoFromGoldSale(s));
+        }
       }
     }
   }
@@ -526,7 +526,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int totalConsecutiveDaysPlayed = 1;
     List<Boolean> rewardUserList = new ArrayList<Boolean>();
     boolean rewardUser = false;
-    
+
     int consecutiveDaysPlayed = determineCurrentConsecutiveDay( 
         user, now, numConsecDaysList, rewardUserList);
     if (!numConsecDaysList.isEmpty()) {
@@ -561,7 +561,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     UserDailyBonusRewardHistory lastReward = UserDailyBonusRewardHistoryRetrieveUtils.getLastDailyRewardAwardedForUserId(userId);
     Date nowDate = new Date(now.getTime());
     long nowDateMillis = nowDate.getTime();
-    
+
     if (null == lastReward) {
       log.info("user has never received a daily bonus reward. Setting consecutive days played to 1.");
       totalConsecutiveDaysList.add(1);
@@ -576,7 +576,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     Date dateLastAwarded = lastReward.getDateAwarded();
     long dateLastMillis = dateLastAwarded.getTime();
     boolean awardedInThePast = nowDateMillis > dateLastMillis;
-    
+
     int dayDiff = MiscMethods.dateDifferenceInDays(dateLastAwarded, nowDate);
     log.info("dateLastAwarded=" + dateLastAwarded + ", nowDate=" + nowDate + ", day difference=" + dayDiff);
     if (1 < dayDiff && awardedInThePast) {
@@ -600,7 +600,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return nthConsecutiveDay;
     }
   }
-  
+
   private DailyBonusReward determineRewardForUser(User aUser) {
     Map<Integer, DailyBonusReward> allDailyRewards = 
         DailyBonusRewardRetrieveUtils.getDailyBonusRewardIdsToDailyBonusRewards();
@@ -609,7 +609,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("unexpected error: There are no daily bonus rewards set up in the daily_bonus_reward table");
       return null;
     }
-    
+
     int level = aUser.getLevel();
     //determine daily bonus reward for this user's level, exit if there it doesn't exist
     DailyBonusReward reward = selectDailyBonusRewardForLevel(allDailyRewards, level);
@@ -618,7 +618,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     return reward;
   }
-  
+
   private DailyBonusReward selectDailyBonusRewardForLevel(Map<Integer, DailyBonusReward> allRewards, int userLevel) {
     DailyBonusReward returnValue = null;
     for (int id : allRewards.keySet()) {
@@ -633,7 +633,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     return returnValue;
   }
-  
+
   private Map<String, Integer> selectRewardFromDailyBonusReward ( 
       DailyBonusReward rewardForUser, int numConsecutiveDaysPlayed) {
     if (null == rewardForUser) {
@@ -648,17 +648,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         getCurrentDailyReward(rewardForUser, numConsecutiveDaysPlayed);
     return reward;
   }
-  
+
   //sets the rewards the user gets/ will get in the daily bonus info builder
   private Map<String, Integer> getCurrentDailyReward(DailyBonusReward reward, int numConsecutiveDaysPlayed) {
     Map<String, Integer> returnValue = new HashMap<String, Integer>();
     String key = "";
     int value = ControllerConstants.NOT_SET;
-    
+
     String silver = MiscMethods.silver;
     String gold = MiscMethods.gold;
     String boosterPackIdString = MiscMethods.boosterPackId;
-    
+
     //mimicking fall through in switch statement, setting reward user just got
     //today and will get in future logins in 5 consecutive day spans
     if (5 == numConsecutiveDaysPlayed) {
@@ -684,9 +684,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       value = reward.getDayOneCoins();
     } 
     returnValue.put(key, value);
-   return returnValue; 
+    return returnValue; 
   }
-  
+
   //returns the equip id user "purchased" by logging in
   //mimics purchase booster pack controller except the argument checking and dealing with money
   private int purchaseBoosterPack (int boosterPackId, 
@@ -715,13 +715,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             now, itemsUserReceives);
         equipId = getEquipId(numBoosterItemsUserWants, itemsUserReceives);
       } 
-      
+
     } catch (Exception e) {
       log.error("unexpected error: ", e);
     }
     return equipId;
   }
-  
+
   private int getEquipId (int numBoosterItemsUserWants, List<BoosterItem> itemsUserReceives) {
     if (1 != numBoosterItemsUserWants) {
       log.error("unexpected error: trying to buy more than one equip from booster pack. boosterItems=" +
@@ -731,7 +731,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     BoosterItem bi = itemsUserReceives.get(0);
     return bi.getEquipId();
   }
-  
+
   private boolean writeBoosterStuffToDB(User aUser, Map<Integer, Integer> boosterItemIdsToNumCollected,
       Map<Integer, Integer> newBoosterItemIdsToNumCollected, List<BoosterItem> itemsUserReceives, 
       List<Boolean> collectedBeforeReset, boolean resetOccurred) {
@@ -740,10 +740,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (null == userEquipIds || userEquipIds.isEmpty() 
         || userEquipIds.size() != itemsUserReceives.size()) {
       log.error("unexpected error: failed to insert equip for user. boosteritems=" +
-        MiscMethods.shallowListToString(itemsUserReceives));
+          MiscMethods.shallowListToString(itemsUserReceives));
       return false;
     }
-    
+
     if (!MiscMethods.updateUserBoosterItems(itemsUserReceives, collectedBeforeReset, 
         boosterItemIdsToNumCollected, newBoosterItemIdsToNumCollected, userId, resetOccurred)) {
       //failed to update user_booster_items
@@ -755,7 +755,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     return true;
   }
-  
+
   private boolean writeDailyBonusRewardToDB(User aUser, 
       Map<String, Integer> currentDayReward, boolean giveToUser, Timestamp now,
       List<Integer> equipIdRewardedList) {
@@ -776,7 +776,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           MiscMethods.shallowMapToString(currentDayReward));
       return false;
     }
-    
+
     int previousSilver = aUser.getCoins() + aUser.getVaultBalance();
     int previousGold = aUser.getDiamonds(); 
     if (key.equals(MiscMethods.boosterPackId)) {
@@ -809,14 +809,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     equipIdRewardedList.add(equipId);
     return true;
   }
-  
+
   private void writeToUserDailyBonusRewardHistory(User aUser, Map<String, Integer> rewardForUser,
       int nthConsecutiveDay, Timestamp now, int equipIdRewarded) {
     int userId = aUser.getId();
     int currencyRewarded = ControllerConstants.NOT_SET;
     boolean isCoins = false;
     int boosterPackIdRewarded = ControllerConstants.NOT_SET;
-    
+
     String boosterPackId = MiscMethods.boosterPackId;
     String silver = MiscMethods.silver;
     String gold = MiscMethods.gold;
@@ -836,22 +836,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("unexpected error: could not record that user got a reward for this day: " + now);
     }
   }
-  
+
   private void setDailyBonusStuff(Builder resBuilder, 
       User aUser, boolean rewardUser, DailyBonusReward rewardForUser) {
     log.info("rewardUser=" + rewardUser + "rewardForUser=" + rewardForUser + "user=" + aUser);
-    
+
     int userId = aUser.getId();
     //there should be a reward inserted if things saved sans a hitch
     UserDailyBonusRewardHistory udbrh = 
         UserDailyBonusRewardHistoryRetrieveUtils.getLastDailyRewardAwardedForUserId(userId);
-    
+
     if (null == udbrh || null == rewardForUser) {
       log.error("unexpected error: no daily bonus reward history exists for user=" + aUser);
       return;
     }
     int consecutiveDaysPlayed = udbrh.getNthConsecutiveDay();
-    
+
     DailyBonusInfo.Builder dbib = DailyBonusInfo.newBuilder();
     if (5 == consecutiveDaysPlayed) {
       //user just got an equip 
@@ -862,7 +862,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       Collection<BoosterItem> biList = biMap.values();
       BoosterPackProto aBoosterPackProto = CreateInfoProtoUtils.createBoosterPackProto(bp, biList);
       dbib.setBoosterPack(aBoosterPackProto);
-      
+
       log.info("setting 5th consecutive day reward");
       int equipId = udbrh.getEquipIdRewarded();
       dbib.setEquipId(equipId);
@@ -890,7 +890,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     dbib.setNumConsecutiveDaysPlayed(consecutiveDaysPlayed);
     resBuilder.setDailyBonusInfo(dbib.build());
   }
-  
+
   private void syncApsalaridLastloginConsecutivedaysloggedinResetBadges(User user, String apsalarId, Timestamp loginTime, int newNumConsecutiveDaysLoggedIn) {
     if (user.getApsalarId() != null && apsalarId == null) {
       apsalarId = user.getApsalarId();
@@ -1115,7 +1115,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     task.setPotentialLootEquipIds(new ArrayList<Integer>());
     FullTaskProto ftpGood = CreateInfoProtoUtils.createFullTaskProtoFromTask(aGoodType, task);
     FullTaskProto ftpBad = CreateInfoProtoUtils.createFullTaskProtoFromTask(aBadType, task);
-    
+
     task = TaskRetrieveUtils.getTaskForTaskId(ControllerConstants.TUTORIAL__FAKE_QUEST_TASK_ID);
     task.setPotentialLootEquipIds(new ArrayList<Integer>());
     FullTaskProto questFtpGood = CreateInfoProtoUtils.createFullTaskProtoFromTask(aGoodType, task);
@@ -1206,17 +1206,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     resBuilder.setTutorialConstants(builder.build());
   }
-  
+
   public void writeToUserCurrencyHistory(User aUser, String goldSilver, int previousMoney,
       Map<String, Integer> goldSilverChange) {
     String silver = MiscMethods.silver;
     String gold = MiscMethods.gold;
-    
+
     Timestamp date = new Timestamp((new Date()).getTime());
     Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
     Map<String, String> reasonsForChanges = new HashMap<String, String>();
     String reasonForChange = ControllerConstants.UCHRFC__STARTUP_DAILY_BONUS;
-    
+
     if (goldSilver.equals(silver)) {
       previousGoldSilver.put(silver, previousMoney);
       reasonsForChanges.put(silver, reasonForChange);
@@ -1224,9 +1224,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       previousGoldSilver.put(gold, previousMoney);
       reasonsForChanges.put(gold, reasonForChange);
     }
-    
+
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange,
         previousGoldSilver, reasonsForChanges);
   }
- 
+
 }
