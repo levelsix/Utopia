@@ -13,7 +13,7 @@ public class EarnFreeDiamondsResponseEvent extends NormalResponseEvent {
   
   public EarnFreeDiamondsResponseEvent(int playerId){
     super(playerId);
-    eventType = EventProtocolResponse.S_ENABLE_APNS_EVENT;
+    eventType = EventProtocolResponse.S_EARN_FREE_DIAMONDS_EVENT;
   }
   
   @Override
