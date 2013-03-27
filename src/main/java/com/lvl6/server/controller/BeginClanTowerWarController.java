@@ -177,7 +177,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     //check if clan trying to claim a tower already has (a) tower(s)
     int ownerId = clanOfRequester.getOwnerId();
-    int attackerId = ControllerConstants.NOT_SET;
+    int attackerId = ownerId;
     boolean ownerAndAttackerAreEnemies = false;
     List<ClanTower> possessedTowers = ClanTowerRetrieveUtils
         .getAllClanTowersWithSpecificOwnerAndOrAttackerId(ownerId, attackerId, ownerAndAttackerAreEnemies);
