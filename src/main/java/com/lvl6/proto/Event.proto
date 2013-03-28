@@ -405,6 +405,7 @@ message StartupResponseProto {
 			optional string blacksmithNibName = 7;
 			optional string goldShoppeNibName = 8;
 			optional string bossEventNibName = 9;
+			optional string dailyBonusNibName = 10;
 		}
 		
 		message ThreeCardMonteConstants {
