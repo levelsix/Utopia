@@ -176,8 +176,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
 
     //check if clan trying to claim a tower already has (a) tower(s)
-    int ownerId = clanOfRequester.getOwnerId();
-    int attackerId = ownerId;
+    int ownerId = clanId;
+    int attackerId = clanId;
     boolean ownerAndAttackerAreEnemies = false;
     List<ClanTower> possessedTowers = ClanTowerRetrieveUtils
         .getAllClanTowersWithSpecificOwnerAndOrAttackerId(ownerId, attackerId, ownerAndAttackerAreEnemies);
@@ -189,7 +189,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return false;
     }
     
-    //check if the clan tower has an owner
+    //check if the clan tower has an owner (horribly named getter, supposed to mean get owning clan id)
     if (ControllerConstants.NOT_SET == aTower.getClanOwnerId() ||
         0 > aTower.getClanOwnerId()) {
       ///no owner for tower, set owner and set empty attacker
