@@ -123,7 +123,7 @@ public class ControllerConstants {
   public static final int TUTORIAL__INIT_HEALTH = 30;
   public static final int TUTORIAL__INIT_DIAMONDS = 20;
   public static final int TUTORIAL__INIT_COINS = 50;
-  public static final int TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT = 0; //Because it does not warn the user
+  public static final int TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT = 2; //Because it does not warn the user
   public static final int TUTORIAL__ARCHER_INIT_WEAPON_ID = 1;
   public static final int TUTORIAL__ARCHER_INIT_ARMOR_ID = 41;
   public static final int TUTORIAL__MAGE_INIT_WEAPON_ID = 1;
