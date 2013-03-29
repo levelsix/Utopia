@@ -345,6 +345,18 @@ public class Notification {
     log.info("created joined clan notification for level" + level + " " + newMember);
   }
   
+  public void setAsUserLeftClan(int level, String deserter) {
+    Object[] arguments = { level, deserter };
+    String title = NotificationConstants.USER_LEFT_A_CLAN__TITLE;
+    String subtitle = NotificationConstants.USER_LEFT_A_CLAN__SUBTITLE;
+    int blue = NotificationConstants.USER_LEFT_A_CLAN__BLUE;
+    int green = NotificationConstants.USER_LEFT_A_CLAN__GREEN;
+    int red = NotificationConstants.USER_LEFT_A_CLAN__RED;
+    
+    setUpNotification(arguments, title, subtitle, blue, green, red);
+    log.info("created left clan notification for level" + level + " " + deserter);
+  }
+  
   private void setUpNotification(Object[] argumentsToMsgFormat, String title, String subtitle,
       int blue, int green, int red) {
     MessageFormat formatTitle = new MessageFormat(title);

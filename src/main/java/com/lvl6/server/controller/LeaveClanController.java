@@ -21,6 +21,7 @@ import com.lvl6.info.ClanTower;
 import com.lvl6.info.User;
 import com.lvl6.info.UserClan;
 import com.lvl6.misc.MiscMethods;
+import com.lvl6.misc.Notification;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowerChange;
 import com.lvl6.proto.EventProto.LeaveClanRequestProto;
 import com.lvl6.proto.EventProto.LeaveClanResponseProto;
@@ -98,7 +99,9 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
-
+        
+        notifyClan(user, clan);
+        
         //clan tower stuff
         if(server.lockClanTowersTable()) {
         	try {
@@ -110,7 +113,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
         		server.unlockClanTowersTable();
         	}
         }
-
+        
       }
     } catch (Exception e) {
       log.error("exception in LeaveClan processEvent", e);
@@ -217,5 +220,16 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
     }
     resBuilder.setStatus(LeaveClanStatus.SUCCESS);
     return true;
+  }
+  
+  private void notifyClan(User aUser, Clan aClan) {
+    int clanId = aClan.getId();
+    
+    int level = aUser.getLevel();
+    String deserter = aUser.getName();
+    Notification aNote = new Notification();
+    
+    aNote.setAsUserLeftClan(level, deserter);
+    MiscMethods.writeClanApnsNotification(aNote, server, clanId);
   }
 }

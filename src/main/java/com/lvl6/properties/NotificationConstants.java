@@ -55,6 +55,11 @@ public class NotificationConstants {
   public static final int USER_JOINED_A_CLAN__BLUE = 0;
   public static final int USER_JOINED_A_CLAN__GREEN = 220;
   public static final int USER_JOINED_A_CLAN__RED = 255;
+
+  //USER LEFT A CLAN
+  public static final int USER_LEFT_A_CLAN__BLUE = 0;
+  public static final int USER_LEFT_A_CLAN__GREEN = 220;
+  public static final int USER_LEFT_A_CLAN__RED = 255;
   
   /*TITLE AND SUBTITLE CONSTANTS*/
   //THE ESCAPE CHARACTER IN MESSAGEFORMAT IS A SINGLE APOSTROPHE CHARACTER, '.
@@ -128,6 +133,11 @@ public class NotificationConstants {
   //USER JOINED A CLAN
   public static final String USER_JOINED_A_CLAN__TITLE = "Level {0} {1} has joined the clan!";
   public static final String USER_JOINED_A_CLAN__SUBTITLE = "Welcome!";
+
+  //USER JOINED A CLAN
+  public static final String USER_LEFT_A_CLAN__TITLE = "Level {0} {1} has left the clan!";
+  public static final String USER_LEFT_A_CLAN__SUBTITLE = " :(";
+
   //THE ESCAPE CHARACTER IN MESSAGEFORMAT IS A SINGLE APOSTROPHE CHARACTER, '.
   //PRECEDE APOSTROPHES WITH ANOTHER APOSTROPHE TO DISPLAY ONE QUOTE TO THE USER. 
 }
