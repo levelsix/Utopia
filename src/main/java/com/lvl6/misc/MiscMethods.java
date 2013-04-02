@@ -649,7 +649,7 @@ public class MiscMethods {
 
     cb.setQuestIdForFirstLossTutorial(ControllerConstants.STARTUP__QUEST_ID_FOR_FIRST_LOSS_TUTORIAL);
     List<Integer> questIdsGuaranteedWin = new ArrayList<Integer>();
-    int[] questIdsForWin = ControllerConstants.STARTUP__QUEST_IDS_FOR_GUARANTEED_LOSS; 
+    int[] questIdsForWin = ControllerConstants.STARTUP__QUEST_IDS_FOR_GUARANTEED_WIN; 
     for(int i = 0; i < questIdsForWin.length; i++) {
       questIdsGuaranteedWin.add(questIdsForWin[i]);
     }
@@ -1320,7 +1320,7 @@ public class MiscMethods {
   }
 
   public static void writeIntoDUEFE(UserEquip mainUserEquip, List<UserEquip> feederUserEquips,
-      int enhancementId) {
+      int enhancementId, List<Integer> enhancementFeederIds) {
     String tableName = DBConstants.TABLE_DELETED_USER_EQUIPS_FOR_ENHANCING;
     try {
       log.info("writing into deleted user equips for enhancing");
@@ -1344,14 +1344,17 @@ public class MiscMethods {
       areFeeders.add(0);
       equipEnhancementIds.add(enhancementId);
 
-      for(UserEquip ue : feederUserEquips) {
+      for(int i = 0; i < feederUserEquips.size(); i++) {
+        UserEquip ue = feederUserEquips.get(i);
         userEquipIds.add(ue.getId());
         userIds.add(ue.getUserId());
         equipIds.add(ue.getEquipId());
         levels.add(ue.getLevel());
         enhancementPercents.add(ue.getEnhancementPercentage());
         areFeeders.add(1);
-        equipEnhancementIds.add(0);
+        
+        int enhancementFeederId = enhancementFeederIds.get(i);
+        equipEnhancementIds.add(enhancementFeederId);
       }
 
       insertParams.put(DBConstants.DUEFE__USER_EQUIP__ID, userEquipIds);

@@ -84,9 +84,10 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
       boolean successful = false;
       List<Integer> enhancementInteger = new ArrayList<Integer>();
+      List<Integer> enhancementFeederIds = new ArrayList<Integer>(); 
       if (legitEquip) {
         successful = writeChangesToDB(resBuilder, enhancingUserEquipId, enhancingUserEquip,
-            feederUserEquipIds, feederUserEquips, clientTime, enhancementInteger);
+            feederUserEquipIds, feederUserEquips, clientTime, enhancementInteger, enhancementFeederIds);
       }
       int enhancementId = 0;
       if (successful) {
@@ -102,7 +103,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       server.writeEvent(resEvent);
       
       if (successful) {
-        MiscMethods.writeIntoDUEFE(enhancingUserEquip, feederUserEquips, enhancementId);
+        MiscMethods.writeIntoDUEFE(enhancingUserEquip, feederUserEquips, enhancementId, enhancementFeederIds);
       }
       
     } catch (Exception e) {
@@ -117,7 +118,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   //delete feederuserequip, write enhanceduserequip to the db
   private boolean writeChangesToDB(Builder resBuilder, int mainUserEquipId, UserEquip mainUserEquip,
       List<Integer> feederUserEquipIds, List<UserEquip> feederUserEquips, Timestamp clientTime,
-      List<Integer> enhancementInteger) {
+      List<Integer> enhancementInteger, List<Integer> equipEnhancementFeederIds) {
     int userId = mainUserEquip.getUserId();
     int equipId = mainUserEquip.getEquipId();
     int equipLevel = mainUserEquip.getLevel();
@@ -136,8 +137,10 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     }
     //maybe there should be a check to see if this fails...eh
     //make entries in equip enhancement feeders table
-    //List<Integer> equipEnhancementFeederIds = 
-    InsertUtils.get().insertEquipEnhancementFeeders(equipEnhancementId, feederUserEquips);
+    List<Integer> eeFeederIds = InsertUtils.get().insertEquipEnhancementFeeders(equipEnhancementId, feederUserEquips);
+    if (null != eeFeederIds && !eeFeederIds.isEmpty()) {
+      equipEnhancementFeederIds.addAll(eeFeederIds);
+    }
     
     //maybe there should be a check to see if this fails...eh
     //unequip all the user equips
