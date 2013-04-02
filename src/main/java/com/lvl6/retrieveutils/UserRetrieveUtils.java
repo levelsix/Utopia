@@ -200,7 +200,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     
     if (offlinePlayersOnly) {
       query += "(" + DBConstants.USER__LAST_LOGOUT + " > " + DBConstants.USER__LAST_LOGIN +  " or " +
-          DBConstants.USER__LAST_LOGIN + " is ?) and ";
+          DBConstants.USER__LAST_LOGOUT + " is ?) and ";
       values.add(null); //for fake players
     }
     
