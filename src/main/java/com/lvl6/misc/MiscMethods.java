@@ -649,7 +649,7 @@ public class MiscMethods {
 
     cb.setQuestIdForFirstLossTutorial(ControllerConstants.STARTUP__QUEST_ID_FOR_FIRST_LOSS_TUTORIAL);
     List<Integer> questIdsGuaranteedWin = new ArrayList<Integer>();
-    int[] questIdsForWin = ControllerConstants.STARTUP__QUEST_IDS_FOR_GUARANTEED_LOSS; 
+    int[] questIdsForWin = ControllerConstants.STARTUP__QUEST_IDS_FOR_GUARANTEED_WIN; 
     for(int i = 0; i < questIdsForWin.length; i++) {
       questIdsGuaranteedWin.add(questIdsForWin[i]);
     }
