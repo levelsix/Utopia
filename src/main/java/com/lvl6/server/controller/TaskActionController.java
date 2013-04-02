@@ -269,9 +269,7 @@ public class TaskActionController extends EventController {
 
   private void checkQuestsPostTaskAction(User user, Task task,
       MinimumUserProto senderProto, int lootEquipId) {
-    List<UserQuest> inProgressUserQuests = RetrieveUtils
-        .userQuestRetrieveUtils().getIncompleteUserQuestsForUser(
-            user.getId());
+    List<UserQuest> inProgressUserQuests = RetrieveUtils.userQuestRetrieveUtils().getIncompleteUserQuestsForUser(user.getId());
 
     if (inProgressUserQuests != null) {
       Map<Integer, List<Integer>> questIdToUserTasksCompletedForQuestForUser = null;
@@ -286,10 +284,7 @@ public class TaskActionController extends EventController {
             List<Integer> tasksRequired = quest.getTasksRequired();
             if (tasksRequired != null) {
               if (questIdToUserTasksCompletedForQuestForUser == null) {
-                questIdToUserTasksCompletedForQuestForUser = RetrieveUtils
-                    .userQuestsCompletedTasksRetrieveUtils()
-                    .getQuestIdToUserTasksCompletedForQuestForUser(
-                        user.getId());
+                questIdToUserTasksCompletedForQuestForUser = RetrieveUtils.userQuestsCompletedTasksRetrieveUtils().getQuestIdToUserTasksCompletedForQuestForUser(user.getId());
               }
               List<Integer> userCompletedTasksForQuest = questIdToUserTasksCompletedForQuestForUser
                   .get(quest.getId());
@@ -297,99 +292,44 @@ public class TaskActionController extends EventController {
                 userCompletedTasksForQuest = new ArrayList<Integer>();
               List<Integer> tasksRemaining = new ArrayList<Integer>(
                   tasksRequired);
-              tasksRemaining
-              .removeAll(userCompletedTasksForQuest);
+              tasksRemaining.removeAll(userCompletedTasksForQuest);
 
-              Map<Integer, Task> remainingTaskMap = TaskRetrieveUtils
-                  .getTasksForTaskIds(tasksRemaining);
-              if (remainingTaskMap != null
-                  && remainingTaskMap.size() > 0) {
-                for (Task remainingTask : remainingTaskMap
-                    .values()) {
+              Map<Integer, Task> remainingTaskMap = TaskRetrieveUtils.getTasksForTaskIds(tasksRemaining);
+              if (remainingTaskMap != null && remainingTaskMap.size() > 0) {
+                for (Task remainingTask : remainingTaskMap.values()) {
                   if (remainingTask.getId() == task.getId()) {
                     if (questIdToTaskIdsToNumTimesActedInQuest == null) {
-                      questIdToTaskIdsToNumTimesActedInQuest = UserQuestsTaskProgressRetrieveUtils
-                          .getQuestIdToTaskIdsToNumTimesActedInQuest(userQuest
-                              .getUserId());
+                      questIdToTaskIdsToNumTimesActedInQuest = UserQuestsTaskProgressRetrieveUtils.getQuestIdToTaskIdsToNumTimesActedInQuest(userQuest.getUserId());
                     }
-                    Map<Integer, Integer> taskIdToNumTimesActed = questIdToTaskIdsToNumTimesActedInQuest
-                        .get(userQuest.getQuestId());
+                    Map<Integer, Integer> taskIdToNumTimesActed = questIdToTaskIdsToNumTimesActedInQuest.get(userQuest.getQuestId());
 
                     if (taskIdToNumTimesActed == null)
                       taskIdToNumTimesActed = new HashMap<Integer, Integer>();
-                    if (taskIdToNumTimesActed
-                        .get(remainingTask.getId()) != null
-                        && taskIdToNumTimesActed
-                        .get(remainingTask
-                            .getId()) + 1 >= remainingTask
-                            .getNumForCompletion()) {
-                      // TODO: note: not SUPER necessary
-                      // to delete/update them, but they
-                      // do capture wrong data if complete
-                      // (the one that completes is not
-                      // factored in)
-                      if (insertUtils
-                          .insertCompletedTaskIdForUserQuest(
-                              user.getId(),
-                              remainingTask
-                              .getId(),
-                              quest.getId())) {
-                        userCompletedTasksForQuest
-                        .add(remainingTask
-                            .getId());
-                        if (userCompletedTasksForQuest
-                            .containsAll(tasksRequired)) {
-                          if (UpdateUtils
-                              .get()
-                              .updateUserQuestsSetCompleted(
-                                  user.getId(),
-                                  quest.getId(),
-                                  true, false)) {
-                            userQuest
-                            .setTasksComplete(true);
-                            questCompletedAndSent = QuestUtils
-                                .checkQuestCompleteAndMaybeSendIfJustCompleted(
-                                    server,
-                                    quest,
-                                    userQuest,
-                                    senderProto,
-                                    true,
-                                    null);
+                    if (taskIdToNumTimesActed.get(remainingTask.getId()) != null && taskIdToNumTimesActed.get(remainingTask.getId()) + 1 >= remainingTask.getNumForCompletion()) {
+                      if (insertUtils.insertCompletedTaskIdForUserQuest(user.getId(), remainingTask.getId(), quest.getId())) {
+                        userCompletedTasksForQuest.add(remainingTask.getId());
+                        if (userCompletedTasksForQuest.containsAll(tasksRequired)) {
+                          if (UpdateUtils.get().updateUserQuestsSetCompleted(user.getId(),quest.getId(),true, false)) {
+                            userQuest.setTasksComplete(true);
+                            questCompletedAndSent = QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, userQuest, senderProto, true, null);
                           } else {
-                            log.error("problem with marking tasks completed for a user quest, questId="
-                                + quest.getId());
+                            log.error("problem with marking tasks completed for a user quest, questId=" + quest.getId());
                           }
                         }
                       } else {
-                        log.error("problem with adding tasks to user's completed tasks for quest. taskId="
-                            + remainingTask.getId()
-                            + ", questId="
-                            + quest.getId());
+                        log.error("problem with adding tasks to user's completed tasks for quest. taskId=" + remainingTask.getId() + ", questId=" + quest.getId());
                       }
                     } else {
-                      if (!UpdateUtils
-                          .get()
-                          .incrementUserQuestTaskProgress(
-                              user.getId(),
-                              quest.getId(),
-                              remainingTask
-                              .getId(), 1)) {
-                        log.error("problem with incrementing user quest task progress by 1 for quest id "
-                            + quest.getId()
-                            + ", task id="
-                            + remainingTask.getId());
+                      if (!UpdateUtils.get().incrementUserQuestTaskProgress(user.getId(), quest.getId(), remainingTask.getId(), 1)) {
+                        log.error("problem with incrementing user quest task progress by 1 for quest id " + quest.getId() + ", task id=" + remainingTask.getId());
                       }
                     }
                   }
                 }
               }
             }
-            if (lootEquipId > ControllerConstants.NOT_SET
-                && !questCompletedAndSent) {
-              QuestUtils
-              .checkQuestCompleteAndMaybeSendIfJustCompleted(
-                  server, quest, userQuest,
-                  senderProto, true, null);
+            if (lootEquipId > ControllerConstants.NOT_SET && !questCompletedAndSent) {
+              QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, userQuest, senderProto, true, null);
             }
           }
         }
