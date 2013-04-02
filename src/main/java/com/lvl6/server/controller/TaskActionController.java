@@ -278,20 +278,17 @@ public class TaskActionController extends EventController {
       for (UserQuest userQuest : inProgressUserQuests) {
         boolean questCompletedAndSent = false;
         if (!userQuest.isTasksComplete()) {
-          Quest quest = QuestRetrieveUtils
-              .getQuestForQuestId(userQuest.getQuestId());
+          Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest.getQuestId());
           if (quest != null) {
             List<Integer> tasksRequired = quest.getTasksRequired();
             if (tasksRequired != null) {
               if (questIdToUserTasksCompletedForQuestForUser == null) {
                 questIdToUserTasksCompletedForQuestForUser = RetrieveUtils.userQuestsCompletedTasksRetrieveUtils().getQuestIdToUserTasksCompletedForQuestForUser(user.getId());
               }
-              List<Integer> userCompletedTasksForQuest = questIdToUserTasksCompletedForQuestForUser
-                  .get(quest.getId());
+              List<Integer> userCompletedTasksForQuest = questIdToUserTasksCompletedForQuestForUser.get(quest.getId());
               if (userCompletedTasksForQuest == null)
                 userCompletedTasksForQuest = new ArrayList<Integer>();
-              List<Integer> tasksRemaining = new ArrayList<Integer>(
-                  tasksRequired);
+              List<Integer> tasksRemaining = new ArrayList<Integer>(tasksRequired);
               tasksRemaining.removeAll(userCompletedTasksForQuest);
 
               Map<Integer, Task> remainingTaskMap = TaskRetrieveUtils.getTasksForTaskIds(tasksRemaining);
@@ -305,7 +302,9 @@ public class TaskActionController extends EventController {
 
                     if (taskIdToNumTimesActed == null)
                       taskIdToNumTimesActed = new HashMap<Integer, Integer>();
-                    if (taskIdToNumTimesActed.get(remainingTask.getId()) != null && taskIdToNumTimesActed.get(remainingTask.getId()) + 1 >= remainingTask.getNumForCompletion()) {
+                    
+                    int timesActed = taskIdToNumTimesActed.containsKey(remainingTask.getId()) ? taskIdToNumTimesActed.get(remainingTask.getId()) : 0;
+                    if (timesActed + 1 >= remainingTask.getNumForCompletion()) {
                       if (insertUtils.insertCompletedTaskIdForUserQuest(user.getId(), remainingTask.getId(), quest.getId())) {
                         userCompletedTasksForQuest.add(remainingTask.getId());
                         if (userCompletedTasksForQuest.containsAll(tasksRequired)) {
