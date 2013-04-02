@@ -305,6 +305,14 @@ public class TaskActionController extends EventController {
                     
                     int timesActed = taskIdToNumTimesActed.containsKey(remainingTask.getId()) ? taskIdToNumTimesActed.get(remainingTask.getId()) : 0;
                     if (timesActed + 1 >= remainingTask.getNumForCompletion()) {
+                      if (timesActed == 0) {
+                        // The Delete Util for quest redeem expects a row for every task in both the progress table
+                        // and the completed task table so this emulates it for the case where the num times required
+                        // is only 1.
+                        if (!UpdateUtils.get().incrementUserQuestTaskProgress(user.getId(), quest.getId(), remainingTask.getId(), 1)) {
+                          log.error("problem with incrementing user quest task progress by 1 for quest id " + quest.getId() + ", task id=" + remainingTask.getId());
+                        }
+                      }
                       if (insertUtils.insertCompletedTaskIdForUserQuest(user.getId(), remainingTask.getId(), quest.getId())) {
                         userCompletedTasksForQuest.add(remainingTask.getId());
                         if (userCompletedTasksForQuest.containsAll(tasksRequired)) {
