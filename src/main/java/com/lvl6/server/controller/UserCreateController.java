@@ -221,6 +221,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         writeUserStruct(userId, ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD, timeOfStructPurchase, timeOfStructBuild, structCoords);
         //        writeUserCritstructs(user.getId());
         writeTaskCompleted(user.getId(), taskCompleted);
+        writeTaskCompleted(user.getId(), questTaskCompleted);
         if (!UpdateUtils.get().incrementCityRankForUserCity(user.getId(), 1, 1)) {
           log.error("problem with giving user access to first city (city with id 1)");
         }
