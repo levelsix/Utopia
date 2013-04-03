@@ -102,7 +102,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
         
         //this works for other clan members, but not for the person 
         //who left (they see the message when they join a clan, reenter clan house
-        //notifyClan(user, clan);
+        notifyClan(user, clan);
         
         //clan tower stuff
         if(server.lockClanTowersTable()) {
