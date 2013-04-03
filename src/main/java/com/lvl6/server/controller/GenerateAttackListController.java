@@ -83,7 +83,7 @@ import com.lvl6.utils.RetrieveUtils;
       }
       
       boolean fakePlayersOnly = false;
-      if (5 > user.getLevel()) {
+      if (10 >= user.getLevel()) {
         fakePlayersOnly = true;
       }
       boolean offlinePlayersOnly = true;

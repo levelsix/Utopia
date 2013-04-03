@@ -198,15 +198,13 @@ import com.lvl6.utils.utilmethods.StringUtils;
       values.add(null);
     }
     
-    if (offlinePlayersOnly) {
-      query += "(" + DBConstants.USER__LAST_LOGOUT + " > " + DBConstants.USER__LAST_LOGIN +  " or " +
-          DBConstants.USER__LAST_LOGOUT + " is ?) and ";
-      values.add(null); //for fake players
-    }
-    
     if (fakePlayersOnly) {
       query += DBConstants.USER__IS_FAKE + "=? and ";
       values.add(1);
+    } else if (offlinePlayersOnly) {
+      query += "(" + DBConstants.USER__LAST_LOGOUT + " > " + DBConstants.USER__LAST_LOGIN +  " or " +
+          DBConstants.USER__LAST_LOGOUT + " is ?) and ";
+      values.add(null); //for fake players
     }
 
     query += DBConstants.USER__LEVEL + ">=? and " + DBConstants.USER__LEVEL + "<=? ";
