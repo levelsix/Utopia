@@ -2,7 +2,7 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
-message BoosterItemReceivedProto {
+message RareBoosterPurchaseProto {
 	optional MinimumUserProto user = 1;
 	optional BoosterPackProto booster = 2;
 	optional FullEquipProto equip = 3;

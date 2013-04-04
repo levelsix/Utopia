@@ -184,6 +184,8 @@ message StartupResponseProto {
 	
 	optional EquipEnhancementProto equipEnhancement = 42;
 	
+	repeated RareBoosterPurchaseProto rareBoosterPurchases = 43;
+	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
 		optional int32 dayOneCoins = 2;
@@ -2533,7 +2535,6 @@ message PurchaseBoosterPackResponseProto {
 message ResetBoosterPackRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 boosterPackId = 2;
-	
 }
 
 message ResetBoosterPackResponseProto {
@@ -2546,6 +2547,12 @@ message ResetBoosterPackResponseProto {
 		OTHER_FAIL = 1;
 	}
 }
+
+message ReceivedRareBoosterPurchaseResponseProto {
+	optional RareBoosterPurchaseProto rareBoosterPurchase = 1;
+}
+
+//------------------------------------------------------------------------------------
 
 message ChangeClanJoinTypeRequestProto {
 	//from an open (no request to join necessary) to request to join necessary
