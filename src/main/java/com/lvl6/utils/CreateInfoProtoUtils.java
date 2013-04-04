@@ -120,6 +120,7 @@ import com.lvl6.proto.InfoProto.MonteCardProto;
 import com.lvl6.proto.InfoProto.NeutralCityElementProto;
 import com.lvl6.proto.InfoProto.PlayerWallPostProto;
 import com.lvl6.proto.InfoProto.PossessEquipJobProto;
+import com.lvl6.proto.InfoProto.RareBoosterPurchaseProto;
 import com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto;
 import com.lvl6.proto.InfoProto.UpgradeStructJobProto;
 import com.lvl6.proto.InfoProto.UserBoosterItemProto;
@@ -1183,4 +1184,9 @@ public class CreateInfoProtoUtils {
     return b.build();
   }
   
+  public static RareBoosterPurchaseProto createRareBoosterPurchaseProto(BoosterPack bp, User u, Equipment e, Date d) {
+    return RareBoosterPurchaseProto.newBuilder().setBooster(createBoosterPackProto(bp, null))
+        .setUser(createMinimumUserProtoFromUser(u)).setEquip(createFullEquipProtoFromEquip(e))
+        .setTimeOfPurchase(d.getTime()).build();
+  }
 }

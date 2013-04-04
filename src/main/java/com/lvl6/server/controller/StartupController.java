@@ -224,6 +224,7 @@ public class StartupController extends EventController {
 					setMarketplaceSearchEquips(resBuilder);
 					setStaticEquipsAndStructs(resBuilder);
 					setChatMessages(resBuilder, user);
+					setBoosterPurchases(resBuilder);
 					setGoldSales(resBuilder, user);
 					resBuilder.addAllClanTierLevels(MiscMethods.getAllClanTierLevelProtos());
 					// if(server.lockClanTowersTable()) {
@@ -420,6 +421,32 @@ public class StartupController extends EventController {
 			resBuilder.addGlobalChats(globalChats.get(i));
 		}
 	}
+
+  private void setBoosterPurchases(StartupResponseProto.Builder resBuilder) {
+    Iterator<RareBoosterPurchaseProto> it = goodEquipsRecievedFromBoosterPacks.iterator();
+    List<RareBoosterPurchaseProto> boosterPurchases = new ArrayList<RareBoosterPurchaseProto>();
+    while (it.hasNext()) {
+      boosterPurchases.add(it.next());
+    }
+
+    Comparator<RareBoosterPurchaseProto> c = new Comparator<RareBoosterPurchaseProto>() {
+      @Override
+      public int compare(RareBoosterPurchaseProto o1, RareBoosterPurchaseProto o2) {
+        if (o1.getTimeOfPurchase() < o2.getTimeOfPurchase()) {
+          return -1;
+        } else if (o1.getTimeOfPurchase() > o2.getTimeOfPurchase()) {
+          return 1;
+        } else {
+          return 0;
+        }
+      }
+    };
+    Collections.sort(boosterPurchases, c);
+    // Need to add them in reverse order
+    for (int i = 0; i < boosterPurchases.size(); i++) {
+      resBuilder.addRareBoosterPurchases(boosterPurchases.get(i));
+    }
+  }
 
 	private void setMarketplaceSearchEquips(StartupResponseProto.Builder resBuilder) {
 		Collection<Equipment> equips = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().values();

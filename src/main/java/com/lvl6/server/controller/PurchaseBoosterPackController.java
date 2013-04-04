@@ -20,9 +20,11 @@ import com.hazelcast.core.IList;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseBoosterPackRequestEvent;
 import com.lvl6.events.response.PurchaseBoosterPackResponseEvent;
+import com.lvl6.events.response.ReceivedRareBoosterPurchaseResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.BoosterItem;
 import com.lvl6.info.BoosterPack;
+import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.misc.MiscMethods;
@@ -31,6 +33,8 @@ import com.lvl6.proto.EventProto.PurchaseBoosterPackRequestProto;
 import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto;
 import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto.Builder;
 import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto.PurchaseBoosterPackStatus;
+import com.lvl6.proto.EventProto.ReceivedRareBoosterPurchaseResponseProto;
+import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.PurchaseOption;
@@ -41,6 +45,8 @@ import com.lvl6.retrieveutils.UserBoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.UserBoosterPackRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterPackRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.server.EventWriter;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
@@ -48,6 +54,19 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
 @Component @DependsOn("gameServer") public class PurchaseBoosterPackController extends EventController {
 
   private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
+
+  public static int BOOSTER_PURCHASES_MAX_SIZE = 50;
+
+  @Resource
+  protected EventWriter eventWriter;
+
+  public EventWriter getEventWriter() {
+    return eventWriter;
+  }
+
+  public void setEventWriter(EventWriter eventWriter) {
+    this.eventWriter = eventWriter;
+  }
 
   
 	@Resource(name = "goodEquipsRecievedFromBoosterPacks")
@@ -165,11 +184,39 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
             nowTimestamp, itemsUserReceives);
         writeToUserCurrencyHistory(user, boosterPackId, nowTimestamp,
             goldSilverChange, previousSilver, previousGold);
+        
+        sendBoosterPurchaseMessage(user, aPack, itemsUserReceives);
       }
     } catch (Exception e) {
       log.error("exception in PurchaseBoosterPackController processEvent", e);
     } finally {
       server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName()); 
+    }
+  }
+
+  private void sendBoosterPurchaseMessage(User user,BoosterPack aPack, List<BoosterItem> itemsUserReceives) {
+    Map<Integer, Equipment> equipMap = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
+    Date d = new Date();
+    for (BoosterItem bi : itemsUserReceives) {
+      Equipment eq = equipMap.get(bi.getEquipId());
+      if (eq.getRarity().compareTo(Rarity.SUPERRARE) >= 0) {
+        RareBoosterPurchaseProto r = CreateInfoProtoUtils.createRareBoosterPurchaseProto(aPack, user, eq, d);
+        
+        goodEquipsRecievedFromBoosterPacks.add(0, r);
+        //remove older messages
+        try {
+          while(goodEquipsRecievedFromBoosterPacks.size() > BOOSTER_PURCHASES_MAX_SIZE) {
+            goodEquipsRecievedFromBoosterPacks.remove(BOOSTER_PURCHASES_MAX_SIZE);
+          }
+        } catch(Exception e) {
+          log.error("Error adding rare booster purchase.", e);
+        }
+        
+        ReceivedRareBoosterPurchaseResponseProto p = ReceivedRareBoosterPurchaseResponseProto.newBuilder().setRareBoosterPurchase(r).build();
+        ReceivedRareBoosterPurchaseResponseEvent e = new ReceivedRareBoosterPurchaseResponseEvent(user.getId());
+        e.setReceivedRareBoosterPurchaseResponseProto(p);
+        eventWriter.processGlobalChatResponseEvent(e);
+      }
     }
   }
   

@@ -4,12 +4,12 @@ import java.nio.ByteBuffer;
 
 import com.google.protobuf.ByteString;
 import com.lvl6.events.NormalResponseEvent;
-import com.lvl6.proto.EventProto.ReceivedGroupChatResponseProto;
+import com.lvl6.proto.EventProto.ReceivedRareBoosterPurchaseResponseProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolResponse;
 
 public class ReceivedRareBoosterPurchaseResponseEvent extends NormalResponseEvent {
 
-  private ReceivedGroupChatResponseProto receivedRareBoosterPurchaseResponseProto;
+  private ReceivedRareBoosterPurchaseResponseProto receivedRareBoosterPurchaseResponseProto;
   
   public ReceivedRareBoosterPurchaseResponseEvent(int playerId){
     super(playerId);
@@ -23,7 +23,7 @@ public class ReceivedRareBoosterPurchaseResponseEvent extends NormalResponseEven
     return b.size();
   }
 
-  public void setReceivedGroupChatResponseProto(ReceivedGroupChatResponseProto receivedRareBoosterPurchaseResponseProto) {
+  public void setReceivedRareBoosterPurchaseResponseProto(ReceivedRareBoosterPurchaseResponseProto receivedRareBoosterPurchaseResponseProto) {
     this.receivedRareBoosterPurchaseResponseProto = receivedRareBoosterPurchaseResponseProto;
   }
 
