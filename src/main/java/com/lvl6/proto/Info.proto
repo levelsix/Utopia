@@ -2,6 +2,12 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+message BoosterItemReceivedProto {
+	optional MinimumUserProto user = 1;
+	optional BoosterPackProto booster = 2;
+	optional FullEquipProto equip = 3;
+}
+
 enum PurchaseOption {
 	//these specify quantity, e.g. 1 for ONE, and 10 for TWO
 	ONE = 0;	//Check ControllerConstants.BOOSTER_PACK__PURCHASE_OPTION_ONE;
