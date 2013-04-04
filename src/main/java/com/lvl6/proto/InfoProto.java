@@ -1208,7 +1208,7 @@ public final class InfoProto {
     // @@protoc_insertion_point(enum_scope:com.lvl6.proto.ExpansionDirection)
   }
   
-  public interface BoosterItemReceivedProtoOrBuilder
+  public interface RareBoosterPurchaseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
     // optional .com.lvl6.proto.MinimumUserProto user = 1;
@@ -1226,32 +1226,32 @@ public final class InfoProto {
     com.lvl6.proto.InfoProto.FullEquipProto getEquip();
     com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder getEquipOrBuilder();
   }
-  public static final class BoosterItemReceivedProto extends
+  public static final class RareBoosterPurchaseProto extends
       com.google.protobuf.GeneratedMessage
-      implements BoosterItemReceivedProtoOrBuilder {
-    // Use BoosterItemReceivedProto.newBuilder() to construct.
-    private BoosterItemReceivedProto(Builder builder) {
+      implements RareBoosterPurchaseProtoOrBuilder {
+    // Use RareBoosterPurchaseProto.newBuilder() to construct.
+    private RareBoosterPurchaseProto(Builder builder) {
       super(builder);
     }
-    private BoosterItemReceivedProto(boolean noInit) {}
+    private RareBoosterPurchaseProto(boolean noInit) {}
     
-    private static final BoosterItemReceivedProto defaultInstance;
-    public static BoosterItemReceivedProto getDefaultInstance() {
+    private static final RareBoosterPurchaseProto defaultInstance;
+    public static RareBoosterPurchaseProto getDefaultInstance() {
       return defaultInstance;
     }
     
-    public BoosterItemReceivedProto getDefaultInstanceForType() {
+    public RareBoosterPurchaseProto getDefaultInstanceForType() {
       return defaultInstance;
     }
     
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_BoosterItemReceivedProto_descriptor;
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_RareBoosterPurchaseProto_descriptor;
     }
     
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_BoosterItemReceivedProto_fieldAccessorTable;
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_RareBoosterPurchaseProto_fieldAccessorTable;
     }
     
     private int bitField0_;
@@ -1353,41 +1353,41 @@ public final class InfoProto {
       return super.writeReplace();
     }
     
-    public static com.lvl6.proto.InfoProto.BoosterItemReceivedProto parseFrom(
+    public static com.lvl6.proto.InfoProto.RareBoosterPurchaseProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.BoosterItemReceivedProto parseFrom(
+    public static com.lvl6.proto.InfoProto.RareBoosterPurchaseProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.BoosterItemReceivedProto parseFrom(byte[] data)
+    public static com.lvl6.proto.InfoProto.RareBoosterPurchaseProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.BoosterItemReceivedProto parseFrom(
+    public static com.lvl6.proto.InfoProto.RareBoosterPurchaseProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.BoosterItemReceivedProto parseFrom(java.io.InputStream input)
+    public static com.lvl6.proto.InfoProto.RareBoosterPurchaseProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.BoosterItemReceivedProto parseFrom(
+    public static com.lvl6.proto.InfoProto.RareBoosterPurchaseProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.BoosterItemReceivedProto parseDelimitedFrom(java.io.InputStream input)
+    public static com.lvl6.proto.InfoProto.RareBoosterPurchaseProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       Builder builder = newBuilder();
       if (builder.mergeDelimitedFrom(input)) {
@@ -1396,7 +1396,7 @@ public final class InfoProto {
         return null;
       }
     }
-    public static com.lvl6.proto.InfoProto.BoosterItemReceivedProto parseDelimitedFrom(
+    public static com.lvl6.proto.InfoProto.RareBoosterPurchaseProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1407,12 +1407,12 @@ public final class InfoProto {
         return null;
       }
     }
-    public static com.lvl6.proto.InfoProto.BoosterItemReceivedProto parseFrom(
+    public static com.lvl6.proto.InfoProto.RareBoosterPurchaseProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.BoosterItemReceivedProto parseFrom(
+    public static com.lvl6.proto.InfoProto.RareBoosterPurchaseProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1422,7 +1422,7 @@ public final class InfoProto {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.lvl6.proto.InfoProto.BoosterItemReceivedProto prototype) {
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.RareBoosterPurchaseProto prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -1435,18 +1435,18 @@ public final class InfoProto {
     }
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.lvl6.proto.InfoProto.BoosterItemReceivedProtoOrBuilder {
+       implements com.lvl6.proto.InfoProto.RareBoosterPurchaseProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_BoosterItemReceivedProto_descriptor;
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_RareBoosterPurchaseProto_descriptor;
       }
       
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_BoosterItemReceivedProto_fieldAccessorTable;
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_RareBoosterPurchaseProto_fieldAccessorTable;
       }
       
-      // Construct using com.lvl6.proto.InfoProto.BoosterItemReceivedProto.newBuilder()
+      // Construct using com.lvl6.proto.InfoProto.RareBoosterPurchaseProto.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1495,24 +1495,24 @@ public final class InfoProto {
       
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.lvl6.proto.InfoProto.BoosterItemReceivedProto.getDescriptor();
+        return com.lvl6.proto.InfoProto.RareBoosterPurchaseProto.getDescriptor();
       }
       
-      public com.lvl6.proto.InfoProto.BoosterItemReceivedProto getDefaultInstanceForType() {
-        return com.lvl6.proto.InfoProto.BoosterItemReceivedProto.getDefaultInstance();
+      public com.lvl6.proto.InfoProto.RareBoosterPurchaseProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.RareBoosterPurchaseProto.getDefaultInstance();
       }
       
-      public com.lvl6.proto.InfoProto.BoosterItemReceivedProto build() {
-        com.lvl6.proto.InfoProto.BoosterItemReceivedProto result = buildPartial();
+      public com.lvl6.proto.InfoProto.RareBoosterPurchaseProto build() {
+        com.lvl6.proto.InfoProto.RareBoosterPurchaseProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
       
-      private com.lvl6.proto.InfoProto.BoosterItemReceivedProto buildParsed()
+      private com.lvl6.proto.InfoProto.RareBoosterPurchaseProto buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
-        com.lvl6.proto.InfoProto.BoosterItemReceivedProto result = buildPartial();
+        com.lvl6.proto.InfoProto.RareBoosterPurchaseProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(
             result).asInvalidProtocolBufferException();
@@ -1520,8 +1520,8 @@ public final class InfoProto {
         return result;
       }
       
-      public com.lvl6.proto.InfoProto.BoosterItemReceivedProto buildPartial() {
-        com.lvl6.proto.InfoProto.BoosterItemReceivedProto result = new com.lvl6.proto.InfoProto.BoosterItemReceivedProto(this);
+      public com.lvl6.proto.InfoProto.RareBoosterPurchaseProto buildPartial() {
+        com.lvl6.proto.InfoProto.RareBoosterPurchaseProto result = new com.lvl6.proto.InfoProto.RareBoosterPurchaseProto(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -1554,16 +1554,16 @@ public final class InfoProto {
       }
       
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lvl6.proto.InfoProto.BoosterItemReceivedProto) {
-          return mergeFrom((com.lvl6.proto.InfoProto.BoosterItemReceivedProto)other);
+        if (other instanceof com.lvl6.proto.InfoProto.RareBoosterPurchaseProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.RareBoosterPurchaseProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
       
-      public Builder mergeFrom(com.lvl6.proto.InfoProto.BoosterItemReceivedProto other) {
-        if (other == com.lvl6.proto.InfoProto.BoosterItemReceivedProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.RareBoosterPurchaseProto other) {
+        if (other == com.lvl6.proto.InfoProto.RareBoosterPurchaseProto.getDefaultInstance()) return this;
         if (other.hasUser()) {
           mergeUser(other.getUser());
         }
@@ -1907,15 +1907,15 @@ public final class InfoProto {
         return equipBuilder_;
       }
       
-      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.BoosterItemReceivedProto)
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.RareBoosterPurchaseProto)
     }
     
     static {
-      defaultInstance = new BoosterItemReceivedProto(true);
+      defaultInstance = new RareBoosterPurchaseProto(true);
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:com.lvl6.proto.BoosterItemReceivedProto)
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.RareBoosterPurchaseProto)
   }
   
   public interface UserBoosterPackProtoOrBuilder
@@ -54754,10 +54754,10 @@ public final class InfoProto {
   }
   
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_lvl6_proto_BoosterItemReceivedProto_descriptor;
+    internal_static_com_lvl6_proto_RareBoosterPurchaseProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_lvl6_proto_BoosterItemReceivedProto_fieldAccessorTable;
+      internal_static_com_lvl6_proto_RareBoosterPurchaseProto_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_UserBoosterPackProto_descriptor;
   private static
@@ -55087,8 +55087,8 @@ public final class InfoProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\nInfo.proto\022\016com.lvl6.proto\"\254\001\n\030Booster" +
-      "ItemReceivedProto\022.\n\004user\030\001 \001(\0132 .com.lv" +
+      "\n\nInfo.proto\022\016com.lvl6.proto\"\254\001\n\030RareBoo" +
+      "sterPurchaseProto\022.\n\004user\030\001 \001(\0132 .com.lv" +
       "l6.proto.MinimumUserProto\0221\n\007booster\030\002 \001" +
       "(\0132 .com.lvl6.proto.BoosterPackProto\022-\n\005" +
       "equip\030\003 \001(\0132\036.com.lvl6.proto.FullEquipPr" +
@@ -55498,14 +55498,14 @@ public final class InfoProto {
         public com.google.protobuf.ExtensionRegistry assignDescriptors(
             com.google.protobuf.Descriptors.FileDescriptor root) {
           descriptor = root;
-          internal_static_com_lvl6_proto_BoosterItemReceivedProto_descriptor =
+          internal_static_com_lvl6_proto_RareBoosterPurchaseProto_descriptor =
             getDescriptor().getMessageTypes().get(0);
-          internal_static_com_lvl6_proto_BoosterItemReceivedProto_fieldAccessorTable = new
+          internal_static_com_lvl6_proto_RareBoosterPurchaseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_lvl6_proto_BoosterItemReceivedProto_descriptor,
+              internal_static_com_lvl6_proto_RareBoosterPurchaseProto_descriptor,
               new java.lang.String[] { "User", "Booster", "Equip", },
-              com.lvl6.proto.InfoProto.BoosterItemReceivedProto.class,
-              com.lvl6.proto.InfoProto.BoosterItemReceivedProto.Builder.class);
+              com.lvl6.proto.InfoProto.RareBoosterPurchaseProto.class,
+              com.lvl6.proto.InfoProto.RareBoosterPurchaseProto.Builder.class);
           internal_static_com_lvl6_proto_UserBoosterPackProto_descriptor =
             getDescriptor().getMessageTypes().get(1);
           internal_static_com_lvl6_proto_UserBoosterPackProto_fieldAccessorTable = new
