@@ -311,7 +311,7 @@ public class CreateInfoProtoUtils {
         .setPostedEquip(
             createFullEquipProtoFromEquip(
                 EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(mp.getPostedEquipId())))
-        .setEquipLevel(mp.getEquipLevel()).setEquipEnhancementPercent(mp.getEquipEnhancementPercentage());
+                .setEquipLevel(mp.getEquipLevel()).setEquipEnhancementPercent(mp.getEquipEnhancementPercentage());
     if (mp.getDiamondCost() != ControllerConstants.NOT_SET) {
       builder.setDiamondCost(mp.getDiamondCost());
     }
@@ -368,7 +368,7 @@ public class CreateInfoProtoUtils {
       UserEquip weaponUserEquip = null;
       UserEquip armorUserEquip = null;
       UserEquip amuletUserEquip = null;
-      
+
       weaponUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ALL_CHARACTERS_WEAPON_ID_PER_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0);
       armorUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ALL_CHARACTERS_ARMOR_ID_PER_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0);
       amuletUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0);
@@ -388,7 +388,7 @@ public class CreateInfoProtoUtils {
         armorUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.MAGE_ARMOR_ID_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0);
         amuletUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0);
       }*/
-      
+
       builder.setWeaponEquippedUserEquip(createFullUserEquipProtoFromUserEquip(weaponUserEquip));
       builder.setArmorEquippedUserEquip(createFullUserEquipProtoFromUserEquip(armorUserEquip));
       builder.setAmuletEquippedUserEquip(createFullUserEquipProtoFromUserEquip(amuletUserEquip));
@@ -951,14 +951,14 @@ public class CreateInfoProtoUtils {
 
     ColorProto.Builder clrB = ColorProto.newBuilder().setBlue(tower.getBlue())
         .setGreen(tower.getGreen()).setRed(tower.getRed());
-    
+
     b.setTitleColor(clrB);
-    
+
     if (tower.getClanOwnerId() > 0) {
       Clan c = ClanRetrieveUtils.getClanWithId(tower.getClanOwnerId());
       b.setTowerOwner(createMinimumClanProtoFromClan(c));
       if(null != tower.getOwnedStartTime()) {
-    	  b.setOwnedStartTime(tower.getOwnedStartTime().getTime());
+        b.setOwnedStartTime(tower.getOwnedStartTime().getTime());
       }
       if (null != tower.getLastRewardGiven()) {
         b.setLastRewardGiven(tower.getLastRewardGiven().getTime());
@@ -968,7 +968,7 @@ public class CreateInfoProtoUtils {
       Clan c = ClanRetrieveUtils.getClanWithId(tower.getClanAttackerId());
       b.setTowerAttacker(createMinimumClanProtoFromClan(c));
       if(null != tower.getAttackStartTime()) {
-    	  b.setAttackStartTime(tower.getAttackStartTime().getTime());
+        b.setAttackStartTime(tower.getAttackStartTime().getTime());
       }
       b.setOwnerBattlesWin(tower.getOwnerBattleWins());
       b.setAttackerBattlesWin(tower.getAttackerBattleWins());
@@ -997,103 +997,103 @@ public class CreateInfoProtoUtils {
     }
     return bu.build();
   }
-  
+
   public static BossEventProto createBossEventProtoFromBossEvent(BossEvent e) {
     BossEventProto.Builder b = BossEventProto.newBuilder().setCityId(e.getCityId()).setStartDate(e.getStartDate().getTime())
-    .setEndDate(e.getEndDate().getTime()).setEventName(e.getEventName()).setHeaderImage(e.getHeaderImage())
-    .setLeftTagImage(e.getLeftTag()).setMiddleTagImage(e.getMiddleTag()).setRightTagImage(e.getRightTag())
-    .setInfoDescription(e.getInfoDescription());
-    
+        .setEndDate(e.getEndDate().getTime()).setEventName(e.getEventName()).setHeaderImage(e.getHeaderImage())
+        .setLeftTagImage(e.getLeftTag()).setMiddleTagImage(e.getMiddleTag()).setRightTagImage(e.getRightTag())
+        .setInfoDescription(e.getInfoDescription());
+
     Map<Integer, Equipment> equips = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
     b.setLeftEquip(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equips.get(e.getLeftEquipId())));
     b.setMiddleEquip(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equips.get(e.getMiddleEquipId())));
     b.setRightEquip(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equips.get(e.getRightEquipId())));
-    
+
     return b.build();
   }
-  
+
   public static LeaderboardEventProto createLeaderboardEventProtoFromLeaderboardEvent(
       LeaderboardEvent e, List<LeaderboardEventReward> rList) {
-    
+
     LeaderboardEventProto.Builder b = LeaderboardEventProto.newBuilder().setEventId(e.getId()).setStartDate(e.getStartDate().getTime())
-    .setEndDate(e.getEndDate().getTime()).setEventName(e.getEventName())
-    .setLastShowDate(e.getEndDate().getTime()+ControllerConstants.LEADERBOARD_EVENT__NUM_HOURS_TO_SHOW_AFTER_EVENT_END*3600000L);
-    
+        .setEndDate(e.getEndDate().getTime()).setEventName(e.getEventName())
+        .setLastShowDate(e.getEndDate().getTime()+ControllerConstants.LEADERBOARD_EVENT__NUM_HOURS_TO_SHOW_AFTER_EVENT_END*3600000L);
+
     List<LeaderboardEventRewardProto> rProtosList = new ArrayList<LeaderboardEventRewardProto>();
     for(LeaderboardEventReward r : rList) {
       LeaderboardEventRewardProto rProto = createLeaderboardEventRewardProtoFromLeaderboardEventReward(r);
       rProtosList.add(rProto);
     }
-    
+
     b.addAllRewards(rProtosList);
-    
+
     return b.build();
   }
-  
+
   public static LeaderboardEventRewardProto createLeaderboardEventRewardProtoFromLeaderboardEventReward(LeaderboardEventReward r) {
-    
+
     LeaderboardEventRewardProto.Builder b = LeaderboardEventRewardProto.newBuilder()
-    .setLeaderboardEventId(r.getLeaderboardEventId()).setMinRank(r.getMinRank()).setMaxRank(r.getMaxRank())
-    .setGoldRewarded(r.getGoldRewarded()).setBackgroundImageName(r.getBackgroundImageName())
-    .setPrizeImageName(r.getPrizeImageName());
-    
+        .setLeaderboardEventId(r.getLeaderboardEventId()).setMinRank(r.getMinRank()).setMaxRank(r.getMaxRank())
+        .setGoldRewarded(r.getGoldRewarded()).setBackgroundImageName(r.getBackgroundImageName())
+        .setPrizeImageName(r.getPrizeImageName());
+
     ColorProto.Builder clrB = ColorProto.newBuilder().setBlue(r.getBlue())
         .setGreen(r.getGreen()).setRed(r.getRed()); 
 
     b.setTitleColor(clrB.build());
     return b.build();
   }
-  
+
   public static EquipEnhancementItemProto createEquipEnhancementItemProtoFromUserEquip(UserEquip ue) {
     EquipEnhancementItemProto.Builder b = EquipEnhancementItemProto.newBuilder()
         .setEquipId(ue.getEquipId()).setLevel(ue.getLevel()).setEnhancementPercentage(ue.getEnhancementPercentage());
-    
+
     return b.build();
   }
-  
+
   public static EquipEnhancementProto createEquipEnhancementProto(int enhancementId,  
       int userId, UserEquip mainUserEquip, List<UserEquip> feederUserEquips, long startTime) {
     EquipEnhancementProto.Builder b = EquipEnhancementProto.newBuilder()
         .setEnhancementId(enhancementId).setUserId(userId).setStartTime(startTime);
-    
+
     EquipEnhancementItemProto enhancingEquipProto = createEquipEnhancementItemProtoFromUserEquip(mainUserEquip);
     b.setEnhancingEquip(enhancingEquipProto);
-    
+
     List<EquipEnhancementItemProto> itemProtoList = new ArrayList<EquipEnhancementItemProto>();
     for(UserEquip ue : feederUserEquips) {
       EquipEnhancementItemProto feederEquipProto = createEquipEnhancementItemProtoFromUserEquip(ue);
       itemProtoList.add(feederEquipProto);
     }
     b.addAllFeederEquips(itemProtoList);
-    
+
     return b.build();
   }
-  
+
   public static EquipEnhancementItemProto createEquipEnhancementItemProtoFromEquipEnhacementFeeder(
       EquipEnhancementFeeder aFeeder) {
     EquipEnhancementItemProto.Builder b = EquipEnhancementItemProto.newBuilder()
         .setEquipId(aFeeder.getEquipId()).setLevel(aFeeder.getEquipLevel())
         .setEnhancementPercentage(aFeeder.getEnhancementPercentageBeforeEnhancement());
-    
+
     return b.build();
   }
-  
+
   public static EquipEnhancementProto createEquipEnhancementProto(EquipEnhancement ee, 
       List<EquipEnhancementFeeder> feeders) {
     EquipEnhancementProto.Builder b = EquipEnhancementProto.newBuilder()
         .setEnhancementId(ee.getId()).setUserId(ee.getUserId());
-    
+
     Date start = ee.getStartTimeOfEnhancement();
     if(null != start) {
       b.setStartTime(start.getTime());
     }
-    
+
     EquipEnhancementItemProto enhancingEquipProto = EquipEnhancementItemProto.newBuilder()
         .setEquipId(ee.getEquipId()).setLevel(ee.getEquipLevel())
         .setEnhancementPercentage(ee.getEnhancementPercentage())
         .build();
     b.setEnhancingEquip(enhancingEquipProto);
-    
+
     List<EquipEnhancementItemProto> itemProtoList = new ArrayList<EquipEnhancementItemProto>();
     for(EquipEnhancementFeeder aFeeder : feeders) {
       EquipEnhancementItemProto feederEquipProto = 
@@ -1101,10 +1101,10 @@ public class CreateInfoProtoUtils {
       itemProtoList.add(feederEquipProto);
     }
     b.addAllFeederEquips(itemProtoList);
-    
+
     return b.build();
   }
-  
+
   public static MinimumUserProtoForClanTowerScores createMinUserProtoForClanTowerScores(User user, int pointsGained, int pointsLost) {
     MinimumUserProtoForClanTowerScores.Builder bldr = MinimumUserProtoForClanTowerScores.newBuilder();
     bldr.setMinUserProtoWithLevel(createMinimumUserProtoWithLevelFromUser(user));
@@ -1119,7 +1119,7 @@ public class CreateInfoProtoUtils {
         .setIsSpecial(bi.isSpecial());
     return b.build();
   }
-  
+
   public static BoosterPackProto createBoosterPackProto(BoosterPack bp, Collection<BoosterItem> biList) {
     BoosterPackProto.Builder b = BoosterPackProto.newBuilder()
         .setBoosterPackId(bp.getId()).setCostsCoins(bp.isCostsCoins())
@@ -1151,29 +1151,31 @@ public class CreateInfoProtoUtils {
     if(null != bp.getChestImage()) {
       b.setChestImage(bp.getChestImage());
     }
-    
+
     b.setIsStarterPack(bp.isStarterPack());
-    
-    List<BoosterItemProto> biProtos = new ArrayList<BoosterItemProto>();
-    for(BoosterItem bi : biList) {
-      biProtos.add(createBoosterItemProto(bi));
+
+    if (biList != null) {
+      List<BoosterItemProto> biProtos = new ArrayList<BoosterItemProto>();
+      for(BoosterItem bi : biList) {
+        biProtos.add(createBoosterItemProto(bi));
+      }
+      b.addAllBoosterItems(biProtos);
     }
-    b.addAllBoosterItems(biProtos);
     return b.build();
   }
-  
+
   public static UserBoosterItemProto createUserBoosterItemProto (int boosterItemId, int userId,
       int numReceived) {
     UserBoosterItemProto.Builder b = UserBoosterItemProto.newBuilder()
         .setBoosterItemId(boosterItemId).setUserId(userId).setNumReceived(numReceived);
     return b.build();
   }
-  
+
   public static UserBoosterPackProto createUserBoosterPackProto (int boosterPackId, int userId, 
       Map<Integer, Integer> userBoosterItemIdsToQuantities) {
     UserBoosterPackProto.Builder  b = UserBoosterPackProto.newBuilder()
-    .setBoosterPackId(boosterPackId).setUserId(userId);
-    
+        .setBoosterPackId(boosterPackId).setUserId(userId);
+
     List<UserBoosterItemProto> ubiProtoList = new ArrayList<UserBoosterItemProto>();
     for(Integer boosterItemId : userBoosterItemIdsToQuantities.keySet()) {
       int quantity = userBoosterItemIdsToQuantities.get(boosterItemId);
@@ -1183,7 +1185,7 @@ public class CreateInfoProtoUtils {
     b.addAllUserBoosterItems(ubiProtoList);
     return b.build();
   }
-  
+
   public static RareBoosterPurchaseProto createRareBoosterPurchaseProto(BoosterPack bp, User u, Equipment e, Date d) {
     return RareBoosterPurchaseProto.newBuilder().setBooster(createBoosterPackProto(bp, null))
         .setUser(createMinimumUserProtoFromUser(u)).setEquip(createFullEquipProtoFromEquip(e))

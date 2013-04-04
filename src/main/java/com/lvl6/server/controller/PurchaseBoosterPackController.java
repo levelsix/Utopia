@@ -194,7 +194,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
     }
   }
 
-  private void sendBoosterPurchaseMessage(User user,BoosterPack aPack, List<BoosterItem> itemsUserReceives) {
+  private void sendBoosterPurchaseMessage(User user, BoosterPack aPack, List<BoosterItem> itemsUserReceives) {
     Map<Integer, Equipment> equipMap = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
     Date d = new Date();
     for (BoosterItem bi : itemsUserReceives) {
