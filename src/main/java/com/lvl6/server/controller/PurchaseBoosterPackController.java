@@ -9,11 +9,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
+import com.hazelcast.core.IList;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseBoosterPackRequestEvent;
 import com.lvl6.events.response.PurchaseBoosterPackResponseEvent;
@@ -28,6 +31,7 @@ import com.lvl6.proto.EventProto.PurchaseBoosterPackRequestProto;
 import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto;
 import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto.Builder;
 import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto.PurchaseBoosterPackStatus;
+import com.lvl6.proto.InfoProto.BoosterItemReceivedProto;
 import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.PurchaseOption;
@@ -45,6 +49,21 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
 
   private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  
+	@Resource(name = "goodEquipsRecievedFromBoosterPacks")
+	protected IList<BoosterItemReceivedProto> goodEquipsRecievedFromBoosterPacks;
+
+	public IList<BoosterItemReceivedProto> getGoodEquipsRecievedFromBoosterPacks() {
+		return goodEquipsRecievedFromBoosterPacks;
+	}
+
+	public void setGoodEquipsRecievedFromBoosterPacks(
+			IList<BoosterItemReceivedProto> goodEquipsRecievedFromBoosterPacks) {
+		this.goodEquipsRecievedFromBoosterPacks = goodEquipsRecievedFromBoosterPacks;
+	}
+  
+  
+  
   public PurchaseBoosterPackController() {
     numAllocatedThreads = 4;
   }
