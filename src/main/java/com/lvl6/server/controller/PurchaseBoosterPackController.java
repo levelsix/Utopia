@@ -31,10 +31,10 @@ import com.lvl6.proto.EventProto.PurchaseBoosterPackRequestProto;
 import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto;
 import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto.Builder;
 import com.lvl6.proto.EventProto.PurchaseBoosterPackResponseProto.PurchaseBoosterPackStatus;
-import com.lvl6.proto.InfoProto.BoosterItemReceivedProto;
 import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.PurchaseOption;
+import com.lvl6.proto.InfoProto.RareBoosterPurchaseProto;
 import com.lvl6.proto.InfoProto.UserBoosterPackProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserBoosterItemRetrieveUtils;
@@ -51,14 +51,13 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
 
   
 	@Resource(name = "goodEquipsRecievedFromBoosterPacks")
-	protected IList<BoosterItemReceivedProto> goodEquipsRecievedFromBoosterPacks;
-
-	public IList<BoosterItemReceivedProto> getGoodEquipsRecievedFromBoosterPacks() {
+	protected IList<RareBoosterPurchaseProto> goodEquipsRecievedFromBoosterPacks;
+	public IList<RareBoosterPurchaseProto> getGoodEquipsRecievedFromBoosterPacks() {
 		return goodEquipsRecievedFromBoosterPacks;
 	}
 
 	public void setGoodEquipsRecievedFromBoosterPacks(
-			IList<BoosterItemReceivedProto> goodEquipsRecievedFromBoosterPacks) {
+			IList<RareBoosterPurchaseProto> goodEquipsRecievedFromBoosterPacks) {
 		this.goodEquipsRecievedFromBoosterPacks = goodEquipsRecievedFromBoosterPacks;
 	}
   

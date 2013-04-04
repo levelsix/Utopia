@@ -69,7 +69,6 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus;
 import com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus;
-import com.lvl6.proto.InfoProto.BoosterItemReceivedProto;
 import com.lvl6.proto.InfoProto.BoosterPackProto;
 import com.lvl6.proto.InfoProto.EquipEnhancementProto;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
@@ -79,6 +78,7 @@ import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.GoldSaleProto;
 import com.lvl6.proto.InfoProto.GroupChatMessageProto;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
+import com.lvl6.proto.InfoProto.RareBoosterPurchaseProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
@@ -128,14 +128,14 @@ public class StartupController extends EventController {
 	}
 
 	@Resource(name = "goodEquipsRecievedFromBoosterPacks")
-	protected IList<BoosterItemReceivedProto> goodEquipsRecievedFromBoosterPacks;
+	protected IList<RareBoosterPurchaseProto> goodEquipsRecievedFromBoosterPacks;
 
-	public IList<BoosterItemReceivedProto> getGoodEquipsRecievedFromBoosterPacks() {
+	public IList<RareBoosterPurchaseProto> getGoodEquipsRecievedFromBoosterPacks() {
 		return goodEquipsRecievedFromBoosterPacks;
 	}
 
 	public void setGoodEquipsRecievedFromBoosterPacks(
-			IList<BoosterItemReceivedProto> goodEquipsRecievedFromBoosterPacks) {
+			IList<RareBoosterPurchaseProto> goodEquipsRecievedFromBoosterPacks) {
 		this.goodEquipsRecievedFromBoosterPacks = goodEquipsRecievedFromBoosterPacks;
 	}
 
