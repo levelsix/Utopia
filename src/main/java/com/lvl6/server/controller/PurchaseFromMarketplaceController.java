@@ -129,7 +129,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           
           QuestUtils.checkAndSendQuestsCompleteBasic(server, buyer.getId(), senderProto, SpecialQuestAction.PURCHASE_FROM_MARKETPLACE, false);
         }
-        writeToUserCurrencyHistory(buyer, timeOfPurchaseRequest, moneyBuyer, 
+        writeToUserCurrencyHistory(mp, buyer, timeOfPurchaseRequest, moneyBuyer, 
             goldOrSilverTransaction, previousSilverBuyer, previousGoldBuyer);
       }
     } catch (Exception e) {
@@ -244,7 +244,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
   
   //only gold changes or silver changes, not both, seller doesn't really get the money until seller redeems purchase
-  private void writeToUserCurrencyHistory(User buyer, Timestamp date, 
+  private void writeToUserCurrencyHistory(MarketplacePost mp, User buyer, Timestamp date, 
       Map<String, Integer> moneyBuyerCurrencyChange, List<String> goldOrSilverTransaction,
       int previousSilver, int previousGold) {
     if(goldOrSilverTransaction.isEmpty()) {
@@ -252,12 +252,13 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     }
     try {
       String goldOrSilver = goldOrSilverTransaction.get(0); 
+      int mpId = mp.getId();
       int userId = buyer.getId();
       int isSilver = 0;
       int currencyChange = moneyBuyerCurrencyChange.get(goldOrSilver);
       int currencyBefore = 0;
       int currencyAfter = 0;
-      String reasonForChange = ControllerConstants.UCHRFC__PURCHASED_FROM_MARKETPLACE;
+      String reasonForChange = ControllerConstants.UCHRFC__PURCHASED_FROM_MARKETPLACE + " marketplace_id:" + mpId;
       
       if(goldOrSilver.equals(MiscMethods.gold)) {
         //not a silver change but gold change
