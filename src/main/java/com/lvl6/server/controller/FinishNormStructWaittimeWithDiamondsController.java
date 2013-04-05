@@ -90,7 +90,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
-        writeToUserCurrencyHistory(user, timeOfSpeedup, waitTimeType, money, previousSilver, previousGold);
+        writeToUserCurrencyHistory(user, userStruct, timeOfSpeedup, waitTimeType, money, previousSilver, previousGold);
         if (waitTimeType == NormStructWaitTimeType.FINISH_CONSTRUCTION) {
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
         }
@@ -199,9 +199,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return Math.max(1, result);
   }
 
-  public void writeToUserCurrencyHistory(User aUser, Timestamp timeOfPurchase, 
+  public void writeToUserCurrencyHistory(User aUser, UserStruct userStruct, Timestamp timeOfPurchase, 
       NormStructWaitTimeType waitTimeType, Map<String, Integer> money, 
       int previousSilver, int previousGold) {
+    
+    int userStructId = userStruct.getId();
+    int structId = userStruct.getStructId();
+    int prevLevel = userStruct.getLevel();
+    String structDetails = "user_struct_id:" + userStructId + " struct_id:" + structId
+        + " level_before_controller_processed:" + prevLevel;
+    
     Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
     Map<String, String> reasonsForChanges = new HashMap<String, String>();
     String reasonForChange = ControllerConstants.UCHRFC__FINISH_NORM_STRUCT;
@@ -212,14 +219,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     previousGoldSilver.put(silver, previousSilver);
     
     if (waitTimeType == NormStructWaitTimeType.FINISH_CONSTRUCTION) {
-      reasonsForChanges.put(gold, reasonForChange + "finish construction");
+      reasonsForChanges.put(gold, reasonForChange + "finish construction " + structDetails);
       
     } else if (waitTimeType == NormStructWaitTimeType.FINISH_INCOME_WAITTIME) {
-      reasonsForChanges.put(gold, reasonForChange + "finish income wait time");
-      reasonsForChanges.put(silver, reasonForChange + "finish income wait time");
+      reasonsForChanges.put(gold, reasonForChange + "finish income wait time " + structDetails);
+      reasonsForChanges.put(silver, reasonForChange + "finish income wait time " + structDetails);
       
     } else if (waitTimeType == NormStructWaitTimeType.FINISH_UPGRADE) {
-      reasonsForChanges.put(gold, reasonForChange + "finish upgrade");
+      reasonsForChanges.put(gold, reasonForChange + "finish upgrade " + structDetails);
       
     } else {
       return;

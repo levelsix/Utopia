@@ -105,7 +105,7 @@ import com.lvl6.utils.utilmethods.InsertUtil;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        writeToUserCurrencyHistory(user, timeOfPurchase, money, previousSilver, previousGold);
+        writeToUserCurrencyHistory(user, structId, timeOfPurchase, money, previousSilver, previousGold);
       }
     } catch (Exception e) {
       log.error("exception in PurchaseNormStructure processEvent", e);
@@ -188,13 +188,14 @@ import com.lvl6.utils.utilmethods.InsertUtil;
     return true;
   }
   
-  private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money,
-      int previousSilver, int previousGold) {
+  private void writeToUserCurrencyHistory(User aUser, int structId, Timestamp date, 
+      Map<String, Integer> money, int previousSilver, int previousGold) {
     Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
     Map<String, String> reasonsForChanges = new HashMap<String, String>();
     String gold = MiscMethods.gold;
     String silver = MiscMethods.silver;
-    String reasonForChange = ControllerConstants.UCHRFC__PURCHASE_NORM_STRUCT;
+    String reasonForChange = ControllerConstants.UCHRFC__PURCHASE_NORM_STRUCT +
+        " struct_id:" + structId;
 
     previousGoldSilver.put(gold, previousGold);
     previousGoldSilver.put(silver, previousSilver);

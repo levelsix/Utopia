@@ -91,7 +91,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        writeToUserCurrencyHistory(user, timeOfUpgrade, money, previousSilver, previousGold);
+        writeToUserCurrencyHistory(user, userStruct, timeOfUpgrade, money, previousSilver, previousGold);
       }
     } catch (Exception e) {
       log.error("exception in UpgradeNormStructure processEvent", e);
@@ -193,10 +193,18 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return Math.max(0, (int)(struct.getDiamondPrice() * Math.pow(ControllerConstants.UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_DIAMOND_COST_EXPONENT_BASE, oldLevel)));
   }
   
-  private void writeToUserCurrencyHistory(User aUser, Timestamp timeOfUpgrade, Map<String, Integer> money,
-      int previousSilver, int previousGold) {
+  private void writeToUserCurrencyHistory(User aUser, UserStruct userStruct, Timestamp timeOfUpgrade, 
+      Map<String, Integer> money, int previousSilver, int previousGold) {
+    
+    int userStructId = userStruct.getId();
+    int structId = userStruct.getStructId();
+    int prevLevel = userStruct.getLevel();
+    String structDetails = "user_struct_id:" + userStructId + " struct_id:" + structId
+        + " level_before_controller_processed:" + prevLevel;
+    
     Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
-    String reasonForChange = ControllerConstants.UCHRFC__UPGRADE_NORM_STRUCT;
+    String reasonForChange = ControllerConstants.UCHRFC__UPGRADE_NORM_STRUCT + " "
+        + structDetails;
     Map<String, String> reasonsForChanges = new HashMap<String, String>();
     String gold = MiscMethods.gold;
     String silver = MiscMethods.silver;
