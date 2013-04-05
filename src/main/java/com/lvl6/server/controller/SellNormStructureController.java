@@ -88,7 +88,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
             } else {
               resBuilder.setStatus(SellNormStructureStatus.SUCCESS);                      
             }
-            writeToUserCurrencyHistory(user, diamondChange, coinChange, previousSilver, previousGold);
+            writeToUserCurrencyHistory(user, userStruct, diamondChange, coinChange, previousSilver, previousGold);
           }
         } else {
           resBuilder.setStatus(SellNormStructureStatus.FAIL);
@@ -118,14 +118,21 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
     }
   }
   
-  public void writeToUserCurrencyHistory(User aUser, int diamondChange, int coinChange,
-      int previousSilver, int previousGold) {
+  public void writeToUserCurrencyHistory(User aUser, UserStruct userStruct, int diamondChange, 
+      int coinChange, int previousSilver, int previousGold) {
+    int userStructId = userStruct.getId();
+    int structId = userStruct.getStructId();
+    int prevLevel = userStruct.getLevel();
+    String structDetails = "user_struct_id:" + userStructId + " struct_id:" + structId
+        + " level_before_controller_processed:" + prevLevel;
+    
     Timestamp date = new Timestamp((new Date()).getTime());
     Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
     Map<String, String> reasonsForChanges = new HashMap<String, String>();
     String gold = MiscMethods.gold;
     String silver = MiscMethods.silver;
-    String reasonForChange = ControllerConstants.UCHRFC__SELL_NORM_STRUCT;
+    String reasonForChange = ControllerConstants.UCHRFC__SELL_NORM_STRUCT + " "
+        + structDetails;
 
     Map<String, Integer> money = new HashMap<String, Integer>();
     if (0 != diamondChange) {
