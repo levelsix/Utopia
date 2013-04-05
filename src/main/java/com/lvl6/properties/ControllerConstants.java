@@ -166,11 +166,11 @@ public class ControllerConstants {
   //public static final double STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_LEGENDARY_EQUIP = 0;
   //public static final int STARTUP__DAILY_BONUS_RECEIVE_EQUIP_LEVEL_RANGE = 5;
   //public static final int STARTUP__DAILY_BONUS_MYSTERY_BOX_EQUIP_FORGE_LEVEL_MAX = 2;
-  public static final int STARTUP__CLAN_HOUSE_MIN_LEVEL = 8;
+  public static final int STARTUP__CLAN_HOUSE_MIN_LEVEL = 6;
   public static final int STARTUP__VAULT_MIN_LEVEL = 1;
   public static final int STARTUP__ARMORY_MIN_LEVEL = 1;
-  public static final int STARTUP__MARKETPLACE_MIN_LEVEL = 12;
-  public static final int STARTUP__BLACKSMITH_MIN_LEVEL = 10;
+  public static final int STARTUP__MARKETPLACE_MIN_LEVEL = 8;
+  public static final int STARTUP__BLACKSMITH_MIN_LEVEL = 7;
   public static final int STARTUP__LEADERBOARD_MIN_LEVEL = 1;
   public static final int STARTUP__ENHANCING_MIN_LEVEL_TO_UNLOCK = 20; 
   public static final boolean STARTUP__USE_OLD_BATTLE_FORMULA = true;
