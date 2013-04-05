@@ -195,7 +195,7 @@ import com.lvl6.utils.utilmethods.InsertUtil;
     String gold = MiscMethods.gold;
     String silver = MiscMethods.silver;
     String reasonForChange = ControllerConstants.UCHRFC__PURCHASE_NORM_STRUCT +
-        " struct_id:" + structId;
+        " structId:" + structId;
 
     previousGoldSilver.put(gold, previousGold);
     previousGoldSilver.put(silver, previousSilver);
