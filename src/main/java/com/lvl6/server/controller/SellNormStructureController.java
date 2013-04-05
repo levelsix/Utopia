@@ -123,8 +123,8 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
     int userStructId = userStruct.getId();
     int structId = userStruct.getStructId();
     int prevLevel = userStruct.getLevel();
-    String structDetails = "user_struct_id:" + userStructId + " struct_id:" + structId
-        + " level_before_controller_processed:" + prevLevel;
+    String structDetails = "uStructId:" + userStructId + " structId:" + structId
+        + " prevLevel:" + prevLevel;
     
     Timestamp date = new Timestamp((new Date()).getTime());
     Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
