@@ -626,7 +626,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             if (oldUserEquip.getEquipId() == lostUserEquip.getEquipId()) {
               List<UserEquip> userEquipsWithEquipId = new ArrayList<UserEquip>();
               for (UserEquip defenderEquip : defenderEquips) {
-                if (defenderEquip.getEquipId() == lostUserEquip.getEquipId()) userEquipsWithEquipId.add(defenderEquip);
+                if (defenderEquip.getId() == lostUserEquip.getId()) userEquipsWithEquipId.add(defenderEquip);
               }
               return MiscMethods.chooseUserEquipWithEquipIdPreferrablyNonEquippedIgnoreLevel(defender, userEquipsWithEquipId);
             }
