@@ -76,6 +76,10 @@ public class User implements Serializable {
   private Date lastWallPostNotificationTime;
   private int kabamNaid;
   private boolean hasReceivedfbReward;
+  private int weaponTwoEquippedUserEquipId;
+  private int armorTwoEquippedUserEquipId;
+  private int amuletTwoEquippedUserEquipId;
+  private int prestigeLevel;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime, int energy,
@@ -95,7 +99,9 @@ public class User implements Serializable {
       int numTimesKiipRewarded, int numConsecutiveDaysPlayed,
       int numGroupChatsRemaining, int clanId, Date lastGoldmineRetrieval,
       Date lastMarketplaceNotificationTime, Date lastWallPostNotificationTime,
-      int kabamNaid, boolean hasReceivedfbReward) {
+      int kabamNaid, boolean hasReceivedfbReward, int weaponTwoEquippedUserEquipId, 
+      int armorTwoEquippedUserEquipId, int amuletTwoEquippedUserEquipId, 
+      int prestigeLevel) {
     super();
     this.id = id;
     this.name = name;
@@ -152,6 +158,10 @@ public class User implements Serializable {
     this.lastWallPostNotificationTime = lastWallPostNotificationTime;
     this.kabamNaid = kabamNaid;
     this.hasReceivedfbReward = hasReceivedfbReward;
+    this.weaponTwoEquippedUserEquipId = weaponTwoEquippedUserEquipId;
+    this.armorTwoEquippedUserEquipId = armorTwoEquippedUserEquipId;
+    this.amuletTwoEquippedUserEquipId = amuletTwoEquippedUserEquipId;
+    this.prestigeLevel = prestigeLevel;
   }
 
   public boolean updateAbsoluteUserLocation(Location location) {
@@ -172,36 +182,58 @@ public class User implements Serializable {
   }
 
 
-  public boolean updateEquipped(UserEquip ue) {
+  public boolean updateEquipped(UserEquip ue, boolean isPrestigeEquip) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
     int userEquipId = ue.getId();
     Equipment equipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ue.getEquipId());
-
+    
+    EquipType et = equipment.getType();
+    boolean isWeapon = (EquipType.WEAPON == et);
+    boolean isArmor = (EquipType.ARMOR == et);
+    boolean isAmulet = (EquipType.AMULET == et);
+    
+    boolean isWeaponTwo = isWeapon && isPrestigeEquip;
+    boolean isArmorTwo = isArmor && isPrestigeEquip;
+    boolean isAmuletTwo = isAmulet && isPrestigeEquip;
+    
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
-    if (equipment.getType() == EquipType.WEAPON) {
+    if (isWeaponTwo) {
+      absoluteParams.put(DBConstants.USER__WEAPON_TWO_EQUIPPED_USER_EQUIP_ID, userEquipId);
+    } else if (isWeapon) {
       absoluteParams.put(DBConstants.USER__WEAPON_EQUIPPED_USER_EQUIP_ID, userEquipId);
     }
-    if (equipment.getType() == EquipType.ARMOR) {
-      absoluteParams.put(DBConstants.USER__ARMOR_EQUIPPED_USER_EQUIP_ID, userEquipId);      
+    if (isArmorTwo) {
+      absoluteParams.put(DBConstants.USER__ARMOR_TWO_EQUIPPED_USER_EQUIP_ID, userEquipId);      
+    } else if (isArmor) {
+      absoluteParams.put(DBConstants.USER__ARMOR_EQUIPPED_USER_EQUIP_ID, userEquipId);
     }
-    if (equipment.getType() == EquipType.AMULET) {
+    if (isAmuletTwo) {
+      absoluteParams.put(DBConstants.USER__AMULET_TWO_EQUIPPED_USER_EQUIP_ID, userEquipId);
+    } else if (isAmulet) {
       absoluteParams.put(DBConstants.USER__AMULET_EQUIPPED_USER_EQUIP_ID, userEquipId);
     }
 
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
-      if (equipment.getType() == EquipType.WEAPON) {
+      if (isWeaponTwo) {
+        this.weaponTwoEquippedUserEquipId = userEquipId;
+      } else if (isWeapon) {
         this.weaponEquippedUserEquipId = userEquipId;
       }
-      if (equipment.getType() == EquipType.ARMOR) {
+      if (isArmorTwo) {
+        this.armorTwoEquippedUserEquipId = userEquipId;
+      } else if (equipment.getType() == EquipType.ARMOR) {
         this.armorEquippedUserEquipId = userEquipId;
       }
-      if (equipment.getType() == EquipType.AMULET) {
+      if (isAmuletTwo) {
+        this.amuletTwoEquippedUserEquipId = userEquipId;
+      } else if (isAmulet) {
         this.amuletEquippedUserEquipId = userEquipId;
       }
+      
       return true;
     }
     return false;
@@ -228,7 +260,8 @@ public class User implements Serializable {
     return false;
   }
 
-  public boolean updateUnequip(boolean isWeapon, boolean isArmor, boolean isAmulet) {
+  public boolean updateUnequip(boolean isWeapon, boolean isArmor, boolean isAmulet,
+      boolean isWeaponTwo, boolean isArmorTwo, boolean isAmuletTwo) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -241,6 +274,16 @@ public class User implements Serializable {
     }
     if (isAmulet) {
       absoluteParams.put(DBConstants.USER__AMULET_EQUIPPED_USER_EQUIP_ID, null);
+    }
+    //for players that have prestige
+    if (isWeaponTwo) {
+      absoluteParams.put(DBConstants.USER__WEAPON_TWO_EQUIPPED_USER_EQUIP_ID, null);
+    }
+    if (isArmorTwo) {
+      absoluteParams.put(DBConstants.USER__ARMOR_TWO_EQUIPPED_USER_EQUIP_ID, null);      
+    }
+    if (isAmuletTwo) {
+      absoluteParams.put(DBConstants.USER__AMULET_TWO_EQUIPPED_USER_EQUIP_ID, null);
     }
 
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
@@ -256,9 +299,19 @@ public class User implements Serializable {
       if (isAmulet) {
         this.amuletEquippedUserEquipId = ControllerConstants.NOT_SET;
       }
+      if (isWeaponTwo) {
+        this.weaponTwoEquippedUserEquipId = ControllerConstants.NOT_SET;
+      }
+      if (isArmorTwo) {
+        this.armorTwoEquippedUserEquipId = ControllerConstants.NOT_SET;
+      }
+      if (isAmuletTwo) {
+        this.amuletTwoEquippedUserEquipId = ControllerConstants.NOT_SET;
+      }
       return true;
     }
-    else if(0 == numUpdated && !(isWeapon || isArmor || isAmulet)) {
+    else if(0 == numUpdated && 
+        !(isWeapon || isArmor || isAmulet || isWeaponTwo|| isArmorTwo || isAmuletTwo)) {
       return true;
     }
     return false;
@@ -1478,6 +1531,38 @@ public class User implements Serializable {
   public void setHasReceivedfbReward(boolean hasReceivedfbReward) {
     this.hasReceivedfbReward = hasReceivedfbReward;
   }
+  
+  public int getWeaponTwoEquippedUserEquipId() {
+    return weaponTwoEquippedUserEquipId;
+  }
+
+  public void setWeaponTwoEquippedUserEquipId(int weaponTwoEquippedUserEquipId) {
+    this.weaponTwoEquippedUserEquipId = weaponTwoEquippedUserEquipId;
+  }
+
+  public int getArmorTwoEquippedUserEquipId() {
+    return armorTwoEquippedUserEquipId;
+  }
+
+  public void setArmorTwoEquippedUserEquipId(int armorTwoEquippedUserEquipId) {
+    this.armorTwoEquippedUserEquipId = armorTwoEquippedUserEquipId;
+  }
+
+  public int getAmuletTwoEquippedUserEquipId() {
+    return amuletTwoEquippedUserEquipId;
+  }
+
+  public void setAmuletTwoEquippedUserEquipId(int amuletTwoEquippedUserEquipId) {
+    this.amuletTwoEquippedUserEquipId = amuletTwoEquippedUserEquipId;
+  }
+
+  public int getPrestigeLevel() {
+    return prestigeLevel;
+  }
+
+  public void setPrestigeLevel(int prestigeLevel) {
+    this.prestigeLevel = prestigeLevel;
+  }
 
   @Override
   public String toString() {
@@ -1516,13 +1601,16 @@ public class User implements Serializable {
         + ", lastMarketplaceNotificationTime="
         + lastMarketplaceNotificationTime + ", lastWallPostNotificationTime="
         + lastWallPostNotificationTime + ", kabamNaid=" + kabamNaid
-        + ", hasReceivedfbReward=" + hasReceivedfbReward + "]";
+        + ", hasReceivedfbReward=" + hasReceivedfbReward
+        + ", weaponTwoEquippedUserEquipId=" + weaponTwoEquippedUserEquipId
+        + ", armorTwoEquippedUserEquipId=" + armorTwoEquippedUserEquipId
+        + ", amuletTwoEquippedUserEquipId=" + amuletTwoEquippedUserEquipId
+        + ", prestigeLevel=" + prestigeLevel + "]";
   }
-
+  
   public Date getLastGoldmineRetrieval() {
     return lastGoldmineRetrieval;
   }
-
 
   public void setLastGoldmineRetrieval(Date lastGoldmineRetrieval) {
     this.lastGoldmineRetrieval = lastGoldmineRetrieval;

@@ -587,5 +587,10 @@ public class ControllerConstants {
   
   public static final int IDDICTION__EQUIP_ID = 282;
   public static final String IDDICTION__NOTICE = "FREE limited edition gold equip for joining today!";
+  
+  //prestige
+  public static final int PRESTIGE__LEVEL_TO_UNLOCK_EXTRA_WEAPON = 1;
+  public static final int PRESTIGE__LEVEL_TO_UNLOCK_EXTRA_ARMOR = 2;
+  public static final int PRESTIGE__LEVEL_TO_UNLOCK_EXTRA_AMULET = 3;
 
 }

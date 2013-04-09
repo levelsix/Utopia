@@ -204,9 +204,12 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     
     boolean changeNumPostsInMarketplace = true;
     int numPostsInMarketplaceChange = MiscMethods.getNumPostsInMarketPlaceForUser(user.getId());
-    log.info("number of posts in market place for user " + user.getId() 
-        + ": " + numPostsInMarketplaceChange + ". Number of posts user has before updating (should be one less): "
-        + user.getNumPostsInMarketplace());
+    int previousPostAmount = user.getNumPostsInMarketplace(); 
+    if ((previousPostAmount + 1) != numPostsInMarketplaceChange) {
+      log.error("unexpected error: number of posts in market place for user " + user.getId() 
+          + ": " + numPostsInMarketplaceChange + ". Number of posts user has before updating"
+          + " (should be one less): " + previousPostAmount);
+    }
     if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(
         0, 0, numPostsInMarketplaceChange, changeNumPostsInMarketplace)) {
       log.error("problem with increasing user's num marketplace posts by 1");

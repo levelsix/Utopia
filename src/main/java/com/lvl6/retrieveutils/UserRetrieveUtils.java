@@ -491,8 +491,23 @@ import com.lvl6.utils.utilmethods.StringUtils;
     }
     
     int kabamNaid = rs.getInt(i++);
-    
+
     boolean hasReceivedfbReward = rs.getBoolean(i++);
+
+    int weaponTwoEquippedUserEquipId = rs.getInt(i++);
+    if (rs.wasNull()) {
+      weaponTwoEquippedUserEquipId = ControllerConstants.NOT_SET;
+    }
+    int armorTwoEquippedUserEquipId = rs.getInt(i++);
+    if (rs.wasNull()) {
+      armorTwoEquippedUserEquipId = ControllerConstants.NOT_SET;
+    }
+    int amuletTwoEquippedUserEquipId = rs.getInt(i++);
+    if (rs.wasNull()) {
+      amuletTwoEquippedUserEquipId = ControllerConstants.NOT_SET;
+    } 
+    
+    int prestigeLevel = rs.getInt(i++);
     
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, energy, lastEnergyRefillTime, 
         skillPoints, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
@@ -501,7 +516,8 @@ import com.lvl6.utils.utilmethods.StringUtils;
         weaponEquippedUserEquipId, armorEquippedUserEquipId, amuletEquippedUserEquipId, lastLoginTime, lastLogoutTime, deviceToken, 
         lastBattleNotificationTime, lastTimeAttacked, numBadges, lastShortLicensePurchaseTime, lastLongLicensePurchaseTime, isFake, userCreateTime, 
         isAdmin, apsalarId, numCoinsRetrievedFromStructs, numAdcolonyVideosWatched, numTimesKiipRewarded, numConsecutiveDaysPlayed, 
-        numGroupChatsRemaining, clanId, lastGoldmineRetrieval, lastMktNotificationTime, lastWallNotificationTime, kabamNaid, hasReceivedfbReward);
+        numGroupChatsRemaining, clanId, lastGoldmineRetrieval, lastMktNotificationTime, lastWallNotificationTime, kabamNaid, hasReceivedfbReward,
+        weaponTwoEquippedUserEquipId, armorTwoEquippedUserEquipId, amuletTwoEquippedUserEquipId, prestigeLevel);
     return user;
   }
 }

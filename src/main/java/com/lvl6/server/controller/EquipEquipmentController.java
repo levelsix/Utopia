@@ -13,12 +13,14 @@ import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.misc.MiscMethods;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.EquipEquipmentRequestProto;
 import com.lvl6.proto.EventProto.EquipEquipmentResponseProto;
 import com.lvl6.proto.EventProto.EquipEquipmentResponseProto.Builder;
 import com.lvl6.proto.EventProto.EquipEquipmentResponseProto.EquipEquipmentStatus;
 import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
@@ -46,8 +48,8 @@ import com.lvl6.utils.RetrieveUtils;
     EquipEquipmentRequestProto reqProto = ((EquipEquipmentRequestEvent)event).getEquipEquipmentRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
-    
     UserEquip ue = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquip(reqProto.getUserEquipId());
+    boolean forPrestigeEquipSlot = reqProto.getForPrestigeEquipSlot();
 
     Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
     Equipment equip = (ue == null) ? null : equipmentIdsToEquipment.get(ue.getEquipId());
@@ -60,7 +62,7 @@ import com.lvl6.utils.RetrieveUtils;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
-      boolean legitEquip = checkEquip(resBuilder, user, ue, equip);
+      boolean legitEquip = checkEquip(resBuilder, user, ue, forPrestigeEquipSlot, equip);
 
       EquipEquipmentResponseEvent resEvent = new EquipEquipmentResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
@@ -68,7 +70,7 @@ import com.lvl6.utils.RetrieveUtils;
       server.writeEvent(resEvent);
 
       if (legitEquip) {
-        writeChangesToDB(user, ue);
+        writeChangesToDB(user, ue, forPrestigeEquipSlot);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
@@ -80,13 +82,14 @@ import com.lvl6.utils.RetrieveUtils;
     }
   }
 
-  private void writeChangesToDB(User user, UserEquip ue) {
-    if (!user.updateEquipped(ue)) {
+  private void writeChangesToDB(User user, UserEquip ue, boolean forPrestigeEquipSlot) {
+    if (!user.updateEquipped(ue, forPrestigeEquipSlot)) {
       log.error("problem with equipping " + ue);
     }
   }
 
-  private boolean checkEquip(Builder resBuilder, User user, UserEquip ue, Equipment equip) {
+  private boolean checkEquip(Builder resBuilder, User user, UserEquip ue,
+      boolean forPrestigeEquipSlot, Equipment equip) {
     if (user == null) {
       resBuilder.setStatus(EquipEquipmentStatus.OTHER_FAIL);
       log.error("problem with equipping equip" + equip.getId() + ": user is null");
@@ -115,7 +118,64 @@ import com.lvl6.utils.RetrieveUtils;
           + user.getType() + ", equip class is " + equip.getClassType());
       return false;      
     }
+    boolean equippable = canEquip(user, ue, forPrestigeEquipSlot, equip);
+    if (!equippable) {
+      resBuilder.setStatus(EquipEquipmentStatus.ALREADY_AT_MAX_EQUIPPED_EQUIPS);
+      return false;
+    }
     resBuilder.setStatus(EquipEquipmentStatus.SUCCESS);
+    return true;
+  }
+  
+  private boolean canEquip(User u, UserEquip ue, boolean forPrestigeEquipSlot, Equipment e) {
+    EquipType et = e.getType();
+    int prestigeLevel = u.getPrestigeLevel();
+    boolean isWeapon = (EquipType.WEAPON == et);
+    boolean isArmor = (EquipType.ARMOR == et);
+    boolean isAmulet = (EquipType.AMULET == et);
+    
+    if(!forPrestigeEquipSlot) {
+      return true;
+    }
+    if (isWeapon) {
+      return canEquipPrestigeWeapon(prestigeLevel);
+    } else if (isArmor) {
+      return canEquipPrestigeArmor(prestigeLevel);
+    } else if (isAmulet) {
+      return canEquipPrestigeAmulet(prestigeLevel);
+    } else {
+      log.error("unexpected error: equip with unknown equip type, equip=" + e);
+      return false;
+    }
+  }
+  
+  private boolean canEquipPrestigeWeapon(int prestigeLevel) {
+    if (prestigeLevel < ControllerConstants.PRESTIGE__LEVEL_TO_UNLOCK_EXTRA_WEAPON) {
+      log.error("user error: user below prestige level to wear weapon. " +
+      		"prestigeLevelRequired=" + prestigeLevel);
+      return false;
+    }
+    
+    return true;
+  }
+  
+  private boolean canEquipPrestigeArmor(int prestigeLevel) {
+    if (prestigeLevel < ControllerConstants.PRESTIGE__LEVEL_TO_UNLOCK_EXTRA_ARMOR) {
+      log.error("user error: user below prestige level to wear armor. " +
+          "prestigeLevelRequired=" + prestigeLevel);
+      return false;
+    }
+    
+    return true;
+  }
+  
+  private boolean canEquipPrestigeAmulet(int prestigeLevel) {
+    if (prestigeLevel < ControllerConstants.PRESTIGE__LEVEL_TO_UNLOCK_EXTRA_AMULET) {
+      log.error("user error: user below prestige level to wear amulet. " +
+          "prestigeLevelRequired=" + prestigeLevel);
+      return false;
+    }
+    
     return true;
   }
 }

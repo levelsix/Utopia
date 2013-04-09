@@ -3,13 +3,13 @@ package com.lvl6.server.controller;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -599,13 +599,21 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return null;
     }
 
+    Set<Integer> equippedEquips = MiscMethods.getEquippedEquips(defender);
+    
+    //get equips that can be stolen
     List<UserEquip> potentialLosses = new ArrayList<UserEquip>();
     if (defenderEquips != null) {
       for (UserEquip defenderEquip : defenderEquips) {
-        if (defenderEquip.getId() == defender.getWeaponEquippedUserEquipId() || defenderEquip.getId() == defender.getArmorEquippedUserEquipId()
-            || defenderEquip.getId() == defender.getAmuletEquippedUserEquipId()) {
+        int defenderEquipId = defenderEquip.getId();
+        boolean equipped = equippedEquips.contains(defenderEquipId); //check if user has it equipped
+        if (equipped) { //can't steal equipped equips
           continue;
         }
+//        if (defenderEquip.getId() == defender.getWeaponEquippedUserEquipId() || defenderEquip.getId() == defender.getArmorEquippedUserEquipId()
+//            || defenderEquip.getId() == defender.getAmuletEquippedUserEquipId()) {
+//          continue;
+//        }
 
         int equipId = defenderEquip.getEquipId();
         Equipment equip = equipmentIdsToEquipment.get(equipId);
@@ -618,6 +626,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           }
         }
       }
+      //find out which equip will be stolen
       if (potentialLosses.size() > 0) {
         UserEquip lostUserEquip = potentialLosses.get((int) Math.rint(Math.random()
             * (potentialLosses.size() - 1)));

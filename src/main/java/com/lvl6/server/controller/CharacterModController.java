@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -150,38 +151,50 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   }
 
   private void unequipNewlyUnequipppableEquips(User user, UserType newUserType) {
-    List<Integer> userEquipIds = new ArrayList<Integer>();
-    if (user.getWeaponEquippedUserEquipId() > 0)
-      userEquipIds.add(user.getWeaponEquippedUserEquipId());
-    if (user.getArmorEquippedUserEquipId() > 0)
-      userEquipIds.add(user.getArmorEquippedUserEquipId());
-    if (user.getAmuletEquippedUserEquipId() > 0)
-      userEquipIds.add(user.getAmuletEquippedUserEquipId());
+    Set<Integer> sUserEquipIds = MiscMethods.getEquippedEquips(user);
+    List<Integer> lUserEquipIds = new ArrayList<Integer>(sUserEquipIds);
 
-    List<UserEquip> specificUserEquips = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquips(userEquipIds);
+    List<UserEquip> specificUserEquips = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquips(lUserEquipIds);
     Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
 
     boolean unequipWeapon = false, unequipArmor = false, unequipAmulet = false;
+    boolean unequipWeaponTwo = false, unequipArmorTwo = false, unequipAmuletTwo = false;
     EquipClassType userClass = MiscMethods.getClassTypeFromUserType(newUserType);
 
     for (UserEquip ue : specificUserEquips) {
       Equipment equip = equipmentIdsToEquipment.get(ue.getEquipId());
-      if (ue.getId() == user.getWeaponEquippedUserEquipId()) {
-        unequipWeapon =  (userClass != equip.getClassType() && equip.getClassType() != EquipClassType.ALL_AMULET);
+      int ueId = ue.getId();
+      boolean shouldUnequip = (userClass != equip.getClassType() && equip.getClassType() != EquipClassType.ALL_AMULET);
+      
+      if (user.getWeaponEquippedUserEquipId() == ueId) {
+        unequipWeapon = shouldUnequip;  
       }
-      if (ue.getId() == user.getArmorEquippedUserEquipId()) {
-        unequipArmor =  (userClass != equip.getClassType() && equip.getClassType() != EquipClassType.ALL_AMULET);
+      if (user.getArmorEquippedUserEquipId() == ueId) {
+        unequipArmor =  shouldUnequip;
       }
-      if (ue.getId() == user.getAmuletEquippedUserEquipId()) {
-        unequipAmulet =  (userClass != equip.getClassType() && equip.getClassType() != EquipClassType.ALL_AMULET);
+      if (user.getAmuletEquippedUserEquipId() == ueId) {
+        unequipAmulet =  shouldUnequip;
+      }
+      if (user.getWeaponTwoEquippedUserEquipId() == ueId) {
+        unequipWeaponTwo = shouldUnequip;
+      }
+      if (user.getArmorTwoEquippedUserEquipId() == ueId) {
+        unequipArmorTwo = shouldUnequip;
+      }
+      if (user.getAmuletTwoEquippedUserEquipId() == ueId) {
+        unequipAmuletTwo = shouldUnequip;
       }
     }
-    if (!user.updateUnequip(unequipWeapon, unequipArmor, unequipAmulet)) {
-      log.error("problem with unequipping equips for user after type change. user=" + user + ", unequipWeapon=" + 
-          unequipWeapon + ", unequipArmor=" + unequipArmor + ", unequipAmulet=" + unequipAmulet);
+    if (!user.updateUnequip(unequipWeapon, unequipArmor, unequipAmulet,
+        unequipWeaponTwo, unequipArmorTwo, unequipAmuletTwo)) {
+      log.error("problem with unequipping equips for user after type change. user=" + user
+          + ", unequipWeapon=" + unequipWeapon + ", unequipArmor=" + unequipArmor
+          + ", unequipAmulet=" + unequipAmulet + ", unequipWeaponTwo=" + unequipWeaponTwo
+          + ", unequipArmorTwo=" + unequipArmorTwo + ", unequipAmuletTwo=" + unequipAmuletTwo
+          );
     }
   }
-
+  
   private boolean checkLegitMod(Builder resBuilder, int diamondCost, User user, UserType newUserType, 
       String newName, CharacterModType modType) {
     if (modType == CharacterModType.CHANGE_CHARACTER_TYPE && (newUserType == null || newUserType==user.getType())) {

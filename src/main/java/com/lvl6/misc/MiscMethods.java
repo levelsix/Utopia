@@ -258,11 +258,17 @@ public class MiscMethods {
   }
 
   public static boolean unequipUserEquipIfEquipped(User user, UserEquip userEquip) {
-    if (user.getWeaponEquippedUserEquipId() == userEquip.getId() || 
-        user.getArmorEquippedUserEquipId() == userEquip.getId()||
-        user.getAmuletEquippedUserEquipId() == userEquip.getId()) {
-      return user.updateUnequip(user.getWeaponEquippedUserEquipId() == userEquip.getId(), 
-          user.getArmorEquippedUserEquipId() == userEquip.getId(), user.getAmuletEquippedUserEquipId() == userEquip.getId());
+    int userEquipId = userEquip.getId();
+    boolean isWeaponOne = user.getWeaponEquippedUserEquipId() == userEquipId;
+    boolean isArmorOne = user.getArmorEquippedUserEquipId() == userEquipId; 
+    boolean isAmuletOne = user.getAmuletEquippedUserEquipId() == userEquipId;
+    //for players who have prestige
+    boolean isWeaponTwo = user.getWeaponTwoEquippedUserEquipId() == userEquipId; 
+    boolean isArmorTwo = user.getArmorTwoEquippedUserEquipId() == userEquipId;
+    boolean isAmuletTwo = user.getAmuletTwoEquippedUserEquipId() == userEquipId;
+    if ( isWeaponOne || isWeaponTwo || isArmorOne || isArmorTwo || isAmuletOne || isAmuletTwo) {
+      return user.updateUnequip(isWeaponOne, isArmorOne, isAmuletOne, isWeaponTwo, isArmorTwo,
+          isAmuletTwo);
     } 
     return true;
   }
@@ -1927,5 +1933,19 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
         }
       }
     }
+  }
+  
+  public static Set<Integer> getEquippedEquips(User aUser) {
+    Set<Integer> equippedUserEquipIds = new HashSet<Integer>();
+    equippedUserEquipIds.add(aUser.getAmuletEquippedUserEquipId());
+    equippedUserEquipIds.add(aUser.getAmuletTwoEquippedUserEquipId());
+    equippedUserEquipIds.add(aUser.getArmorEquippedUserEquipId());
+    equippedUserEquipIds.add(aUser.getArmorTwoEquippedUserEquipId());
+    equippedUserEquipIds.add(aUser.getWeaponEquippedUserEquipId());
+    equippedUserEquipIds.add(aUser.getWeaponTwoEquippedUserEquipId());
+    
+    equippedUserEquipIds.remove(ControllerConstants.NOT_SET);
+    
+    return equippedUserEquipIds;
   }
 }

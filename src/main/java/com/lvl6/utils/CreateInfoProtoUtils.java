@@ -360,7 +360,8 @@ public class CreateInfoProtoUtils {
         .setNumCoinsRetrievedFromStructs(u.getNumCoinsRetrievedFromStructs())
         .setNumAdColonyVideosWatched(u.getNumAdColonyVideosWatched())
         .setNumGroupChatsRemaining(u.getNumGroupChatsRemaining())
-        .setHasReceivedfbReward(u.isHasReceivedfbReward());
+        .setHasReceivedfbReward(u.isHasReceivedfbReward())
+        .setPrestigeLevel(u.getPrestigeLevel());
 
     if (u.isFake()) {
       int equipmentLevel = u.getLevel();
@@ -405,6 +406,16 @@ public class CreateInfoProtoUtils {
           if (u.getAmuletEquippedUserEquipId() == ue.getId()) {
             builder.setAmuletEquippedUserEquip(createFullUserEquipProtoFromUserEquip(ue));
           }
+          //equips when user has prestige
+          if (u.getWeaponTwoEquippedUserEquipId() == ue.getId()) {
+            builder.setWeaponTwoEquippedUserEquip(createFullUserEquipProtoFromUserEquip(ue));
+          }
+          if (u.getArmorTwoEquippedUserEquipId() == ue.getId()) {
+            builder.setArmorTwoEquippedUserEquip(createFullUserEquipProtoFromUserEquip(ue));
+          }
+          if (u.getAmuletTwoEquippedUserEquipId() == ue.getId()) {
+            builder.setAmuletTwoEquippedUserEquip(createFullUserEquipProtoFromUserEquip(ue));
+          }
         }
       }
     }
@@ -430,6 +441,7 @@ public class CreateInfoProtoUtils {
       Clan clan = ClanRetrieveUtils.getClanWithId(u.getClanId());
       builder.setClan(createMinimumClanProtoFromClan(clan));
     }
+    
     return builder.build();
   }
 

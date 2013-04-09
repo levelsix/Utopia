@@ -149,6 +149,10 @@ public class DBConstants {
   public static final String USER__LAST_WALL_POST_NOTIFICATION_TIME = "last_wall_post_notification_time";
   public static final String USER__KABAM_NAID = "kabam_naid";
   public static final String USER__HAS_RECEIVED_FB_REWARD = "has_received_fb_reward";
+  public static final String USER__WEAPON_TWO_EQUIPPED_USER_EQUIP_ID = "weapon_two_equipped_user_equip_id";
+  public static final String USER__ARMOR_TWO_EQUIPPED_USER_EQUIP_ID = "armor_two_equipped_user_equip_id";
+  public static final String USER__AMULET_TWO_EQUIPPED_USER_EQUIP_ID = "amulet_two_equipped_user_equip_id";
+  public static final String USER__PRESTIGE_LEVEL = "prestige_level";
   
   /*USER EQUIP TABLE*/
   public static final String USER_EQUIP__ID = GENERIC__ID;
