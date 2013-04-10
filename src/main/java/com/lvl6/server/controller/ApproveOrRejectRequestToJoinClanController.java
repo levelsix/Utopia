@@ -15,6 +15,7 @@ import com.lvl6.info.Clan;
 import com.lvl6.info.User;
 import com.lvl6.info.UserClan;
 import com.lvl6.misc.MiscMethods;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.ApproveOrRejectRequestToJoinClanRequestProto;
 import com.lvl6.proto.EventProto.ApproveOrRejectRequestToJoinClanResponseProto;
 import com.lvl6.proto.EventProto.ApproveOrRejectRequestToJoinClanResponseProto.ApproveOrRejectRequestToJoinClanStatus;
@@ -139,13 +140,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     	//are deleted later on in writeChangesToDB
     	return false;
     }
-    UserClan uc = RetrieveUtils.userClanRetrieveUtils().getSpecificUserClan(requester.getId(), clan.getId());
+    int clanId = clan.getId();
+    UserClan uc = RetrieveUtils.userClanRetrieveUtils().getSpecificUserClan(requester.getId(), clanId);
     if (uc == null || uc.getStatus() != UserClanStatus.REQUESTING) {
       resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.NOT_A_REQUESTER);
       log.error("requester has not requested for clan with id " + user.getClanId());
       return false;
     }
-    List<UserClan> ucs = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clan.getId());
+    if (ControllerConstants.CLAN__CLAN_ID_THAT_IS_EXCEPTION_TO_LIMIT == clanId) {
+      return true;
+    }
+    List<UserClan> ucs = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId);
     int maxSize = ClanTierLevelRetrieveUtils.getClanTierLevel(clan.getCurrentTierLevel()).getMaxClanSize();
     if (ucs.size() >= maxSize && accept) {
       resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.OTHER_FAIL);
