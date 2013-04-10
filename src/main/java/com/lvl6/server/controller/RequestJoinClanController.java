@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RequestJoinClanRequestEvent;
-import com.lvl6.events.response.GeneralNotificationResponseEvent;
 import com.lvl6.events.response.RequestJoinClanResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Clan;
@@ -19,7 +19,6 @@ import com.lvl6.info.UserClan;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.misc.Notification;
 import com.lvl6.properties.ControllerConstants;
-import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.EventProto.RequestJoinClanRequestProto;
 import com.lvl6.proto.EventProto.RequestJoinClanResponseProto;
 import com.lvl6.proto.EventProto.RequestJoinClanResponseProto.Builder;
@@ -29,6 +28,7 @@ import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.ClanTierLevelRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
@@ -72,14 +72,14 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       boolean legitRequest = checkLegitRequest(resBuilder, user, clan);
       
       boolean requestToJoinRequired = clan.isRequestToJoinRequired();
-      if (requestToJoinRequired) {
-        resBuilder.setRequester(CreateInfoProtoUtils.createMinimumUserProtoForClans(user, UserClanStatus.REQUESTING));
-      } else {
-        resBuilder.setRequester(CreateInfoProtoUtils.createMinimumUserProtoForClans(user, UserClanStatus.MEMBER));
-      }
       
       boolean successful = false;
       if (legitRequest) {
+        if (requestToJoinRequired) {
+          resBuilder.setRequester(CreateInfoProtoUtils.createMinimumUserProtoForClans(user, UserClanStatus.REQUESTING));
+        } else {
+          resBuilder.setRequester(CreateInfoProtoUtils.createMinimumUserProtoForClans(user, UserClanStatus.MEMBER));
+        }
         successful = writeChangesToDB(resBuilder, user, clan);
       }
       
@@ -142,6 +142,13 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       resBuilder.setStatus(RequestJoinClanStatus.OTHER_FAIL);
       log.error("Attemped to send join request to clan, but too low level. min level to join clan=" + minLevel + ", user=" + user);
       return false;
+    }
+    List<UserClan> ucs = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clan.getId());
+    int maxSize = ClanTierLevelRetrieveUtils.getClanTierLevel(clan.getCurrentTierLevel()).getMaxClanSize();
+    if (ucs.size() >= maxSize) {
+      resBuilder.setStatus(RequestJoinClanStatus.OTHER_FAIL);
+      log.error("trying to add user into already full clan with id " + user.getClanId());
+      return false;      
     }
     //resBuilder.setStatus(RequestJoinClanStatus.SUCCESS);
     return true;
