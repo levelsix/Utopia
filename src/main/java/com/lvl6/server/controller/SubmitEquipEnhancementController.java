@@ -79,7 +79,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       
       Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
 
-      boolean legitEquip = checkEquip(resBuilder, enhancingUserEquip, feederUserEquipIds, feederUserEquips, 
+      boolean legitEquip = checkEquip(resBuilder, userId, enhancingUserEquip, feederUserEquipIds, feederUserEquips, 
           equipmentIdsToEquipment, clientTime);
 
       boolean successful = false;
@@ -182,9 +182,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     return returnValue;
   }
   
-  private boolean checkEquip(Builder resBuilder, UserEquip enhancingUserEquip, List<Integer> feederUserEquipIds, 
+  private boolean checkEquip(Builder resBuilder, int userId, UserEquip enhancingUserEquip, List<Integer> feederUserEquipIds, 
       List<UserEquip> feederUserEquips, Map<Integer, Equipment> equipmentIdsToEquipment, Timestamp startTime) {
-    int userId = enhancingUserEquip.getUserId();
     //the case where client asked for a user equip and user equip is not there.
     if (!MiscMethods.checkClientTimeAroundApproximateNow(startTime)) {
       resBuilder.setStatus(EnhanceEquipStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
