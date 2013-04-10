@@ -116,6 +116,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
 
   private boolean checkLegitRequest(Builder resBuilder, User user, Clan clan) {
+    int clanId = clan.getId();
     if (user == null || clan == null) {
       resBuilder.setStatus(RequestJoinClanStatus.OTHER_FAIL);
       log.error("user is " + user + ", clan is " + clan);
@@ -131,7 +132,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       log.error("user is good " + user.getType() + ", user type is good " + user.getType());
       return false;      
     }
-    UserClan uc = RetrieveUtils.userClanRetrieveUtils().getSpecificUserClan(user.getId(), clan.getId());
+    UserClan uc = RetrieveUtils.userClanRetrieveUtils().getSpecificUserClan(user.getId(), clanId);
     if (uc != null) {
       resBuilder.setStatus(RequestJoinClanStatus.REQUEST_ALREADY_FILED);
       log.error("user clan already exists for this: " + uc);
@@ -143,11 +144,14 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       log.error("Attemped to send join request to clan, but too low level. min level to join clan=" + minLevel + ", user=" + user);
       return false;
     }
-    List<UserClan> ucs = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clan.getId());
+    if (ControllerConstants.CLAN__CLAN_ID_THAT_IS_EXCEPTION_TO_LIMIT == clanId) {
+      return true;
+    }
+    List<UserClan> ucs = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId);
     int maxSize = ClanTierLevelRetrieveUtils.getClanTierLevel(clan.getCurrentTierLevel()).getMaxClanSize();
     if (ucs.size() >= maxSize) {
       resBuilder.setStatus(RequestJoinClanStatus.OTHER_FAIL);
-      log.error("trying to add user into already full clan with id " + clan.getId());
+      log.error("trying to add user into already full clan with id " + clanId);
       return false;      
     }
     //resBuilder.setStatus(RequestJoinClanStatus.SUCCESS);

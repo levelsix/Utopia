@@ -415,6 +415,7 @@ public class ControllerConstants {
   public static final int CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_TAG = 5;
   public static final int RETRIEVE_CLANS__NUM_CLANS_CAP = 50;
   public static final int CREATE_CLAN__INITIAL_CLAN_LEVEL = 1;
+  public static final int CLAN__CLAN_ID_THAT_IS_EXCEPTION_TO_LIMIT = Globals.IS_SANDBOX() ? 967 : 92;
   
   //THREE CARD MONTE
   public static final int THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY = 10;
