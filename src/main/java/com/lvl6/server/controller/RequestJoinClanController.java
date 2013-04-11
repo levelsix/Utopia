@@ -141,7 +141,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     int minLevel = ControllerConstants.STARTUP__CLAN_HOUSE_MIN_LEVEL;
     if (user.getLevel() < minLevel) {
       resBuilder.setStatus(RequestJoinClanStatus.OTHER_FAIL);
-      log.error("Attemped to send join request to clan, but too low level. min level to join clan=" + minLevel + ", user=" + user);
+      log.error("user error: Attemped to send join request to clan, but too low level. "
+          + "min level to join clan=" + minLevel + ", user=" + user);
       return false;
     }
     if (ControllerConstants.CLAN__CLAN_ID_THAT_IS_EXCEPTION_TO_LIMIT == clanId) {
@@ -151,7 +152,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     int maxSize = ClanTierLevelRetrieveUtils.getClanTierLevel(clan.getCurrentTierLevel()).getMaxClanSize();
     if (ucs.size() >= maxSize) {
       resBuilder.setStatus(RequestJoinClanStatus.CLAN_IS_FULL);
-      log.error("trying to add user into already full clan with id " + clanId);
+      log.error("user error: trying to join full clan with id " + clanId);
       return false;      
     }
     //resBuilder.setStatus(RequestJoinClanStatus.SUCCESS);

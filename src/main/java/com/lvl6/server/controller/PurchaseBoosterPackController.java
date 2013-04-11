@@ -346,7 +346,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
       resBuilder.setStatus(PurchaseBoosterPackStatus.EXCEEDING_PURCHASE_LIMIT);
       resBuilder.setNumPacksToExceedLimit(numMorePacksUserCanBuy);
       resBuilder.setMinutesUntilLimitReset(minutesUntilLimitReset);
-      log.error("user will have more booster packs than the limit: " + dailyLimit
+      log.error("user error: user will have more booster packs than the limit: " + dailyLimit
           + " user has " + numPurchased + " and wants to buy " + numUserWantsToBuy + " more.");
       return false;
     }

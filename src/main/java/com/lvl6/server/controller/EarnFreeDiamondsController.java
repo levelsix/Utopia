@@ -334,7 +334,7 @@ public class EarnFreeDiamondsController extends EventController {
       //    } else if (freeDiamondsType == EarnFreeDiamondsType.TWITTER) {
     } else if (EarnFreeDiamondsType.FB_CONNECT == freeDiamondsType) {
       if (user.isHasReceivedfbReward()) {
-        log.error("unexpected error: user already received fb connect diamonds");
+        log.error("user error: user already received fb connect diamonds");
         return false;
       }
     } else {
