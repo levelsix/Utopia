@@ -2003,6 +2003,7 @@ message RequestJoinClanResponseProto {
 		REQUEST_ALREADY_FILED = 3;
 		WRONG_SIDE = 5;
 		JOIN_SUCCESS = 6;
+		CLAN_IS_FULL = 7;
 	}	
 }
 

@@ -150,7 +150,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     List<UserClan> ucs = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId);
     int maxSize = ClanTierLevelRetrieveUtils.getClanTierLevel(clan.getCurrentTierLevel()).getMaxClanSize();
     if (ucs.size() >= maxSize) {
-      resBuilder.setStatus(RequestJoinClanStatus.OTHER_FAIL);
+      resBuilder.setStatus(RequestJoinClanStatus.CLAN_IS_FULL);
       log.error("trying to add user into already full clan with id " + clanId);
       return false;      
     }
