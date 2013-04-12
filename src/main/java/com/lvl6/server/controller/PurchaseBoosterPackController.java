@@ -199,7 +199,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
     Date d = new Date();
     for (BoosterItem bi : itemsUserReceives) {
       Equipment eq = equipMap.get(bi.getEquipId());
-//      if (eq.getRarity().compareTo(Rarity.SUPERRARE) >= 0) {
+      if (eq.getRarity().compareTo(Rarity.SUPERRARE) >= 0) {
         RareBoosterPurchaseProto r = CreateInfoProtoUtils.createRareBoosterPurchaseProto(aPack, user, eq, d);
         
         goodEquipsRecievedFromBoosterPacks.add(0, r);
@@ -216,7 +216,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
         ReceivedRareBoosterPurchaseResponseEvent e = new ReceivedRareBoosterPurchaseResponseEvent(user.getId());
         e.setReceivedRareBoosterPurchaseResponseProto(p);
         eventWriter.processGlobalChatResponseEvent(e);
-//      }
+      }
     }
   }
   
