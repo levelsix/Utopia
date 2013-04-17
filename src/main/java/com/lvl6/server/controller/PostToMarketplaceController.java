@@ -164,8 +164,10 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         return false;        
       }
     }
+    //level limit does not apply to people who have prestiged 
+    //(reached lvl 60 or something and went back down to 1 or something)
     int minLevel = ControllerConstants.STARTUP__MARKETPLACE_MIN_LEVEL;
-    if (user.getLevel() < minLevel) {
+    if (user.getLevel() < minLevel && user.getPrestigeLevel() <= 0) {
       //since user's level is below the cap, don't allow them to post to the marketplace
       resBuilder.setStatus(PostToMarketplaceStatus.OTHER_FAIL);
       log.error("Attempted to post to marketplace, but too low level. min level to post to marketplace=" + minLevel + ", user=" + user);

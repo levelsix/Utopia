@@ -138,14 +138,16 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       log.error("user clan already exists for this: " + uc);
       return false;      
     }
+    //level limit does not apply to people who have prestiged 
+    //(reached lvl 60 or something and went back down to 1 or something)
     int minLevel = ControllerConstants.STARTUP__CLAN_HOUSE_MIN_LEVEL;
-    if (user.getLevel() < minLevel) {
+    if (user.getLevel() < minLevel && user.getPrestigeLevel() <= 0) {
       resBuilder.setStatus(RequestJoinClanStatus.OTHER_FAIL);
-      log.error("user error: Attemped to send join request to clan, but too low level. "
+      log.error("user error: Attemped to send join request to clan, but too low level and not prestiged. "
           + "min level to join clan=" + minLevel + ", user=" + user);
       return false;
     }
-    if (ControllerConstants.CLAN__CLAN_ID_THAT_IS_EXCEPTION_TO_LIMIT == clanId) {
+    if (ControllerConstants.CLAN__ALLIANCE_CLAN_ID_THAT_IS_EXCEPTION_TO_LIMIT == clanId) {
       return true;
     }
     List<UserClan> ucs = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId);
