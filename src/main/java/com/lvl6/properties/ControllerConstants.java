@@ -93,6 +93,7 @@ public class ControllerConstants {
   public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 15;
   public static final double FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER = 1.8;
   public static final int FORGE_DEFAULT_NUMBER_OF_FORGE_SLOTS = 1;
+  public static final int FORGE_MAX_FORGE_SLOTS = 2;
 
   public static final int EXPANSION_WAIT_COMPLETE__HOUR_CONSTANT = 0;
   public static final int EXPANSION_WAIT_COMPLETE__HOUR_INCREMENT_BASE = 4;
@@ -503,6 +504,7 @@ public class ControllerConstants {
   public static final String UCHRFC__COLLECT_GOLDMINE = "collect from goldmine";
   public static final String UCHRFC__SPED_UP_ENHANCING = "sped up enhancing ";
   public static final String UCHRFC__PURHCASED_BOOSTER_PACK = "purchased booster pack with id ";
+  public static final String UCHRFC__PURCHASED_ADDITIONAL_FORGE_SLOTS = "purchased additional forge slots";
   //silver only reasons
   public static final String UCHRFC__RETRIEVE_CURRENCY_FROM_NORM_STRUCT = "retrieve currency from normal structures";
   public static final String UCHRFC__TASK_ACTION = "performed task with id ";

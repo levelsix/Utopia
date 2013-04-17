@@ -2597,3 +2597,20 @@ message PrestigeResponseProto {
 	} 
 }
 
+//------------------------------------------------------------------------------------
+
+message PurchaseForgeSlotRequestProto {
+	optional MinimumUserProto sender = 1;
+}
+
+message PurchaseForgeSlotResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional PurchaseForgeSlotStatus status = 2;
+	enum PurchaseForgeSlotStatus {
+		SUCCESS = 0;
+		FAIL_ALREADY_AT_MAX_FORGE_SLOTS = 1;
+		FAIL_NOT_ENOUGH_GOLD = 2;
+		FAIL_OTHER = 3;	
+		FAIL_USER_HAS_MORE_THAN_MAX_FORGE_SLOTS = 4;	
+	}
+}

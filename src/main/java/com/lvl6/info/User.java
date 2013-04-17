@@ -1315,6 +1315,26 @@ public class User implements Serializable {
     return false;
   }
 
+  public boolean updateNumAdditionalForgeSlotsAndDiamonds(int cost, int newAdditionalForgeSlots) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER__NUM_ADDITIONAL_FORGE_SLOTS, newAdditionalForgeSlots);
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    relativeParams.put(DBConstants.USER__DIAMONDS, cost);
+    
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER,
+        relativeParams, absoluteParams, conditionParams, "and");
+    if (numUpdated == 1) {
+      this.diamonds += cost;
+      this.numAdditionalForgeSlots = newAdditionalForgeSlots;
+      return true;
+    }
+    
+    return false;
+  }
+  
   public int getId() {
     return id;
   }

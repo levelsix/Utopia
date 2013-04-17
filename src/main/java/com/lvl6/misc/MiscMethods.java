@@ -1948,4 +1948,9 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     
     return equippedUserEquipIds;
   }
+  
+  public static int costToBuyForgeSlot(int goalNumForgeSlots, int currentNumForgeSlots) {
+    
+    return 250;
+  }
 }
