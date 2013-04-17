@@ -153,6 +153,7 @@ public class DBConstants {
   public static final String USER__ARMOR_TWO_EQUIPPED_USER_EQUIP_ID = "armor_two_equipped_user_equip_id";
   public static final String USER__AMULET_TWO_EQUIPPED_USER_EQUIP_ID = "amulet_two_equipped_user_equip_id";
   public static final String USER__PRESTIGE_LEVEL = "prestige_level";
+  public static final String USER__NUM_ADDITIONAL_FORGE_SLOTS = "num_additional_forge_slots";
   
   /*USER EQUIP TABLE*/
   public static final String USER_EQUIP__ID = GENERIC__ID;
@@ -271,6 +272,7 @@ public class DBConstants {
   public static final String BLACKSMITH__ATTEMPT_COMPLETE = "attempt_complete";
   public static final String BLACKSMITH__EQUIP_ONE_ENHANCEMENT_PERCENT = "equip_one_enhancement_percent";
   public static final String BLACKSMITH__EQUIP_TWO_ENHANCEMENT_PERCENT = "equip_two_enhancement_percent";
+  public static final String BLACKSMITH__FORGE_SLOT_NUMBER = "forge_slot_number";
   
   /*BLACKSMITH HISTORY TABLE*/
   public static final String BLACKSMITH_HISTORY__ID = "blacksmith_id";
@@ -284,6 +286,7 @@ public class DBConstants {
   public static final String BLACKSMITH_HISTORY__SUCCESS = "success";
   public static final String BLACKSMITH_HISTORY__EQUIP_ONE_ENHANCEMENT_PERCENT = "equip_one_enhancement_percent";
   public static final String BLACKSMITH_HISTORY__EQUIP_TWO_ENHANCEMENT_PERCENT = "equip_two_enhancement_percent";
+  public static final String BLACKSMITH_HISTORY__FORGE_SLOT_NUMBER = "forge_slot_number";
   
   /*USER STRUCTS TABLE*/
   public static final String USER_STRUCTS__ID = GENERIC__ID;

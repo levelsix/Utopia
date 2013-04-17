@@ -17,13 +17,13 @@ public class BlacksmithAttempt implements Serializable {
   private boolean attemptComplete;
   private int equipOneEnhancementPercent;
   private int equipTwoEnhancementPercent;
-  
-  public BlacksmithAttempt(int id, int userId, int equipId,
-      int goalLevel, boolean guaranteed, Date startTime,
-      int diamondGuaranteeCost,
+  private int forgeSlotNumber;
+
+  public BlacksmithAttempt(int id, int userId, int equipId, int goalLevel,
+      boolean guaranteed, Date startTime, int diamondGuaranteeCost, 
       Date timeOfSpeedup, boolean attemptComplete,
-      int equipOneEnhancementPercent,
-      int equipTwoEnhancementPercent) {
+      int equipOneEnhancementPercent, int equipTwoEnhancementPercent,
+      int forgeSlotNumber) {
     this.id = id;
     this.userId = userId;
     this.equipId = equipId;
@@ -35,6 +35,7 @@ public class BlacksmithAttempt implements Serializable {
     this.attemptComplete = attemptComplete;
     this.equipOneEnhancementPercent = equipOneEnhancementPercent;
     this.equipTwoEnhancementPercent = equipTwoEnhancementPercent;
+    this.forgeSlotNumber = forgeSlotNumber;
   }
 
   public int getId() {
@@ -89,6 +90,14 @@ public class BlacksmithAttempt implements Serializable {
     this.equipTwoEnhancementPercent = equipTwoEnhancementPercent;
   }
 
+  public int getForgeSlotNumber() {
+    return forgeSlotNumber;
+  }
+
+  public void setForgeSlotNumber(int forgeSlotNumber) {
+    this.forgeSlotNumber = forgeSlotNumber;
+  }
+
   @Override
   public String toString() {
     return "BlacksmithAttempt [id=" + id + ", userId=" + userId + ", equipId="
@@ -97,7 +106,8 @@ public class BlacksmithAttempt implements Serializable {
         + diamondGuaranteeCost + ", timeOfSpeedup=" + timeOfSpeedup
         + ", attemptComplete=" + attemptComplete
         + ", equipOneEnhancementPercent=" + equipOneEnhancementPercent
-        + ", equipTwoEnhancementPercent=" + equipTwoEnhancementPercent + "]";
+        + ", equipTwoEnhancementPercent=" + equipTwoEnhancementPercent
+        + ", forgeSlotNumber=" + forgeSlotNumber + "]";
   }
 
 }

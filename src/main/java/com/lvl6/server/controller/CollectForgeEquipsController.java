@@ -1,11 +1,13 @@
 package com.lvl6.server.controller;
 
-import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.CollectForgeEquipsRequestEvent;
 import com.lvl6.events.response.CollectForgeEquipsResponseEvent;
 import com.lvl6.info.BlacksmithAttempt;
@@ -60,15 +62,16 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-      List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser = UnhandledBlacksmithAttemptRetrieveUtils.getUnhandledBlacksmithAttemptsForUser(senderProto.getUserId());
+      Map<Integer, BlacksmithAttempt> blacksmithIdToBlacksmithAttempt = 
+          UnhandledBlacksmithAttemptRetrieveUtils.getUnhandledBlacksmithAttemptsForUser(senderProto.getUserId());
 
-      boolean legitCollection = checkLegitCollection(resBuilder, blacksmithId, unhandledBlacksmithAttemptsForUser, user);
+      boolean legitCollection = checkLegitCollection(resBuilder, blacksmithId, blacksmithIdToBlacksmithAttempt, user);
 
       BlacksmithAttempt blacksmithAttempt = null;
       boolean successfulForge = false;
 
       if (legitCollection) {
-        blacksmithAttempt = unhandledBlacksmithAttemptsForUser.get(0);
+        blacksmithAttempt = blacksmithIdToBlacksmithAttempt.get(blacksmithId);
         successfulForge = checkIfSuccessfulForge(blacksmithAttempt, EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(blacksmithAttempt.getEquipId()));
         if (successfulForge) {
           //forging enhanced weapons deletes the enhancement percentages
@@ -144,14 +147,41 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     return Math.random() <= chanceOfSuccess;
   }
 
-  private boolean checkLegitCollection(Builder resBuilder, int blacksmithId, List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser, User user) {
-    if (unhandledBlacksmithAttemptsForUser == null || user == null || unhandledBlacksmithAttemptsForUser.size() != 1) {
+  private boolean checkLegitCollection(Builder resBuilder, int blacksmithId, 
+      Map<Integer, BlacksmithAttempt> blacksmithIdToBlacksmithAttempt, User user) {
+    
+    if (user == null || null == blacksmithIdToBlacksmithAttempt || 
+        blacksmithIdToBlacksmithAttempt.isEmpty()) {
       resBuilder.setStatus(CollectForgeEquipsStatus.OTHER_FAIL);
-      log.error("a parameter passed in is null or invalid. unhandledBlacksmithAttemptsForUser= " + unhandledBlacksmithAttemptsForUser + ", user= " + user);
+      log.error("a parameter passed in is null or invalid. blacksmithIdToBlacksmithAttempt= "
+          + blacksmithIdToBlacksmithAttempt + ", user= " + user);
       return false;
     }
+    
+    //check if user has at the maximum limit of equips being forged
+    int numEquipsBeingForged = blacksmithIdToBlacksmithAttempt.size();
+    int numEquipsUserCanForge = ControllerConstants.FORGE_DEFAULT_NUMBER_OF_FORGE_SLOTS
+        + user.getNumAdditionalForgeSlots();
 
-    BlacksmithAttempt blacksmithAttempt = unhandledBlacksmithAttemptsForUser.get(0);
+    //make it so that the user emails us...
+    if (numEquipsBeingForged > numEquipsUserCanForge) {
+      resBuilder.setStatus(CollectForgeEquipsStatus.TOO_MANY_EQUIPS_BEING_FORGED);
+      log.error("unexpected error: user has more forge attempts than allowed. numAllowed=" 
+          + numEquipsUserCanForge + ", numBeingForged=" + numEquipsBeingForged + 
+          " blacksmithIdToBlacksmithAttempt=" + blacksmithIdToBlacksmithAttempt);
+      return false;
+    }
+    
+    BlacksmithAttempt blacksmithAttempt = null;
+    if (blacksmithIdToBlacksmithAttempt.containsKey(blacksmithId)) {
+      blacksmithAttempt = blacksmithIdToBlacksmithAttempt.get(blacksmithId);
+    }
+    if (null == blacksmithAttempt) {
+      resBuilder.setStatus(CollectForgeEquipsStatus.OTHER_FAIL);
+      log.error("unexpected error: no weapon being forged has specified id. blacksmithId="
+          + blacksmithId + ", blacksmithIdToBlacksmithAttempt=" + blacksmithIdToBlacksmithAttempt);
+      return false;
+    }
     Equipment equip = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(blacksmithAttempt.getEquipId());
 
     if (!blacksmithAttempt.isAttemptComplete()) {
@@ -160,7 +190,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       return false;
     }
 
-    if (blacksmithAttempt.getUserId() != user.getId() || blacksmithAttempt.getId() != blacksmithId || equip == null) {
+    if (blacksmithAttempt.getUserId() != user.getId() || equip == null) {
       resBuilder.setStatus(CollectForgeEquipsStatus.OTHER_FAIL);
       log.error("wrong blacksmith attempt. blacksmith attempt is " + blacksmithAttempt + ", blacksmith id passed in is " + blacksmithId + ", equip = " + equip);
       return false;
@@ -169,4 +199,5 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     resBuilder.setStatus(CollectForgeEquipsStatus.SUCCESS);
     return true;  
   }
+  
 }

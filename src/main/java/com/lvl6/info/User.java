@@ -80,6 +80,8 @@ public class User implements Serializable {
   private int armorTwoEquippedUserEquipId;
   private int amuletTwoEquippedUserEquipId;
   private int prestigeLevel;
+  private int numAdditionalForgeSlots;
+
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime, int energy,
@@ -101,7 +103,7 @@ public class User implements Serializable {
       Date lastMarketplaceNotificationTime, Date lastWallPostNotificationTime,
       int kabamNaid, boolean hasReceivedfbReward, int weaponTwoEquippedUserEquipId, 
       int armorTwoEquippedUserEquipId, int amuletTwoEquippedUserEquipId, 
-      int prestigeLevel) {
+      int prestigeLevel, int numAdditionalForgeSlots) {
     super();
     this.id = id;
     this.name = name;
@@ -162,6 +164,7 @@ public class User implements Serializable {
     this.armorTwoEquippedUserEquipId = armorTwoEquippedUserEquipId;
     this.amuletTwoEquippedUserEquipId = amuletTwoEquippedUserEquipId;
     this.prestigeLevel = prestigeLevel;
+    this.numAdditionalForgeSlots = numAdditionalForgeSlots;
   }
 
   public boolean updateAbsoluteUserLocation(Location location) {
@@ -1564,6 +1567,15 @@ public class User implements Serializable {
     this.prestigeLevel = prestigeLevel;
   }
 
+  public int getNumAdditionalForgeSlots() {
+    return numAdditionalForgeSlots;
+  }
+
+  public void setNumAdditionalForgeSlots(int numAdditionalForgeSlots) {
+    this.numAdditionalForgeSlots = numAdditionalForgeSlots;
+  }
+  
+  
   @Override
   public String toString() {
     return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="
@@ -1605,9 +1617,10 @@ public class User implements Serializable {
         + ", weaponTwoEquippedUserEquipId=" + weaponTwoEquippedUserEquipId
         + ", armorTwoEquippedUserEquipId=" + armorTwoEquippedUserEquipId
         + ", amuletTwoEquippedUserEquipId=" + amuletTwoEquippedUserEquipId
-        + ", prestigeLevel=" + prestigeLevel + "]";
+        + ", prestigeLevel=" + prestigeLevel + ", numAdditionalForgeSlots="
+        + numAdditionalForgeSlots + "]";
   }
-  
+
   public Date getLastGoldmineRetrieval() {
     return lastGoldmineRetrieval;
   }

@@ -2,12 +2,14 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.ForgeAttemptWaitCompleteRequestEvent;
 import com.lvl6.events.response.ForgeAttemptWaitCompleteResponseEvent;
 import com.lvl6.info.BlacksmithAttempt;
@@ -58,9 +60,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-      List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser = UnhandledBlacksmithAttemptRetrieveUtils.getUnhandledBlacksmithAttemptsForUser(senderProto.getUserId());
+      Map<Integer, BlacksmithAttempt> blacksmithIdToBlacksmithAttempt = 
+          UnhandledBlacksmithAttemptRetrieveUtils.getUnhandledBlacksmithAttemptsForUser(senderProto.getUserId());
 
-      boolean legitWaitComplete = checkLegitWaitComplete(resBuilder, blacksmithId, unhandledBlacksmithAttemptsForUser, user, curTime);
+      boolean legitWaitComplete = checkLegitWaitComplete(resBuilder, blacksmithId, blacksmithIdToBlacksmithAttempt, user, curTime);
 
       ForgeAttemptWaitCompleteResponseEvent resEvent = new ForgeAttemptWaitCompleteResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
@@ -68,7 +71,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
 
       if (legitWaitComplete) {
-        writeChangesToDB(unhandledBlacksmithAttemptsForUser.get(0));
+        writeChangesToDB(blacksmithIdToBlacksmithAttempt.get(blacksmithId));
       }
     } catch (Exception e) {
       log.error("exception in ForgeAttemptWaitCompleteController processEvent", e);
@@ -84,13 +87,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private boolean checkLegitWaitComplete(Builder resBuilder, int blacksmithId,
-      List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser, User user,
+      Map<Integer, BlacksmithAttempt> blacksmithIdToBlacksmithAttempt, User user,
       Timestamp curTime) {
     
-    if (unhandledBlacksmithAttemptsForUser == null || user == null || curTime == null || unhandledBlacksmithAttemptsForUser.size() != 1) {
+    if (blacksmithIdToBlacksmithAttempt == null || user == null || curTime == null) {
       resBuilder.setStatus(ForgeAttemptWaitCompleteStatus.OTHER_FAIL);
-      log.error("a parameter passed in is null or invalid. unhandledBlacksmithAttemptsForUser= " + unhandledBlacksmithAttemptsForUser + ", user= " + user
-          + ", curTime=" + curTime);
+      log.error("a parameter passed in is null or invalid. unhandledBlacksmithAttemptsForUser= "
+          + blacksmithIdToBlacksmithAttempt + ", user= " + user + ", curTime=" + curTime);
       return false;
     }
     
@@ -101,7 +104,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return false;
     }
     
-    BlacksmithAttempt blacksmithAttempt = unhandledBlacksmithAttemptsForUser.get(0);
+    BlacksmithAttempt blacksmithAttempt = blacksmithIdToBlacksmithAttempt.get(blacksmithId);
     Equipment equip = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(blacksmithAttempt.getEquipId());
 
     if (blacksmithAttempt.isAttemptComplete()) {

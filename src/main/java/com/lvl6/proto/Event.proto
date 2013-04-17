@@ -160,8 +160,8 @@ message StartupResponseProto {
 	
 	optional bool playerHasBoughtInAppPurchase = 22;
 
-	optional UnhandledBlacksmithAttemptProto unhandledForgeAttempt = 23;
-	optional FullEquipProto forgeAttemptEquip = 25;
+	repeated UnhandledBlacksmithAttemptProto unhandledForgeAttempt = 23;
+	repeated FullEquipProto forgeAttemptEquip = 25;
 	
 	repeated string noticesToPlayers = 24;
 		
@@ -1733,6 +1733,7 @@ message SubmitEquipsToBlacksmithRequestProto {
 	optional int32 userEquipTwo = 3;
 	optional bool paidToGuarantee = 4;
 	optional int64 startTime = 5;
+	optional int32 forgeSlotNumber = 6;
 }
 
 message SubmitEquipsToBlacksmithResponseProto {
@@ -1745,7 +1746,7 @@ message SubmitEquipsToBlacksmithResponseProto {
 		NOT_ENOUGH_DIAMONDS_FOR_GUARANTEE = 2;
 		SUBMITTED_EQUIPS_NOT_SAME_LEVEL = 4;
 		TRYING_TO_SURPASS_MAX_LEVEL = 5;
-		ALREADY_FORGING = 6;
+		ALREADY_FORGING_MAX_NUM_OF_EQUIPS = 6;
 		CLIENT_TOO_APART_FROM_SERVER_TIME = 7;
 		OTHER_FAIL = 8;
 	}
@@ -1810,6 +1811,8 @@ message CollectForgeEquipsResponseProto {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
 		NOT_DONE_YET = 2;
+		//the user is over the limit on number of equips being forged
+		TOO_MANY_EQUIPS_BEING_FORGED = 3;
 	}
 }
 
@@ -2576,3 +2579,21 @@ message ChangeClanJoinTypeResponseProto {
 		NOT_OWNER = 3;
 	}
 }
+
+//------------------------------------------------------------------------------------
+
+message PrestigeRequestProto {
+	optional MinimumUserProto sender = 1;
+}
+
+message PrestigeResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional PrestigeResponseStatus status = 2;
+	
+	enum PrestigeResponseStatus {
+		SUCCESS = 0;
+		BELOW_LEVEL_LIMIT = 1;
+		MAX_PRESTIGE_LEVEL = 2;
+	} 
+}
+

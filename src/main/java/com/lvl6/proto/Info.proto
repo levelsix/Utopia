@@ -476,6 +476,7 @@ message FullUserProto {
 	optional FullUserEquipProto armorTwoEquippedUserEquip = 59;
 	optional FullUserEquipProto amuletTwoEquippedUserEquip = 60;
 	optional int32 prestigeLevel = 61;
+	optional int32 numAdditionalForgeSlots = 62;
 
 	//CreateInfoProtoUtils.java doesn't set these (I can't think of a time the client would need this
 	//consider making other fields like this
@@ -913,5 +914,6 @@ message UnhandledBlacksmithAttemptProto {
 	optional bool attemptComplete = 10;
 	optional int32 equipOneEnhancementPercent = 11;
 	optional int32 equipTwoEnhancementPercent = 12;
+	optional int32 forgeSlotNumber = 13;
 }
 

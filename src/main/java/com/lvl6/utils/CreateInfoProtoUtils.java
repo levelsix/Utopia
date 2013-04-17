@@ -361,7 +361,8 @@ public class CreateInfoProtoUtils {
         .setNumAdColonyVideosWatched(u.getNumAdColonyVideosWatched())
         .setNumGroupChatsRemaining(u.getNumGroupChatsRemaining())
         .setHasReceivedfbReward(u.isHasReceivedfbReward())
-        .setPrestigeLevel(u.getPrestigeLevel());
+        .setPrestigeLevel(u.getPrestigeLevel())
+        .setNumAdditionalForgeSlots(u.getNumAdditionalForgeSlots());
 
     if (u.isFake()) {
       int equipmentLevel = u.getLevel();
@@ -824,7 +825,7 @@ public class CreateInfoProtoUtils {
     UnhandledBlacksmithAttemptProto.Builder builder = UnhandledBlacksmithAttemptProto.newBuilder().setBlacksmithId(ba.getId()).setUserId(ba.getUserId())
         .setEquipId(ba.getEquipId()).setGoalLevel(ba.getGoalLevel()).setGuaranteed(ba.isGuaranteed()).setStartTime(ba.getStartTime().getTime())
         .setAttemptComplete(ba.isAttemptComplete()).setEquipOneEnhancementPercent(ba.getEquipOneEnhancementPercent())
-        .setEquipTwoEnhancementPercent(ba.getEquipTwoEnhancementPercent());
+        .setEquipTwoEnhancementPercent(ba.getEquipTwoEnhancementPercent()).setForgeSlotNumber(ba.getForgeSlotNumber());
 
     if (ba.getDiamondGuaranteeCost() > 0) {
       builder.setDiamondGuaranteeCost(ba.getDiamondGuaranteeCost());

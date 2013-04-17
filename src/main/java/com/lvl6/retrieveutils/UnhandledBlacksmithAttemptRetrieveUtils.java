@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -23,28 +25,31 @@ import com.lvl6.utils.DBConnection;
 
   private static final String TABLE_NAME = DBConstants.TABLE_BLACKSMITH;
 
-  public static List<BlacksmithAttempt> getUnhandledBlacksmithAttemptsForUser(int userId) {
+  public static Map<Integer, BlacksmithAttempt> getUnhandledBlacksmithAttemptsForUser(int userId) {
     log.debug("retrieving unhandled blacksmith attempts for user " + userId);
     
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
-    List<BlacksmithAttempt> blacksmithAttempts = convertRSToBlacksmithAttempts(rs);
+    Map<Integer, BlacksmithAttempt> blacksmithIdToBlacksmithAttempt = convertRSToBlacksmithAttempts(rs);
     DBConnection.get().close(rs, null, conn);
-    return blacksmithAttempts;
+    return blacksmithIdToBlacksmithAttempt;
   }
   
-  private static List<BlacksmithAttempt> convertRSToBlacksmithAttempts(
+  private static Map<Integer, BlacksmithAttempt> convertRSToBlacksmithAttempts(
       ResultSet rs) {
     if (rs != null) {
       try {
         rs.last();
         rs.beforeFirst();
-        List<BlacksmithAttempt> blacksmithAttemptList = new ArrayList<BlacksmithAttempt>();
+        Map<Integer, BlacksmithAttempt> blacksmithIdToBlacksmithAttempt = 
+            new HashMap<Integer, BlacksmithAttempt>();
         while(rs.next()) {
           BlacksmithAttempt blacksmithAttempt = convertRSRowToBlacksmithAttempt(rs);
-          blacksmithAttemptList.add(blacksmithAttempt);
+          if (null != blacksmithAttempt) {
+            blacksmithIdToBlacksmithAttempt.put(blacksmithAttempt.getId(), blacksmithAttempt);
+          }
         }
-        return blacksmithAttemptList;
+        return blacksmithIdToBlacksmithAttempt;
       } catch (SQLException e) {
         log.error("problem with database call.", e);
         
@@ -75,9 +80,10 @@ import com.lvl6.utils.DBConnection;
     boolean attemptComplete = rs.getBoolean(i++);
     int enhancementPercentOne = rs.getInt(i++);
     int enhancementPercentTwo = rs.getInt(i++);
+    int forgeSlotNumber = rs.getInt(i++);
     
     return new BlacksmithAttempt(id, userId, equipId, goalLevel, guaranteed, startTime,
         diamondGuaranteeCost, timeOfSpeedup, attemptComplete, enhancementPercentOne,
-        enhancementPercentTwo);
+        enhancementPercentTwo, forgeSlotNumber);
   }
 }

@@ -62,7 +62,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     int userEquipTwo = reqProto.getUserEquipTwo();
     boolean paidToGuarantee = reqProto.getPaidToGuarantee();
     Timestamp startTime = new Timestamp(reqProto.getStartTime());
-
+    int forgeSlotNumber = reqProto.getForgeSlotNumber();
+    
     SubmitEquipsToBlacksmithResponseProto.Builder resBuilder = SubmitEquipsToBlacksmithResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
@@ -88,21 +89,26 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         int enhancementPercentOne = userEquips.get(0).getEnhancementPercentage();
         int enhancementPercentTwo = userEquips.get(1).getEnhancementPercentage();
         
-        int blacksmithId = InsertUtils.get().insertForgeAttemptIntoBlacksmith(user.getId(), equip.getId(), goalLevel, 
-            paidToGuarantee, startTime, diamondCost, null, false, enhancementPercentOne, enhancementPercentTwo);
+        int blacksmithId = InsertUtils.get().insertForgeAttemptIntoBlacksmith(user.getId(), 
+            equip.getId(), goalLevel, paidToGuarantee, startTime, diamondCost, null, false,
+            enhancementPercentOne, enhancementPercentTwo, forgeSlotNumber);
         
         if (blacksmithId <= 0) {
           resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.OTHER_FAIL);
           log.error("problem with trying to give user blacksmith attempt");
           legitSubmit = false;
         } else {
-          BlacksmithAttempt ba = new BlacksmithAttempt(blacksmithId, user.getId(), equip.getId(), goalLevel, 
-              paidToGuarantee, startTime, diamondCost, null, false, enhancementPercentOne, enhancementPercentTwo);
-          resBuilder.setUnhandledBlacksmithAttempt(CreateInfoProtoUtils.createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(ba));
+          BlacksmithAttempt ba = new BlacksmithAttempt(blacksmithId, user.getId(), equip.getId(),
+              goalLevel, paidToGuarantee, startTime, diamondCost, null, false, enhancementPercentOne,
+              enhancementPercentTwo, forgeSlotNumber);
+          resBuilder.setUnhandledBlacksmithAttempt(
+              CreateInfoProtoUtils.createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(ba)
+              );
         }
       }
 
-      SubmitEquipsToBlacksmithResponseEvent resEvent = new SubmitEquipsToBlacksmithResponseEvent(senderProto.getUserId());
+      SubmitEquipsToBlacksmithResponseEvent resEvent = 
+          new SubmitEquipsToBlacksmithResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setSubmitEquipsToBlacksmithResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
@@ -203,10 +209,20 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       return false;
     }
 
-    List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser = UnhandledBlacksmithAttemptRetrieveUtils.getUnhandledBlacksmithAttemptsForUser(user.getId());
-    if (unhandledBlacksmithAttemptsForUser != null && unhandledBlacksmithAttemptsForUser.size() > 0) {
-      resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.ALREADY_FORGING);
-      log.error("already have unhandled forges: " + unhandledBlacksmithAttemptsForUser);
+    //check if user has at the maximum limit of equips being forged
+    Map<Integer, BlacksmithAttempt> blacksmithIdToBlacksmithAttempt = 
+        UnhandledBlacksmithAttemptRetrieveUtils.getUnhandledBlacksmithAttemptsForUser(user.getId());
+    if (null == blacksmithIdToBlacksmithAttempt) {
+      blacksmithIdToBlacksmithAttempt = new HashMap<Integer, BlacksmithAttempt>();
+    }
+    
+    int numEquipsBeingForged = blacksmithIdToBlacksmithAttempt.size();
+    int numEquipsUserCanForge = ControllerConstants.FORGE_DEFAULT_NUMBER_OF_FORGE_SLOTS
+        + user.getNumAdditionalForgeSlots();
+    if (numEquipsBeingForged >= numEquipsUserCanForge) {
+      resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.ALREADY_FORGING_MAX_NUM_OF_EQUIPS);
+      log.error("already at max forges. limit=" + numEquipsUserCanForge + ", equipsBeingForged="
+      + blacksmithIdToBlacksmithAttempt);
       return false;
     }
 

@@ -3,7 +3,6 @@ package com.lvl6.server.controller;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -65,10 +64,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-      List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser = UnhandledBlacksmithAttemptRetrieveUtils.getUnhandledBlacksmithAttemptsForUser(senderProto.getUserId());
+      Map<Integer, BlacksmithAttempt> blacksmithIdToBlacksmithAttempt = UnhandledBlacksmithAttemptRetrieveUtils.getUnhandledBlacksmithAttemptsForUser(senderProto.getUserId());
       int previousGold = 0;
       
-      boolean legitFinish = checkLegitFinish(resBuilder, blacksmithId, unhandledBlacksmithAttemptsForUser, user, timeOfSpeedup);
+      boolean legitFinish = checkLegitFinish(resBuilder, blacksmithId, blacksmithIdToBlacksmithAttempt, user, timeOfSpeedup);
 
       FinishForgeAttemptWaittimeWithDiamondsResponseEvent resEvent = new FinishForgeAttemptWaittimeWithDiamondsResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
@@ -78,7 +77,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (legitFinish) {
         previousGold = user.getDiamonds();
         
-        BlacksmithAttempt ba = unhandledBlacksmithAttemptsForUser.get(0);
+        BlacksmithAttempt ba = blacksmithIdToBlacksmithAttempt.get(blacksmithId);
         Map<String, Integer> money = new HashMap<String, Integer>();
         
         int diamondCost = MiscMethods.calculateDiamondCostToSpeedupForgeWaittime(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ba.getEquipId()), ba.getGoalLevel());
@@ -111,12 +110,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private boolean checkLegitFinish(Builder resBuilder, int blacksmithId,
-      List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser, User user,
+      Map<Integer, BlacksmithAttempt> blacksmithIdToBlacksmithAttempt, User user,
       Timestamp timeOfSpeedup) {
-    if (unhandledBlacksmithAttemptsForUser == null || user == null || unhandledBlacksmithAttemptsForUser.size() != 1 || timeOfSpeedup == null) {
+    if (blacksmithIdToBlacksmithAttempt == null || user == null || timeOfSpeedup == null) {
       resBuilder.setStatus(FinishForgeAttemptWaittimeWithDiamondsStatus.OTHER_FAIL);
-      log.error("a parameter passed in is null or invalid. unhandledBlacksmithAttemptsForUser= " + unhandledBlacksmithAttemptsForUser + ", user= " + user
-          + ", timeOfSpeedup=" + timeOfSpeedup);
+      log.error("a parameter passed in is null or invalid. unhandledBlacksmithAttemptsForUser= "
+      + blacksmithIdToBlacksmithAttempt + ", user= " + user + ", timeOfSpeedup=" + timeOfSpeedup);
       return false;
     }
     
@@ -127,7 +126,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return false;
     }
     
-    BlacksmithAttempt blacksmithAttempt = unhandledBlacksmithAttemptsForUser.get(0);
+    BlacksmithAttempt blacksmithAttempt = blacksmithIdToBlacksmithAttempt.get(blacksmithId);
     Equipment equip = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(blacksmithAttempt.getEquipId());
 
     if (blacksmithAttempt.isAttemptComplete()) {

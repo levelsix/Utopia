@@ -543,20 +543,31 @@ public class StartupController extends EventController {
 	}
 
 	private void setUnhandledForgeAttempts(Builder resBuilder, User user) {
-		List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser = UnhandledBlacksmithAttemptRetrieveUtils
-				.getUnhandledBlacksmithAttemptsForUser(user.getId());
-		if (unhandledBlacksmithAttemptsForUser != null && unhandledBlacksmithAttemptsForUser.size() == 1) {
-			resBuilder
-					.setUnhandledForgeAttempt(CreateInfoProtoUtils
-							.createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(unhandledBlacksmithAttemptsForUser
-									.get(0)));
-			resBuilder.setForgeAttemptEquip(CreateInfoProtoUtils
-					.createFullEquipProtoFromEquip(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(
-							unhandledBlacksmithAttemptsForUser.get(0).getEquipId())));
-		}
-		if (unhandledBlacksmithAttemptsForUser != null && unhandledBlacksmithAttemptsForUser.size() > 1) {
-			log.error("user has too many blacksmith attempts, should only have one. blacksmith attempts = "
-					+ unhandledBlacksmithAttemptsForUser);
+	  Map<Integer, BlacksmithAttempt> blacksmithIdToBlacksmithAttempt = 
+	      UnhandledBlacksmithAttemptRetrieveUtils.getUnhandledBlacksmithAttemptsForUser(user.getId());
+		int numEquipsBeingForged = blacksmithIdToBlacksmithAttempt.size();
+    int numEquipsUserCanForge = ControllerConstants.FORGE_DEFAULT_NUMBER_OF_FORGE_SLOTS
+        + user.getNumAdditionalForgeSlots();
+    
+    if (blacksmithIdToBlacksmithAttempt != null && numEquipsBeingForged <= numEquipsUserCanForge) {
+      for (BlacksmithAttempt ba : blacksmithIdToBlacksmithAttempt.values()) {
+        
+        int baId = ba.getId();
+        resBuilder.addUnhandledForgeAttempt(
+            CreateInfoProtoUtils.createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(
+                blacksmithIdToBlacksmithAttempt.get(baId))
+            );
+        
+        int equipId = ba.getEquipId();
+        Equipment e = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipId);
+        resBuilder.addForgeAttemptEquip(
+            CreateInfoProtoUtils.createFullEquipProtoFromEquip(e)
+            );
+      }
+    }
+		if (blacksmithIdToBlacksmithAttempt != null && numEquipsBeingForged > numEquipsUserCanForge) {
+			log.error("user has too many blacksmith attempts, should only have " + numEquipsUserCanForge + 
+			    ". blacksmith attempts = " + blacksmithIdToBlacksmithAttempt);
 		}
 	}
 
