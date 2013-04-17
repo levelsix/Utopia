@@ -13,7 +13,7 @@ public class PurchaseForgeSlotResponseEvent extends NormalResponseEvent {
   
   public PurchaseForgeSlotResponseEvent(int playerId){
     super(playerId);
-    eventType = EventProtocolResponse.S_ARMORY_EVENT;
+    eventType = EventProtocolResponse.S_PURCHASE_FORGE_SLOT_EVENT;
   }
   
   @Override
