@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseForgeSlotRequestEvent;
 import com.lvl6.events.response.PurchaseForgeSlotResponseEvent;
+import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
@@ -87,9 +88,9 @@ import com.lvl6.utils.RetrieveUtils;
       server.writeEvent(resEvent);
        
       if (success) {
-//        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
-//        resEventUpdate.setTag(event.getTag());
-//        server.writeEvent(resEventUpdate);
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
+        resEventUpdate.setTag(event.getTag());
+        server.writeEvent(resEventUpdate);
         writeToUserCurrencyHistory(user, userForgeSlots, goalNumForgeSlots, currencyChange, previousGold);
       }
     } catch (Exception e) {
