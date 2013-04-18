@@ -90,7 +90,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       Map<Integer, BlacksmithAttempt> blacksmithIdToBlacksmithAttempt, User user,
       Timestamp curTime) {
     
-    if (blacksmithIdToBlacksmithAttempt == null || user == null || curTime == null) {
+    if (blacksmithIdToBlacksmithAttempt == null || blacksmithIdToBlacksmithAttempt.isEmpty()
+        || user == null || curTime == null) {
       resBuilder.setStatus(ForgeAttemptWaitCompleteStatus.OTHER_FAIL);
       log.error("a parameter passed in is null or invalid. unhandledBlacksmithAttemptsForUser= "
           + blacksmithIdToBlacksmithAttempt + ", user= " + user + ", curTime=" + curTime);
@@ -105,6 +106,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     
     BlacksmithAttempt blacksmithAttempt = blacksmithIdToBlacksmithAttempt.get(blacksmithId);
+    log.info("blacksmithAttempt=" + blacksmithAttempt);
     Equipment equip = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(blacksmithAttempt.getEquipId());
 
     if (blacksmithAttempt.isAttemptComplete()) {
