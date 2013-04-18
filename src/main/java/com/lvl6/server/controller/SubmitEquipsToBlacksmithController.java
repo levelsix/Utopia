@@ -78,7 +78,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       List<UserEquip> userEquips = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquips(userEquipIds);
       Equipment equip = (userEquips != null && userEquips.size() >= 1) ? EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(userEquips.get(0).getEquipId()) : null;
 
-      boolean legitSubmit = checkLegitSubmit(resBuilder, user, paidToGuarantee, userEquips, equip, startTime);
+      boolean legitSubmit = checkLegitSubmit(resBuilder, user, paidToGuarantee, userEquips, equip, startTime, forgeSlotNumber);
 
       int goalLevel = 0; 
       int diamondCost = 0;
@@ -165,7 +165,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     return x;
   }
 
-  private boolean checkLegitSubmit(Builder resBuilder, User user, boolean paidToGuarantee, List<UserEquip> userEquips, Equipment equip, Timestamp startTime) {
+  private boolean checkLegitSubmit(Builder resBuilder, User user, boolean paidToGuarantee, List<UserEquip> userEquips,
+      Equipment equip, Timestamp startTime, int forgeSlotNumber) {
     if (user == null || userEquips == null || userEquips.size() != 2 || equip == null || startTime == null) {
       resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.OTHER_FAIL);
       log.error("parameter passed in is null. user=" + user + ", userEquips=" + userEquips + ", equip=" + equip);
@@ -222,12 +223,29 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     if (numEquipsBeingForged >= numEquipsUserCanForge) {
       resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.ALREADY_FORGING_MAX_NUM_OF_EQUIPS);
       log.error("already at max forges. limit=" + numEquipsUserCanForge + ", equipsBeingForged="
-      + blacksmithIdToBlacksmithAttempt);
+      + blacksmithIdToBlacksmithAttempt + ", user=" + user);
       return false;
     }
-
+    if (clashingForgeSlotNumber(forgeSlotNumber, blacksmithIdToBlacksmithAttempt)) {
+      resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.FORGE_SLOT_IN_USE);
+      log.error("user error: forge slot number already in use. forgeSlotNumber=" + forgeSlotNumber
+          + ", equipsBeingForged=" + blacksmithIdToBlacksmithAttempt);
+      return false;
+    }
+    
     resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.SUCCESS);
     return true;
+  }
+  
+  private boolean clashingForgeSlotNumber(int forgeSlotNumber, 
+      Map<Integer, BlacksmithAttempt> blacksmithIdToBlacksmithAttempt) {
+    for (BlacksmithAttempt ba: blacksmithIdToBlacksmithAttempt.values()) {
+      if (ba.getForgeSlotNumber() == forgeSlotNumber) {
+        return true;
+      }
+    }
+    
+    return false;
   }
   
   public void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money,
