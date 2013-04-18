@@ -102,8 +102,10 @@ import com.lvl6.utils.RetrieveUtils;
 
   private boolean writeChangesToDB(Builder resBuilder, User user, int currentForgeSlots, 
       int goalNumForgeSlots, int diamondCost, Map<String, Integer> currencyChange) {
+    //column is 'additional forge slots' so need to take out the default amount
+    int numAdditionalForgeSlots = goalNumForgeSlots - ControllerConstants.FORGE_DEFAULT_NUMBER_OF_FORGE_SLOTS;
     
-    if (!user.updateNumAdditionalForgeSlotsAndDiamonds(goalNumForgeSlots, diamondCost)) {
+    if (!user.updateNumAdditionalForgeSlotsAndDiamonds(numAdditionalForgeSlots, diamondCost)) {
       log.error("problem with updating diamonds after purchasing additional forge slot");
       resBuilder.setStatus(PurchaseForgeSlotStatus.FAIL_OTHER);
       return false;
