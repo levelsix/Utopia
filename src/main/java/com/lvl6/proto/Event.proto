@@ -1753,6 +1753,7 @@ message SubmitEquipsToBlacksmithResponseProto {
 		CLIENT_TOO_APART_FROM_SERVER_TIME = 7;
 		OTHER_FAIL = 8;
 		FORGE_SLOT_IN_USE = 9;
+		FORGE_SLOT_NOT_YET_UNLOCKED = 10;
 	}
 }
 

@@ -226,6 +226,12 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       + blacksmithIdToBlacksmithAttempt + ", user=" + user);
       return false;
     }
+    if (!validForgeSlotNumber(numEquipsUserCanForge, forgeSlotNumber)) {
+      resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.FORGE_SLOT_IN_USE);
+      log.error("user error: forge slot number not unlocked or is invalid. forgeSlotNumber=" + forgeSlotNumber
+          + ", equipsBeingForged=" + blacksmithIdToBlacksmithAttempt + ", user=" + user);
+      return false;
+    }
     if (clashingForgeSlotNumber(forgeSlotNumber, blacksmithIdToBlacksmithAttempt)) {
       resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.FORGE_SLOT_IN_USE);
       log.error("user error: forge slot number already in use. forgeSlotNumber=" + forgeSlotNumber
@@ -235,6 +241,17 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     
     resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.SUCCESS);
     return true;
+  }
+  
+  private boolean validForgeSlotNumber(int numEquipsUserCanForge, int forgeSlotNumber) {
+    if (0 == forgeSlotNumber) {
+      return false;
+    }
+    if (forgeSlotNumber > numEquipsUserCanForge) {
+      return false;
+    } else {
+      return true;
+    }
   }
   
   private boolean clashingForgeSlotNumber(int forgeSlotNumber, 
