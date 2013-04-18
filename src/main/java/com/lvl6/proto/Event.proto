@@ -357,6 +357,8 @@ message StartupResponseProto {
 		
 		optional int32 maxNumTowersClanCanHold = 102;
 		
+		optional int32 minLevelForPrestige = 103;
+		
 		message BoosterPackConstants {
 			optional int32 purchaseOptionOneNumBoosterItems = 1;
 			optional int32 purchaseOptionTwoNumBoosterItems = 2;
@@ -1805,6 +1807,7 @@ message CollectForgeEquipsRequestProto {
 message CollectForgeEquipsResponseProto {
 	optional MinimumUserProto sender = 1;
 	repeated FullUserEquipProto userEquips = 2;
+	optional int32 blacksmithId = 4;
 	
 	optional CollectForgeEquipsStatus status = 3;
 	
@@ -2589,12 +2592,13 @@ message PrestigeRequestProto {
 
 message PrestigeResponseProto {
 	optional MinimumUserProto sender = 1;
-	optional PrestigeResponseStatus status = 2;
+	optional PrestigeStatus status = 2;
 	
-	enum PrestigeResponseStatus {
+	enum PrestigeStatus {
 		SUCCESS = 0;
-		BELOW_LEVEL_LIMIT = 1;
-		MAX_PRESTIGE_LEVEL = 2;
+		BELOW_MIN_LEVEL_FOR_PRESTIGE = 1;
+		ALREADY_AT_MAX_PRESTIGE_LEVEL = 2;
+		FAIL_OTHER = 3;
 	} 
 }
 

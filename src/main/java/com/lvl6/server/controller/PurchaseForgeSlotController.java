@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseForgeSlotRequestEvent;
 import com.lvl6.events.response.PurchaseForgeSlotResponseEvent;
-import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
@@ -25,9 +24,6 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.RetrieveUtils;
 
-/*
- * NOT READY/BEING USED YET
- */
 
   @Component @DependsOn("gameServer") public class PurchaseForgeSlotController extends EventController {
 

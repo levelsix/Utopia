@@ -58,6 +58,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
     CollectForgeEquipsResponseProto.Builder resBuilder = CollectForgeEquipsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
+    resBuilder.setBlacksmithId(blacksmithId);
 
     server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
