@@ -1082,14 +1082,16 @@ public class StartupController extends EventController {
 			userTypes.add(UserType.BAD_WARRIOR);
 		}
 
+		boolean realPlayersOnly = false;
 		boolean fakePlayersOnly = false;
 		boolean offlinePlayersOnly = false;
 		List<Integer> forbiddenUserIds = new ArrayList<Integer>();
 		forbiddenUserIds.add(user.getId());
 
 		List<User> allies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes,
-				ControllerConstants.STARTUP__APPROX_NUM_ALLIES_TO_SEND, user.getLevel(), user.getId(), false,
-				null, null, null, null, false, fakePlayersOnly, offlinePlayersOnly, forbiddenUserIds);
+				ControllerConstants.STARTUP__APPROX_NUM_ALLIES_TO_SEND, user.getLevel(),
+				user.getId(), false, null, null, null, null, false, realPlayersOnly,
+				fakePlayersOnly, offlinePlayersOnly, forbiddenUserIds);
 		if (allies != null && allies.size() > 0) {
 			for (User ally : allies) {
 				resBuilder.addAllies(CreateInfoProtoUtils.createMinimumUserProtoWithLevelFromUser(ally));

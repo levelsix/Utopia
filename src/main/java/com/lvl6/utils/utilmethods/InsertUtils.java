@@ -1080,4 +1080,25 @@ public class InsertUtils implements InsertUtil{
     int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
     return numInserted;
   }
+  
+  public int insertIntoPrestigeHistory(int userId, int preprestigedLevel, int preprestigedPrestigeLevel, 
+      int newPrestigeLevel, int preprestigedAttackStat, int preprestigedDefenseStat, 
+      int preprestigedStaminaStat, int preprestigedEnergyStat, Date aDate) {
+    String tableName = DBConstants.TABLE_PRESTIGE_HISTORY;
+    
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.PRESTIGE_HISTORY__USER_ID, userId);
+    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGED_LEVEL, preprestigedLevel);
+    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGED_PRESTIGE_LEVEL, preprestigedPrestigeLevel);
+    insertParams.put(DBConstants.PRESTIGE_HISTORY__NEW_PRESTIGE_LEVEL, newPrestigeLevel);
+    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGED_ATTACK_STAT, preprestigedAttackStat);
+    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGED_DEFENSE_STAT, preprestigedDefenseStat);
+    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGED_STAMINA_STAT, preprestigedStaminaStat);
+    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGED_ENERGY_STAT, preprestigedEnergyStat);
+    Timestamp aTimestamp = new Timestamp(aDate.getTime());
+    insertParams.put(DBConstants.PRESTIGE_HISTORY__PRESTIGE_DATE, aTimestamp);
+    
+    int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
+    return numInserted;
+  }
 }

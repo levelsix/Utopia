@@ -170,4 +170,9 @@ public interface InsertUtil {
   
   public abstract int insertIntoUserDailyRewardHistory(int userId, int currencyRewarded, boolean isCoins, int boosterPackId, 
       int equipIdRewarded, int nthConsecutiveDay, Date dateAwarded);
+  
+  public abstract int insertIntoPrestigeHistory(int userId, int preprestigedLevel, int preprestigedPrestigeLevel, 
+      int newPrestigeLevel, int preprestigedAttackStat, int preprestigedDefenseStat, 
+      int preprestigedStaminaStat, int preprestigedEnergyStat, Date aDate);
+  
 }

@@ -515,6 +515,8 @@ message StartupResponseProto {
 			optional int32 forgeBaseMinutesToOneGold = 4;
 			optional int32 forgeMaxEquipLevel = 5;
 			optional int32 forgeMaxForgeSlots = 6;
+			optional int32 costOfPurchasingSlotTwo = 7;
+			optional int32 costOfPurchasingSlotThree = 8;
 		}
 	}
 	

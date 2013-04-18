@@ -136,7 +136,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
 
   public List<User> getUsers(List<UserType> requestedTypes, int numUsers, int playerLevel, int userId, boolean guaranteeNum, 
       Double latLowerBound, Double latUpperBound, Double longLowerBound, Double longUpperBound, boolean forBattle, 
-      boolean fakePlayersOnly, boolean offlinePlayersOnly, List<Integer> forbiddenPlayerIds) {
+      boolean realPlayersOnly, boolean fakePlayersOnly, boolean offlinePlayersOnly, List<Integer> forbiddenPlayerIds) {
     log.debug("retrieving list of users for user " + userId + " with requested types " + requestedTypes + 
         " , " + numUsers + " users " + " around player level " + playerLevel + ", guaranteeNum="+guaranteeNum + 
         ", latLowerBound=" + latLowerBound + ", latUpperBound=" + latUpperBound + 
@@ -198,7 +198,10 @@ import com.lvl6.utils.utilmethods.StringUtils;
       values.add(null);
     }
     
-    if (fakePlayersOnly) {
+    if (realPlayersOnly) {
+      query += DBConstants.USER__IS_FAKE + "=? and ";
+      values.add(0);
+    } else if (fakePlayersOnly) {
       query += DBConstants.USER__IS_FAKE + "=? and ";
       values.add(1);
     } else if (offlinePlayersOnly) {

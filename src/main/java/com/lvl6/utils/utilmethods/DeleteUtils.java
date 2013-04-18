@@ -251,4 +251,68 @@ public class DeleteUtils implements DeleteUtil {
     }
   }
 
+  public int deleteAllUserCitiesForUser(int userId) {
+    String tableName = DBConstants.TABLE_USER_CITIES;
+    String condDelim = "and";
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_CITIES__USER_ID, userId);
+    int numDeleted = DBConnection.get().deleteRows(tableName, conditionParams, condDelim);
+    
+    return numDeleted;
+  }
+  public int deleteAllUserQuestsForUser(int userId) {
+    String tableName = DBConstants.TABLE_USER_QUESTS;
+    String condDelim = "and";
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
+    int numDeleted = DBConnection.get().deleteRows(tableName, conditionParams, condDelim);
+    
+    return numDeleted;
+  }
+  public int deleteAllUserQuestsCompletedDefeatTypeJobsForUser(int userId) {
+    String tableName = DBConstants.TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS;
+    String condDelim = "and";
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__USER_ID, userId);
+    int numDeleted = DBConnection.get().deleteRows(tableName, conditionParams, condDelim);
+    
+    return numDeleted;
+  }
+  public int deleteAllUserQuestsCompletedTasksForUser(int userId) {
+    String tableName = DBConstants.TABLE_USER_QUESTS_COMPLETED_TASKS;
+    String condDelim = "and";
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__USER_ID, userId);
+    int numDeleted = DBConnection.get().deleteRows(tableName, conditionParams, condDelim);
+    
+    return numDeleted;
+  }
+  public int deleteAllUserQuestsDefeatTypeJobProgressForUser(int userId) {
+    String tableName = DBConstants.TABLE_USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS;
+    String condDelim = "and";
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__USER_ID, userId);
+    int numDeleted = DBConnection.get().deleteRows(tableName, conditionParams, condDelim);
+    
+    return numDeleted;
+  }
+  public int deleteAllUserQuestsTaskProgress(int userId) {
+    String tableName = DBConstants.TABLE_USER_QUESTS_TASK_PROGRESS;
+    String condDelim = "and";
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_QUESTS_TASK_PROGRESS__USER_ID, userId);
+    int numDeleted = DBConnection.get().deleteRows(tableName, conditionParams, condDelim);
+    
+    return numDeleted;
+  }
+  public int deleteAllUserTasksForUser(int userId) {
+    String tableName = DBConstants.TABLE_USER_TASKS;
+    String condDelim = "and";
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_TASK__USER_ID, userId);
+    int numDeleted = DBConnection.get().deleteRows(tableName, conditionParams, condDelim);
+    
+    return numDeleted;
+  }
+  
 }

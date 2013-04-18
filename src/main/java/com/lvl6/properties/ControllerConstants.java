@@ -94,6 +94,8 @@ public class ControllerConstants {
   public static final double FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER = 1.8;
   public static final int FORGE_DEFAULT_NUMBER_OF_FORGE_SLOTS = 1;
   public static final int FORGE_MAX_FORGE_SLOTS = 2;
+  public static final int FORGE_COST_OF_PURCHASING_SLOT_TWO = 250;
+  public static final int FORGE_COST_OF_PURCHASING_SLOT_THREE = 250;
 
   public static final int EXPANSION_WAIT_COMPLETE__HOUR_CONSTANT = 0;
   public static final int EXPANSION_WAIT_COMPLETE__HOUR_INCREMENT_BASE = 4;
@@ -108,7 +110,9 @@ public class ControllerConstants {
   public static final int BATTLE__HOURS_IN_ATTACKED_BY_ONE_PROTECTION_PERIOD = 2;
   public static final int BATTLE__MAX_LEVEL_TO_STEAL = 4;
   public static final int BATTLE__MAX_LEVEL_TO_STEAL_EPICS = 2;
-  
+  public static final int BATTLE__MAX_LEVEL_TO_STILL_GENERATE_BOTS = 10;
+  //minimum level prestiged players have to be to see only real players in the attack list
+  public static final int BATTLE__MIN_LEVEL_FOR_PRESTIGED_TO_SEE_NON_BOTS = 30;
   
   //--------------------------------------------------------------------------------------------------------------------------
 
@@ -597,5 +601,7 @@ public class ControllerConstants {
   public static final int PRESTIGE__LEVEL_TO_UNLOCK_EXTRA_WEAPON = 1;
   public static final int PRESTIGE__LEVEL_TO_UNLOCK_EXTRA_ARMOR = 2;
   public static final int PRESTIGE__LEVEL_TO_UNLOCK_EXTRA_AMULET = 3;
+  public static final int PRESTIGE__MIN_LEVEL_FOR_PRESTIGE = 60;
+  public static final int PRESTIGE__MAX_PRESTIGE_LEVEL = 3;
 
 }

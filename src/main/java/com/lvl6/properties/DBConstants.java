@@ -89,6 +89,8 @@ public class DBConstants {
   public static final String TABLE_DAILY_BONUS_REWARD = "daily_bonus_reward";
   public static final String TABLE_USER_DAILY_BONUS_REWARD_HISTORY = "user_daily_bonus_reward_history";
   
+  public static final String TABLE_PRESTIGE_HISTORY = "prestige_history";
+  
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
   public static final String GENERIC__ID = "id";
@@ -654,4 +656,15 @@ public class DBConstants {
   public static final String USER_DAILY_BONUS_REWARD_HISTORY__NTH_CONSECUTIVE_DAY = "nth_consecutive_day";
   public static final String USER_DAILY_BONUS_REWARD_HISTORY__DATE_AWARDED = "date_awarded";
   
+  /*PRESTIGE HISTORY TABLE*/
+  public static final String PRESTIGE_HISTORY__ID = GENERIC__ID;
+  public static final String PRESTIGE_HISTORY__USER_ID = GENERIC__USER_ID;
+  public static final String PRESTIGE_HISTORY__PREPRESTIGED_LEVEL = "preprestiged_level";
+  public static final String PRESTIGE_HISTORY__PREPRESTIGED_PRESTIGE_LEVEL = "preprestiged_prestige_level";
+  public static final String PRESTIGE_HISTORY__NEW_PRESTIGE_LEVEL = "new_prestige_level";
+  public static final String PRESTIGE_HISTORY__PREPRESTIGED_ATTACK_STAT = "preprestiged_attack_stat";
+  public static final String PRESTIGE_HISTORY__PREPRESTIGED_DEFENSE_STAT = "preprestiged_defense_stat";
+  public static final String PRESTIGE_HISTORY__PREPRESTIGED_STAMINA_STAT = "preprestiged_stamina_stat";
+  public static final String PRESTIGE_HISTORY__PREPRESTIGED_ENERGY_STAT = "preprestiged_energy_stat";
+  public static final String PRESTIGE_HISTORY__PRESTIGE_DATE = "prestiged_date";
 }

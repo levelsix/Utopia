@@ -82,24 +82,36 @@ import com.lvl6.utils.RetrieveUtils;
         userTypes.add(UserType.GOOD_WARRIOR);
       }
       
+      boolean realPlayersOnly = false;
+      //prestiged players will only see real players in the attack list at a certain level
+      if (user.getLevel() >= ControllerConstants.BATTLE__MIN_LEVEL_FOR_PRESTIGED_TO_SEE_NON_BOTS
+          && user.getPrestigeLevel() > 0) {
+        realPlayersOnly = true;
+      }
       boolean fakePlayersOnly = false;
       if (10 >= user.getLevel()) {
         fakePlayersOnly = true;
       }
       boolean offlinePlayersOnly = true;
-      //offline real players
-      List<User> enemies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, numEnemies, user.getLevel(), user.getId(), false, 
-          latLowerBound, latUpperBound, longLowerBound, longUpperBound, true, fakePlayersOnly, offlinePlayersOnly, null);
+      
+      //PROCURE THE VICTIMS! MWAHAHAHAH
+      List<User> enemies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes,
+          numEnemies, user.getLevel(), user.getId(), false, latLowerBound,
+          latUpperBound, longLowerBound, longUpperBound, true, realPlayersOnly,
+          fakePlayersOnly, offlinePlayersOnly, null);
       if (enemies != null) {
-        List<Integer> playerIds = new ArrayList<Integer>(); //ids added to builder
-        Set<Integer> forbiddenIds = new HashSet<Integer>(); //should not be added to builder
+        List<Integer> playerIds = new ArrayList<Integer>(); //ids that are added to builder
+        Set<Integer> forbiddenIds = new HashSet<Integer>(); //ids that should not be added to builder
         addPlayersToBuilder(resBuilder, enemies, user, forbiddenIds, playerIds);
         
         if (enemies.size() < numEnemies) {
-          //since not enough real offline players include the real online players
+          //since not enough real offline players include the real online players and also fake players
+          realPlayersOnly = false;
           offlinePlayersOnly = false;
-          enemies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, numEnemies, user.getLevel(), user.getId(), false, 
-              latLowerBound, latUpperBound, longLowerBound, longUpperBound, true, fakePlayersOnly, offlinePlayersOnly, playerIds);
+          enemies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, numEnemies,
+              user.getLevel(), user.getId(), false, latLowerBound, latUpperBound,
+              longLowerBound, longUpperBound, true, realPlayersOnly, fakePlayersOnly,
+              offlinePlayersOnly, playerIds);
           
           forbiddenIds.addAll(playerIds);
           addPlayersToBuilder(resBuilder, enemies, user, forbiddenIds, null);

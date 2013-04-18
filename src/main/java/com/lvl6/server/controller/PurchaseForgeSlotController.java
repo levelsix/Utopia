@@ -102,7 +102,7 @@ import com.lvl6.utils.RetrieveUtils;
   private boolean writeChangesToDB(Builder resBuilder, User user, int currentForgeSlots, 
       int goalNumForgeSlots, int diamondCost, Map<String, Integer> currencyChange) {
     
-    if (!user.updateRelativeCoinsNaive(diamondCost)) {
+    if (!user.updateNumAdditionalForgeSlotsAndDiamonds(goalNumForgeSlots, diamondCost)) {
       log.error("problem with updating diamonds after purchasing additional forge slot");
       resBuilder.setStatus(PurchaseForgeSlotStatus.FAIL_OTHER);
       return false;

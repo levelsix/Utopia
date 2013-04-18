@@ -40,4 +40,18 @@ public interface DeleteUtil {
   public abstract boolean deleteEquipEnhancements(List<Integer> equipEnhancementIds);
   
   public abstract boolean deleteEquipEnhancementFeeders(List<Integer> equipEnhancementFeederIds);
+  
+  public abstract int deleteAllUserCitiesForUser(int userId);
+  
+  public abstract int deleteAllUserQuestsForUser(int userId);
+  
+  public abstract int deleteAllUserQuestsCompletedDefeatTypeJobsForUser(int userId);
+  
+  public abstract int deleteAllUserQuestsCompletedTasksForUser(int userId);
+  
+  public abstract int deleteAllUserQuestsDefeatTypeJobProgressForUser(int userId);
+  
+  public abstract int deleteAllUserQuestsTaskProgress(int userId);
+  
+  public abstract int deleteAllUserTasksForUser(int userId);
 }

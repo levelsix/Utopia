@@ -1315,7 +1315,7 @@ public class User implements Serializable {
     return false;
   }
 
-  public boolean updateNumAdditionalForgeSlotsAndDiamonds(int cost, int newAdditionalForgeSlots) {
+  public boolean updateNumAdditionalForgeSlotsAndDiamonds(int newAdditionalForgeSlots, int cost) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -1332,6 +1332,71 @@ public class User implements Serializable {
       return true;
     }
     
+    return false;
+  }
+  
+  public boolean prestige(int oldEnergy, int oldStamina) {
+    //copied most from reset stat method named resetSkillPoints(...)
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    //increment prestige level
+    relativeParams.put(DBConstants.USER__PRESTIGE_LEVEL, 1);
+    
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    //skill points need to be reset
+    int initialAttack = ControllerConstants.TUTORIAL__ARCHER_INIT_ATTACK;
+    int initialDefense = ControllerConstants.TUTORIAL__ARCHER_INIT_DEFENSE;
+    int initialEnergy = Math.min(oldEnergy, ControllerConstants.TUTORIAL__INIT_ENERGY);
+    int initialStamina = Math.min(oldStamina, ControllerConstants.TUTORIAL__INIT_STAMINA);
+    int returnSkillPoints = 0;
+
+    if (this.type == UserType.GOOD_WARRIOR || this.type == UserType.BAD_WARRIOR) {
+      initialAttack = ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK;
+      initialDefense = ControllerConstants.TUTORIAL__WARRIOR_INIT_DEFENSE;
+    } else if (this.type == UserType.GOOD_MAGE || this.type == UserType.BAD_MAGE) {
+      initialAttack = ControllerConstants.TUTORIAL__MAGE_INIT_ATTACK;
+      initialDefense = ControllerConstants.TUTORIAL__MAGE_INIT_DEFENSE;
+    }
+    
+    absoluteParams.put(DBConstants.USER__LEVEL, 1);
+    absoluteParams.put(DBConstants.USER__ATTACK, initialAttack);
+    absoluteParams.put(DBConstants.USER__DEFENSE, initialDefense);
+    absoluteParams.put(DBConstants.USER__ENERGY_MAX, ControllerConstants.TUTORIAL__INIT_ENERGY);
+    absoluteParams.put(DBConstants.USER__STAMINA_MAX, ControllerConstants.TUTORIAL__INIT_STAMINA);
+    absoluteParams.put(DBConstants.USER__ENERGY, initialEnergy);
+    absoluteParams.put(DBConstants.USER__STAMINA, initialStamina);
+    absoluteParams.put(DBConstants.USER__SKILL_POINTS, returnSkillPoints);
+    
+    //equips equipped need to be reset
+    absoluteParams.put(DBConstants.USER__WEAPON_EQUIPPED_USER_EQUIP_ID, null);
+    absoluteParams.put(DBConstants.USER__WEAPON_TWO_EQUIPPED_USER_EQUIP_ID, null);
+    absoluteParams.put(DBConstants.USER__ARMOR_EQUIPPED_USER_EQUIP_ID, null);
+    absoluteParams.put(DBConstants.USER__ARMOR_TWO_EQUIPPED_USER_EQUIP_ID, null);
+    absoluteParams.put(DBConstants.USER__AMULET_EQUIPPED_USER_EQUIP_ID, null);
+    absoluteParams.put(DBConstants.USER__AMULET_TWO_EQUIPPED_USER_EQUIP_ID, null);
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER,
+        relativeParams, absoluteParams, conditionParams, "and");
+    if (numUpdated == 1) {
+      this.attack = initialAttack;
+      this.defense = initialDefense;
+      this.energyMax = ControllerConstants.TUTORIAL__INIT_ENERGY;
+      this.energy = initialEnergy;
+      this.staminaMax = ControllerConstants.TUTORIAL__INIT_STAMINA;
+      this.stamina = initialStamina;
+      this.skillPoints = returnSkillPoints;
+      this.weaponEquippedUserEquipId = ControllerConstants.NOT_SET;
+      this.weaponTwoEquippedUserEquipId = ControllerConstants.NOT_SET;
+      this.armorEquippedUserEquipId = ControllerConstants.NOT_SET;
+      this.armorTwoEquippedUserEquipId = ControllerConstants.NOT_SET;
+      this.amuletEquippedUserEquipId = ControllerConstants.NOT_SET;
+      this.amuletTwoEquippedUserEquipId = ControllerConstants.NOT_SET;
+      this.prestigeLevel += 1;
+      return true;
+    }
+
     return false;
   }
   
