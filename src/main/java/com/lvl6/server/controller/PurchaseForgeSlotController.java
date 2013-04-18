@@ -64,22 +64,21 @@ import com.lvl6.utils.RetrieveUtils;
       boolean legitPurchase = checkLegitPurchase(resBuilder, user);
       
 
-      int userForgeSlots = 0;
-      int goalNumForgeSlots = 1;
+      int userAdditionalForgeSlots = 0;
+      int goalNumAdditionalForgeSlots = 1;
       
       Map<String, Integer> currencyChange = new HashMap<String, Integer>();
       boolean success = false;
       if (legitPurchase) {
         previousGold = user.getDiamonds();
         
-        userForgeSlots = ControllerConstants.FORGE_DEFAULT_NUMBER_OF_FORGE_SLOTS +
-            user.getNumAdditionalForgeSlots();
-        goalNumForgeSlots = userForgeSlots + 1;
-        int additionalForgeSlotCost = MiscMethods.costToBuyForgeSlot(goalNumForgeSlots, userForgeSlots);
+        userAdditionalForgeSlots = user.getNumAdditionalForgeSlots();
+        goalNumAdditionalForgeSlots = userAdditionalForgeSlots + 1;
+        int additionalForgeSlotCost = MiscMethods.costToBuyForgeSlot(goalNumAdditionalForgeSlots, userAdditionalForgeSlots);
         int diamondCost = additionalForgeSlotCost * -1;
         
-        success = writeChangesToDB(resBuilder, user, userForgeSlots, 
-            goalNumForgeSlots, diamondCost, currencyChange);
+        success = writeChangesToDB(resBuilder, user, userAdditionalForgeSlots, 
+            goalNumAdditionalForgeSlots, diamondCost, currencyChange);
       }
       
       PurchaseForgeSlotResponseEvent resEvent = new PurchaseForgeSlotResponseEvent(senderProto.getUserId());
@@ -91,7 +90,7 @@ import com.lvl6.utils.RetrieveUtils;
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
-        writeToUserCurrencyHistory(user, userForgeSlots, goalNumForgeSlots, currencyChange, previousGold);
+        writeToUserCurrencyHistory(user, userAdditionalForgeSlots, goalNumAdditionalForgeSlots, currencyChange, previousGold);
       }
     } catch (Exception e) {
       log.error("exception in PurchaseForgeSlot processEvent", e);
@@ -100,12 +99,10 @@ import com.lvl6.utils.RetrieveUtils;
     }
   }
 
-  private boolean writeChangesToDB(Builder resBuilder, User user, int currentForgeSlots, 
-      int goalNumForgeSlots, int diamondCost, Map<String, Integer> currencyChange) {
-    //column is 'additional forge slots' so need to take out the default amount
-    int numAdditionalForgeSlots = goalNumForgeSlots - ControllerConstants.FORGE_DEFAULT_NUMBER_OF_FORGE_SLOTS;
+  private boolean writeChangesToDB(Builder resBuilder, User user, int currentAdditionalForgeSlots, 
+      int goalNumAdditionalForgeSlots, int diamondCost, Map<String, Integer> currencyChange) {
     
-    if (!user.updateNumAdditionalForgeSlotsAndDiamonds(numAdditionalForgeSlots, diamondCost)) {
+    if (!user.updateNumAdditionalForgeSlotsAndDiamonds(goalNumAdditionalForgeSlots, diamondCost)) {
       log.error("problem with updating diamonds after purchasing additional forge slot");
       resBuilder.setStatus(PurchaseForgeSlotStatus.FAIL_OTHER);
       return false;
@@ -123,31 +120,30 @@ import com.lvl6.utils.RetrieveUtils;
     }
     
     //see if user wants to go past max slots
-    int userForgeSlots = ControllerConstants.FORGE_DEFAULT_NUMBER_OF_FORGE_SLOTS +
-        user.getNumAdditionalForgeSlots();
-    int maxForgeSlots = ControllerConstants.FORGE_MAX_FORGE_SLOTS;
-    if (userForgeSlots == maxForgeSlots) {
+    int userAdditionalForgeSlots = user.getNumAdditionalForgeSlots();
+    int maxAdditionalForgeSlots = ControllerConstants.FORGE__ADDITIONAL_MAX_FORGE_SLOTS;
+    if (userAdditionalForgeSlots == maxAdditionalForgeSlots) {
       resBuilder.setStatus(PurchaseForgeSlotStatus.FAIL_ALREADY_AT_MAX_FORGE_SLOTS);
-      log.error("user error: user trying to buy past max forge slots. maxForgeSlots=" +
-          maxForgeSlots + ", user=" + user);
+      log.error("user error: user trying to buy past max additional forge slots." +
+      		" maxAdditionalForgeSlots=" + maxAdditionalForgeSlots + ", user=" + user);
       return false;      
     }
     //see if user is at max slots
-    if (userForgeSlots > maxForgeSlots) {
+    if (userAdditionalForgeSlots > maxAdditionalForgeSlots) {
       resBuilder.setStatus(PurchaseForgeSlotStatus.FAIL_USER_HAS_MORE_THAN_MAX_FORGE_SLOTS);
-      log.error("user error: user already has more than max forge slots. maxForgeSlots=" +
-          maxForgeSlots + ", user=" + user);
+      log.error("user error: user already has more than max additional forge slots." +
+      		" maxAdditionalForgeSlots=" + maxAdditionalForgeSlots + ", user=" + user);
       return false;      
     }
     
     //see if user has enough money
-    int goalNumForgeSlots = userForgeSlots + 1;
-    int additionalForgeSlotCost = MiscMethods.costToBuyForgeSlot(goalNumForgeSlots, userForgeSlots);
+    int goalNumAdditionalForgeSlots = userAdditionalForgeSlots + 1;
+    int additionalForgeSlotCost = MiscMethods.costToBuyForgeSlot(goalNumAdditionalForgeSlots, userAdditionalForgeSlots);
     
     if (user.getDiamonds() < additionalForgeSlotCost) {
       resBuilder.setStatus(PurchaseForgeSlotStatus.FAIL_NOT_ENOUGH_GOLD);
       log.error("user error: user does not have enough gold to buy one more forge slot."
-          + " cost=" + additionalForgeSlotCost + ", goalNumForgeSlots=" + goalNumForgeSlots
+          + " cost=" + additionalForgeSlotCost + ", goalNumAdditionalForgeSlots=" + goalNumAdditionalForgeSlots
           + " user=" + user);
       return false;
     }
@@ -155,7 +151,7 @@ import com.lvl6.utils.RetrieveUtils;
     return true;  
   }
   
-  public void writeToUserCurrencyHistory(User aUser, int previousForgeSlots, int currentForgeSlots,
+  public void writeToUserCurrencyHistory(User aUser, int previousForgeSlots, int currentAdditionalForgeSlots,
       Map<String, Integer> goldSilverChange, int previousSilver) {
     Timestamp date = new Timestamp((new Date()).getTime());
     Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
@@ -163,7 +159,7 @@ import com.lvl6.utils.RetrieveUtils;
     String gold = MiscMethods.gold;
     String reasonForChange = 
         ControllerConstants.UCHRFC__PURCHASED_ADDITIONAL_FORGE_SLOTS +
-        " prevSlots=" + previousForgeSlots + ", currentSlots=" + currentForgeSlots; 
+        " prevAmount=" + previousForgeSlots + ", currentAmount=" + currentAdditionalForgeSlots; 
         
     
     previousGoldSilver.put(gold, previousSilver);

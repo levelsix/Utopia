@@ -494,7 +494,7 @@ public class MiscMethods {
         .setForgeDiamondCostForGuaranteeExponentialMultiplier(ControllerConstants.FORGE_DIAMOND_COST_FOR_GUARANTEE_EXPONENTIAL_MULTIPLIER)
         .setForgeBaseMinutesToOneGold(ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD)
         .setForgeMaxEquipLevel(ControllerConstants.FORGE_MAX_EQUIP_LEVEL)
-        .setForgeMaxForgeSlots(ControllerConstants.FORGE_MAX_FORGE_SLOTS)
+        .setForgeMaxForgeSlots(ControllerConstants.FORGE__ADDITIONAL_MAX_FORGE_SLOTS)
         .setCostOfPurchasingSlotTwo(ControllerConstants.FORGE_COST_OF_PURCHASING_SLOT_TWO)
         .setCostOfPurchasingSlotThree(ControllerConstants.FORGE_COST_OF_PURCHASING_SLOT_THREE)
         .build();
@@ -1953,7 +1953,9 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     return equippedUserEquipIds;
   }
   
-  public static int costToBuyForgeSlot(int goalNumForgeSlots, int currentNumForgeSlots) {
+  //arguments don't take into account the 1 forge slot the user has by default
+  public static int costToBuyForgeSlot(int goalNumAdditionalForgeSlots,
+      int currentNumAdditionalForgeSlots) {
     
     return 250;
   }

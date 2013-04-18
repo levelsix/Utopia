@@ -93,7 +93,7 @@ public class ControllerConstants {
   public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 15;
   public static final double FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER = 1.8;
   public static final int FORGE_DEFAULT_NUMBER_OF_FORGE_SLOTS = 1;
-  public static final int FORGE_MAX_FORGE_SLOTS = 2;
+  public static final int FORGE__ADDITIONAL_MAX_FORGE_SLOTS = 2;
   public static final int FORGE_COST_OF_PURCHASING_SLOT_TWO = 250;
   public static final int FORGE_COST_OF_PURCHASING_SLOT_THREE = 250;
 
