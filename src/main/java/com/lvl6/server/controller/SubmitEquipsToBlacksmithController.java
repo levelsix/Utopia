@@ -227,7 +227,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       return false;
     }
     if (!validForgeSlotNumber(numEquipsUserCanForge, forgeSlotNumber)) {
-      resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.FORGE_SLOT_IN_USE);
+      resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.FORGE_SLOT_NOT_YET_UNLOCKED);
       log.error("user error: forge slot number not unlocked or is invalid. forgeSlotNumber=" + forgeSlotNumber
           + ", equipsBeingForged=" + blacksmithIdToBlacksmithAttempt + ", user=" + user);
       return false;
@@ -244,10 +244,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   }
   
   private boolean validForgeSlotNumber(int numEquipsUserCanForge, int forgeSlotNumber) {
-    if (0 == forgeSlotNumber) {
-      return false;
-    }
-    if (forgeSlotNumber > numEquipsUserCanForge) {
+    //forge slot numbers should start at 1
+    if (forgeSlotNumber <= 0 || forgeSlotNumber > numEquipsUserCanForge) {
       return false;
     } else {
       return true;
