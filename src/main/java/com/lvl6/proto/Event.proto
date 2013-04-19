@@ -357,7 +357,12 @@ message StartupResponseProto {
 		
 		optional int32 maxNumTowersClanCanHold = 102;
 		
-		optional int32 minLevelForPrestige = 103;
+		optional PrestigeConstants prestigeConstants = 103;
+		
+		message PrestigeConstants {
+			optional int32 minLevelForPrestige = 1;
+			optional int32 maxPrestigeLevel = 2;
+		}
 		
 		message BoosterPackConstants {
 			optional int32 purchaseOptionOneNumBoosterItems = 1;

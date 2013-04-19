@@ -75,6 +75,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.GoldmineC
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditions;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.LeaderboardEventConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.LockBoxConstants;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.PrestigeConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ThreeCardMonteConstants;
 import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
 import com.lvl6.proto.InfoProto.BossEventProto;
@@ -668,6 +669,13 @@ public class MiscMethods {
     cb.setFbConnectRewardDiamonds(ControllerConstants.EARN_FREE_DIAMONDS__FB_CONNECT_REWARD);
     
     cb.setMaxNumTowersClanCanHold(ControllerConstants.CLAN_TOWER__MAX_NUM_TOWERS_CLAN_CAN_HOLD);
+    
+    PrestigeConstants pc = PrestigeConstants.newBuilder()
+        .setMaxPrestigeLevel(ControllerConstants.PRESTIGE__MAX_PRESTIGE_LEVEL)
+        .setMinLevelForPrestige(ControllerConstants.PRESTIGE__MIN_LEVEL_FOR_PRESTIGE)
+        .build();
+    cb.setPrestigeConstants(pc);
+    
     return cb.build();  
   }
 
