@@ -106,7 +106,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     
     BlacksmithAttempt blacksmithAttempt = blacksmithIdToBlacksmithAttempt.get(blacksmithId);
-    log.info("blacksmithAttempt=" + blacksmithAttempt);
     Equipment equip = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(blacksmithAttempt.getEquipId());
 
     if (blacksmithAttempt.isAttemptComplete()) {
