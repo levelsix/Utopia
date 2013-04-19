@@ -107,7 +107,6 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   private boolean writeChangesToDB(Builder resBuilder, User user) {
     //unequip everything
     //all skill points reset
-    boolean success = false;
     if (!user.prestige(user.getEnergy(), user.getStamina())) {
       log.error("unexpected error: could not reset user back to level 1. user=" + user);
       return false;
