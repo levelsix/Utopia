@@ -659,12 +659,13 @@ public class DBConstants {
   /*PRESTIGE HISTORY TABLE*/
   public static final String PRESTIGE_HISTORY__ID = GENERIC__ID;
   public static final String PRESTIGE_HISTORY__USER_ID = GENERIC__USER_ID;
-  public static final String PRESTIGE_HISTORY__PREPRESTIGED_LEVEL = "preprestiged_level";
-  public static final String PRESTIGE_HISTORY__PREPRESTIGED_PRESTIGE_LEVEL = "preprestiged_prestige_level";
+  public static final String PRESTIGE_HISTORY__PREPRESTIGE_LEVEL = "preprestige_level";
+  public static final String PRESTIGE_HISTORY__PREPRESTIGE_PRESTIGE_LEVEL = "preprestige_prestige_level";
   public static final String PRESTIGE_HISTORY__NEW_PRESTIGE_LEVEL = "new_prestige_level";
-  public static final String PRESTIGE_HISTORY__PREPRESTIGED_ATTACK_STAT = "preprestiged_attack_stat";
-  public static final String PRESTIGE_HISTORY__PREPRESTIGED_DEFENSE_STAT = "preprestiged_defense_stat";
-  public static final String PRESTIGE_HISTORY__PREPRESTIGED_STAMINA_STAT = "preprestiged_stamina_stat";
-  public static final String PRESTIGE_HISTORY__PREPRESTIGED_ENERGY_STAT = "preprestiged_energy_stat";
-  public static final String PRESTIGE_HISTORY__PRESTIGE_DATE = "prestiged_date";
+  public static final String PRESTIGE_HISTORY__PREPRESTIGE_ATTACK_STAT = "preprestige_attack_stat";
+  public static final String PRESTIGE_HISTORY__PREPRESTIGE_DEFENSE_STAT = "preprestige_defense_stat";
+  public static final String PRESTIGE_HISTORY__PREPRESTIGE_STAMINA_STAT = "preprestige_stamina_stat";
+  public static final String PRESTIGE_HISTORY__PREPRESTIGE_ENERGY_STAT = "preprestige_energy_stat";
+  public static final String PRESTIGE_HISTORY__PRESTIGE_DATE = "prestige_date";
+  public static final String PRESTIGE_HISTORY__PREPRESTIGE_EXPERIENCE = "preprestige_experience";
 }

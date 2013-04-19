@@ -1081,22 +1081,23 @@ public class InsertUtils implements InsertUtil{
     return numInserted;
   }
   
-  public int insertIntoPrestigeHistory(int userId, int preprestigedLevel, int preprestigedPrestigeLevel, 
-      int newPrestigeLevel, int preprestigedAttackStat, int preprestigedDefenseStat, 
-      int preprestigedStaminaStat, int preprestigedEnergyStat, Date aDate) {
+  public int insertIntoPrestigeHistory(int userId, int preprestigeLevel, int preprestigePrestigeLevel, 
+      int newPrestigeLevel, int preprestigeAttackStat, int preprestigeDefenseStat, 
+      int preprestigeStaminaStat, int preprestigeEnergyStat, Date aDate, int preprestigeExperience) {
     String tableName = DBConstants.TABLE_PRESTIGE_HISTORY;
     
     Map<String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.PRESTIGE_HISTORY__USER_ID, userId);
-    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGED_LEVEL, preprestigedLevel);
-    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGED_PRESTIGE_LEVEL, preprestigedPrestigeLevel);
+    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGE_LEVEL, preprestigeLevel);
+    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGE_PRESTIGE_LEVEL, preprestigePrestigeLevel);
     insertParams.put(DBConstants.PRESTIGE_HISTORY__NEW_PRESTIGE_LEVEL, newPrestigeLevel);
-    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGED_ATTACK_STAT, preprestigedAttackStat);
-    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGED_DEFENSE_STAT, preprestigedDefenseStat);
-    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGED_STAMINA_STAT, preprestigedStaminaStat);
-    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGED_ENERGY_STAT, preprestigedEnergyStat);
+    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGE_ATTACK_STAT, preprestigeAttackStat);
+    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGE_DEFENSE_STAT, preprestigeDefenseStat);
+    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGE_STAMINA_STAT, preprestigeStaminaStat);
+    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGE_ENERGY_STAT, preprestigeEnergyStat);
     Timestamp aTimestamp = new Timestamp(aDate.getTime());
     insertParams.put(DBConstants.PRESTIGE_HISTORY__PRESTIGE_DATE, aTimestamp);
+    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGE_EXPERIENCE, preprestigeExperience);
     
     int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
     return numInserted;

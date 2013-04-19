@@ -12,6 +12,7 @@ import com.lvl6.events.request.PrestigeRequestEvent;
 import com.lvl6.events.response.PrestigeResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.properties.ControllerConstants;
+import com.lvl6.properties.Globals;
 import com.lvl6.proto.EventProto.PrestigeRequestProto;
 import com.lvl6.proto.EventProto.PrestigeResponseProto;
 import com.lvl6.proto.EventProto.PrestigeResponseProto.Builder;
@@ -55,24 +56,26 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(userId);
-      int preprestigedLevel = 0;
-      int preprestigedPrestigeLevel = 0;
+      int preprestigeLevel = 0;
+      int preprestigePrestigeLevel = 0;
       int newPrestigeLevel = 0;
-      int preprestigedAttackStat = 0;
-      int preprestigedDefenseStat = 0;
-      int preprestigedStaminaStat = 0;
-      int preprestigedEnergyStat = 0;
+      int preprestigeAttackStat = 0;
+      int preprestigeDefenseStat = 0;
+      int preprestigeStaminaStat = 0;
+      int preprestigeEnergyStat = 0;
       Date aDate = new Date();
+      int preprestigeExperience = 0;
       
       boolean legitPrestige = checkLegitPrestige(resBuilder, user);
       boolean success = false;
       if (legitPrestige) {
-        preprestigedLevel = user.getLevel();
-        preprestigedPrestigeLevel = user.getPrestigeLevel();
-        preprestigedAttackStat = user.getAttack();
-        preprestigedDefenseStat = user.getDefense();
-        preprestigedStaminaStat = user.getStamina();
-        preprestigedEnergyStat = user.getEnergy();
+        preprestigeLevel = user.getLevel();
+        preprestigePrestigeLevel = user.getPrestigeLevel();
+        preprestigeAttackStat = user.getAttack();
+        preprestigeDefenseStat = user.getDefense();
+        preprestigeStaminaStat = user.getStamina();
+        preprestigeEnergyStat = user.getEnergy();
+        preprestigeExperience = user.getExperience();
         
         success = writeChangesToDB(resBuilder, user);
       }
@@ -84,12 +87,14 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       
       if (success) {
         newPrestigeLevel = user.getPrestigeLevel();
-        
+        if (Globals.IS_SANDBOX()) {
+          log.info("user prestige event, writing to prestige history!");
+        }
         //write to prestige history table
-        InsertUtils.get().insertIntoPrestigeHistory(userId, preprestigedLevel,
-            preprestigedPrestigeLevel, newPrestigeLevel, preprestigedAttackStat,
-            preprestigedDefenseStat, preprestigedStaminaStat, preprestigedEnergyStat,
-            aDate);
+        InsertUtils.get().insertIntoPrestigeHistory(userId, preprestigeLevel,
+            preprestigePrestigeLevel, newPrestigeLevel, preprestigeAttackStat,
+            preprestigeDefenseStat, preprestigeStaminaStat, preprestigeEnergyStat,
+            aDate, preprestigeExperience);
       }
       
     } catch (Exception e) {

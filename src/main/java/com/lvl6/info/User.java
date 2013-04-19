@@ -1368,6 +1368,7 @@ public class User implements Serializable {
     absoluteParams.put(DBConstants.USER__ENERGY, initialEnergy);
     absoluteParams.put(DBConstants.USER__STAMINA, initialStamina);
     absoluteParams.put(DBConstants.USER__SKILL_POINTS, returnSkillPoints);
+    absoluteParams.put(DBConstants.USER__EXPERIENCE, 0);
     
     //equips equipped need to be reset
     absoluteParams.put(DBConstants.USER__WEAPON_EQUIPPED_USER_EQUIP_ID, null);
