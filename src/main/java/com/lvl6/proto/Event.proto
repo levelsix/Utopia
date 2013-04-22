@@ -117,7 +117,6 @@ message StartupRequestProto {				//client will also send ChangeUserLocationReque
      optional string udid = 1;
      optional float versionNum = 2;			//1.0->2.0 critical, 1.0->1.1 minor. server checks db for latest vnum
      optional string apsalarId = 3;
-     optional string iOS5Udid = 4;
      optional string macAddress = 5;
      optional string advertiserId = 6;
      optional bool isForceTutorial = 7;
@@ -185,6 +184,8 @@ message StartupResponseProto {
 	optional EquipEnhancementProto equipEnhancement = 42;
 	
 	repeated RareBoosterPurchaseProto rareBoosterPurchases = 43;
+	
+	optional string kabamNaid = 44;
 	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
