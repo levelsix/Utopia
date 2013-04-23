@@ -262,7 +262,7 @@ public class StartupController extends EventController {
 
 				if (isFirstTimeUser) {
 					log.info("new player with udid " + udid);
-					InsertUtils.get().insertIntoFirstTimeUsers(udid, reqProto.getIOS5Udid(),
+					InsertUtils.get().insertIntoFirstTimeUsers(udid, null,
 							reqProto.getMacAddress(), reqProto.getAdvertiserId(), now);
 				}
 
@@ -272,6 +272,10 @@ public class StartupController extends EventController {
 			resBuilder.setStartupStatus(startupStatus);
 			setConstants(resBuilder, startupStatus);
 		}
+
+    String naid = retrieveKabamNaid(user, udid, reqProto.getMacAddress(),
+        reqProto.getAdvertiserId());
+    resBuilder.setKabamNaid(naid);
 
 		StartupResponseProto resProto = resBuilder.build();
 		StartupResponseEvent resEvent = new StartupResponseEvent(udid);
@@ -290,10 +294,6 @@ public class StartupController extends EventController {
 		// if app is not in force tutorial execute this function,
 		// regardless of whether the user is new or restarting from an account
 		// reset
-		if (!reqProto.getIsForceTutorial()) {
-			retrieveKabamNaid(user, udid, reqProto.getIOS5Udid(), reqProto.getMacAddress(),
-					reqProto.getAdvertiserId());
-		}
 		updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);
 	}
 
@@ -329,7 +329,7 @@ public class StartupController extends EventController {
 		resBuilder.addAllLeaderboardEvents(MiscMethods.currentLeaderboardEventProtos());
 	}
 
-	private void retrieveKabamNaid(User user, String openUdid, String udid, String mac, String advertiserId) {
+	private String retrieveKabamNaid(User user, String openUdid, String mac, String advertiserId) {
 		String host;
 		int port = 443;
 		int clientId;
@@ -348,7 +348,7 @@ public class StartupController extends EventController {
 		String userId = openUdid;
 		String platform = "iphone";
 
-		String biParams = "{\"open_udid\":\"" + userId + "\",\"udid\":\"" + udid + "\",\"mac\":\"" + mac
+		String biParams = "{\"open_udid\":\"" + userId + "\",\"mac\":\"" + mac
 				+ "\",\"mac_hash\":\"" + DigestUtils.md5Hex(mac) + "\",\"advertiser_id\":\"" + advertiserId
 				+ "\"}";
 
@@ -358,7 +358,7 @@ public class StartupController extends EventController {
 					new Date().getTime() / 1000);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return;
+			return "";
 		}
 
 		if (naidResponse.getReturnCode() == ResponseCode.Success) {
@@ -366,9 +366,11 @@ public class StartupController extends EventController {
 				user.updateSetKabamNaid(naidResponse.getNaid());
 			}
 			log.info("Successfully got kabam naid.");
+			return naidResponse.getNaid()+"";
 		} else {
 			log.error("Error retrieving kabam naid: " + naidResponse.getReturnCode());
 		}
+		return "";
 	}
 
 	private void setChatMessages(StartupResponseProto.Builder resBuilder, User user) {
