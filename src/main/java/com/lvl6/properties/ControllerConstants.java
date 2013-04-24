@@ -523,8 +523,8 @@ public class ControllerConstants {
   //ENHANCING
   public static final int MAX_ENHANCEMENT_LEVEL = 5;
   public static final int ENHANCEMENT__PERCENTAGE_PER_LEVEL = 10000;
-  public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_A = .25f;
-  public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_B = 1.5f;
+  public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_A = 0.f;
+  public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_B = 0.f;
   public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_C = 1;
   public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_D = 0.1f;
   public static final float ENHANCEMENT__TIME_FORMULA_CONSTANT_E = 1.5f;
