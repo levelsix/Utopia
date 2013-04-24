@@ -95,7 +95,7 @@ public class ControllerConstants {
   public static final int FORGE_DEFAULT_NUMBER_OF_FORGE_SLOTS = 1;
   public static final int FORGE__ADDITIONAL_MAX_FORGE_SLOTS = 2;
   public static final int FORGE_COST_OF_PURCHASING_SLOT_TWO = 250;
-  public static final int FORGE_COST_OF_PURCHASING_SLOT_THREE = 750;
+  public static final int FORGE_COST_OF_PURCHASING_SLOT_THREE = 650;
 
   public static final int EXPANSION_WAIT_COMPLETE__HOUR_CONSTANT = 0;
   public static final int EXPANSION_WAIT_COMPLETE__HOUR_INCREMENT_BASE = 4;
@@ -533,6 +533,7 @@ public class ControllerConstants {
   public static final float ENHANCEMENT__PERCENT_FORMULA_CONSTANT_A = 0.75f;
   public static final float ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B = 2.f;
   public static final float ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE = 1.2f;
+  public static final int ENHANCEMENT__DEFAULT_SECONDS_TO_ENHANCE = 5;
   
   //BOOSTER PACKS
   //amount of booster packs user can buy at one time

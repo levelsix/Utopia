@@ -668,4 +668,5 @@ public class DBConstants {
   public static final String PRESTIGE_HISTORY__PREPRESTIGE_ENERGY_STAT = "preprestige_energy_stat";
   public static final String PRESTIGE_HISTORY__PRESTIGE_DATE = "prestige_date";
   public static final String PRESTIGE_HISTORY__PREPRESTIGE_EXPERIENCE = "preprestige_experience";
+  public static final String PRESTIGE_HISTORY__PREPRESTIGE_SKILL_POINTS = "preprestige_skill_points";
 }

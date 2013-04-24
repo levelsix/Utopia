@@ -1082,8 +1082,8 @@ public class InsertUtils implements InsertUtil{
   }
   
   public int insertIntoPrestigeHistory(int userId, int preprestigeLevel, int preprestigePrestigeLevel, 
-      int newPrestigeLevel, int preprestigeAttackStat, int preprestigeDefenseStat, 
-      int preprestigeStaminaStat, int preprestigeEnergyStat, Date aDate, int preprestigeExperience) {
+      int newPrestigeLevel, int preprestigeAttackStat, int preprestigeDefenseStat,  int preprestigeStaminaStat,
+      int preprestigeEnergyStat, Date aDate, int preprestigeExperience, int preprestigeSkillPoints) {
     String tableName = DBConstants.TABLE_PRESTIGE_HISTORY;
     
     Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -1098,6 +1098,7 @@ public class InsertUtils implements InsertUtil{
     Timestamp aTimestamp = new Timestamp(aDate.getTime());
     insertParams.put(DBConstants.PRESTIGE_HISTORY__PRESTIGE_DATE, aTimestamp);
     insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGE_EXPERIENCE, preprestigeExperience);
+    insertParams.put(DBConstants.PRESTIGE_HISTORY__PREPRESTIGE_SKILL_POINTS, preprestigeSkillPoints);
     
     int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
     return numInserted;
