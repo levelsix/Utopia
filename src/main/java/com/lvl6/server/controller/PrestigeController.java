@@ -65,6 +65,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       int preprestigeEnergyStat = 0;
       Date aDate = new Date();
       int preprestigeExperience = 0;
+      int preprestigeSkillPoints = 0;
       
       boolean legitPrestige = checkLegitPrestige(resBuilder, user);
       boolean success = false;
@@ -76,6 +77,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         preprestigeStaminaStat = user.getStamina();
         preprestigeEnergyStat = user.getEnergy();
         preprestigeExperience = user.getExperience();
+        preprestigeSkillPoints = user.getSkillPoints();
         
         success = writeChangesToDB(resBuilder, user);
       }
@@ -94,7 +96,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         InsertUtils.get().insertIntoPrestigeHistory(userId, preprestigeLevel,
             preprestigePrestigeLevel, newPrestigeLevel, preprestigeAttackStat,
             preprestigeDefenseStat, preprestigeStaminaStat, preprestigeEnergyStat,
-            aDate, preprestigeExperience);
+            aDate, preprestigeExperience, preprestigeSkillPoints);
       }
       
     } catch (Exception e) {
