@@ -676,6 +676,9 @@ public class MiscMethods {
         .build();
     cb.setPrestigeConstants(pc);
     
+    cb.setFaqFileName(ControllerConstants.STARTUP__FAQ_FILE_NAME);
+    cb.setPrestigeFaqFileName(ControllerConstants.STARTUP__PRESTIGE_FAQ_FILE_NAME);
+    
     return cb.build();  
   }
 
@@ -1964,7 +1967,15 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
   //arguments don't take into account the 1 forge slot the user has by default
   public static int costToBuyForgeSlot(int goalNumAdditionalForgeSlots,
       int currentNumAdditionalForgeSlots) {
-    
-    return 250;
+    int goalNumForgeSlots = goalNumAdditionalForgeSlots + ControllerConstants.FORGE_DEFAULT_NUMBER_OF_FORGE_SLOTS;
+    log.info("goalNumForgeSlots=" + goalNumForgeSlots);
+    if (2 == goalNumForgeSlots) {
+      return ControllerConstants.FORGE_COST_OF_PURCHASING_SLOT_TWO;
+    } else if (3 == goalNumForgeSlots) {
+      return ControllerConstants.FORGE_COST_OF_PURCHASING_SLOT_THREE;
+    } else {
+      log.error("unexpected error: goalNumForgeSlots=" + goalNumForgeSlots);
+      return 500;
+    }
   }
 }

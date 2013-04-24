@@ -360,6 +360,9 @@ message StartupResponseProto {
 		
 		optional PrestigeConstants prestigeConstants = 103;
 		
+		optional string faqFileName = 104;
+		optional string prestigeFaqFileName = 105;
+		
 		message PrestigeConstants {
 			optional int32 minLevelForPrestige = 1;
 			optional int32 maxPrestigeLevel = 2;
