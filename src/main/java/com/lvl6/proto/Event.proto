@@ -2633,3 +2633,34 @@ message PurchaseForgeSlotResponseProto {
 		FAIL_USER_HAS_MORE_THAN_MAX_FORGE_SLOTS = 4;	
 	}
 }
+
+//------------------------------------------------------------------------------------
+
+message PrivateChatPostRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 recipientId = 2;
+	optional string content = 3;
+}
+
+																						//DONE
+message PrivateChatPostResponseProto {
+	 optional MinimumUserProto sender = 1;
+     optional PrivateChatPostStatus status = 2;
+	 optional PrivateChatPostProto post = 3;
+	
+     enum PrivateChatPostStatus {
+     	SUCCESS = 0;
+     	NO_CONTENT_SENT = 1;
+     	POST_TOO_LARGE = 2;
+     	OTHER_FAIL = 3;
+     	BANNED = 4;
+	}
+}
+
+message RetrievePrivateChatPostRequestProto {
+	optional MinimumUserProto sender = 1;
+}
+
+message RetrievePrivateChatPostResponseProto {
+	
+}

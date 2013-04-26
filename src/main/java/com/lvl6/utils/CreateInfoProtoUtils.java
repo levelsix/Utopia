@@ -38,6 +38,7 @@ import com.lvl6.info.MarketplaceTransaction;
 import com.lvl6.info.MonteCard;
 import com.lvl6.info.NeutralCityElement;
 import com.lvl6.info.PlayerWallPost;
+import com.lvl6.info.PrivateChatPost;
 import com.lvl6.info.Quest;
 import com.lvl6.info.Referral;
 import com.lvl6.info.Structure;
@@ -120,6 +121,7 @@ import com.lvl6.proto.InfoProto.MonteCardProto;
 import com.lvl6.proto.InfoProto.NeutralCityElementProto;
 import com.lvl6.proto.InfoProto.PlayerWallPostProto;
 import com.lvl6.proto.InfoProto.PossessEquipJobProto;
+import com.lvl6.proto.InfoProto.PrivateChatPostProto;
 import com.lvl6.proto.InfoProto.RareBoosterPurchaseProto;
 import com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto;
 import com.lvl6.proto.InfoProto.UpgradeStructJobProto;
@@ -821,6 +823,13 @@ public class CreateInfoProtoUtils {
         .setTimeOfPost(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
   }
 
+  public static PrivateChatPostProto createPrivateChatPostProtoFromPrivateChatPost (
+      PrivateChatPost p, User poster) {
+    return PrivateChatPostProto.newBuilder().setPrivateChatPostId(p.getId())
+        .setPoster(createMinimumUserProtoFromUser(poster)).setRecipientId(p.getRecipientId())
+        .setTimeOfPost(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
+  }
+  
   public static UnhandledBlacksmithAttemptProto createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(BlacksmithAttempt ba) {
     UnhandledBlacksmithAttemptProto.Builder builder = UnhandledBlacksmithAttemptProto.newBuilder().setBlacksmithId(ba.getId()).setUserId(ba.getUserId())
         .setEquipId(ba.getEquipId()).setGoalLevel(ba.getGoalLevel()).setGuaranteed(ba.isGuaranteed()).setStartTime(ba.getStartTime().getTime())

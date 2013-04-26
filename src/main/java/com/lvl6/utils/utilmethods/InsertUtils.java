@@ -1103,4 +1103,16 @@ public class InsertUtils implements InsertUtil{
     int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
     return numInserted;
   }
+  
+  public int insertIntoPrivatePosts(int posterId, int recipientId, String content, Timestamp timeOfPost) {
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.PRIVATE_CHAT_POSTS__POSTER_ID, posterId);
+    insertParams.put(DBConstants.PRIVATE_CHAT_POSTS__RECIPIENT_ID, recipientId);
+    insertParams.put(DBConstants.PRIVATE_CHAT_POSTS__TIME_OF_POST, timeOfPost);
+    insertParams.put(DBConstants.PRIVATE_CHAT_POSTS__CONTENT, content);
+
+    int wallPostId = DBConnection.get().insertIntoTableBasicReturnId(
+        DBConstants.TABLE_PRIVATE_CHAT_POSTS, insertParams);
+    return wallPostId;
+  }
 }

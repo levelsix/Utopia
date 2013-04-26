@@ -91,6 +91,8 @@ public class DBConstants {
   
   public static final String TABLE_PRESTIGE_HISTORY = "prestige_history";
   
+  public static final String TABLE_PRIVATE_CHAT_POSTS = "private_chat_posts";
+  
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
   public static final String GENERIC__ID = "id";
@@ -669,4 +671,11 @@ public class DBConstants {
   public static final String PRESTIGE_HISTORY__PRESTIGE_DATE = "prestige_date";
   public static final String PRESTIGE_HISTORY__PREPRESTIGE_EXPERIENCE = "preprestige_experience";
   public static final String PRESTIGE_HISTORY__PREPRESTIGE_SKILL_POINTS = "preprestige_skill_points";
+  
+  /*PRIVATE CHAT POSTS*/
+  public static final String PRIVATE_CHAT_POSTS__ID = GENERIC__ID;
+  public static final String PRIVATE_CHAT_POSTS__POSTER_ID = "poster_id";
+  public static final String PRIVATE_CHAT_POSTS__RECIPIENT_ID = "recipient_id";
+  public static final String PRIVATE_CHAT_POSTS__TIME_OF_POST = "time_of_post";
+  public static final String PRIVATE_CHAT_POSTS__CONTENT = "content";
 }

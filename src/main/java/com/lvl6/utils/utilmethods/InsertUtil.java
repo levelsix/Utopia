@@ -175,4 +175,5 @@ public interface InsertUtil {
       int newPrestigeLevel, int preprestigeAttackStat, int preprestigeDefenseStat,  int preprestigeStaminaStat,
       int preprestigeEnergyStat, Date aDate, int preprestigeExperience, int preprestigeSkillPoints);
   
+  public int insertIntoPrivatePosts(int posterId, int recipientId, String content, Timestamp timeOfPost);
 }
