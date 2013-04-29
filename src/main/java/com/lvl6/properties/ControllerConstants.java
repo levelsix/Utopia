@@ -587,7 +587,7 @@ public class ControllerConstants {
   public static final float CHANCE_TO_GET_KIIP_ON_QUEST_REDEEM = 1.f;
 
   public static final String NIB_NAME__THREE_CARD_MONTE = "ThreeCardMonte.3";
-  public static final String NIB_NAME__LOCK_BOX = "LockBox.2";
+  public static final String NIB_NAME__LOCK_BOX = "LockBox.3";
   public static final String NIB_NAME__TRAVELING_MAP = "TravelingMap.2";
   public static final String NIB_NAME__GOLD_MINE = "GoldMine.2";
   public static final String NIB_NAME__EXPANSION = "Expansion.2";
