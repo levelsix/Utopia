@@ -70,7 +70,7 @@ public class QuestUtils {
           sendQuestCompleteResponseIfRequestedAndUpdateUserQuest(server, quest, userQuest, senderProto,
               sendCompleteMessageIfJustCompleted);
           return true;
-        } else if (quest.getSpecialQuestActionRequired() == SpecialQuestAction.REQUEST_JOIN_CLAN && senderProto.hasClan()) {
+        } else if (quest.getSpecialQuestActionRequired() == SpecialQuestAction.REQUEST_JOIN_CLAN && senderProto.hasClan() && senderProto.getClan().getClanId() > 0) {
           sendQuestCompleteResponseIfRequestedAndUpdateUserQuest(server, quest, userQuest, senderProto,
               sendCompleteMessageIfJustCompleted);
         }
