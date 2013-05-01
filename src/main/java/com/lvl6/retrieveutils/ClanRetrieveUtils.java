@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 import org.slf4j.Logger;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Component;
 import com.lvl6.info.Clan;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
+import com.lvl6.utils.utilmethods.StringUtils;
 
 @Component @DependsOn("gameServer") public class ClanRetrieveUtils {
 
@@ -38,6 +41,30 @@ import com.lvl6.utils.DBConnection;
     Clan clan = convertRSToSingleClan(rs);
     DBConnection.get().close(rs, null, conn);
     return clan;
+  }
+  
+  public static Map<Integer, Clan> getClansByIds(List<Integer> clanIds) {
+    log.debug("retrieving clans with ids " + clanIds);
+    
+    if (clanIds == null || clanIds.size() <= 0 ) {
+      return new HashMap<Integer, Clan>();
+    }
+
+    String query = "select * from " + TABLE_NAME + " where (";
+    List<String> condClauses = new ArrayList<String>();
+    List <Object> values = new ArrayList<Object>();
+    for (Integer clanId : clanIds) {
+      condClauses.add(DBConstants.CLANS__ID + "=?");
+      values.add(clanId);
+    }
+    query += StringUtils.getListInString(condClauses, "or") + ")";
+
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
+    Map<Integer, Clan> clanIdToClanMap = convertRSToClanIdToClanMap(rs);
+    DBConnection.get().close(rs, null, conn);
+    return clanIdToClanMap;
+    
   }
   
   public static List<Clan> getClansWithSimilarNameOrTag(String name, String tag) {
@@ -124,6 +151,26 @@ import com.lvl6.utils.DBConnection;
     return null;
   }
 
+  private static Map<Integer, Clan> convertRSToClanIdToClanMap(ResultSet rs) {
+    if (rs != null) {
+      try {
+        rs.last();
+        rs.beforeFirst();
+        Map<Integer, Clan> clanIdsToClans = new HashMap<Integer, Clan>();
+        while (rs.next()) {
+          Clan c = convertRSRowToClan(rs);
+          if (null != c) {
+            int clanId = c.getId();
+            clanIdsToClans.put(clanId, c);
+          }
+        }
+      } catch(SQLException e) {
+        log.error("problem with database call.", e);
+      }
+    }
+    return null;
+  }
+  
   private static Clan convertRSRowToClan(ResultSet rs) throws SQLException {
     int i = 1;
 

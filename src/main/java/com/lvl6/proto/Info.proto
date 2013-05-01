@@ -5,7 +5,7 @@ option java_outer_classname = "InfoProto";
 message PrivateChatPostProto {
 	optional int32 privateChatPostId = 1;
 	optional MinimumUserProto poster = 2;
-	optional int32 recipientId = 3;
+	optional MinimumUserProto recipient = 3;
 	optional int64 timeOfPost = 4;
 	optional string content = 5;
 }

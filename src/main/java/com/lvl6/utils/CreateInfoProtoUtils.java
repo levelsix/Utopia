@@ -3,8 +3,10 @@ package com.lvl6.utils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -194,6 +196,12 @@ public class CreateInfoProtoUtils {
       Clan clan = ClanRetrieveUtils.getClanWithId(u.getClanId());
       builder.setClan(createMinimumClanProtoFromClan(clan));
     }
+    return builder.build();
+  }
+  
+  public static MinimumUserProto createMinimumUserProtoFromUserAndClan(User u, Clan c) {
+    MinimumUserProto.Builder builder = MinimumUserProto.newBuilder().setName(u.getName())
+        .setUserId(u.getId()).setUserType(u.getType()).setClan(createMinimumClanProtoFromClan(c));
     return builder.build();
   }
 
@@ -824,10 +832,91 @@ public class CreateInfoProtoUtils {
   }
 
   public static PrivateChatPostProto createPrivateChatPostProtoFromPrivateChatPost (
-      PrivateChatPost p, User poster) {
+      PrivateChatPost p, User poster, User recipient) {
+    MinimumUserProto mupPoster = createMinimumUserProtoFromUser(poster); 
+    MinimumUserProto mupRecipient = createMinimumUserProtoFromUser(recipient);
     return PrivateChatPostProto.newBuilder().setPrivateChatPostId(p.getId())
-        .setPoster(createMinimumUserProtoFromUser(poster)).setRecipientId(p.getRecipientId())
+        .setPoster(mupPoster).setRecipient(mupRecipient)
         .setTimeOfPost(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
+  }
+  
+  public static PrivateChatPostProto createPrivateChatPostProtoFromPrivateChatPostAndProtos (
+      PrivateChatPost p, MinimumUserProto mupPoster, MinimumUserProto mupRecipient) {
+    return PrivateChatPostProto.newBuilder().setPrivateChatPostId(p.getId())
+        .setPoster(mupPoster).setRecipient(mupRecipient)
+        .setTimeOfPost(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
+  }
+  
+  //createMinimumProtoFromUser calls ClanRetrieveUtils, so a db read, if user has a clan
+  //to prevent this, all clans that will be used should be passed in, hence clanIdsToClans,
+  //clanIdsToUserIdSet. Not all users will have a clan, hence clanlessUserIds
+  //privateChatPostIds is used by StartupController to pick out a subset of 
+  //postIdsToPrivateChatPosts; does not need to be set.
+  public static List<PrivateChatPostProto> createPrivateChatPostProtoList (Map<Integer, Clan> clanIdsToClans,
+      Map<Integer, Set<Integer>> clanIdsToUserIdSet, Map<Integer, User> userIdsToUsers,
+      List<Integer> clanlessUserIds, List<Integer> privateChatPostIds,
+      Map<Integer, PrivateChatPost> postIdsToPrivateChatPosts) {
+
+    List<PrivateChatPostProto> pcppList = new ArrayList<PrivateChatPostProto>();
+    Map<Integer, MinimumUserProto> userIdToMinimumUserProto = new HashMap<Integer, MinimumUserProto>();
+    //construct the minimum user protos for the users that have clans
+    //and the clanless users
+    createMinimumUserProtosFromClannedAndClanlessUsers(clanIdsToClans, clanIdsToUserIdSet,
+        clanlessUserIds, userIdsToUsers, userIdToMinimumUserProto);
+
+    //now actually construct the PrivateChatPostProtos
+    if (null != privateChatPostIds && !privateChatPostIds.isEmpty()) {
+      //only pick out a subset of postIdsToPrivateChatPosts
+      for (int postId : privateChatPostIds) {
+        PrivateChatPost pcp = postIdsToPrivateChatPosts.get(postId);
+        int posterId = pcp.getPosterId();
+        int recipientId = pcp.getRecipientId();
+
+        MinimumUserProto mupPoster = userIdToMinimumUserProto.get(posterId);
+        MinimumUserProto mupRecipient = userIdToMinimumUserProto.get(recipientId);
+
+        PrivateChatPostProto pcpp = createPrivateChatPostProtoFromPrivateChatPostAndProtos(
+            pcp, mupPoster, mupRecipient);
+        pcppList.add(pcpp);
+      }
+    } else {
+      for (PrivateChatPost pcp : postIdsToPrivateChatPosts.values()) {
+        int posterId = pcp.getPosterId();
+        int recipientId = pcp.getRecipientId();
+        MinimumUserProto mupPoster = userIdToMinimumUserProto.get(posterId);
+        MinimumUserProto mupRecipient = userIdToMinimumUserProto.get(recipientId);
+
+        PrivateChatPostProto pcpp = createPrivateChatPostProtoFromPrivateChatPostAndProtos(
+            pcp, mupPoster, mupRecipient);
+        pcppList.add(pcpp);
+      }
+    }
+
+    return pcppList;
+  }
+  
+  public static void createMinimumUserProtosFromClannedAndClanlessUsers(
+      Map<Integer, Clan> clanIdsToClans, Map<Integer, Set<Integer>> clanIdsToUserIdSet,
+      List<Integer> clanlessUserIds, Map<Integer, User> userIdsToUsers, 
+      Map<Integer, MinimumUserProto> userIdToMinimumUserProto) {
+    //construct the minimum user protos for the clanless users
+    for (int userId : clanlessUserIds) {
+      User u = userIdsToUsers.get(userId);
+      MinimumUserProto mup = createMinimumUserProtoFromUser(u);
+      userIdToMinimumUserProto.put(userId, mup);
+    }
+
+    //construct the minimum user protos for the users that have clans 
+    for (int clanId : clanIdsToClans.keySet()) {
+      Clan c = clanIdsToClans.get(clanId);
+
+      //create minimum user protos for users associated with clan
+      for (int userId: clanIdsToUserIdSet.get(clanId)) {
+        User u = userIdsToUsers.get(userId);
+        MinimumUserProto mup = createMinimumUserProtoFromUserAndClan(u, c);
+        userIdToMinimumUserProto.put(userId, mup);
+      }
+    }
   }
   
   public static UnhandledBlacksmithAttemptProto createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(BlacksmithAttempt ba) {
@@ -1213,4 +1302,5 @@ public class CreateInfoProtoUtils {
         .setUser(createMinimumUserProtoFromUser(u)).setEquip(createFullEquipProtoFromEquip(e))
         .setTimeOfPurchase(d.getTime()).build();
   }
+  
 }

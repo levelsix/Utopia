@@ -34,6 +34,7 @@ import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.BoosterItem;
 import com.lvl6.info.BoosterPack;
 import com.lvl6.info.City;
+import com.lvl6.info.Clan;
 import com.lvl6.info.ClanChatPost;
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.DailyBonusReward;
@@ -45,6 +46,7 @@ import com.lvl6.info.GoldSale;
 import com.lvl6.info.MarketplaceTransaction;
 import com.lvl6.info.NeutralCityElement;
 import com.lvl6.info.PlayerWallPost;
+import com.lvl6.info.PrivateChatPost;
 import com.lvl6.info.Quest;
 import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
@@ -78,11 +80,13 @@ import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.GoldSaleProto;
 import com.lvl6.proto.InfoProto.GroupChatMessageProto;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
+import com.lvl6.proto.InfoProto.PrivateChatPostProto;
 import com.lvl6.proto.InfoProto.RareBoosterPurchaseProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
 import com.lvl6.retrieveutils.ClanChatPostRetrieveUtils;
+import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.retrieveutils.EquipEnhancementFeederRetrieveUtils;
 import com.lvl6.retrieveutils.EquipEnhancementRetrieveUtils;
@@ -91,6 +95,7 @@ import com.lvl6.retrieveutils.IAPHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.LoginHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
 import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
+import com.lvl6.retrieveutils.PrivateChatPostRetrieveUtils;
 import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
 import com.lvl6.retrieveutils.UserBoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.UserDailyBonusRewardHistoryRetrieveUtils;
@@ -234,6 +239,7 @@ public class StartupController extends EventController {
 					setLeaderboardEventStuff(resBuilder);
 					setEquipEnhancementStuff(resBuilder, user);
 					setAllies(resBuilder, user);
+					setPrivateChatPosts(resBuilder, user);
 
 					FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
 					resBuilder.setSender(fup);
@@ -297,6 +303,127 @@ public class StartupController extends EventController {
 		updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);
 	}
 
+	private void setPrivateChatPosts(Builder resBuilder, User aUser) {
+	  int userId = aUser.getId();
+	  boolean isRecipient = true;
+	  Map<Integer, Integer> userIdsToPrivateChatPostIds = null;
+	  Map<Integer, PrivateChatPost> postIdsToPrivateChatPosts = new HashMap<Integer, PrivateChatPost>();
+	  Map<Integer, User> userIdsToUsers = null;
+	  Map<Integer, Set<Integer>> clanIdsToUserIdSet = null;
+	  Map<Integer, Clan> clanIdsToClans = null;
+	  List<Integer> userIdList = new ArrayList<Integer>();
+	  List<Integer> clanlessUserIds = new ArrayList<Integer>();
+	  List<Integer> clanIdList = new ArrayList<Integer>();
+	  List<Integer> privateChatPostIds = new ArrayList<Integer>();
+	  
+	  //get all the most recent posts sent to this user
+	  Map<Integer, PrivateChatPost> postsUserReceived = PrivateChatPostRetrieveUtils.getMostRecentPrivateChatPostsByOrToUser(
+	      userId, isRecipient);
+	  
+	  //get all the most recent posts this user sent
+	  isRecipient = false;
+	  Map<Integer, PrivateChatPost> postsUserSent = PrivateChatPostRetrieveUtils.getMostRecentPrivateChatPostsByOrToUser(
+	      userId, isRecipient);
+	  
+	  //link other users with private chat posts and combine all the posts
+	  //linking is done to select only the latest post between the duple (userId, otherUserId)
+	  userIdsToPrivateChatPostIds = aggregateOtherUserIdsAndPrivateChatPost(postsUserReceived, postsUserSent, postIdsToPrivateChatPosts);
+	  
+	  //retrieve all users
+	  userIdList.addAll(userIdsToPrivateChatPostIds.keySet());
+	  userIdList.add(userId); //userIdsToPrivateChatPostIds contains userIds other than 'this' userId
+	  userIdsToUsers = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIdList);
+	  
+	  //get all the clans for the users (a map: clanId->set(userId))
+	  //put the clanless users in the second argument: userIdsToClanlessUsers
+	  clanIdsToUserIdSet = determineClanIdsToUserIdSet(userIdsToUsers, clanlessUserIds);
+	  clanIdList.addAll(clanIdsToUserIdSet.keySet());
+	  
+	  //retrieve all clans for the users
+	  clanIdsToClans = ClanRetrieveUtils.getClansByIds(clanIdList);
+	  
+	  //create the protoList
+	  privateChatPostIds.addAll(userIdsToPrivateChatPostIds.values());
+	  List<PrivateChatPostProto> pcppList = CreateInfoProtoUtils.createPrivateChatPostProtoList(
+	      clanIdsToClans, clanIdsToUserIdSet, userIdsToUsers, clanlessUserIds, privateChatPostIds,
+	      postIdsToPrivateChatPosts);
+	      
+	  resBuilder.addAllPcpp(pcppList);
+	}
+	
+	private Map<Integer, Integer> aggregateOtherUserIdsAndPrivateChatPost(
+	    Map<Integer, PrivateChatPost> postsUserReceived, Map<Integer, PrivateChatPost> postsUserSent,
+	    Map<Integer, PrivateChatPost> postIdsToPrivateChatPosts) {
+	  Map<Integer, Integer> userIdsToPrivateChatPostIds = new HashMap<Integer, Integer>();
+
+	  //go through the posts specific user received
+	  for (int pcpId : postsUserReceived.keySet()) {
+	    PrivateChatPost postUserReceived = postsUserReceived.get(pcpId);
+	    int senderId = postUserReceived.getPosterId();
+	    
+	    //record that the other user and specific user chatted
+	    userIdsToPrivateChatPostIds.put(senderId, pcpId);
+	  }
+	  
+	  //go through the posts user sent
+    for (int pcpId: postsUserSent.keySet()) {
+      PrivateChatPost postUserSent = postsUserSent.get(pcpId);
+      int recipientId = postUserSent.getRecipientId();
+      
+      //determine the latest post between other recipientId and specific user
+      if (!userIdsToPrivateChatPostIds.containsKey(recipientId)) {
+        //didn't see this user id yet, record it
+        userIdsToPrivateChatPostIds.put(recipientId, pcpId);
+        
+      } else {
+        //recipientId sent something to specific user, choose the latest one
+        int postIdUserReceived = userIdsToPrivateChatPostIds.get(recipientId);
+        PrivateChatPost postUserReceived = postsUserReceived.get(postIdUserReceived);
+        
+        Date newDate = postUserSent.getTimeOfPost();
+        Date existingDate = postUserReceived.getTimeOfPost();
+        if (newDate.getTime() > existingDate.getTime()) {
+          //since postUserSent's time is later, choose this post for recipientId
+          userIdsToPrivateChatPostIds.put(recipientId, pcpId);
+        }
+      }
+    }
+    
+    //combine all the posts together
+    postIdsToPrivateChatPosts.putAll(postsUserReceived);
+    postIdsToPrivateChatPosts.putAll(postsUserSent);
+    
+    return userIdsToPrivateChatPostIds;
+	}
+	
+	private Map<Integer, Set<Integer>> determineClanIdsToUserIdSet(Map<Integer, User> userIdsToUsers,
+	    List<Integer> clanlessUserUserIds) {
+	  Map<Integer, Set<Integer>> clanIdsToUserIdSet = new HashMap<Integer, Set<Integer>>();
+	  
+	  //go through users and lump them by clan id
+	  for (int userId : userIdsToUsers.keySet()) {
+	    User u = userIdsToUsers.get(userId);
+	    int clanId = u.getClanId();
+	    if (ControllerConstants.NOT_SET == clanId) {
+	      clanlessUserUserIds.add(userId);
+	      continue;	      
+	    }
+	    
+	    if (clanIdsToUserIdSet.containsKey(clanId)) {
+	      //clan id exists, add userId in with others
+	      Set<Integer> userIdSet = clanIdsToUserIdSet.get(clanId);
+	      userIdSet.add(userId);
+	    } else {
+	      //clan id doesn't exist, create new grouping of userIds
+	      Set<Integer> userIdSet = new HashSet<Integer>();
+	      userIdSet.add(userId);
+	      
+	      clanIdsToUserIdSet.put(clanId, userIdSet);
+	    }
+	  }
+	  return clanIdsToUserIdSet;
+	}
+	
 	private void setEquipEnhancementStuff(StartupResponseProto.Builder resBuilder, User aUser) {
 		int userId = aUser.getId();
 		List<EquipEnhancement> equipUnderEnhancements = EquipEnhancementRetrieveUtils

@@ -187,6 +187,10 @@ message StartupResponseProto {
 	
 	optional string kabamNaid = 44;
 	
+	//repeated most recent private chat posts regarding this user
+	repeated PrivateChatPostProto pcpp = 45;
+	
+	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
 		optional int32 dayOneCoins = 2;
@@ -2657,10 +2661,24 @@ message PrivateChatPostResponseProto {
 	}
 }
 
-message RetrievePrivateChatPostRequestProto {
+message RetrievePrivateChatPostsRequestProto {
 	optional MinimumUserProto sender = 1;
+	optional int32 otherUserId = 2;
+	
+	//all prior posts not including this id
+	//if this is not set then return most recent ones
+	optional int32 beforePrivateChatId = 3;
+	
 }
 
-message RetrievePrivateChatPostResponseProto {
-	
+message RetrievePrivateChatPostsResponseProto {
+	optional MinimumUserProto sender = 1;
+	repeated PrivateChatPostProto posts = 2;
+	optional int32 beforePrivateChatId = 3;
+	optional RetrievePrivateChatPostsStatus status = 4;
+
+	enum RetrievePrivateChatPostsStatus {
+		SUCCESS = 0;
+		FAIL = 1;
+	}	
 }

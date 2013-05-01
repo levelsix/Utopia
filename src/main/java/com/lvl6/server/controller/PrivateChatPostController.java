@@ -26,13 +26,11 @@ import com.lvl6.proto.EventProto.PrivateChatPostResponseProto.Builder;
 import com.lvl6.proto.EventProto.PrivateChatPostResponseProto.PrivateChatPostStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.PrivateChatPostProto;
-import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.BannedUserRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
-import com.lvl6.utils.utilmethods.QuestUtils;
 
   @Component @DependsOn("gameServer") public class PrivateChatPostController extends EventController {
 
@@ -66,11 +64,13 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   protected void processRequestEvent(RequestEvent event) throws Exception {
     PrivateChatPostRequestProto reqProto = ((PrivateChatPostRequestEvent)event).getPrivateChatPostRequestProto();
 
+    //from client
     MinimumUserProto senderProto = reqProto.getSender();
     int posterId = senderProto.getUserId();
     int recipientId = reqProto.getRecipientId();
     String content = (reqProto.hasContent()) ? reqProto.getContent() : "";
 
+    //to client
     PrivateChatPostResponseProto.Builder resBuilder = PrivateChatPostResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
@@ -84,25 +84,34 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     resEvent.setTag(event.getTag());
 
     if (legitPost) {
+      //record in db
       Timestamp timeOfPost = new Timestamp(new Date().getTime());
       String censoredContent = MiscMethods.censorUserInput(content);
-      int wallPostId = insertUtils.insertIntoPrivatePosts(posterId, recipientId, censoredContent, timeOfPost);
-      if (wallPostId <= 0) {
+      int privateChatPostId = insertUtils.insertIntoPrivatePosts(posterId, recipientId,
+          censoredContent, timeOfPost);
+      if (privateChatPostId <= 0) {
         legitPost = false;
         resBuilder.setStatus(PrivateChatPostStatus.OTHER_FAIL);
-        log.error("problem with inserting private chat post into db. posterId=" + posterId + ", recipientId="
-            + recipientId + ", content=" + content +  ", censoredContent=" + censoredContent 
-            + ", timeOfPost=" + timeOfPost);
+        log.error("problem with inserting private chat post into db. posterId="
+            + posterId + ", recipientId=" + recipientId + ", content=" + content +
+            ", censoredContent=" + censoredContent + ", timeOfPost=" + timeOfPost);
       } else {
-        PrivateChatPost pwp =  new PrivateChatPost(wallPostId, posterId, recipientId, timeOfPost, censoredContent);
-        PrivateChatPostProto pcpp = CreateInfoProtoUtils.createPrivateChatPostProtoFromPrivateChatPost(pwp, users.get(posterId));
+        
+        PrivateChatPost pwp =  new PrivateChatPost(privateChatPostId, posterId,
+            recipientId, timeOfPost, censoredContent);
+        User poster = users.get(posterId);
+        User recipient = users.get(recipientId);
+        PrivateChatPostProto pcpp = CreateInfoProtoUtils
+            .createPrivateChatPostProtoFromPrivateChatPost(pwp, poster, recipient);
         resBuilder.setPost(pcpp);
-
+        
+        //send to recipient of the private chat post
         PrivateChatPostResponseEvent resEvent2 = new PrivateChatPostResponseEvent(recipientId);
         resEvent2.setPrivateChatPostResponseProto(resBuilder.build());
         server.writeAPNSNotificationOrEvent(resEvent2);
       }
     }
+    //send to sender of the private chat post
     resEvent.setPrivateChatPostResponseProto(resBuilder.build());
     server.writeEvent(resEvent);
 
@@ -118,7 +127,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
 
   private boolean checkLegitPost(Builder resBuilder, int posterId, int recipientId, String content, Map<Integer, User> users) {
-    // TODO Auto-generated method stub
     if (users == null) {
       resBuilder.setStatus(PrivateChatPostStatus.OTHER_FAIL);
       log.error("users are null- posterId=" + posterId + ", recipientId=" + recipientId);
@@ -139,6 +147,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       log.error("no content when posterId " + posterId + " tries to post on wall with owner " + recipientId);
       return false;
     }
+    //maybe use different controller constants...
     if (content.length() >= ControllerConstants.POST_ON_PLAYER_WALL__MAX_CHAR_LENGTH) {
       resBuilder.setStatus(PrivateChatPostStatus.POST_TOO_LARGE);
       log.error("wall post is too long. content length is " + content.length() 
