@@ -907,14 +907,16 @@ public class CreateInfoProtoUtils {
     }
 
     //construct the minimum user protos for the users that have clans 
-    for (int clanId : clanIdsToClans.keySet()) {
-      Clan c = clanIdsToClans.get(clanId);
+    if (null != clanIdsToClans) {
+      for (int clanId : clanIdsToClans.keySet()) {
+        Clan c = clanIdsToClans.get(clanId);
 
-      //create minimum user protos for users associated with clan
-      for (int userId: clanIdsToUserIdSet.get(clanId)) {
-        User u = userIdsToUsers.get(userId);
-        MinimumUserProto mup = createMinimumUserProtoFromUserAndClan(u, c);
-        userIdToMinimumUserProto.put(userId, mup);
+        //create minimum user protos for users associated with clan
+        for (int userId: clanIdsToUserIdSet.get(clanId)) {
+          User u = userIdsToUsers.get(userId);
+          MinimumUserProto mup = createMinimumUserProtoFromUserAndClan(u, c);
+          userIdToMinimumUserProto.put(userId, mup);
+        }
       }
     }
   }

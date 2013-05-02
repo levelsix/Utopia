@@ -311,7 +311,6 @@ public class StartupController extends EventController {
 	  Map<Integer, User> userIdsToUsers = null;
 	  Map<Integer, Set<Integer>> clanIdsToUserIdSet = null;
 	  Map<Integer, Clan> clanIdsToClans = null;
-	  List<Integer> userIdList = new ArrayList<Integer>();
 	  List<Integer> clanlessUserIds = new ArrayList<Integer>();
 	  List<Integer> clanIdList = new ArrayList<Integer>();
 	  List<Integer> privateChatPostIds = new ArrayList<Integer>();
@@ -325,22 +324,44 @@ public class StartupController extends EventController {
 	  Map<Integer, PrivateChatPost> postsUserSent = PrivateChatPostRetrieveUtils.getMostRecentPrivateChatPostsByOrToUser(
 	      userId, isRecipient);
 	  
+	  if ((null == postsUserReceived || postsUserReceived.isEmpty()) &&
+	      (null == postsUserSent || postsUserSent.isEmpty()) ) {
+	    log.info("user has no private chats. aUser=" + aUser);
+	    return;
+	  }
+	  
 	  //link other users with private chat posts and combine all the posts
 	  //linking is done to select only the latest post between the duple (userId, otherUserId)
 	  userIdsToPrivateChatPostIds = aggregateOtherUserIdsAndPrivateChatPost(postsUserReceived, postsUserSent, postIdsToPrivateChatPosts);
 	  
-	  //retrieve all users
-	  userIdList.addAll(userIdsToPrivateChatPostIds.keySet());
-	  userIdList.add(userId); //userIdsToPrivateChatPostIds contains userIds other than 'this' userId
-	  userIdsToUsers = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIdList);
-	  
+	  if (null != userIdsToPrivateChatPostIds && !userIdsToPrivateChatPostIds.isEmpty()) {
+	    //retrieve all users
+	    List<Integer> userIdList = new ArrayList<Integer>();
+	    userIdList.addAll(userIdsToPrivateChatPostIds.keySet());
+	    userIdList.add(userId); //userIdsToPrivateChatPostIds contains userIds other than 'this' userId
+	    userIdsToUsers = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIdList);
+	  } else {
+	    //user did not send any nor received any private chat posts
+	    log.error("unexpected error: aggregating private chat post ids returned nothing");
+	    return;
+	  }
+	  if (null == userIdsToUsers || userIdsToUsers.isEmpty() ||
+	      userIdsToUsers.size() == 1) {
+	    log.error("unexpected error: perhaps user talked to himself. postsUserReceved="
+	      + MiscMethods.shallowMapToString(postsUserReceived) + ", postsUserSent="
+	      + MiscMethods.shallowMapToString(postsUserSent) + ", aUser=" + aUser);
+	    return;
+	  }
+	    
 	  //get all the clans for the users (a map: clanId->set(userId))
 	  //put the clanless users in the second argument: userIdsToClanlessUsers
 	  clanIdsToUserIdSet = determineClanIdsToUserIdSet(userIdsToUsers, clanlessUserIds);
-	  clanIdList.addAll(clanIdsToUserIdSet.keySet());
+	  if (null != clanIdsToUserIdSet && !clanIdsToUserIdSet.isEmpty()) {
+	    clanIdList.addAll(clanIdsToUserIdSet.keySet());
+	    //retrieve all clans for the users
+	    clanIdsToClans = ClanRetrieveUtils.getClansByIds(clanIdList);
+	  }
 	  
-	  //retrieve all clans for the users
-	  clanIdsToClans = ClanRetrieveUtils.getClansByIds(clanIdList);
 	  
 	  //create the protoList
 	  privateChatPostIds.addAll(userIdsToPrivateChatPostIds.values());
@@ -357,41 +378,47 @@ public class StartupController extends EventController {
 	  Map<Integer, Integer> userIdsToPrivateChatPostIds = new HashMap<Integer, Integer>();
 
 	  //go through the posts specific user received
-	  for (int pcpId : postsUserReceived.keySet()) {
-	    PrivateChatPost postUserReceived = postsUserReceived.get(pcpId);
-	    int senderId = postUserReceived.getPosterId();
-	    
-	    //record that the other user and specific user chatted
-	    userIdsToPrivateChatPostIds.put(senderId, pcpId);
+	  if (null != postsUserReceived && !postsUserReceived.isEmpty()) {
+	    for (int pcpId : postsUserReceived.keySet()) {
+	      PrivateChatPost postUserReceived = postsUserReceived.get(pcpId);
+	      int senderId = postUserReceived.getPosterId();
+
+	      //record that the other user and specific user chatted
+	      userIdsToPrivateChatPostIds.put(senderId, pcpId);
+	    }
+	    //combine all the posts together
+	    postIdsToPrivateChatPosts.putAll(postsUserReceived);
 	  }
 	  
-	  //go through the posts user sent
-    for (int pcpId: postsUserSent.keySet()) {
-      PrivateChatPost postUserSent = postsUserSent.get(pcpId);
-      int recipientId = postUserSent.getRecipientId();
-      
-      //determine the latest post between other recipientId and specific user
-      if (!userIdsToPrivateChatPostIds.containsKey(recipientId)) {
-        //didn't see this user id yet, record it
-        userIdsToPrivateChatPostIds.put(recipientId, pcpId);
-        
-      } else {
-        //recipientId sent something to specific user, choose the latest one
-        int postIdUserReceived = userIdsToPrivateChatPostIds.get(recipientId);
-        PrivateChatPost postUserReceived = postsUserReceived.get(postIdUserReceived);
-        
-        Date newDate = postUserSent.getTimeOfPost();
-        Date existingDate = postUserReceived.getTimeOfPost();
-        if (newDate.getTime() > existingDate.getTime()) {
-          //since postUserSent's time is later, choose this post for recipientId
-          userIdsToPrivateChatPostIds.put(recipientId, pcpId);
-        }
-      }
-    }
-    
-    //combine all the posts together
-    postIdsToPrivateChatPosts.putAll(postsUserReceived);
-    postIdsToPrivateChatPosts.putAll(postsUserSent);
+	  if (null != postsUserSent && !postsUserSent.isEmpty()) {
+	    //go through the posts user sent
+	    for (int pcpId: postsUserSent.keySet()) {
+	      PrivateChatPost postUserSent = postsUserSent.get(pcpId);
+	      int recipientId = postUserSent.getRecipientId();
+
+	      //determine the latest post between other recipientId and specific user
+	      if (!userIdsToPrivateChatPostIds.containsKey(recipientId)) {
+	        //didn't see this user id yet, record it
+	        userIdsToPrivateChatPostIds.put(recipientId, pcpId);
+
+	      } else {
+	        //recipientId sent something to specific user, choose the latest one
+	        int postIdUserReceived = userIdsToPrivateChatPostIds.get(recipientId);
+	        //postsUserReceived can't be null here
+	        PrivateChatPost postUserReceived = postsUserReceived.get(postIdUserReceived);
+
+	        Date newDate = postUserSent.getTimeOfPost();
+	        Date existingDate = postUserReceived.getTimeOfPost();
+	        if (newDate.getTime() > existingDate.getTime()) {
+	          //since postUserSent's time is later, choose this post for recipientId
+	          userIdsToPrivateChatPostIds.put(recipientId, pcpId);
+	        }
+	      }
+	    }
+	    
+	    //combine all the posts together
+	    postIdsToPrivateChatPosts.putAll(postsUserSent);
+	  }
     
     return userIdsToPrivateChatPostIds;
 	}
@@ -399,7 +426,9 @@ public class StartupController extends EventController {
 	private Map<Integer, Set<Integer>> determineClanIdsToUserIdSet(Map<Integer, User> userIdsToUsers,
 	    List<Integer> clanlessUserUserIds) {
 	  Map<Integer, Set<Integer>> clanIdsToUserIdSet = new HashMap<Integer, Set<Integer>>();
-	  
+	  if (null == userIdsToUsers  || userIdsToUsers.isEmpty()) {
+	    return clanIdsToUserIdSet;
+	  }
 	  //go through users and lump them by clan id
 	  for (int userId : userIdsToUsers.keySet()) {
 	    User u = userIdsToUsers.get(userId);

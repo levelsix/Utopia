@@ -1330,14 +1330,16 @@ public class MiscMethods {
 
   public static String shallowMapToString(Map aMap) {
     StringBuilder returnValue = new StringBuilder();
-    returnValue.append("[");
-    for(Object key : aMap.keySet()) {
-      returnValue.append(" ");
-      returnValue.append(key);
-      returnValue.append("=");
-      returnValue.append(aMap.get(key).toString());
+    if (null != aMap && !aMap.isEmpty()) {
+      returnValue.append("[");
+      for(Object key : aMap.keySet()) {
+        returnValue.append(" ");
+        returnValue.append(key);
+        returnValue.append("=");
+        returnValue.append(aMap.get(key).toString());
+      }
+      returnValue.append("]");
     }
-    returnValue.append("]");
     return returnValue.toString();
   }
 
