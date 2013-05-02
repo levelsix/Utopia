@@ -91,7 +91,7 @@ import com.lvl6.utils.DBConnection;
     
     //get the actual posts to those ids
     query +=
-        "SELECT pwp.*  " +
+        "SELECT pcp.*  " +
         "FROM " + subquery + " as idList "
           + "LEFT JOIN " + 
                   TABLE_NAME + " as pcp " +
