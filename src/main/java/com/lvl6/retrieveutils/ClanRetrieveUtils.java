@@ -164,6 +164,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
             clanIdsToClans.put(clanId, c);
           }
         }
+        return clanIdsToClans;
       } catch(SQLException e) {
         log.error("problem with database call.", e);
       }
