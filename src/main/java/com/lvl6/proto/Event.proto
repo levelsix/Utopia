@@ -2673,9 +2673,10 @@ message RetrievePrivateChatPostsRequestProto {
 
 message RetrievePrivateChatPostsResponseProto {
 	optional MinimumUserProto sender = 1;
-	repeated PrivateChatPostProto posts = 2;
+	repeated GroupChatMessageProto posts = 2;
 	optional int32 beforePrivateChatId = 3;
 	optional RetrievePrivateChatPostsStatus status = 4;
+	optional int32 otherUserId = 5;
 
 	enum RetrievePrivateChatPostsStatus {
 		SUCCESS = 0;

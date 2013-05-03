@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.RetrievePrivateChatPostsRequestProto;
 import com.lvl6.proto.EventProto.RetrievePrivateChatPostsResponseProto;
 import com.lvl6.proto.EventProto.RetrievePrivateChatPostsResponseProto.RetrievePrivateChatPostsStatus;
+import com.lvl6.proto.InfoProto.GroupChatMessageProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.PrivateChatPostRetrieveUtils;
@@ -62,9 +64,11 @@ import com.lvl6.utils.RetrieveUtils;
 
       List <PrivateChatPost> recentPrivateChatPosts;
       if (beforePrivateChatId > 0) {
+        //if client specified a private chat id
         recentPrivateChatPosts = PrivateChatPostRetrieveUtils.getPrivateChatPostsBetweenUsersBeforePostId(
             ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, beforePrivateChatId, userId, otherUserId);        
       } else {
+        //if client didn't specify a private chat id
         recentPrivateChatPosts = PrivateChatPostRetrieveUtils.getPrivateChatPostsBetweenUsersBeforePostId(
             ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP,
             ControllerConstants.NOT_SET, userId, otherUserId);
@@ -78,10 +82,24 @@ import com.lvl6.utils.RetrieveUtils;
           if (userIds.size() > 0) {
             usersByIds = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
             
+            //for not hitting the db for every private chat post
+            Map<Integer, MinimumUserProto> userIdsToMups =
+                generateUserIdsToMups(usersByIds, userId, otherUserId);
+            
+            //convert private chat post to group chat message proto
             for (PrivateChatPost pwp : recentPrivateChatPosts) {
-              resBuilder.addPosts(CreateInfoProtoUtils.createPrivateChatPostProtoFromPrivateChatPost(
-                  pwp, usersByIds.get(pwp.getPosterId()), usersByIds.get(pwp.getRecipientId())));
+              int posterId = pwp.getPosterId();
+              
+              long time = pwp.getTimeOfPost().getTime();
+              MinimumUserProto user = userIdsToMups.get(posterId);
+              String content = pwp.getContent();
+              boolean isAdmin = false;
+              
+              GroupChatMessageProto gcmp = 
+                  CreateInfoProtoUtils.createGroupChatMessageProto(time, user, content, isAdmin);
+              resBuilder.addPosts(gcmp);
             }
+            resBuilder.setOtherUserId(otherUserId);
           }
         }
       } else {
@@ -100,5 +118,21 @@ import com.lvl6.utils.RetrieveUtils;
     }
 
   }
-
+  
+  private Map<Integer, MinimumUserProto> generateUserIdsToMups(Map<Integer, User> usersByIds,
+      int userId, int otherUserId) {
+    Map<Integer, MinimumUserProto> userIdsToMups = new HashMap<Integer, MinimumUserProto>();
+    
+    User aUser = usersByIds.get(userId);
+    User otherUser = usersByIds.get(otherUserId);
+    
+    MinimumUserProto mup1 = CreateInfoProtoUtils.createMinimumUserProtoFromUser(aUser);
+    userIdsToMups.put(userId, mup1);
+    
+    MinimumUserProto mup2 = CreateInfoProtoUtils.createMinimumUserProtoFromUser(otherUser);
+    userIdsToMups.put(otherUserId, mup2);
+    
+    return userIdsToMups;
+  }
+  
 }
