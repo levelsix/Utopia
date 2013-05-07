@@ -58,6 +58,7 @@ import com.lvl6.utils.RetrieveUtils;
     if (reqProto.hasBeforePrivateChatId()) {
       resBuilder.setBeforePrivateChatId(beforePrivateChatId);
     }
+    resBuilder.setOtherUserId(otherUserId);
 
     try {
       resBuilder.setStatus(RetrievePrivateChatPostsStatus.SUCCESS);
@@ -99,7 +100,6 @@ import com.lvl6.utils.RetrieveUtils;
                   CreateInfoProtoUtils.createGroupChatMessageProto(time, user, content, isAdmin);
               resBuilder.addPosts(gcmp);
             }
-            resBuilder.setOtherUserId(otherUserId);
           }
         }
       } else {
