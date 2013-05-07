@@ -91,10 +91,9 @@ public class RetrieveLeaderboardRankingsController extends EventController {
 
         if (lurs != null) {
           List<User> resultUsers = new ArrayList<User>(RetrieveUtils.userRetrieveUtils().getUsersByIds(new ArrayList<Integer>(lurs.keySet())).values());
-          log.info("Populating leaderboard results for event: "+eventId+" after this rank: "+afterThisRank+" found results: "+resultUsers.size());
+          log.debug("Populating leaderboard results for event: "+eventId+" after this rank: "+afterThisRank+" found results: "+resultUsers.size());
           for (User u : resultUsers) {
             UserRankScore urs = lurs.get(u.getId());
-            log.info("Rank: "+urs.rank+" User: "+urs.userId+" Score: "+urs.score);
             resBuilder.addResultPlayers(CreateInfoProtoUtils.createMinimumUserProtoWithLevelForLeaderboard(u, leaderboardType, urs.rank, urs.score));
             resBuilder.addFullUsers(CreateInfoProtoUtils.createFullUserProtoFromUser(u));
           }
@@ -119,7 +118,6 @@ public class RetrieveLeaderboardRankingsController extends EventController {
 
   private Map<Integer, UserRankScore> getUsersAfterThisRank(int eventId,	int afterThisRank) {
     Set<Tuple> usrs = new HashSet<Tuple>();
-    log.info("Retrieving event: "+eventId+" afterThisRank: "+afterThisRank);
 
     usrs = leader.getEventTopN(eventId, afterThisRank, afterThisRank+ControllerConstants.LEADERBOARD_EVENT__MAX_PLAYERS_SENT_AT_ONCE);
 
