@@ -12,9 +12,12 @@ public class LockBoxItem implements Serializable {
   private String name;
   private EquipClassType classType;
   private String imageName;
+  private int redeemForNumBoosterItems;
+  private boolean isGoldBoosterPack;
   
   public LockBoxItem(int id, int lockBoxEventId, float chanceToUnlock,
-      String name, EquipClassType classType, String imageName) {
+      String name, EquipClassType classType, String imageName,
+      int redeemForNumBoosterItems, boolean isGoldBoosterPack) {
     super();
     this.id = id;
     this.lockBoxEventId = lockBoxEventId;
@@ -22,6 +25,8 @@ public class LockBoxItem implements Serializable {
     this.name = name;
     this.classType = classType;
     this.imageName = imageName;
+    this.redeemForNumBoosterItems = redeemForNumBoosterItems;
+    this.isGoldBoosterPack = isGoldBoosterPack;
   }
   public String getImageName() {
     return imageName;
@@ -59,10 +64,25 @@ public class LockBoxItem implements Serializable {
   public void setClassType(EquipClassType classType) {
     this.classType = classType;
   }
+  public int getRedeemForNumBoosterItems() {
+    return redeemForNumBoosterItems;
+  }
+  public void setRedeemForNumBoosterItems(int redeemForNumBoosterItems) {
+    this.redeemForNumBoosterItems = redeemForNumBoosterItems;
+  }
+  public boolean isGoldBoosterPack() {
+    return isGoldBoosterPack;
+  }
+  public void setGoldBoosterPack(boolean isGoldBoosterPack) {
+    this.isGoldBoosterPack = isGoldBoosterPack;
+  }
+  
   @Override
   public String toString() {
     return "LockBoxItem [id=" + id + ", lockBoxEventId=" + lockBoxEventId
         + ", chanceToUnlock=" + chanceToUnlock + ", name=" + name
-        + ", classType=" + classType + ", imageName=" + imageName + "]";
+        + ", classType=" + classType + ", imageName=" + imageName
+        + ", redeemForNumBoosterItems=" + redeemForNumBoosterItems
+        + ", isGoldBoosterPack=" + isGoldBoosterPack + "]";
   }
 }

@@ -2,6 +2,7 @@ package com.lvl6.utils.utilmethods;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -802,6 +803,30 @@ public class UpdateUtils implements UpdateUtil {
 
     int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
     if (numUpdated != 1) {
+      return false;
+    }
+    return true;
+  }
+  
+  public boolean updateRedeemLockBoxItems(int eventId, int userId, List<Integer> lockBoxItemIds) {
+    int numLockBoxItems = lockBoxItemIds.size();
+    List<Object> values = new ArrayList<Object>();
+    List<String> questionMarks = Collections.nCopies(numLockBoxItems, "?");
+
+    String query = "UPDATE " + DBConstants.TABLE_USER_LOCK_BOX_ITEMS + " SET " +
+        DBConstants.USER_LOCK_BOX_ITEMS__HAS_BEEN_REDEEMED + "=" + "?";
+    values.add(true);
+
+    query += " where " + DBConstants.USER_LOCK_BOX_ITEMS__USER_ID + "=?";
+    values.add(userId);
+    
+    query += " and " + DBConstants.USER_LOCK_BOX_ITEMS__ITEM_ID + " in (";
+    query += StringUtils.getListInString(questionMarks, ",") + ")";
+    values.addAll(lockBoxItemIds);
+    
+    
+    int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
+    if (numLockBoxItems != numUpdated) {
       return false;
     }
     return true;
