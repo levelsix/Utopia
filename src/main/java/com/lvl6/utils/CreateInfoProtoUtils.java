@@ -835,9 +835,14 @@ public class CreateInfoProtoUtils {
       PrivateChatPost p, User poster, User recipient) {
     MinimumUserProto mupPoster = createMinimumUserProtoFromUser(poster); 
     MinimumUserProto mupRecipient = createMinimumUserProtoFromUser(recipient);
+    
+    // Truncate time because db truncates it
+    long time = p.getTimeOfPost().getTime();
+    time = time - time % 1000;
+    
     return PrivateChatPostProto.newBuilder().setPrivateChatPostId(p.getId())
         .setPoster(mupPoster).setRecipient(mupRecipient)
-        .setTimeOfPost(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
+        .setTimeOfPost(time).setContent(p.getContent()).build();
   }
   
   public static PrivateChatPostProto createPrivateChatPostProtoFromPrivateChatPostAndProtos (
