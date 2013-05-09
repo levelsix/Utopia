@@ -29,7 +29,7 @@ import com.lvl6.utils.DBConnection;
     Map<String, Object> absoluteConditionParams = new HashMap<String, Object>();
     absoluteConditionParams.put(DBConstants.EQUIP_ENHANCEMENT_FEEDERS__EQUIP_ENHANCEMENT_ID, equipEnhancementId);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, absoluteConditionParams, TABLE_NAME);
     List<EquipEnhancementFeeder> equipEnhancementFeeders = convertRSToEquipEnhancementFeeders(rs);
     DBConnection.get().close(rs, null, conn);

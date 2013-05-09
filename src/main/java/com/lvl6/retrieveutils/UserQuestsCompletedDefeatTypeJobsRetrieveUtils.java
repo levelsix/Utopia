@@ -22,12 +22,12 @@ import com.lvl6.utils.DBConnection;
 
   private final String TABLE_NAME = DBConstants.TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS;
 
-  //@Cacheable(value="questIdToUserDefeatTypeJobsCompletedForQuestForUserCache", key="#userId")
+  ////@Cacheable(value="questIdToUserDefeatTypeJobsCompletedForQuestForUserCache", key="#userId")
   public Map<Integer, List<Integer>> getQuestIdToUserDefeatTypeJobsCompletedForQuestForUser(int userId) {
     log.debug("retrieving user's quest id to completed defeat type jobs map for user " + userId);
     Map <Integer, List<Integer>> questIdToUserDefeatTypeJobsCompleted = new HashMap<Integer, List<Integer>>();
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);

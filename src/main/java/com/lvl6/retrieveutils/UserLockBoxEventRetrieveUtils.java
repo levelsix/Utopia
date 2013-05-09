@@ -26,7 +26,7 @@ import com.lvl6.utils.DBConnection;
   public static Map<Integer, UserLockBoxEvent> getLockBoxEventIdsToLockBoxEventsForUser(int userId) {
     log.debug("retrieving lock box event ids to num lock boxes map for userId " + userId);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     Map<Integer, UserLockBoxEvent> lockBoxEventIdsToUserLockBoxEvents = grabUserLockBoxEventsFromRS(rs);
     DBConnection.get().close(rs, null, conn);
@@ -39,7 +39,7 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_LOCK_BOX_EVENTS__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_LOCK_BOX_EVENTS__EVENT_ID, lockBoxEventId);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
     UserLockBoxEvent event = grabUserLockBoxEventFromRS(rs);
     DBConnection.get().close(rs, null, conn);

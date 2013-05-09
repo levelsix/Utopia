@@ -11,8 +11,6 @@ import java.util.Set;
 import org.mortbay.log.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Caching;
 
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.CoordinatePair;
@@ -46,9 +44,9 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserQuestsCoinsretrievedforreq(int, java.util.List, int)
    */
   @Override
-  /*@Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
-      @CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
-      @CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})*/
+  /*@Caching(evict={//@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+      //@CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
+      //@CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})*/
   public boolean updateUserQuestsCoinsretrievedforreq(int userId, List <Integer> questIds, int coinGain) {
     String query = "update " + DBConstants.TABLE_USER_QUESTS + " set " + DBConstants.USER_QUESTS__COINS_RETRIEVED_FOR_REQ
         + "=" + DBConstants.USER_QUESTS__COINS_RETRIEVED_FOR_REQ + "+? where " 
@@ -169,9 +167,9 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserQuestIscomplete(int, int)
    */
   @Override
-  /*@Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
-      @CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
-      @CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})*/
+  /*@Caching(evict={//@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+      //@CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
+      //@CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})*/
   public boolean updateUserQuestIscomplete(int userId, int questId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
@@ -196,9 +194,9 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateRedeemUserQuest(int, int)
    */
   @Override
-  /*@Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
-      @CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
-      @CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})*/
+  /*@Caching(evict={//@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+      //@CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
+      //@CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})*/
   public boolean updateRedeemUserQuest(int userId, int questId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
@@ -226,8 +224,8 @@ public class UpdateUtils implements UpdateUtil {
    */
   @Override
   /*@Caching(evict= {
-      @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-      @CacheEvict(value="specificUserStruct", key="#userStructId")})*/
+      //@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+      //@CacheEvict(value="specificUserStruct", key="#userStructId")})*/
   public boolean updateUserStructOrientation(int userStructId,
       StructOrientation orientation) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
@@ -252,9 +250,9 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserQuestsSetCompleted(int, int, boolean, boolean)
    */
   @Override
-  /*@Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
-      @CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
-      @CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})*/
+  /*@Caching(evict={//@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+      //@CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
+      //@CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})*/
   public boolean updateUserQuestsSetCompleted(int userId, int questId, boolean setTasksCompleteTrue, boolean setDefeatTypeJobsCompleteTrue) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
@@ -279,10 +277,10 @@ public class UpdateUtils implements UpdateUtil {
 
 
   /*@Caching(evict= {
-      @CacheEvict(value ="specificUserEquip", key="#userEquipId"),
-      @CacheEvict(value="userEquipsForUser", key="#newOwnerId"),
-      @CacheEvict(value="equipsToUserEquipsForUser", key="#newOwnerId"),
-      @CacheEvict(value="userEquipsWithEquipId", key="#newOwnerId+':'+#equipId")  
+      //@CacheEvict(value ="specificUserEquip", key="#userEquipId"),
+      //@CacheEvict(value="userEquipsForUser", key="#newOwnerId"),
+      //@CacheEvict(value="equipsToUserEquipsForUser", key="#newOwnerId"),
+      //@CacheEvict(value="userEquipsWithEquipId", key="#newOwnerId+':'+#equipId")  
   })*/
   public boolean updateUserEquipOwner(int userEquipId, int newOwnerId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
@@ -345,8 +343,8 @@ public class UpdateUtils implements UpdateUtil {
    */
   @Override
   /*@Caching(evict= {
-      @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-      @CacheEvict(value="specificUserStruct", key="#userStructId")})*/
+      //@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+      //@CacheEvict(value="specificUserStruct", key="#userStructId")})*/
   public boolean updateUserStructLastretrievedIscompleteLevelchange(int userStructId, Timestamp lastRetrievedTime, boolean isComplete, int levelChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
@@ -399,8 +397,8 @@ public class UpdateUtils implements UpdateUtil {
    */
   @Override
   /*@Caching(evict= {
-      @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-      @CacheEvict(value="specificUserStruct", key="#userStructId")})*/
+      //@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+      //@CacheEvict(value="specificUserStruct", key="#userStructId")})*/
   public boolean updateUserStructLastretrievedLastupgradeIscomplete(int userStructId, Timestamp lastRetrievedTime, Timestamp lastUpgradeTime, boolean isComplete) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
@@ -430,8 +428,8 @@ public class UpdateUtils implements UpdateUtil {
    */
   /*@Override
   @Caching(evict= {
-      @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-      @CacheEvict(value="specificUserStruct", key="#userStructId")}) */
+      //@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+      //@CacheEvict(value="specificUserStruct", key="#userStructId")}) */
   public boolean updateUserStructsLastretrieved(Map<Integer, Timestamp> userStructIdsToLastRetrievedTime,
       Map<Integer, UserStruct> structIdsToUserStructs) {
     List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
@@ -475,8 +473,8 @@ public class UpdateUtils implements UpdateUtil {
    */
   @Override
   /*@Caching(evict= {
-      @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-      @CacheEvict(value="specificUserStruct", key="#userStructId")})*/
+      //@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+      //@CacheEvict(value="specificUserStruct", key="#userStructId")})*/
   public boolean updateUserStructLevel(int userStructId, int levelChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
@@ -500,8 +498,8 @@ public class UpdateUtils implements UpdateUtil {
    */
   @Override
   /*@Caching(evict= {
-      @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-      @CacheEvict(value="specificUserStruct", key="#userStructId")})*/
+      //@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+      //@CacheEvict(value="specificUserStruct", key="#userStructId")})*/
   public boolean updateUserStructCoord(int userStructId, CoordinatePair coordinates) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
@@ -525,8 +523,8 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#incrementCityRankForUserCity(int, int, int)
    */
   @Override
-  @Caching(evict={@CacheEvict(value="cityIdToUserCityRankCache", key="#userId"),
-      @CacheEvict(value="currentCityRankForUserCache", key="#userId+':'+#cityId")})
+  //@Caching(evict={//@CacheEvict(value="cityIdToUserCityRankCache", key="#userId"),
+      //@CacheEvict(value="currentCityRankForUserCache", key="#userId+':'+#cityId")})
   public boolean incrementCityRankForUserCity(int userId, int cityId, int increment) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
@@ -682,7 +680,7 @@ public class UpdateUtils implements UpdateUtil {
   }
 
   @Override
-  @CacheEvict(value="clanById", key="#clanId")
+  //@CacheEvict(value="clanById", key="#clanId")
   public boolean updateClanOwnerDescriptionForClan(int clanId, int ownerId, String description) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.CLANS__ID, clanId);
@@ -832,7 +830,7 @@ public class UpdateUtils implements UpdateUtil {
   }
 
   //incrementing the current tier level column in clans table
-  @CacheEvict(value="clanById", key="#clanId")
+  //@CacheEvict(value="clanById", key="#clanId")
   public boolean incrementCurrentTierLevelForClan(int clanId) {
     String tableName = DBConstants.TABLE_CLANS;
 

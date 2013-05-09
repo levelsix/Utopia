@@ -23,7 +23,7 @@ import com.lvl6.utils.DBConnection;
   public static Map<Integer, Map<Integer, Integer>> getQuestIdToTaskIdsToNumTimesActedInQuest(int userId) {
     log.debug("retrieving user's quest id to (task progress map) map for user " + userId);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     Map<Integer, Map<Integer, Integer>> questIdToTaskIdsToNumTimesActedInQuest = convertRSToQuestIdToTaskIdsToNumTimesActedForQuestMap(rs);
     DBConnection.get().close(rs, null, conn);

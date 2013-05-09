@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
-import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.utilmethods.StringUtils;
@@ -56,6 +55,19 @@ public class DBConnection {
     Connection conn = DataSourceUtils.getConnection(dataSource); 
     return conn;
   }
+  
+  
+  public Connection getReadOnlyConnection() {
+		Connection conn = DBConnection.get().getConnection();
+		try {
+		    conn.setReadOnly(true);
+		    conn.setAutoCommit(false);
+		}catch(Exception e) {
+			log.error("Error setting connection to readOnly=true", e);
+		}
+		return conn;
+	}
+  
 
   private void printConnectionInfoInDebug() {
     try {

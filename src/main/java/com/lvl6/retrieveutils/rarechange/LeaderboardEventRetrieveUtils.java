@@ -69,7 +69,7 @@ import com.lvl6.utils.DBConnection;
 //      }
 //    } else {
 //      //initialization crap
-//      Connection conn = DBConnection.get().getConnection();
+//      Connection conn = DBConnection.get().getReadOnlyConnection();
 //      ResultSet rs = null;
 //      List<String> columns = null;
 //      Map<String, Object> absoluteConditionParams = null;
@@ -115,7 +115,7 @@ import com.lvl6.utils.DBConnection;
   private static void setStaticIdsToLeaderboardEvents() {
     log.debug("setting static map of upgrade struct job id to upgrade struct job");
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);

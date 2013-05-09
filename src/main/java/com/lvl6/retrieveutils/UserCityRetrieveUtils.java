@@ -25,11 +25,11 @@ import com.lvl6.utils.DBConnection;
   private final String TABLE_NAME = DBConstants.TABLE_USER_CITIES;
   
   
-  //@Cacheable(value="cityIdToUserCityRankCache", key="#userId")
+  ////@Cacheable(value="cityIdToUserCityRankCache", key="#userId")
   public Map<Integer, Integer> getCityIdToUserCityRank(int userId) {
     log.debug("retrieving city id to user city rank map for userId " + userId);
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     Map<Integer, Integer> cityIdToUserCityRankMap = convertRSToCityIdToCityRankMap(rs);
     DBConnection.get().close(rs, null, conn);
@@ -38,14 +38,14 @@ import com.lvl6.utils.DBConnection;
   
   
   
-  //@Cacheable(value="currentCityRankForUserCache", key="#userId+':'+#cityId")
+  ////@Cacheable(value="currentCityRankForUserCache", key="#userId+':'+#cityId")
   public int getCurrentCityRankForUser(int userId, int cityId) {
     log.debug("retrieving user city info for userId " + userId + " and cityId " + cityId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_CITIES__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_CITIES__CITY_ID, cityId);
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
     int cityRank = convertRSToCityRank(rs);
     DBConnection.get().close(rs, null, conn);

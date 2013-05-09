@@ -56,7 +56,7 @@ import com.lvl6.utils.DBConnection;
   private static void setStaticLeaderboardEventIdsToLeaderboardEventRewards() {
     log.debug("setting static map of leader board event id to leader board reward");
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
