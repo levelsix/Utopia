@@ -23,12 +23,12 @@ import com.lvl6.utils.DBConnection;
   private final String TABLE_NAME = DBConstants.TABLE_USER_QUESTS_COMPLETED_TASKS;
 
   
-  //@Cacheable(value="questIdToUserTasksCompletedForQuestForUserCache", key="#userId")
+  ////@Cacheable(value="questIdToUserTasksCompletedForQuestForUserCache", key="#userId")
   public Map<Integer, List<Integer>> getQuestIdToUserTasksCompletedForQuestForUser(int userId) {
     log.debug("retrieving user's quest id to completed tasks map for user " + userId);
     Map <Integer, List<Integer>> questIdToUserTasksCompleted = new HashMap<Integer, List<Integer>>();
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);

@@ -28,7 +28,7 @@ import com.lvl6.utils.DBConnection;
     log.debug("retrieving number of booster packs purchased after " + now  
         +  "for userId " + userId);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     List<String> columns = new ArrayList<String>();
     Map<String, Object> absoluteConditionParams = new HashMap<String, Object>();
     String orderByColumn = null;

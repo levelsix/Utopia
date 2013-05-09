@@ -30,7 +30,7 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
     paramsToVals.put(DBConstants.USER_QUESTS__IS_COMPLETE, false);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
     List<UserQuest> userQuests = convertRSToUserQuests(rs);
     DBConnection.get().close(rs, null, conn);
@@ -38,7 +38,7 @@ import com.lvl6.utils.DBConnection;
   }
   
   
-  //@Cacheable(value="incompleteUserQuestsForUser", key="#userId")
+  ////@Cacheable(value="incompleteUserQuestsForUser", key="#userId")
   public List<UserQuest> getIncompleteUserQuestsForUser(int userId) {
     log.debug("retrieving incomplete user quests for userId " + userId);
     
@@ -47,7 +47,7 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_QUESTS__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_QUESTS__IS_COMPLETE, false);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
     List<UserQuest> userQuests = convertRSToUserQuests(rs);
     DBConnection.get().close(rs, null, conn);
@@ -55,11 +55,11 @@ import com.lvl6.utils.DBConnection;
   }
   
   
-  //@Cacheable(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId")
+  ////@Cacheable(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId")
   public List<UserQuest> getUnredeemedAndRedeemedUserQuestsForUser(int userId) {
     log.debug("retrieving unredeemed and redeemed user quests for userId " + userId);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     List<UserQuest> userQuests = convertRSToUserQuests(rs);
     DBConnection.get().close(rs, null, conn);
@@ -67,14 +67,14 @@ import com.lvl6.utils.DBConnection;
   }
   
   
-  //@Cacheable(value="unredeemedUserQuestsForUser", key="#userId")
+  ////@Cacheable(value="unredeemedUserQuestsForUser", key="#userId")
   public List<UserQuest> getUnredeemedUserQuestsForUser(int userId) {
     log.debug("retrieving unredeemed user quests for userId " + userId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_QUESTS__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
     List<UserQuest> userQuests = convertRSToUserQuests(rs);
     DBConnection.get().close(rs, null, conn);
@@ -82,11 +82,11 @@ import com.lvl6.utils.DBConnection;
   }
   
   
-  //@Cacheable(value="userQuestsForUser", key="#userId")
+  ////@Cacheable(value="userQuestsForUser", key="#userId")
   public List<UserQuest> getUserQuestsForUser(int userId) {
     log.debug("retrieving user quests for userId " + userId);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     List<UserQuest> userQuests = convertRSToUserQuests(rs);
     DBConnection.get().close(rs, null, conn);
@@ -100,7 +100,7 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_QUESTS__QUEST_ID, questId);
     paramsToVals.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
     UserQuest userQuest = convertRSToSingleUserQuest(rs);
     DBConnection.get().close(rs, null, conn);

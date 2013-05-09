@@ -55,10 +55,10 @@
 	</repositories>
 	<properties>
 		<!-- <jdbc.url><![CDATA[jdbc:mysql://kingdom-dev-1.cv5kxrel3z7x.us-east-1.rds.amazonaws.com/kingdom?useLegacyDatetimeCode=false]]></jdbc.url> -->
-		<jdbc.url><![CDATA[jdbc:mysql://dev.lvl6.com/kingdom?useLegacyDatetimeCode=false]]></jdbc.url>
+		<jdbc.url><![CDATA[jdbc:mysql:replication://dev.lvl6.com,cass2.lvl6.com/kingdom?useLegacyDatetimeCode=false&roundRobinLoadBalance=true]]></jdbc.url>
 		<jdbc.username>lvl6admin</jdbc.username>
 		<jdbc.password>robashen123</jdbc.password>
-		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+		<jdbc.driverClassName>com.mysql.jdbc.ReplicationDriver</jdbc.driverClassName>
 		<jdbc.idleConnectionTestPeriodInMinutes>1</jdbc.idleConnectionTestPeriodInMinutes>
 		<jdbc.idleMaxAgeInMinutes>5</jdbc.idleMaxAgeInMinutes>
 		<jdbc.maxConnectionsPerPartition>20</jdbc.maxConnectionsPerPartition>
@@ -82,7 +82,7 @@
 		<server.port>10001</server.port>
 		<globals.isSandbox>true</globals.isSandbox>
 		<globals.iddictionOn>false</globals.iddictionOn>
-		<lvl6.application.version>2.8f</lvl6.application.version>
+		<lvl6.application.version>2.81f</lvl6.application.version>
 		<lvl6.application.healthcheck.timeout.seconds>6</lvl6.application.healthcheck.timeout.seconds>
 		<apns.path.to.cert>/usr/share/tomcat7/KingdomAPNSDevKey.p12</apns.path.to.cert>
 		<apns.cert.password>robashen123</apns.cert.password>

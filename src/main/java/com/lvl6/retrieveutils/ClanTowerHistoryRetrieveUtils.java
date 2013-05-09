@@ -35,7 +35,7 @@ import com.lvl6.utils.DBConnection;
     values.add(clanId);
     values.add(limit);
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
     ClanTowerHistory clanTowerHistory = convertRSToClanTowerHistory(rs);
     DBConnection.get().close(rs, null, conn);

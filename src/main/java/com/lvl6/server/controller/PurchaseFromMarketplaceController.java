@@ -266,7 +266,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         currencyBefore = previousGold;
       } else {
         isSilver = 1;
-        currencyAfter = buyer.getCoins();
+        currencyAfter = buyer.getCoins() + buyer.getVaultBalance();
         currencyBefore = previousSilver;
       }
 

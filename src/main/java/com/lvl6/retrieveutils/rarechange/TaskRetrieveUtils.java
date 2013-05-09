@@ -67,7 +67,7 @@ import com.lvl6.utils.DBConnection;
   private static void setStaticCityIdsToTasks() {
     log.debug("setting static map of cityId to tasks");
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
@@ -98,7 +98,7 @@ import com.lvl6.utils.DBConnection;
   private static void setStaticTaskIdsToTasks() {
     log.debug("setting static map of taskIds to tasks");
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);

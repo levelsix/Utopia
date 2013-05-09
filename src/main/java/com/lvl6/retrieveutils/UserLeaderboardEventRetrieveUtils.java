@@ -29,7 +29,7 @@ public class UserLeaderboardEventRetrieveUtils {
     paramsToVals.put(DBConstants.USER_LEADERBOARD_EVENTS__LEADERBOARD_EVENT_ID, leaderboardEventId);
     paramsToVals.put(DBConstants.USER_LEADERBOARD_EVENTS__USER_ID, userId);
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
     UserLeaderboardEvent ulbe = grabUserLeaderboardEventFromRS(rs);
     DBConnection.get().close(rs, null, conn);
@@ -40,7 +40,7 @@ public class UserLeaderboardEventRetrieveUtils {
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_LEADERBOARD_EVENTS__USER_ID, userId);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(conn, paramsToVals, TABLE_NAME);
     List<UserLeaderboardEvent> userLeaderboardEvents = grabUserLeaderboardEventsFromRS(rs);
     DBConnection.get().close(rs, null, conn);

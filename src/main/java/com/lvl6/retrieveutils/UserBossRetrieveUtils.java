@@ -30,7 +30,7 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_BOSSES__BOSS_ID, bossId);
     paramsToVals.put(DBConstants.USER_BOSSES__USER_ID, userId);
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
     UserBoss userBoss = grabUserBossFromRS(rs);
     DBConnection.get().close(rs, null, conn);
@@ -41,7 +41,7 @@ import com.lvl6.utils.DBConnection;
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_BOSSES__USER_ID, userId);
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
     List<UserBoss> userBosses = grabUserBossesFromRS(rs);
     DBConnection.get().close(rs, null, conn);

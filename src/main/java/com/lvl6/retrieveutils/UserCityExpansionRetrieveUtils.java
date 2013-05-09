@@ -27,7 +27,7 @@ import com.lvl6.utils.DBConnection;
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.GENERIC__USER_ID, userId);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     UserCityExpansionData userCityExpansionData = convertRSToUserCritstructs(rs);
     DBConnection.get().close(rs, null, conn);

@@ -31,7 +31,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
   public List<UserStruct> getUserStructsForUser(int userId) {
     log.debug("retrieving user structs for userId " + userId);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     List<UserStruct> userStructs = convertRSToUserStructs(rs);
     DBConnection.get().close(rs, null, conn);
@@ -39,22 +39,22 @@ import com.lvl6.utils.utilmethods.StringUtils;
   }
 
   
-  //@Cacheable(value="structIdsToUserStructsForUser", key="#userId")
+  ////@Cacheable(value="structIdsToUserStructsForUser", key="#userId")
   public Map<Integer, List<UserStruct>> getStructIdsToUserStructsForUser(int userId) {
     log.debug("retrieving map of struct id to userstructs for userId " + userId);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     Map<Integer, List<UserStruct>> structIdToUserStructs = convertRSToStructIdsToUserStructs(rs);
     DBConnection.get().close(rs, null, conn);
     return structIdToUserStructs;
   }
 
-  //@Cacheable(value="specificUserStruct", key="#userStructId")
+  ////@Cacheable(value="specificUserStruct", key="#userStructId")
   public UserStruct getSpecificUserStruct(int userStructId) {
     log.debug("retrieving user struct with id " + userStructId);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsById(conn, userStructId, TABLE_NAME);
     UserStruct userStruct = convertRSSingleToUserStructs(rs);
     DBConnection.get().close(rs, null, conn);
@@ -78,7 +78,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     }
     query += StringUtils.getListInString(condClauses, "or") + ")";
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
     List<UserStruct> userStructs = convertRSToUserStructs(rs);
     DBConnection.get().close(rs, null, conn);
