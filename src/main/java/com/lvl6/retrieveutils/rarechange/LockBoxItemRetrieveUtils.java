@@ -65,7 +65,7 @@ import com.lvl6.utils.DBConnection;
   private static void setStaticLockBoxItemIdsToLockBoxItems() {
     log.debug("setting static map of lockBoxItemIds to lockBoxItems");
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);

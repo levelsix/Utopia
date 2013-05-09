@@ -27,9 +27,9 @@ public interface InsertUtil {
 
 
   /*@Caching(evict = {
-      @CacheEvict(value = "userEquipsForUser", key = "#userId"),
-      @CacheEvict(value = "equipsToUserEquipsForUser", key = "#userId"),
-      @CacheEvict(value = "userEquipsWithEquipId", key = "#userId+':'+#equipId") })*/
+      //@CacheEvict(value = "userEquipsForUser", key = "#userId"),
+      //@CacheEvict(value = "equipsToUserEquipsForUser", key = "#userId"),
+      //@CacheEvict(value = "userEquipsWithEquipId", key = "#userId+':'+#equipId") })*/
   public abstract int insertUserEquip(int userId, int equipId, int level);
 
   public abstract int insertUserEquip(int userId, int equipId, int level, int enhancementPercentage);

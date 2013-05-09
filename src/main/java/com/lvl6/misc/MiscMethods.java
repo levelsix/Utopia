@@ -1209,7 +1209,7 @@ public class MiscMethods {
       int currentSilver = aUser.getCoins() + aUser.getVaultBalance();
 
       //record gold change first
-      if (0 < goldChange) {
+      if (0 != goldChange) {
         userIds.add(userId);
         dates.add(date);
         areSilver.add(0); //gold
@@ -1232,7 +1232,7 @@ public class MiscMethods {
       }
 
       //record silver change next
-      if (0 < silverChange) {
+      if (0 != silverChange) {
         userIds.add(userId);
         dates.add(date);
         areSilver.add(1); //silver
