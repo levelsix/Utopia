@@ -80,8 +80,8 @@ public class APNSWriter extends Wrap {
 
 	private static final int MIN_MINUTES_BETWEEN_BATTLE_NOTIFICATIONS = 180; // 3
 																				// hours
-	private static final int MIN_MINUTES_BETWEEN_MARKETPLACE_NOTIFICATIONS = 30;
-	private static final int MIN_MINUTES_BETWEEN_WALL_POST_NOTIFICATIONS = 15;
+	private static final int MIN_MINUTES_BETWEEN_MARKETPLACE_NOTIFICATIONS = 0;//30;
+	private static final int MIN_MINUTES_BETWEEN_WALL_POST_NOTIFICATIONS = 0;//15;
 
 	private static final int MAX_NUM_CHARACTERS_TO_SEND_FOR_WALL_POST = 120;
 
