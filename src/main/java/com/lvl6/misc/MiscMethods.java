@@ -680,6 +680,8 @@ public class MiscMethods {
     cb.setFaqFileName(ControllerConstants.STARTUP__FAQ_FILE_NAME);
     cb.setPrestigeFaqFileName(ControllerConstants.STARTUP__PRESTIGE_FAQ_FILE_NAME);
     
+    cb.setAdminChatUserId(ControllerConstants.STARTUP__ADMIN_CHAT_USER_ID);
+    
     return cb.build();  
   }
 
