@@ -632,6 +632,7 @@ public class StartupController extends EventController {
 		for (LockBoxEventProto p : resBuilder.getLockBoxEventsList()) {
 			UserLockBoxEvent e = map.get(p.getLockBoxEventId());
 			if (e != null) {
+			  log.info("aklsdjflkajffffffadsal;ksdjfalks;dfjlaksdjfalksdfj.sal;df");
 				resBuilder.addUserLockBoxEvents(CreateInfoProtoUtils.createUserLockBoxEventProto(e,
 						user.getType()));
 			}
