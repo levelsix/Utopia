@@ -199,7 +199,7 @@ public class CreateInfoProtoUtils {
     }
     return builder.build();
   }
-  
+
   public static MinimumUserProto createMinimumUserProtoFromUserAndClan(User u, Clan c) {
     MinimumUserProto.Builder builder = MinimumUserProto.newBuilder().setName(u.getName())
         .setUserId(u.getId()).setUserType(u.getType()).setClan(createMinimumClanProtoFromClan(c));
@@ -453,7 +453,7 @@ public class CreateInfoProtoUtils {
       Clan clan = ClanRetrieveUtils.getClanWithId(u.getClanId());
       builder.setClan(createMinimumClanProtoFromClan(clan));
     }
-    
+
     return builder.build();
   }
 
@@ -836,23 +836,23 @@ public class CreateInfoProtoUtils {
       PrivateChatPost p, User poster, User recipient) {
     MinimumUserProto mupPoster = createMinimumUserProtoFromUser(poster); 
     MinimumUserProto mupRecipient = createMinimumUserProtoFromUser(recipient);
-    
+
     // Truncate time because db truncates it
     long time = p.getTimeOfPost().getTime();
     time = time - time % 1000;
-    
+
     return PrivateChatPostProto.newBuilder().setPrivateChatPostId(p.getId())
         .setPoster(mupPoster).setRecipient(mupRecipient)
         .setTimeOfPost(time).setContent(p.getContent()).build();
   }
-  
+
   public static PrivateChatPostProto createPrivateChatPostProtoFromPrivateChatPostAndProtos (
       PrivateChatPost p, MinimumUserProto mupPoster, MinimumUserProto mupRecipient) {
     return PrivateChatPostProto.newBuilder().setPrivateChatPostId(p.getId())
         .setPoster(mupPoster).setRecipient(mupRecipient)
         .setTimeOfPost(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
   }
-  
+
   //createMinimumProtoFromUser calls ClanRetrieveUtils, so a db read, if user has a clan
   //to prevent this, all clans that will be used should be passed in, hence clanIdsToClans,
   //clanIdsToUserIdSet. Not all users will have a clan, hence clanlessUserIds
@@ -900,7 +900,7 @@ public class CreateInfoProtoUtils {
 
     return pcppList;
   }
-  
+
   public static void createMinimumUserProtosFromClannedAndClanlessUsers(
       Map<Integer, Clan> clanIdsToClans, Map<Integer, Set<Integer>> clanIdsToUserIdSet,
       List<Integer> clanlessUserIds, Map<Integer, User> userIdsToUsers, 
@@ -926,7 +926,7 @@ public class CreateInfoProtoUtils {
       }
     }
   }
-  
+
   public static UnhandledBlacksmithAttemptProto createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(BlacksmithAttempt ba) {
     UnhandledBlacksmithAttemptProto.Builder builder = UnhandledBlacksmithAttemptProto.newBuilder().setBlacksmithId(ba.getId()).setUserId(ba.getUserId())
         .setEquipId(ba.getEquipId()).setGoalLevel(ba.getGoalLevel()).setGuaranteed(ba.isGuaranteed()).setStartTime(ba.getStartTime().getTime())
@@ -1027,22 +1027,23 @@ public class CreateInfoProtoUtils {
       b.setLastPickTime(event.getLastPickTime().getTime());
     }
 
-//    List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(event.getLockBoxId(), type);
-//    Map<Integer, Integer> userItems = UserLockBoxItemRetrieveUtils.getLockBoxItemIdsToQuantityForUser(event.getUserId());
-//    for (LockBoxItem item : items) {
-//      Integer quantity = userItems.get(item.getId());
-//      if (quantity != null && quantity > 0) {
-//        b.addItems(createUserLockBoxItemProto(event.getUserId(), item.getId(), quantity));
-//      }
-//    }
+    //    List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(event.getLockBoxId(), type);
+    //    Map<Integer, Integer> userItems = UserLockBoxItemRetrieveUtils.getLockBoxItemIdsToQuantityForUser(event.getUserId());
+    //    for (LockBoxItem item : items) {
+    //      Integer quantity = userItems.get(item.getId());
+    //      if (quantity != null && quantity > 0) {
+    //        b.addItems(createUserLockBoxItemProto(event.getUserId(), item.getId(), quantity));
+    //      }
+    //    }
     Map<Integer, UserLockBoxItem> userItems = 
         UserLockBoxItemRetrieveUtils.getLockBoxItemIdsToUserLockBoxItemsForUser(event.getUserId());
-    for(UserLockBoxItem item : userItems.values()) {
-      UserLockBoxItemProto ulbip = createUserLockBoxItemProto(item);
-      b.addItems(ulbip);
+    if (userItems != null && userItems.size() > 0) {
+      for(UserLockBoxItem item : userItems.values()) {
+        UserLockBoxItemProto ulbip = createUserLockBoxItemProto(item);
+        b.addItems(ulbip);
+      }
     }
-    
-    
+
     return b.build();
   }
 
@@ -1050,12 +1051,12 @@ public class CreateInfoProtoUtils {
     return UserLockBoxItemProto.newBuilder().setUserId(userId).setLockBoxItemId(lockBoxItemId)
         .setQuantity(quantity).build();
   }
-  
+
   public static UserLockBoxItemProto createUserLockBoxItemProto(UserLockBoxItem ulbi) {
     return UserLockBoxItemProto.newBuilder().setUserId(ulbi.getUserId()).setLockBoxItemId(ulbi.getLockBoxItemId())
         .setQuantity(ulbi.getQuantity()).setHasBeenRedeemed(ulbi.isHasBeenRedeemed()).build();
   }
-  
+
 
   public static GoldSaleProto createGoldSaleProtoFromGoldSale(GoldSale sale) {
     GoldSaleProto.Builder b = GoldSaleProto.newBuilder().setSaleId(sale.getId()).setStartDate(sale.getStartDate().getTime()).setEndDate(sale.getEndDate().getTime());
@@ -1324,5 +1325,5 @@ public class CreateInfoProtoUtils {
         .setUser(createMinimumUserProtoFromUser(u)).setEquip(createFullEquipProtoFromEquip(e))
         .setTimeOfPurchase(d.getTime()).build();
   }
-  
+
 }
