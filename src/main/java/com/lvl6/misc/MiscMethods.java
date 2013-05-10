@@ -692,7 +692,10 @@ public class MiscMethods {
 
     for (LockBoxEvent event : events.values()) {
       // Send all events that are not yet over
-      if (event.getEndDate().getTime() > curTime) {
+      long delay = 60 * 60 * 24 *
+          ControllerConstants.LOCK_BOXES__NUM_DAYS_AFTER_END_DATE_TO_KEEP_SENDING_PROTOS;
+          
+      if ((event.getEndDate().getTime() + delay) > curTime) {
         toReturn.add(CreateInfoProtoUtils.createLockBoxEventProtoFromLockBoxEvent(event, type));
       }
     }

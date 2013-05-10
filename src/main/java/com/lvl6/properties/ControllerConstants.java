@@ -449,6 +449,7 @@ public class ControllerConstants {
   public static final float LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_TASK_BASE = 0.03f;
   public static final float LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_TASK_MAX = 1.f;
   public static final float LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_BATTLE = 0.25f;
+  public static final int LOCK_BOXES__NUM_DAYS_AFTER_END_DATE_TO_KEEP_SENDING_PROTOS = 3;
   
   //TIME BEFORE RESHOWING MENUS
   public static final int NUM_HOURS_BEFORE_RESHOWING_GOLD_SALE = 24;
