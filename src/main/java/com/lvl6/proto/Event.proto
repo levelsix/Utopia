@@ -2695,8 +2695,9 @@ message RedeemUserLockBoxItemsRequestProto {
 message RedeemUserLockBoxItemsResponseProto {
 	optional MinimumUserProto sender = 1;
 	repeated BoosterPackProto boosterPacks = 2; 	
+	optional RedeemUserLockBoxItemsStatus status = 3;
 	
-	enum RedeemUserLockboxItemsStatus {
+	enum RedeemUserLockBoxItemsStatus {
 		SUCCESS = 0;
 		FAIL_ALREADY_REDEEMED = 1;
 		FAIL_INVALID_EVENT_ID = 2;
