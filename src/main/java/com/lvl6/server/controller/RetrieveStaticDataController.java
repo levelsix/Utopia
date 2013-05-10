@@ -221,7 +221,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
     }
 
     if (reqProto.getCurrentLockBoxEvents()) {
-      resBuilder.addAllLockBoxEvents(MiscMethods.currentLockBoxEventsForUserType(type));
+      resBuilder.addAllLockBoxEvents(MiscMethods.currentLockBoxEvents());
     }
     
     if (reqProto.getClanTierLevels()) {

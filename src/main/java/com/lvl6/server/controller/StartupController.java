@@ -626,7 +626,7 @@ public class StartupController extends EventController {
 	}
 
 	private void setLockBoxEvents(StartupResponseProto.Builder resBuilder, User user) {
-		resBuilder.addAllLockBoxEvents(MiscMethods.currentLockBoxEventsForUserType(user.getType()));
+		resBuilder.addAllLockBoxEvents(MiscMethods.currentLockBoxEvents());
 		Map<Integer, UserLockBoxEvent> map = UserLockBoxEventRetrieveUtils
 				.getLockBoxEventIdsToLockBoxEventsForUser(user.getId());
 		for (LockBoxEventProto p : resBuilder.getLockBoxEventsList()) {
