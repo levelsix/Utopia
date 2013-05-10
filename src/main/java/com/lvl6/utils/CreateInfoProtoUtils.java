@@ -1021,7 +1021,8 @@ public class CreateInfoProtoUtils {
 
   public static UserLockBoxEventProto createUserLockBoxEventProto(UserLockBoxEvent event, UserType type) {
     UserLockBoxEventProto.Builder b = UserLockBoxEventProto.newBuilder().setUserId(event.getUserId()).setLockBoxEventId(event.getLockBoxId())
-        .setNumLockBoxes(event.getNumLockBoxes()).setNumTimesCompleted(event.getNumTimesCompleted());
+        .setNumLockBoxes(event.getNumLockBoxes()).setNumTimesCompleted(event.getNumTimesCompleted())
+        .setHasBeenRedeemed(event.isHasBeenRedeemed());
 
     if (event.getLastPickTime() != null) {
       b.setLastPickTime(event.getLastPickTime().getTime());
@@ -1060,7 +1061,7 @@ public class CreateInfoProtoUtils {
 
   public static UserLockBoxItemProto createUserLockBoxItemProto(UserLockBoxItem ulbi) {
     return UserLockBoxItemProto.newBuilder().setUserId(ulbi.getUserId()).setLockBoxItemId(ulbi.getLockBoxItemId())
-        .setQuantity(ulbi.getQuantity()).setHasBeenRedeemed(ulbi.isHasBeenRedeemed()).build();
+        .setQuantity(ulbi.getQuantity()).build();
   }
 
 

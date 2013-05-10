@@ -808,29 +808,47 @@ public class UpdateUtils implements UpdateUtil {
     return true;
   }
   
-  public boolean updateRedeemLockBoxItems(int eventId, int userId, List<Integer> lockBoxItemIds,
-      boolean redeem) {
-    int numLockBoxItems = lockBoxItemIds.size();
-    List<Object> values = new ArrayList<Object>();
-    List<String> questionMarks = Collections.nCopies(numLockBoxItems, "?");
+//  public boolean updateRedeemLockBoxItems(int eventId, int userId, List<Integer> lockBoxItemIds,
+//      boolean redeem) {
+//    int numLockBoxItems = lockBoxItemIds.size();
+//    List<Object> values = new ArrayList<Object>();
+//    List<String> questionMarks = Collections.nCopies(numLockBoxItems, "?");
+//
+//    String query = "UPDATE " + DBConstants.TABLE_USER_LOCK_BOX_ITEMS + " SET " +
+//        DBConstants.USER_LOCK_BOX_ITEMS__HAS_BEEN_REDEEMED + "=" + "?";
+//    values.add(redeem);
+//
+//    query += " where " + DBConstants.USER_LOCK_BOX_ITEMS__USER_ID + "=?";
+//    values.add(userId);
+//    
+//    query += " and " + DBConstants.USER_LOCK_BOX_ITEMS__ITEM_ID + " in (";
+//    query += StringUtils.getListInString(questionMarks, ",") + ")";
+//    values.addAll(lockBoxItemIds);
+//    
+//    
+//    int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
+//    if (numLockBoxItems != numUpdated) {
+//      return false;
+//    }
+//    return true;
+//  }
+  
+  public boolean updateRedeemLockBoxEvent(int eventId, int userId, boolean redeem) {
+    String tableName = DBConstants.TABLE_USER_LOCK_BOX_EVENTS;
+    
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_LOCK_BOX_EVENTS__EVENT_ID, eventId);
+    conditionParams.put(DBConstants.USER_LOCK_BOX_EVENTS__USER_ID, userId);
 
-    String query = "UPDATE " + DBConstants.TABLE_USER_LOCK_BOX_ITEMS + " SET " +
-        DBConstants.USER_LOCK_BOX_ITEMS__HAS_BEEN_REDEEMED + "=" + "?";
-    values.add(redeem);
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER_LOCK_BOX_EVENTS__HAS_BEEN_REDEEMED, redeem);
 
-    query += " where " + DBConstants.USER_LOCK_BOX_ITEMS__USER_ID + "=?";
-    values.add(userId);
-    
-    query += " and " + DBConstants.USER_LOCK_BOX_ITEMS__ITEM_ID + " in (";
-    query += StringUtils.getListInString(questionMarks, ",") + ")";
-    values.addAll(lockBoxItemIds);
-    
-    
-    int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
-    if (numLockBoxItems != numUpdated) {
-      return false;
+    int numUpdated = DBConnection.get().updateTableRows(tableName, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      return true;
     }
-    return true;
+    return false;
   }
 
   //updating user_boss table

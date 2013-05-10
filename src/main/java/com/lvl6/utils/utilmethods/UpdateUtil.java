@@ -179,7 +179,8 @@ public interface UpdateUtil {
   
   public abstract boolean decrementNumLockBoxesIncrementNumTimesCompletedForUser(int eventId, int userId, int decrement, boolean completed, Timestamp curTime);
 
-  public abstract boolean updateRedeemLockBoxItems(int eventId, int userId, List<Integer> lockBoxItemIds, boolean redeem);
+  //public abstract boolean updateRedeemLockBoxItems(int eventId, int userId, List<Integer> lockBoxItemIds, boolean redeem);
+  public abstract boolean updateRedeemLockBoxEvent(int eventId, int userId, boolean redeem);
   
   public boolean decrementUserBossHealthAndMaybeIncrementNumTimesKilled(int userId, int bossId, Date startTime, int currentHealth, 
       int numTimesKilled, Date lastTimeKilled);

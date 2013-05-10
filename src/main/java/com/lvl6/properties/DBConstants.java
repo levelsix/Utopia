@@ -508,12 +508,12 @@ public class DBConstants {
   public static final String USER_LOCK_BOX_EVENTS__NUM_BOXES = "num_boxes";
   public static final String USER_LOCK_BOX_EVENTS__LAST_OPENING_TIME = "last_opening_time";
   public static final String USER_LOCK_BOX_EVENTS__NUM_TIMES_COMPLETED = "num_times_completed";
+  public static final String USER_LOCK_BOX_EVENTS__HAS_BEEN_REDEEMED = "has_been_redeemed";
 
   /*USER LOCK BOX ITEMS*/
   public static final String USER_LOCK_BOX_ITEMS__ITEM_ID = "lock_box_item_id";
   public static final String USER_LOCK_BOX_ITEMS__USER_ID = "user_id";
   public static final String USER_LOCK_BOX_ITEMS__QUANTITY = "quantity";
-  public static final String USER_LOCK_BOX_ITEMS__HAS_BEEN_REDEEMED = "has_been_redeemed";
   
   /*EQUIPMENT TABLE*/
   public static final String EQUIPMENT__EQUIP_ID = GENERIC__ID;

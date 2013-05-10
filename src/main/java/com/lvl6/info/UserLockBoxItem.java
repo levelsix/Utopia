@@ -5,15 +5,13 @@ public class UserLockBoxItem {
   private int lockBoxItemId;
   private int userId;
   private int quantity;
-  private boolean hasBeenRedeemed;
   
   public UserLockBoxItem(int lockBoxItemId, int userId,
-      int quantity, boolean hasBeenRedeemed) {
+      int quantity) {
    
     this.lockBoxItemId = lockBoxItemId;
     this.userId = userId;
     this.quantity = quantity;
-    this.hasBeenRedeemed = hasBeenRedeemed;
   }
 
   public int getLockBoxItemId() {
@@ -40,20 +38,10 @@ public class UserLockBoxItem {
     this.quantity = quantity;
   }
 
-  public boolean isHasBeenRedeemed() {
-    return hasBeenRedeemed;
-  }
-
-  public void setHasBeenRedeemed(boolean hasBeenRedeemed) {
-    this.hasBeenRedeemed = hasBeenRedeemed;
-  }
-
   @Override
   public String toString() {
     return "UserLockBoxItem [lockBoxItemId=" + lockBoxItemId + ", userId="
-        + userId + ", quantity=" + quantity + ", hasBeenRedeemed="
-        + hasBeenRedeemed + "]";
+        + userId + ", quantity=" + quantity + "]";
   }
-  
-  
+
 }

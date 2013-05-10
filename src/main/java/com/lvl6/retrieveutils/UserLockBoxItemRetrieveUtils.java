@@ -95,9 +95,8 @@ import com.lvl6.utils.DBConnection;
     int lockBoxItemId = rs.getInt(i++);
     int userId = Integer.parseInt(rs.getString(i++));
     int quantity = rs.getInt(i++);
-    boolean hasBeenRedeemed = rs.getBoolean(i++);
     
-    UserLockBoxItem ulbi = new UserLockBoxItem(lockBoxItemId, userId, quantity, hasBeenRedeemed);
+    UserLockBoxItem ulbi = new UserLockBoxItem(lockBoxItemId, userId, quantity);
     return ulbi;
   }
   
