@@ -289,6 +289,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     String gold = MiscMethods.gold;
     String key = null;
     
+    // Initialize with 0
+    boosterPackTypeToQuantity.put(silver, 0);
+    boosterPackTypeToQuantity.put(gold, 0);
+    
     for (int lockBoxItemId : lockBoxItemIdsToUserLockBoxItems.keySet()) {
       UserLockBoxItem ulbi = lockBoxItemIdsToUserLockBoxItems.get(lockBoxItemId);
       LockBoxItem lbi = lockBoxItemIdsToLockBoxItems.get(lockBoxItemId);
@@ -303,9 +307,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
       
       //running sum, need to keep track of previous amount
-      if (boosterPackTypeToQuantity.containsKey(key)) {
-        newQuantity += boosterPackTypeToQuantity.get(key);
-      }
+      newQuantity += boosterPackTypeToQuantity.get(key);
       boosterPackTypeToQuantity.put(key, newQuantity);
     }
     
