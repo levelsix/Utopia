@@ -52,6 +52,7 @@ import com.lvl6.info.UserClan;
 import com.lvl6.info.UserCritstruct;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserLockBoxEvent;
+import com.lvl6.info.UserLockBoxItem;
 import com.lvl6.info.UserQuest;
 import com.lvl6.info.UserStruct;
 import com.lvl6.info.jobs.BuildStructJob;
@@ -1011,7 +1012,9 @@ public class CreateInfoProtoUtils {
   public static LockBoxItemProto createLockBoxItemProtoFromLockBoxItem(LockBoxItem item) {
     LockBoxItemProto.Builder b = LockBoxItemProto.newBuilder().setLockBoxItemId(item.getId())
         .setLockBoxEventId(item.getLockBoxEventId()).setChanceToUnlock(item.getChanceToUnlock())
-        .setImageName(item.getImageName()).setName(item.getName()).setType(item.getClassType());
+        .setImageName(item.getImageName()).setName(item.getName()).setType(item.getClassType())
+        .setRedeemForNumBoosterItems(item.getRedeemForNumBoosterItems())
+        .setIsGoldBoosterPack(item.isGoldBoosterPack());
 
     return b.build();
   }
@@ -1024,16 +1027,23 @@ public class CreateInfoProtoUtils {
       b.setLastPickTime(event.getLastPickTime().getTime());
     }
 
-    List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(event.getLockBoxId(), type);
-    Map<Integer, Integer> userItems = UserLockBoxItemRetrieveUtils.getLockBoxItemIdsToQuantityForUser(event.getUserId());
-
-    for (LockBoxItem item : items) {
-      Integer quantity = userItems.get(item.getId());
-      if (quantity != null && quantity > 0) {
-        b.addItems(createUserLockBoxItemProto(event.getUserId(), item.getId(), quantity));
-      }
+//    List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(event.getLockBoxId(), type);
+//    Map<Integer, Integer> userItems = UserLockBoxItemRetrieveUtils.getLockBoxItemIdsToQuantityForUser(event.getUserId());
+//    for (LockBoxItem item : items) {
+//      Integer quantity = userItems.get(item.getId());
+//      if (quantity != null && quantity > 0) {
+//        b.addItems(createUserLockBoxItemProto(event.getUserId(), item.getId(), quantity));
+//      }
+//    }
+    Map<Integer, UserLockBoxItem> userItems = 
+        UserLockBoxItemRetrieveUtils.getLockBoxItemIdsToUserLockBoxItemsForUser(event.getUserId());
+    log.info("userLockBoxItems=" + userItems);
+    for(UserLockBoxItem item : userItems.values()) {
+      UserLockBoxItemProto ulbip = createUserLockBoxItemProto(item);
+      b.addItems(ulbip);
     }
-
+    
+    
     return b.build();
   }
 
@@ -1041,6 +1051,12 @@ public class CreateInfoProtoUtils {
     return UserLockBoxItemProto.newBuilder().setUserId(userId).setLockBoxItemId(lockBoxItemId)
         .setQuantity(quantity).build();
   }
+  
+  public static UserLockBoxItemProto createUserLockBoxItemProto(UserLockBoxItem ulbi) {
+    return UserLockBoxItemProto.newBuilder().setUserId(ulbi.getUserId()).setLockBoxItemId(ulbi.getLockBoxItemId())
+        .setQuantity(ulbi.getQuantity()).setHasBeenRedeemed(ulbi.isHasBeenRedeemed()).build();
+  }
+  
 
   public static GoldSaleProto createGoldSaleProtoFromGoldSale(GoldSale sale) {
     GoldSaleProto.Builder b = GoldSaleProto.newBuilder().setSaleId(sale.getId()).setStartDate(sale.getStartDate().getTime()).setEndDate(sale.getEndDate().getTime());

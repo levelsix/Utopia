@@ -209,6 +209,8 @@ message LockBoxItemProto {
 	optional string name = 4;
 	optional EquipClassType type = 5;
 	optional string imageName = 6;
+	optional int32 redeemForNumBoosterItems = 7;
+	optional bool isGoldBoosterPack = 8;
 }
 
 message UserLockBoxEventProto {
@@ -224,6 +226,7 @@ message UserLockBoxItemProto {
 	optional int32 lockBoxItemId = 1;
 	optional int32 userId = 2;
 	optional int32 quantity = 3;
+	optional bool hasBeenRedeemed = 4;
 }
 	
 enum EquipClassType {

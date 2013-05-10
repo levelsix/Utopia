@@ -3,6 +3,7 @@ package com.lvl6.retrieveutils.rarechange;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -52,6 +53,14 @@ import com.lvl6.utils.DBConnection;
     return toreturn;
   }
 
+  public static int getMaxLockBoxEventId() {
+    if (lockBoxEventIdsToLockBoxEvents == null) {
+      setStaticLockBoxEventIdsToLockBoxEvents();      
+    }
+    int maxNum = Collections.max(lockBoxEventIdsToLockBoxEvents.keySet());
+    return maxNum;
+  }
+  
   private static void setStaticLockBoxEventIdsToLockBoxEvents() {
     log.debug("setting static map of lockBoxEventIds to lockBoxEvents");
 

@@ -513,6 +513,7 @@ public class DBConstants {
   public static final String USER_LOCK_BOX_ITEMS__ITEM_ID = "lock_box_item_id";
   public static final String USER_LOCK_BOX_ITEMS__USER_ID = "user_id";
   public static final String USER_LOCK_BOX_ITEMS__QUANTITY = "quantity";
+  public static final String USER_LOCK_BOX_ITEMS__HAS_BEEN_REDEEMED = "has_been_redeemed";
   
   /*EQUIPMENT TABLE*/
   public static final String EQUIPMENT__EQUIP_ID = GENERIC__ID;

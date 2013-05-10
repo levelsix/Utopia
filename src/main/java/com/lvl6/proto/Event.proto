@@ -2684,3 +2684,23 @@ message RetrievePrivateChatPostsResponseProto {
 		FAIL = 1;
 	}	
 }
+
+//------------------------------------------------------------------------------------
+
+message RedeemUserLockBoxItemsRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 lockBoxEventId = 2;
+}
+
+message RedeemUserLockBoxItemsResponseProto {
+	optional MinimumUserProto sender = 1;
+	repeated BoosterPackProto boosterPacks = 2; 	
+	optional RedeemUserLockBoxItemsStatus status = 3;
+	
+	enum RedeemUserLockBoxItemsStatus {
+		SUCCESS = 0;
+		FAIL_ALREADY_REDEEMED = 1;
+		FAIL_INVALID_EVENT_ID = 2;
+		FAIL_OTHER = 3;
+	}
+}
