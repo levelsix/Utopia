@@ -686,18 +686,18 @@ public class MiscMethods {
     return cb.build();  
   }
 
-  public static List<LockBoxEventProto> currentLockBoxEventsForUserType(UserType type) {
+  public static List<LockBoxEventProto> currentLockBoxEvents() {
     Map<Integer, LockBoxEvent> events = LockBoxEventRetrieveUtils.getLockBoxEventIdsToLockBoxEvents();
     long curTime = new Date().getTime();
     List<LockBoxEventProto> toReturn = new ArrayList<LockBoxEventProto>();
 
     for (LockBoxEvent event : events.values()) {
       // Send all events that are not yet over
-      long delay = 60 * 60 * 24 *
+      long delay = 1000 * 60 * 60 * 24 *
           ControllerConstants.LOCK_BOXES__NUM_DAYS_AFTER_END_DATE_TO_KEEP_SENDING_PROTOS;
           
       if ((event.getEndDate().getTime() + delay) > curTime) {
-        toReturn.add(CreateInfoProtoUtils.createLockBoxEventProtoFromLockBoxEvent(event, type));
+        toReturn.add(CreateInfoProtoUtils.createLockBoxEventProtoFromLockBoxEvent(event));
       }
     }
     return toReturn;

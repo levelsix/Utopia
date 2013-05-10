@@ -42,7 +42,7 @@ import com.lvl6.utils.DBConnection;
     return lockBoxItemIdsToLockBoxItems.get(lockBoxItemId);
   }
 
-  public static List<LockBoxItem> getLockBoxItemsForLockBoxEvent(int lockBoxEventId, UserType type) {
+  public static List<LockBoxItem> getLockBoxItemsForLockBoxEvent(int lockBoxEventId) {
     log.debug("retrieve lockBoxItem data for lockBoxEvent " + lockBoxEventId);
     if (lockBoxItemIdsToLockBoxItems == null) {
       setStaticLockBoxItemIdsToLockBoxItems();      

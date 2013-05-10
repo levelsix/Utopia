@@ -175,7 +175,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private LockBoxItem chooseLockBoxItem(int lockBoxEventId, User user) {
-    List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(lockBoxEventId, user.getType());
+    List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(lockBoxEventId);
     double rand = Math.random();
 
     for (LockBoxItem item : items) {
@@ -195,7 +195,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private UserEquip checkIfUserHasAllItems(LockBoxEvent lockBoxEvent, User user) {
-    List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(lockBoxEvent.getId(), user.getType());
+    List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(lockBoxEvent.getId());
     Map<Integer, Integer> map = UserLockBoxItemRetrieveUtils.getLockBoxItemIdsToQuantityForUser(user.getId());
 
     Map<Integer, Integer> forUpdate = new TreeMap<Integer, Integer>();

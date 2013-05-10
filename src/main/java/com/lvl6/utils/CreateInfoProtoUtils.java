@@ -991,7 +991,7 @@ public class CreateInfoProtoUtils {
     return b.build();
   }
 
-  public static LockBoxEventProto createLockBoxEventProtoFromLockBoxEvent(LockBoxEvent event, UserType type) {
+  public static LockBoxEventProto createLockBoxEventProtoFromLockBoxEvent(LockBoxEvent event) {
     LockBoxEventProto.Builder b = LockBoxEventProto.newBuilder().setLockBoxEventId(event.getId())
         .setStartDate(event.getStartDate().getTime()).setEndDate(event.getEndDate().getTime())
         .setLockBoxImageName(event.getLockBoxImageName()).setEventName(event.getEventName())
@@ -1000,7 +1000,7 @@ public class CreateInfoProtoUtils {
 
     b.setPrizeEquip(createFullEquipProtoFromEquip(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(event.getPrizeEquipId())));
 
-    List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(event.getId(), type);
+    List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(event.getId());
 
     for (LockBoxItem item : items) {
       b.addItems(createLockBoxItemProtoFromLockBoxItem(item));
@@ -1027,7 +1027,7 @@ public class CreateInfoProtoUtils {
       b.setLastPickTime(event.getLastPickTime().getTime());
     }
 
-    List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(event.getLockBoxId(), type);
+    List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(event.getLockBoxId());
     //    Map<Integer, Integer> userItems = UserLockBoxItemRetrieveUtils.getLockBoxItemIdsToQuantityForUser(event.getUserId());
     //    for (LockBoxItem item : items) {
     //      Integer quantity = userItems.get(item.getId());
