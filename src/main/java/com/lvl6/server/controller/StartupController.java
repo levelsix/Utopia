@@ -204,7 +204,8 @@ public class StartupController extends EventController {
 		boolean isLogin = true;
 
 		int newNumConsecutiveDaysLoggedIn = 0;
-
+		log.error("spamspamspamspamspamspamspamspamsapmsapmsapmsapm");
+		
 		if (updateStatus != UpdateStatus.MAJOR_UPDATE) {
 			user = RetrieveUtils.userRetrieveUtils().getUserByUDID(udid);
 			if (user != null) {
