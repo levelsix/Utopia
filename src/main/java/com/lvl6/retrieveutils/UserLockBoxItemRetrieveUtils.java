@@ -23,7 +23,7 @@ import com.lvl6.utils.DBConnection;
   public static Map<Integer, Integer> getLockBoxItemIdsToQuantityForUser(int userId) {
     log.debug("retrieving lock box item ids to num lock boxes map for userId " + userId);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     Map<Integer, Integer> lockBoxItemIdsToNumLockBoxes = convertRSToLockBoxItemIdsToNumLockBoxesMap(rs);
     DBConnection.get().close(rs, null, conn);

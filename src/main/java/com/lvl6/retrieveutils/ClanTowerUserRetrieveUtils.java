@@ -26,7 +26,7 @@ import com.lvl6.utils.DBConnection;
     TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();
     absoluteParams.put(DBConstants.CLAN_TOWER_USERS__BATTLE_ID, battleId);
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, absoluteParams, TABLE_NAME);
     List<ClanTowerUser> clanTowerUserList = convertRSToClanTowerUserList(rs);
     DBConnection.get().close(rs, null, conn);

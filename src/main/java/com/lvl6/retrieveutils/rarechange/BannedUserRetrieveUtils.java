@@ -33,7 +33,7 @@ import com.lvl6.utils.DBConnection;
   private static void setStaticBannedUsers() {
     log.debug("setting static set of banned users");
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);

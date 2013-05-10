@@ -26,33 +26,33 @@ import com.lvl6.utils.utilmethods.StringUtils;
   private final String TABLE_NAME = DBConstants.TABLE_USER_EQUIP;
 
 
-  //@Cacheable(value="userEquipsForUser", key="#userId")
+  ////@Cacheable(value="userEquipsForUser", key="#userId")
   public List<UserEquip> getUserEquipsForUser(int userId) {
     log.debug("retrieving user equips for userId " + userId);
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     List<UserEquip> userEquips = convertRSToUserEquips(rs);
     DBConnection.get().close(rs, null, conn);
     return userEquips;
   }
 
-  //@Cacheable(value="equipsToUserEquipsForUser", key="#userId")
+  ////@Cacheable(value="equipsToUserEquipsForUser", key="#userId")
   public Map<Integer, List<UserEquip>> getEquipIdsToUserEquipsForUser(int userId) {
     log.debug("retrieving map of equip id to userequips for userId " + userId);
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     Map<Integer, List<UserEquip>> equipIdsToUserEquips = convertRSToEquipIdsToUserEquips(rs);
     DBConnection.get().close(rs, null, conn);
     return equipIdsToUserEquips;
   }
 
-  //@Cacheable(value="specificUserEquip", key="#userEquipId")
+  ////@Cacheable(value="specificUserEquip", key="#userEquipId")
   public UserEquip getSpecificUserEquip(int userEquipId) {
     log.debug("retrieving user equip for userEquipId: " + userEquipId);
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsById(conn, userEquipId, TABLE_NAME);
     UserEquip userEquip = convertRSSingleToUserEquips(rs);
     DBConnection.get().close(rs, null, conn);
@@ -75,14 +75,14 @@ import com.lvl6.utils.utilmethods.StringUtils;
     }
     query += StringUtils.getListInString(condClauses, "or") + ")";
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
     List<UserEquip> userEquips = convertRSToUserEquips(rs);
     DBConnection.get().close(rs, null, conn);
     return userEquips;
   }
 
-  //@Cacheable(value="userEquipsWithEquipId", key="#userId+':'+#equipId")
+  ////@Cacheable(value="userEquipsWithEquipId", key="#userId+':'+#equipId")
   public List<UserEquip> getUserEquipsWithEquipId(int userId, int equipId) {
     log.debug("retrieving user equip for user: " + userId + ", equipId: " + equipId);
 
@@ -90,7 +90,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
     List<UserEquip> userEquips = convertRSToUserEquips(rs);
     DBConnection.get().close(rs, null, conn);
