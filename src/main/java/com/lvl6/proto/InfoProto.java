@@ -17860,6 +17860,10 @@ public final class InfoProto {
         getItemsOrBuilderList();
     com.lvl6.proto.InfoProto.UserLockBoxItemProtoOrBuilder getItemsOrBuilder(
         int index);
+    
+    // optional bool hasBeenRedeemed = 7;
+    boolean hasHasBeenRedeemed();
+    boolean getHasBeenRedeemed();
   }
   public static final class UserLockBoxEventProto extends
       com.google.protobuf.GeneratedMessage
@@ -17961,6 +17965,16 @@ public final class InfoProto {
       return items_.get(index);
     }
     
+    // optional bool hasBeenRedeemed = 7;
+    public static final int HASBEENREDEEMED_FIELD_NUMBER = 7;
+    private boolean hasBeenRedeemed_;
+    public boolean hasHasBeenRedeemed() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    public boolean getHasBeenRedeemed() {
+      return hasBeenRedeemed_;
+    }
+    
     private void initFields() {
       lockBoxEventId_ = 0;
       userId_ = 0;
@@ -17968,6 +17982,7 @@ public final class InfoProto {
       numTimesCompleted_ = 0;
       lastPickTime_ = 0L;
       items_ = java.util.Collections.emptyList();
+      hasBeenRedeemed_ = false;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -17998,6 +18013,9 @@ public final class InfoProto {
       }
       for (int i = 0; i < items_.size(); i++) {
         output.writeMessage(6, items_.get(i));
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeBool(7, hasBeenRedeemed_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -18031,6 +18049,10 @@ public final class InfoProto {
       for (int i = 0; i < items_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(6, items_.get(i));
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(7, hasBeenRedeemed_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -18173,6 +18195,8 @@ public final class InfoProto {
         } else {
           itemsBuilder_.clear();
         }
+        hasBeenRedeemed_ = false;
+        bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
       
@@ -18240,6 +18264,10 @@ public final class InfoProto {
         } else {
           result.items_ = itemsBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.hasBeenRedeemed_ = hasBeenRedeemed_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -18296,6 +18324,9 @@ public final class InfoProto {
               itemsBuilder_.addAllMessages(other.items_);
             }
           }
+        }
+        if (other.hasHasBeenRedeemed()) {
+          setHasBeenRedeemed(other.getHasBeenRedeemed());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -18357,6 +18388,11 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.UserLockBoxItemProto.Builder subBuilder = com.lvl6.proto.InfoProto.UserLockBoxItemProto.newBuilder();
               input.readMessage(subBuilder, extensionRegistry);
               addItems(subBuilder.buildPartial());
+              break;
+            }
+            case 56: {
+              bitField0_ |= 0x00000040;
+              hasBeenRedeemed_ = input.readBool();
               break;
             }
           }
@@ -18656,6 +18692,27 @@ public final class InfoProto {
         return itemsBuilder_;
       }
       
+      // optional bool hasBeenRedeemed = 7;
+      private boolean hasBeenRedeemed_ ;
+      public boolean hasHasBeenRedeemed() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      public boolean getHasBeenRedeemed() {
+        return hasBeenRedeemed_;
+      }
+      public Builder setHasBeenRedeemed(boolean value) {
+        bitField0_ |= 0x00000040;
+        hasBeenRedeemed_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearHasBeenRedeemed() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        hasBeenRedeemed_ = false;
+        onChanged();
+        return this;
+      }
+      
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.UserLockBoxEventProto)
     }
     
@@ -18681,10 +18738,6 @@ public final class InfoProto {
     // optional int32 quantity = 3;
     boolean hasQuantity();
     int getQuantity();
-    
-    // optional bool hasBeenRedeemed = 4;
-    boolean hasHasBeenRedeemed();
-    boolean getHasBeenRedeemed();
   }
   public static final class UserLockBoxItemProto extends
       com.google.protobuf.GeneratedMessage
@@ -18745,21 +18798,10 @@ public final class InfoProto {
       return quantity_;
     }
     
-    // optional bool hasBeenRedeemed = 4;
-    public static final int HASBEENREDEEMED_FIELD_NUMBER = 4;
-    private boolean hasBeenRedeemed_;
-    public boolean hasHasBeenRedeemed() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
-    public boolean getHasBeenRedeemed() {
-      return hasBeenRedeemed_;
-    }
-    
     private void initFields() {
       lockBoxItemId_ = 0;
       userId_ = 0;
       quantity_ = 0;
-      hasBeenRedeemed_ = false;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -18782,9 +18824,6 @@ public final class InfoProto {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeInt32(3, quantity_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeBool(4, hasBeenRedeemed_);
-      }
       getUnknownFields().writeTo(output);
     }
     
@@ -18805,10 +18844,6 @@ public final class InfoProto {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, quantity_);
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(4, hasBeenRedeemed_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -18940,8 +18975,6 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000002);
         quantity_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
-        hasBeenRedeemed_ = false;
-        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
       
@@ -18992,10 +19025,6 @@ public final class InfoProto {
           to_bitField0_ |= 0x00000004;
         }
         result.quantity_ = quantity_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000008;
-        }
-        result.hasBeenRedeemed_ = hasBeenRedeemed_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -19020,9 +19049,6 @@ public final class InfoProto {
         }
         if (other.hasQuantity()) {
           setQuantity(other.getQuantity());
-        }
-        if (other.hasHasBeenRedeemed()) {
-          setHasBeenRedeemed(other.getHasBeenRedeemed());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -19068,11 +19094,6 @@ public final class InfoProto {
             case 24: {
               bitField0_ |= 0x00000004;
               quantity_ = input.readInt32();
-              break;
-            }
-            case 32: {
-              bitField0_ |= 0x00000008;
-              hasBeenRedeemed_ = input.readBool();
               break;
             }
           }
@@ -19140,27 +19161,6 @@ public final class InfoProto {
       public Builder clearQuantity() {
         bitField0_ = (bitField0_ & ~0x00000004);
         quantity_ = 0;
-        onChanged();
-        return this;
-      }
-      
-      // optional bool hasBeenRedeemed = 4;
-      private boolean hasBeenRedeemed_ ;
-      public boolean hasHasBeenRedeemed() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
-      }
-      public boolean getHasBeenRedeemed() {
-        return hasBeenRedeemed_;
-      }
-      public Builder setHasBeenRedeemed(boolean value) {
-        bitField0_ |= 0x00000008;
-        hasBeenRedeemed_ = value;
-        onChanged();
-        return this;
-      }
-      public Builder clearHasBeenRedeemed() {
-        bitField0_ = (bitField0_ & ~0x00000008);
-        hasBeenRedeemed_ = false;
         onChanged();
         return this;
       }
@@ -56797,14 +56797,14 @@ public final class InfoProto {
       "\022,\n\004type\030\005 \001(\0162\036.com.lvl6.proto.EquipCla",
       "ssType\022\021\n\timageName\030\006 \001(\t\022 \n\030redeemForNu" +
       "mBoosterItems\030\007 \001(\005\022\031\n\021isGoldBoosterPack" +
-      "\030\010 \001(\010\"\273\001\n\025UserLockBoxEventProto\022\026\n\016lock" +
+      "\030\010 \001(\010\"\324\001\n\025UserLockBoxEventProto\022\026\n\016lock" +
       "BoxEventId\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\022\024\n\014numL" +
       "ockBoxes\030\003 \001(\005\022\031\n\021numTimesCompleted\030\004 \001(" +
       "\005\022\024\n\014lastPickTime\030\005 \001(\003\0223\n\005items\030\006 \003(\0132$" +
-      ".com.lvl6.proto.UserLockBoxItemProto\"h\n\024" +
-      "UserLockBoxItemProto\022\025\n\rlockBoxItemId\030\001 " +
-      "\001(\005\022\016\n\006userId\030\002 \001(\005\022\020\n\010quantity\030\003 \001(\005\022\027\n" +
-      "\017hasBeenRedeemed\030\004 \001(\010\"\353\001\n\rFullBossProto",
+      ".com.lvl6.proto.UserLockBoxItemProto\022\027\n\017" +
+      "hasBeenRedeemed\030\007 \001(\010\"O\n\024UserLockBoxItem" +
+      "Proto\022\025\n\rlockBoxItemId\030\001 \001(\005\022\016\n\006userId\030\002" +
+      " \001(\005\022\020\n\010quantity\030\003 \001(\005\"\353\001\n\rFullBossProto",
       "\022\016\n\006bossId\030\001 \001(\005\022\022\n\nbaseHealth\030\002 \001(\005\022\021\n\t" +
       "minDamage\030\003 \001(\005\022\021\n\tmaxDamage\030\004 \001(\005\022\025\n\rmi" +
       "nutesToKill\030\005 \001(\005\022\030\n\020minutesToRespawn\030\006 " +
@@ -57278,7 +57278,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_UserLockBoxEventProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_UserLockBoxEventProto_descriptor,
-              new java.lang.String[] { "LockBoxEventId", "UserId", "NumLockBoxes", "NumTimesCompleted", "LastPickTime", "Items", },
+              new java.lang.String[] { "LockBoxEventId", "UserId", "NumLockBoxes", "NumTimesCompleted", "LastPickTime", "Items", "HasBeenRedeemed", },
               com.lvl6.proto.InfoProto.UserLockBoxEventProto.class,
               com.lvl6.proto.InfoProto.UserLockBoxEventProto.Builder.class);
           internal_static_com_lvl6_proto_UserLockBoxItemProto_descriptor =
@@ -57286,7 +57286,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_UserLockBoxItemProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_UserLockBoxItemProto_descriptor,
-              new java.lang.String[] { "LockBoxItemId", "UserId", "Quantity", "HasBeenRedeemed", },
+              new java.lang.String[] { "LockBoxItemId", "UserId", "Quantity", },
               com.lvl6.proto.InfoProto.UserLockBoxItemProto.class,
               com.lvl6.proto.InfoProto.UserLockBoxItemProto.Builder.class);
           internal_static_com_lvl6_proto_FullBossProto_descriptor =
