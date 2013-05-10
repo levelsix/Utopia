@@ -808,14 +808,15 @@ public class UpdateUtils implements UpdateUtil {
     return true;
   }
   
-  public boolean updateRedeemLockBoxItems(int eventId, int userId, List<Integer> lockBoxItemIds) {
+  public boolean updateRedeemLockBoxItems(int eventId, int userId, List<Integer> lockBoxItemIds,
+      boolean redeem) {
     int numLockBoxItems = lockBoxItemIds.size();
     List<Object> values = new ArrayList<Object>();
     List<String> questionMarks = Collections.nCopies(numLockBoxItems, "?");
 
     String query = "UPDATE " + DBConstants.TABLE_USER_LOCK_BOX_ITEMS + " SET " +
         DBConstants.USER_LOCK_BOX_ITEMS__HAS_BEEN_REDEEMED + "=" + "?";
-    values.add(true);
+    values.add(redeem);
 
     query += " where " + DBConstants.USER_LOCK_BOX_ITEMS__USER_ID + "=?";
     values.add(userId);
