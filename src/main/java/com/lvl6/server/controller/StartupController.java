@@ -226,6 +226,7 @@ public class StartupController extends EventController {
 					setUnhandledForgeAttempts(resBuilder, user);
 					setNoticesToPlayers(resBuilder, user);
 					setUserClanInfos(resBuilder, user);
+					log.error("setting lockbox stuff");
 					setLockBoxEvents(resBuilder, user);
 					setMarketplaceSearchEquips(resBuilder);
 					setStaticEquipsAndStructs(resBuilder);
@@ -630,7 +631,9 @@ public class StartupController extends EventController {
 		resBuilder.addAllLockBoxEvents(MiscMethods.currentLockBoxEventsForUserType(user.getType()));
 		Map<Integer, UserLockBoxEvent> map = UserLockBoxEventRetrieveUtils
 				.getLockBoxEventIdsToLockBoxEventsForUser(user.getId());
+		log.error("userLockEventIdsToLockBoxEvents=" + map);
 		for (LockBoxEventProto p : resBuilder.getLockBoxEventsList()) {
+		  log.error("lockboxeventproto="+p);
 			UserLockBoxEvent e = map.get(p.getLockBoxEventId());
 			if (e != null) {
 				resBuilder.addUserLockBoxEvents(CreateInfoProtoUtils.createUserLockBoxEventProto(e,
