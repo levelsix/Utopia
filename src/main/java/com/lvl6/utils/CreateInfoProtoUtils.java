@@ -1037,7 +1037,6 @@ public class CreateInfoProtoUtils {
 //    }
     Map<Integer, UserLockBoxItem> userItems = 
         UserLockBoxItemRetrieveUtils.getLockBoxItemIdsToUserLockBoxItemsForUser(event.getUserId());
-    log.info("userLockBoxItems=" + userItems);
     for(UserLockBoxItem item : userItems.values()) {
       UserLockBoxItemProto ulbip = createUserLockBoxItemProto(item);
       b.addItems(ulbip);
