@@ -1027,7 +1027,7 @@ public class CreateInfoProtoUtils {
       b.setLastPickTime(event.getLastPickTime().getTime());
     }
 
-    //    List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(event.getLockBoxId(), type);
+    List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(event.getLockBoxId(), type);
     //    Map<Integer, Integer> userItems = UserLockBoxItemRetrieveUtils.getLockBoxItemIdsToQuantityForUser(event.getUserId());
     //    for (LockBoxItem item : items) {
     //      Integer quantity = userItems.get(item.getId());
@@ -1037,10 +1037,16 @@ public class CreateInfoProtoUtils {
     //    }
     Map<Integer, UserLockBoxItem> userItems = 
         UserLockBoxItemRetrieveUtils.getLockBoxItemIdsToUserLockBoxItemsForUser(event.getUserId());
+    
     if (userItems != null && userItems.size() > 0) {
-      for(UserLockBoxItem item : userItems.values()) {
-        UserLockBoxItemProto ulbip = createUserLockBoxItemProto(item);
-        b.addItems(ulbip);
+      for(LockBoxItem item : items) {
+        int itemId = item.getId();
+        //check user for corresponding item and proto it
+        if (userItems.containsKey(itemId)) {
+          UserLockBoxItem ulbi = userItems.get(itemId);
+          UserLockBoxItemProto ulbip = createUserLockBoxItemProto(ulbi);
+          b.addItems(ulbip);
+        }
       }
     }
 
