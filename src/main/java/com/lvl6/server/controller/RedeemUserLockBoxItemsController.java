@@ -209,6 +209,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       DeleteUtils.get().deleteUserEquips(userEquipIds);
       return false;
     } else {
+      b.addAllEquips(userEquipList);
       return true;
     }
     
