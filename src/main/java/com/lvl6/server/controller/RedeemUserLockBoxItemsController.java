@@ -252,7 +252,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     Map<Integer, BoosterPack> nonStarterPacks = new HashMap<Integer, BoosterPack>();
     
     for(int boosterPackId : boosterPackIdsToBoosterPacks.keySet()) {
-      BoosterPack bp = boosterPackIdsToBoosterPacks.get(boosterPackIdsToBoosterPacks);
+      BoosterPack bp = boosterPackIdsToBoosterPacks.get(boosterPackId);
       if (bp.isStarterPack()) {
         continue;
       }
