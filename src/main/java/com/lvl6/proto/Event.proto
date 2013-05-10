@@ -2695,7 +2695,7 @@ message RedeemUserLockBoxItemsRequestProto {
 
 message RedeemUserLockBoxItemsResponseProto {
 	optional MinimumUserProto sender = 1;
-	repeated BoosterPackProto boosterPacks = 2; 	
+	repeated FullUserEquipProto equips = 2; 	
 	optional RedeemUserLockBoxItemsStatus status = 3;
 	
 	enum RedeemUserLockBoxItemsStatus {
