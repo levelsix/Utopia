@@ -1673,6 +1673,26 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     return returnValue;
   }
   
+  public static Map<Integer, Integer> getRandomValues(List<Integer> domain, int quantity) {
+    Map<Integer, Integer> domainValuesToQuantities = new HashMap<Integer, Integer>();
+    int upperBound = domain.size();
+    Random rand = new Random();
+    
+    for (int i = 0; i < quantity; i++) {
+      int quantitySoFar = 0;
+      
+      int randIndex = rand.nextInt(upperBound);
+      int domainValue = domain.get(randIndex);
+      //running sum
+      if (domainValuesToQuantities.containsKey(domainValue)) {
+        quantitySoFar += domainValuesToQuantities.get(domainValue);
+      }
+      quantitySoFar++;
+      domainValuesToQuantities.put(domainValue, quantitySoFar);
+    }
+    return domainValuesToQuantities;
+  }
+  
   /*cut out from purchase booster pack controller*/
   //Returns all the booster items the user purchased and whether or not the use reset the chesst.
   //If the user buys out deck start over from a fresh deck 
