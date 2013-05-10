@@ -451,6 +451,7 @@ message StartupResponseProto {
 			optional float freeChanceToPickLockBox = 5;
 			optional int32 numMinutesToRepickLockBox = 6;
 			optional int32 goldCostToResetPickLockBox = 7;
+			optional int32 numDaysToShowAfterEventEnded = 8;
 		}
 		
 		message GoldmineConstants {
