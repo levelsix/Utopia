@@ -71,7 +71,7 @@ import com.lvl6.utils.DBConnection;
   }
   
   private static Map<Integer, UserLockBoxItem> convertRSToLockBoxItemIdsToUserLockBoxItemsMap(ResultSet rs) {
-    if (null != null) {
+    if (null != rs) {
       try {
         rs.last();
         rs.beforeFirst();
