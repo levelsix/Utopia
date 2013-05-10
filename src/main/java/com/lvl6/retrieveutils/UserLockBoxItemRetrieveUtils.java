@@ -42,6 +42,9 @@ import com.lvl6.utils.DBConnection;
     Map<Integer, UserLockBoxItem> lockBoxItemIdsToUserLockBoxItems =
         convertRSToLockBoxItemIdsToUserLockBoxItemsMap(rs);
     DBConnection.get().close(rs, null, conn);
+    
+    log.error("lockBoxItemIdsToUserLockBoxItems=" + lockBoxItemIdsToUserLockBoxItems);
+    
     return lockBoxItemIdsToUserLockBoxItems;
   }
   
