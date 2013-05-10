@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -81,11 +82,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       //get lock box items for corresponding lock box event
       Map<Integer, LockBoxItem> lockBoxItemIdsToLockBoxItems =
           LockBoxItemRetrieveUtils.getLockBoxIdToLockBoxItemsMapForLockBoxEvent(lockBoxEventId);
+      Collection<Integer> lockBoxItemIds = null;
+      if (null != lockBoxItemIdsToLockBoxItems && !lockBoxItemIdsToLockBoxItems.isEmpty()){
+        lockBoxItemIds = lockBoxItemIdsToLockBoxItems.keySet();
+      }
+      
       //get user lock box event
       UserLockBoxEvent ulbe = UserLockBoxEventRetrieveUtils.getUserLockBoxEventForUserAndEventId(userId, lockBoxEventId);
       //get user lock box items
-      Map<Integer, UserLockBoxItem> lockBoxItemIdsToUserLockBoxItems =
-          UserLockBoxItemRetrieveUtils.getLockBoxItemIdsToUserLockBoxItemsForUser(userId);
+      Map<Integer, UserLockBoxItem> lockBoxItemIdsToUserLockBoxItems = UserLockBoxItemRetrieveUtils
+          .getLockBoxItemIdsToUserLockBoxItemsForUser(userId, lockBoxItemIds);
       
       boolean legitWaitComplete = checkLegitWaitComplete(resBuilder, user, lockBoxEventId,
           lockBoxItemIdsToLockBoxItems, ulbe);
@@ -145,7 +151,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 //        lockBoxItemIdsToUserLockBoxItems);
     if (ulbe.isHasBeenRedeemed()) {
       resBuilder.setStatus(RedeemUserLockBoxItemsStatus.FAIL_ALREADY_REDEEMED);
-      log.error("userLockBoxEvent=" + ulbe);
+      log.error("unexpected error: userLockBoxEvent=" + ulbe);
       return false;      
     }
     resBuilder.setStatus(RedeemUserLockBoxItemsStatus.SUCCESS);

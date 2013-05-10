@@ -3,7 +3,11 @@ package com.lvl6.retrieveutils;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -14,6 +18,7 @@ import org.springframework.stereotype.Component;
 import com.lvl6.info.UserLockBoxItem;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
+import com.lvl6.utils.utilmethods.StringUtils;
 
 /*NO UserTask needed because you can just return a map- only two non-user fields*/
 @Component @DependsOn("gameServer") public class UserLockBoxItemRetrieveUtils {
@@ -33,18 +38,36 @@ import com.lvl6.utils.DBConnection;
     return lockBoxItemIdsToNumLockBoxes;
   }
   
-  public static Map<Integer, UserLockBoxItem> getLockBoxItemIdsToUserLockBoxItemsForUser(int userId) {
-    log.debug("retrieving lock box item ids to user lock boxes map for userId");
-    //TODO:
-    //SHOULD JUST GET THE 5 CORRESPONDING TO THE LATEST LOCK BOX EVENT
+  public static Map<Integer, UserLockBoxItem> getLockBoxItemIdsToUserLockBoxItemsForUser(int userId,
+      Collection<Integer> lockBoxItemIds) {
+    log.debug("retrieving lock box item ids to user lock boxes map for userId " + userId);
+
     Connection conn = DBConnection.get().getReadOnlyConnection();
-    ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
-    Map<Integer, UserLockBoxItem> lockBoxItemIdsToUserLockBoxItems =
-        convertRSToLockBoxItemIdsToUserLockBoxItemsMap(rs);
-    DBConnection.get().close(rs, null, conn);
+    ResultSet rs = null;
+    Map<Integer, UserLockBoxItem> lockBoxItemIdsToUserLockBoxItems = null;
     
+    if (null == lockBoxItemIds || lockBoxItemIds.isEmpty()) {
+      rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
+    } else {
+      List<Object> values = new ArrayList<Object>();
+      String query = "SELECT * FROM " + TABLE_NAME + " WHERE " +
+          DBConstants.USER_LOCK_BOX_ITEMS__USER_ID + "=?";
+      values.add(userId);
+      query += " AND " + DBConstants.USER_LOCK_BOX_ITEMS__ITEM_ID + " in (";
+      
+      int amount = lockBoxItemIds.size();
+      List<String> questionMarks = Collections.nCopies(amount, "?");
+      query += StringUtils.getListInString(questionMarks, ",") + ")";
+          
+      values.addAll(lockBoxItemIds);
+      rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
+      
+    }
+    lockBoxItemIdsToUserLockBoxItems =
+        convertRSToLockBoxItemIdsToUserLockBoxItemsMap(rs);
     log.error("lockBoxItemIdsToUserLockBoxItems=" + lockBoxItemIdsToUserLockBoxItems);
     
+    DBConnection.get().close(rs, null, conn);
     return lockBoxItemIdsToUserLockBoxItems;
   }
   

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -1029,15 +1030,14 @@ public class CreateInfoProtoUtils {
     }
 
     List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(event.getLockBoxId());
-    //    Map<Integer, Integer> userItems = UserLockBoxItemRetrieveUtils.getLockBoxItemIdsToQuantityForUser(event.getUserId());
-    //    for (LockBoxItem item : items) {
-    //      Integer quantity = userItems.get(item.getId());
-    //      if (quantity != null && quantity > 0) {
-    //        b.addItems(createUserLockBoxItemProto(event.getUserId(), item.getId(), quantity));
-    //      }
-    //    }
-    Map<Integer, UserLockBoxItem> userItems = 
-        UserLockBoxItemRetrieveUtils.getLockBoxItemIdsToUserLockBoxItemsForUser(event.getUserId());
+    Collection<Integer> lockBoxItemIds = new HashSet<Integer>();
+    for (LockBoxItem item : items) {
+      int itemId = item.getId();
+      lockBoxItemIds.add(itemId);
+    }
+    int userId = event.getUserId();
+    Map<Integer, UserLockBoxItem> userItems = UserLockBoxItemRetrieveUtils
+        .getLockBoxItemIdsToUserLockBoxItemsForUser(userId, lockBoxItemIds);
     
     if (userItems != null && userItems.size() > 0) {
       for(LockBoxItem item : items) {
