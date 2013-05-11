@@ -943,8 +943,10 @@ public class StartupController extends EventController {
 			boolean successful = writeBoosterStuffToDB(aUser, boosterItemIdsToNumCollected,
 					newBoosterItemIdsToNumCollected, itemsUserReceives, collectedBeforeReset, resetOccurred);
 			if (successful) {
+			  //exclude from daily limit check in PurchaseBoosterPackController
+			  boolean excludeFromLimitCheck = true;
 				MiscMethods.writeToUserBoosterPackHistoryOneUser(userId, boosterPackId,
-						numBoosterItemsUserWants, now, itemsUserReceives);
+						numBoosterItemsUserWants, now, itemsUserReceives, excludeFromLimitCheck);
 				equipId = getEquipId(numBoosterItemsUserWants, itemsUserReceives);
 			}
 

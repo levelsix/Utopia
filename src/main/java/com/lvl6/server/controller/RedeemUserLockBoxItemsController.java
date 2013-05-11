@@ -408,8 +408,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           newBoosterItemIdsToNumCollected, itemsUserReceives, collectedBeforeReset,
           resetOccurred, newUserEquipIds);
       if (successful) {
+        
+        //this one won't count towards the daily limit
+        boolean excludeFromLimitCheck = true;
+        
         MiscMethods.writeToUserBoosterPackHistoryOneUser(userId, boosterPackId,
-            numBoosterItemsUserWants, now, itemsUserReceives);
+            numBoosterItemsUserWants, now, itemsUserReceives, excludeFromLimitCheck);
       } else {
         return null;
       }
