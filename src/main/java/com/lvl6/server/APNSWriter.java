@@ -16,10 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.lvl6.events.GameEvent;
 import com.lvl6.events.NormalResponseEvent;
 import com.lvl6.events.ResponseEvent;
+import com.lvl6.events.request.PrivateChatPostRequestEvent;
 import com.lvl6.events.response.BattleResponseEvent;
 import com.lvl6.events.response.GeneralNotificationResponseEvent;
 import com.lvl6.events.response.PostOnClanBulletinResponseEvent;
 import com.lvl6.events.response.PostOnPlayerWallResponseEvent;
+import com.lvl6.events.response.PrivateChatPostResponseEvent;
 import com.lvl6.events.response.PurchaseFromMarketplaceResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.info.UserClan;
@@ -29,12 +31,14 @@ import com.lvl6.proto.EventProto.BattleResponseProto;
 import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.EventProto.PostOnClanBulletinResponseProto;
 import com.lvl6.proto.EventProto.PostOnPlayerWallResponseProto;
+import com.lvl6.proto.EventProto.PrivateChatPostResponseProto;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto;
 import com.lvl6.proto.InfoProto.BattleResult;
 import com.lvl6.proto.InfoProto.ClanBulletinPostProto;
 import com.lvl6.proto.InfoProto.MinimumClanProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.PlayerWallPostProto;
+import com.lvl6.proto.InfoProto.PrivateChatPostProto;
 import com.lvl6.retrieveutils.UserClanRetrieveUtils;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.RetrieveUtils;
@@ -162,6 +166,11 @@ public class APNSWriter extends Wrap {
 						if (PostOnPlayerWallResponseEvent.class.isInstance(event)) {
 							handlePostOnPlayerWallNotification(service,
 									(PostOnPlayerWallResponseEvent) event, user, user.getDeviceToken());
+						}
+						
+						if (PrivateChatPostResponseEvent.class.isInstance(event)) {
+						  handlePrivateChatPostNotification(service,
+						      (PrivateChatPostResponseEvent) event, user, user.getDeviceToken());
 						}
 						
 						if (GeneralNotificationResponseEvent.class.isInstance(event)) {
@@ -345,6 +354,36 @@ public class APNSWriter extends Wrap {
 			sendApnsNotificationToPlayer(e, uc.getUserId());
 		}
 	}
+	
+	 private void handlePrivateChatPostNotification(ApnsService service,
+	     PrivateChatPostResponseEvent event, User user, String token) {
+	    if (user.getNumBadges() < SOFT_MAX_NOTIFICATION_BADGES) {
+	      PayloadBuilder pb = APNS.newPayload().actionKey("View").badge(1);
+	      log.info("PrivateChatPostNotification for user: " + user.getId());
+	      PrivateChatPostResponseProto resProto = event.getPrivateChatPostResponseProto();
+	      PrivateChatPostProto post = resProto.getPost();
+
+	      String content = post.getContent();
+	      if (content.length() > MAX_NUM_CHARACTERS_TO_SEND_FOR_WALL_POST) {
+	        content = content.substring(0, MAX_NUM_CHARACTERS_TO_SEND_FOR_WALL_POST);
+	        int index = content.lastIndexOf(" ");
+	        if (index > 0) {
+	          content = content.substring(0, index);
+	          content += "...";
+	        }
+	      }
+	      String clan = post.getPoster().getClan().getClanId() > 0 ? "[" + post.getPoster().getClan().getTag() + "] " : "";
+	      pb.alertBody(clan + post.getPoster().getName()
+	          + " sent a private message: " + content);
+
+	      if (!pb.isTooLong()) {
+	        log.info("Pushing apns message");
+	        service.push(token, pb.build());
+	      } else {
+	        log.error("PlayloadBuilder isTooLong to send apns message");
+	      }
+	    }
+	  }
 	
 	private void handlePostOnPlayerWallNotification(ApnsService service, PostOnPlayerWallResponseEvent event,
 			User user, String token) {
