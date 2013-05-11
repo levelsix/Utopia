@@ -366,7 +366,7 @@ message StartupResponseProto {
 		optional string faqFileName = 104;
 		optional string prestigeFaqFileName = 105;
 		
-		optional int32 adminChatUserId = 106;
+		optional MinimumUserProto adminChatUserProto = 106;
 		
 		message PrestigeConstants {
 			optional int32 minLevelForPrestige = 1;
