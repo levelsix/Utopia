@@ -90,6 +90,7 @@ import com.lvl6.proto.InfoProto.GoldSaleProto;
 import com.lvl6.proto.InfoProto.InAppPurchasePackageProto;
 import com.lvl6.proto.InfoProto.LeaderboardEventProto;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
+import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
@@ -681,7 +682,10 @@ public class MiscMethods {
     cb.setFaqFileName(ControllerConstants.STARTUP__FAQ_FILE_NAME);
     cb.setPrestigeFaqFileName(ControllerConstants.STARTUP__PRESTIGE_FAQ_FILE_NAME);
     
-    cb.setAdminChatUserId(ControllerConstants.STARTUP__ADMIN_CHAT_USER_ID);
+    User adminChatUser = RetrieveUtils.userRetrieveUtils()
+        .getUserById(ControllerConstants.STARTUP__ADMIN_CHAT_USER_ID);
+    MinimumUserProto adminChatUserProto = CreateInfoProtoUtils.createMinimumUserProtoFromUser(adminChatUser);
+    cb.setAdminChatUserProto(adminChatUserProto);
     
     return cb.build();  
   }
