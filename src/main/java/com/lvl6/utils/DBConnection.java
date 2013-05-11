@@ -147,6 +147,12 @@ public class DBConnection {
 		return selectRows(conn, null, absoluteConditionParams, null, null, null, tablename, "and", null,
 				false, SELECT_LIMIT_NOT_SET, false);
 	}
+	
+	public ResultSet selectRowsAbsoluteAndLimit(Connection conn, Map<String, Object> absoluteConditionParams,
+      String tablename, int limit) {
+    return selectRows(conn, null, absoluteConditionParams, null, null, null, tablename, "and", null,
+        false, limit, false);
+  }
 
 	public ResultSet selectRowsAbsoluteAndOrderbydesc(Connection conn,
 			Map<String, Object> absoluteConditionParams, String tablename, String orderByColumn) {

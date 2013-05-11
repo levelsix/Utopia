@@ -15,6 +15,7 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import com.lvl6.info.UserClan;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.utils.DBConnection;
@@ -70,7 +71,16 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_CLANS__CLAN_ID, clanId);
 
     Connection conn = DBConnection.get().getReadOnlyConnection();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    ResultSet rs = null;
+    if (ControllerConstants.CLAN__ALLIANCE_CLAN_ID_THAT_IS_EXCEPTION_TO_LIMIT == clanId ||
+        ControllerConstants.CLAN__LEGION_CLAN_ID_THAT_IS_EXCEPTION_TO_LIMIT == clanId) {
+      //some clans will have a shit ton of people.
+      //Getting 1k+ users generates buffer overflow exception
+      rs = DBConnection.get().selectRowsAbsoluteAndLimit(conn, paramsToVals, TABLE_NAME,
+          ControllerConstants.CLAN__ALLIANCE_LEGION_LIMIT_TO_RETRIEVE_FROM_DB);
+    } else {
+      rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    }
     List<UserClan> userClans = grabUserClansFromRS(rs);
     DBConnection.get().close(rs, null, conn);
     return userClans;
