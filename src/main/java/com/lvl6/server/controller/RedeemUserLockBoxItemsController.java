@@ -198,7 +198,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         user, lockBoxItemIdsToLockBoxItems, lockBoxItemIdsToUserLockBoxItems,
         boosterPackIdToBoosterPacks);
     
-    log.error("boosterPackIdsToQuantities=" + boosterPackIdsToQuantities);
+    //log.error("boosterPackIdsToQuantities=" + boosterPackIdsToQuantities);
     
     int numEquipsUserShouldHave = sumUpMapValues(boosterPackIdsToQuantities);
     
@@ -236,19 +236,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     getNonStarterPacksAtAndBelowLevel(userLevel, inDbBoosterPackIdToBoosterPacks,
         silverBoosterPackIds, goldBoosterPackIds);
     
-    log.error("silverBoosterPackIds=" + silverBoosterPackIds);
-    log.error("goldBoosterPackIds=" + goldBoosterPackIds);
+    //log.error("silverBoosterPackIds=" + silverBoosterPackIds);
+    //log.error("goldBoosterPackIds=" + goldBoosterPackIds);
     
     //determine how many gold and silver equips the user can get
     Map<String, Integer> boosterPackTypeToQuantity = numPacksUserGetsFromLockBoxItems(
         lockBoxItemIdsToLockBoxItems, lockBoxItemIdsToUserLockBoxItems);
     
-    log.error("boosterPackTypeToQuantity=" + boosterPackTypeToQuantity);
+    //log.error("boosterPackTypeToQuantity=" + boosterPackTypeToQuantity);
     
     //determine the boosterpack id and quantities user gets
     Map<Integer, Integer> boosterPackIdsToQuantities = selectIdsAndQuantities(
         silverBoosterPackIds, goldBoosterPackIds, boosterPackTypeToQuantity);
-    log.error("boosterPackIdsToQuantities=" + boosterPackIdsToQuantities);
+    //log.error("boosterPackIdsToQuantities=" + boosterPackIdsToQuantities);
     
     return boosterPackIdsToQuantities;
   }
@@ -351,14 +351,38 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       Map<Integer, Integer> boosterPackIdsToQuantities, List<Integer> userEquipIds) {
     List<FullUserEquipProto> fuepList = new ArrayList<FullUserEquipProto>();
     Timestamp now = new Timestamp((new Date()).getTime());
+    
+    boosterPackIdsToQuantities = removeZeroQuantityElements(boosterPackIdsToQuantities);
+    //get all the boosterPacks from db
+    Map<Integer, BoosterPack> boosterPacksBeingPurchased = getPacks(boosterPackIdsToQuantities);
+    //all the booster items the user has, make only one call and not repeated calls
+    Map<Integer, Integer> boosterItemIdsToNumCollected = null;
+    
+    int userId = u.getId();
     for (int boosterPackId : boosterPackIdsToQuantities.keySet()) {
       int quantity = boosterPackIdsToQuantities.get(boosterPackId);
+      BoosterPack aPack = boosterPacksBeingPurchased.get(boosterPackId);
+      
+      //the items belonging to aPack
+      Map<Integer, BoosterItem> boosterItemIdsToBoosterItemsForAPack = BoosterItemRetrieveUtils
+          .getBoosterItemIdsToBoosterItemsForBoosterPackId(boosterPackId);
+      
+      //all the booster items the user has, make only one call and not repeated calls
+      if (null == boosterItemIdsToNumCollected) {
+        boosterItemIdsToNumCollected = UserBoosterItemRetrieveUtils
+            .getBoosterItemIdsToQuantityForUser(userId);
+      }
+      //taking a subset of boosterItemIdsToNumCollected
+      Map<Integer, Integer> boosterItemIdsToNumCollectedForAPack = getBoosterItemsToNumCollected(
+          boosterItemIdsToNumCollected, boosterItemIdsToBoosterItemsForAPack);
       
       //buy single booster pack
-      List<FullUserEquipProto> fuepListTemp = purchaseBoosterPack(boosterPackId,
+      List<FullUserEquipProto> fuepListTemp = purchaseBoosterPack(aPack,
+          boosterItemIdsToBoosterItemsForAPack, boosterItemIdsToNumCollectedForAPack,
           u, quantity, now, userEquipIds);
       
       if (null == fuepListTemp) {
+        //something went wrong
         fuepList.clear();
         break;
       }
@@ -368,9 +392,45 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return fuepList;
   }
   
+  private Map<Integer, Integer> removeZeroQuantityElements(Map<Integer, Integer> boosterPackIdsToQuantities) {
+    Map<Integer, Integer> nonZeroQuantityBoosterPackIdsToQuantities =
+        new HashMap<Integer, Integer>();
+    for (int id : boosterPackIdsToQuantities.keySet()) {
+      int quantity = boosterPackIdsToQuantities.get(id);
+      if (quantity > 0) {
+        nonZeroQuantityBoosterPackIdsToQuantities.put(id, quantity);
+      }
+    }
+    return nonZeroQuantityBoosterPackIdsToQuantities;
+  }
+  
+  private Map<Integer, BoosterPack> getPacks(Map<Integer, Integer> boosterPackIdsToQuantities) {
+    Collection<Integer> boosterPackIds = boosterPackIdsToQuantities.keySet();
+    List<Integer> ids = new ArrayList<Integer>(boosterPackIds);
+    
+    Map<Integer, BoosterPack> boosterPackIdsToBoosterPacks = 
+        BoosterPackRetrieveUtils.getBoosterPacksForBoosterPackIds(ids);
+    return boosterPackIdsToBoosterPacks;
+  }
+  
+  //taking a subset of idsToNumCollected
+  private Map<Integer, Integer> getBoosterItemsToNumCollected(
+      Map<Integer, Integer> idsToNumCollected, Map<Integer, BoosterItem> idsToBoosterItems) {
+    Map<Integer, Integer> idsToNumCollectedForItems = new HashMap<Integer, Integer>();
+    
+    for (int id : idsToBoosterItems.keySet()) {
+      int numCollected = idsToNumCollected.get(id);
+      idsToNumCollectedForItems.put(id, numCollected);
+    }
+    
+    return idsToNumCollectedForItems;
+  }
+  
   //purchase some amount of one booster pack, return the full user equip protos and
   //populate userEquipIds
-  private List<FullUserEquipProto> purchaseBoosterPack(int boosterPackId, User aUser,
+  private List<FullUserEquipProto> purchaseBoosterPack(BoosterPack aPack, 
+      Map<Integer, BoosterItem> boosterItemIdsToBoosterItemsForAPack,
+      Map<Integer, Integer> boosterItemIdsToNumCollected, User aUser,
       int numBoosterItemsUserWants, Timestamp now, List<Integer> userEquipIds) {
     //return value
     List<FullUserEquipProto> newUserEquipProtos  = null;
@@ -383,14 +443,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     try {
       //local vars
       int userId = aUser.getId();
-      BoosterPack aPack = BoosterPackRetrieveUtils
-          .getBoosterPackForBoosterPackId(boosterPackId);
-      //the items belonging to aPack
-      Map<Integer, BoosterItem> boosterItemIdsToBoosterItemsForAPack = BoosterItemRetrieveUtils
-          .getBoosterItemIdsToBoosterItemsForBoosterPackId(boosterPackId);
-      //all the booster items the user has
-      Map<Integer, Integer> boosterItemIdsToNumCollected = UserBoosterItemRetrieveUtils
-          .getBoosterItemIdsToQuantityForUser(userId);
+      int boosterPackId = aPack.getId();
+      
       //this is what will be recorded to the db
       Map<Integer, Integer> newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>();
       List<Boolean> collectedBeforeReset = new ArrayList<Boolean>();

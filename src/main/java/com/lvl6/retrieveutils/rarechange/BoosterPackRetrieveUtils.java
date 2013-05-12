@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -30,6 +31,20 @@ import com.lvl6.utils.DBConnection;
       setStaticBoosterPackIdsToBoosterPacks();
     }
     return boosterPackIdsToBoosterPacks;
+  }
+  
+  public static Map<Integer, BoosterPack> getBoosterPacksForBoosterPackIds(
+      List<Integer> boosterPackIds) {
+    if (boosterPackIdsToBoosterPacks == null) {
+      setStaticBoosterPackIdsToBoosterPacks();
+    }
+    Map<Integer, BoosterPack> returnValue = new HashMap<Integer, BoosterPack>();
+    for (int id : boosterPackIds) {
+      BoosterPack aPack = boosterPackIdsToBoosterPacks.get(id);
+      returnValue.put(id, aPack);
+    }
+    
+    return returnValue;
   }
 
   public static BoosterPack getBoosterPackForBoosterPackId(int boosterPackId) {
