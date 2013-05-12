@@ -349,16 +349,27 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   //return list of full user equip protos and populate userEquipIds
   private List<FullUserEquipProto> purchaseBoosterPacks(User u,
       Map<Integer, Integer> boosterPackIdsToQuantities, List<Integer> userEquipIds) {
-    List<FullUserEquipProto> fuepList = new ArrayList<FullUserEquipProto>();
-    Timestamp now = new Timestamp((new Date()).getTime());
     
-    //boosterPackIdsToQuantities = removeZeroQuantityElements(boosterPackIdsToQuantities);
+    List<FullUserEquipProto> returnValue = new ArrayList<FullUserEquipProto>();
+    Timestamp now = new Timestamp((new Date()).getTime());
+    int userId = u.getId();
+    
     //get all the boosterPacks from db
     Map<Integer, BoosterPack> boosterPacksBeingPurchased = getPacks(boosterPackIdsToQuantities);
     //all the booster items the user has, make only one call and not repeated calls
-    Map<Integer, Integer> boosterItemIdsToNumCollected = null;
+    Map<Integer, Integer> boosterItemIdsToNumCollectedOld = UserBoosterItemRetrieveUtils
+          .getBoosterItemIdsToQuantityForUser(userId);
+
+    //the booster item list that user has after "purchasing"
+    Map<Integer, List<BoosterItem>> packIdToItemsUserReceives = new HashMap<Integer, List<BoosterItem>>();
+    List<BoosterItem> allItemsUserReceives = new ArrayList<BoosterItem>();
     
-    int userId = u.getId();
+    //says if item in itemsUserReceives was collectedBeforeReset
+    List<Boolean> allCollectedBeforeReset = new ArrayList<Boolean>();
+    Map<Integer, Integer> newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>();
+    boolean resetOccurred = false;
+    
+    //select all the booster items/equips user gets for each booster pack
     for (int boosterPackId : boosterPackIdsToQuantities.keySet()) {
       int quantity = boosterPackIdsToQuantities.get(boosterPackId);
       BoosterPack aPack = boosterPacksBeingPurchased.get(boosterPackId);
@@ -366,43 +377,59 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       //the items belonging to aPack
       Map<Integer, BoosterItem> boosterItemIdsToBoosterItemsForAPack = BoosterItemRetrieveUtils
           .getBoosterItemIdsToBoosterItemsForBoosterPackId(boosterPackId);
-      
-      //all the booster items the user has, make only one call and not repeated calls
-      if (null == boosterItemIdsToNumCollected) {
-        boosterItemIdsToNumCollected = UserBoosterItemRetrieveUtils
-            .getBoosterItemIdsToQuantityForUser(userId);
-      }
-      //taking a subset of boosterItemIdsToNumCollected
+      //taking a subset of boosterItemIdsToNumCollectedOld
       Map<Integer, Integer> boosterItemIdsToNumCollectedForAPack = getBoosterItemsToNumCollected(
-          boosterItemIdsToNumCollected, boosterItemIdsToBoosterItemsForAPack);
+          boosterItemIdsToNumCollectedOld, boosterItemIdsToBoosterItemsForAPack);
       
-      //buy single booster pack
-      List<FullUserEquipProto> fuepListTemp = purchaseBoosterPack(aPack,
-          boosterItemIdsToBoosterItemsForAPack, boosterItemIdsToNumCollectedForAPack,
-          u, quantity, now, userEquipIds);
+      //the booster item list that user has after "purchasing"
+      List<BoosterItem> itemsUserReceives = new ArrayList<BoosterItem>();
+      List<Boolean> collectedBeforeReset = new ArrayList<Boolean>(); //not really needed
       
-      if (null == fuepListTemp) {
-        //something went wrong
-        fuepList.clear();
-        break;
-      }
-      //merge it with existing list
-      fuepList.addAll(fuepListTemp);
+      //actually selecting booster items/equips
+      resetOccurred = resetOccurred || MiscMethods.getAllBoosterItemsForUser(
+          boosterItemIdsToBoosterItemsForAPack,
+          boosterItemIdsToNumCollectedForAPack,
+          quantity, u, aPack, itemsUserReceives,
+          collectedBeforeReset);
+      
+      //when recording to db later on, need to distinguish which pack
+      //got what items (don't want to create a new method that does that...:P)
+      packIdToItemsUserReceives.put(boosterPackId, itemsUserReceives);
+      allItemsUserReceives.addAll(itemsUserReceives);
+      allCollectedBeforeReset.addAll(collectedBeforeReset);
+      
+      newBoosterItemIdsToNumCollected.putAll(boosterItemIdsToNumCollectedForAPack);
+      
+//      //buy single booster pack
+//      List<FullUserEquipProto> fuepListTemp = purchaseBoosterPack(aPack,
+//          boosterItemIdsToBoosterItemsForAPack, boosterItemIdsToNumCollectedForAPack,
+//          u, quantity, now, userEquipIds);
+//      
+//      if (null == fuepListTemp) {
+//        //something went wrong
+//        fuepList.clear();
+//        break;
+//      }
+//      //merge it with existing list
+//      fuepList.addAll(fuepListTemp);
     }
-    return fuepList;
+    Map<Integer, Integer> newBoosterItemIdsToNumCollectedCopy =
+        new HashMap<Integer, Integer>(newBoosterItemIdsToNumCollected);
+    //user equip ids generated when recording user "bought" booster packs
+    List<Integer> allUserEquipIds = new ArrayList<Integer>();
+    
+    //newUserEquipIds is populated
+    boolean successful = writeBoosterStuffToDB(u, newBoosterItemIdsToNumCollectedCopy,
+        newBoosterItemIdsToNumCollected, allItemsUserReceives, allCollectedBeforeReset,
+        resetOccurred, allUserEquipIds);
+    if (successful) {
+      recordPurchases(userId, now, packIdToItemsUserReceives, boosterPackIdsToQuantities);
+      returnValue = constructFullUserEquipProtos(
+          userId, allItemsUserReceives, allUserEquipIds);
+    }
+    return returnValue;
   }
   
-//  private Map<Integer, Integer> removeZeroQuantityElements(Map<Integer, Integer> boosterPackIdsToQuantities) {
-//    Map<Integer, Integer> nonZeroQuantityBoosterPackIdsToQuantities =
-//        new HashMap<Integer, Integer>();
-//    for (int id : boosterPackIdsToQuantities.keySet()) {
-//      int quantity = boosterPackIdsToQuantities.get(id);
-//      if (quantity > 0) {
-//        nonZeroQuantityBoosterPackIdsToQuantities.put(id, quantity);
-//      }
-//    }
-//    return nonZeroQuantityBoosterPackIdsToQuantities;
-//  }
   
   private Map<Integer, BoosterPack> getPacks(Map<Integer, Integer> boosterPackIdsToQuantities) {
     Collection<Integer> boosterPackIds = boosterPackIdsToQuantities.keySet();
@@ -428,6 +455,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     
     return idsToNumCollectedForItems;
   }
+  
+  private void recordPurchases(int userId, Timestamp now,
+      Map<Integer, List<BoosterItem>> packIdToItemsUserReceives,
+      Map<Integer, Integer> boosterPackIdsToQuantities) {
+    //this one won't count towards the daily limit
+    boolean excludeFromLimitCheck = true;
+
+    for (int boosterPackId : packIdToItemsUserReceives.keySet()) {
+      List<BoosterItem> itemsUserReceives = packIdToItemsUserReceives.get(boosterPackId);
+      int numBoosterItemsUserWants = boosterPackIdsToQuantities.get(boosterPackId);
+      
+      MiscMethods.writeToUserBoosterPackHistoryOneUser(userId, boosterPackId,
+          numBoosterItemsUserWants, now, itemsUserReceives, excludeFromLimitCheck);
+    }
+  }
+  
   
   //purchase some amount of one booster pack, return the full user equip protos and
   //populate userEquipIds
