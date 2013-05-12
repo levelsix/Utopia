@@ -419,7 +419,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     Map<Integer, Integer> idsToNumCollectedForItems = new HashMap<Integer, Integer>();
     
     for (int id : idsToBoosterItems.keySet()) {
-      int numCollected = idsToNumCollected.get(id);
+      int numCollected = 0;
+      if (idsToNumCollected.containsKey(id)) {
+        numCollected = idsToNumCollected.get(id);
+      }
       idsToNumCollectedForItems.put(id, numCollected);
     }
     
