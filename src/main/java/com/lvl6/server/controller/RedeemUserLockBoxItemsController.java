@@ -352,9 +352,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     List<FullUserEquipProto> fuepList = new ArrayList<FullUserEquipProto>();
     Timestamp now = new Timestamp((new Date()).getTime());
     
-    log.error("boosterPackIdsToQuantities=" + boosterPackIdsToQuantities);
-    boosterPackIdsToQuantities = removeZeroQuantityElements(boosterPackIdsToQuantities);
-    log.error("boosterPackIdsToQuantities" + boosterPackIdsToQuantities);
+    //boosterPackIdsToQuantities = removeZeroQuantityElements(boosterPackIdsToQuantities);
     //get all the boosterPacks from db
     Map<Integer, BoosterPack> boosterPacksBeingPurchased = getPacks(boosterPackIdsToQuantities);
     //all the booster items the user has, make only one call and not repeated calls
@@ -394,17 +392,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return fuepList;
   }
   
-  private Map<Integer, Integer> removeZeroQuantityElements(Map<Integer, Integer> boosterPackIdsToQuantities) {
-    Map<Integer, Integer> nonZeroQuantityBoosterPackIdsToQuantities =
-        new HashMap<Integer, Integer>();
-    for (int id : boosterPackIdsToQuantities.keySet()) {
-      int quantity = boosterPackIdsToQuantities.get(id);
-      if (quantity > 0) {
-        nonZeroQuantityBoosterPackIdsToQuantities.put(id, quantity);
-      }
-    }
-    return nonZeroQuantityBoosterPackIdsToQuantities;
-  }
+//  private Map<Integer, Integer> removeZeroQuantityElements(Map<Integer, Integer> boosterPackIdsToQuantities) {
+//    Map<Integer, Integer> nonZeroQuantityBoosterPackIdsToQuantities =
+//        new HashMap<Integer, Integer>();
+//    for (int id : boosterPackIdsToQuantities.keySet()) {
+//      int quantity = boosterPackIdsToQuantities.get(id);
+//      if (quantity > 0) {
+//        nonZeroQuantityBoosterPackIdsToQuantities.put(id, quantity);
+//      }
+//    }
+//    return nonZeroQuantityBoosterPackIdsToQuantities;
+//  }
   
   private Map<Integer, BoosterPack> getPacks(Map<Integer, Integer> boosterPackIdsToQuantities) {
     Collection<Integer> boosterPackIds = boosterPackIdsToQuantities.keySet();
