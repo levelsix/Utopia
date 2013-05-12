@@ -386,11 +386,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       List<Boolean> collectedBeforeReset = new ArrayList<Boolean>(); //not really needed
       
       //actually selecting booster items/equips
-      resetOccurred = resetOccurred || MiscMethods.getAllBoosterItemsForUser(
+      resetOccurred = MiscMethods.getAllBoosterItemsForUser(
           boosterItemIdsToBoosterItemsForAPack,
           boosterItemIdsToNumCollectedForAPack,
           quantity, u, aPack, itemsUserReceives,
-          collectedBeforeReset);
+          collectedBeforeReset) || resetOccurred;
       
       //when recording to db later on, need to distinguish which pack
       //got what items (don't want to create a new method that does that...:P)
@@ -415,17 +415,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     Map<Integer, Integer> newBoosterItemIdsToNumCollectedCopy =
         new HashMap<Integer, Integer>(newBoosterItemIdsToNumCollected);
-    //user equip ids generated when recording user "bought" booster packs
-    List<Integer> allUserEquipIds = new ArrayList<Integer>();
     
     //newUserEquipIds is populated
     boolean successful = writeBoosterStuffToDB(u, newBoosterItemIdsToNumCollectedCopy,
         newBoosterItemIdsToNumCollected, allItemsUserReceives, allCollectedBeforeReset,
-        resetOccurred, allUserEquipIds);
+        resetOccurred, userEquipIds);
     if (successful) {
       recordPurchases(userId, now, packIdToItemsUserReceives, boosterPackIdsToQuantities);
       returnValue = constructFullUserEquipProtos(
-          userId, allItemsUserReceives, allUserEquipIds);
+          userId, allItemsUserReceives, userEquipIds);
     }
     return returnValue;
   }
