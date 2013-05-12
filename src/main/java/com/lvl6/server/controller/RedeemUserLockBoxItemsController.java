@@ -352,9 +352,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     List<FullUserEquipProto> fuepList = new ArrayList<FullUserEquipProto>();
     Timestamp now = new Timestamp((new Date()).getTime());
     
-    log.error("boosterPackIdsToQuantities");
+    log.error("boosterPackIdsToQuantities=" + boosterPackIdsToQuantities);
     boosterPackIdsToQuantities = removeZeroQuantityElements(boosterPackIdsToQuantities);
-    log.error("boosterPackIdsToQuantities");
+    log.error("boosterPackIdsToQuantities" + boosterPackIdsToQuantities);
     //get all the boosterPacks from db
     Map<Integer, BoosterPack> boosterPacksBeingPurchased = getPacks(boosterPackIdsToQuantities);
     //all the booster items the user has, make only one call and not repeated calls
