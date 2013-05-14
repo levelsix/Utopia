@@ -425,6 +425,7 @@ public class ControllerConstants {
   public static final int CREATE_CLAN__INITIAL_CLAN_LEVEL = 1;
   public static final int CLAN__ALLIANCE_CLAN_ID_THAT_IS_EXCEPTION_TO_LIMIT = Globals.IS_SANDBOX() ? 967 : 92;
   public static final int CLAN__LEGION_CLAN_ID_THAT_IS_EXCEPTION_TO_LIMIT = Globals.IS_SANDBOX() ? 958 : 148;
+  public static final int CLAN__ALLIANCE_LEGION_LIMIT_TO_RETRIEVE_FROM_DB = 50;
   
   //THREE CARD MONTE
   public static final int THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY = 10;

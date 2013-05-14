@@ -1,13 +1,17 @@
 package com.lvl6.server.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrieveClanInfoRequestEvent;
 import com.lvl6.events.response.RetrieveClanInfoResponseEvent;
 import com.lvl6.info.Clan;
@@ -89,12 +93,19 @@ import com.lvl6.utils.RetrieveUtils;
           }
           if (grabType == ClanInfoGrabType.ALL || grabType == ClanInfoGrabType.MEMBERS) {
             List<UserClan> userClans = RetrieveUtils.userClanRetrieveUtils().getUserClansRelatedToClan(clanId);
-            List<Integer> userIds = new ArrayList<Integer>();
+            
+            Set<Integer> userIds = new HashSet<Integer>();
+            //this is because clan with 1k+ users overflows buffer when sending to client and need to 
+            //include clan owner
+            Clan c = ClanRetrieveUtils.getClanWithId(clanId);
+            int ownerId = c.getOwnerId();
             for (UserClan uc: userClans) {
               userIds.add(uc.getUserId());
             }
+            userIds.add(ownerId);
+            List<Integer> userIdList = new ArrayList<Integer>(userIds);
 
-            Map<Integer, User> usersMap = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
+            Map<Integer, User> usersMap = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIdList);
 
             for (UserClan uc : userClans) {
               MinimumUserProtoForClans minUser = CreateInfoProtoUtils.createMinimumUserProtoForClans(usersMap.get(uc.getUserId()), uc.getStatus());

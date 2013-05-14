@@ -65,7 +65,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     }
     lockBoxItemIdsToUserLockBoxItems =
         convertRSToLockBoxItemIdsToUserLockBoxItemsMap(rs);
-    log.error("lockBoxItemIdsToUserLockBoxItems=" + lockBoxItemIdsToUserLockBoxItems);
+    //log.error("lockBoxItemIdsToUserLockBoxItems=" + lockBoxItemIdsToUserLockBoxItems);
     
     DBConnection.get().close(rs, null, conn);
     return lockBoxItemIdsToUserLockBoxItems;

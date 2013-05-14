@@ -106,7 +106,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     
     BlacksmithAttempt blacksmithAttempt = blacksmithIdToBlacksmithAttempt.get(blacksmithId);
-    Equipment equip = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(blacksmithAttempt.getEquipId());
+    int baEquipId = blacksmithAttempt.getEquipId();
+    Map<Integer, Equipment> equipmentIdsToEquipments = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
+    Equipment equip = null;
+    
+    try {
+      equip = equipmentIdsToEquipments.get(baEquipId);
+    } catch (Exception e) {
+      log.error("unexpected error: blacksmithAttempt=" + blacksmithAttempt +
+          ". equipmentIdsToEquipments.keyset()=" + equipmentIdsToEquipments.keySet(), e);
+      resBuilder.setStatus(ForgeAttemptWaitCompleteStatus.OTHER_FAIL);
+      return false;
+    }
+    
 
     if (blacksmithAttempt.isAttemptComplete()) {
       resBuilder.setStatus(ForgeAttemptWaitCompleteStatus.ALREADY_COMPLETE);
