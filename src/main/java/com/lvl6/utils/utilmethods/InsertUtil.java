@@ -166,7 +166,7 @@ public interface InsertUtil {
   public abstract int insertIntoFirstTimeUsers(String openUdid, String udid, String mac, String advertiserId, Timestamp now);
   
   public abstract int insertIntoUserBoosterPackHistory(int userId, int boosterPackId, int numBought, Timestamp timeOfPurchase,
-      int rarityOneQuantity, int rarityTwoQuantity, int rarityThreeQuantity);
+      int rarityOneQuantity, int rarityTwoQuantity, int rarityThreeQuantity, boolean excludeFromLimitCheck);
   
   public abstract int insertIntoUserDailyRewardHistory(int userId, int currencyRewarded, boolean isCoins, int boosterPackId, 
       int equipIdRewarded, int nthConsecutiveDay, Date dateAwarded);
@@ -175,4 +175,5 @@ public interface InsertUtil {
       int newPrestigeLevel, int preprestigeAttackStat, int preprestigeDefenseStat,  int preprestigeStaminaStat,
       int preprestigeEnergyStat, Date aDate, int preprestigeExperience, int preprestigeSkillPoints);
   
+  public int insertIntoPrivatePosts(int posterId, int recipientId, String content, Timestamp timeOfPost);
 }

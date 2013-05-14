@@ -169,7 +169,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private void writeToUserBoosterPackHistory(int userId, int packId) {
     Timestamp nowTimestamp = new Timestamp((new Date()).getTime());
     int numBought = 0; //indicates a reset
+    
+    //
+    boolean excludeFromLimitCheck = false;
     MiscMethods.writeToUserBoosterPackHistoryOneUser(userId, packId, numBought, nowTimestamp,
-        new ArrayList<BoosterItem>());
+        new ArrayList<BoosterItem>(), excludeFromLimitCheck);
   }
 }

@@ -1037,7 +1037,7 @@ public class InsertUtils implements InsertUtil{
   
   public int insertIntoUserBoosterPackHistory(int userId, int boosterPackId, 
       int numBought, Timestamp timeOfPurchase, int rarityOneQuantity, 
-      int rarityTwoQuantity, int rarityThreeQuantity) {
+      int rarityTwoQuantity, int rarityThreeQuantity, boolean excludeFromLimitCheck) {
     String tableName = DBConstants.TABLE_USER_BOOSTER_PACK_HISTORY;
     
     Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -1049,6 +1049,7 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__RARITY_ONE_QUANTITY, rarityOneQuantity);
     insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__RARITY_TWO_QUANTITY, rarityTwoQuantity);
     insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__RARITY_THREE_QUANTITY, rarityThreeQuantity);
+    insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__EXCLUDE_FROM_LIMIT_CHECK, excludeFromLimitCheck);
     
     int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
     return numInserted;
@@ -1102,5 +1103,17 @@ public class InsertUtils implements InsertUtil{
     
     int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
     return numInserted;
+  }
+  
+  public int insertIntoPrivatePosts(int posterId, int recipientId, String content, Timestamp timeOfPost) {
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.PRIVATE_CHAT_POSTS__POSTER_ID, posterId);
+    insertParams.put(DBConstants.PRIVATE_CHAT_POSTS__RECIPIENT_ID, recipientId);
+    insertParams.put(DBConstants.PRIVATE_CHAT_POSTS__TIME_OF_POST, timeOfPost);
+    insertParams.put(DBConstants.PRIVATE_CHAT_POSTS__CONTENT, content);
+
+    int wallPostId = DBConnection.get().insertIntoTableBasicReturnId(
+        DBConstants.TABLE_PRIVATE_CHAT_POSTS, insertParams);
+    return wallPostId;
   }
 }

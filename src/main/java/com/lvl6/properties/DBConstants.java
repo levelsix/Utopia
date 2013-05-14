@@ -91,6 +91,8 @@ public class DBConstants {
   
   public static final String TABLE_PRESTIGE_HISTORY = "prestige_history";
   
+  public static final String TABLE_PRIVATE_CHAT_POSTS = "private_chat_posts";
+  
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
   public static final String GENERIC__ID = "id";
@@ -506,6 +508,7 @@ public class DBConstants {
   public static final String USER_LOCK_BOX_EVENTS__NUM_BOXES = "num_boxes";
   public static final String USER_LOCK_BOX_EVENTS__LAST_OPENING_TIME = "last_opening_time";
   public static final String USER_LOCK_BOX_EVENTS__NUM_TIMES_COMPLETED = "num_times_completed";
+  public static final String USER_LOCK_BOX_EVENTS__HAS_BEEN_REDEEMED = "has_been_redeemed";
 
   /*USER LOCK BOX ITEMS*/
   public static final String USER_LOCK_BOX_ITEMS__ITEM_ID = "lock_box_item_id";
@@ -608,6 +611,7 @@ public class DBConstants {
   public static final String USER_BOOSTER_PACK_HISTORY__RARITY_ONE_QUANTITY = "rarity_one_quantity";
   public static final String USER_BOOSTER_PACK_HISTORY__RARITY_TWO_QUANTITY = "rarity_two_quantity";
   public static final String USER_BOOSTER_PACK_HISTORY__RARITY_THREE_QUANTITY = "rarity_three_quantity";
+  public static final String USER_BOOSTER_PACK_HISTORY__EXCLUDE_FROM_LIMIT_CHECK = "exclude_from_limit_check";
   
   /*BOOSTER ITEM*/
   public static final String BOOSTER_ITEM__ID = GENERIC__ID;
@@ -669,4 +673,11 @@ public class DBConstants {
   public static final String PRESTIGE_HISTORY__PRESTIGE_DATE = "prestige_date";
   public static final String PRESTIGE_HISTORY__PREPRESTIGE_EXPERIENCE = "preprestige_experience";
   public static final String PRESTIGE_HISTORY__PREPRESTIGE_SKILL_POINTS = "preprestige_skill_points";
+  
+  /*PRIVATE CHAT POSTS*/
+  public static final String PRIVATE_CHAT_POSTS__ID = GENERIC__ID;
+  public static final String PRIVATE_CHAT_POSTS__POSTER_ID = "poster_id";
+  public static final String PRIVATE_CHAT_POSTS__RECIPIENT_ID = "recipient_id";
+  public static final String PRIVATE_CHAT_POSTS__TIME_OF_POST = "time_of_post";
+  public static final String PRIVATE_CHAT_POSTS__CONTENT = "content";
 }

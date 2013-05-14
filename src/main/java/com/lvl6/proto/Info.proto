@@ -2,6 +2,14 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+message PrivateChatPostProto {
+	optional int32 privateChatPostId = 1;
+	optional MinimumUserProto poster = 2;
+	optional MinimumUserProto recipient = 3;
+	optional int64 timeOfPost = 4;
+	optional string content = 5;
+}
+
 message RareBoosterPurchaseProto {
 	optional MinimumUserProto user = 1;
 	optional BoosterPackProto booster = 2;
@@ -201,6 +209,8 @@ message LockBoxItemProto {
 	optional string name = 4;
 	optional EquipClassType type = 5;
 	optional string imageName = 6;
+	optional int32 redeemForNumBoosterItems = 7;
+	optional bool isGoldBoosterPack = 8;
 }
 
 message UserLockBoxEventProto {
@@ -210,6 +220,7 @@ message UserLockBoxEventProto {
 	optional int32 numTimesCompleted = 4;
 	optional int64 lastPickTime = 5;
 	repeated UserLockBoxItemProto items = 6;
+	optional bool hasBeenRedeemed = 7;
 }
 
 message UserLockBoxItemProto {

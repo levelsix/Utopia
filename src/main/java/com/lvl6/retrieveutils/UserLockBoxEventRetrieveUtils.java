@@ -95,8 +95,10 @@ import com.lvl6.utils.DBConnection;
     }
     
     int numTimesCompleted = rs.getInt(i++);
+    boolean hasBeenRedeemed = rs.getBoolean(i++);
     
-    UserLockBoxEvent event = new UserLockBoxEvent(lockBoxId, userId, numBoxes, numTimesCompleted, lastPickTime);
+    UserLockBoxEvent event = new UserLockBoxEvent(lockBoxId, userId, numBoxes,
+        numTimesCompleted, lastPickTime, hasBeenRedeemed);
     return event;
   }
 }

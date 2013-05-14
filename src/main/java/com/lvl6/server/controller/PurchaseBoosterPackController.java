@@ -180,8 +180,13 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
         
         Timestamp nowTimestamp = new Timestamp(now.getTime());
         int numBought = itemsUserReceives.size();
+        
+        //multiple scenarios where user can "buy" booster pack, but,
+        //so far, the other ones aren't counted towards the daily limit
+        boolean excludeFromLimitCheck = false;
+        
         MiscMethods.writeToUserBoosterPackHistoryOneUser(userId, boosterPackId, numBought, 
-            nowTimestamp, itemsUserReceives);
+            nowTimestamp, itemsUserReceives, excludeFromLimitCheck);
         writeToUserCurrencyHistory(user, boosterPackId, nowTimestamp,
             goldSilverChange, previousSilver, previousGold);
         

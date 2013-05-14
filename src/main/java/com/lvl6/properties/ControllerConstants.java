@@ -180,6 +180,7 @@ public class ControllerConstants {
   public static final int STARTUP__LEADERBOARD_MIN_LEVEL = 1;
   public static final int STARTUP__ENHANCING_MIN_LEVEL_TO_UNLOCK = 20; 
   public static final boolean STARTUP__USE_OLD_BATTLE_FORMULA = true;
+  public static final int STARTUP__ADMIN_CHAT_USER_ID = 98437;
   
   //ARMORY
   public static final double ARMORY__SELL_RATIO = 0.15;
@@ -423,6 +424,7 @@ public class ControllerConstants {
   public static final int RETRIEVE_CLANS__NUM_CLANS_CAP = 50;
   public static final int CREATE_CLAN__INITIAL_CLAN_LEVEL = 1;
   public static final int CLAN__ALLIANCE_CLAN_ID_THAT_IS_EXCEPTION_TO_LIMIT = Globals.IS_SANDBOX() ? 967 : 92;
+  public static final int CLAN__LEGION_CLAN_ID_THAT_IS_EXCEPTION_TO_LIMIT = Globals.IS_SANDBOX() ? 958 : 148;
   
   //THREE CARD MONTE
   public static final int THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY = 10;
@@ -448,6 +450,7 @@ public class ControllerConstants {
   public static final float LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_TASK_BASE = 0.03f;
   public static final float LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_TASK_MAX = 1.f;
   public static final float LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_BATTLE = 0.25f;
+  public static final int LOCK_BOXES__NUM_DAYS_AFTER_END_DATE_TO_KEEP_SENDING_PROTOS = 3;
   
   //TIME BEFORE RESHOWING MENUS
   public static final int NUM_HOURS_BEFORE_RESHOWING_GOLD_SALE = 24;
@@ -587,7 +590,7 @@ public class ControllerConstants {
   public static final float CHANCE_TO_GET_KIIP_ON_QUEST_REDEEM = 1.f;
 
   public static final String NIB_NAME__THREE_CARD_MONTE = "ThreeCardMonte.3";
-  public static final String NIB_NAME__LOCK_BOX = "LockBox.3";
+  public static final String NIB_NAME__LOCK_BOX = "LockBox.4";
   public static final String NIB_NAME__TRAVELING_MAP = "TravelingMap.2";
   public static final String NIB_NAME__GOLD_MINE = "GoldMine.2";
   public static final String NIB_NAME__EXPANSION = "Expansion.2";

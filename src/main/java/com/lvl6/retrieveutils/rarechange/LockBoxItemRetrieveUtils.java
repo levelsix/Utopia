@@ -42,21 +42,44 @@ import com.lvl6.utils.DBConnection;
     return lockBoxItemIdsToLockBoxItems.get(lockBoxItemId);
   }
 
-  public static List<LockBoxItem> getLockBoxItemsForLockBoxEvent(int lockBoxEventId, UserType type) {
+  public static List<LockBoxItem> getLockBoxItemsForLockBoxEvent(int lockBoxEventId) {
     log.debug("retrieve lockBoxItem data for lockBoxEvent " + lockBoxEventId);
     if (lockBoxItemIdsToLockBoxItems == null) {
       setStaticLockBoxItemIdsToLockBoxItems();      
     }
     List<LockBoxItem> toreturn = new ArrayList<LockBoxItem>();
     
-    EquipClassType classType = null;
-    if (type == UserType.BAD_ARCHER || type == UserType.GOOD_ARCHER) classType = EquipClassType.ARCHER;
-    else if (type == UserType.BAD_WARRIOR || type == UserType.GOOD_WARRIOR) classType = EquipClassType.WARRIOR;
-    else if (type == UserType.BAD_MAGE || type == UserType.GOOD_MAGE) classType = EquipClassType.MAGE;
+    //equips wearable by everyone
+//    EquipClassType classType = null;
+//    if (type == UserType.BAD_ARCHER || type == UserType.GOOD_ARCHER) classType = EquipClassType.ARCHER;
+//    else if (type == UserType.BAD_WARRIOR || type == UserType.GOOD_WARRIOR) classType = EquipClassType.WARRIOR;
+//    else if (type == UserType.BAD_MAGE || type == UserType.GOOD_MAGE) classType = EquipClassType.MAGE;
     
     for (LockBoxItem item : lockBoxItemIdsToLockBoxItems.values()) {
-      if (item.getLockBoxEventId() == lockBoxEventId && (item.getClassType() == classType || item.getClassType() == EquipClassType.ALL_AMULET)) {
+      if (item.getLockBoxEventId() == lockBoxEventId) {// && (item.getClassType() == classType || item.getClassType() == EquipClassType.ALL_AMULET)) {
         toreturn.add(item);
+      }
+    }
+    return toreturn;
+  }
+  
+  public static Map<Integer, LockBoxItem> getLockBoxIdToLockBoxItemsMapForLockBoxEvent(int lockBoxEventId) {
+    log.debug("retrieve lockBoxItem data for lockBoxEvent " + lockBoxEventId);
+    if (lockBoxItemIdsToLockBoxItems == null) {
+      setStaticLockBoxItemIdsToLockBoxItems();      
+    }
+    Map<Integer, LockBoxItem> toreturn = new HashMap<Integer, LockBoxItem>();
+    
+    //equips wearable by everyone
+//    EquipClassType classType = null;
+//    if (type == UserType.BAD_ARCHER || type == UserType.GOOD_ARCHER) classType = EquipClassType.ARCHER;
+//    else if (type == UserType.BAD_WARRIOR || type == UserType.GOOD_WARRIOR) classType = EquipClassType.WARRIOR;
+//    else if (type == UserType.BAD_MAGE || type == UserType.GOOD_MAGE) classType = EquipClassType.MAGE;
+    
+    for (LockBoxItem item : lockBoxItemIdsToLockBoxItems.values()) {
+      if (item.getLockBoxEventId() == lockBoxEventId) {// && (item.getClassType() == classType || item.getClassType() == EquipClassType.ALL_AMULET)) {
+        int itemId = item.getId();
+        toreturn.put(itemId, item);
       }
     }
     return toreturn;
@@ -68,6 +91,8 @@ import com.lvl6.utils.DBConnection;
     Connection conn = DBConnection.get().getReadOnlyConnection();
     ResultSet rs = null;
     if (conn != null) {
+      //TODO:
+      //should not get the whole table, only the ones for active lock_box_event
       rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
 
       if (rs != null) {
@@ -105,8 +130,11 @@ import com.lvl6.utils.DBConnection;
     String name = rs.getString(i++);
     EquipClassType type = EquipClassType.valueOf(rs.getInt(i++));
     String imageName = rs.getString(i++);
+    int redeemForNumBoosterItems = rs.getInt(i++);
+    boolean isGoldBoosterPack = rs.getBoolean(i++);
 
-    LockBoxItem lockBoxItem = new LockBoxItem(id, lockBoxEventId, chanceToUnlock, name, type, imageName);
+    LockBoxItem lockBoxItem = new LockBoxItem(id, lockBoxEventId, chanceToUnlock, name, type,
+        imageName, redeemForNumBoosterItems, isGoldBoosterPack);
     return lockBoxItem;
   }
 }

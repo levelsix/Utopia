@@ -90,6 +90,7 @@ import com.lvl6.proto.InfoProto.GoldSaleProto;
 import com.lvl6.proto.InfoProto.InAppPurchasePackageProto;
 import com.lvl6.proto.InfoProto.LeaderboardEventProto;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
+import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
@@ -551,6 +552,7 @@ public class MiscMethods {
         .setGoldCostToResetPickLockBox(ControllerConstants.LOCK_BOXES__GOLD_COST_TO_RESET_PICK)
         .setSilverChanceToPickLockBox(ControllerConstants.LOCK_BOXES__SILVER_CHANCE_TO_PICK)
         .setSilverCostToPickLockBox(ControllerConstants.LOCK_BOXES__SILVER_COST_TO_PICK)
+        .setNumDaysToShowAfterEventEnded(ControllerConstants.LOCK_BOXES__NUM_DAYS_AFTER_END_DATE_TO_KEEP_SENDING_PROTOS)
         .build();
 
     cb = cb.setLockBoxConstants(lbc);
@@ -680,18 +682,26 @@ public class MiscMethods {
     cb.setFaqFileName(ControllerConstants.STARTUP__FAQ_FILE_NAME);
     cb.setPrestigeFaqFileName(ControllerConstants.STARTUP__PRESTIGE_FAQ_FILE_NAME);
     
+    User adminChatUser = RetrieveUtils.userRetrieveUtils()
+        .getUserById(ControllerConstants.STARTUP__ADMIN_CHAT_USER_ID);
+    MinimumUserProto adminChatUserProto = CreateInfoProtoUtils.createMinimumUserProtoFromUser(adminChatUser);
+    cb.setAdminChatUserProto(adminChatUserProto);
+    
     return cb.build();  
   }
 
-  public static List<LockBoxEventProto> currentLockBoxEventsForUserType(UserType type) {
+  public static List<LockBoxEventProto> currentLockBoxEvents() {
     Map<Integer, LockBoxEvent> events = LockBoxEventRetrieveUtils.getLockBoxEventIdsToLockBoxEvents();
     long curTime = new Date().getTime();
     List<LockBoxEventProto> toReturn = new ArrayList<LockBoxEventProto>();
 
     for (LockBoxEvent event : events.values()) {
       // Send all events that are not yet over
-      if (event.getEndDate().getTime() > curTime) {
-        toReturn.add(CreateInfoProtoUtils.createLockBoxEventProtoFromLockBoxEvent(event, type));
+      long delay = 1000 * 60 * 60 * 24 *
+          ControllerConstants.LOCK_BOXES__NUM_DAYS_AFTER_END_DATE_TO_KEEP_SENDING_PROTOS;
+          
+      if ((event.getEndDate().getTime() + delay) > curTime) {
+        toReturn.add(CreateInfoProtoUtils.createLockBoxEventProtoFromLockBoxEvent(event));
       }
     }
     return toReturn;
@@ -1330,14 +1340,16 @@ public class MiscMethods {
 
   public static String shallowMapToString(Map aMap) {
     StringBuilder returnValue = new StringBuilder();
-    returnValue.append("[");
-    for(Object key : aMap.keySet()) {
-      returnValue.append(" ");
-      returnValue.append(key);
-      returnValue.append("=");
-      returnValue.append(aMap.get(key).toString());
+    if (null != aMap && !aMap.isEmpty()) {
+      returnValue.append("[");
+      for(Object key : aMap.keySet()) {
+        returnValue.append(" ");
+        returnValue.append(key);
+        returnValue.append("=");
+        returnValue.append(aMap.get(key).toString());
+      }
+      returnValue.append("]");
     }
-    returnValue.append("]");
     return returnValue.toString();
   }
 
@@ -1554,13 +1566,15 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
   }
   
   public static void writeToUserBoosterPackHistoryOneUser(int userId, int packId,
-      int numBought, Timestamp nowTimestamp, List<BoosterItem> itemsUserReceives) {
+      int numBought, Timestamp nowTimestamp, List<BoosterItem> itemsUserReceives,
+      boolean excludeFromLimitCheck) {
     List<Integer> raritiesCollected = getRaritiesCollected(itemsUserReceives);
     int rarityOne = raritiesCollected.get(0);
     int rarityTwo = raritiesCollected.get(1);
     int rarityThree = raritiesCollected.get(2);
     InsertUtils.get().insertIntoUserBoosterPackHistory(userId,
-        packId, numBought, nowTimestamp, rarityOne, rarityTwo, rarityThree);
+        packId, numBought, nowTimestamp, rarityOne, rarityTwo,
+        rarityThree, excludeFromLimitCheck);
   }
   
   private static List<Integer> getRaritiesCollected(List<BoosterItem> itemsUserReceives) {
@@ -1663,6 +1677,26 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     
     int returnValue = numList.get(randInt);
     return returnValue;
+  }
+  
+  public static Map<Integer, Integer> getRandomValues(List<Integer> domain, int quantity) {
+    Map<Integer, Integer> domainValuesToQuantities = new HashMap<Integer, Integer>();
+    int upperBound = domain.size();
+    Random rand = new Random();
+    
+    for (int i = 0; i < quantity; i++) {
+      int quantitySoFar = 0;
+      
+      int randIndex = rand.nextInt(upperBound);
+      int domainValue = domain.get(randIndex);
+      //running sum
+      if (domainValuesToQuantities.containsKey(domainValue)) {
+        quantitySoFar += domainValuesToQuantities.get(domainValue);
+      }
+      quantitySoFar++;
+      domainValuesToQuantities.put(domainValue, quantitySoFar);
+    }
+    return domainValuesToQuantities;
   }
   
   /*cut out from purchase booster pack controller*/

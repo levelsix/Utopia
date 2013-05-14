@@ -39,6 +39,8 @@ import com.lvl6.utils.DBConnection;
         DBConstants.USER_BOOSTER_PACK_HISTORY__USER_ID, userId);
     absoluteConditionParams.put(
         DBConstants.USER_BOOSTER_PACK_HISTORY__BOOSTER_PACK_ID, packId);
+    absoluteConditionParams.put(
+        DBConstants.USER_BOOSTER_PACK_HISTORY__EXCLUDE_FROM_LIMIT_CHECK, false);
     greaterThanConditionParams.put(
         DBConstants.USER_BOOSTER_PACK_HISTORY__TIME_OF_PURCHASE,
         now);
