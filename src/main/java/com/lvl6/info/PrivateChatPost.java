@@ -41,6 +41,15 @@ public class PrivateChatPost implements Serializable {
 		return content;
 	}
 
+	public void setTimeOfPost(Date timeOfPost) {
+		this.timeOfPost = timeOfPost;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "PlayerWallPost [id=" + id + ", posterId=" + posterId

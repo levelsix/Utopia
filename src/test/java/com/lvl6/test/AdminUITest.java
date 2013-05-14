@@ -15,6 +15,7 @@ import com.lvl6.elasticsearch.LoggingElasticSearchQuery;
 import com.lvl6.server.DevOps;
 import com.lvl6.spring.AppContext;
 import com.lvl6.ui.admin.components.StatsPanelDynamic;
+import com.lvl6.ui.admin.pages.AdminChatPage;
 import com.lvl6.ui.admin.pages.AdminPage;
 import com.lvl6.ui.admin.pages.HealthCheckPage;
 import com.lvl6.ui.admin.pages.LogViewerPage;
@@ -38,6 +39,7 @@ public class AdminUITest extends TestCase {
 		tester.startPage(StatsGraphsPage.class);
 		tester.startComponentInPage(StatsPanelDynamic.class);
 		tester.startPage(HealthCheckPage.class);
+		tester.startPage(AdminChatPage.class);
 	}
 	
 	@Test
