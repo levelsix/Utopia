@@ -84,7 +84,7 @@ public class AdminChatUtil {
 				+ ControllerConstants.STARTUP__ADMIN_CHAT_USER_ID + " or chat."
 				+ DBConstants.PRIVATE_CHAT_POSTS__POSTER_ID + "="
 				+ ControllerConstants.STARTUP__ADMIN_CHAT_USER_ID + ") order by chat."
-				+ DBConstants.PRIVATE_CHAT_POSTS__TIME_OF_POST + " DESC" + " LIMIT " + limit + " OFFSET "
+				+ DBConstants.PRIVATE_CHAT_POSTS__TIME_OF_POST + " DESC LIMIT " + limit + " OFFSET "
 				+ offset;
 		List<AdminChatPost> msgs = jdbcTemplate.query(query, new RowMapper<AdminChatPost>() {
 			@Override
