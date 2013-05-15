@@ -89,7 +89,7 @@ public class AdminMessagePanel extends Panel {
 	
 	protected void addReplyForm() {
 	  int sender = ControllerConstants.STARTUP__ADMIN_CHAT_USER_ID;
-	  int recipient = adminChatPost.getPosterId() == sender ? adminChatPost.getPosterId() : adminChatPost.getRecipientId();
+	  int recipient = adminChatPost.getPosterId() != sender ? adminChatPost.getPosterId() : adminChatPost.getRecipientId();
 		form = new SendAdminMessageForm("replyForm",
 				new AdminChatPost(
 						-1, 

@@ -28,7 +28,7 @@ import com.lvl6.utils.DBConnection;
   
   public static List<PrivateChatPost> getPrivateChatPostsBetweenUsersBeforePostId(
       int limit, int postId, int userOne, int userTwo) {
-    log.debug("retrieving " + limit + " private chat posts before certain postId "
+    log.info("retrieving " + limit + " private chat posts before certain postId "
       + postId + " for userOne " + userOne + " and userTwo" + userTwo);
     
     Connection conn = DBConnection.get().getConnection();
