@@ -64,6 +64,7 @@ public class AdminMessagePanel extends Panel {
 			}
 		};
 		add(replyLink);
+		replyLink.setVisible(false);
 		replyLink.setOutputMarkupId(true);
 	}
 

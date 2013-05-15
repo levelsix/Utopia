@@ -145,6 +145,7 @@ public class AdminChatUtil {
 	}
 
 	public void sendAdminChatMessage(AdminChatPost msg) {
+		log.info("Sending admin chat message to user: "+msg.getUsername()+" : "+msg.getRecipientId()+" content: "+msg.getContent());
 		int posterId = msg.getPosterId();
 		int recipientId = msg.getRecipientId();
 		String censoredContent = MiscMethods.censorUserInput(msg.getContent());
