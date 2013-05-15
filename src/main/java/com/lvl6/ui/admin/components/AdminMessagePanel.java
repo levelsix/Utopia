@@ -95,7 +95,7 @@ public class AdminMessagePanel extends Panel {
 						new Date(),
 						""));
 		form.setOutputMarkupId(true);
-		form.setVisible(false);
+		//form.setVisible(false);
 		add(form);
 	}
 	

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
 
@@ -65,12 +67,14 @@ public class AdminChatUtil {
 	}
 
 	private JdbcTemplate jdbcTemplate;
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	protected String iap = DBConstants.TABLE_IAP_HISTORY;
 
 	@Resource
 	public void setDataSource(DataSource dataSource) {
 		log.info("Setting datasource and creating jdbcTemplate");
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 	}
 
 	public List<AdminChatPost> getMessagesToAndFromAdmin(int offset, int limit) {
@@ -108,10 +112,12 @@ public class AdminChatUtil {
 				users.add(msg.getRecipientId());
 			}
 		}
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("ids", users);
 		String query = "select " + DBConstants.USER__ID + ", " + DBConstants.USER__NAME + " from "
-				+ DBConstants.TABLE_USER + " where " + DBConstants.USER__ID + " in (?)";
-		Map<Integer, String> usernames = (Map<Integer, String>) jdbcTemplate.query(query,
-				new Object[] { users }, new ResultSetExtractor<Map<Integer, String>>() {
+				+ DBConstants.TABLE_USER + " where " + DBConstants.USER__ID + " in (:ids)";
+		Map<Integer, String> usernames = 
+				(Map<Integer, String>) namedParameterJdbcTemplate.query(query,	params, new ResultSetExtractor<Map<Integer, String>>() {
 					@Override
 					public Map<Integer, String> extractData(ResultSet rs) throws SQLException,
 							DataAccessException {
