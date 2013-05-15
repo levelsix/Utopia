@@ -29,7 +29,8 @@
 	<import resource="classpath:spring-integration-fake-client.xml" />
 	<import resource="classpath:spring-controllers.xml" />
 	<import resource="classpath:spring-security.xml" />
-<!-- 	<import resource="classpath:spring-cache.xml" /> -->
+	<import resource="classpath:spring-cron.xml" />
+ 	<import resource="classpath:spring-cache.xml" />
 
 	<bean id="serverInstance" class="com.lvl6.server.ServerInstance" />
 	<bean id="healthCheck" class="com.lvl6.server.HealthCheckImpl" />

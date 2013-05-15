@@ -1,0 +1,24 @@
+<wicket:panel>
+	<table width="100%">
+		<tr>
+			<th><strong>From:</strong> <span wicket:id="messageFrom"></span></th>
+			<th><strong>To:</strong> <span wicket:id="messageTo"></span></th>
+		</tr>
+		<tr>
+		<td colspan="2">
+			<span wicket:id="messageContent"></span>
+		</td>
+		</tr>
+		<tr>
+		<td colspan="2">
+			<a wicket:id="replyLink">Reply</a>
+			<a wicket:id="markAsReadLink">Reply</a>
+			<form wicket:id="replyForm">
+				<input wicket:id="content" ></input><br/>
+				<input type="submit" value="Reply" />
+			</form>
+		</td>
+		</tr>
+	</table>
+	
+</wicket:panel>

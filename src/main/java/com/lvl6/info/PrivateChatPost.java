@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class PrivateChatPost implements Serializable {
-  private static final long serialVersionUID = 8450554970377509383L;
-  private int id;
-	private int posterId;
-	private int recipientId;
-	private Date timeOfPost;
-	private String content;
+	protected static final long serialVersionUID = 8450554970377509383L;
+  	protected int id;
+	protected int posterId;
+	protected int recipientId;
+	protected Date timeOfPost;
+	protected String content;
 
 	public PrivateChatPost(int id, int posterId, int recipientId,
 			Date timeOfPost, String content) {
@@ -41,6 +41,15 @@ public class PrivateChatPost implements Serializable {
 		return content;
 	}
 
+	public void setTimeOfPost(Date timeOfPost) {
+		this.timeOfPost = timeOfPost;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "PlayerWallPost [id=" + id + ", posterId=" + posterId
