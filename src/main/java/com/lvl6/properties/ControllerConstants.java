@@ -180,7 +180,7 @@ public class ControllerConstants {
   public static final int STARTUP__LEADERBOARD_MIN_LEVEL = 1;
   public static final int STARTUP__ENHANCING_MIN_LEVEL_TO_UNLOCK = 20; 
   public static final boolean STARTUP__USE_OLD_BATTLE_FORMULA = true;
-  public static final int STARTUP__ADMIN_CHAT_USER_ID = Globals.IS_SANDBOX() ? 98437 : 131287;
+  public static final int STARTUP__ADMIN_CHAT_USER_ID = 98394;//Globals.IS_SANDBOX() ? 98437 : 131287;
   
   //ARMORY
   public static final double ARMORY__SELL_RATIO = 0.15;
