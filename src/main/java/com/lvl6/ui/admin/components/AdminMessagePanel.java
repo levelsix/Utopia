@@ -94,7 +94,8 @@ public class AdminMessagePanel extends Panel {
 						ControllerConstants.STARTUP__ADMIN_CHAT_USER_ID,
 						adminChatPost.getPosterId(), 
 						new Date(),
-						""));
+						"", 
+						adminChatPost.getUsername()));
 		form.setOutputMarkupId(true);
 		//form.setVisible(false);
 		add(form);

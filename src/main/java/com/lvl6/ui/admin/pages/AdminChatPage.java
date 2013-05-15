@@ -37,9 +37,9 @@ public class AdminChatPage extends TemplatePage {
 		super();
 		if (SecurityContextHolder.getContext() != null && SecurityContextHolder.getContext().getAuthentication() != null) {
 			String user = SecurityContextHolder.getContext().getAuthentication().getName();
-			log.info("Loading Admin Chat Page for: {}", user);
+			//log.info("Loading Admin Chat Page for: {}", user);
 		} else {
-			log.info("Loading Admin Chat Page");
+			//log.info("Loading Admin Chat Page");
 		}
 		//setupGraphs();
 		setupMessages();
@@ -60,7 +60,7 @@ public class AdminChatPage extends TemplatePage {
 	
 	
 
-	AbstractAjaxTimerBehavior abstractAjaxTimerBehavior = new AbstractAjaxTimerBehavior(Duration.seconds(90))
+	AbstractAjaxTimerBehavior abstractAjaxTimerBehavior = new AbstractAjaxTimerBehavior(Duration.seconds(360))
 	{
 		private static final long serialVersionUID = 5721917435743521271L;
 

@@ -8,6 +8,11 @@ public class AdminChatPost extends PrivateChatPost {
 		//setUsername(username);
 	}
 	
+	public AdminChatPost(int id, int posterId, int recipientId, Date timeOfPost, String content, String username) {
+		super(id, posterId, recipientId, timeOfPost, content);
+		setUsername(username);
+	}
+	
 	protected String username = "";
 	
 
