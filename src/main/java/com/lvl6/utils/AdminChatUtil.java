@@ -116,9 +116,14 @@ public class AdminChatUtil {
 					public Map<Integer, String> extractData(ResultSet rs) throws SQLException,
 							DataAccessException {
 						Map<Integer, String> usernames = new LinkedHashMap<Integer, String>();
+						log.info("Mapping usernames from ids");
 						while (rs.next()) {
-							usernames.put(rs.getInt(DBConstants.USER__ID),
-									rs.getString(DBConstants.USER__NAME));
+							
+							int userId = rs.getInt(DBConstants.USER__ID);
+							String userName = rs.getString(DBConstants.USER__NAME);
+							log.info("id: "+userId+" name: "+userName);
+							usernames.put(userId,
+									userName);
 						}
 						return usernames;
 					}
