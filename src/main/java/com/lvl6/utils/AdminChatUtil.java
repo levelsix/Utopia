@@ -179,6 +179,7 @@ public class AdminChatUtil {
 			// send to recipient of the private chat post
 			PrivateChatPostResponseEvent resEvent2 = new PrivateChatPostResponseEvent(recipientId);
 			resEvent2.setPrivateChatPostResponseProto(resBuilder.build());
+			log.info("player "+resEvent2.getPlayerId()+ " "+server.getPlayerById(resEvent2.getPlayerId()));
 			server.writeAPNSNotificationOrEvent(resEvent2);
 		}
 	}
