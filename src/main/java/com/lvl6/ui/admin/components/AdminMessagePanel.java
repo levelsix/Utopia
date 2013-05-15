@@ -79,8 +79,9 @@ public class AdminMessagePanel extends Panel {
 				
 			}
 		};
-		add(markAsRead);
 		markAsRead.setVisible(false);
+		markAsRead.setOutputMarkupId(true);
+		add(markAsRead);
 	}
 	
 	SendAdminMessageForm form;
@@ -93,9 +94,9 @@ public class AdminMessagePanel extends Panel {
 						adminChatPost.getPosterId(), 
 						new Date(),
 						""));
-		add(form);
-		form.setVisible(false);
 		form.setOutputMarkupId(true);
+		form.setVisible(false);
+		add(form);
 	}
 	
 	

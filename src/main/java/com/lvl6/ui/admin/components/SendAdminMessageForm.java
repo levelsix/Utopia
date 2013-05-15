@@ -14,7 +14,9 @@ public class SendAdminMessageForm extends Form<AdminChatPost> {
 	}
 	
 	protected void setup() {
-		add(new TextField<String>("content"));
+		TextField<String> content =new TextField<String>("content");
+		content.setOutputMarkupId(true);
+		add(content);
 	}
 	
 	
