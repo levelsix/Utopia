@@ -42,16 +42,17 @@ public class AdminChatPage extends TemplatePage {
 			log.info("Loading Admin Chat Page");
 		}
 		//setupGraphs();
+		setupMessages();
 		add(abstractAjaxTimerBehavior);
 	}
 	
 
 	protected void setupMessages() {
-		ListView<AdminChatPost> list = new ListView<AdminChatPost>("messages", getAdminChatMessages()) {
+		ListView<AdminChatPost> list = new ListView<AdminChatPost>("adminMessages", getAdminChatMessages()) {
 			private static final long serialVersionUID = 1L;
 			@Override
 			protected void populateItem(ListItem<AdminChatPost> itm) {
-				itm.add(new AdminMessagePanel("message", itm.getModelObject()));
+				itm.add(new AdminMessagePanel("adminMessage", itm.getModelObject()));
 			}
 		};
 		add(list);

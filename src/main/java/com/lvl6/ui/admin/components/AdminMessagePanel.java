@@ -27,9 +27,15 @@ public class AdminMessagePanel extends Panel {
 	protected void setup() {
 		addMessageFrom();
 		addMessageTo();
+		addMessageContent();
 		addReplyLink();
 		addMarkAsReadLink();
 		addReplyForm();
+	}
+	
+	protected void addMessageContent() {
+		Label content = new Label("messageContent", adminChatPost.getContent());
+		add(content);
 	}
 
 	protected void addMessageFrom() {
@@ -40,7 +46,7 @@ public class AdminMessagePanel extends Panel {
 
 	protected void addMessageTo() {
 		String toText = adminChatPost.getPosterId() != ControllerConstants.STARTUP__ADMIN_CHAT_USER_ID ? "Admin" : adminChatPost.getUsername();
-		Label to = new Label("messageFrom", toText);
+		Label to = new Label("messageTo", toText);
 		add(to);
 	}
 	
