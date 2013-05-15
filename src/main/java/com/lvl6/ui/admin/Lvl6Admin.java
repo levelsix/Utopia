@@ -3,6 +3,7 @@ package com.lvl6.ui.admin;
 import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
 
+import com.lvl6.ui.admin.pages.AdminChatPage;
 import com.lvl6.ui.admin.pages.AdminPage;
 import com.lvl6.ui.admin.pages.HealthCheckPage;
 import com.lvl6.ui.admin.pages.LogViewerPage;
@@ -18,6 +19,7 @@ public class Lvl6Admin extends WebApplication{
 		mountPage("/admin", AdminPage.class);
 		mountPage("/health", HealthCheckPage.class);
 		mountPage("/logs", LogViewerPage.class);
+		mountPage("/chat", AdminChatPage.class);
 		mountPage("/stats/${statsField}", StatsGraphsPage.class);
 	}
 
