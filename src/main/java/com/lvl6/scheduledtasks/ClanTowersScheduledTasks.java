@@ -104,6 +104,7 @@ public class ClanTowersScheduledTasks {
 				// battlesEndedLock.unlock();
 			}
 		}
+		distributeClanTowerRewards();
 	}
 
 	protected void checkBattleForTower(ClanTower tower) {
@@ -234,7 +235,7 @@ public class ClanTowersScheduledTasks {
 //				+ ", " + "\"" +  + "\")");
 	}
 
-	@Scheduled(fixedRate = 10000)
+	//@Scheduled(fixedRate = 10000)
 	public void distributeClanTowerRewards() {
 		// ILock towerRewardsLock =
 		// hazel.getLock("ClanTowersRewardsScheduledTask");

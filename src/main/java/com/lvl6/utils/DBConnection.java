@@ -95,7 +95,7 @@ public class DBConnection {
 		}
 		try {
 			if (conn != null) {
-				log.info("Connection is autoCommit: {}", conn.getAutoCommit());
+				//log.info("Connection is autoCommit: {}", conn.getAutoCommit());
 				//conn.setReadOnly(false);
 				//conn.setAutoCommit(true);
 				conn.close();
