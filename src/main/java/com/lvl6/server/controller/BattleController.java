@@ -186,6 +186,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
               lockBoxEventId, attackerCurrencyChange, defenderCurrencyChange);
 
           //clan towers
+          log.debug("BattleController... locking all clan towers");
           if (server.lockClanTowersTable()) {
         	  try {
         		  writeChangesToDBForClanTowers(winner, loser, attacker, defender);

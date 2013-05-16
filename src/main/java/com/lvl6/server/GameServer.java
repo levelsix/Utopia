@@ -274,7 +274,7 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware {
 	  String lockName = clanTowersTableLockName();
 	  if(lockMap.tryLock(lockName, LOCK_WAIT_SECONDS, TimeUnit.SECONDS)) {
 	    log.debug("Got lock for all clan towers.");
-	    lockMap.put(lockName, new Date());
+	    lockMap.put(lockName, new Date(), 10, TimeUnit.SECONDS);
 	    return true;
 	  } else {
 	    log.warn("Failed to acquire lock for all clan towers");

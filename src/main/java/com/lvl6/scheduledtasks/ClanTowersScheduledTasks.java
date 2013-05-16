@@ -88,6 +88,7 @@ public class ClanTowersScheduledTasks {
 		// ILock battlesEndedLock =
 		// hazel.getLock("ClanTowersBattlesEndedScheduledTask");
 		// if(battlesEndedLock.tryLock()) {
+		log.debug("Checking for battles ended... locking allClanTowers");
 		if (server.lockClanTowersTable()) {
 			try {
 				List<ClanTower> clanTowers = ClanTowerRetrieveUtils.getAllClanTowers();
@@ -238,6 +239,7 @@ public class ClanTowersScheduledTasks {
 		// ILock towerRewardsLock =
 		// hazel.getLock("ClanTowersRewardsScheduledTask");
 		// if(towerRewardsLock.tryLock()) {
+		log.debug("distributing clan tower rewards... locking all clan towers");
 		if (server.lockClanTowersTable()) {
 			try {
 				List<ClanTower> clanTowers = ClanTowerRetrieveUtils.getAllClanTowers();

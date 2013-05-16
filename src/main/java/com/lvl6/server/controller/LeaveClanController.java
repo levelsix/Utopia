@@ -105,6 +105,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
         //notifyClan(user, clan);
         
         //clan tower stuff
+        log.debug("LeaveClan... locking all clanTowers");
         if(server.lockClanTowersTable()) {
         	try {
         		sendTowersAndNotifications(clan);
