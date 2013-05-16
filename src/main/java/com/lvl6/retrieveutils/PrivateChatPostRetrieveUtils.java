@@ -101,6 +101,7 @@ import com.lvl6.utils.DBConnection;
     ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
     
     Map<Integer, PrivateChatPost> privateChatPosts = convertRSToMapIdToPrivateChatPost(rs);
+    DBConnection.get().close(rs, null, conn);
     return privateChatPosts;
   }
   
