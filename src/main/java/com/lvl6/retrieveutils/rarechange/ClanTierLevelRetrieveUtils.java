@@ -49,7 +49,7 @@ import com.lvl6.utils.DBConnection;
 
     highestClanTierLevel = 1;
     
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);

@@ -36,7 +36,7 @@ import com.lvl6.utils.DBConnection;
   private static void setStaticTaskIdToEquipmentIdQuantityMap() {
     log.debug("setting static map of taskId to equipment/quantity map");
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);

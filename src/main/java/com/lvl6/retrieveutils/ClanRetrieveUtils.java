@@ -35,7 +35,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();
     absoluteParams.put(DBConstants.CLANS__ID, clanId);
     
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, absoluteParams, TABLE_NAME);
     Clan clan = convertRSToSingleClan(rs);
     DBConnection.get().close(rs, null, conn);
@@ -75,7 +75,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     likeParams.put(DBConstants.CLANS__NAME, "%"+name+"%");
     likeParams.put(DBConstants.CLANS__TAG, "%"+tag+"%");
     
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsLikeOr(conn, likeParams, TABLE_NAME);
     List<Clan> clans = convertRSToClansList(rs);
     DBConnection.get().close(rs, null, conn);
@@ -89,7 +89,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     absoluteParams.put(DBConstants.CLANS__NAME, name);
     absoluteParams.put(DBConstants.CLANS__TAG, tag);
     
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(conn, absoluteParams, TABLE_NAME);
     Clan clan = convertRSToSingleClan(rs);
     DBConnection.get().close(rs, null, conn);
@@ -100,7 +100,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     TreeMap <String, Object> lessThanParamsToVals = new TreeMap<String, Object>();
     lessThanParamsToVals.put(DBConstants.CLANS__ID, clanId);
     
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimitLessthan(conn, null, TABLE_NAME, DBConstants.CLANS__ID, limit, lessThanParamsToVals);
     List<Clan> clans = convertRSToClansList(rs);
     DBConnection.get().close(rs, null, conn);
@@ -108,7 +108,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
   }
 
   public static List<Clan> getMostRecentClans(int limit) {
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimit(conn, null, TABLE_NAME, DBConstants.CLANS__ID, limit);
     List<Clan> clans = convertRSToClansList(rs);
     DBConnection.get().close(rs, null, conn);

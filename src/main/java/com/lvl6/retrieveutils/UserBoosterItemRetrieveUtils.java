@@ -23,7 +23,7 @@ import com.lvl6.utils.DBConnection;
   public static Map<Integer, Integer> getBoosterItemIdsToQuantityForUser(int userId) {
     log.debug("retrieving booster item ids to num booster items map for userId " + userId);
     
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     Map<Integer, Integer> boosterItemIdsToNumReceived = convertRSToBoosterItemIdsToNumReceivedMap(rs);
     DBConnection.get().close(rs, null, conn);

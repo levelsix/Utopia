@@ -31,7 +31,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     log.debug("retrieving lock box item ids to num lock boxes map for userId " + userId);
     //TODO:
     //SHOULD JUST GET THE 5 CORRESPONDING TO THE LATEST LOCK BOX EVENT
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     Map<Integer, Integer> lockBoxItemIdsToNumLockBoxes = convertRSToLockBoxItemIdsToNumLockBoxesMap(rs);
     DBConnection.get().close(rs, null, conn);
@@ -42,7 +42,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
       Collection<Integer> lockBoxItemIds) {
     log.debug("retrieving lock box item ids to user lock boxes map for userId " + userId);
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     Map<Integer, UserLockBoxItem> lockBoxItemIdsToUserLockBoxItems = null;
     

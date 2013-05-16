@@ -33,7 +33,7 @@ import com.lvl6.utils.DBConnection;
     String orderByColumn = DBConstants.USER_DAILY_BONUS_REWARD_HISTORY__DATE_AWARDED;
     int limit = 1;
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimit(
         conn, absoluteConditionParams, TABLE_NAME, orderByColumn, limit);
     List<UserDailyBonusRewardHistory> rewardList = convertRSToUserDailyBonusRewardHistory(rs);

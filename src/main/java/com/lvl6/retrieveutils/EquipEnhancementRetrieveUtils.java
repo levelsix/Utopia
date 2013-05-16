@@ -27,7 +27,7 @@ import com.lvl6.utils.DBConnection;
   public static List<EquipEnhancement> getEquipEnhancementsForUser(int userId) {
     log.debug("retrieving equip enhancements for user " + userId);
     
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     List<EquipEnhancement> equipEnhancements = convertRSToEquipEnhancements(rs);
     DBConnection.get().close(rs, null, conn);
@@ -37,7 +37,7 @@ import com.lvl6.utils.DBConnection;
   public static EquipEnhancement getEquipEnhancementsForEquipEnhancementId(int equipEnhancementId) {
     log.debug("retrieving equip enhancements for equip enhancement id " + equipEnhancementId);
     
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     Map<String, Object> absoluteConditionParams = new HashMap<String, Object>();
     absoluteConditionParams.put(DBConstants.EQUIP_ENHANCEMENT__ID, equipEnhancementId);
     

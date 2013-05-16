@@ -33,7 +33,7 @@ import com.lvl6.utils.DBConnection;
   private static void setStaticProfanity() {
     log.debug("setting static Set of profanity");
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);

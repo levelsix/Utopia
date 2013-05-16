@@ -28,7 +28,7 @@ import com.lvl6.utils.DBConnection;
   public static Map<Integer, BlacksmithAttempt> getUnhandledBlacksmithAttemptsForUser(int userId) {
     log.debug("retrieving unhandled blacksmith attempts for user " + userId);
     
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     Map<Integer, BlacksmithAttempt> blacksmithIdToBlacksmithAttempt = convertRSToBlacksmithAttempts(rs);
     DBConnection.get().close(rs, null, conn);

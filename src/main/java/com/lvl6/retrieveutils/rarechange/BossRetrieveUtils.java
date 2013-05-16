@@ -64,7 +64,7 @@ import com.lvl6.utils.DBConnection;
   private static void setStaticCityIdsToBosses() {
     log.debug("setting static map of cityId to bosses");
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
@@ -95,7 +95,7 @@ import com.lvl6.utils.DBConnection;
   private static void setStaticBossIdsToBosses() {
     log.debug("setting static map of bossIds to bosses");
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);

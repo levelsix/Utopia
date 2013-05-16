@@ -31,7 +31,7 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_CLANS__CLAN_ID, clanId);
     paramsToVals.put(DBConstants.USER_CLANS__STATUS, UserClanStatus.MEMBER.getNumber());
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
     List<UserClan> userClans = grabUserClansFromRS(rs);
     DBConnection.get().close(rs, null, conn);
@@ -48,7 +48,7 @@ import com.lvl6.utils.DBConnection;
     values.add(clanId2);
     values.add(UserClanStatus.MEMBER.getNumber());
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
     List<UserClan> userClans = grabUserClansFromRS(rs);
     DBConnection.get().close(rs, null, conn);
@@ -59,7 +59,7 @@ import com.lvl6.utils.DBConnection;
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_CLANS__USER_ID, userId);
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
     List<UserClan> userClans = grabUserClansFromRS(rs);
     DBConnection.get().close(rs, null, conn);
@@ -70,7 +70,7 @@ import com.lvl6.utils.DBConnection;
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_CLANS__CLAN_ID, clanId);
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (ControllerConstants.CLAN__ALLIANCE_CLAN_ID_THAT_IS_EXCEPTION_TO_LIMIT == clanId ||
         ControllerConstants.CLAN__LEGION_CLAN_ID_THAT_IS_EXCEPTION_TO_LIMIT == clanId) {
@@ -92,7 +92,7 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_CLANS__CLAN_ID, clanId);
     paramsToVals.put(DBConstants.USER_CLANS__USER_ID, userId);
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
     UserClan userClan = grabUserClanFromRS(rs);
     DBConnection.get().close(rs, null, conn);
