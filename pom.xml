@@ -61,9 +61,9 @@
 		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
 		<jdbc.idleConnectionTestPeriodInMinutes>1</jdbc.idleConnectionTestPeriodInMinutes>
 		<jdbc.idleMaxAgeInMinutes>5</jdbc.idleMaxAgeInMinutes>
-		<jdbc.maxConnectionsPerPartition>1</jdbc.maxConnectionsPerPartition>
-		<jdbc.minConnectionsPerPartition>1</jdbc.minConnectionsPerPartition>
-		<jdbc.partitionCount>1</jdbc.partitionCount>
+		<jdbc.maxConnectionsPerPartition>30</jdbc.maxConnectionsPerPartition>
+		<jdbc.minConnectionsPerPartition>2</jdbc.minConnectionsPerPartition>
+		<jdbc.partitionCount>3</jdbc.partitionCount>
 		<jdbc.acquireIncrement>2</jdbc.acquireIncrement>
 		<jdbc.statementsCacheSize>500</jdbc.statementsCacheSize>
 		<jdbc.releaseHelperThreads>3</jdbc.releaseHelperThreads>
@@ -529,7 +529,7 @@
 			<dependency>
 				<groupId>com.hazelcast</groupId>
 				<artifactId>hazelcast-all</artifactId>
-				<version>2.5.1</version>
+				<version>2.5</version>
 			</dependency>
 			<!-- <dependency> <groupId>com.hazelcast</groupId> <artifactId>hazelcast-wm</artifactId> 
 				<version>2.2</version> </dependency> -->
