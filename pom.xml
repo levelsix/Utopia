@@ -58,7 +58,7 @@
 		<jdbc.url><![CDATA[jdbc:mysql://dev.lvl6.com/kingdom?useLegacyDatetimeCode=false]]></jdbc.url>
 		<jdbc.username>lvl6admin</jdbc.username>
 		<jdbc.password>robashen123</jdbc.password>
-		<jdbc.driverClassName>com.mysql.jdbc.ReplicationDriver</jdbc.driverClassName>
+		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
 		<jdbc.idleConnectionTestPeriodInMinutes>1</jdbc.idleConnectionTestPeriodInMinutes>
 		<jdbc.idleMaxAgeInMinutes>5</jdbc.idleMaxAgeInMinutes>
 		<jdbc.maxConnectionsPerPartition>1</jdbc.maxConnectionsPerPartition>
