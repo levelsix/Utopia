@@ -78,17 +78,13 @@ public class AdminChatUtil {
 	}
 
 	public List<AdminChatPost> getMessagesToAndFromAdmin(int offset, int limit) {
-		String query = "SELECT " + "chat." + DBConstants.PRIVATE_CHAT_POSTS__ID + "," + "chat."
-				+ DBConstants.PRIVATE_CHAT_POSTS__POSTER_ID + "," + "chat."
-				+ DBConstants.PRIVATE_CHAT_POSTS__RECIPIENT_ID + "," + "chat."
-				+ DBConstants.PRIVATE_CHAT_POSTS__TIME_OF_POST + "," + "chat."
-				+ DBConstants.PRIVATE_CHAT_POSTS__CONTENT + "" + " FROM "
-				+ DBConstants.TABLE_PRIVATE_CHAT_POSTS + " as chat " + " where (chat."
+		String query = "SELECT * FROM "
+				+ DBConstants.TABLE_PRIVATE_CHAT_POSTS + " as chat where (chat."
 				+ DBConstants.PRIVATE_CHAT_POSTS__RECIPIENT_ID + "="
 				+ ControllerConstants.STARTUP__ADMIN_CHAT_USER_ID + " or chat."
 				+ DBConstants.PRIVATE_CHAT_POSTS__POSTER_ID + "="
 				+ ControllerConstants.STARTUP__ADMIN_CHAT_USER_ID + ") order by chat."
-				+ DBConstants.PRIVATE_CHAT_POSTS__TIME_OF_POST + " DESC" + " LIMIT " + limit + " OFFSET "
+				+ DBConstants.PRIVATE_CHAT_POSTS__TIME_OF_POST + " DESC LIMIT " + limit + " OFFSET "
 				+ offset;
 		List<AdminChatPost> msgs = jdbcTemplate.query(query, new RowMapper<AdminChatPost>() {
 			@Override
@@ -183,6 +179,7 @@ public class AdminChatUtil {
 			// send to recipient of the private chat post
 			PrivateChatPostResponseEvent resEvent2 = new PrivateChatPostResponseEvent(recipientId);
 			resEvent2.setPrivateChatPostResponseProto(resBuilder.build());
+			log.info("player "+resEvent2.getPlayerId()+ " "+server.getPlayerById(resEvent2.getPlayerId()));
 			server.writeAPNSNotificationOrEvent(resEvent2);
 		}
 	}
