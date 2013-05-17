@@ -81,6 +81,7 @@ public class User implements Serializable {
   private int amuletTwoEquippedUserEquipId;
   private int prestigeLevel;
   private int numAdditionalForgeSlots;
+  private int numBeginnerSalesPurchased;
 
 
   public User(int id, String name, int level, UserType type, int attack,
@@ -103,7 +104,7 @@ public class User implements Serializable {
       Date lastMarketplaceNotificationTime, Date lastWallPostNotificationTime,
       int kabamNaid, boolean hasReceivedfbReward, int weaponTwoEquippedUserEquipId, 
       int armorTwoEquippedUserEquipId, int amuletTwoEquippedUserEquipId, 
-      int prestigeLevel, int numAdditionalForgeSlots) {
+      int prestigeLevel, int numAdditionalForgeSlots, int numBeginnerSalesPurchased) {
     super();
     this.id = id;
     this.name = name;
@@ -165,6 +166,7 @@ public class User implements Serializable {
     this.amuletTwoEquippedUserEquipId = amuletTwoEquippedUserEquipId;
     this.prestigeLevel = prestigeLevel;
     this.numAdditionalForgeSlots = numAdditionalForgeSlots;
+    this.numBeginnerSalesPurchased = numBeginnerSalesPurchased;
   }
 
   public boolean updateAbsoluteUserLocation(Location location) {

@@ -519,8 +519,9 @@ import com.lvl6.utils.utilmethods.StringUtils;
     } 
     
     int prestigeLevel = rs.getInt(i++);
-    
+
     int numAdditionalForgeSlots = rs.getInt(i++);
+    int numBeginnerSalesPurchased = rs.getInt(i++);
     
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, energy, lastEnergyRefillTime, 
         skillPoints, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
@@ -530,7 +531,8 @@ import com.lvl6.utils.utilmethods.StringUtils;
         lastBattleNotificationTime, lastTimeAttacked, numBadges, lastShortLicensePurchaseTime, lastLongLicensePurchaseTime, isFake, userCreateTime, 
         isAdmin, apsalarId, numCoinsRetrievedFromStructs, numAdcolonyVideosWatched, numTimesKiipRewarded, numConsecutiveDaysPlayed, 
         numGroupChatsRemaining, clanId, lastGoldmineRetrieval, lastMktNotificationTime, lastWallNotificationTime, kabamNaid, hasReceivedfbReward,
-        weaponTwoEquippedUserEquipId, armorTwoEquippedUserEquipId, amuletTwoEquippedUserEquipId, prestigeLevel, numAdditionalForgeSlots);
+        weaponTwoEquippedUserEquipId, armorTwoEquippedUserEquipId, amuletTwoEquippedUserEquipId, prestigeLevel, numAdditionalForgeSlots, 
+        numBeginnerSalesPurchased);
     return user;
   }
 }
