@@ -123,7 +123,9 @@ import com.lvl6.utils.DBConnection;
     String packageS4SaleIdentifier = rs.getString(i++);
     String packageS5SaleIdentifier = rs.getString(i++);
     
-    GoldSale goldSale = new GoldSale(id, startDate, endDate, goldShoppeImageName, goldBarImageName, package1SaleIdentifier, package2SaleIdentifier, package3SaleIdentifier, package4SaleIdentifier, package5SaleIdentifier, packageS1SaleIdentifier, packageS2SaleIdentifier, packageS3SaleIdentifier, packageS4SaleIdentifier, packageS5SaleIdentifier);
+    GoldSale goldSale = new GoldSale(id, startDate, endDate, goldShoppeImageName, goldBarImageName, package1SaleIdentifier, 
+        package2SaleIdentifier, package3SaleIdentifier, package4SaleIdentifier, package5SaleIdentifier, packageS1SaleIdentifier, 
+        packageS2SaleIdentifier, packageS3SaleIdentifier, packageS4SaleIdentifier, packageS5SaleIdentifier, false);
     return goldSale;
   }
 }

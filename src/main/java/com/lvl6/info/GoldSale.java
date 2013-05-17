@@ -20,12 +20,14 @@ public class GoldSale implements Serializable {
   private String packageS5SaleIdentifier;
   private String goldShoppeImageName;
   private String goldBarImageName;
+  private boolean isBeginnerSale;
   
   public GoldSale(int id, Date startDate, Date endDate, String goldShoppeImageName,
       String goldBarImageName, String package1SaleIdentifier, 
       String package2SaleIdentifier, String package3SaleIdentifier, String package4SaleIdentifier,
       String package5SaleIdentifier, String packageS1SaleIdentifier, String packageS2SaleIdentifier,
-      String packageS3SaleIdentifier, String packageS4SaleIdentifier, String packageS5SaleIdentifier) {
+      String packageS3SaleIdentifier, String packageS4SaleIdentifier, String packageS5SaleIdentifier,
+      boolean isBeginnerSale) {
     super();
     this.id = id;
     this.startDate = startDate;
@@ -42,6 +44,15 @@ public class GoldSale implements Serializable {
     this.packageS5SaleIdentifier = packageS5SaleIdentifier;
     this.goldShoppeImageName = goldShoppeImageName;
     this.goldBarImageName = goldBarImageName;
+    this.isBeginnerSale = isBeginnerSale;
+  }
+
+  public boolean isBeginnerSale() {
+    return isBeginnerSale;
+  }
+
+  public void setBeginnerSale(boolean isBeginnerSale) {
+    this.isBeginnerSale = isBeginnerSale;
   }
 
   public int getId() {

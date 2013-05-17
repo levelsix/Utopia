@@ -463,6 +463,7 @@ public class ControllerConstants {
   public static final int NUM_DAYS_FOR_NEW_USER_GOLD_SALE = 3;
   public static final String GOLD_SHOPPE_IMAGE_NAME_NEW_USER_GOLD_SALE = "BeginnerSaleSign.png";
   public static final String GOLD_BAR_IMAGE_NAME_NEW_USER_GOLD_SALE = "BeginnerSale.png";
+  public static final int NUM_BEGINNER_SALES_ALLOWED = 2;
   
   //CLAN TOWER
   public static final int MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER = Globals.IS_SANDBOX() ? 2 : 25;

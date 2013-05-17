@@ -176,6 +176,7 @@ message GoldSaleProto {
 	optional string packageS3SaleIdentifier = 13;
 	optional string packageS4SaleIdentifier = 14;
 	optional string packageS5SaleIdentifier = 15;
+	optional bool isBeginnerSale = 16;
 }
 
 //-----------------------------------------------------------------------------------------
