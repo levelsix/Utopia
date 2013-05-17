@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.UserCreateRequestEvent;
+import com.lvl6.events.response.MenteeBecameAvailableResponseEvent;
 import com.lvl6.events.response.ReferralCodeUsedResponseEvent;
 import com.lvl6.events.response.UserCreateResponseEvent;
 import com.lvl6.info.CoordinatePair;
@@ -26,6 +29,7 @@ import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
+import com.lvl6.proto.EventProto.MenteeBecameAvailableResponseProto;
 import com.lvl6.proto.EventProto.ReferralCodeUsedResponseProto;
 import com.lvl6.proto.EventProto.UserCreateRequestProto;
 import com.lvl6.proto.EventProto.UserCreateResponseProto;
@@ -35,12 +39,14 @@ import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.LocationProto;
+import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.AvailableReferralCodeRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
+import com.lvl6.server.EventWriter;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
@@ -53,6 +59,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private static Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  @Resource
+  protected EventWriter eventWriter;
+
+  public EventWriter getEventWriter() {
+    return eventWriter;
+  }
+
+  public void setEventWriter(EventWriter eventWriter) {
+    this.eventWriter = eventWriter;
+  }
+  
   @Autowired
   protected LeaderBoardUtil leaderboard;
 
@@ -233,6 +250,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         
         //CURRENCY CHANGE HISTORY
         writeToUserCurrencyHistory(user, playerCoins, playerDiamonds);
+        
+        //send to mentors
+        writeToMentors(user);
 
       } catch (Exception e) {
         log.error("exception in UserCreateController processEvent", e);
@@ -507,6 +527,21 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange,
         previousGoldSilver, reasonsForChanges);
+  }
+  
+  public void writeToMentors(User u) {
+    int userId = u.getId();
+    MinimumUserProto mup = CreateInfoProtoUtils.createMinimumUserProtoFromUser(u);
+    // create event to send to mentors
+    MenteeBecameAvailableResponseProto.Builder mbarpb =
+        MenteeBecameAvailableResponseProto.newBuilder();
+    mbarpb.setMentee(mup);
+    MenteeBecameAvailableResponseEvent mbare = new MenteeBecameAvailableResponseEvent(userId);
+    mbare.setMenteeBecameAvailableResponseProto(mbarpb.build());
+    
+    //send to everyone, client will display based on whether the user
+    //received it is a mentor
+    eventWriter.processGlobalChatResponseEvent(mbare);
   }
   
 }

@@ -2,6 +2,24 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+message MentorshipProto {
+	optional int32 id = 1;
+	optional int32 mentorId = 2;
+	optional int32 menteeId = 3;
+	optional int64 startTime = 4;
+	optional int64 questOneCompleteTime = 5;
+	optional int64 questTwoCompleteTime = 6;
+	optional int64 questThreeCompleteTime = 7;
+	optional int64 questFourCompleteTime = 8;
+	optional int64 questFiveCompleteTime = 9;
+	optional bool isDropped = 10;
+}
+
+message MinimumUserProtoWithCreateTime {
+	optional MinimumUserProto mup = 1;
+	optional int64 createTime = 2; 
+}
+
 message PrivateChatPostProto {
 	optional int32 privateChatPostId = 1;
 	optional MinimumUserProto poster = 2;
@@ -489,6 +507,7 @@ message FullUserProto {
 	optional int32 prestigeLevel = 61;
 	optional int32 numAdditionalForgeSlots = 62;
 	optional int32 numBeginnerSalesPurchased = 63;
+	optional bool isMentor = 64;
 
 	//CreateInfoProtoUtils.java doesn't set these (I can't think of a time the client would need this
 	//consider making other fields like this

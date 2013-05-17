@@ -82,6 +82,7 @@ public class User implements Serializable {
   private int prestigeLevel;
   private int numAdditionalForgeSlots;
   private int numBeginnerSalesPurchased;
+  private boolean isMentor;
 
 
   public User(int id, String name, int level, UserType type, int attack,
@@ -104,7 +105,8 @@ public class User implements Serializable {
       Date lastMarketplaceNotificationTime, Date lastWallPostNotificationTime,
       int kabamNaid, boolean hasReceivedfbReward, int weaponTwoEquippedUserEquipId, 
       int armorTwoEquippedUserEquipId, int amuletTwoEquippedUserEquipId, 
-      int prestigeLevel, int numAdditionalForgeSlots, int numBeginnerSalesPurchased) {
+      int prestigeLevel, int numAdditionalForgeSlots, int numBeginnerSalesPurchased,
+      boolean isMentor) {
     super();
     this.id = id;
     this.name = name;
@@ -167,6 +169,7 @@ public class User implements Serializable {
     this.prestigeLevel = prestigeLevel;
     this.numAdditionalForgeSlots = numAdditionalForgeSlots;
     this.numBeginnerSalesPurchased = numBeginnerSalesPurchased;
+    this.isMentor = isMentor;
   }
 
   public boolean updateAbsoluteUserLocation(Location location) {
@@ -1717,7 +1720,6 @@ public class User implements Serializable {
     this.numAdditionalForgeSlots = numAdditionalForgeSlots;
   }
   
-  
   @Override
   public String toString() {
     return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="
@@ -1760,7 +1762,16 @@ public class User implements Serializable {
         + ", armorTwoEquippedUserEquipId=" + armorTwoEquippedUserEquipId
         + ", amuletTwoEquippedUserEquipId=" + amuletTwoEquippedUserEquipId
         + ", prestigeLevel=" + prestigeLevel + ", numAdditionalForgeSlots="
-        + numAdditionalForgeSlots + "]";
+        + numAdditionalForgeSlots + ", numBeginnerSalesPurchased="
+        + numBeginnerSalesPurchased + ", isMentor=" + isMentor + "]";
+  }
+
+  public boolean isMentor() {
+    return isMentor;
+  }
+
+  public void setMentor(boolean isMentor) {
+    this.isMentor = isMentor;
   }
 
   public Date getLastGoldmineRetrieval() {

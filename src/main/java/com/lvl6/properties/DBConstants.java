@@ -93,6 +93,8 @@ public class DBConstants {
   
   public static final String TABLE_PRIVATE_CHAT_POSTS = "private_chat_posts";
   
+  public static final String TABLE_MENTORSHIPS = "mentorships";
+  
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
   public static final String GENERIC__ID = "id";
@@ -159,6 +161,7 @@ public class DBConstants {
   public static final String USER__PRESTIGE_LEVEL = "prestige_level";
   public static final String USER__NUM_ADDITIONAL_FORGE_SLOTS = "num_additional_forge_slots";
   public static final String USER__NUM_BEGINNER_SALES_PURCHASED = "num_beginner_sales_purchased";
+  public static final String USER__IS_MENTOR = "is_mentor";
   
   /*USER EQUIP TABLE*/
   public static final String USER_EQUIP__ID = GENERIC__ID;
@@ -681,4 +684,16 @@ public class DBConstants {
   public static final String PRIVATE_CHAT_POSTS__RECIPIENT_ID = "recipient_id";
   public static final String PRIVATE_CHAT_POSTS__TIME_OF_POST = "time_of_post";
   public static final String PRIVATE_CHAT_POSTS__CONTENT = "content";
+  
+  /*MENTORSHIPS*/
+  public static final String MENTORSHIPS__ID = GENERIC__ID;
+  public static final String MENTORSHIPS__MENTOR_ID = "mentor_id"; 
+  public static final String MENTORSHIPS__MENTEE_ID = "mentee_id";
+  public static final String MENTORSHIPS__START_TIME = "start_time";
+  public static final String MENTORSHIPS__QUEST_ONE_COMPLETE_TIME = "quest_one_complete_time";
+  public static final String MENTORSHIPS__QUEST_TWO_COMPLETE_TIME = "quest_two_complete_time";
+  public static final String MENTORSHIPS__QUEST_THREE_COMPLETE_TIME = "quest_three_complete_time"; 
+  public static final String MENTORSHIPS__QUEST_FOUR_COMPLETE_TIME = "quest_four_complete_time";
+  public static final String MENTORSHIPS__QUEST_FIVE_COMPLETE_TIME = "quest_five_complete_time";
+  public static final String MENTORSHIPS__IS_DROPPED = "is_dropped";
 }

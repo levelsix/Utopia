@@ -4,12 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +35,53 @@ import com.lvl6.utils.utilmethods.StringUtils;
   private final int BATTLE_RANGE_INCREASE_MULTIPLE = 2;
   private final int MAX_BATTLE_DB_HITS = 5;
   private final int EXTREME_MAX_BATTLE_DB_HITS = 30;
+  
+  public List<User> getMentees(List<Integer> blackList, Date lastLoginAfterNow,
+      int limit) {
+    List<Object> values = new ArrayList<Object>();
+    
+    String query = "SELECT * FROM " + TABLE_NAME + " WHERE " +
+        DBConstants.USER__IS_MENTOR + "=? AND " + DBConstants.USER__IS_FAKE +
+        "=?"; 
+    values.add(false);
+    values.add(false);
+    
+    if (null != blackList && !blackList.isEmpty()) {
+      query += " AND " + DBConstants.USER__ID + "NOT IN (";
+      int amount = blackList.size();
+      List<String> clauses = Collections.nCopies(amount, "?");
+      query += StringUtils.getListInString(clauses, ",") + ")";
+      values.addAll(blackList);
+    }
+    
+    if (null != lastLoginAfterNow) {
+      query += " AND " + DBConstants.USER__LAST_LOGIN + " > ?";
+      values.add(new Timestamp(lastLoginAfterNow.getTime()));
+    }
+    
+    query += " ORDER BY " + DBConstants.USER__CREATE_TIME + " DESC " +
+    		"LIMIT " + limit;
+    
+    Connection conn = DBConnection.get().getReadOnlyConnection();
+    ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
+    List<User> usersList = convertRSToUsers(rs);
+    DBConnection.get().close(rs, null, conn);
+    return usersList;
+  }
+  
+  public List<User> getAllMentors() {
+    log.debug("retrieving users that are mentors ");
+
+    Map<String, Object> absoluteConditionParams = new HashMap<String, Object>();
+    absoluteConditionParams.put(DBConstants.USER__IS_MENTOR, true);
+
+    Connection conn = DBConnection.get().getReadOnlyConnection();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, absoluteConditionParams, DBConstants.TABLE_USER);
+    List<User> usersList = convertRSToUsers(rs);
+    DBConnection.get().close(rs, null, conn);
+    return usersList;
+    
+  }
   
   public int numAccountsForUDID(String udid) {
     List<Object> params = new ArrayList<Object>();
@@ -522,6 +571,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
 
     int numAdditionalForgeSlots = rs.getInt(i++);
     int numBeginnerSalesPurchased = rs.getInt(i++);
+    boolean isMentor = rs.getBoolean(i++);
     
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, energy, lastEnergyRefillTime, 
         skillPoints, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
@@ -532,7 +582,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
         isAdmin, apsalarId, numCoinsRetrievedFromStructs, numAdcolonyVideosWatched, numTimesKiipRewarded, numConsecutiveDaysPlayed, 
         numGroupChatsRemaining, clanId, lastGoldmineRetrieval, lastMktNotificationTime, lastWallNotificationTime, kabamNaid, hasReceivedfbReward,
         weaponTwoEquippedUserEquipId, armorTwoEquippedUserEquipId, amuletTwoEquippedUserEquipId, prestigeLevel, numAdditionalForgeSlots, 
-        numBeginnerSalesPurchased);
+        numBeginnerSalesPurchased, isMentor);
     return user;
   }
 }

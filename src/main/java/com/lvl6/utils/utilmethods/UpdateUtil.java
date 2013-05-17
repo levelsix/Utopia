@@ -203,4 +203,6 @@ public interface UpdateUtil {
   public abstract boolean updateUserBoosterItemsForOneUser(int userId, Map<Integer, Integer> userBoosterItemIdsToQuantities);
   
   public abstract boolean updateClanJoinTypeForClan(int clanId, boolean requestToJoinRequired);
+  
+  public abstract boolean updateMentorshipTerminate(int mentorshipId);
 }

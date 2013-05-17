@@ -38,6 +38,7 @@ import com.lvl6.info.LockBoxEvent;
 import com.lvl6.info.LockBoxItem;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.MarketplaceTransaction;
+import com.lvl6.info.Mentorship;
 import com.lvl6.info.MonteCard;
 import com.lvl6.info.NeutralCityElement;
 import com.lvl6.info.PlayerWallPost;
@@ -108,6 +109,7 @@ import com.lvl6.proto.InfoProto.LeaderboardType;
 import com.lvl6.proto.InfoProto.LocationProto;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
 import com.lvl6.proto.InfoProto.LockBoxItemProto;
+import com.lvl6.proto.InfoProto.MentorshipProto;
 import com.lvl6.proto.InfoProto.MinimumClanProto;
 import com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto;
@@ -116,6 +118,7 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores;
 import com.lvl6.proto.InfoProto.MinimumUserProtoForClans;
 import com.lvl6.proto.InfoProto.MinimumUserProtoWithBattleHistory;
+import com.lvl6.proto.InfoProto.MinimumUserProtoWithCreateTime;
 import com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel;
 import com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard;
 import com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto;
@@ -228,6 +231,17 @@ public class CreateInfoProtoUtils {
     return MinimumUserProtoWithBattleHistory.newBuilder().setMinUserProtoWithLevel(mup).setBattlesWon(u.getBattlesWon()).setBattlesLost(u.getBattlesLost()).setBattlesFled(u.getFlees()).build();
   }
 
+  public static MinimumUserProtoWithCreateTime createMinimumUserProtoWithCreateTime(User u) {
+    MinimumUserProtoWithCreateTime.Builder mupwctb = MinimumUserProtoWithCreateTime.newBuilder();
+    MinimumUserProto mup = createMinimumUserProtoFromUser(u);
+    Date createTime = u.getCreateTime();
+    
+    mupwctb.setCreateTime(createTime.getTime());
+    mupwctb.setMup(mup);
+    
+    return mupwctb.build();
+  }
+  
   public static FullUserCityExpansionDataProto createFullUserCityExpansionDataProtoFromUserCityExpansionData(UserCityExpansionData uced) {
     FullUserCityExpansionDataProto.Builder builder = FullUserCityExpansionDataProto.newBuilder().setUserId(uced.getUserId())
         .setFarLeftExpansions(uced.getFarLeftExpansions()).setFarRightExpansions(uced.getFarRightExpansions())
@@ -375,7 +389,8 @@ public class CreateInfoProtoUtils {
         .setHasReceivedfbReward(u.isHasReceivedfbReward())
         .setPrestigeLevel(u.getPrestigeLevel())
         .setNumAdditionalForgeSlots(u.getNumAdditionalForgeSlots())
-        .setNumBeginnerSalesPurchased(u.getNumBeginnerSalesPurchased());
+        .setNumBeginnerSalesPurchased(u.getNumBeginnerSalesPurchased())
+        .setIsMentor(u.isMentor());
 
     if (u.isFake()) {
       int equipmentLevel = u.getLevel();
@@ -855,6 +870,23 @@ public class CreateInfoProtoUtils {
         .setTimeOfPost(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
   }
 
+  public static List<PrivateChatPostProto> createPrivateChatPostProtoFromPrivateChatPostsAndProtos (
+      List<PrivateChatPost> pList, Map<Integer, MinimumUserProto> idsToMups) {
+    List<PrivateChatPostProto> pcppList = new ArrayList<PrivateChatPostProto>();
+    
+    for (PrivateChatPost pcp : pList) {
+      MinimumUserProto mupPoster = idsToMups.get(pcp.getPosterId());
+      MinimumUserProto mupRecipient = idsToMups.get(pcp.getRecipientId());
+      
+      PrivateChatPostProto pcpp = createPrivateChatPostProtoFromPrivateChatPostAndProtos(pcp,
+          mupPoster, mupRecipient);
+      
+      pcppList.add(pcpp);
+    }
+        
+    return pcppList;
+  }
+  
   //createMinimumProtoFromUser calls ClanRetrieveUtils, so a db read, if user has a clan
   //to prevent this, all clans that will be used should be passed in, hence clanIdsToClans,
   //clanIdsToUserIdSet. Not all users will have a clan, hence clanlessUserIds
@@ -1334,4 +1366,34 @@ public class CreateInfoProtoUtils {
         .setTimeOfPurchase(d.getTime()).build();
   }
 
+  public static MentorshipProto createMentorshipProto(Mentorship ms) {
+    MentorshipProto.Builder mpb = MentorshipProto.newBuilder();
+    
+    mpb.setId(ms.getId()).setMentorId(ms.getMentorId()).setMenteeId(ms.getMenteeId())
+    .setStartTime(ms.getStartTime().getTime()).setIsDropped(ms.isDropped());
+    
+    Date aDate = ms.getQuestOneCompleteTime();
+    if (null != aDate) {
+      mpb.setQuestOneCompleteTime(aDate.getTime());
+    }
+    aDate = ms.getQuestTwoCompleteTime();
+    if (null != aDate) {
+      mpb.setQuestTwoCompleteTime(aDate.getTime());
+    }
+    aDate = ms.getQuestThreeCompleteTime();
+    if (null != aDate) {
+      mpb.setQuestThreeCompleteTime(aDate.getTime());
+    }
+    aDate = ms.getQuestFourCompleteTime();
+    if (null != aDate) {
+      mpb.setQuestFourCompleteTime(aDate.getTime());
+    }
+    aDate = ms.getQuestFiveCompleteTime();
+    if (null != aDate) {
+      mpb.setQuestFiveCompleteTime(aDate.getTime());
+    }
+    
+    return mpb.build();
+  }
+  
 }

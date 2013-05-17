@@ -2705,3 +2705,94 @@ message RedeemUserLockBoxItemsResponseProto {
 		FAIL_OTHER = 3;
 	}
 }
+
+//------------------------------------------------------------------------------------
+
+message BeginMentoringUserRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 menteeId = 2;
+	optional int64 clientTime = 3;
+}
+
+message BeginMentoringUserResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional BeginMentoringUserStatus status = 2;
+	repeated PrivateChatPostProto initialMessages = 3;
+	optional MentorshipProto mentorship = 4;
+	
+	enum BeginMentoringUserStatus {
+		SUCCESS = 0;
+		FAIL_OTHER = 1;
+		FAIL_ALREADY_AT_MAX_NUM_MENTEES = 2;
+		FAIL_TOO_EARLY_TO_ACQUIRE_MENTEE = 3;
+		FAIL_ALREADY_BEING_MENTORED = 4;
+		FAIL_NOT_MENTOR = 5;
+	}
+}
+
+message MenteeBecameAvailableResponseProto {
+	optional MinimumUserProto mentee = 1;
+}
+
+message RetrieveAllMentorsRequestProto {
+	optional MinimumUserProto sender = 1;
+}
+
+message RetrieveAllMentorsResponseProto {
+	optional MinimumUserProto sender = 1;
+	repeated MinimumUserProto mentors = 2;
+	optional RetrieveAllMentorsStatus status = 3;
+	
+	enum RetrieveAllMentorsStatus {
+		SUCCESS = 1;
+		FAIL_OTHER = 2;
+	}
+}
+
+message RetrieveAvailableMenteesRequestProto {
+	optional MinimumUserProto sender = 1;
+}
+
+message RetrieveAvailableMenteesResponseProto {
+	optional MinimumUserProto sender = 1;
+	repeated MinimumUserProtoWithCreateTime mentees = 2;
+	optional RetrieveAvailableMenteesStatus status = 3;
+	
+	enum RetrieveAvailableMenteesStatus {
+		SUCCESS = 1;
+		FAIL_OTHER = 2;	
+	}
+}
+
+message DropMenteeRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 menteeToDrop = 2;
+}
+
+message DropMenteeResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional DropMenteeStatus status = 2; 
+	
+	enum DropMenteeStatus {
+		SUCCESS = 1;
+		FAIL_NOT_MENTEE = 2;
+		FAIL_OTHER = 3;
+	}
+}
+
+message RetrieveMyMenteesRequestProto {
+	optional MinimumUserProto sender = 1;
+}
+
+message RetrieveMyMenteesResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional RetrieveMyMenteesStatus status = 2;
+	repeated MentorshipProto mentorships = 3;
+	
+	enum RetrieveMyMenteesStatus {
+		SUCCESS = 1;
+		FAIL_OTHER = 2;
+	}
+}
+
+//------------------------------------------------------------------------------------

@@ -1105,15 +1105,51 @@ public class InsertUtils implements InsertUtil{
     return numInserted;
   }
   
-  public int insertIntoPrivatePosts(int posterId, int recipientId, String content, Timestamp timeOfPost) {
+  public int insertIntoPrivateChatPosts(int posterId, int recipientId, String content, Timestamp timeOfPost) {
     Map<String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.PRIVATE_CHAT_POSTS__POSTER_ID, posterId);
     insertParams.put(DBConstants.PRIVATE_CHAT_POSTS__RECIPIENT_ID, recipientId);
-    insertParams.put(DBConstants.PRIVATE_CHAT_POSTS__TIME_OF_POST, timeOfPost);
     insertParams.put(DBConstants.PRIVATE_CHAT_POSTS__CONTENT, content);
+    insertParams.put(DBConstants.PRIVATE_CHAT_POSTS__TIME_OF_POST, timeOfPost);
 
     int wallPostId = DBConnection.get().insertIntoTableBasicReturnId(
         DBConstants.TABLE_PRIVATE_CHAT_POSTS, insertParams);
     return wallPostId;
+  }
+  
+  public List<Integer> insertIntoPrivateChatPosts(List<Integer> posterIds, List<Integer> recipientIds,
+      List<String> contents, List<Date> timeOfPosts) {
+    String tableName = DBConstants.TABLE_PRIVATE_CHAT_POSTS;
+    List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
+    for(int i = 0; i < posterIds.size(); i++){
+      int posterId = posterIds.get(i);
+      int recipientId = recipientIds.get(i);
+      String content = contents.get(i);
+      Date dateOfPost = timeOfPosts.get(i);
+      Timestamp ts = new Timestamp(dateOfPost.getTime());
+      
+      Map<String, Object> row = new HashMap<String, Object>();
+      row.put(DBConstants.PRIVATE_CHAT_POSTS__POSTER_ID, posterId);
+      row.put(DBConstants.PRIVATE_CHAT_POSTS__RECIPIENT_ID, recipientId);
+      row.put(DBConstants.PRIVATE_CHAT_POSTS__CONTENT, content);
+      row.put(DBConstants.PRIVATE_CHAT_POSTS__TIME_OF_POST, ts);
+      newRows.add(row);
+    }
+    List<Integer> postIds = DBConnection.get().insertIntoTableBasicReturnIds(tableName, newRows);
+    return postIds;
+  }
+  
+  public int insertIntoMentorships(int mentorId, int menteeId, Date startTime, boolean menteeIsInClan) {
+    String tableName = DBConstants.TABLE_MENTORSHIPS;
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.MENTORSHIPS__MENTOR_ID, mentorId);
+    insertParams.put(DBConstants.MENTORSHIPS__MENTEE_ID, menteeId);
+    insertParams.put(DBConstants.MENTORSHIPS__START_TIME, startTime);
+    
+    if (menteeIsInClan) {
+      //insertParams.put(DBConstants, startTime);
+    }
+    int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
+    return numInserted;
   }
 }

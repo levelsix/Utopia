@@ -145,7 +145,7 @@ public class AdminChatUtil {
 		int posterId = msg.getPosterId();
 		int recipientId = msg.getRecipientId();
 		String censoredContent = MiscMethods.censorUserInput(msg.getContent());
-		int privateChatPostId = insertUtils.insertIntoPrivatePosts(posterId, recipientId, censoredContent,
+		int privateChatPostId = insertUtils.insertIntoPrivateChatPosts(posterId, recipientId, censoredContent,
 				new Timestamp(msg.getTimeOfPost().getTime()));
 		List<Integer> userIds = new ArrayList<Integer>();
 		userIds.add(posterId);

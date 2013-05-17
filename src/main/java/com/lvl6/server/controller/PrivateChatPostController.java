@@ -101,7 +101,7 @@ public class PrivateChatPostController extends EventController {
 			// record in db
 			Timestamp timeOfPost = new Timestamp(new Date().getTime());
 			String censoredContent = MiscMethods.censorUserInput(content);
-			int privateChatPostId = insertUtils.insertIntoPrivatePosts(posterId, recipientId,
+			int privateChatPostId = insertUtils.insertIntoPrivateChatPosts(posterId, recipientId,
 					censoredContent, timeOfPost);
 			if (privateChatPostId <= 0) {
 				legitPost = false;

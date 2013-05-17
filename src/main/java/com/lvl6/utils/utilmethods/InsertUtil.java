@@ -175,5 +175,10 @@ public interface InsertUtil {
       int newPrestigeLevel, int preprestigeAttackStat, int preprestigeDefenseStat,  int preprestigeStaminaStat,
       int preprestigeEnergyStat, Date aDate, int preprestigeExperience, int preprestigeSkillPoints);
   
-  public int insertIntoPrivatePosts(int posterId, int recipientId, String content, Timestamp timeOfPost);
+  public abstract int insertIntoPrivateChatPosts(int posterId, int recipientId, String content, Timestamp timeOfPost);
+  
+  public abstract List<Integer> insertIntoPrivateChatPosts(List<Integer> posterIds, List<Integer> recipientIds, List<String> contents,
+      List<Date> timeOfPosts);
+  
+  public abstract int insertIntoMentorships(int mentorId, int menteeId, Date startTime, boolean menteeIsInClan);
 }

@@ -190,9 +190,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     for(Integer i : userStructIds) {
       UserStruct userStructure = userStructIdsToUserStructs.get(i);
       Structure struct = userStructIdsToStructures.get(i);
+      int structIncome = struct.getIncome();
+      int userStructureLevel = userStructure.getLevel();
       
       totalCoinsGained += MiscMethods.calculateIncomeGainedFromUserStruct(
-          struct.getIncome(), userStructure.getLevel());
+          structIncome, userStructureLevel);
     }
     
     return totalCoinsGained;

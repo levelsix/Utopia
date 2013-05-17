@@ -181,7 +181,8 @@ public class ControllerConstants {
   public static final int STARTUP__ENHANCING_MIN_LEVEL_TO_UNLOCK = 20; 
   public static final boolean STARTUP__USE_OLD_BATTLE_FORMULA = true;
   public static final int STARTUP__ADMIN_CHAT_USER_ID = 98394;//Globals.IS_SANDBOX() ? 98437 : 131287;
-  
+  public static final int STARTUP__MAX_PRIVATE_CHAT_POSTS_SENT = 50;
+  public static final int STARTUP__MAX_PRIVATE_CHAT_POSTS_RECEIVED = 50;
   //ARMORY
   public static final double ARMORY__SELL_RATIO = 0.15;
   
@@ -546,6 +547,17 @@ public class ControllerConstants {
   public static final String BOOSTER_PACK__INFO_IMAGE_NAME = "howchestswork.png";
   public static final int BOOSTER_PACK__NUM_TIMES_TO_BUY_STARTER_PACK = 4;
   public static final int BOOSTER_PACK__NUM_DAYS_TO_BUY_STARTER_PACK = 3;
+  
+  //MENTORING
+  public static final int MENTORSHIPS__MAX_MENTEE_LIMIT = 25;
+  //mentor has to wait some minutes before they can acquire another user to mentor
+  public static final int MENTORSHIPS__MINUTES_UNTIL_NEXT_MENTORSHIP = 30; 
+  public static final String MENTORSHIPS_INITIAL_MESSAGE_ONE = "Hi %@, IÕm a mentor in age of" +
+  		" chaos! I help new players learn the ropes";
+  public static final String MENTORSHIPS_INITIAL_MESSAGE_TWO = "how's it going?";
+  public static final int MENTORSHIPS__MAX_LEVEL_LIMIT_TO_STILL_BE_A_MENTEE = 60;
+  public static final int MENTORSHIPS__SUBTRAHEND_IN_MINUTES_TO_NOW_TO_FIND_MENTEE = 60;
+  public static final int MENTORSHIPS__MAX_MENTEES_TO_RETRIEVE = 100;
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),

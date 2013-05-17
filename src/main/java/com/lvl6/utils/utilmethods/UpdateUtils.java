@@ -1240,4 +1240,21 @@ public class UpdateUtils implements UpdateUtil {
     }
     return false;
   }
+  
+  public boolean updateMentorshipTerminate(int mentorshipId) {
+    String tableName = DBConstants.TABLE_MENTORSHIPS;
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.MENTORSHIPS__ID, mentorshipId);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.MENTORSHIPS__IS_DROPPED, true);
+
+    int numUpdated = DBConnection.get().updateTableRows(tableName, null, absoluteParams, 
+        conditionParams, "or");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+  
 }
