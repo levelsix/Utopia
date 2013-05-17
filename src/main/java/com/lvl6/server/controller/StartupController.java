@@ -642,12 +642,12 @@ public class StartupController extends EventController {
 		GoldSaleProto sale = MiscMethods.createFakeGoldSaleForNewPlayer(user);
 		if (sale != null) {
 			resBuilder.addGoldSales(sale);
-		} else {
-			List<GoldSale> sales = GoldSaleRetrieveUtils.getCurrentAndFutureGoldSales();
-			if (sales != null && sales.size() > 0) {
-				for (GoldSale s : sales) {
-					resBuilder.addGoldSales(CreateInfoProtoUtils.createGoldSaleProtoFromGoldSale(s));
-				}
+		}
+		
+		List<GoldSale> sales = GoldSaleRetrieveUtils.getCurrentAndFutureGoldSales();
+		if (sales != null && sales.size() > 0) {
+			for (GoldSale s : sales) {
+				resBuilder.addGoldSales(CreateInfoProtoUtils.createGoldSaleProtoFromGoldSale(s));
 			}
 		}
 	}
