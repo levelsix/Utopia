@@ -316,13 +316,15 @@ public class StartupController extends EventController {
 	  List<Integer> privateChatPostIds = new ArrayList<Integer>();
 	  
 	  //get all the most recent posts sent to this user
-	  Map<Integer, PrivateChatPost> postsUserReceived = PrivateChatPostRetrieveUtils.getMostRecentPrivateChatPostsByOrToUser(
-	      userId, isRecipient);
+	  Map<Integer, PrivateChatPost> postsUserReceived = 
+	      PrivateChatPostRetrieveUtils.getMostRecentPrivateChatPostsByOrToUser(
+	      userId, isRecipient, ControllerConstants.STARTUP__MAX_PRIVATE_CHAT_POSTS_RECEIVED);
 	  
 	  //get all the most recent posts this user sent
 	  isRecipient = false;
-	  Map<Integer, PrivateChatPost> postsUserSent = PrivateChatPostRetrieveUtils.getMostRecentPrivateChatPostsByOrToUser(
-	      userId, isRecipient);
+	  Map<Integer, PrivateChatPost> postsUserSent = 
+	      PrivateChatPostRetrieveUtils.getMostRecentPrivateChatPostsByOrToUser(
+	      userId, isRecipient, ControllerConstants.STARTUP__MAX_PRIVATE_CHAT_POSTS_SENT);
 	  
 	  if ((null == postsUserReceived || postsUserReceived.isEmpty()) &&
 	      (null == postsUserSent || postsUserSent.isEmpty()) ) {

@@ -31,7 +31,7 @@ import com.lvl6.utils.DBConnection;
     log.info("retrieving " + limit + " private chat posts before certain postId "
       + postId + " for userOne " + userOne + " and userTwo" + userTwo);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     String query = "";
     List<Object> values = new ArrayList<Object>();
     query += 
@@ -62,7 +62,7 @@ import com.lvl6.utils.DBConnection;
   }
   
   public static Map<Integer, PrivateChatPost> getMostRecentPrivateChatPostsByOrToUser(
-      int userId, boolean isRecipient) {
+      int userId, boolean isRecipient, int limit) {
     log.debug("retrieving most recent private chat posts. userId "
       + userId + " isRecipient=" + isRecipient);
     
@@ -76,7 +76,7 @@ import com.lvl6.utils.DBConnection;
       otherPersonColumn = DBConstants.PRIVATE_CHAT_POSTS__RECIPIENT_ID;
       column = DBConstants.PRIVATE_CHAT_POSTS__POSTER_ID;
     }
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().getReadOnlyConnection();
     List<Object> values = new ArrayList<Object>();
     String query = "";
     String subquery = "";
@@ -95,7 +95,9 @@ import com.lvl6.utils.DBConnection;
         "FROM " + subquery + " as idList "
           + "LEFT JOIN " + 
                   TABLE_NAME + " as pcp " +
-            "ON idList.id=pcp.id";
+            "ON idList.id=pcp.id" + 
+        "LIMIT ?";
+    values.add(limit);
     
     
     ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
