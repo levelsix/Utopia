@@ -295,4 +295,12 @@ public class IAPValues {
     }
     return 0;
   }
+  
+  public static boolean packageIsBeginnerSale(String packageName) {
+    if (packageName.equals(PACKAGES1BSALE) || packageName.equals(PACKAGES2BSALE) || packageName.equals(PACKAGES3BSALE) || 
+        packageName.equals(PACKAGES4BSALE) || packageName.equals(PACKAGES5BSALE)) {
+      return true;
+    }
+    return false;
+  }
 }

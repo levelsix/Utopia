@@ -374,7 +374,8 @@ public class CreateInfoProtoUtils {
         .setNumGroupChatsRemaining(u.getNumGroupChatsRemaining())
         .setHasReceivedfbReward(u.isHasReceivedfbReward())
         .setPrestigeLevel(u.getPrestigeLevel())
-        .setNumAdditionalForgeSlots(u.getNumAdditionalForgeSlots());
+        .setNumAdditionalForgeSlots(u.getNumAdditionalForgeSlots())
+        .setNumBeginnerSalesPurchased(u.getNumBeginnerSalesPurchased());
 
     if (u.isFake()) {
       int equipmentLevel = u.getLevel();

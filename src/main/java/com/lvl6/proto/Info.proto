@@ -488,6 +488,7 @@ message FullUserProto {
 	optional FullUserEquipProto amuletTwoEquippedUserEquip = 60;
 	optional int32 prestigeLevel = 61;
 	optional int32 numAdditionalForgeSlots = 62;
+	optional int32 numBeginnerSalesPurchased = 63;
 
 	//CreateInfoProtoUtils.java doesn't set these (I can't think of a time the client would need this
 	//consider making other fields like this

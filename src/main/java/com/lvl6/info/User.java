@@ -1053,6 +1053,29 @@ public class User implements Serializable {
     }
     return false;
   }
+  
+  public boolean updateRelativeDiamondsBeginnerSale (int diamondChange, boolean isBeginnerSale) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+
+    if (diamondChange != 0) {
+      relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
+    }
+
+    if (isBeginnerSale) {
+      relativeParams.put(DBConstants.USER__NUM_BEGINNER_SALES_PURCHASED, 1);
+    }
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.diamonds += diamondChange;
+      return true;
+    }
+    return false;
+  }
 
   public boolean updateRelativeDiamondsAbsoluteClan (int diamondChange, Integer clanId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
@@ -1127,6 +1150,37 @@ public class User implements Serializable {
 
     if (coinChange != 0) {
       relativeParams.put(DBConstants.USER__COINS, coinChange);
+    }
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.coins += coinChange;
+      return true;
+    }
+    return false;
+  }
+
+  public int getNumBeginnerSalesPurchased() {
+    return numBeginnerSalesPurchased;
+  }
+
+  public void setNumBeginnerSalesPurchased(int numBeginnerSalesPurchased) {
+    this.numBeginnerSalesPurchased = numBeginnerSalesPurchased;
+  }
+
+  public boolean updateRelativeCoinsBeginnerSale (int coinChange, boolean isBeginnerSale) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+
+    if (coinChange != 0) {
+      relativeParams.put(DBConstants.USER__COINS, coinChange);
+    }
+
+    if (isBeginnerSale) {
+      relativeParams.put(DBConstants.USER__NUM_BEGINNER_SALES_PURCHASED, 1);
     }
 
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 

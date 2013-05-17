@@ -156,19 +156,18 @@ public class InAppPurchaseController extends EventController {
         if (!IAPHistoryRetrieveUtils.checkIfDuplicateTransaction(Long.parseLong(receiptFromApple
             .getString(IAPValues.TRANSACTION_ID)))) {
           try {
-            int diamondChange = IAPValues.getDiamondsForPackageName(receiptFromApple
-                .getString(IAPValues.PRODUCT_ID));
-            int coinChange = IAPValues.getCoinsForPackageName(receiptFromApple
-                .getString(IAPValues.PRODUCT_ID));
-            double cashCost = IAPValues.getCashSpentForPackageName(receiptFromApple
-                .getString(IAPValues.PRODUCT_ID));
+            String packageName = receiptFromApple.getString(IAPValues.PRODUCT_ID);
+            int diamondChange = IAPValues.getDiamondsForPackageName(packageName);
+            int coinChange = IAPValues.getCoinsForPackageName(packageName);
+            double cashCost = IAPValues.getCashSpentForPackageName(packageName);
+            boolean isBeginnerSale = IAPValues.packageIsBeginnerSale(packageName);
             
             if (diamondChange > 0) {
               resBuilder.setDiamondsGained(diamondChange);
-              user.updateRelativeDiamondsNaive(diamondChange);
+              user.updateRelativeDiamondsBeginnerSale(diamondChange, isBeginnerSale);
             } else {
               resBuilder.setCoinsGained(coinChange);
-              user.updateRelativeCoinsNaive(coinChange);
+              user.updateRelativeCoinsBeginnerSale(coinChange, isBeginnerSale);
             }
             
             if (!insertUtils.insertIAPHistoryElem(receiptFromApple, diamondChange, coinChange, user, cashCost)) {
