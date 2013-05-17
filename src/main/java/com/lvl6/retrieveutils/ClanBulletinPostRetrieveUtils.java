@@ -25,7 +25,7 @@ import com.lvl6.utils.DBConnection;
   public static ClanBulletinPost getSpecificActiveClanBulletinPost(int bulletinPostId) {
     log.debug("retrieving bulletin post with id " + bulletinPostId);
     
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsById(conn, bulletinPostId, TABLE_NAME);
     ClanBulletinPost clanBulletinPost = convertRSToSingleClanBulletinPost(rs);
     DBConnection.get().close(rs, null, conn);
@@ -40,7 +40,7 @@ import com.lvl6.utils.DBConnection;
     TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();
     absoluteParams.put(DBConstants.CLAN_BULLETIN_POSTS__CLAN_ID, clanId);
     
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimitLessthan(conn, absoluteParams, TABLE_NAME, DBConstants.CLAN_BULLETIN_POSTS__ID, limit, lessThanParamsToVals);
     List<ClanBulletinPost> clanBulletinPosts = convertRSToClanBulletinPosts(rs);
     DBConnection.get().close(rs, null, conn);
@@ -53,7 +53,7 @@ import com.lvl6.utils.DBConnection;
     TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();
     absoluteParams.put(DBConstants.CLAN_BULLETIN_POSTS__CLAN_ID, clanId);
     
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimit(conn, absoluteParams, TABLE_NAME, DBConstants.CLAN_BULLETIN_POSTS__ID, limit);
     List<ClanBulletinPost> clanBulletinPosts = convertRSToClanBulletinPosts(rs);
     DBConnection.get().close(rs, null, conn);

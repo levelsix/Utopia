@@ -90,6 +90,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     resBuilder.setSender(senderProto);
 
     server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
+    log.debug("ConcededClanTowerWar... locking all clan towers");
     if(server.lockClanTowersTable()) {
 	    try {
 	        User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());

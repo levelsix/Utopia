@@ -59,9 +59,9 @@
 		</encoder>
 	</appender>
 
-	<logger name="com.lvl6.scheduledtasks" level="DEBUG" additivity="false">
+<!-- 	<logger name="com.lvl6.scheduledtasks" level="DEBUG" additivity="false">
 		<appender-ref ref="file" />
-	</logger>
+	</logger> -->
 	
 
 	<root level="info">

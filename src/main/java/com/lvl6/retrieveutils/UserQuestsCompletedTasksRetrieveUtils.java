@@ -28,7 +28,7 @@ import com.lvl6.utils.DBConnection;
     log.debug("retrieving user's quest id to completed tasks map for user " + userId);
     Map <Integer, List<Integer>> questIdToUserTasksCompleted = new HashMap<Integer, List<Integer>>();
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);

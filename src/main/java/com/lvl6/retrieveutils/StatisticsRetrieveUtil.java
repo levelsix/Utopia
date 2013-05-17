@@ -16,7 +16,6 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.lvl6.properties.DBConstants;
 import com.lvl6.stats.InAppPurchase;
@@ -46,7 +45,7 @@ public class StatisticsRetrieveUtil {
 		return countLoginsSince(yesterday);
 	}
 
-	@Transactional (readOnly=true)
+	////
 	public int countLoginsSince(String formattedDate) {
 		String queryString = "select count(*) from "+DBConstants.TABLE_USER+" where "+DBConstants.USER__LAST_LOGIN+" > '"+formattedDate+"'";
 		log.info("Executing: {}", queryString);
@@ -60,51 +59,51 @@ public class StatisticsRetrieveUtil {
 		return formatted;
 	}
 	
-	@Transactional (readOnly=true)
+	//
 	public Integer countPayingPlayers() {
 		return jdbcTemplate.queryForInt("select count(*) from " + DBConstants.TABLE_USER + " where " + DBConstants.USER__ID +
 		    " in (select " + DBConstants.IAP_HISTORY__USER_ID + " from " + DBConstants.TABLE_IAP_HISTORY + " where " + 
 		    DBConstants.IAP_HISTORY__PREMIUMCUR_PURCHASED + " > 0)");
 	}
 	
-	@Transactional (readOnly=true)
+	//
 	public Long countInAppPurchases() {
 		return jdbcTemplate.queryForLong("select count(*) from " + DBConstants.TABLE_IAP_HISTORY + " where " + DBConstants.IAP_HISTORY__PREMIUMCUR_PURCHASED + " > 0");
 	}
 	
-	@Transactional (readOnly=true)
+	//
 	public Long sumOfInAppPurchases() {
 		return jdbcTemplate.queryForLong("select sum(" + DBConstants.IAP_HISTORY__CASH_SPENT + ") from " + DBConstants.TABLE_IAP_HISTORY);
 	}
 	
-	@Transactional (readOnly=true)
+	//
 	public Long countNumberKiipRewardsRedeemed() {
 		return jdbcTemplate.queryForLong("select count(*) from " + DBConstants.TABLE_KIIP_REWARD_HISTORY);
 	}
 	
-	@Transactional (readOnly=true)
+	//
 	public Long countMarketplaceTransactions() {
 		return jdbcTemplate.queryForLong("select count(*) from " + DBConstants.TABLE_MARKETPLACE_TRANSACTION_HISTORY);
 	}
 	
-	@Transactional (readOnly=true)
+	//
 	public Long countMarketplacePosts() {
 		return jdbcTemplate.queryForLong("select count(*) from " + DBConstants.TABLE_MARKETPLACE);
 	}
 	
-	@Transactional (readOnly=true)
+	//
 	public Long sumOfSilverInWorld() {
 		return jdbcTemplate.queryForLong("select sum(" + DBConstants.USER__COINS +") + sum(" + DBConstants.USER__VAULT_BALANCE + ") from " + DBConstants.TABLE_USER 
 		    + " where " + DBConstants.USER__IS_FAKE + "=0");
 	}
 	
 	
-	@Transactional (readOnly=true)
+	//
 	public Long sumOfDiamondsInWorld() {
 		return jdbcTemplate.queryForLong("select sum(" + DBConstants.USER__DIAMONDS + ") from " + DBConstants.TABLE_USER + " where " + DBConstants.USER__IS_FAKE + "=0");
 	}
 	
-	@Transactional (readOnly=true)
+	//
 	public List<Spender> getTopSpenders(Integer limit){
 	  final String amountSpent = "amount_spent";
 	  final String userId = DBConstants.TABLE_USER+"."+DBConstants.USER__ID;
@@ -125,7 +124,7 @@ public class StatisticsRetrieveUtil {
 		return spenders;
 	}
 	
-	@Transactional (readOnly=true)
+	//
 	public List<InAppPurchase> getTopInAppPurchases(Integer limit){
 		List<InAppPurchase> inAppPurchases = this.jdbcTemplate.query(
 		        "select " + DBConstants.IAP_HISTORY__USER_ID + ", " + DBConstants.IAP_HISTORY__CASH_SPENT + ", " + DBConstants.IAP_HISTORY__PURCHASE_DATE + ", "+DBConstants.USER__NAME+

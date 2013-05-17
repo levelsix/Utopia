@@ -95,8 +95,9 @@ public class DBConnection {
 		}
 		try {
 			if (conn != null) {
-				conn.setReadOnly(false);
-				conn.setAutoCommit(true);
+				//log.info("Connection is autoCommit: {}", conn.getAutoCommit());
+				//conn.setReadOnly(false);
+				//conn.setAutoCommit(true);
 				conn.close();
 			}
 		} catch (SQLException e) {

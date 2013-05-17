@@ -88,6 +88,7 @@ public class ClanTowersScheduledTasks {
 		// ILock battlesEndedLock =
 		// hazel.getLock("ClanTowersBattlesEndedScheduledTask");
 		// if(battlesEndedLock.tryLock()) {
+		log.debug("Checking for battles ended... locking allClanTowers");
 		if (server.lockClanTowersTable()) {
 			try {
 				List<ClanTower> clanTowers = ClanTowerRetrieveUtils.getAllClanTowers();
@@ -103,6 +104,7 @@ public class ClanTowersScheduledTasks {
 				// battlesEndedLock.unlock();
 			}
 		}
+		distributeClanTowerRewards();
 	}
 
 	protected void checkBattleForTower(ClanTower tower) {
@@ -233,11 +235,12 @@ public class ClanTowersScheduledTasks {
 //				+ ", " + "\"" +  + "\")");
 	}
 
-	@Scheduled(fixedRate = 10000)
+	//@Scheduled(fixedRate = 10000)
 	public void distributeClanTowerRewards() {
 		// ILock towerRewardsLock =
 		// hazel.getLock("ClanTowersRewardsScheduledTask");
 		// if(towerRewardsLock.tryLock()) {
+		log.debug("distributing clan tower rewards... locking all clan towers");
 		if (server.lockClanTowersTable()) {
 			try {
 				List<ClanTower> clanTowers = ClanTowerRetrieveUtils.getAllClanTowers();

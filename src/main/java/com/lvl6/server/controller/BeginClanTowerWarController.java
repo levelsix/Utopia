@@ -32,8 +32,8 @@ import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowe
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
-import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerHistoryRetrieveUtils;
+import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
@@ -92,6 +92,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     resBuilder.setSender(senderProto);
 
     server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
+    log.debug("Begin clanTowerWar... locking all clan towers");
     if(server.lockClanTowersTable()) {
     try {
 

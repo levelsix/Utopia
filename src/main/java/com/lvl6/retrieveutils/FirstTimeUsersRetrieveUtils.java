@@ -25,7 +25,7 @@ import com.lvl6.utils.DBConnection;
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     paramsToVals.put(DBConstants.FIRST_TIME_USERS__OPEN_UDID, UDID);
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(conn, paramsToVals, TABLE_NAME);
     boolean loggedIn = convertRSToBoolean(rs);
     DBConnection.get().close(rs, null, conn);

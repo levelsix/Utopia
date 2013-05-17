@@ -17,7 +17,6 @@ import com.lvl6.spring.AppContext;
 import com.lvl6.ui.admin.components.StatsPanelDynamic;
 import com.lvl6.ui.admin.pages.AdminChatPage;
 import com.lvl6.ui.admin.pages.AdminPage;
-import com.lvl6.ui.admin.pages.HealthCheckPage;
 import com.lvl6.ui.admin.pages.LogViewerPage;
 import com.lvl6.ui.admin.pages.MainPage;
 import com.lvl6.ui.admin.pages.StatsGraphsPage;
@@ -38,7 +37,7 @@ public class AdminUITest extends TestCase {
 		tester.startPage(MainPage.class);
 		tester.startPage(StatsGraphsPage.class);
 		tester.startComponentInPage(StatsPanelDynamic.class);
-		tester.startPage(HealthCheckPage.class);
+		//tester.startPage(HealthCheckPage.class);
 		tester.startPage(AdminChatPage.class);
 	}
 	

@@ -104,6 +104,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
         server.writeEvent(resEventUpdate);
 
         //clan tower stuff
+        log.debug("BootPlayerFromClan... locking all clan towers");
         if(server.lockClanTowersTable()) {
         	try {
 	          Clan aClan = ClanRetrieveUtils.getClanWithId(user.getClanId());

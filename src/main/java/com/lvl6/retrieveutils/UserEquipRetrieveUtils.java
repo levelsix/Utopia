@@ -30,7 +30,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
   public List<UserEquip> getUserEquipsForUser(int userId) {
     log.debug("retrieving user equips for userId " + userId);
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     List<UserEquip> userEquips = convertRSToUserEquips(rs);
     DBConnection.get().close(rs, null, conn);
@@ -41,7 +41,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
   public Map<Integer, List<UserEquip>> getEquipIdsToUserEquipsForUser(int userId) {
     log.debug("retrieving map of equip id to userequips for userId " + userId);
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     Map<Integer, List<UserEquip>> equipIdsToUserEquips = convertRSToEquipIdsToUserEquips(rs);
     DBConnection.get().close(rs, null, conn);
@@ -52,7 +52,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
   public UserEquip getSpecificUserEquip(int userEquipId) {
     log.debug("retrieving user equip for userEquipId: " + userEquipId);
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsById(conn, userEquipId, TABLE_NAME);
     UserEquip userEquip = convertRSSingleToUserEquips(rs);
     DBConnection.get().close(rs, null, conn);
@@ -75,7 +75,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     }
     query += StringUtils.getListInString(condClauses, "or") + ")";
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
     List<UserEquip> userEquips = convertRSToUserEquips(rs);
     DBConnection.get().close(rs, null, conn);
@@ -90,7 +90,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
     List<UserEquip> userEquips = convertRSToUserEquips(rs);
     DBConnection.get().close(rs, null, conn);

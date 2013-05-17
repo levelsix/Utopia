@@ -73,7 +73,7 @@ import com.lvl6.utils.DBConnection;
   private static void setStaticGoldSaleIdsToGoldSales() {
     log.debug("setting static map of goldSaleIds to goldSales");
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);

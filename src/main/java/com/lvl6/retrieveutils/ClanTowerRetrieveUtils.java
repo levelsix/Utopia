@@ -25,7 +25,7 @@ public class ClanTowerRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_CLAN_TOWERS;
 
   public static ClanTower getClanTower(int towerId) {
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsById(conn, towerId, TABLE_NAME);
     ClanTower clanTower = convertRSToSingleClanTower(rs);
     DBConnection.get().close(rs, null, conn);
@@ -35,7 +35,7 @@ public class ClanTowerRetrieveUtils {
   public static int getMaxBattleId() {
     String query = "select max("+DBConstants.CLAN_TOWERS__CURRENT_BATTLE_ID+") from "+TABLE_NAME;
     
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, null);
     int maxBattleId = 0;
     if (rs != null) {
@@ -54,7 +54,7 @@ public class ClanTowerRetrieveUtils {
   }
 
   public static List<ClanTower> getAllClanTowers() {
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, null, TABLE_NAME);
     List<ClanTower> clanTowers = convertRSToClanTowersList(rs);
     DBConnection.get().close(rs, null, conn);
@@ -86,7 +86,7 @@ public class ClanTowerRetrieveUtils {
    */
   public static List<ClanTower> getAllClanTowersWithSpecificOwnerAndOrAttackerId(
       int ownerId, int attackerId, boolean ownerAndAttackerAreEnemies){
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
 
     Map<String, Object> absoluteConditionParams = new HashMap<String,Object>();
 

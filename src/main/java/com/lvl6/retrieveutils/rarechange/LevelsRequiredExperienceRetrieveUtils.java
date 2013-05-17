@@ -48,7 +48,7 @@ import com.lvl6.utils.DBConnection;
   private static void setStaticLevelsToRequiredExperienceForLevels() {
     log.debug("setting static map of levels to required experience for levels");
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
