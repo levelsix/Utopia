@@ -1075,6 +1075,7 @@ public class User implements Serializable {
         conditionParams, "and");
     if (numUpdated == 1) {
       this.diamonds += diamondChange;
+      this.numBeginnerSalesPurchased += isBeginnerSale ? 1 : 0;
       return true;
     }
     return false;
@@ -1164,14 +1165,6 @@ public class User implements Serializable {
     return false;
   }
 
-  public int getNumBeginnerSalesPurchased() {
-    return numBeginnerSalesPurchased;
-  }
-
-  public void setNumBeginnerSalesPurchased(int numBeginnerSalesPurchased) {
-    this.numBeginnerSalesPurchased = numBeginnerSalesPurchased;
-  }
-
   public boolean updateRelativeCoinsBeginnerSale (int coinChange, boolean isBeginnerSale) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
@@ -1190,6 +1183,7 @@ public class User implements Serializable {
         conditionParams, "and");
     if (numUpdated == 1) {
       this.coins += coinChange;
+      this.numBeginnerSalesPurchased += isBeginnerSale ? 1 : 0;
       return true;
     }
     return false;
@@ -1718,6 +1712,14 @@ public class User implements Serializable {
 
   public void setNumAdditionalForgeSlots(int numAdditionalForgeSlots) {
     this.numAdditionalForgeSlots = numAdditionalForgeSlots;
+  }
+
+  public int getNumBeginnerSalesPurchased() {
+    return numBeginnerSalesPurchased;
+  }
+
+  public void setNumBeginnerSalesPurchased(int numBeginnerSalesPurchased) {
+    this.numBeginnerSalesPurchased = numBeginnerSalesPurchased;
   }
   
   @Override

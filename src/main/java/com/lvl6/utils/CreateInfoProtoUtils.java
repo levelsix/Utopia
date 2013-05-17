@@ -1112,6 +1112,8 @@ public class CreateInfoProtoUtils {
     if (sale.getPackageS4SaleIdentifier() != null) b.setPackageS4SaleIdentifier(sale.getPackageS4SaleIdentifier());
     if (sale.getPackageS5SaleIdentifier() != null) b.setPackageS5SaleIdentifier(sale.getPackageS5SaleIdentifier());
     b.setGoldShoppeImageName(sale.getGoldShoppeImageName()).setGoldBarImageName(sale.getGoldBarImageName());
+    b.setIsBeginnerSale(sale.isBeginnerSale());
+    log.info("sale:"+sale.isBeginnerSale());
 
     return b.build();
   }

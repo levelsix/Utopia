@@ -100,6 +100,10 @@ public class AdminChatUtil {
 	}
 
 	protected List<AdminChatPost> addUsernames(List<AdminChatPost> msgs) {
+		if(msgs.size() == 0) {
+			log.info("No messages for admins");
+			return msgs;
+		}
 		List<Integer> users = new ArrayList<Integer>();
 		for (AdminChatPost msg : msgs) {
 			if (msg.getPosterId() != ControllerConstants.STARTUP__ADMIN_CHAT_USER_ID) {
