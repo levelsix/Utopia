@@ -553,8 +553,7 @@ public class ControllerConstants {
   public static final int MENTORSHIPS__MAX_MENTEE_LIMIT = 25;
   //mentor has to wait some minutes before they can acquire another user to mentor
   public static final int MENTORSHIPS__MINUTES_UNTIL_NEXT_MENTORSHIP = 30; 
-  public static final String MENTORSHIPS_INITIAL_MESSAGE_ONE = "Hi %@, IÕm a mentor in age of" +
-  		" chaos! I help new players learn the ropes";
+  public static final String MENTORSHIPS_INITIAL_MESSAGE_ONE = "Hi %@, I am a mentor in age of chaos! I help new players learn the ropes";
   public static final String MENTORSHIPS_INITIAL_MESSAGE_TWO = "how's it going?";
   public static final int MENTORSHIPS__MAX_LEVEL_LIMIT_TO_STILL_BE_A_MENTEE = 60;
   public static final int MENTORSHIPS__SUBTRAHEND_IN_MINUTES_TO_NOW_TO_FIND_MENTEE = 60;
