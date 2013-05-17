@@ -15,9 +15,10 @@ message MentorshipProto {
 	optional bool isDropped = 10;
 }
 
-message MinimumUserProtoWithCreateTime {
+message MinimumUserProtoForMentorship {
 	optional MinimumUserProto mup = 1;
 	optional int64 createTime = 2; 
+	optional bool isGood = 3;
 }
 
 message PrivateChatPostProto {

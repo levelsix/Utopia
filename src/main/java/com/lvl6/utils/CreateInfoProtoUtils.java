@@ -117,8 +117,8 @@ import com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.MinimumUserProtoForClanTowerScores;
 import com.lvl6.proto.InfoProto.MinimumUserProtoForClans;
+import com.lvl6.proto.InfoProto.MinimumUserProtoForMentorship;
 import com.lvl6.proto.InfoProto.MinimumUserProtoWithBattleHistory;
-import com.lvl6.proto.InfoProto.MinimumUserProtoWithCreateTime;
 import com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel;
 import com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard;
 import com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto;
@@ -231,15 +231,16 @@ public class CreateInfoProtoUtils {
     return MinimumUserProtoWithBattleHistory.newBuilder().setMinUserProtoWithLevel(mup).setBattlesWon(u.getBattlesWon()).setBattlesLost(u.getBattlesLost()).setBattlesFled(u.getFlees()).build();
   }
 
-  public static MinimumUserProtoWithCreateTime createMinimumUserProtoWithCreateTime(User u) {
-    MinimumUserProtoWithCreateTime.Builder mupwctb = MinimumUserProtoWithCreateTime.newBuilder();
+  public static MinimumUserProtoForMentorship createMinimumUserProtoForMentorship(User u) {
+    MinimumUserProtoForMentorship.Builder mupfm = MinimumUserProtoForMentorship.newBuilder();
     MinimumUserProto mup = createMinimumUserProtoFromUser(u);
     Date createTime = u.getCreateTime();
+    boolean isGood = MiscMethods.checkIfGoodSide(u.getType());
     
-    mupwctb.setCreateTime(createTime.getTime());
-    mupwctb.setMup(mup);
-    
-    return mupwctb.build();
+    mupfm.setCreateTime(createTime.getTime());
+    mupfm.setMup(mup);
+    mupfm.setIsGood(isGood);
+    return mupfm.build();
   }
   
   public static FullUserCityExpansionDataProto createFullUserCityExpansionDataProtoFromUserCityExpansionData(UserCityExpansionData uced) {

@@ -13,12 +13,13 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrieveAvailableMenteesRequestEvent;
 import com.lvl6.events.response.RetrieveAvailableMenteesResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.RetrieveAvailableMenteesRequestProto;
 import com.lvl6.proto.EventProto.RetrieveAvailableMenteesResponseProto;
 import com.lvl6.proto.EventProto.RetrieveAvailableMenteesResponseProto.RetrieveAvailableMenteesStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
-import com.lvl6.proto.InfoProto.MinimumUserProtoWithCreateTime;
+import com.lvl6.proto.InfoProto.MinimumUserProtoForMentorship;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.MentorshipRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
@@ -56,6 +57,8 @@ import com.lvl6.utils.RetrieveUtils;
     RetrieveAvailableMenteesResponseEvent resEvent = new RetrieveAvailableMenteesResponseEvent(userId);
     //no lock since new users change so rapidly(?)
     try {
+      User mentor = RetrieveUtils.userRetrieveUtils().getUserById(userId);
+      boolean isGood = MiscMethods.checkIfGoodSide(mentor.getType());
       long subtrahend = 60 * 1000 * 
           ControllerConstants.MENTORSHIPS__SUBTRAHEND_IN_MINUTES_TO_NOW_TO_FIND_MENTEE;
       Date lastLoginAfterNow = new Date((new Date()).getTime() - subtrahend);
@@ -63,17 +66,17 @@ import com.lvl6.utils.RetrieveUtils;
       //get all the mentees
       List<Integer> idsOfTakenMentees = MentorshipRetrieveUtils.getAllMenteeIds();
       List<User> availableMentees = RetrieveUtils.userRetrieveUtils().getMentees(idsOfTakenMentees,
-          lastLoginAfterNow, limit);
+          lastLoginAfterNow, limit, isGood);
       
       //convert to protos
-      List<MinimumUserProtoWithCreateTime> allMenteeMups = new ArrayList<MinimumUserProtoWithCreateTime>();
+      List<MinimumUserProtoForMentorship> allMenteeMupfms = new ArrayList<MinimumUserProtoForMentorship>();
       for (User mentee : availableMentees) {
-        MinimumUserProtoWithCreateTime mupwct = CreateInfoProtoUtils.createMinimumUserProtoWithCreateTime(mentee);
-        allMenteeMups.add(mupwct);
+        MinimumUserProtoForMentorship mupfm = CreateInfoProtoUtils.createMinimumUserProtoForMentorship(mentee);
+        allMenteeMupfms.add(mupfm);
       }
       
       //send to client
-      resBuilder.addAllMentees(allMenteeMups);
+      resBuilder.addAllMentees(allMenteeMupfms);
       resBuilder.setStatus(RetrieveAvailableMenteesStatus.SUCCESS);
       
       resEvent.setRetrieveAvailableMenteesResponseProto(resBuilder.build());

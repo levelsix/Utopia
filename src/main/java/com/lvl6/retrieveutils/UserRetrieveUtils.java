@@ -37,7 +37,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
   private final int EXTREME_MAX_BATTLE_DB_HITS = 30;
   
   public List<User> getMentees(List<Integer> blackList, Date lastLoginAfterNow,
-      int limit) {
+      int limit, boolean isGood) {
     List<Object> values = new ArrayList<Object>();
     
     String query = "SELECT * FROM " + TABLE_NAME + " WHERE " +
@@ -45,6 +45,24 @@ import com.lvl6.utils.utilmethods.StringUtils;
         "=?"; 
     values.add(false);
     values.add(false);
+    
+    if (isGood) {
+      int amount = 3;
+      query += " AND " + DBConstants.USER__TYPE + " in (";
+      List<String> clauses = Collections.nCopies(amount, "?");
+      query += StringUtils.getListInString(clauses, ",") + ")";
+      values.add(UserType.GOOD_ARCHER_VALUE);
+      values.add(UserType.GOOD_MAGE_VALUE);
+      values.add(UserType.GOOD_WARRIOR_VALUE);
+    } else {
+      int amount = 3;
+      query += " AND " + DBConstants.USER__TYPE + " in (";
+      List<String> clauses = Collections.nCopies(amount, "?");
+      query += StringUtils.getListInString(clauses, ",") + ")";
+      values.add(UserType.BAD_ARCHER_VALUE);
+      values.add(UserType.BAD_MAGE_VALUE);
+      values.add(UserType.BAD_WARRIOR_VALUE);
+    }
     
     if (null != blackList && !blackList.isEmpty()) {
       query += " AND " + DBConstants.USER__ID + "NOT IN (";

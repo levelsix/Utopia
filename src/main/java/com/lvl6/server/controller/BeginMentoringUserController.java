@@ -24,6 +24,7 @@ import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.BeginMentoringUserRequestProto;
 import com.lvl6.proto.EventProto.BeginMentoringUserResponseProto;
+import com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus;
 import com.lvl6.proto.EventProto.BeginMentoringUserResponseProto.BeginMentoringUserStatus;
 import com.lvl6.proto.EventProto.BeginMentoringUserResponseProto.Builder;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
@@ -99,6 +100,9 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         resBuilder.setStatus(BeginMentoringUserStatus.SUCCESS);
         //write some private chats
         setInitialMessages(resBuilder, mentorId, menteeId, idsToUsers, clientTime);
+        
+        User mentor = idsToUsers.get(mentorId);
+        resBuilder.setIsGood(MiscMethods.checkIfGoodSide(mentor.getType()));
       }
       
       //write to mentor
@@ -139,6 +143,11 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     }
     User mentor = idsToUsers.get(mentorId);
     User mentee = idsToUsers.get(menteeId);
+    if (MiscMethods.checkIfGoodSide(mentor.getType()) == MiscMethods.checkIfGoodSide(mentee.getType())) {
+      resBuilder.setStatus(BeginMentoringUserStatus.FAIL_WRONG_SIDE);
+      log.error("unexpected error. mentor, mentee wrong sides. mentor=" + mentor + ", mentee=" + mentee);
+      return false;
+    }
     
     if (!mentor.isMentor()) {
       resBuilder.setStatus(BeginMentoringUserStatus.FAIL_NOT_MENTOR);
