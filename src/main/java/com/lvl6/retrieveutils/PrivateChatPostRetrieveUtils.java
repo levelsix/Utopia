@@ -96,7 +96,7 @@ import com.lvl6.utils.DBConnection;
           + "LEFT JOIN " + 
                   TABLE_NAME + " as pcp " +
             "ON idList.id=pcp.id" + 
-        "LIMIT ?";
+        " LIMIT ?";
     values.add(limit);
     
     
