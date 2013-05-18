@@ -175,7 +175,7 @@ public class SendGroupChatController extends EventController {
     } else {
       log.info("Sending global chat ");
       //add new message to front of list
-      chatMessages.add(0, CreateInfoProtoUtils.createGroupChatMessageProto(time, chatProto.getSender(), chatProto.getChatMessage(), isAdmin));
+      chatMessages.add(0, CreateInfoProtoUtils.createGroupChatMessageProto(time, chatProto.getSender(), chatProto.getChatMessage(), isAdmin, 0));
       //remove older messages
       try {
         while(chatMessages.size() > CHAT_MESSAGES_MAX_SIZE) {
