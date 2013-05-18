@@ -12,11 +12,11 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import com.lvl6.events.GameEvent;
 import com.lvl6.events.NormalResponseEvent;
 import com.lvl6.events.ResponseEvent;
-import com.lvl6.events.request.PrivateChatPostRequestEvent;
 import com.lvl6.events.response.BattleResponseEvent;
 import com.lvl6.events.response.GeneralNotificationResponseEvent;
 import com.lvl6.events.response.PostOnClanBulletinResponseEvent;
@@ -214,6 +214,18 @@ public class APNSWriter extends Wrap {
 			log.info("ApnsService connection test failed... building again");
 		}
 		return service;
+	}
+	
+	
+	@Scheduled(fixedRate=1000*60)
+	public void resetApnsService() {
+		service.stop();
+		service = null;
+		try {
+			buildService();
+		} catch (FileNotFoundException e) {
+			log.error("Error rebuilding APNSService", e);
+		}
 	}
 
 	protected void buildService() throws FileNotFoundException {
