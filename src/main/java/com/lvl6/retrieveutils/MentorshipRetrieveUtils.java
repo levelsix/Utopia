@@ -34,7 +34,7 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.MENTORSHIPS__MENTEE_ID, menteeId);
     paramsToVals.put(DBConstants.MENTORSHIPS__IS_DROPPED, false);
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(conn,
         paramsToVals, TABLE_NAME);
     
@@ -50,7 +50,7 @@ import com.lvl6.utils.DBConnection;
     List<Object> params = new ArrayList<Object>();
     params.add(false);
     
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, params);
     Set<Integer> ids = convertRSToMenteeIds(rs);
     DBConnection.get().close(rs, null, conn);
@@ -71,7 +71,7 @@ import com.lvl6.utils.DBConnection;
     params.add(menteeId);
     params.add(false);
     
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, params);
     
     Map<Integer, List<Mentorship>> returnValue = convertRSToMenteeIdsToListOfMentorships(rs);
@@ -84,7 +84,7 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.MENTORSHIPS__MENTOR_ID, mentorId);
     paramsToVals.put(DBConstants.MENTORSHIPS__IS_DROPPED, false);
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(conn,
         paramsToVals, TABLE_NAME);
     

@@ -80,7 +80,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     query += " ORDER BY " + DBConstants.USER__CREATE_TIME + " DESC " +
     		"LIMIT " + limit;
     
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
     List<User> usersList = convertRSToUsers(rs);
     DBConnection.get().close(rs, null, conn);
@@ -93,7 +93,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     Map<String, Object> absoluteConditionParams = new HashMap<String, Object>();
     absoluteConditionParams.put(DBConstants.USER__IS_MENTOR, true);
 
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, absoluteConditionParams, DBConstants.TABLE_USER);
     List<User> usersList = convertRSToUsers(rs);
     DBConnection.get().close(rs, null, conn);
