@@ -1113,7 +1113,6 @@ public class CreateInfoProtoUtils {
     if (sale.getPackageS5SaleIdentifier() != null) b.setPackageS5SaleIdentifier(sale.getPackageS5SaleIdentifier());
     b.setGoldShoppeImageName(sale.getGoldShoppeImageName()).setGoldBarImageName(sale.getGoldBarImageName());
     b.setIsBeginnerSale(sale.isBeginnerSale());
-    log.info("sale:"+sale.isBeginnerSale());
 
     return b.build();
   }
