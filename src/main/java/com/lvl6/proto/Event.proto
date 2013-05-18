@@ -2721,6 +2721,7 @@ message BeginMentoringUserResponseProto {
 	optional BeginMentoringUserStatus status = 2;
 	repeated PrivateChatPostProto initialMessages = 3;
 	optional MentorshipProto mentorship = 4;
+	optional bool isGood = 5;
 	
 	enum BeginMentoringUserStatus {
 		SUCCESS = 0;
@@ -2729,11 +2730,12 @@ message BeginMentoringUserResponseProto {
 		FAIL_TOO_EARLY_TO_ACQUIRE_MENTEE = 3;
 		FAIL_ALREADY_BEING_MENTORED = 4;
 		FAIL_NOT_MENTOR = 5;
+		FAIL_WRONG_SIDE = 6;
 	}
 }
 
 message MenteeBecameAvailableResponseProto {
-	optional MinimumUserProto mentee = 1;
+	optional MinimumUserProtoForMentorship mentee = 1;
 }
 
 message RetrieveAllMentorsRequestProto {
@@ -2757,7 +2759,7 @@ message RetrieveAvailableMenteesRequestProto {
 
 message RetrieveAvailableMenteesResponseProto {
 	optional MinimumUserProto sender = 1;
-	repeated MinimumUserProtoWithCreateTime mentees = 2;
+	repeated MinimumUserProtoForMentorship mentees = 2;
 	optional RetrieveAvailableMenteesStatus status = 3;
 	
 	enum RetrieveAvailableMenteesStatus {

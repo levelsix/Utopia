@@ -39,7 +39,7 @@ import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.LocationProto;
-import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.MinimumUserProtoForMentorship;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.AvailableReferralCodeRetrieveUtils;
@@ -531,11 +531,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   
   public void writeToMentors(User u) {
     int userId = u.getId();
-    MinimumUserProto mup = CreateInfoProtoUtils.createMinimumUserProtoFromUser(u);
+    MinimumUserProtoForMentorship mupfm =
+        CreateInfoProtoUtils.createMinimumUserProtoForMentorship(u);
     // create event to send to mentors
     MenteeBecameAvailableResponseProto.Builder mbarpb =
         MenteeBecameAvailableResponseProto.newBuilder();
-    mbarpb.setMentee(mup);
+    mbarpb.setMentee(mupfm);
     MenteeBecameAvailableResponseEvent mbare = new MenteeBecameAvailableResponseEvent(userId);
     mbare.setMenteeBecameAvailableResponseProto(mbarpb.build());
     
