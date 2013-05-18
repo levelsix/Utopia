@@ -217,12 +217,13 @@ public class APNSWriter extends Wrap {
 	}
 	
 	
-	@Scheduled(fixedRate=1000*60)
+	@Scheduled(fixedRate=1000*60*60)
 	public void resetApnsService() {
+		log.info("Rebuilding APNSService");
 		service.stop();
 		service = null;
 		try {
-			buildService();
+			getApnsService();
 		} catch (FileNotFoundException e) {
 			log.error("Error rebuilding APNSService", e);
 		}
