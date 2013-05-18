@@ -54,7 +54,7 @@ public class DBConnection {
 		return conn;
 	}
 
-	public Connection getReadOnlyConnection() {
+/*	public Connection getReadOnlyConnection() {
 		Connection conn = DBConnection.get().getConnection();
 		try {
 			conn.setReadOnly(true);
@@ -63,7 +63,7 @@ public class DBConnection {
 			log.error("Error setting connection to readOnly=true", e);
 		}
 		return conn;
-	}
+	}*/
 
 	private void printConnectionInfoInDebug() {
 		try {
