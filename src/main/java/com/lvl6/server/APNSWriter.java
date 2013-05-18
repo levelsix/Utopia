@@ -217,7 +217,7 @@ public class APNSWriter extends Wrap {
 	}
 	
 	
-	@Scheduled(fixedRate=1000*60*60)
+	@Scheduled(fixedRate=1000*60)
 	public void resetApnsService() {
 		service.stop();
 		service = null;
