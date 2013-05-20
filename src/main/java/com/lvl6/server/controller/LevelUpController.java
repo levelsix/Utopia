@@ -139,8 +139,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       if (legitLevelUp) {
         //check to see if user is a mentee and finished the mentee request
-        updateMentorshipQuests(senderProto, levelBeforeLeveling,
-            levelAfterLeveling, user);
+//        updateMentorshipQuests(senderProto, levelBeforeLeveling,
+//            levelAfterLeveling, user);
       }
       
     } catch (Exception e) {
