@@ -96,7 +96,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         server.writeEvent(resEventUpdate);
         
         //check mentee finished quests
-        checkMenteeFinishedQuests(requester, accept);
+        //checkMenteeFinishedQuests(requester, accept);
       } else {
         server.writeEvent(resEvent);
       }

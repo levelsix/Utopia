@@ -221,11 +221,11 @@ public class InAppPurchaseController extends EventController {
       resEventUpdate.setTag(event.getTag());
       server.writeEvent(resEventUpdate);
       
-      //in case user has a mentor, check if user completed mentor's quest
-      if (null != receiptFromApple && resBuilder.getStatus() == InAppPurchaseStatus.SUCCESS) {
-        MenteeQuestType type = MenteeQuestType.BOUGHT_A_PACKAGE;
-        MiscMethods.sendMenteeFinishedQuests(senderProto, type, server);
-      }
+//      //in case user has a mentor, check if user completed mentor's quest
+//      if (null != receiptFromApple && resBuilder.getStatus() == InAppPurchaseStatus.SUCCESS) {
+//        MenteeQuestType type = MenteeQuestType.BOUGHT_A_PACKAGE;
+//        MiscMethods.sendMenteeFinishedQuests(senderProto, type, server);
+//      }
     } catch (Exception e) {
       log.error("exception in InAppPurchaseController processEvent", e);
     } finally {
