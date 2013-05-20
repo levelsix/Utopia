@@ -97,7 +97,7 @@ import com.lvl6.utils.RetrieveUtils;
               boolean isAdmin = false;
               
               GroupChatMessageProto gcmp = 
-                  CreateInfoProtoUtils.createGroupChatMessageProto(time, user, content, isAdmin);
+                  CreateInfoProtoUtils.createGroupChatMessageProto(time, user, content, isAdmin, pwp.getId());
               resBuilder.addPosts(gcmp);
             }
           }

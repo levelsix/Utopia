@@ -985,8 +985,8 @@ public class CreateInfoProtoUtils {
         .setTimeOfChat(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
   }
 
-  public static GroupChatMessageProto createGroupChatMessageProto(long time, MinimumUserProto user, String content, boolean isAdmin) {
-    return GroupChatMessageProto.newBuilder().setSender(user).setTimeOfChat(time).setContent(content).setIsAdmin(isAdmin).build();
+  public static GroupChatMessageProto createGroupChatMessageProto(long time, MinimumUserProto user, String content, boolean isAdmin, int chatId) {
+    return GroupChatMessageProto.newBuilder().setSender(user).setTimeOfChat(time).setContent(content).setIsAdmin(isAdmin).setChatId(chatId).build();
   }
 
 
@@ -1114,7 +1114,6 @@ public class CreateInfoProtoUtils {
     if (sale.getPackageS5SaleIdentifier() != null) b.setPackageS5SaleIdentifier(sale.getPackageS5SaleIdentifier());
     b.setGoldShoppeImageName(sale.getGoldShoppeImageName()).setGoldBarImageName(sale.getGoldBarImageName());
     b.setIsBeginnerSale(sale.isBeginnerSale());
-    log.info("sale:"+sale.isBeginnerSale());
 
     return b.build();
   }

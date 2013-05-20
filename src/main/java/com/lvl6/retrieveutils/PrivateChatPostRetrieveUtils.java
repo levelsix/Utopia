@@ -31,7 +31,7 @@ import com.lvl6.utils.DBConnection;
     log.info("retrieving " + limit + " private chat posts before certain postId "
       + postId + " for userOne " + userOne + " and userTwo" + userTwo);
     
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     String query = "";
     List<Object> values = new ArrayList<Object>();
     query += 
@@ -76,7 +76,7 @@ import com.lvl6.utils.DBConnection;
       otherPersonColumn = DBConstants.PRIVATE_CHAT_POSTS__RECIPIENT_ID;
       column = DBConstants.PRIVATE_CHAT_POSTS__POSTER_ID;
     }
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     List<Object> values = new ArrayList<Object>();
     String query = "";
     String subquery = "";
