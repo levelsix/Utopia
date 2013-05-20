@@ -27,6 +27,7 @@ import org.springframework.core.task.TaskExecutor;
 
 import com.lvl6.events.response.ChangedClanTowerResponseEvent;
 import com.lvl6.events.response.GeneralNotificationResponseEvent;
+import com.lvl6.events.response.MenteeFinishedQuestResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.BoosterItem;
@@ -46,6 +47,7 @@ import com.lvl6.info.LeaderboardEventReward;
 import com.lvl6.info.Location;
 import com.lvl6.info.LockBoxEvent;
 import com.lvl6.info.MarketplacePost;
+import com.lvl6.info.Mentorship;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserClan;
@@ -58,8 +60,10 @@ import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.properties.MDCKeys;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto;
+import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowerChange;
 import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
+import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto.MenteeQuestType;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BazaarMinLevelConstants;
@@ -95,6 +99,7 @@ import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
+import com.lvl6.retrieveutils.MentorshipRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BannedUserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterPackRetrieveUtils;
@@ -2013,5 +2018,62 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
       log.error("unexpected error: goalNumForgeSlots=" + goalNumForgeSlots);
       return 500;
     }
+  }
+  
+  public static void sendMenteeFinishedQuests(MinimumUserProto menteeMup, MenteeQuestType type,
+      GameServer server) {
+    int menteeId = menteeMup.getUserId();
+    
+    Mentorship ms = MentorshipRetrieveUtils.getActiveMentorshipForMentee(menteeId);
+    if (null == ms) {
+      return;
+    }
+    int mentorId = ms.getMentorId();
+    
+    //user is mentee, check if user finished it before
+    if (MenteeQuestType.BOUGHT_A_PACKAGE == type) {
+      if (null != ms.getQuestOneCompleteTime()) {
+        return;
+      }
+      
+    } else if (MenteeQuestType.FORGED_EQUIP_TO_LEVEL_N == type) {
+      if (null != ms.getQuestTwoCompleteTime()) {
+        return;
+      }
+      
+    } else if (MenteeQuestType.JOINED_A_CLAN == type) {
+      if (null != ms.getQuestThreeCompleteTime()) {
+        return;
+      }
+      
+    } else if (MenteeQuestType.LEVELED_UP_TO_LEVEL_N == type) {
+      if (null != ms.getQuestFourCompleteTime()) {
+        return;
+      }
+    } else if (MenteeQuestType.LEVELED_UP_TO_LEVEL_X == type) {
+      if (null != ms.getQuestFiveCompleteTime()) {
+        return;
+      }
+    }
+    //don't forget quest five
+    
+    int mentorshipId = ms.getId(); 
+    //update user to reflect he finished it
+    boolean b = UpdateUtils.get().updateMentorshipQuestCompleteTime(mentorshipId,
+        new Date(), type);
+    if (!b) {
+      log.error("unexpected error: could not update mentee quest status." +
+      		" mentorship=" + ms + "; type=" + type + "; value=" +
+          + type.getNumber());
+    }
+    
+    //send to mentor that mentee finished
+    MenteeFinishedQuestResponseProto.Builder mfqrpb = MenteeFinishedQuestResponseProto.newBuilder();
+    mfqrpb.setMentee(menteeMup).setQuestType(type);
+    
+    MenteeFinishedQuestResponseEvent mfqre = new MenteeFinishedQuestResponseEvent(mentorId);
+    mfqre.setMenteeFinishedQuestResponseProto(mfqrpb.build());
+    
+    server.writeAPNSNotificationOrEvent(mfqre);
   }
 }

@@ -20,6 +20,7 @@ import com.lvl6.proto.EventProto.CollectForgeEquipsRequestProto;
 import com.lvl6.proto.EventProto.CollectForgeEquipsResponseProto;
 import com.lvl6.proto.EventProto.CollectForgeEquipsResponseProto.Builder;
 import com.lvl6.proto.EventProto.CollectForgeEquipsResponseProto.CollectForgeEquipsStatus;
+import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto.MenteeQuestType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -122,6 +123,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
       QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
 
+      updateMentorshipQuests(senderProto, successfulForge, blacksmithAttempt);
+      
     } catch (Exception e) {
       log.error("exception in CollectForgeEquips processEvent", e);
     } finally {
@@ -199,6 +202,22 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
     resBuilder.setStatus(CollectForgeEquipsStatus.SUCCESS);
     return true;  
+  }
+  
+  //for people that have mentors check if this successful forge completes his mentors quest
+  private void updateMentorshipQuests(MinimumUserProto senderProto,
+      boolean successfulForge, BlacksmithAttempt blacksmithAttempt) {
+    if (!successfulForge) {
+      return;
+    }
+    
+    int forgeEquipLevel = blacksmithAttempt.getGoalLevel();
+    int forgeLevelForQuest = ControllerConstants.MENTORSHIPS__MENTEE_EQUIP_FORGE_LEVEL_FOR_QUEST;
+    
+    if (forgeEquipLevel == forgeLevelForQuest) {
+      MenteeQuestType type = MenteeQuestType.FORGED_EQUIP_TO_LEVEL_N;
+      MiscMethods.sendMenteeFinishedQuests(senderProto, type, server);
+    }
   }
   
 }

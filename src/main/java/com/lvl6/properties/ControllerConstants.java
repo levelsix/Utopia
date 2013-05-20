@@ -558,6 +558,10 @@ public class ControllerConstants {
   public static final int MENTORSHIPS__MAX_LEVEL_LIMIT_TO_STILL_BE_A_MENTEE = 60;
   public static final int MENTORSHIPS__SUBTRAHEND_IN_MINUTES_TO_NOW_TO_FIND_MENTEE = 60;
   public static final int MENTORSHIPS__MAX_MENTEES_TO_RETRIEVE = 100;
+  public static final int MENTORSHIPS__MENTEE_LEVEL_FOR_QUEST = 15;
+  public static final int MENTORSHIPS__MENTEE_LEVEL_FOR_SECOND_QUEST = 30;
+  public static final int MENTORSHIPS__MENTEE_EQUIP_FORGE_LEVEL_FOR_QUEST = 3;
+  
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),

@@ -23,6 +23,7 @@ import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType;
+import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto.MenteeQuestType;
 import com.lvl6.proto.InfoProto.BattleResult;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.UserClanStatus;
@@ -1139,17 +1140,31 @@ public class InsertUtils implements InsertUtil{
     return postIds;
   }
   
-  public int insertIntoMentorships(int mentorId, int menteeId, Date startTime, boolean menteeIsInClan) {
+  public int insertIntoMentorships(int mentorId, int menteeId, Date startTime, List<MenteeQuestType> typeList) {
     String tableName = DBConstants.TABLE_MENTORSHIPS;
     Map<String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.MENTORSHIPS__MENTOR_ID, mentorId);
     insertParams.put(DBConstants.MENTORSHIPS__MENTEE_ID, menteeId);
     insertParams.put(DBConstants.MENTORSHIPS__START_TIME, startTime);
     
-    if (menteeIsInClan) {
-      //insertParams.put(DBConstants, startTime);
+    for (MenteeQuestType type : typeList) {
+      if (MenteeQuestType.BOUGHT_A_PACKAGE == type) {
+        insertParams.put(DBConstants.MENTORSHIPS__QUEST_ONE_COMPLETE_TIME, startTime);
+
+      } else if (MenteeQuestType.FORGED_EQUIP_TO_LEVEL_N == type) {
+        insertParams.put(DBConstants.MENTORSHIPS__QUEST_TWO_COMPLETE_TIME, startTime);
+
+      } else if (MenteeQuestType.JOINED_A_CLAN == type) {
+        insertParams.put(DBConstants.MENTORSHIPS__QUEST_THREE_COMPLETE_TIME, startTime);
+
+      } else if (MenteeQuestType.LEVELED_UP_TO_LEVEL_N == type) {
+        insertParams.put(DBConstants.MENTORSHIPS__QUEST_FOUR_COMPLETE_TIME, startTime);
+
+      } else if (MenteeQuestType.LEVELED_UP_TO_LEVEL_X == type) {
+        insertParams.put(DBConstants.MENTORSHIPS__QUEST_FIVE_COMPLETE_TIME, startTime);
+      }
     }
-    int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
-    return numInserted;
+    int mentorshipId = DBConnection.get().insertIntoTableBasicReturnId(tableName, insertParams);
+    return mentorshipId;
   }
 }

@@ -2799,4 +2799,17 @@ message RetrieveMyMenteesResponseProto {
 	}
 }
 
+message MenteeFinishedQuestResponseProto {
+	optional MinimumUserProto mentee = 1;
+	optional MenteeQuestType questType = 2;
+	
+	enum MenteeQuestType {
+		BOUGHT_A_PACKAGE = 1;			//quest one
+		FORGED_EQUIP_TO_LEVEL_N = 2;	//quest two
+		JOINED_A_CLAN = 3;				//quest three
+		LEVELED_UP_TO_LEVEL_N = 4;		//quest four
+		LEVELED_UP_TO_LEVEL_X = 5;		//quest five
+	}
+}
+
 //------------------------------------------------------------------------------------

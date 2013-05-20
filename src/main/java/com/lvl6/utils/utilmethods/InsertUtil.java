@@ -14,6 +14,7 @@ import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType;
+import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto.MenteeQuestType;
 import com.lvl6.proto.InfoProto.BattleResult;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.UserClanStatus;
@@ -180,5 +181,5 @@ public interface InsertUtil {
   public abstract List<Integer> insertIntoPrivateChatPosts(List<Integer> posterIds, List<Integer> recipientIds, List<String> contents,
       List<Date> timeOfPosts);
   
-  public abstract int insertIntoMentorships(int mentorId, int menteeId, Date startTime, boolean menteeIsInClan);
+  public abstract int insertIntoMentorships(int mentorId, int menteeId, Date startTime, List<MenteeQuestType> typeList);
 }
