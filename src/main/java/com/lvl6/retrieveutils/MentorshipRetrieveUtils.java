@@ -32,7 +32,7 @@ import com.lvl6.utils.DBConnection;
   public static Mentorship getMentorshipForId(int mentorshipId) {
     Map<String, Object> paramsToVals = new HashMap<String, Object>();
     paramsToVals.put(DBConstants.MENTORSHIPS__ID, mentorshipId);
-    Connection conn = DBConnection.get().getReadOnlyConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(conn,
         paramsToVals, TABLE_NAME);
     
