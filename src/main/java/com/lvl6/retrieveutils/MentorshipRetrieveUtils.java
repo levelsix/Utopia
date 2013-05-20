@@ -28,6 +28,19 @@ import com.lvl6.utils.DBConnection;
   
   private final static String TABLE_NAME = DBConstants.TABLE_MENTORSHIPS;
   
+  
+  public static Mentorship getMentorshipForId(int mentorshipId) {
+    Map<String, Object> paramsToVals = new HashMap<String, Object>();
+    paramsToVals.put(DBConstants.MENTORSHIPS__ID, mentorshipId);
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(conn,
+        paramsToVals, TABLE_NAME);
+    
+    Mentorship ms = convertRSToMentorship(rs);
+    DBConnection.get().close(rs, null, conn);
+    return ms;
+  }
+  
   public static Mentorship getActiveMentorshipForMentee(int menteeId) {
     Mentorship forMentee = null;
     Map <String, Object> paramsToVals = new HashMap<String, Object>();

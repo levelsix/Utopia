@@ -6,10 +6,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.LevelUpRequestEvent;
 import com.lvl6.events.response.LevelUpResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -23,6 +25,7 @@ import com.lvl6.proto.EventProto.LevelUpRequestProto;
 import com.lvl6.proto.EventProto.LevelUpResponseProto;
 import com.lvl6.proto.EventProto.LevelUpResponseProto.Builder;
 import com.lvl6.proto.EventProto.LevelUpResponseProto.LevelUpStatus;
+import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto.MenteeQuestType;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -76,6 +79,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       boolean legitLevelUp = checkLegitLevelUp(resBuilder, user);
       List<Integer> newlyUnlockedCityIds = null;
+      
+      int levelBeforeLeveling = ControllerConstants.NOT_SET;
+      int levelAfterLeveling = ControllerConstants.NOT_SET;
       if (legitLevelUp) {
         int newNextLevel = user.getLevel() + 2;
         int expRequiredForNewNextLevel = LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(newNextLevel);
@@ -84,6 +90,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
         int newLevel = user.getLevel() + 1;
         resBuilder.setNewLevel(newLevel);
+        levelBeforeLeveling = user.getLevel();
+        levelAfterLeveling = newLevel;
 
         List<City> availCities = MiscMethods.getCitiesAvailableForUserLevel(newLevel);
         for (City city : availCities) {
@@ -129,6 +137,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       resEventUpdate.setTag(event.getTag());
       server.writeEvent(resEventUpdate);
 
+      if (legitLevelUp) {
+        //check to see if user is a mentee and finished the mentee request
+        updateMentorshipQuests(senderProto, levelBeforeLeveling,
+            levelAfterLeveling, user);
+      }
+      
     } catch (Exception e) {
       log.error("exception in LevelUpController processEvent", e);
     } finally {
@@ -176,6 +190,21 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     resBuilder.setStatus(LevelUpStatus.SUCCESS);
     return true;
+  }
+  
+  private void updateMentorshipQuests(MinimumUserProto mup, int levelBeforeLeveling,
+      int levelAfterLeveling, User user) {
+    int levelRequirement = ControllerConstants.MENTORSHIPS__MENTEE_LEVEL_FOR_QUEST;
+    int levelRequirementTwo = ControllerConstants.MENTORSHIPS__MENTEE_LEVEL_FOR_SECOND_QUEST;
+    
+    if (levelRequirement == levelAfterLeveling && levelBeforeLeveling < levelAfterLeveling) {
+      MenteeQuestType type = MenteeQuestType.LEVELED_UP_TO_LEVEL_N;
+      MiscMethods.sendMenteeFinishedQuests(mup, type, server);
+      
+    } else if (levelRequirementTwo == levelAfterLeveling && levelBeforeLeveling < levelAfterLeveling) {
+      MenteeQuestType type = MenteeQuestType.LEVELED_UP_TO_LEVEL_X;
+      MiscMethods.sendMenteeFinishedQuests(mup, type, server);
+    }
   }
 
 }

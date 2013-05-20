@@ -20,6 +20,7 @@ import com.lvl6.proto.EventProto.ApproveOrRejectRequestToJoinClanRequestProto;
 import com.lvl6.proto.EventProto.ApproveOrRejectRequestToJoinClanResponseProto;
 import com.lvl6.proto.EventProto.ApproveOrRejectRequestToJoinClanResponseProto.ApproveOrRejectRequestToJoinClanStatus;
 import com.lvl6.proto.EventProto.ApproveOrRejectRequestToJoinClanResponseProto.Builder;
+import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto.MenteeQuestType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -93,6 +94,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        
+        //check mentee finished quests
+        checkMenteeFinishedQuests(requester, accept);
       } else {
         server.writeEvent(resEvent);
       }
@@ -161,6 +165,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.SUCCESS);
     return true;
   }
-
+  
+  private void checkMenteeFinishedQuests(User requester, boolean accept) {
+    if (!accept) {
+      return;
+    }
+    
+    MenteeQuestType type = MenteeQuestType.JOINED_A_CLAN;
+    MinimumUserProto mup = CreateInfoProtoUtils.createMinimumUserProtoFromUser(requester);
+    MiscMethods.sendMenteeFinishedQuests(mup, type, server);
+  }
 
 }

@@ -11,14 +11,18 @@ import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RequestJoinClanRequestEvent;
+import com.lvl6.events.response.MenteeFinishedQuestResponseEvent;
 import com.lvl6.events.response.RequestJoinClanResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Clan;
+import com.lvl6.info.Mentorship;
 import com.lvl6.info.User;
 import com.lvl6.info.UserClan;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.misc.Notification;
 import com.lvl6.properties.ControllerConstants;
+import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto;
+import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto.MenteeQuestType;
 import com.lvl6.proto.EventProto.RequestJoinClanRequestProto;
 import com.lvl6.proto.EventProto.RequestJoinClanResponseProto;
 import com.lvl6.proto.EventProto.RequestJoinClanResponseProto.Builder;
@@ -28,12 +32,14 @@ import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
+import com.lvl6.retrieveutils.MentorshipRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.ClanTierLevelRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.QuestUtils;
+import com.lvl6.utils.utilmethods.UpdateUtils;
 
 @Component @DependsOn("gameServer") public class RequestJoinClanController extends EventController {
 
@@ -107,6 +113,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         
         notifyClan(user, clan, requestToJoinRequired); //write to clan leader or clan
         QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.REQUEST_JOIN_CLAN, true);
+        
+        checkMenteeFinishedQuests(senderProto, requestToJoinRequired);
       }
     } catch (Exception e) {
       log.error("exception in RequestJoinClan processEvent", e);
@@ -199,6 +207,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     }
     
     boolean successful = true;
+    //in case things above didn't work out
     if (deleteUserClanInserted) {
       if (!DeleteUtils.get().deleteUserClan(userId, clanId)){
         log.error("unexpected error: could not delete user clan inserted.");
@@ -236,4 +245,15 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 //    
 //    server.writeAPNSNotificationOrEvent(aNotification);
   }
+  
+  private void checkMenteeFinishedQuests(MinimumUserProto mup, boolean requestToJoinRequired) {
+    if (requestToJoinRequired) {
+      return;
+    }
+    
+    MenteeQuestType type = MenteeQuestType.JOINED_A_CLAN;
+    MiscMethods.sendMenteeFinishedQuests(mup, type, server);
+   
+  }
+  
 }

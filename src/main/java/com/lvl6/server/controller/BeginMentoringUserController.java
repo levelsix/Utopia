@@ -24,9 +24,10 @@ import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.BeginMentoringUserRequestProto;
 import com.lvl6.proto.EventProto.BeginMentoringUserResponseProto;
-import com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus;
 import com.lvl6.proto.EventProto.BeginMentoringUserResponseProto.BeginMentoringUserStatus;
 import com.lvl6.proto.EventProto.BeginMentoringUserResponseProto.Builder;
+import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto.MenteeQuestType;
+import com.lvl6.proto.InfoProto.MentorshipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.PrivateChatPostProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -92,15 +93,23 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       boolean legit = checkLegit(resBuilder, mentorId, menteeId, idsToUsers, clientTime);
       
       boolean saveSuccessful = false;
+      List<Integer> mentorIds = new ArrayList<Integer>();
       if (legit) {
-        saveSuccessful = writeChangesToDb(mentorId, menteeId, idsToUsers, clientTime);
+        saveSuccessful = writeChangesToDb(mentorId, menteeId, idsToUsers, clientTime, mentorIds);
       }
       
       if (saveSuccessful) {
+        int mentorshipId = mentorIds.get(0);
         resBuilder.setStatus(BeginMentoringUserStatus.SUCCESS);
         //write some private chats
         setInitialMessages(resBuilder, mentorId, menteeId, idsToUsers, clientTime);
         
+        //set the mentorship object
+        Mentorship ms = MentorshipRetrieveUtils.getActiveMentorshipForMentee(mentorshipId);
+        MentorshipProto msp = CreateInfoProtoUtils.createMentorshipProto(ms);
+        resBuilder.setMentorship(msp);
+        
+        //set if this is alliance or legion
         User mentor = idsToUsers.get(mentorId);
         resBuilder.setIsGood(MiscMethods.checkIfGoodSide(mentor.getType()));
       }
@@ -111,9 +120,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       bmure.setTag(event.getTag());
       bmure.setBeginMentoringUserResponseProto(bmurp);
       eventWriter.processGlobalChatResponseEvent(bmure);
-      //write something to mentee
-      
-      
+      //write something to mentee?
       
     } catch (Exception e) {
       try {
@@ -213,21 +220,29 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   }
   
   private boolean writeChangesToDb(int mentorId, int menteeId,
-      Map<Integer, User> idsToUsers, Date clientTime) {
+      Map<Integer, User> idsToUsers, Date clientTime,
+      List<Integer> mentorshipIds) {
     
-    boolean menteeIsInClan = false;
     User mentee = idsToUsers.get(menteeId);
     //CHECK TO SEE IF THE USER FINISHED ANY OTHER MENTOR QUESTS
+    List<MenteeQuestType> typeList = new ArrayList<MenteeQuestType>();
     if (ControllerConstants.NOT_SET != mentee.getClanId()) {
-      menteeIsInClan = true;
+      typeList.add(MenteeQuestType.JOINED_A_CLAN);
+    }
+    if (mentee.getLevel() >=
+        ControllerConstants.MENTORSHIPS__MENTEE_LEVEL_FOR_QUEST) {
+      typeList.add(MenteeQuestType.LEVELED_UP_TO_LEVEL_N);
     }
     //write to Mentorships table
-    int numInserted = InsertUtils.get().insertIntoMentorships(mentorId, menteeId,
-        clientTime, menteeIsInClan);
-    if (1 == numInserted) {
-      return true;
-    } else {
+    int mentorshipId = InsertUtils.get().insertIntoMentorships(mentorId, menteeId,
+        clientTime, typeList);
+    
+    mentorshipIds.add(mentorshipId);
+    
+    if (ControllerConstants.NOT_SET == mentorshipId) {
       return false;
+    } else {
+      return true;
     }
   }
   

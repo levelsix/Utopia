@@ -44,6 +44,7 @@ import com.lvl6.properties.KabamProperties;
 import com.lvl6.proto.EventProto.InAppPurchaseRequestProto;
 import com.lvl6.proto.EventProto.InAppPurchaseResponseProto;
 import com.lvl6.proto.EventProto.InAppPurchaseResponseProto.InAppPurchaseStatus;
+import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto.MenteeQuestType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.IAPHistoryRetrieveUtils;
@@ -219,6 +220,12 @@ public class InAppPurchaseController extends EventController {
           .createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
       resEventUpdate.setTag(event.getTag());
       server.writeEvent(resEventUpdate);
+      
+      //in case user has a mentor, check if user completed mentor's quest
+      if (null != receiptFromApple && resBuilder.getStatus() == InAppPurchaseStatus.SUCCESS) {
+        MenteeQuestType type = MenteeQuestType.BOUGHT_A_PACKAGE;
+        MiscMethods.sendMenteeFinishedQuests(senderProto, type, server);
+      }
     } catch (Exception e) {
       log.error("exception in InAppPurchaseController processEvent", e);
     } finally {

@@ -2,7 +2,6 @@ package com.lvl6.utils.utilmethods;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +20,7 @@ import com.lvl6.info.UserStruct;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
+import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto.MenteeQuestType;
 import com.lvl6.proto.InfoProto.ExpansionDirection;
 import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.proto.InfoProto.UserClanStatus;
@@ -1251,6 +1251,39 @@ public class UpdateUtils implements UpdateUtil {
 
     int numUpdated = DBConnection.get().updateTableRows(tableName, null, absoluteParams, 
         conditionParams, "or");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean updateMentorshipQuestCompleteTime(int mentorshipId, 
+      Date timeCompleted, MenteeQuestType type) {
+    String tableName = DBConstants.TABLE_MENTORSHIPS;
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.MENTORSHIPS__ID, mentorshipId);
+    
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    Timestamp ts = new Timestamp(timeCompleted.getTime());
+    if (MenteeQuestType.BOUGHT_A_PACKAGE == type) {
+      absoluteParams.put(DBConstants.MENTORSHIPS__QUEST_ONE_COMPLETE_TIME, ts);
+      
+    } else if (MenteeQuestType.FORGED_EQUIP_TO_LEVEL_N == type) {
+      absoluteParams.put(DBConstants.MENTORSHIPS__QUEST_TWO_COMPLETE_TIME, ts);
+      
+    } else if (MenteeQuestType.JOINED_A_CLAN == type) {
+      absoluteParams.put(DBConstants.MENTORSHIPS__QUEST_THREE_COMPLETE_TIME, ts);
+      
+    } else if (MenteeQuestType.LEVELED_UP_TO_LEVEL_N == type) {
+      absoluteParams.put(DBConstants.MENTORSHIPS__QUEST_FOUR_COMPLETE_TIME, ts);
+      
+    } else if (MenteeQuestType.LEVELED_UP_TO_LEVEL_X == type) {
+      absoluteParams.put(DBConstants.MENTORSHIPS__QUEST_FIVE_COMPLETE_TIME, ts);
+      
+    }
+    
+    int numUpdated = DBConnection.get().updateTableRows(tableName, null, absoluteParams, 
+        conditionParams, "AND");
     if (numUpdated == 1) {
       return true;
     }
