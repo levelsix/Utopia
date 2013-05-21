@@ -123,7 +123,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
       QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
 
-      updateMentorshipQuests(senderProto, successfulForge, blacksmithAttempt);
+      //updateMentorshipQuests(senderProto, successfulForge, blacksmithAttempt);
       
     } catch (Exception e) {
       log.error("exception in CollectForgeEquips processEvent", e);

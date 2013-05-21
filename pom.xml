@@ -22,6 +22,12 @@
 		<developer>
 			<name>Kelly</name>
 		</developer>
+		<developer>
+			<name>Ashwin</name>
+		</developer>
+		<developer>
+			<name>Art</name>
+		</developer>
 	</developers>
 	<inceptionYear>2011</inceptionYear>
 	<organization>
@@ -80,8 +86,14 @@
 		<hazelcast.dev.ips>5.9.28.212</hazelcast.dev.ips>
 		<server.ip>0.0.0.0</server.ip>
 		<server.port>10001</server.port>
+		
 		<globals.isSandbox>true</globals.isSandbox>
 		<globals.iddictionOn>false</globals.iddictionOn>
+		<globals.kabamEnabled>true</globals.kabamEnabled>
+		<globals.appStoreUrl><![CDATA[itms-apps://itunes.com/apps/ageofchaos]]></globals.appStoreUrl>
+		<globals.appleBundleId>com.lvl6.kingdom</globals.appleBundleId>
+		<globals.reviewPageUrl><![CDATA[itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=548520325&pageNumber=0&sortOrdering=1&type=Purple+Software]]></globals.reviewPageUrl>
+		
 		<lvl6.application.version>3.0f</lvl6.application.version>
 		<lvl6.application.healthcheck.timeout.seconds>6</lvl6.application.healthcheck.timeout.seconds>
 		<apns.path.to.cert>/usr/share/tomcat7/KingdomAPNSDevKey.p12</apns.path.to.cert>
@@ -102,8 +114,11 @@
 		<beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
 		<application.release.name>Kingdom</application.release.name>
 		<wicket.mode>development</wicket.mode>
+		
 		<lvl6.jedis.host>robot.lvl6.com</lvl6.jedis.host>
 		<lvl6.jedis.auth>L3v3lS!x_K!ngd0m$</lvl6.jedis.auth>
+		<lvl6.jedis.database>0</lvl6.jedis.database>
+		
 		<ec2.instance.size>m1.small</ec2.instance.size>
 		<ec2.instance.count.minimum>4</ec2.instance.count.minimum>
 		<ec2.instance.count.maximum>10</ec2.instance.count.maximum>
@@ -651,7 +666,7 @@
 			<dependency>
 				<groupId>redis.clients</groupId>
 				<artifactId>jedis</artifactId>
-				<version>2.0.0</version>
+				<version>2.1.0</version>
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>

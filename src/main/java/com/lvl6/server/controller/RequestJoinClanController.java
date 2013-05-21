@@ -11,35 +11,31 @@ import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RequestJoinClanRequestEvent;
-import com.lvl6.events.response.MenteeFinishedQuestResponseEvent;
 import com.lvl6.events.response.RequestJoinClanResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Clan;
-import com.lvl6.info.Mentorship;
 import com.lvl6.info.User;
 import com.lvl6.info.UserClan;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.misc.Notification;
 import com.lvl6.properties.ControllerConstants;
-import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto;
 import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto.MenteeQuestType;
 import com.lvl6.proto.EventProto.RequestJoinClanRequestProto;
 import com.lvl6.proto.EventProto.RequestJoinClanResponseProto;
 import com.lvl6.proto.EventProto.RequestJoinClanResponseProto.Builder;
 import com.lvl6.proto.EventProto.RequestJoinClanResponseProto.RequestJoinClanStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.MinimumUserProtoForClans;
 import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
-import com.lvl6.retrieveutils.MentorshipRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.ClanTierLevelRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.QuestUtils;
-import com.lvl6.utils.utilmethods.UpdateUtils;
 
 @Component @DependsOn("gameServer") public class RequestJoinClanController extends EventController {
 
@@ -81,10 +77,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       
       boolean successful = false;
       if (legitRequest) {
+        //setting minimum user proto for clans based on clan join type
         if (requestToJoinRequired) {
-          resBuilder.setRequester(CreateInfoProtoUtils.createMinimumUserProtoForClans(user, UserClanStatus.REQUESTING));
+          MinimumUserProtoForClans mupfc = CreateInfoProtoUtils.createMinimumUserProtoForClans(
+              user, UserClanStatus.REQUESTING);
+          resBuilder.setRequester(mupfc);
         } else {
-          resBuilder.setRequester(CreateInfoProtoUtils.createMinimumUserProtoForClans(user, UserClanStatus.MEMBER));
+          MinimumUserProtoForClans mupfc = CreateInfoProtoUtils.createMinimumUserProtoForClans(
+              user, UserClanStatus.MEMBER);
+          resBuilder.setRequester(mupfc);
         }
         successful = writeChangesToDB(resBuilder, user, clan);
       }
@@ -114,7 +115,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         notifyClan(user, clan, requestToJoinRequired); //write to clan leader or clan
         QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.REQUEST_JOIN_CLAN, true);
         
-        checkMenteeFinishedQuests(senderProto, requestToJoinRequired);
+        //checkMenteeFinishedQuests(senderProto, requestToJoinRequired);
       }
     } catch (Exception e) {
       log.error("exception in RequestJoinClan processEvent", e);
