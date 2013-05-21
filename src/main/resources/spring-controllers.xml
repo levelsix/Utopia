@@ -45,6 +45,10 @@
 	<bean id="appGlobals" class="com.lvl6.properties.Globals" >
 		<property name="sandbox" value="${globals.isSandbox}" />
 		<property name="iddictionOn" value="${globals.iddictionOn}" />
+		<property name="kabamEnabled" value="${globals.kabamEnabled}" />
+		<property name="appStoreUrl" value="${globals.appStoreUrl}" />
+		<property name="reviewPageUrl" value="${globals.reviewPageUrl}" />
+		<property name="appleBundleId" value="${globals.appleBUndleId}" />
 		<property name="versionNumber" value="${lvl6.application.version}" />
 		<property name="healthCheckTimeoutSeconds" value="${lvl6.application.healthcheck.timeout.seconds}" />
 	</bean>

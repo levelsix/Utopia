@@ -18,41 +18,41 @@ public class IAPValues {
   public static final String PURCHASE_DATE = "purchase_date";
   public static final String PURCHASE_DATE_MS = "purchase_date_ms";
 
-  public static final String PACKAGE1 = Globals.APPLE_BUNDLE_ID + ".package1";
-  public static final String PACKAGE2 = Globals.APPLE_BUNDLE_ID + ".package2";
-  public static final String PACKAGE3 = Globals.APPLE_BUNDLE_ID + ".package3";
-  public static final String PACKAGE4 = Globals.APPLE_BUNDLE_ID + ".package4";
-  public static final String PACKAGE5 = Globals.APPLE_BUNDLE_ID + ".package5";
+  public static final String PACKAGE1 = Globals.APPLE_BUNDLE_ID() + ".package1";
+  public static final String PACKAGE2 = Globals.APPLE_BUNDLE_ID() + ".package2";
+  public static final String PACKAGE3 = Globals.APPLE_BUNDLE_ID() + ".package3";
+  public static final String PACKAGE4 = Globals.APPLE_BUNDLE_ID() + ".package4";
+  public static final String PACKAGE5 = Globals.APPLE_BUNDLE_ID() + ".package5";
 
-  public static final String PACKAGE1SALE = Globals.APPLE_BUNDLE_ID + ".package1sale";
-  public static final String PACKAGE2SALE = Globals.APPLE_BUNDLE_ID + ".package2sale";
-  public static final String PACKAGE3SALE = Globals.APPLE_BUNDLE_ID + ".package3sale";
-  public static final String PACKAGE4SALE = Globals.APPLE_BUNDLE_ID + ".package4sale";
-  public static final String PACKAGE5SALE = Globals.APPLE_BUNDLE_ID + ".package5sale";
+  public static final String PACKAGE1SALE = Globals.APPLE_BUNDLE_ID() + ".package1sale";
+  public static final String PACKAGE2SALE = Globals.APPLE_BUNDLE_ID() + ".package2sale";
+  public static final String PACKAGE3SALE = Globals.APPLE_BUNDLE_ID() + ".package3sale";
+  public static final String PACKAGE4SALE = Globals.APPLE_BUNDLE_ID() + ".package4sale";
+  public static final String PACKAGE5SALE = Globals.APPLE_BUNDLE_ID() + ".package5sale";
 
-  public static final String PACKAGE1BSALE = Globals.APPLE_BUNDLE_ID + ".package1bsale";
-  public static final String PACKAGE2BSALE = Globals.APPLE_BUNDLE_ID + ".package2bsale";
-  public static final String PACKAGE3BSALE = Globals.APPLE_BUNDLE_ID + ".package3bsale";
-  public static final String PACKAGE4BSALE = Globals.APPLE_BUNDLE_ID + ".package4bsale";
-  public static final String PACKAGE5BSALE = Globals.APPLE_BUNDLE_ID + ".package5bsale";
+  public static final String PACKAGE1BSALE = Globals.APPLE_BUNDLE_ID() + ".package1bsale";
+  public static final String PACKAGE2BSALE = Globals.APPLE_BUNDLE_ID() + ".package2bsale";
+  public static final String PACKAGE3BSALE = Globals.APPLE_BUNDLE_ID() + ".package3bsale";
+  public static final String PACKAGE4BSALE = Globals.APPLE_BUNDLE_ID() + ".package4bsale";
+  public static final String PACKAGE5BSALE = Globals.APPLE_BUNDLE_ID() + ".package5bsale";
 
-  public static final String PACKAGES1 = Globals.APPLE_BUNDLE_ID + ".packageS1";
-  public static final String PACKAGES2 = Globals.APPLE_BUNDLE_ID + ".packageS2";
-  public static final String PACKAGES3 = Globals.APPLE_BUNDLE_ID + ".packageS3";
-  public static final String PACKAGES4 = Globals.APPLE_BUNDLE_ID + ".packageS4";
-  public static final String PACKAGES5 = Globals.APPLE_BUNDLE_ID + ".packageS5";
+  public static final String PACKAGES1 = Globals.APPLE_BUNDLE_ID() + ".packageS1";
+  public static final String PACKAGES2 = Globals.APPLE_BUNDLE_ID() + ".packageS2";
+  public static final String PACKAGES3 = Globals.APPLE_BUNDLE_ID() + ".packageS3";
+  public static final String PACKAGES4 = Globals.APPLE_BUNDLE_ID() + ".packageS4";
+  public static final String PACKAGES5 = Globals.APPLE_BUNDLE_ID() + ".packageS5";
 
-  public static final String PACKAGES1SALE = Globals.APPLE_BUNDLE_ID + ".packageS1sale";
-  public static final String PACKAGES2SALE = Globals.APPLE_BUNDLE_ID + ".packageS2sale";
-  public static final String PACKAGES3SALE = Globals.APPLE_BUNDLE_ID + ".packageS3sale";
-  public static final String PACKAGES4SALE = Globals.APPLE_BUNDLE_ID + ".packageS4sale";
-  public static final String PACKAGES5SALE = Globals.APPLE_BUNDLE_ID + ".packageS5sale";
+  public static final String PACKAGES1SALE = Globals.APPLE_BUNDLE_ID() + ".packageS1sale";
+  public static final String PACKAGES2SALE = Globals.APPLE_BUNDLE_ID() + ".packageS2sale";
+  public static final String PACKAGES3SALE = Globals.APPLE_BUNDLE_ID() + ".packageS3sale";
+  public static final String PACKAGES4SALE = Globals.APPLE_BUNDLE_ID() + ".packageS4sale";
+  public static final String PACKAGES5SALE = Globals.APPLE_BUNDLE_ID() + ".packageS5sale";
 
-  public static final String PACKAGES1BSALE = Globals.APPLE_BUNDLE_ID + ".packageS1bsale";
-  public static final String PACKAGES2BSALE = Globals.APPLE_BUNDLE_ID + ".packageS2bsale";
-  public static final String PACKAGES3BSALE = Globals.APPLE_BUNDLE_ID + ".packageS3bsale";
-  public static final String PACKAGES4BSALE = Globals.APPLE_BUNDLE_ID + ".packageS4bsale";
-  public static final String PACKAGES5BSALE = Globals.APPLE_BUNDLE_ID + ".packageS5bsale";
+  public static final String PACKAGES1BSALE = Globals.APPLE_BUNDLE_ID() + ".packageS1bsale";
+  public static final String PACKAGES2BSALE = Globals.APPLE_BUNDLE_ID() + ".packageS2bsale";
+  public static final String PACKAGES3BSALE = Globals.APPLE_BUNDLE_ID() + ".packageS3bsale";
+  public static final String PACKAGES4BSALE = Globals.APPLE_BUNDLE_ID() + ".packageS4bsale";
+  public static final String PACKAGES5BSALE = Globals.APPLE_BUNDLE_ID() + ".packageS5bsale";
 
   public static final String PACKAGE1IMG = "goldstack1.png";
   public static final String PACKAGE2IMG = "goldstack2.png";
