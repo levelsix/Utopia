@@ -102,6 +102,8 @@ public class Globals {
     public static final int DEFAULT_CONTROLLER_WORKERS = 2;
 
     public static final boolean IS_SANDBOX(){return AppContext.getApplicationContext().getBean(Globals.class).getSandbox();};
+    
+    public static final boolean KABAM_ENABLED() {return AppContext.getApplicationContext().getBean(Globals.class).isKabamEnabled();};
 
     public static final int NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME = 10;
     
