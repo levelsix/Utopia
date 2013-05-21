@@ -105,12 +105,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return false;
     }
     
+    if (!blacksmithIdToBlacksmithAttempt.containsKey(blacksmithId)) {
+      log.error("unexpected error: no blacksmith attempt with id=" + blacksmithId +
+          "; blacksmithIdToBlacksmithAttempt=" + blacksmithIdToBlacksmithAttempt);
+      resBuilder.setStatus(ForgeAttemptWaitCompleteStatus.OTHER_FAIL);
+      return false;
+    }
+    
     BlacksmithAttempt blacksmithAttempt = blacksmithIdToBlacksmithAttempt.get(blacksmithId);
-    int baEquipId = blacksmithAttempt.getEquipId();
     Map<Integer, Equipment> equipmentIdsToEquipments = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
     Equipment equip = null;
     
     try {
+      int baEquipId = blacksmithAttempt.getEquipId();
       equip = equipmentIdsToEquipments.get(baEquipId);
     } catch (Exception e) {
       log.error("unexpected error: blacksmithAttempt=" + blacksmithAttempt +
