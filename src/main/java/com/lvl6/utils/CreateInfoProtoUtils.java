@@ -377,8 +377,7 @@ public class CreateInfoProtoUtils {
         .setMarketplaceCoinsEarnings(u.getMarketplaceCoinsEarnings())
         .setVaultBalance(u.getVaultBalance()).setExperience(u.getExperience())
         .setTasksCompleted(u.getTasksCompleted()).setBattlesWon(u.getBattlesWon())
-        .setBattlesLost(u.getBattlesLost()).setFlees(u.getFlees())
-        .setReferralCode(u.getReferralCode()).setNumReferrals(u.getNumReferrals())
+        .setBattlesLost(u.getBattlesLost()).setFlees(u.getFlees()).setNumReferrals(u.getNumReferrals())
         .setUserLocation(createLocationProtoFromLocation(u.getUserLocation()))
         .setNumPostsInMarketplace(u.getNumPostsInMarketplace()).setNumMarketplaceSalesUnredeemed(u.getNumMarketplaceSalesUnredeemed())
         .setLastLoginTime(u.getLastLogin().getTime()).setIsFake(u.isFake())
@@ -392,6 +391,10 @@ public class CreateInfoProtoUtils {
         .setNumAdditionalForgeSlots(u.getNumAdditionalForgeSlots())
         .setNumBeginnerSalesPurchased(u.getNumBeginnerSalesPurchased())
         .setIsMentor(u.isMentor());
+    
+    if (u.getReferralCode() != null) {
+      builder.setReferralCode(u.getReferralCode());
+    }
 
     if (u.isFake()) {
       int equipmentLevel = u.getLevel();
