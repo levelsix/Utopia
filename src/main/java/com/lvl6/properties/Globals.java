@@ -10,15 +10,22 @@ public class Globals {
 	protected String appleBundleId;
 	protected String appStoreUrl;
 	protected String reviewPageUrl;
-	
-	
+	protected boolean kabamEnabled = true;
 	protected boolean sandbox = true;
 	protected boolean iddictionOn = true;
-	
 	protected float versionNumber = 1.0f;
-	
 	protected int healthCheckTimeoutSeconds = 6;
 	
+	
+	
+	public boolean isKabamEnabled() {
+		return kabamEnabled;
+	}
+
+	public void setKabamEnabled(boolean kabamEnabled) {
+		this.kabamEnabled = kabamEnabled;
+	}
+
 	public String getAppleBundleId() {
 		return appleBundleId;
 	}

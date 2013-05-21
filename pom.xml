@@ -89,6 +89,7 @@
 		
 		<globals.isSandbox>true</globals.isSandbox>
 		<globals.iddictionOn>false</globals.iddictionOn>
+		<globals.kabamEnabled>true</globals.kabamEnabled>
 		<globals.appStoreUrl><![CDATA[itms-apps://itunes.com/apps/ageofchaos]]></globals.appStoreUrl>
 		<globals.appleBundleId>com.lvl6.kingdom</globals.appleBundleId>
 		<globals.reviewPageUrl><![CDATA[itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=548520325&pageNumber=0&sortOrdering=1&type=Purple+Software]]></globals.reviewPageUrl>
