@@ -1,5 +1,6 @@
 package com.lvl6.server.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -1436,7 +1437,9 @@ public class StartupController extends EventController {
 		
 		String name = "";
     try {
-      
+
+      log.info(new File(".").getCanonicalPath());
+      log.info(new File(".").getAbsolutePath());
       NameGenerator nameGenerator;
       nameGenerator = new NameGenerator(nameRulesFile);
       int syllablesInName = (Math.random() < .5) ? syllablesInName1 : syllablesInName2;
