@@ -1442,8 +1442,7 @@ public class StartupController extends EventController {
       int syllablesInName = (Math.random() < .5) ? syllablesInName1 : syllablesInName2;
       name = nameGenerator.compose(syllablesInName);
     } catch (IOException e1) {
-      log.error("Unable to create a default name");
-      e1.printStackTrace();
+      log.error("Unable to create a default name", e1);
     }
 
 		TutorialConstants.Builder builder = TutorialConstants
