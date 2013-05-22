@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -112,6 +114,7 @@ import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
+import com.lvl6.scriptsjava.generatefakeusers.NameGenerator;
 import com.lvl6.server.GameServer;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.CreateInfoProtoUtils;
@@ -124,6 +127,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 @Component
 @DependsOn("gameServer")
 public class StartupController extends EventController {
+  private static String nameRulesFile = "namerulesElven.txt";
+  private static int syllablesInName1 = 2;
+  private static int syllablesInName2 = 3;
 
 	private static Logger log = LoggerFactory.getLogger(new Object() {
 	}.getClass().getEnclosingClass());
@@ -1428,6 +1434,19 @@ public class StartupController extends EventController {
 				ControllerConstants.USER_CREATE__FIRST_WALL_POST_TEXT);
 		User poster = RetrieveUtils.userRetrieveUtils().getUserById(
 				ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL);
+		
+		String name = "";
+    try {
+
+      log.info(new File(".").getCanonicalPath());
+      log.info(new File(".").getAbsolutePath());
+      NameGenerator nameGenerator;
+      nameGenerator = new NameGenerator(nameRulesFile);
+      int syllablesInName = (Math.random() < .5) ? syllablesInName1 : syllablesInName2;
+      name = nameGenerator.compose(syllablesInName);
+    } catch (IOException e1) {
+      log.error("Unable to create a default name", e1);
+    }
 
 		TutorialConstants.Builder builder = TutorialConstants
 				.newBuilder()
@@ -1478,7 +1497,8 @@ public class StartupController extends EventController {
 				.setExpRequiredForLevelThree(
 						LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(3))
 				.setFirstWallPost(
-						CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, poster));
+						CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, poster))
+						.setDefaultName(name);
 
 		List<NeutralCityElement> neutralCityElements = NeutralCityElementsRetrieveUtils
 				.getNeutralCityElementsForCity(ControllerConstants.TUTORIAL__FIRST_NEUTRAL_CITY_ID);
