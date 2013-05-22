@@ -176,7 +176,7 @@ public class ControllerConstants {
   public static final int STARTUP__VAULT_MIN_LEVEL = 1;
   public static final int STARTUP__ARMORY_MIN_LEVEL = 1;
   public static final int STARTUP__MARKETPLACE_MIN_LEVEL = 7;
-  public static final int STARTUP__BLACKSMITH_MIN_LEVEL = 8;
+  public static final int STARTUP__BLACKSMITH_MIN_LEVEL = 1;
   public static final int STARTUP__LEADERBOARD_MIN_LEVEL = 1;
   public static final int STARTUP__ENHANCING_MIN_LEVEL_TO_UNLOCK = 20; 
   public static final boolean STARTUP__USE_OLD_BATTLE_FORMULA = true;
