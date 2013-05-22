@@ -1436,12 +1436,14 @@ public class StartupController extends EventController {
 		
 		String name = "";
     try {
+      
       NameGenerator nameGenerator;
       nameGenerator = new NameGenerator(nameRulesFile);
       int syllablesInName = (Math.random() < .5) ? syllablesInName1 : syllablesInName2;
       name = nameGenerator.compose(syllablesInName);
     } catch (IOException e1) {
       log.error("Unable to create a default name");
+      e1.printStackTrace();
     }
 
 		TutorialConstants.Builder builder = TutorialConstants
