@@ -127,7 +127,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 @Component
 @DependsOn("gameServer")
 public class StartupController extends EventController {
-  private static String nameRulesFile = "src/main/java/com/lvl6/scriptsjava/generatefakeusers/namerulesElven.txt";
+  private static String nameRulesFile = "namerulesElven.txt";
   private static int syllablesInName1 = 2;
   private static int syllablesInName2 = 3;
 
