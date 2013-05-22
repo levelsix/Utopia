@@ -1,9 +1,11 @@
 package com.lvl6.scriptsjava.generatefakeusers;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import org.springframework.core.io.Resource;
 
 /**
  * http://forum.codecall.net/classes-code-snippets/19615-java-random-name-generator.html
@@ -57,16 +59,21 @@ public class NameGenerator {
 	final private static char[] vocals = {'a', 'e', 'i', 'o', 'u', 'y'};//TODO: removed invalid UTF-8 characters so maven would build
 	final private static char[] consonants = {'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p',	'q', 'r', 's', 't', 'v', 'w', 'x', 'y'};
 	
-	private String fileName;
+	//private String fileName;
+	protected Resource nameFile;
 	
 	/**
 	 * Create new random name generator object. refresh() is automatically called.
 	 * @param fileName insert file name, where syllables are located
 	 * @throws IOException
 	 */
-	public NameGenerator(String fileName) throws IOException{
-		this.fileName = fileName;
+	public NameGenerator(Resource nameFile) throws IOException{
+		this.nameFile = nameFile;
 		refresh();
+	}
+
+	public NameGenerator(){
+
 	}
 	
 	/**
@@ -74,9 +81,9 @@ public class NameGenerator {
 	 * @param fileName insert the file name, where syllables are located.
 	 * @throws IOException
 	 */
-	public void changeFile(String fileName) throws IOException{
-		if(fileName == null) throw new IOException("File name cannot be null");
-		this.fileName = fileName;
+	public void changeFile(Resource nameFile) throws IOException{
+		if(nameFile == null) throw new IOException("File name cannot be null");
+		this.nameFile = nameFile;
 		refresh();
 	}
 	
@@ -86,16 +93,10 @@ public class NameGenerator {
 	 * @throws IOException
 	 */
 	public void refresh() throws IOException{
-		
-		FileReader input = null;
 	    BufferedReader bufRead;
 	    String line;
-	    
-	    input = new FileReader(fileName);
-		
-        bufRead = new BufferedReader(input);
+        bufRead = new BufferedReader(new InputStreamReader(nameFile.getInputStream()));
         line="";   
-              
         while(line != null){        
         	line = bufRead.readLine();		
 			if(line != null && !line.equals("")){
@@ -193,7 +194,7 @@ public class NameGenerator {
 	 */
 	public String compose(int syls){
 		if(syls > 2 && mid.size() == 0) throw new RuntimeException("You are trying to create a name with more than 3 parts, which requires middle parts, " +
-				"which you have none in the file "+fileName+". You should add some. Every word, which doesn't have + or - for a prefix is counted as a middle part.");
+				"which you have none in the file . You should add some. Every word, which doesn't have + or - for a prefix is counted as a middle part.");
 		if(pre.size() == 0) throw new RuntimeException("You have no prefixes to start creating a name. add some and use \"-\" prefix, to identify it as a prefix for a name. (example: -asd)");
 		if(sur.size() == 0) throw new RuntimeException("You have no suffixes to end a name. add some and use \"+\" prefix, to identify it as a suffix for a name. (example: +asd)");
 		if(syls < 1) throw new RuntimeException("compose(int syls) can't have less than 1 syllable");
