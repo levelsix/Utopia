@@ -114,8 +114,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     String referrerCode = (reqProto.hasReferrerCode()) ? reqProto.getReferrerCode() : null;
     String deviceToken = (reqProto.hasDeviceToken() && reqProto.getDeviceToken().length() > 0) ? reqProto.getDeviceToken() : null;
 
-    Timestamp timeOfStructPurchase = new Timestamp(reqProto.getTimeOfStructPurchase());
-    Timestamp timeOfStructBuild = new Timestamp(reqProto.getTimeOfStructBuild());
+    Timestamp timeOfStructPurchase = new Timestamp((new Date()).getTime()); //new Timestamp(reqProto.getTimeOfStructPurchase());
+    Timestamp timeOfStructBuild = new Timestamp((new Date()).getTime()); //new Timestamp(reqProto.getTimeOfStructBuild());
     CoordinatePair structCoords = new CoordinatePair(reqProto.getStructCoords().getX(), reqProto.getStructCoords().getY());
 
     int attack = reqProto.getAttack();
@@ -400,14 +400,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("user with udid " + udid + " already exists");
       return false;
     }
-    if (timeOfStructBuild.getTime() <= timeOfStructPurchase.getTime() || 
+    /*if (timeOfStructBuild.getTime() <= timeOfStructPurchase.getTime() || 
         timeOfStructBuild.getTime() > new Date().getTime() + Globals.NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME*60000 ||
         timeOfStructPurchase.getTime() > new Date().getTime() + Globals.NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME*60000) {
       resBuilder.setStatus(UserCreateStatus.TIME_ISSUE);
       log.error("time issue. time now is " + new Date() + ". timeOfStructBuild=" + timeOfStructBuild 
           + ", timeOfStructPurchase=" + timeOfStructPurchase);
       return false;
-    }
+    }*/
     if (loc.getLatitude() < ControllerConstants.LATITUDE_MIN || loc.getLatitude() > ControllerConstants.LATITUDE_MAX || 
         loc.getLongitude() < ControllerConstants.LONGITUDE_MIN || loc.getLongitude() > ControllerConstants.LONGITUDE_MAX) {
       resBuilder.setStatus(UserCreateStatus.INVALID_LOCATION);
