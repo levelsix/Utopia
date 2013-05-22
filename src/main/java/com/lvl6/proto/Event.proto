@@ -190,7 +190,6 @@ message StartupResponseProto {
 	//repeated most recent private chat posts regarding this user
 	repeated PrivateChatPostProto pcpp = 45;
 	
-	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
 		optional int32 dayOneCoins = 2;
@@ -585,6 +584,8 @@ message StartupResponseProto {
 		optional FullTaskProto firstTaskBad = 35;
 		optional int32 firstBattleCoinGain = 36;
 		optional int32 firstBattleExpGain = 37;
+	
+   		optional string defaultName = 38;
      	
 		message FullTutorialQuestProto {
 				//do one task once, kill one enemy
