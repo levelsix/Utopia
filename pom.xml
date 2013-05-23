@@ -80,8 +80,14 @@
 		<hazelcast.dev.ips>5.9.28.212</hazelcast.dev.ips>
 		<server.ip>0.0.0.0</server.ip>
 		<server.port>10001</server.port>
+
 		<globals.isSandbox>true</globals.isSandbox>
 		<globals.iddictionOn>false</globals.iddictionOn>
+		<globals.kabamEnabled>true</globals.kabamEnabled>
+		<globals.appStoreUrl><![CDATA[itms-apps://itunes.com/apps/ageofchaos]]></globals.appStoreUrl>
+		<globals.appleBundleId>com.lvl6.kingdom</globals.appleBundleId>
+		<globals.reviewPageUrl><![CDATA[itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=548520325&pageNumber=0&sortOrdering=1&type=Purple+Software]]></globals.reviewPageUrl>
+		
 		<lvl6.application.version>3.0f</lvl6.application.version>
 		<lvl6.application.healthcheck.timeout.seconds>6</lvl6.application.healthcheck.timeout.seconds>
 		<apns.path.to.cert>/usr/share/tomcat7/KingdomAPNSDevKey.p12</apns.path.to.cert>
@@ -651,7 +657,7 @@
 			<dependency>
 				<groupId>redis.clients</groupId>
 				<artifactId>jedis</artifactId>
-				<version>2.0.0</version>
+				<version>2.1.0</version>
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>

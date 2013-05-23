@@ -191,8 +191,8 @@ public class StartupController extends EventController {
 		}
 
 		resBuilder.setUpdateStatus(updateStatus);
-		resBuilder.setAppStoreURL(Globals.APP_STORE_URL);
-		resBuilder.setReviewPageURL(Globals.REVIEW_PAGE_URL);
+		resBuilder.setAppStoreURL(Globals.APP_STORE_URL());
+		resBuilder.setReviewPageURL(Globals.REVIEW_PAGE_URL());
 		resBuilder.setReviewPageConfirmationMessage(Globals.REVIEW_PAGE_CONFIRMATION_MESSAGE);
 
 		User user = null;
