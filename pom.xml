@@ -110,6 +110,7 @@
 		<wicket.mode>development</wicket.mode>
 		<lvl6.jedis.host>robot.lvl6.com</lvl6.jedis.host>
 		<lvl6.jedis.auth>L3v3lS!x_K!ngd0m$</lvl6.jedis.auth>
+		<lvl6.jedis.database>0</lvl6.jedis.database>
 		<ec2.instance.size>m1.small</ec2.instance.size>
 		<ec2.instance.count.minimum>4</ec2.instance.count.minimum>
 		<ec2.instance.count.maximum>10</ec2.instance.count.maximum>
@@ -659,7 +660,7 @@
 				<artifactId>jedis</artifactId>
 				<version>2.1.0</version>
 				<type>jar</type>
-				<scope>compile</scope>
+				<!-- <scope>compile</scope> -->
 			</dependency>
 			<dependency>
 				<groupId>com.jayway.awaitility</groupId>
