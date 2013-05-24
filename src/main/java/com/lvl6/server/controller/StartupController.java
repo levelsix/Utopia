@@ -1451,57 +1451,58 @@ public class StartupController extends EventController {
       name = nameGeneratorElven.compose(syllablesInName);
     
 
-    TutorialConstants.Builder builder = TutorialConstants
-        .newBuilder()
-        .setInitEnergy(ControllerConstants.TUTORIAL__INIT_ENERGY)
-        .setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA)
-        .setInitHealth(ControllerConstants.TUTORIAL__INIT_HEALTH)
-        .setStructToBuild(ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD)
-        .setDiamondCostToInstabuildFirstStruct(
-            ControllerConstants.TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT)
-            .setArcherInitAttack(ControllerConstants.TUTORIAL__ARCHER_INIT_ATTACK)
-            .setArcherInitDefense(ControllerConstants.TUTORIAL__ARCHER_INIT_DEFENSE)
-            .setArcherInitWeapon(
-                CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
-                    .get(ControllerConstants.TUTORIAL__ARCHER_INIT_WEAPON_ID)))
-                    .setArcherInitArmor(
-                        CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
-                            .get(ControllerConstants.TUTORIAL__ARCHER_INIT_ARMOR_ID)))
-                            .setMageInitAttack(ControllerConstants.TUTORIAL__MAGE_INIT_ATTACK)
-                            .setMageInitDefense(ControllerConstants.TUTORIAL__MAGE_INIT_DEFENSE)
-                            .setMageInitWeapon(
-                                CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
-                                    .get(ControllerConstants.TUTORIAL__MAGE_INIT_WEAPON_ID)))
-                                    .setMageInitArmor(
-                                        CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
-                                            .get(ControllerConstants.TUTORIAL__MAGE_INIT_ARMOR_ID)))
-                                            .setWarriorInitAttack(ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK)
-                                            .setWarriorInitDefense(ControllerConstants.TUTORIAL__WARRIOR_INIT_DEFENSE)
-                                            .setWarriorInitWeapon(
-                                                CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
-                                                    .get(ControllerConstants.TUTORIAL__WARRIOR_INIT_WEAPON_ID)))
-                                                    .setWarriorInitArmor(
-                                                        CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
-                                                            .get(ControllerConstants.TUTORIAL__WARRIOR_INIT_ARMOR_ID)))
-                                                            .setTutorialQuest(tqbp)
-                                                            .setMinNameLength(ControllerConstants.USER_CREATE__MIN_NAME_LENGTH)
-                                                            .setTutorialQuest(tqbp)
-                                                            .setMaxNameLength(ControllerConstants.USER_CREATE__MAX_NAME_LENGTH)
-                                                            .setCoinRewardForBeingReferred(
-                                                                ControllerConstants.USER_CREATE__COIN_REWARD_FOR_BEING_REFERRED)
-                                                                .setInitDiamonds(ControllerConstants.TUTORIAL__INIT_DIAMONDS)
-                                                                .setInitCoins(ControllerConstants.TUTORIAL__INIT_COINS)
-                                                                .setFirstBattleCoinGain(ControllerConstants.TUTORIAL__FIRST_BATTLE_COIN_GAIN)
-                                                                .setFirstBattleExpGain(ControllerConstants.TUTORIAL__FIRST_BATTLE_EXP_GAIN)
-                                                                .setFirstTaskGood(ftpGood)
-                                                                .setFirstTaskBad(ftpBad)
-                                                                .setExpRequiredForLevelTwo(
-                                                                    LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(2))
-                                                                    .setExpRequiredForLevelThree(
-                                                                        LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(3))
-                                                                        .setFirstWallPost(
-                                                                            CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, poster))
-                                                                            .setDefaultName(name);
+		TutorialConstants.Builder builder = TutorialConstants
+				.newBuilder()
+				.setInitEnergy(ControllerConstants.TUTORIAL__INIT_ENERGY)
+				.setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA)
+				.setInitHealth(ControllerConstants.TUTORIAL__INIT_HEALTH)
+				.setStructToBuild(ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD)
+				.setDiamondCostToInstabuildFirstStruct(
+						ControllerConstants.TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT)
+				.setArcherInitAttack(ControllerConstants.TUTORIAL__ARCHER_INIT_ATTACK)
+				.setArcherInitDefense(ControllerConstants.TUTORIAL__ARCHER_INIT_DEFENSE)
+				.setArcherInitWeapon(
+						CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
+								.get(ControllerConstants.TUTORIAL__ARCHER_INIT_WEAPON_ID)))
+				.setArcherInitArmor(
+						CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
+								.get(ControllerConstants.TUTORIAL__ARCHER_INIT_ARMOR_ID)))
+				.setMageInitAttack(ControllerConstants.TUTORIAL__MAGE_INIT_ATTACK)
+				.setMageInitDefense(ControllerConstants.TUTORIAL__MAGE_INIT_DEFENSE)
+				.setMageInitWeapon(
+						CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
+								.get(ControllerConstants.TUTORIAL__MAGE_INIT_WEAPON_ID)))
+				.setMageInitArmor(
+						CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
+								.get(ControllerConstants.TUTORIAL__MAGE_INIT_ARMOR_ID)))
+				.setWarriorInitAttack(ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK)
+				.setWarriorInitDefense(ControllerConstants.TUTORIAL__WARRIOR_INIT_DEFENSE)
+				.setWarriorInitWeapon(
+						CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
+								.get(ControllerConstants.TUTORIAL__WARRIOR_INIT_WEAPON_ID)))
+				.setWarriorInitArmor(
+						CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
+								.get(ControllerConstants.TUTORIAL__WARRIOR_INIT_ARMOR_ID)))
+				.setTutorialQuest(tqbp)
+				.setMinNameLength(ControllerConstants.USER_CREATE__MIN_NAME_LENGTH)
+				.setTutorialQuest(tqbp)
+				.setMaxNameLength(ControllerConstants.USER_CREATE__MAX_NAME_LENGTH)
+				.setCoinRewardForBeingReferred(
+						ControllerConstants.USER_CREATE__COIN_REWARD_FOR_BEING_REFERRED)
+				.setInitDiamonds(ControllerConstants.TUTORIAL__INIT_DIAMONDS)
+				.setInitCoins(ControllerConstants.TUTORIAL__INIT_COINS)
+				.setFirstBattleCoinGain(ControllerConstants.TUTORIAL__FIRST_BATTLE_COIN_GAIN)
+				.setFirstBattleExpGain(ControllerConstants.TUTORIAL__FIRST_BATTLE_EXP_GAIN)
+				.setFirstTaskGood(ftpGood)
+				.setFirstTaskBad(ftpBad)
+				.setExpRequiredForLevelTwo(
+						LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(2))
+				.setExpRequiredForLevelThree(
+						LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(3))
+				.setFirstWallPost(
+						CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, poster))
+				.setDefaultName(name)
+				.setCostToSpeedUpForge(ControllerConstants.TUTORIAL__COST_TO_SPEED_UP_FORGE);
 
     List<NeutralCityElement> neutralCityElements = NeutralCityElementsRetrieveUtils
         .getNeutralCityElementsForCity(ControllerConstants.TUTORIAL__FIRST_NEUTRAL_CITY_ID);
