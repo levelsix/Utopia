@@ -1,6 +1,5 @@
 package com.lvl6.server.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -429,7 +428,6 @@ public class StartupController extends EventController {
       //combine all the posts together
       postIdsToPrivateChatPosts.putAll(postsUserSent);
     }
-
     return userIdsToPrivateChatPostIds;
   }
 
