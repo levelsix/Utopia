@@ -12,7 +12,6 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import com.lvl6.events.GameEvent;
 import com.lvl6.events.NormalResponseEvent;
@@ -217,7 +216,7 @@ public class APNSWriter extends Wrap {
 	}
 	
 	
-	@Scheduled(fixedRate=1000*60*60)
+/*	@Scheduled(fixedRate=1000*60*60)
 	public void resetApnsService() {
 		log.info("Rebuilding APNSService");
 		service.stop();
@@ -227,7 +226,7 @@ public class APNSWriter extends Wrap {
 		} catch (FileNotFoundException e) {
 			log.error("Error rebuilding APNSService", e);
 		}
-	}
+	}*/
 
 	protected void buildService() throws FileNotFoundException {
 		log.info("Building ApnsService");

@@ -438,7 +438,6 @@ public class StartupController extends EventController {
       //combine all the posts together
       postIdsToPrivateChatPosts.putAll(postsUserSent);
     }
-
     return userIdsToPrivateChatPostIds;
   }
 
