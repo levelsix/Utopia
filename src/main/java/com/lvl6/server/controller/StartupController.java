@@ -1498,7 +1498,8 @@ public class StartupController extends EventController {
 						LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(3))
 				.setFirstWallPost(
 						CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, poster))
-						.setDefaultName(name);
+				.setDefaultName(name)
+				.setCostToSpeedUpForge(ControllerConstants.TUTORIAL__COST_TO_SPEED_UP_FORGE);
 
 		List<NeutralCityElement> neutralCityElements = NeutralCityElementsRetrieveUtils
 				.getNeutralCityElementsForCity(ControllerConstants.TUTORIAL__FIRST_NEUTRAL_CITY_ID);

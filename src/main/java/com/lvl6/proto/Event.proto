@@ -587,6 +587,8 @@ message StartupResponseProto {
 	
    		optional string defaultName = 38;
      	
+     	optional int32 costToSpeedUpForge = 39;
+     	
 		message FullTutorialQuestProto {
 				//do one task once, kill one enemy
 			optional string goodName = 1;

@@ -158,6 +158,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       playerDiamonds = ControllerConstants.TUTORIAL__INIT_DIAMONDS;
       if (usedDiamondsToBuild) playerDiamonds -= ControllerConstants.TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT;
 
+      //automatically subtract cost to guarantee forge during tutorial
+      playerDiamonds -= ControllerConstants.TUTORIAL__COST_TO_SPEED_UP_FORGE;
+      
       Integer amuletEquipped = ControllerConstants.TUTORIAL__FAKE_QUEST_AMULET_LOOT_EQUIP_ID;
       Integer weaponEquipped = null, armorEquipped = null;
       if (type == UserType.GOOD_ARCHER || type == UserType.BAD_ARCHER) {
@@ -292,11 +295,18 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private Map<EquipType, Integer> writeUserEquips(int userId, List<Integer> equipIds) {
     Map <EquipType, Integer> userEquipIds = new HashMap<EquipType, Integer>();
     if (equipIds.size() > 0) {
+      int rustyDaggerId = 1;
 
       for (int i = 0; i < equipIds.size(); i++) {
         //since user create, equips should have no enhancement
+        int forgeLevel = ControllerConstants.DEFAULT_USER_EQUIP_LEVEL;
+        
+        //but rusty dagger should be forge level 2
+        if (equipIds.get(i) == rustyDaggerId) {
+          forgeLevel = 2;
+        }
         int userEquipId = insertUtils.insertUserEquip(userId, equipIds.get(i),
-            ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT); 
+            forgeLevel, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT); 
         if (userEquipId < 0) {
           log.error("problem with giving user " + userId + " 1 " + equipIds.get(i));
         } else {

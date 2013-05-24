@@ -154,6 +154,7 @@ public class ControllerConstants {
   public static final int TUTORIAL__FIRST_BATTLE_EXP_GAIN = 1;
   public static final int TUTORIAL__FIRST_STRUCT_TO_BUILD = 1;
   public static final int TUTORIAL__FIRST_NEUTRAL_CITY_ID = 1;
+  public static final int TUTORIAL__COST_TO_SPEED_UP_FORGE = 2;
   
   //STARTUP
   public static final int STARTUP__MAX_NUM_OF_STARTUP_NOTIFICATION_TYPE_TO_SEND = 20;
