@@ -5,6 +5,7 @@ import java.util.Random;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.core.io.Resource;
 
 import com.lvl6.info.Location;
 import com.lvl6.misc.MiscMethods;
@@ -18,6 +19,7 @@ import com.lvl6.utils.utilmethods.InsertUtil;
 
 public class GenerateFakeUsersWithoutInput {
 
+	private static Resource nameFile;
   private static String nameRulesFile = "src/main/java/com/lvl6/scriptsjava/generatefakeusers/namerulesElven.txt";
   private static int numEnemiesToCreatePerLevel = 300;
   private static int minLevel = 51;
@@ -30,8 +32,9 @@ public class GenerateFakeUsersWithoutInput {
     ApplicationContext context = new FileSystemXmlApplicationContext("target/utopia-server-1.0-SNAPSHOT/WEB-INF/spring-application-context.xml");
     NameGenerator nameGenerator = null;
     Random random = new Random();
+    nameFile = context.getResource("classpath:namerulesElven.txt");
     try {
-      nameGenerator = new NameGenerator(nameRulesFile);
+      nameGenerator = new NameGenerator(nameFile);
     } catch (IOException e) {
       e.printStackTrace();
     }

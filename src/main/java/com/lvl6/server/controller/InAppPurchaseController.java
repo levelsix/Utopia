@@ -162,7 +162,7 @@ public class InAppPurchaseController extends EventController {
             int coinChange = IAPValues.getCoinsForPackageName(packageName);
             double cashCost = IAPValues.getCashSpentForPackageName(packageName);
             boolean isBeginnerSale = IAPValues.packageIsBeginnerSale(packageName);
-            
+
             if (diamondChange > 0) {
               resBuilder.setDiamondsGained(diamondChange);
               user.updateRelativeDiamondsBeginnerSale(diamondChange, isBeginnerSale);
@@ -170,18 +170,18 @@ public class InAppPurchaseController extends EventController {
               resBuilder.setCoinsGained(coinChange);
               user.updateRelativeCoinsBeginnerSale(coinChange, isBeginnerSale);
             }
-            
+
             if (!insertUtils.insertIAPHistoryElem(receiptFromApple, diamondChange, coinChange, user, cashCost)) {
               log.error("problem with logging in-app purchase history for receipt:"
                   + receiptFromApple.toString(4) + " and user " + user);
             }
             resBuilder.setStatus(InAppPurchaseStatus.SUCCESS);
             resBuilder.setPackageName(receiptFromApple.getString(IAPValues.PRODUCT_ID));
-            
+
             resBuilder.setPackagePrice(cashCost);
             log.info("successful in-app purchase from user " + user.getId() + " for package "
                 + receiptFromApple.getString(IAPValues.PRODUCT_ID));
-            
+
             Timestamp date = new Timestamp((new Date()).getTime());
             writeToUserCurrencyHistory(user, date, diamondChange, coinChange, previousSilver, previousGold);
           } catch (Exception e) {
@@ -209,23 +209,24 @@ public class InAppPurchaseController extends EventController {
       resEvent.setInAppPurchaseResponseProto(resProto);
       server.writeEvent(resEvent);
 
-      if (receiptFromApple != null && resBuilder.getStatus() == InAppPurchaseStatus.SUCCESS) {
-        JSONObject logJson = getKabamJsonLogObject(reqProto, resBuilder, receiptFromApple);
-        List<NameValuePair> queryParams = getKabamQueryParams(receipt, user, logJson);
-        doKabamPost(queryParams, 0);
-        rd.close();
+      if (Globals.KABAM_ENABLED()) {
+        if (receiptFromApple != null && resBuilder.getStatus() == InAppPurchaseStatus.SUCCESS) {
+          JSONObject logJson = getKabamJsonLogObject(reqProto, resBuilder, receiptFromApple);
+          List<NameValuePair> queryParams = getKabamQueryParams(receipt, user, logJson);
+          doKabamPost(queryParams, 0);
+        }
       }
 
       UpdateClientUserResponseEvent resEventUpdate = MiscMethods
           .createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
       resEventUpdate.setTag(event.getTag());
       server.writeEvent(resEventUpdate);
-      
-//      //in case user has a mentor, check if user completed mentor's quest
-//      if (null != receiptFromApple && resBuilder.getStatus() == InAppPurchaseStatus.SUCCESS) {
-//        MenteeQuestType type = MenteeQuestType.BOUGHT_A_PACKAGE;
-//        MiscMethods.sendMenteeFinishedQuests(senderProto, type, server);
-//      }
+
+      //      //in case user has a mentor, check if user completed mentor's quest
+      //      if (null != receiptFromApple && resBuilder.getStatus() == InAppPurchaseStatus.SUCCESS) {
+      //        MenteeQuestType type = MenteeQuestType.BOUGHT_A_PACKAGE;
+      //        MiscMethods.sendMenteeFinishedQuests(senderProto, type, server);
+      //      }
     } catch (Exception e) {
       log.error("exception in InAppPurchaseController processEvent", e);
     } finally {
@@ -313,7 +314,7 @@ public class InAppPurchaseController extends EventController {
 
     return sb.toString();
   }
-  
+
   private void writeToUserCurrencyHistory(User aUser, Timestamp date,
       int diamondChange, int coinChange, int previousSilver, int previousGold) {
     Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
@@ -333,7 +334,7 @@ public class InAppPurchaseController extends EventController {
       previousGoldSilver.put(silver, previousSilver);
       reasonsForChanges.put(silver, reasonForChange + silver);
     }
-    
+
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date,
         goldSilverChange, previousGoldSilver, reasonsForChanges);
   }
