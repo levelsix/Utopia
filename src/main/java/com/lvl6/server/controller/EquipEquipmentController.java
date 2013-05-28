@@ -95,15 +95,15 @@ import com.lvl6.utils.RetrieveUtils;
       log.error("problem with equipping equip" + equip.getId() + ": user is null");
       return false;
     }
+    if (ue == null) {
+      resBuilder.setStatus(EquipEquipmentStatus.DOES_NOT_HAVE_THIS_EQUIP);
+      log.error("problem with equipping equip=" + equip + ": user doesnt have it");
+      return false;      
+    }
     if (equip == null) {
       resBuilder.setStatus(EquipEquipmentStatus.NOT_AN_EQUIP);
       log.error("problem with equipping equip- equipId passed in is not an equip, equip id was " + ue.getEquipId());
       return false;
-    }
-    if (ue == null) {
-      resBuilder.setStatus(EquipEquipmentStatus.DOES_NOT_HAVE_THIS_EQUIP);
-      log.error("problem with equipping equip" + equip.getId() + ": user doesnt have it");
-      return false;      
     }
     if (equip.getMinLevel() > user.getLevel()) {
       resBuilder.setStatus(EquipEquipmentStatus.NOT_HIGH_ENOUGH_LEVEL);
