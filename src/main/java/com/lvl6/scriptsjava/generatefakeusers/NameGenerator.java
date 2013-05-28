@@ -100,7 +100,7 @@ public class NameGenerator {
 	    
 	    bufRead = new BufferedReader(new InputStreamReader(nameFile.getInputStream()));
 		
-        bufRead = new BufferedReader(input);
+        //bufRead = new BufferedReader(input);
         line="";   
               
         while(line != null){        
