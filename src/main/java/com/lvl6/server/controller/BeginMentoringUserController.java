@@ -90,8 +90,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       
       Map<Integer, User> idsToUsers = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds); 
       
-      boolean legit = checkLegit(resBuilder, mentorId, menteeId, idsToUsers, clientTime);
-      
+      boolean legit = false;//checkLegit(resBuilder, mentorId, menteeId, idsToUsers, clientTime);
       boolean saveSuccessful = false;
       List<Integer> mentorIds = new ArrayList<Integer>();
       if (legit) {

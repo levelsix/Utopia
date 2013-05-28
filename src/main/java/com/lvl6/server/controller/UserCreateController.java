@@ -255,7 +255,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         writeToUserCurrencyHistory(user, playerCoins, playerDiamonds);
         
         //send to mentors
-        writeToMentors(user);
+        //writeToMentors(user);
 
       } catch (Exception e) {
         log.error("exception in UserCreateController processEvent", e);
@@ -539,7 +539,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         previousGoldSilver, reasonsForChanges);
   }
   
-  public void writeToMentors(User u) {
+  private void writeToMentors(User u) {
     int userId = u.getId();
     MinimumUserProtoForMentorship mupfm =
         CreateInfoProtoUtils.createMinimumUserProtoForMentorship(u);
