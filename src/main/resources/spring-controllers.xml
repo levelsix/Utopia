@@ -41,6 +41,7 @@
 	
 	<bean id="serverAdmin" class="com.lvl6.server.ServerAdmin" />
 	
+	<bean id="nameGeneratorElven" class="com.lvl6.scriptsjava.generatefakeusers.NameGeneratorElven" />
 	
 	<bean id="appGlobals" class="com.lvl6.properties.Globals" >
 		<property name="sandbox" value="${globals.isSandbox}" />

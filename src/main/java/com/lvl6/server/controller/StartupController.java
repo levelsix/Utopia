@@ -1,6 +1,5 @@
 package com.lvl6.server.controller;
 
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,6 +18,7 @@ import javax.annotation.Resource;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -113,7 +113,7 @@ import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
-import com.lvl6.scriptsjava.generatefakeusers.NameGenerator;
+import com.lvl6.scriptsjava.generatefakeusers.NameGeneratorElven;
 import com.lvl6.server.GameServer;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.CreateInfoProtoUtils;
@@ -136,6 +136,17 @@ public class StartupController extends EventController {
   public StartupController() {
     numAllocatedThreads = 3;
   }
+  
+  @Autowired
+  	protected NameGeneratorElven nameGeneratorElven;
+  
+  	public NameGeneratorElven getNameGeneratorElven() {
+  		return nameGeneratorElven;
+  	}
+  
+  	public void setNameGeneratorElven(NameGeneratorElven nameGeneratorElven) {
+  		this.nameGeneratorElven = nameGeneratorElven;
+   	}
 
   @Resource(name = "goodEquipsRecievedFromBoosterPacks")
   protected IList<RareBoosterPurchaseProto> goodEquipsRecievedFromBoosterPacks;
@@ -1436,15 +1447,8 @@ public class StartupController extends EventController {
         ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL);
 
     String name = "";
-    try {
-      NameGenerator nameGenerator;
-      nameGenerator = new NameGenerator(nameRulesFile);
-      int syllablesInName = (Math.random() < .5) ? syllablesInName1 : syllablesInName2;
-      name = nameGenerator.compose(syllablesInName);
-    } catch (IOException e1) {
-      log.error("Unable to create a default name", e1);
-    }
-
+    int syllablesInName = (Math.random() < .5) ? syllablesInName1 : syllablesInName2;
+    name = nameGeneratorElven.compose(syllablesInName);
     TutorialConstants.Builder builder = TutorialConstants
         .newBuilder()
         .setInitEnergy(ControllerConstants.TUTORIAL__INIT_ENERGY)
