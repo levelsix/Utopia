@@ -529,7 +529,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         previousGoldSilver, reasonsForChanges);
   }
   
-  public void writeToMentors(User u) {
+  private void writeToMentors(User u) {
     int userId = u.getId();
     MinimumUserProtoForMentorship mupfm =
         CreateInfoProtoUtils.createMinimumUserProtoForMentorship(u);
