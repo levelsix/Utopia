@@ -252,7 +252,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         writeToUserCurrencyHistory(user, playerCoins, playerDiamonds);
         
         //send to mentors
-        writeToMentors(user);
+        //writeToMentors(user);
 
       } catch (Exception e) {
         log.error("exception in UserCreateController processEvent", e);
