@@ -54,6 +54,7 @@ import com.lvl6.utils.RetrieveUtils;
     Double latUpperBound = (reqProto.hasLatUpperBound()) ? reqProto.getLatUpperBound() : null;
     Double longLowerBound = (reqProto.hasLongLowerBound()) ? reqProto.getLongLowerBound() : null;
     Double longUpperBound = (reqProto.hasLongUpperBound()) ? reqProto.getLongUpperBound() : null;
+    boolean showRealPlayers = reqProto.getShowRealPlayers();
     
     GenerateAttackListResponseProto.Builder resBuilder = GenerateAttackListResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -82,10 +83,11 @@ import com.lvl6.utils.RetrieveUtils;
         userTypes.add(UserType.GOOD_WARRIOR);
       }
       
-      boolean realPlayersOnly = false;
-      boolean fakePlayersOnly = false;
+      boolean realPlayersOnly = showRealPlayers;
+      boolean fakePlayersOnly = !showRealPlayers;
       boolean offlinePlayersOnly = true; //includes fake players
       boolean prestigePlayersOrBotsOnly = false;
+      boolean inactiveShield = true;
       
       if (user.getPrestigeLevel() > 0) {
         if (user.getLevel() >= ControllerConstants.BATTLE__MIN_LEVEL_FOR_PRESTIGED_TO_SEE_NON_BOTS) {
@@ -94,20 +96,24 @@ import com.lvl6.utils.RetrieveUtils;
           realPlayersOnly = true;
         } else {
           //low enough prestige players will only see other prestige players or bots 
+          realPlayersOnly = false;
+          fakePlayersOnly = false;
           offlinePlayersOnly = false;
           prestigePlayersOrBotsOnly = true;
         }
-      } else if (10 >= user.getLevel()) {
-        //for newbiews, show only bots 
-        fakePlayersOnly = true;
       }
+//      else if (10 >= user.getLevel()) {
+//        //for newbiews, show only bots 
+//        fakePlayersOnly = true;
+//      }
       
       
       //PROCURE THE VICTIMS! MWAHAHAHAH
       List<User> enemies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes,
           numEnemies, user.getLevel(), user.getId(), false, latLowerBound,
           latUpperBound, longLowerBound, longUpperBound, true, realPlayersOnly,
-          fakePlayersOnly, offlinePlayersOnly, prestigePlayersOrBotsOnly, null);
+          fakePlayersOnly, offlinePlayersOnly, prestigePlayersOrBotsOnly,
+          inactiveShield, null);
       if (enemies != null) {
         List<Integer> playerIds = new ArrayList<Integer>(); //ids that are added to builder
         Set<Integer> forbiddenIds = new HashSet<Integer>(); //ids that should not be added to builder
@@ -121,7 +127,7 @@ import com.lvl6.utils.RetrieveUtils;
           enemies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, numEnemies,
               user.getLevel(), user.getId(), false, latLowerBound, latUpperBound,
               longLowerBound, longUpperBound, true, realPlayersOnly, fakePlayersOnly,
-              offlinePlayersOnly, prestigePlayersOrBotsOnly, playerIds);
+              offlinePlayersOnly, prestigePlayersOrBotsOnly, inactiveShield, playerIds);
           
           forbiddenIds.addAll(playerIds);
           addPlayersToBuilder(resBuilder, enemies, user, forbiddenIds, null);

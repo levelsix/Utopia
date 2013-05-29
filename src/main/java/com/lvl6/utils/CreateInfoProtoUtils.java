@@ -390,7 +390,8 @@ public class CreateInfoProtoUtils {
         .setPrestigeLevel(u.getPrestigeLevel())
         .setNumAdditionalForgeSlots(u.getNumAdditionalForgeSlots())
         .setNumBeginnerSalesPurchased(u.getNumBeginnerSalesPurchased())
-        .setIsMentor(u.isMentor());
+        .setIsMentor(u.isMentor())
+        .setHasActiveShield(u.isHasActiveShield());
     
     if (u.getReferralCode() != null) {
       builder.setReferralCode(u.getReferralCode());

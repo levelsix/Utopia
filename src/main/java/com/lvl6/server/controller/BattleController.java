@@ -303,6 +303,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("problem with battle- attacker and defender same side. attacker=" + attacker + ", defender=" + defender);
       return false;
     }
+    if (defender.isHasActiveShield()) {
+      resBuilder.setStatus(BattleStatus.OPPONENT_HAS_ACTIVE_SHIELD);
+      log.error("user error: user trying to attack a defender who has an active" +
+      		" shield. attacker=" + attacker + "\t defender=" + defender);
+      return false;
+    }
     resBuilder.setStatus(BattleStatus.SUCCESS);
     return true;
   }
@@ -400,17 +406,24 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       Map<String, Integer> attackerCurrencyChange, Map<String, Integer> defenderCurrencyChange) {
 
     boolean simulateStaminaRefill = (attacker.getStamina() == attacker.getStaminaMax());
-
+    
+    boolean attackerDeactivateShield = false;
+    boolean defenderDeactivateShield = false;
+    //turn off attacker's shield if defender is real
+    if (!defender.isFake()) {
+      attackerDeactivateShield = true;
+    }
+    
     if (winner == attacker) {
       if (!attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
-          expGained, lostCoins, 1, 0, 0, simulateStaminaRefill, false, battleTime)) {
+          expGained, lostCoins, 1, 0, 0, simulateStaminaRefill, false, battleTime, attackerDeactivateShield)) {
         log.error("problem with updating info for winner/attacker " + attacker.getId() + " in battle at " 
             + battleTime + " vs " + loser.getId());
       } else {//for user currency history
         attackerCurrencyChange.put(MiscMethods.silver, lostCoins);
       }
       if (!defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
-          0, (defender.isFake()) ? 0 : lostCoins * -1, 0, 1, 0, false, true, battleTime)) {
+          0, (defender.isFake()) ? 0 : lostCoins * -1, 0, 1, 0, false, true, battleTime, defenderDeactivateShield)) {
         log.error("problem with updating info for defender/loser " + defender.getId() + " in battle at " 
             + battleTime + " vs " + winner.getId());
       } else { //for user currency history
@@ -421,14 +434,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } else if (winner == defender) {
       if (isFlee) {
         if (!attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
-            0, lostCoins * -1, 0, 1, 1, simulateStaminaRefill, false, battleTime)) {
+            0, lostCoins * -1, 0, 1, 1, simulateStaminaRefill, false, battleTime, attackerDeactivateShield)) {
           log.error("problem with updating info for loser/attacker/flee-er " + attacker.getId() + " in battle at " 
               + battleTime + " vs " + winner.getId());
         } else {//for user currency history
           attackerCurrencyChange.put(MiscMethods.silver, lostCoins * -1);
         }
         if (!defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
-            0, (defender.isFake()) ? 0 : lostCoins, 1, 0, 0, false, false, battleTime)) {
+            0, (defender.isFake()) ? 0 : lostCoins, 1, 0, 0, false, false, battleTime, defenderDeactivateShield)) {
           log.error("problem with updating info for winner/defender " + defender.getId() + " in battle at " 
               + battleTime + " vs " + loser.getId() + " who fled");
         } else {//for user currency history
@@ -438,14 +451,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
       } else {
         if (!attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
-            0, lostCoins * -1, 0, 1, 0, simulateStaminaRefill, false, battleTime)) {
+            0, lostCoins * -1, 0, 1, 0, simulateStaminaRefill, false, battleTime, attackerDeactivateShield)) {
           log.error("problem with updating info for loser/attacker " + attacker.getId() + " in battle at " 
               + battleTime + " vs " + winner.getId());
         } else {//for user currency history
           attackerCurrencyChange.put(MiscMethods.silver, lostCoins * -1);
         }
         if (!defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
-            0, (defender.isFake()) ? 0 : lostCoins, 1, 0, 0, false, true, battleTime)) {
+            0, (defender.isFake()) ? 0 : lostCoins, 1, 0, 0, false, true, battleTime, defenderDeactivateShield)) {
           log.error("problem with updating info for winner/defender " + defender.getId() + " in battle at " 
               + battleTime + " vs " + loser.getId());
         } else {//for user currency history

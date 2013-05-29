@@ -78,9 +78,13 @@ public class GenerateFakeUsersWithoutInput {
     int defense = fakePlayerStats[1];
     
     InsertUtil insertUtils = (InsertUtil) AppContext.getApplicationContext().getBean("insertUtils");
-
-    if (insertUtils.insertUser(newReferCode + newReferCode, name, type, location, null, newReferCode, level, 
-        attack, defense, 0, 0, 0, 0, 0, null, null, null, true, ControllerConstants.PURCHASE_GROUP_CHAT__NUM_CHATS_GIVEN_FOR_PACKAGE) < 0) {
+    boolean activateShield = false;
+    
+    if (insertUtils.insertUser(newReferCode + newReferCode, name, type,
+        location, null, newReferCode, level, attack, defense, 0, 0, 0, 0, 0,
+        null, null, null, true,
+        ControllerConstants.PURCHASE_GROUP_CHAT__NUM_CHATS_GIVEN_FOR_PACKAGE,
+        activateShield) < 0) {
       System.out.println("error in creating user");
     }
 

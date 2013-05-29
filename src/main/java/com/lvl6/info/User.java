@@ -83,6 +83,7 @@ public class User implements Serializable {
   private int numAdditionalForgeSlots;
   private int numBeginnerSalesPurchased;
   private boolean isMentor;
+  private boolean hasActiveShield;
 
 
   public User(int id, String name, int level, UserType type, int attack,
@@ -106,7 +107,7 @@ public class User implements Serializable {
       int kabamNaid, boolean hasReceivedfbReward, int weaponTwoEquippedUserEquipId, 
       int armorTwoEquippedUserEquipId, int amuletTwoEquippedUserEquipId, 
       int prestigeLevel, int numAdditionalForgeSlots, int numBeginnerSalesPurchased,
-      boolean isMentor) {
+      boolean isMentor, boolean hasActiveShield) {
     super();
     this.id = id;
     this.name = name;
@@ -170,6 +171,7 @@ public class User implements Serializable {
     this.numAdditionalForgeSlots = numAdditionalForgeSlots;
     this.numBeginnerSalesPurchased = numBeginnerSalesPurchased;
     this.isMentor = isMentor;
+    this.hasActiveShield = hasActiveShield;
   }
 
   public boolean updateAbsoluteUserLocation(Location location) {
@@ -1213,8 +1215,10 @@ public class User implements Serializable {
   /*
    * used for battles
    */
-  public boolean updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill (int stamina, int experience, 
-      int coins, int battlesWon, int battlesLost, int fleesChange,  boolean simulateStaminaRefill, boolean updateLastAttackedTime, Timestamp clientTime) {
+  public boolean updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill (
+      int stamina, int experience, int coins, int battlesWon, int battlesLost,
+      int fleesChange,  boolean simulateStaminaRefill, boolean updateLastAttackedTime,
+      Timestamp clientTime, boolean deactivateShield) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -1232,6 +1236,9 @@ public class User implements Serializable {
     }
     if (updateLastAttackedTime) {
       absoluteParams.put(DBConstants.USER__LAST_TIME_ATTACKED, clientTime);
+    }
+    if (hasActiveShield && deactivateShield) {
+      absoluteParams.put(DBConstants.USER__HAS_ACTIVE_SHIELD, false);
     }
     if (absoluteParams.size() == 0) {
       absoluteParams = null;
@@ -1252,6 +1259,9 @@ public class User implements Serializable {
       this.battlesWon += battlesWon;
       this.battlesLost += battlesLost;
       this.flees += fleesChange;
+      if (hasActiveShield && deactivateShield) {
+        this.hasActiveShield = false;
+      }
       return true;
     }
     return false;
@@ -1765,7 +1775,8 @@ public class User implements Serializable {
         + ", amuletTwoEquippedUserEquipId=" + amuletTwoEquippedUserEquipId
         + ", prestigeLevel=" + prestigeLevel + ", numAdditionalForgeSlots="
         + numAdditionalForgeSlots + ", numBeginnerSalesPurchased="
-        + numBeginnerSalesPurchased + ", isMentor=" + isMentor + "]";
+        + numBeginnerSalesPurchased + ", isMentor=" + isMentor
+        + ", hasActiveShield=" + hasActiveShield + "]";
   }
 
   public boolean isMentor() {
@@ -1774,6 +1785,14 @@ public class User implements Serializable {
 
   public void setMentor(boolean isMentor) {
     this.isMentor = isMentor;
+  }
+
+  public boolean isHasActiveShield() {
+    return hasActiveShield;
+  }
+
+  public void setHasActiveShield(boolean hasActiveShield) {
+    this.hasActiveShield = hasActiveShield;
   }
 
   public Date getLastGoldmineRetrieval() {

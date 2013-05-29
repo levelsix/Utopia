@@ -604,6 +604,7 @@ public class ControllerConstants {
   public static final int[] STARTUP__QUEST_IDS_FOR_GUARANTEED_WIN = {325};
   public static final String STARTUP__FAQ_FILE_NAME = "FAQ.2.txt";
   public static final String STARTUP__PRESTIGE_FAQ_FILE_NAME = "PrestigeFAQ.txt";
+  public static final int STARTUP__DEFAULT_DAYS_BATTLE_SHIELD_IS_ACTIVE = 7;
   public static final float CHANCE_TO_GET_KIIP_ON_BATTLE_WIN = 1.f;
   public static final float CHANCE_TO_GET_KIIP_ON_QUEST_REDEEM = 1.f;
 

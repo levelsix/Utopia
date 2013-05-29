@@ -511,6 +511,7 @@ message FullUserProto {
 	optional int32 numAdditionalForgeSlots = 62;
 	optional int32 numBeginnerSalesPurchased = 63;
 	optional bool isMentor = 64;
+	optional bool hasActiveShield = 65;
 
 	//CreateInfoProtoUtils.java doesn't set these (I can't think of a time the client would need this
 	//consider making other fields like this

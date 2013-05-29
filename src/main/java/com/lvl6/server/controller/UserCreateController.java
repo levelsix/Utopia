@@ -180,9 +180,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (armorEquipped > 0) equipIds.add(armorEquipped);
       if (amuletEquipped > 0) equipIds.add(amuletEquipped);
 
-      userId = insertUtils.insertUser(udid, name, type, loc, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL, 
-          attack, defense, energy, stamina, playerExp, playerCoins, playerDiamonds, 
-          null, null, null, false, ControllerConstants.PURCHASE_GROUP_CHAT__NUM_CHATS_GIVEN_FOR_PACKAGE);
+      //newbie protection
+      boolean activateShield = true;
+      
+      userId = insertUtils.insertUser(udid, name, type, loc, deviceToken,
+          newReferCode, ControllerConstants.USER_CREATE__START_LEVEL, 
+          attack, defense, energy, stamina, playerExp, playerCoins,
+          playerDiamonds, null, null, null, false,
+          ControllerConstants.PURCHASE_GROUP_CHAT__NUM_CHATS_GIVEN_FOR_PACKAGE,
+          activateShield);
             
       if (userId > 0) {
         server.lockPlayer(userId, this.getClass().getSimpleName());

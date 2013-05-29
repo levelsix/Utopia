@@ -162,6 +162,7 @@ public class DBConstants {
   public static final String USER__NUM_ADDITIONAL_FORGE_SLOTS = "num_additional_forge_slots";
   public static final String USER__NUM_BEGINNER_SALES_PURCHASED = "num_beginner_sales_purchased";
   public static final String USER__IS_MENTOR = "is_mentor";
+  public static final String USER__HAS_ACTIVE_SHIELD = "has_active_shield";
   
   /*USER EQUIP TABLE*/
   public static final String USER_EQUIP__ID = GENERIC__ID;

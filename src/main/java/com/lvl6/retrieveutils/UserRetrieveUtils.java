@@ -204,7 +204,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
   public List<User> getUsers(List<UserType> requestedTypes, int numUsers, int playerLevel, int userId, boolean guaranteeNum, 
       Double latLowerBound, Double latUpperBound, Double longLowerBound, Double longUpperBound, boolean forBattle, 
       boolean realPlayersOnly, boolean fakePlayersOnly, boolean offlinePlayersOnly, boolean prestigePlayersOrBotsOnly,
-      List<Integer> forbiddenPlayerIds) {
+      boolean inactiveShield, List<Integer> forbiddenPlayerIds) {
     log.debug("retrieving list of users for user " + userId + " with requested types " + requestedTypes + 
         " , " + numUsers + " users " + " around player level " + playerLevel + ", guaranteeNum="+guaranteeNum + 
         ", latLowerBound=" + latLowerBound + ", latUpperBound=" + latUpperBound + 
@@ -283,6 +283,11 @@ import com.lvl6.utils.utilmethods.StringUtils;
       query += "(" + DBConstants.USER__PRESTIGE_LEVEL + ">? or " + DBConstants.USER__IS_FAKE + "=?) and ";
       values.add(0);
       values.add(1);
+    }
+    
+    if (inactiveShield) {
+      query += DBConstants.USER__HAS_ACTIVE_SHIELD + "=? and ";
+      values.add(false);
     }
 
     query += DBConstants.USER__LEVEL + ">=? and " + DBConstants.USER__LEVEL + "<=? ";
@@ -590,6 +595,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     int numAdditionalForgeSlots = rs.getInt(i++);
     int numBeginnerSalesPurchased = rs.getInt(i++);
     boolean isMentor = rs.getBoolean(i++);
+    boolean hasActiveShield = rs.getBoolean(i++);
     
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, energy, lastEnergyRefillTime, 
         skillPoints, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
@@ -600,7 +606,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
         isAdmin, apsalarId, numCoinsRetrievedFromStructs, numAdcolonyVideosWatched, numTimesKiipRewarded, numConsecutiveDaysPlayed, 
         numGroupChatsRemaining, clanId, lastGoldmineRetrieval, lastMktNotificationTime, lastWallNotificationTime, kabamNaid, hasReceivedfbReward,
         weaponTwoEquippedUserEquipId, armorTwoEquippedUserEquipId, amuletTwoEquippedUserEquipId, prestigeLevel, numAdditionalForgeSlots, 
-        numBeginnerSalesPurchased, isMentor);
+        numBeginnerSalesPurchased, isMentor, hasActiveShield);
     return user;
   }
 }
