@@ -107,8 +107,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       
       if (success) {
         //"buy" the booster packs for the user
-        success = writeChangesToBoosterPackHistory(resBuilder, user,
-            lockBoxItemIdsToLockBoxItems, lockBoxItemIdsToUserLockBoxItems);
+        if (null != lockBoxItemIdsToUserLockBoxItems &&
+            !lockBoxItemIdsToUserLockBoxItems.isEmpty()) {
+          
+          success = writeChangesToBoosterPackHistory(resBuilder, user,
+              lockBoxItemIdsToLockBoxItems, lockBoxItemIdsToUserLockBoxItems);
+        }
       } 
 
       if (!success){
