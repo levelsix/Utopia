@@ -78,8 +78,13 @@ public class ControllerConstants {
   public static final double BATTLE__FAKE_PLAYER_COIN_GAIN_MULTIPLIER = 3;
   public static final double BATTLE__CHANCE_OF_ZERO_GAIN_FOR_SILVER = .2;
   
+  //old boss constants
   public static final double BOSS_EVENT__SUPER_ATTACK = 3.0;
   public static final int BOSS_EVENT__NUMBER_OF_ATTACKS_UNTIL_SUPER_ATTACK = 5;
+  //revamped boss constants
+  public static final int SOLO_BOSS__ATTACK_COST = 1;
+  public static final int SOLO_BOSS__SUPER_ATTACK_COST = 3;
+  public static final double SOLO_BOSS__SUPER_ATTACK_DAMGE_MULTIPLIER = 1.5; 
   
   public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.5;
   
