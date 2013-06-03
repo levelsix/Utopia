@@ -441,7 +441,8 @@ public class MiscMethods {
         .setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA)
         .setMinClanMembersToHoldClanTower(ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER)
         .setUseOldBattleFormula(ControllerConstants.STARTUP__USE_OLD_BATTLE_FORMULA)
-        .setNumBeginnerSalesAllowed(ControllerConstants.NUM_BEGINNER_SALES_ALLOWED);
+        .setNumBeginnerSalesAllowed(ControllerConstants.NUM_BEGINNER_SALES_ALLOWED)
+        .setDefaultDaysBattleShieldIsActive(ControllerConstants.STARTUP__DEFAULT_DAYS_BATTLE_SHIELD_IS_ACTIVE);
 
     if (ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS != null) {
       for (int i = 0; i < ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS.length; i++) {

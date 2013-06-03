@@ -370,6 +370,8 @@ message StartupResponseProto {
 		
 		optional int32 numBeginnerSalesAllowed = 107;
 		
+		optional int32 defaultDaysBattleShieldIsActive = 108;
+		
 		message PrestigeConstants {
 			optional int32 minLevelForPrestige = 1;
 			optional int32 maxPrestigeLevel = 2;
