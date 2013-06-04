@@ -204,13 +204,13 @@ import com.lvl6.utils.RetrieveUtils;
       temp.add(type);
       boolean realPlayersOnly = false;
       boolean fakePlayersOnly = false;
-      boolean offlinePlayersOnly = false;
-      boolean prestigePlayersOrBotsOnly = false;
+      boolean offlinePlayersOnly = false; //does not include fake players
+      boolean prestigePlayersOnly = false;
       boolean inactiveShield = true;
       List<User> users = RetrieveUtils.userRetrieveUtils().getUsers(temp,
           numToGenerate.get(type), user.getLevel(), user.getId(), true, null,
           null, null, null, true, realPlayersOnly, fakePlayersOnly,
-          offlinePlayersOnly, prestigePlayersOrBotsOnly, inactiveShield, null);
+          offlinePlayersOnly, prestigePlayersOnly, inactiveShield, null);
       if (users != null) {
         for (User u : users) {
           resBuilder.addDefeatTypeJobEnemies(CreateInfoProtoUtils.createFullUserProtoFromUser(u));

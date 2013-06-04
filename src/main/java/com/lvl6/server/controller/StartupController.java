@@ -1263,8 +1263,8 @@ public class StartupController extends EventController {
 
     boolean realPlayersOnly = false;
     boolean fakePlayersOnly = false;
-    boolean offlinePlayersOnly = false;
-    boolean prestigePlayersOrBotsOnly = false;
+    boolean offlinePlayersOnly = false; //does not include fake players
+    boolean prestigePlayersOnly = false;
     boolean inactiveShield = false;
     List<Integer> forbiddenUserIds = new ArrayList<Integer>();
     forbiddenUserIds.add(user.getId());
@@ -1272,7 +1272,7 @@ public class StartupController extends EventController {
     List<User> allies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes,
         ControllerConstants.STARTUP__APPROX_NUM_ALLIES_TO_SEND, user.getLevel(),
         user.getId(), false, null, null, null, null, false, realPlayersOnly,
-        fakePlayersOnly, offlinePlayersOnly, prestigePlayersOrBotsOnly,
+        fakePlayersOnly, offlinePlayersOnly, prestigePlayersOnly,
         inactiveShield, forbiddenUserIds);
     if (allies != null && allies.size() > 0) {
       for (User ally : allies) {

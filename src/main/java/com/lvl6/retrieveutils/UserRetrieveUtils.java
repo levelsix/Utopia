@@ -203,7 +203,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
 
   public List<User> getUsers(List<UserType> requestedTypes, int numUsers, int playerLevel, int userId, boolean guaranteeNum, 
       Double latLowerBound, Double latUpperBound, Double longLowerBound, Double longUpperBound, boolean forBattle, 
-      boolean realPlayersOnly, boolean fakePlayersOnly, boolean offlinePlayersOnly, boolean prestigePlayersOrBotsOnly,
+      boolean realPlayersOnly, boolean fakePlayersOnly, boolean offlinePlayersOnly, boolean prestigePlayersOnly,
       boolean inactiveShield, List<Integer> forbiddenPlayerIds) {
     log.debug("retrieving list of users for user " + userId + " with requested types " + requestedTypes + 
         " , " + numUsers + " users " + " around player level " + playerLevel + ", guaranteeNum="+guaranteeNum + 
@@ -269,20 +269,19 @@ import com.lvl6.utils.utilmethods.StringUtils;
     if (realPlayersOnly) {
       query += DBConstants.USER__IS_FAKE + "=? and ";
       values.add(0);
+      if (offlinePlayersOnly) {
+        query += DBConstants.USER__LAST_LOGOUT + " > " +
+            DBConstants.USER__LAST_LOGIN + " and ";
+      }
+      
     } else if (fakePlayersOnly) {
       query += DBConstants.USER__IS_FAKE + "=? and ";
       values.add(1);
     } 
-    if (offlinePlayersOnly) {
-      query += "(" + DBConstants.USER__LAST_LOGOUT + " > " + DBConstants.USER__LAST_LOGIN +  " or " +
-          DBConstants.USER__LAST_LOGOUT + " is ?) and ";
-      values.add(null); //for fake players
-    }
     
-    if (prestigePlayersOrBotsOnly) {
-      query += "(" + DBConstants.USER__PRESTIGE_LEVEL + ">? or " + DBConstants.USER__IS_FAKE + "=?) and ";
+    if (prestigePlayersOnly) {
+      query += DBConstants.USER__PRESTIGE_LEVEL + ">? and ";
       values.add(0);
-      values.add(1);
     }
     
     if (inactiveShield) {

@@ -86,34 +86,20 @@ import com.lvl6.utils.RetrieveUtils;
       
       boolean realPlayersOnly = showRealPlayers;
       boolean fakePlayersOnly = !showRealPlayers;
-      boolean offlinePlayersOnly = true; //includes fake players
-      boolean prestigePlayersOrBotsOnly = false;
+      boolean offlinePlayersOnly = true; //does not include fake players
+      boolean prestigePlayersOnly = false;
       boolean inactiveShield = true;
       
       if (user.getPrestigeLevel() > 0) {
-        if (user.getLevel() >= ControllerConstants.BATTLE__MIN_LEVEL_FOR_PRESTIGED_TO_SEE_NON_BOTS) {
-          //high enough prestige players will only see real offline players in the attack list
-          //regardless of prestige level (offline players atm, 4-22-2013, includes bots...
-          realPlayersOnly = true;
-        } else {
-          //low enough prestige players will only see other prestige players or bots 
-          realPlayersOnly = false;
-          fakePlayersOnly = false;
-          offlinePlayersOnly = false;
-          prestigePlayersOrBotsOnly = true;
-        }
+        //show prestige people only
+        prestigePlayersOnly = true;
       }
-//      else if (10 >= user.getLevel()) {
-//        //for newbiews, show only bots 
-//        fakePlayersOnly = true;
-//      }
-      
       
       //PROCURE THE VICTIMS! MWAHAHAHAH
       List<User> enemies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes,
           numEnemies, user.getLevel(), user.getId(), false, latLowerBound,
           latUpperBound, longLowerBound, longUpperBound, true, realPlayersOnly,
-          fakePlayersOnly, offlinePlayersOnly, prestigePlayersOrBotsOnly,
+          fakePlayersOnly, offlinePlayersOnly, prestigePlayersOnly,
           inactiveShield, null);
       if (enemies != null) {
         List<Integer> playerIds = new ArrayList<Integer>(); //ids that are added to builder
@@ -121,14 +107,12 @@ import com.lvl6.utils.RetrieveUtils;
         addPlayersToBuilder(resBuilder, enemies, user, forbiddenIds, playerIds);
         
         if (enemies.size() < numEnemies) {
-          //since not enough real offline players include the real online players and also fake players
-          realPlayersOnly = false;
+          //since not enough real offline players include the online players
           offlinePlayersOnly = false;
-          prestigePlayersOrBotsOnly = false;
           enemies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, numEnemies,
               user.getLevel(), user.getId(), false, latLowerBound, latUpperBound,
               longLowerBound, longUpperBound, true, realPlayersOnly, fakePlayersOnly,
-              offlinePlayersOnly, prestigePlayersOrBotsOnly, inactiveShield, playerIds);
+              offlinePlayersOnly, prestigePlayersOnly, inactiveShield, playerIds);
           
           forbiddenIds.addAll(playerIds);
           addPlayersToBuilder(resBuilder, enemies, user, forbiddenIds, null);
