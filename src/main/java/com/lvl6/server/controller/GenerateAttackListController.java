@@ -60,6 +60,7 @@ import com.lvl6.utils.RetrieveUtils;
     resBuilder.setSender(senderProto);
     resBuilder.setStatus(GenerateAttackListStatus.SUCCESS);
     resBuilder.setForMap(reqProto.getForMap());
+    resBuilder.setShowRealPlayers(showRealPlayers);
     
     User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
     if (numEnemies > ControllerConstants.GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX || numEnemies < 1) {
