@@ -91,12 +91,13 @@ import com.lvl6.utils.DBConnection;
     
     //get the actual posts to those ids
     query +=
-        "SELECT pcp.*  " +
-        "FROM " + subquery + " as idList "
-          + "LEFT JOIN " + 
+        "SELECT pcp.* " +
+        "FROM " + subquery + " as idList " +
+        "LEFT JOIN " +
                   TABLE_NAME + " as pcp " +
-            "ON idList.id=pcp.id" + 
-        " LIMIT ?";
+            "ON idList.id=pcp.id " +
+        "ORDER BY pcp.time_of_post DESC " +
+        "LIMIT ?";
     values.add(limit);
     
     
