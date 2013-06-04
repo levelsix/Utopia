@@ -90,7 +90,8 @@ import com.lvl6.utils.RetrieveUtils;
       boolean prestigePlayersOnly = false;
       boolean inactiveShield = true;
       
-      if (user.getPrestigeLevel() > 0) {
+      //only care about prestige players if asking for real players only
+      if (realPlayersOnly && user.getPrestigeLevel() > 0) {
         //show prestige people only
         prestigePlayersOnly = true;
       }
