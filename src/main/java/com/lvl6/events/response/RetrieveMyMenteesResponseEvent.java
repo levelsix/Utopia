@@ -13,7 +13,7 @@ public class RetrieveMyMenteesResponseEvent extends NormalResponseEvent {
 
   public RetrieveMyMenteesResponseEvent(int playerId) {
     super(playerId);
-    eventType = EventProtocolResponse.S_RETRIEVE_MY_MENTEES;
+    eventType = EventProtocolResponse.S_RETRIEVE_MY_MENTEES_EVENT;
   }
   
   @Override
