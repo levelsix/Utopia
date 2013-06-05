@@ -37,7 +37,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 
   @Override
   public EventProtocolRequest getEventType() {
-    return EventProtocolRequest.C_RETRIEVE_ALL_MENTORS_EVENT;
+    return EventProtocolRequest.C_RETRIEVE_MY_MENTEES_EVENT;
   }
 
   @Override
