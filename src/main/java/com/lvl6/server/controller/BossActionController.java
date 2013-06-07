@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.BossActionRequestEvent;
 import com.lvl6.events.response.BossActionResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -78,7 +80,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     try {
       User aUser = RetrieveUtils.userRetrieveUtils().getUserById(userId);
       Boss aBoss = BossRetrieveUtils.getBossForBossId(bossId);
-      resBuilder.setStatus(BossActionStatus.OTHER_FAIL);
+      resBuilder.setStatus(BossActionStatus.FAIL_OTHER);
       int previousSilver = 0;
       int previousGold = 0;
 
@@ -154,11 +156,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int bossStaminaCost = b.getStaminaCost();
       boolean enough = userStamina >= bossStaminaCost;
       if (!enough) {
-        resBuilder.setStatus(BossActionStatus.USER_NOT_ENOUGH_STAMINA);
+        resBuilder.setStatus(BossActionStatus.FAIL_USER_NOT_ENOUGH_ENERGY);
       } 
       return enough;
     } else {
-      resBuilder.setStatus(BossActionStatus.OTHER_FAIL);
+      resBuilder.setStatus(BossActionStatus.FAIL_OTHER);
       return false;
     }
   }
@@ -191,7 +193,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (!MiscMethods.checkClientTimeAroundApproximateNow(curTime)) {
       log.error("client time too apart of server time. client time =" + curTime + ", servertime~="
           + new Date());
-      resBuilder.setStatus(BossActionStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
+      resBuilder.setStatus(BossActionStatus.FAIL_CLIENT_TOO_APART_FROM_SERVER_TIME);
       return false;
     } 
 
@@ -239,7 +241,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         log.error("client is attacking a dead boss. \n" 
             + "time user launched attack = " + curTime + ". \n" + "user is " + aUser + ". \n"
             + "boss is " + aBoss + ". \n " + "user_boss is " + aUserBoss + ". \n");
-        resBuilder.setStatus(BossActionStatus.BOSS_HAS_NOT_SPAWNED);
+        resBuilder.setStatus(BossActionStatus.FAIL_BOSS_HAS_NOT_SPAWNED);
         return false;
       }
 
@@ -248,7 +250,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("boss has not respawned yet. time boss first attacked = " +  aUserBoss.getStartTime()
           + "; last possible time to attack boss = " + new Date(lastPossibleTimeToAttack)
       + "; time user launched attack = " + curTime);
-      resBuilder.setStatus(BossActionStatus.BOSS_HAS_NOT_SPAWNED);
+      resBuilder.setStatus(BossActionStatus.FAIL_BOSS_HAS_NOT_SPAWNED);
       return false;
     } else if (timeBossRespawns <= timeOfAttack) {
       //boss has respawned
@@ -260,7 +262,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return true;
     }
 
-    resBuilder.setStatus(BossActionStatus.OTHER_FAIL);
+    resBuilder.setStatus(BossActionStatus.FAIL_OTHER);
     return false;
   }
 
