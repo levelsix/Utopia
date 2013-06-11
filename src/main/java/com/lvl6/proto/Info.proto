@@ -9,6 +9,14 @@ message UserCityGemProto {
 	optional int32 quantity = 4;
 }
 
+message CityGemProto {
+	optional int32 id = 1;
+	optional float dropRate = 2;
+	optional bool isActive = 3;
+	optional string gemImageName = 4;
+	optional bool droppedOnlyFromBosses = 5;
+}
+
 //------------------------------------------------------------------------------------------
 
 message MentorshipProto {
