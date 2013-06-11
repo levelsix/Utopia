@@ -224,9 +224,11 @@ public class TaskActionController extends EventController {
         //write stuff to user_boss table
         UserBoss newBoss = 
             writeBossStuff(userId, cityId, cityRankedUp, clientDate);
-        FullUserBossProto fubp = CreateInfoProtoUtils
-            .createFullUserBossProtoFromUserBoss(newBoss);
-        resBuilder.setBoss(fubp);
+        if (null != newBoss) {
+          FullUserBossProto fubp = CreateInfoProtoUtils
+              .createFullUserBossProtoFromUserBoss(newBoss);
+          resBuilder.setBoss(fubp);
+        }
       }
 
       //send stuff to the client
@@ -790,6 +792,7 @@ public class TaskActionController extends EventController {
     
     //if user can get a gem, give him a gem he has not gotten already
     if (0 != currentTapNum % avgTapsToProduceGem) {
+      //not time to get a gem
       return null;
     }
     
