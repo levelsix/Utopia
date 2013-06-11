@@ -34,6 +34,7 @@ import com.lvl6.info.BoosterItem;
 import com.lvl6.info.BoosterPack;
 import com.lvl6.info.BossEvent;
 import com.lvl6.info.City;
+import com.lvl6.info.CityGem;
 import com.lvl6.info.Clan;
 import com.lvl6.info.ClanTierLevel;
 import com.lvl6.info.ClanTower;
@@ -50,6 +51,7 @@ import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.Mentorship;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.info.UserCityGem;
 import com.lvl6.info.UserClan;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.ValidLocationBox;
@@ -60,9 +62,9 @@ import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.properties.MDCKeys;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto;
-import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowerChange;
 import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
+import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto;
 import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto.MenteeQuestType;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
@@ -2076,5 +2078,43 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     mfqre.setMenteeFinishedQuestResponseProto(mfqrpb.build());
     
     server.writeAPNSNotificationOrEvent(mfqre);
+  }
+  
+  public static boolean doesUserHaveAllGemTypes(
+      Map<Integer, UserCityGem> gemIdsToUserCityGems,
+      Map<Integer, CityGem> cityGemIdsToActiveCityGems) {
+    int numDistinctGems = cityGemIdsToActiveCityGems.size();
+    int numUserCityGems = gemIdsToUserCityGems.size();
+    
+    //if user doesn't have all gems return null;
+    if (numDistinctGems != numUserCityGems) {
+      return false;
+    }
+
+    //user has a quantity for each gem
+    //make sure user has at least one of each gem
+    boolean hasNonzeroGems = true;
+    for (int gemId : gemIdsToUserCityGems.keySet()) {
+      UserCityGem ucg = gemIdsToUserCityGems.get(gemId);
+      if (ucg.getQuantity() <= 0) {
+        hasNonzeroGems = false;
+        break;
+      }
+    }
+    return hasNonzeroGems;
+  }
+  
+  public static int taskEnergyCostForCityRank (Task aTask, int cityRank) {
+    int cost = aTask.getEnergyCost();
+    if (ControllerConstants.NOT_SET == cityRank) {
+      return cost;
+    }
+    int maxEnergyCost = cost *
+        ControllerConstants.TASK_ACTION__MAX_ENERGY_COST_MULTIPLIER;
+    
+    //TODO: CALCULATE THE COST
+    int calculatedCost = cost;
+    
+    return Math.min(maxEnergyCost, calculatedCost);
   }
 }

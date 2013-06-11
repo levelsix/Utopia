@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.LoadNeutralCityRequestEvent;
 import com.lvl6.events.response.LoadNeutralCityResponseEvent;
 import com.lvl6.info.Boss;
@@ -19,6 +21,7 @@ import com.lvl6.info.Quest;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserBoss;
+import com.lvl6.info.UserCityGem;
 import com.lvl6.info.UserQuest;
 import com.lvl6.info.jobs.DefeatTypeJob;
 import com.lvl6.misc.MiscMethods;
@@ -28,9 +31,11 @@ import com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.Builder;
 import com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.UserCityGemProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserBossRetrieveUtils;
+import com.lvl6.retrieveutils.UserCityGemRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
@@ -64,6 +69,7 @@ import com.lvl6.utils.RetrieveUtils;
     LoadNeutralCityRequestProto reqProto = ((LoadNeutralCityRequestEvent)event).getLoadNeutralCityRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
+    int userId = senderProto.getUserId();
     int cityId = reqProto.getCityId();
     City city = CityRetrieveUtils.getCityForCityId(cityId);
 
@@ -93,7 +99,7 @@ import com.lvl6.utils.RetrieveUtils;
           setResponseUserTaskInfos(resBuilder, tasks, user.getId(), senderProto.getUserType());
         }
         
-        List<Boss> bosses = BossRetrieveUtils.getAllBossesForCityId(cityId);
+        List<Boss> bosses = BossRetrieveUtils.getBossesForCityId(cityId);
         if (bosses != null && bosses.size() > 0) {
           List<Integer> bossIds = new ArrayList<Integer>();
           for (Boss b : bosses) {
@@ -118,6 +124,7 @@ import com.lvl6.utils.RetrieveUtils;
           }
           addFullUserQuestDataLarges(resBuilder, userQuestsInCity, senderProto.getUserType());
         }
+        addUserCityGems(resBuilder, userId, cityId);
       }
 
       LoadNeutralCityResponseEvent resEvent = new LoadNeutralCityResponseEvent(senderProto.getUserId());
@@ -249,5 +256,15 @@ import com.lvl6.utils.RetrieveUtils;
     }
     resBuilder.setStatus(LoadNeutralCityStatus.SUCCESS);
     return true;
+  }
+  
+  private void addUserCityGems(Builder resBuilder, int userId, int cityId) {
+    Map<Integer, UserCityGem> gemIdsToUserCityGems =
+        UserCityGemRetrieveUtils.getGemIdsToGemsForUserAndCity(userId, cityId);
+    
+    for (UserCityGem ucg : gemIdsToUserCityGems.values()) {
+      UserCityGemProto ucgp = CreateInfoProtoUtils.createUserCityGemProto(ucg);
+      resBuilder.addMyGems(ucgp);
+    }
   }
 }

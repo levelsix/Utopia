@@ -6,41 +6,50 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; 
-import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.TaskActionRequestEvent;
 import com.lvl6.events.response.TaskActionResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
+import com.lvl6.info.Boss;
 import com.lvl6.info.City;
-import com.lvl6.info.Equipment;
+import com.lvl6.info.CityGem;
 import com.lvl6.info.LockBoxEvent;
 import com.lvl6.info.Quest;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.info.UserBoss;
+import com.lvl6.info.UserCityGem;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
 import com.lvl6.misc.MiscMethods;
-import com.lvl6.misc.Notification;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.TaskActionRequestProto;
 import com.lvl6.proto.EventProto.TaskActionResponseProto;
 import com.lvl6.proto.EventProto.TaskActionResponseProto.Builder;
 import com.lvl6.proto.EventProto.TaskActionResponseProto.TaskActionStatus;
-import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
+import com.lvl6.proto.InfoProto.FullUserBossProto;
+import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.UserCityGemProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.UserBossRetrieveUtils;
+import com.lvl6.retrieveutils.UserCityGemRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsTaskProgressRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.CityGemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
-import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LockBoxEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
@@ -112,13 +121,15 @@ public class TaskActionController extends EventController {
     TaskActionRequestProto reqProto = ((TaskActionRequestEvent) event)
         .getTaskActionRequestProto();
     MinimumUserProto senderProto = reqProto.getSender();
+    int userId = senderProto.getUserId();
     int taskId = reqProto.getTaskId();
+    int cityId = ControllerConstants.NOT_SET;
+    Date clientDate = new Date(reqProto.getCurTime());
     Timestamp clientTime = new Timestamp(reqProto.getCurTime());
 
     server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
-      User user = RetrieveUtils.userRetrieveUtils().getUserById(
-          senderProto.getUserId());
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(userId);
       int previousSilver = 0;
       
       TaskActionResponseProto.Builder resBuilder = TaskActionResponseProto
@@ -128,127 +139,100 @@ public class TaskActionController extends EventController {
       Task task = TaskRetrieveUtils.getTaskForTaskId(taskId);
       // TODO: check the level of this task's city, use that as multiplier
       // for expGained, energyCost, etc.
-
+      
+      //holds user's city rank for task's city
+      List<Integer> cityRankList = new ArrayList<Integer>();
+      
+      //int expGained = ControllerConstants.NOT_SET;
       int coinsGained = ControllerConstants.NOT_SET;
       int lootEquipId = ControllerConstants.NOT_SET;
       int lockBoxEventId = ControllerConstants.NOT_SET;
+      UserCityGem ucg = null;
       int coinBonus = ControllerConstants.NOT_SET;
       int expBonus = ControllerConstants.NOT_SET;
+      List<Task> tasksInCity = null;
       boolean taskCompleted = false;
       boolean cityRankedUp = false;
       boolean changeNumTimesUserActedInDB = true;
-      List<Task> tasksInCity = null;
 
       boolean legitAction = checkLegitAction(user, task, clientTime,
-          resBuilder);
+          resBuilder, cityRankList);
       if (legitAction) {
+        cityId = task.getCityId();
+        int cityRank = cityRankList.get(0);
         previousSilver = user.getCoins() + user.getVaultBalance();
         
-        resBuilder.setCityId(task.getCityId());
-        coinsGained = calculateCoinsGained(task);
-        resBuilder.setCoinsGained(coinsGained);
+        //determine the stuff that might pop out after tapping building
+        resBuilder.setCityId(cityId);
+        coinsGained = calculateCoinsGained(resBuilder, task);//set coins returned
+        //expGained = calculateExpGained(resBuilder, task);
         lootEquipId = chooseLootEquipId(task);
         lockBoxEventId = checkIfUserAcquiresLockBox(user, task, clientTime);
-        if (lootEquipId != ControllerConstants.NOT_SET) {
-          int userEquipId = InsertUtils.get().insertUserEquip(
-              user.getId(), lootEquipId,
-              ControllerConstants.DEFAULT_USER_EQUIP_LEVEL,
-              ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
-          if (userEquipId < 0) {
-            log.error("problem with giving 1 of equip "
-                + lootEquipId + " to task completer "
-                + user.getId());
-            lootEquipId = ControllerConstants.NOT_SET;
-          } else {
-            resBuilder
-            .setLootUserEquip(CreateInfoProtoUtils
-                .createFullUserEquipProtoFromUserEquip(new UserEquip(
-                    userEquipId,
-                    user.getId(),
-                    lootEquipId,
-                    ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0)));
-          }
-        }
+        ucg = checkIfGemDropped(userId, cityId);
+        
+        //if equip dropped give it to him
+        lootEquipId = giveEquip(resBuilder, userId, lootEquipId);
+        
+        //don't limit city ranks because of city boss feature
+        //if (cityRank < ControllerConstants.TASK_ACTION__MAX_CITY_RANK) {
+        Map<Integer, Integer> taskIdToNumTimesActedInRank = UserTaskRetrieveUtils
+            .getTaskIdToNumTimesActedInRankForUser(userId);
 
-        int cityRank = RetrieveUtils.userCityRetrieveUtils()
-            .getCurrentCityRankForUser(user.getId(),
-                task.getCityId());
-        if (cityRank < ControllerConstants.TASK_ACTION__MAX_CITY_RANK) {
-          Map<Integer, Integer> taskIdToNumTimesActedInRank = UserTaskRetrieveUtils
-              .getTaskIdToNumTimesActedInRankForUser(senderProto
-                  .getUserId());
-          int numTimesActedInRank = 0;
-
-          // this should never happen
-          if (taskIdToNumTimesActedInRank == null)
-            taskIdToNumTimesActedInRank = new HashMap<Integer, Integer>();
-
-          if (taskIdToNumTimesActedInRank.get(task.getId()) != null) {
-            numTimesActedInRank = taskIdToNumTimesActedInRank
-                .get(task.getId());
-          }
-          numTimesActedInRank++;
-          taskIdToNumTimesActedInRank.put(task.getId(),
-              numTimesActedInRank);
-          if (numTimesActedInRank > task.getNumForCompletion()) {
-            changeNumTimesUserActedInDB = false;
-          }
-          if (numTimesActedInRank == task.getNumForCompletion()) {
-            taskCompleted = true;
-            tasksInCity = TaskRetrieveUtils
-                .getAllTasksForCityId(task.getCityId());
-            cityRankedUp = checkCityRankup(
-                taskIdToNumTimesActedInRank, task.getCityId(),
-                tasksInCity);
-            if (cityRankedUp) {
-              if (cityRank != ControllerConstants.NOT_SET) {
-                City city = CityRetrieveUtils
-                    .getCityForCityId(task.getCityId());
-                int multiplier = cityRank + 1;
-                coinBonus = multiplier
-                    * city.getCoinsGainedBaseOnRankup();
-                resBuilder.setCoinBonusIfCityRankup(coinBonus);
-                expBonus = multiplier
-                    * city.getExpGainedBaseOnRankup();
-                resBuilder.setExpBonusIfCityRankup(expBonus);
-              }
-            }
-          }
-        } else {
+        //num times the user did this task + 1
+        int numTimesActedInRank = determineNumTimesTaskCompleted(taskId,
+            taskIdToNumTimesActedInRank);
+        
+        //if user already completed this task, don't record
+        int numActionsToCompleteTask = task.getNumForCompletion();
+        if (numTimesActedInRank > numActionsToCompleteTask) {
           changeNumTimesUserActedInDB = false;
+          
+        } else if (numTimesActedInRank == numActionsToCompleteTask) {
+          //user just completed the task
+          tasksInCity = TaskRetrieveUtils.getAllTasksForCityId(cityId);
+          taskCompleted = true;
+          cityRankedUp = checkCityRankup(cityId, tasksInCity,
+              taskIdToNumTimesActedInRank);
         }
+        
+        if (cityRankedUp) {
+          //user gets bonus exp and coins when city ranks up
+          City city = CityRetrieveUtils.getCityForCityId(cityId);
+          coinBonus = coinBonusOnCityRankup(city, cityRank);
+          expBonus = expBonusOnCityRankup(city, cityRank);
+        }
+//        } else {
+//          changeNumTimesUserActedInDB = false;
+//        }
+      } //endif (legitAction)
+      
+      setBuilderStuff(resBuilder, lockBoxEventId, ucg, coinBonus, expBonus,
+          taskCompleted, cityRankedUp);
+      
+      int totalCoinGain = sumUpCoinsGained(legitAction, coinsGained, coinBonus);
+      int totalExpGain = sumUpExpGained(legitAction, task, expBonus);
 
-        if (lockBoxEventId != ControllerConstants.NOT_SET) {
-          resBuilder.setEventIdOfLockBoxGained(lockBoxEventId);
-        }
+      //write the stuff to the database
+      if (legitAction) {
+        writeChangesToDB(user, task, cityRankedUp,
+            changeNumTimesUserActedInDB, lootEquipId, lockBoxEventId,
+            totalCoinGain, totalExpGain, tasksInCity, clientTime);
+        
+        //write stuff to user_boss table
+        UserBoss newBoss = 
+            writeBossStuff(userId, cityId, cityRankedUp, clientDate);
+        FullUserBossProto fubp = CreateInfoProtoUtils
+            .createFullUserBossProtoFromUserBoss(newBoss);
+        resBuilder.setBoss(fubp);
       }
 
-      resBuilder.setTaskCompleted(taskCompleted);
-      resBuilder.setCityRankedUp(cityRankedUp);
-
+      //send stuff to the client
       TaskActionResponseProto resProto = resBuilder.build();
       TaskActionResponseEvent resEvent = new TaskActionResponseEvent(
           senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setTaskActionResponseProto(resProto);
       server.writeEvent(resEvent);
-
-      int totalCoinGain = 0;
-      int totalExpGain = 0;
-      if (legitAction) {
-        if (coinsGained != ControllerConstants.NOT_SET)
-          totalCoinGain += coinsGained;
-        if (coinBonus != ControllerConstants.NOT_SET)
-          totalCoinGain += coinBonus;
-        if (task != null)
-          totalExpGain += task.getExpGained();
-        if (expBonus != ControllerConstants.NOT_SET)
-          totalExpGain += expBonus;
-      }
-
-      writeChangesToDB(legitAction, user, task, cityRankedUp,
-          changeNumTimesUserActedInDB, lootEquipId, lockBoxEventId,
-          totalCoinGain, totalExpGain, tasksInCity, clientTime);
 
       if (legitAction) {
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods
@@ -269,176 +253,331 @@ public class TaskActionController extends EventController {
 
   private void checkQuestsPostTaskAction(User user, Task task,
       MinimumUserProto senderProto, int lootEquipId) {
-    List<UserQuest> inProgressUserQuests = RetrieveUtils.userQuestRetrieveUtils().getIncompleteUserQuestsForUser(user.getId());
+    int userId = user.getId();
+    int taskId = task.getId();
+    //get the user quests that are not complete and have not been redeemed
+    List<UserQuest> inProgressUserQuests = RetrieveUtils
+        .userQuestRetrieveUtils().getIncompleteUserQuestsForUser(user.getId());
 
-    if (inProgressUserQuests != null) {
-      Map<Integer, List<Integer>> questIdToUserTasksCompletedForQuestForUser = null;
-      Map<Integer, Map<Integer, Integer>> questIdToTaskIdsToNumTimesActedInQuest = null;
-
-      for (UserQuest userQuest : inProgressUserQuests) {
-        boolean questCompletedAndSent = false;
-        if (!userQuest.isTasksComplete()) {
-          Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest.getQuestId());
-          if (quest != null) {
-            List<Integer> tasksRequired = quest.getTasksRequired();
-            if (tasksRequired != null) {
-              if (questIdToUserTasksCompletedForQuestForUser == null) {
-                questIdToUserTasksCompletedForQuestForUser = RetrieveUtils.userQuestsCompletedTasksRetrieveUtils().getQuestIdToUserTasksCompletedForQuestForUser(user.getId());
-              }
-              List<Integer> userCompletedTasksForQuest = questIdToUserTasksCompletedForQuestForUser.get(quest.getId());
-              if (userCompletedTasksForQuest == null)
-                userCompletedTasksForQuest = new ArrayList<Integer>();
-              List<Integer> tasksRemaining = new ArrayList<Integer>(tasksRequired);
-              tasksRemaining.removeAll(userCompletedTasksForQuest);
-
-              Map<Integer, Task> remainingTaskMap = TaskRetrieveUtils.getTasksForTaskIds(tasksRemaining);
-              if (remainingTaskMap != null && remainingTaskMap.size() > 0) {
-                for (Task remainingTask : remainingTaskMap.values()) {
-                  if (remainingTask.getId() == task.getId()) {
-                    if (questIdToTaskIdsToNumTimesActedInQuest == null) {
-                      questIdToTaskIdsToNumTimesActedInQuest = UserQuestsTaskProgressRetrieveUtils.getQuestIdToTaskIdsToNumTimesActedInQuest(userQuest.getUserId());
-                    }
-                    Map<Integer, Integer> taskIdToNumTimesActed = questIdToTaskIdsToNumTimesActedInQuest.get(userQuest.getQuestId());
-
-                    if (taskIdToNumTimesActed == null)
-                      taskIdToNumTimesActed = new HashMap<Integer, Integer>();
-                    
-                    int timesActed = taskIdToNumTimesActed.containsKey(remainingTask.getId()) ? taskIdToNumTimesActed.get(remainingTask.getId()) : 0;
-                    if (timesActed + 1 >= remainingTask.getNumForCompletion()) {
-                      if (timesActed == 0) {
-                        // The Delete Util for quest redeem expects a row for every task in both the progress table
-                        // and the completed task table so this emulates it for the case where the num times required
-                        // is only 1.
-                        if (!UpdateUtils.get().incrementUserQuestTaskProgress(user.getId(), quest.getId(), remainingTask.getId(), 1)) {
-                          log.error("problem with incrementing user quest task progress by 1 for quest id " + quest.getId() + ", task id=" + remainingTask.getId());
-                        }
-                      }
-                      if (insertUtils.insertCompletedTaskIdForUserQuest(user.getId(), remainingTask.getId(), quest.getId())) {
-                        userCompletedTasksForQuest.add(remainingTask.getId());
-                        if (userCompletedTasksForQuest.containsAll(tasksRequired)) {
-                          if (UpdateUtils.get().updateUserQuestsSetCompleted(user.getId(),quest.getId(),true, false)) {
-                            userQuest.setTasksComplete(true);
-                            questCompletedAndSent = QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, userQuest, senderProto, true, null);
-                          } else {
-                            log.error("problem with marking tasks completed for a user quest, questId=" + quest.getId());
-                          }
-                        }
-                      } else {
-                        log.error("problem with adding tasks to user's completed tasks for quest. taskId=" + remainingTask.getId() + ", questId=" + quest.getId());
-                      }
-                    } else {
-                      if (!UpdateUtils.get().incrementUserQuestTaskProgress(user.getId(), quest.getId(), remainingTask.getId(), 1)) {
-                        log.error("problem with incrementing user quest task progress by 1 for quest id " + quest.getId() + ", task id=" + remainingTask.getId());
-                      }
-                    }
-                  }
-                }
-              }
-            }
-            if (lootEquipId > ControllerConstants.NOT_SET && !questCompletedAndSent) {
-              QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, userQuest, senderProto, true, null);
-            }
-          }
-        }
-      }
+    if (null == inProgressUserQuests) {
+      return;
     }
-  }
+    Map<Integer, List<Integer>> questIdToUserTasksCompletedForQuestForUser = null;
 
-  private void writeChangesToDB(boolean legitAction, User user, Task task,
-      boolean cityRankedUp, boolean changeNumTimesUserActedInDB,
-      int lootEquipId, int lockBoxEventId, int totalCoinGain, int totalExpGain,
-      List<Task> tasksInCity, Timestamp clientTime) {
+    //for every in progress quest user has, check if it is complete (I think)
+    for (UserQuest userQuest : inProgressUserQuests) {
+      boolean questCompletedAndSent = false;
 
-    if (legitAction) {
-      if (cityRankedUp) {
-        if (!UpdateUtils.get().incrementCityRankForUserCity(
-            user.getId(), task.getCityId(), 1)) {
-          log.error("problem with incrementing user city rank post-task by "
-              + task.getCityId());
-        }
-        if (tasksInCity != null) {
-          if (!UpdateUtils.get()
-              .resetTimesCompletedInRankForUserTasksInCity(
-                  user.getId(), tasksInCity)) {
-            log.error("problem with resetting user times completed in rank post-task");
-          }
-        }
-      } else {
-        if (changeNumTimesUserActedInDB) {
-          if (!UpdateUtils.get()
-              .incrementTimesCompletedInRankForUserTask(
-                  user.getId(), task.getId(), 1)) {
-            log.error("problem with incrementing user times completed in rank post-task for task "
-                + task.getId());
-          }
-        }
+      if (userQuest.isTasksComplete()) {
+        //something wrong, quest has only completed tasks but isn't complete
+        //nor has been redeemed
+        continue;
       }
-
-      if (lockBoxEventId != ControllerConstants.NOT_SET) {
-        if (!UpdateUtils.get().incrementNumberOfLockBoxesForLockBoxEvent(user.getId(), lockBoxEventId, 1))
-          log.error("problem incrementing user lock boxes for user = "+user+" lock box event id ="+lockBoxEventId);
-      }
-
-      boolean simulateEnergyRefill = (user.getEnergy() == user
-          .getEnergyMax());
-      if (!user
-          .updateRelativeCoinsExpTaskscompletedEnergySimulateenergyrefill(
-              totalCoinGain, totalExpGain, 1,
-              task.getEnergyCost() * -1, simulateEnergyRefill,
-              clientTime)) {
-        log.error("problem with updating user stats post-task. coinChange="
-            + totalCoinGain
-            + ", expGain="
-            + totalExpGain
-            + ", increased tasks completed by 1, energyChange="
-            + task.getEnergyCost()
-            * -1
-            + ", clientTime="
-            + clientTime
-            + ", simulateEnergyRefill="
-            + simulateEnergyRefill + ", user=" + user);
+      int questId = userQuest.getQuestId();
+      Quest quest = QuestRetrieveUtils.getQuestForQuestId(questId);
+      if (null == quest) {
+        continue;
       }
       
-      //NOTIFICATION FEATURE: for when user gets an epic equip
-//      if (ControllerConstants.NOT_SET != lootEquipId) {
-//    	  Map<Integer, Equipment> gear = getEquip(lootEquipId);
-//    	  if (1 != gear.size()) {
-//    		  log.error("Equipments retrieved from db should have been 1.");
-//    	  }
-//    	  else {
-//    		  int cityId = task.getCityId();
-//    		  City aCity = CityRetrieveUtils.getCityForCityId(cityId);
-//    		  sendGeneralNotification(gear.get(lootEquipId), user.getName(), aCity.getName());
-//    	  }
-//      }
+      //get the Map(questId->List(taskId)) for tasks the user completed
+      if (questIdToUserTasksCompletedForQuestForUser == null) {
+        //efficiency reasons, in steady state user would have finished all quests
+        questIdToUserTasksCompletedForQuestForUser = RetrieveUtils
+            .userQuestsCompletedTasksRetrieveUtils()
+            .getQuestIdToUserTasksCompletedForQuestForUser(user.getId());
+      }
       
+      //get the completed tasks for this quest
+      List<Integer> userCompletedTasksForQuest = getCompletedTasksForQuest(questId,
+          questIdToUserTasksCompletedForQuestForUser);
+      
+      //ids of tasks for this quest
+      List<Integer> tasksRequired = quest.getTasksRequired();
+      if (tasksRequired != null) {
+        
+        //get incomplete tasks for this quest
+        List<Integer> tasksRemaining = new ArrayList<Integer>(tasksRequired);
+        tasksRemaining.removeAll(userCompletedTasksForQuest);
+        
+        //find quest for task client sent and see if it is complete
+        if (tasksRemaining.contains(taskId)) {
+          questCompletedAndSent = seeifTaskJustFinished(senderProto, quest,
+              userQuest, userId, taskId, questId, task,
+              userCompletedTasksForQuest, tasksRequired);
+        }
+      }
+      if (lootEquipId > ControllerConstants.NOT_SET && !questCompletedAndSent) {
+        QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, userQuest, senderProto, true, null);
+      }
     }
   }
   
-  private Map<Integer, Equipment> getEquip(int equipId){
-	  List<Integer> equipIds = new ArrayList<Integer>();
-	  equipIds.add(equipId);
-	  return EquipmentRetrieveUtils.getEquipmentIdsToEquipment(equipIds); 
+  private List<Integer> getCompletedTasksForQuest(int questId,
+      Map<Integer, List<Integer>> questIdToUserTasksCompletedForQuestForUser) {
+    List<Integer> taskIdList = questIdToUserTasksCompletedForQuestForUser.get(questId);
+    if (taskIdList == null) {
+      taskIdList = new ArrayList<Integer>();
+    }
+    return taskIdList;
+  }
+  
+  private boolean seeifTaskJustFinished(MinimumUserProto senderProto, 
+      Quest quest, UserQuest userQuest, int userId, int taskId,
+      int questId, Task task, List<Integer> userCompletedTasksForQuest,
+      List<Integer> tasksRequired) {
+    
+    boolean questCompletedAndSent = false; //return value
+    
+    //get Map(questId->Map(taskId->numTimesTaskDone)) for this user
+    Map<Integer, Map<Integer, Integer>> questIdToTaskIdsToNumTimesActedInQuest = 
+        UserQuestsTaskProgressRetrieveUtils.getQuestIdToTaskIdsToNumTimesActedInQuest(userId);
+    
+    Map<Integer, Integer> taskIdToNumTimesActed = questIdToTaskIdsToNumTimesActedInQuest.get(questId);
+    if (taskIdToNumTimesActed == null) {
+      taskIdToNumTimesActed = new HashMap<Integer, Integer>();
+    }
+    
+    //if user did the "task" before, get how many times he did the "task"
+    int timesActed = taskIdToNumTimesActed.containsKey(taskId) ? taskIdToNumTimesActed.get(taskId) : 0;
+
+    //update how many times the user did this task
+    if (timesActed + 1 >= task.getNumForCompletion()) {
+      //user just now completed the "task"
+      questCompletedAndSent = recordThatUserJustCompletedTask(senderProto,
+          quest, userQuest, userId, taskId, questId, timesActed,
+          userCompletedTasksForQuest, tasksRequired);
+    } else {
+      if (!UpdateUtils.get().incrementUserQuestTaskProgress(userId, quest.getId(), taskId, 1)) {
+        log.error("problem with incrementing user quest task progress by 1 for quest id " + quest.getId() + ", task id=" + taskId);
+      }
+    }
+    return questCompletedAndSent;
+  }
+  
+  private boolean recordThatUserJustCompletedTask(MinimumUserProto senderProto, 
+      Quest quest, UserQuest userQuest, int userId, int taskId, int questId,
+      int timesActed, List<Integer> userCompletedTasksIdsForQuest,
+      List<Integer> tasksRequired) {
+    boolean questCompletedAndSent = false;
+    if (timesActed == 0) {
+      // The Delete Util for quest redeem expects a row for every task in both the progress table
+      // and the completed task table so this emulates it for the case where the num times required
+      // is only 1.
+      if (!UpdateUtils.get().incrementUserQuestTaskProgress(userId, questId, taskId, 1)) {
+        log.error("problem with incrementing user quest task progress by 1 for quest id " + questId + ", task id=" + taskId);
+      }
+    }
+    if (insertUtils.insertCompletedTaskIdForUserQuest(userId, taskId, questId)) {
+      userCompletedTasksIdsForQuest.add(taskId);
+      if (userCompletedTasksIdsForQuest.containsAll(tasksRequired)) {
+        if (UpdateUtils.get().updateUserQuestsSetCompleted(userId,questId,true, false)) {
+          userQuest.setTasksComplete(true);
+          questCompletedAndSent = QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, userQuest, senderProto, true, null);
+        } else {
+          log.error("problem with marking tasks completed for a user quest, questId=" + questId);
+        }
+      }
+    } else {
+      log.error("problem with adding tasks to user's completed tasks for quest. taskId=" + taskId + ", questId=" + questId);
+    }
+    return questCompletedAndSent;
   }
 
-  private boolean checkCityRankup(
-      Map<Integer, Integer> taskIdToNumTimesActedInRank, int cityId,
-      List<Task> tasksInCity) {
-    tasksInCity = TaskRetrieveUtils.getAllTasksForCityId(cityId);
+  private void writeChangesToDB(User user, Task task, boolean cityRankedUp,
+      boolean changeNumTimesUserActedInDB, int lootEquipId,
+      int lockBoxEventId, int totalCoinGain, int totalExpGain,
+      List<Task> tasksInCity, Timestamp clientTime) {
 
+    //update user_city stuff
+    if (cityRankedUp) {
+      if (!UpdateUtils.get().incrementCityRankForUserCity(
+          user.getId(), task.getCityId(), 1)) {
+        log.error("problem with incrementing user city rank post-task by "
+            + task.getCityId());
+      }
+      if (tasksInCity != null) {
+        if (!UpdateUtils.get().resetTimesCompletedInRankForUserTasksInCity(
+            user.getId(), tasksInCity)) {
+          log.error("problem with resetting user times completed in rank post-task");
+        }
+      }
+    } else if (changeNumTimesUserActedInDB) {
+      if (!UpdateUtils.get().incrementTimesCompletedInRankForUserTask(
+          user.getId(), task.getId(), 1)) {
+        log.error("problem with incrementing user times completed in rank post-task for task "
+            + task.getId());
+      }
+    }
+
+    if (lockBoxEventId != ControllerConstants.NOT_SET) {
+      if (!UpdateUtils.get().incrementNumberOfLockBoxesForLockBoxEvent(
+          user.getId(), lockBoxEventId, 1)) {
+        log.error("problem incrementing user lock boxes for user = " +
+            user +" lock box event id ="+lockBoxEventId);
+      }
+    }
+
+    boolean simulateEnergyRefill =
+        (user.getEnergy() == user.getEnergyMax());
+    
+    int energyChange = task.getEnergyCost() * -1;
+    if (!user.updateRelativeCoinsExpTaskscompletedEnergySimulateenergyrefill(
+        totalCoinGain, totalExpGain, 1, energyChange, simulateEnergyRefill,
+        clientTime)) {
+      log.error("problem with updating user stats post-task. coinChange="
+          + totalCoinGain + ", expGain=" + totalExpGain + ", increased" +
+          " tasks completed by 1, energyChange=" + energyChange +
+          ", clientTime=" + clientTime + ", simulateEnergyRefill=" +
+          simulateEnergyRefill + ", user=" + user);
+    }
+  }
+  
+  private UserBoss writeBossStuff(int userId, int cityId,
+      boolean cityRankedUp, Date clientDate) {
+    if (!cityRankedUp) {
+      return null;
+    }
+    //since city ranked up, spawn boss
+    //get the boss for the city
+    List<Boss> bossList = BossRetrieveUtils.getBossesForCityId(cityId);
+    Boss aBoss = null;
+    
+    if(null == bossList || bossList.isEmpty()) {
+      log.error("unexpected error: no boss exists for cityId=" + cityId);
+      return null;
+    }
+    //for now assume there exists only one boss per city
+    aBoss = bossList.get(0);
+    int bossId = aBoss.getId();
+    int defaultHealth = aBoss.getBaseHealth(); 
+    
+    //get the current user boss
+    UserBoss ub = UserBossRetrieveUtils.getSpecificUserBoss(userId, bossId);
+    
+    //record user boss into history
+    Date startDate = ub.getStartTime();
+    Timestamp startTime = new Timestamp(startDate.getTime());
+    int curHealth = ub.getCurrentHealth();
+    int currentLevel = ub.getCurrentLevel();
+    InsertUtils.get().insertIntoUserBossHistory(bossId, userId,
+        startTime, curHealth, currentLevel);
+    
+    //reset boss health and start time and if boss died, increment level
+    int newLevel = currentLevel;
+    Timestamp newSpawnTime = new Timestamp(clientDate.getTime());
+    if (0 == curHealth) {
+      newLevel++;
+    }
+    ub.setCurrentHealth(defaultHealth);
+    ub.setStartTime(clientDate);
+    ub.setCurrentLevel(newLevel);
+    UpdateUtils.get().replaceBoss(userId, bossId, newSpawnTime,
+        defaultHealth, newLevel);
+    return ub;
+  }
+  
+  private boolean checkCityRankup(int cityId, List<Task> tasksInCity,
+      Map<Integer, Integer> taskIdToNumTimesActedInRank) {
+    
     if (tasksInCity == null) {
       return false;
     }
+    
+    //loop through all tasks for the city and see if user completed them
     for (Task task : tasksInCity) {
-      if (!taskIdToNumTimesActedInRank.containsKey(task.getId())
-          || taskIdToNumTimesActedInRank.get(task.getId()) < task
-          .getNumForCompletion()) {
+      int taskId = task.getId();
+      int numActionsToCompleteTask = task.getNumForCompletion();
+      
+      //check if user did the task or finished it
+      if (!taskIdToNumTimesActedInRank.containsKey(taskId) ||
+          taskIdToNumTimesActedInRank.get(taskId) < numActionsToCompleteTask) {
+        //user did not complete or start the task
         return false;
       }
     }
+    
     return true;
   }
+  
+  private int coinBonusOnCityRankup(City aCity, int cityRank) {
+    if (ControllerConstants.NOT_SET == cityRank) {
+      return ControllerConstants.NOT_SET;
+    }
+    
+    int maxMultiplier = 
+        ControllerConstants.TASK_ACTION__MAX_CITY_RANK_UP_REWARD_MULTIPLIER;
+    int multiplier = Math.min(cityRank + 1, maxMultiplier);
+    int coinBonus = multiplier * aCity.getCoinsGainedBaseOnRankup();
+    
+    return coinBonus;
+  }
 
+  private int expBonusOnCityRankup(City aCity, int cityRank) {
+    if (ControllerConstants.NOT_SET == cityRank) {
+      return ControllerConstants.NOT_SET;
+    }
+    
+    int maxMultiplier = 
+        ControllerConstants.TASK_ACTION__MAX_CITY_RANK_UP_REWARD_MULTIPLIER;
+    int multiplier = Math.min(cityRank + 1, maxMultiplier);
+    int coinBonus = multiplier * aCity.getExpGainedBaseOnRankup();
+    
+    return coinBonus;
+  }
+  
+  private void setBuilderStuff(Builder resBuilder, int lockBoxEventId,
+      UserCityGem ucg, int coinBonus, int expBonus, boolean taskCompleted,
+      boolean cityRankedUp) {
+    if (lockBoxEventId != ControllerConstants.NOT_SET) {
+      resBuilder.setEventIdOfLockBoxGained(lockBoxEventId);
+    }
+    if (null != ucg) {
+      UserCityGemProto ucgp = 
+          CreateInfoProtoUtils.createUserCityGemProto(ucg);
+      resBuilder.setGems(ucgp);
+    }
+    if (ControllerConstants.NOT_SET == coinBonus) {
+      resBuilder.setCoinBonusIfCityRankup(coinBonus);
+    }
+    if (ControllerConstants.NOT_SET == expBonus) {
+      resBuilder.setExpBonusIfCityRankup(expBonus);
+    }
+
+    resBuilder.setTaskCompleted(taskCompleted);
+    resBuilder.setCityRankedUp(cityRankedUp);
+  }
+  
+  private int sumUpCoinsGained(boolean legitAction, int coinsGained,
+      int coinBonus) {
+    if (!legitAction) {
+      return 0;
+    }
+    
+    int totalCoinGain = 0;
+    if (coinsGained != ControllerConstants.NOT_SET) {
+      totalCoinGain += coinsGained;
+    }
+    if (coinBonus != ControllerConstants.NOT_SET) {
+      totalCoinGain += coinBonus;
+    }
+    return totalCoinGain;
+  }
+  
+  private int sumUpExpGained(boolean legitAction, Task task, int expBonus) {
+    if (!legitAction) {
+      return 0;
+    }
+    
+    int totalExpGain = 0;
+    if (task != null) {
+      totalExpGain += task.getExpGained();
+    }
+    if (expBonus != ControllerConstants.NOT_SET) {
+      totalExpGain += expBonus;
+    }
+    return totalExpGain;
+  }
+  
   private int chooseLootEquipId(Task task) {
     if (task.getPotentialLootEquipIds() == null
         || task.getPotentialLootEquipIds().size() <= 1) {
@@ -452,14 +591,22 @@ public class TaskActionController extends EventController {
     return ControllerConstants.NOT_SET;
   }
 
-  private int calculateCoinsGained(Task task) {
-    return task.getMinCoinsGained()
+  private int calculateCoinsGained(Builder resBuilder, Task task) {
+    //TODO: CALCULATE COINS GIVEN BACK
+    int coinsGained = task.getMinCoinsGained()
         + (int) (Math.random() * (task.getMaxCoinsGained() + 1 - task
             .getMinCoinsGained()));
+    resBuilder.setCoinsGained(coinsGained);
+    return coinsGained;
   }
+  
+//  private int calculateExpGained(Builder resBuilder, Task task) {
+//    
+//    return 0;
+//  }
 
   private boolean checkLegitAction(User user, Task task,
-      Timestamp clientTime, Builder resBuilder) {
+      Timestamp clientTime, Builder resBuilder, List<Integer> cityRankList) {
     if (task == null || clientTime == null) {
       resBuilder.setStatus(TaskActionStatus.OTHER_FAIL);
       log.error("parameter passed in is null. task=" + task
@@ -475,13 +622,20 @@ public class TaskActionController extends EventController {
       return false;
     }
 
-    if (user.getEnergy() < task.getEnergyCost()) {
+    int userId = user.getId();
+    int cityId = task.getCityId();
+    int cityRank = RetrieveUtils.userCityRetrieveUtils()
+        .getCurrentCityRankForUser(userId, cityId);
+    int cost = MiscMethods.taskEnergyCostForCityRank(task, cityRank);
+    if (user.getEnergy() < cost) {
       resBuilder.setStatus(TaskActionStatus.USER_NOT_ENOUGH_ENERGY);
       log.error("user does not have enough energy. user's energy="
           + user.getEnergy() + ", task action requires"
-          + task.getEnergyCost());
+          + cost);
       return false;
     }
+    //return the city rank
+    cityRankList.add(cityRank);
 
     int numReqEquipsWithoutQuantityReqFulfilled = getNumRequiredEquipmentsWithoutQuantityRequirementFulfilled(
         user, task);
@@ -545,22 +699,197 @@ public class TaskActionController extends EventController {
 
     if (curEvent != null) {
       float chanceToAttainBox = Math.min(ControllerConstants.LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_TASK_BASE*task.getEnergyCost(), ControllerConstants.LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_TASK_MAX);
-      if (Math.random() < chanceToAttainBox) return curEvent.getId();
+      if (Math.random() < chanceToAttainBox) {
+        return curEvent.getId();
+      }
     }
     return ControllerConstants.NOT_SET;
   }
-
-  private void sendGeneralNotification (Equipment equip, String userName, String townName) {
-	  if (Rarity.EPIC == equip.getRarity()) {
-		  //send a notification
-		  String equipName = equip.getName();
-		  Notification foundEpicNotification = new Notification ();
-		  foundEpicNotification.setAsEpicWeaponDropped(userName, equipName, townName);
-		  
-		  MiscMethods.writeGlobalNotification(foundEpicNotification, server);
-	  }
+  
+  //for now, give a user one gem until the player has all
+  //five gems, then don't give any gems
+  private UserCityGem checkIfGemDropped(int userId, int cityId) {
+    Map<Integer, UserCityGem> gemIdsToUserCityGems = UserCityGemRetrieveUtils
+        .getGemIdsToGemsForUserAndCity(userId, cityId);
+    
+    float dropProbability = ControllerConstants.TASK_ACTION__GEM_DROP_RATE;
+    Random rand = new Random();
+    float randFloat = rand.nextFloat();
+    //check if a gem drops
+    if (randFloat >= dropProbability) {
+      //user does not get a gem
+      return null;
+    }
+    
+    Map<Integer, CityGem> gemIdsToActiveCityGems = 
+        CityGemRetrieveUtils.getActiveCityGemIdsToCityGems();
+    if (null == gemIdsToActiveCityGems || gemIdsToActiveCityGems.isEmpty()) {
+      log.error("unexpected error: no city gems in the db!");
+      return null;
+    }
+    
+    //select the next gem the user gets
+    CityGem cg = selectCityGemOne(gemIdsToUserCityGems, gemIdsToActiveCityGems, rand);
+    //CityGem cg = selectCityGemTwo(gemIdsToUserCityGems, gemIdsToActiveCityGems, rand);
+    
+    UserCityGem returnValue = null;
+    if (null != cg) {
+      //increment the quantity by 1
+      int gemId = cg.getId();
+      returnValue = gemIdsToUserCityGems.get(gemId);
+      int newQuantity = returnValue.getQuantity() + 1;
+      returnValue.setQuantity(newQuantity);
+    }
+    return returnValue;
   }
 
+  //store in Map<Integer, Integer> taskIdToNumTimesActedInRank the 
+  //updated amount of times the user did this task
+  private int determineNumTimesTaskCompleted(int taskId,
+      Map<Integer, Integer> taskIdToNumTimesActedInRank) {
+    //base case (or when gained prestige and questions and stuff are reset) 
+    int numTimesActedInRank = 0;
+    
+    if (taskIdToNumTimesActedInRank.get(taskId) != null) {
+      numTimesActedInRank = taskIdToNumTimesActedInRank.get(taskId);
+    }
+    //user did the task once, increase by 1
+    numTimesActedInRank++;
+    taskIdToNumTimesActedInRank.put(taskId, numTimesActedInRank);
+    
+    return numTimesActedInRank;
+  }
+  
+  //the user can only get one of each gem until the full set is acquired
+  private CityGem selectCityGemOne(Map<Integer, UserCityGem> gemIdsToUserCityGems,
+      Map<Integer, CityGem> gemIdsToActiveCityGems, Random rand) {
+    CityGem returnValue = null;
+    boolean allowDuplicates = false;
+    List<CityGem> potentialGems = getPotentialGems(allowDuplicates,
+        gemIdsToUserCityGems, gemIdsToActiveCityGems);   
+    
+    //efficiency check
+    int size = potentialGems.size();
+    if (1 == size) {
+      returnValue = potentialGems.get(0);
+      return returnValue;
+    } else if (0 == size) {
+      return returnValue;
+    }
+    
+    float probabilityForNoGem = getProbabilityForNoGem(potentialGems);
+    float randFloat = rand.nextFloat();
+    if (randFloat < probabilityForNoGem) {
+      //user gets nothing
+      return returnValue;
+    }
+    
+    returnValue = selectFromGems(randFloat,
+        probabilityForNoGem, potentialGems);
+    return returnValue;
+  }
+  
+  //potential gems are ones that aren't dropped from a boss
+  //and maybe if user does not have one yet
+  private List<CityGem> getPotentialGems(boolean allowDuplicates,
+      Map<Integer, UserCityGem> gemIdsToUserCityGems,
+      Map<Integer, CityGem> gemIdsToActiveCityGems) {
+    List<CityGem> potentialGems =  new ArrayList<CityGem>();
+    
+    for (int gemId : gemIdsToActiveCityGems.keySet()) {
+      CityGem cg = gemIdsToActiveCityGems.get(gemId);
+      //exclude gems dropped from bosses
+      if (cg.isDroppedOnlyFromBosses()) {
+        continue;
+      }
+      
+      //maybe exclude this gem if user already has one
+      UserCityGem ucg = gemIdsToUserCityGems.get(gemId);
+      int quantity = 0;
+      if (null != ucg) {
+        quantity = ucg.getQuantity();
+      }
+      
+      if (allowDuplicates) {
+        //don't care if the user has this gem already.
+        potentialGems.add(cg);
+        
+      } else if (!allowDuplicates && 0 == quantity) {
+        //since only allow user to have one set of gems,
+        //get only those with 0 quantity
+        potentialGems.add(cg);
+      }
+      
+    }
+    
+    return potentialGems;
+  }
+  
+  private float getProbabilityForNoGem(List<CityGem> potentialGems) {
+    float probabilityForNoGem = 1.0f;
+    
+    for (CityGem cg : potentialGems) {
+      float dropRate = cg.getDropRate();
+      probabilityForNoGem -= dropRate;
+    }
+    
+    return probabilityForNoGem;
+  }
+  
+  private CityGem selectFromGems(float randFloat, float probabilityForNoGem,
+      List<CityGem> potentialGems) {
+    CityGem returnValue = null;
+    //loop through potential gems and choose a gem to give out
+    float probabilityForCurrentGem = probabilityForNoGem;
+    for (CityGem cg : potentialGems) {
+      float dropRate = cg.getDropRate();
+      probabilityForCurrentGem += dropRate;
+      if (randFloat < probabilityForCurrentGem) {
+        returnValue = cg;
+        break;
+      }
+    }
+    return returnValue;
+  }
+
+  //the user can get as many gems as he wants
+  private CityGem selectCityGemTwo(Map<Integer, UserCityGem> gemIdsToUserCityGems,
+      Map<Integer, CityGem> gemIdsToActiveCityGems, Random rand) {
+    CityGem returnValue = null;
+    boolean allowDuplicates = true;
+    List<CityGem> potentialGems = getPotentialGems(allowDuplicates,
+        gemIdsToUserCityGems, gemIdsToActiveCityGems);
+    
+    float probabilityForNoGem = 0.0f;
+    float randFloat = rand.nextFloat();
+    returnValue = selectFromGems(randFloat,
+        probabilityForNoGem, potentialGems);
+    return returnValue;
+  }
+  
+  private int giveEquip(Builder resBuilder, int userId, int lootEquipId) {
+    if (lootEquipId != ControllerConstants.NOT_SET) {
+      int userEquipId = InsertUtils.get().insertUserEquip(
+          userId, lootEquipId,
+          ControllerConstants.DEFAULT_USER_EQUIP_LEVEL,
+          ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
+      if (userEquipId < 0) {
+        log.error("problem with giving 1 of equip " + lootEquipId + 
+            " to task completer " + userId);
+        lootEquipId = ControllerConstants.NOT_SET;
+      } else {
+        UserEquip newUE = new UserEquip(userEquipId, userId, lootEquipId,
+            ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, 0);
+        FullUserEquipProto fuep = CreateInfoProtoUtils
+            .createFullUserEquipProtoFromUserEquip(newUE);
+        resBuilder.setLootUserEquip(fuep);
+      }
+    }
+    
+    return lootEquipId;
+  }
+  
+  
   public void writeToUserCurrencyHistory(User aUser, int taskId, int coinChange, int previousSilver) {
     Timestamp date = new Timestamp((new Date()).getTime());
 

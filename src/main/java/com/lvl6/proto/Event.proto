@@ -729,6 +729,8 @@ message TaskActionResponseProto {
 	optional int32 eventIdOfLockBoxGained = 10;
 	
 	optional UserCityGemProto gems = 11;
+	//send this if city ranked up and no active bosses
+	optional FullUserBossProto boss = 12; 
 	
 	enum TaskActionStatus {
 		SUCCESS = 0; 
@@ -1605,6 +1607,7 @@ message LoadNeutralCityResponseProto {
      repeated FullUserQuestDataLargeProto inProgressUserQuestDataInCity = 7;
      
      repeated FullUserBossProto userBosses = 8;
+     repeated UserCityGemProto myGems = 9;
      
      enum LoadNeutralCityStatus {
      	SUCCESS = 0;

@@ -115,15 +115,10 @@ import com.lvl6.utils.DBConnection;
     }
     
     int curHealth = rs.getInt(i++);
-    int numTimesKilled = rs.getInt(i++);
+    int currentLevel = rs.getInt(i++);
 
-    Date lastTimeKilled = null;
-    ts = rs.getTimestamp(i++);
-    if(!rs.wasNull()) {
-      lastTimeKilled = new Date(ts.getTime());
-    }
     
-    return new UserBoss(userId, bossId, curHealth, numTimesKilled, startTime, lastTimeKilled);
+    return new UserBoss(bossId, userId, curHealth, currentLevel, startTime);
   }
 
 }

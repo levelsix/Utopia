@@ -852,8 +852,8 @@ public class UpdateUtils implements UpdateUtil {
   }
 
   //updating user_boss table
-  public boolean decrementUserBossHealthAndMaybeIncrementNumTimesKilled(int userId, int bossId, Date startTime, 
-      int currentHealth, int numTimesKilled, Date lastTimeKilled) { 
+  public boolean replaceBoss(int userId, int bossId, Date startTime, 
+      int currentHealth, int currentLevel) { 
     String tableName = DBConstants.TABLE_USER_BOSSES;
     Map<String, Object> columnsAndValues = new HashMap<String, Object>();
 
@@ -861,8 +861,8 @@ public class UpdateUtils implements UpdateUtil {
     columnsAndValues.put(DBConstants.USER_BOSSES__BOSS_ID, bossId);
     columnsAndValues.put(DBConstants.USER_BOSSES__START_TIME, new Timestamp(startTime.getTime()));
     columnsAndValues.put(DBConstants.USER_BOSSES__CUR_HEALTH, currentHealth);
-    columnsAndValues.put(DBConstants.USER_BOSSES__NUM_TIMES_KILLED, numTimesKilled);
-    columnsAndValues.put(DBConstants.USER_BOSSES__LAST_TIME_KILLED, lastTimeKilled);
+    columnsAndValues.put(DBConstants.USER_BOSSES__CURRENT_LEVEL, currentLevel);
+//    columnsAndValues.put(DBConstants.USER_BOSSES__LAST_TIME_KILLED, lastTimeKilled);
 
     int numUpdated = DBConnection.get().replace(tableName, columnsAndValues);
 
@@ -1285,6 +1285,32 @@ public class UpdateUtils implements UpdateUtil {
     int numUpdated = DBConnection.get().updateTableRows(tableName, null, absoluteParams, 
         conditionParams, "AND");
     if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+  
+  public boolean updateUserCityGems(int userId, int cityId, 
+      Map<Integer, Integer> gemIdsToQuantities) {
+    List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
+
+    for(Integer gemId : gemIdsToQuantities.keySet()) {
+      int quantity = gemIdsToQuantities.get(gemId);
+      Map <String, Object> aRow = new HashMap<String, Object>();
+
+      aRow.put(DBConstants.USER_CITY_GEMS__USER_ID, userId);
+      aRow.put(DBConstants.USER_CITY_GEMS__CITY_ID, cityId);
+      aRow.put(DBConstants.USER_CITY_GEMS__GEM_ID, gemId);
+      aRow.put(DBConstants.USER_CITY_GEMS__QUANTITY, quantity);
+
+      newRows.add(aRow);
+    }
+
+    int numUpdated = DBConnection.get().replaceIntoTableValues(DBConstants.TABLE_USER_STRUCTS, newRows);
+
+    log.info("num userCityGems updated: " + numUpdated 
+        + ". userCityGems: " + gemIdsToQuantities);
+    if (numUpdated == gemIdsToQuantities.size()*2) {
       return true;
     }
     return false;

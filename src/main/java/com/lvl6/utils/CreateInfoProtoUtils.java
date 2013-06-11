@@ -50,6 +50,7 @@ import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserBoss;
 import com.lvl6.info.UserCityExpansionData;
+import com.lvl6.info.UserCityGem;
 import com.lvl6.info.UserClan;
 import com.lvl6.info.UserCritstruct;
 import com.lvl6.info.UserEquip;
@@ -134,6 +135,7 @@ import com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto;
 import com.lvl6.proto.InfoProto.UpgradeStructJobProto;
 import com.lvl6.proto.InfoProto.UserBoosterItemProto;
 import com.lvl6.proto.InfoProto.UserBoosterPackProto;
+import com.lvl6.proto.InfoProto.UserCityGemProto;
 import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.InfoProto.UserLockBoxEventProto;
 import com.lvl6.proto.InfoProto.UserLockBoxItemProto;
@@ -594,7 +596,7 @@ public class CreateInfoProtoUtils {
         builder.addTaskIds(t.getId());
       }
     }
-    List<Boss> bosses = BossRetrieveUtils.getAllBossesForCityId(c.getId());
+    List<Boss> bosses = BossRetrieveUtils.getBossesForCityId(c.getId());
     if (bosses != null) {
       for (Boss b : bosses) {
         builder.addBossIds(b.getId());
@@ -1159,22 +1161,24 @@ public class CreateInfoProtoUtils {
 
   public static FullBossProto createFullBossProtoFromBoss(Boss boss) {
     return FullBossProto.newBuilder().setBossId(boss.getId()).setBaseHealth(boss.getBaseHealth())
-        .setMinDamage(boss.getMinDamage()).setMaxDamage(boss.getMaxDamage()).setMinutesToKill(boss.getMinutesToKill())
-        .setMinutesToRespawn(boss.getMinutesToRespawn()).setMinExp(boss.getMinExp()).setMaxExp(boss.getMaxExp())
-        .setCityId(boss.getCityId()).setAssetNumWithinCity(boss.getAssetNumberWithinCity())
+        .setMinDamage(boss.getMinDamage()).setMaxDamage(boss.getMaxDamage())
+        .setMinutesToKill(boss.getMinutesToKill()).setMinExp(boss.getMinExp())
+        .setMaxExp(boss.getMaxExp()).setCityId(boss.getCityId())
+        .setAssetNumWithinCity(boss.getAssetNumberWithinCity())
         .setStaminaCost(boss.getStaminaCost()).build();
   }
 
   public static FullUserBossProto createFullUserBossProtoFromUserBoss(UserBoss b) {
-    FullUserBossProto.Builder bu = FullUserBossProto.newBuilder().setBossId(b.getBossId()).setUserId(b.getUserId())
-        .setCurHealth(b.getCurrentHealth()).setNumTimesKilled(b.getNumTimesKilled());
+    FullUserBossProto.Builder bu = FullUserBossProto.newBuilder()
+        .setBossId(b.getBossId()).setUserId(b.getUserId())
+        .setCurHealth(b.getCurrentHealth()).setCurrentLevel(b.getCurrentLevel());
 
     if (b.getStartTime() != null) {
       bu.setStartTime(b.getStartTime().getTime());
     }
-    if (b.getLastTimeKilled() != null) {
-      bu.setLastKilledTime(b.getLastTimeKilled().getTime());
-    }
+//    if (b.getLastTimeKilled() != null) {
+//      bu.setLastKilledTime(b.getLastTimeKilled().getTime());
+//    }
     return bu.build();
   }
 
@@ -1400,6 +1404,15 @@ public class CreateInfoProtoUtils {
     }
     
     return mpb.build();
+  }
+  
+  public static UserCityGemProto createUserCityGemProto(UserCityGem ucg) {
+    UserCityGemProto.Builder ucgb = UserCityGemProto.newBuilder();
+    ucgb.setCityId(ucg.getCityId());
+    ucgb.setUserId(ucg.getUserId());
+    ucgb.setGemId(ucg.getGemId());
+    ucgb.setQuantity(ucg.getQuantity());
+    return ucgb.build();
   }
   
 }

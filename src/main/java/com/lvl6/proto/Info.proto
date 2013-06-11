@@ -2,6 +2,15 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+message UserCityGemProto {
+	optional int32 userId = 1;
+	optional int32 cityId = 2;
+	optional int32 gemId = 3;
+	optional int32 quantity = 4;
+}
+
+//------------------------------------------------------------------------------------------
+
 message MentorshipProto {
 	optional int32 id = 1;
 	optional int32 mentorId = 2;
@@ -265,7 +274,7 @@ message FullBossProto {
 	optional int32 minDamage = 3;
 	optional int32 maxDamage = 4;
 	optional int32 minutesToKill = 5;
-	optional int32 minutesToRespawn = 6;
+	//optional int32 minutesToRespawn = 6;
 	optional int32 minExp = 7;
 	optional int32 maxExp = 13;
 	optional int32 cityId = 8;
@@ -277,9 +286,9 @@ message FullUserBossProto {
 	optional int32 bossId = 1;
 	optional int32 userId = 2;
 	optional int32 curHealth = 3;
-	optional int32 numTimesKilled = 4;
+	optional int32 currentLevel = 4; //starts at 0
 	optional int64 startTime = 5;
-	optional int64 lastKilledTime = 6;
+	//optional int64 lastKilledTime = 6;
 }
 
 //------------------------------------------------------------------------------------------

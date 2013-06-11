@@ -172,9 +172,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int userId = u.getId();
     int bossId = b.getId();
     int currentHealth = b.getBaseHealth();
-    int numTimesKilled = 0;
+    int currentLevel = 0;
     Date now = new Date(curTime.getTime());
-    return new UserBoss(userId, bossId, currentHealth, numTimesKilled, now, null);
+    return new UserBoss(bossId, userId, currentHealth,
+        currentLevel, now);
   }
 
   /*
@@ -207,27 +208,27 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     // [start_time2, start_time2 + minutes_to_kill] 
 
     long timeAllocatedToKill = 60000*aBoss.getMinutesToKill();
-    long timeAllocatedToRespawn = 60000*aBoss.getMinutesToRespawn();
+    //long timeAllocatedToRespawn = 60000*aBoss.getMinutesToRespawn();
     
     //case 1
     long startTime = aUserBoss.getStartTime().getTime(); //the time the user initially attacked boss
     long lastPossibleTimeToAttack = startTime + timeAllocatedToKill; //the last possible time user can attack boss
     long timeOfAttack = curTime.getTime();
-    long timeBossRespawns = lastPossibleTimeToAttack + timeAllocatedToRespawn;
+//    long timeBossRespawns = lastPossibleTimeToAttack + timeAllocatedToRespawn;
 
     //case 2
-    Date lastKilledTime = aUserBoss.getLastTimeKilled();
-    if(null != lastKilledTime) {
-      //user killed boss 
-      long lastKilledTimeMilliseconds = lastKilledTime.getTime();
-
-      startTime = lastKilledTimeMilliseconds; //doesn't matter what this value is
-      lastPossibleTimeToAttack = lastKilledTimeMilliseconds; //time should be a value before curTime
+    //Date lastKilledTime = aUserBoss.getLastTimeKilled();
+//    if(null != lastKilledTime) {
+//      //user killed boss 
+//      long lastKilledTimeMilliseconds = lastKilledTime.getTime();
+//
+//      startTime = lastKilledTimeMilliseconds; //doesn't matter what this value is
+//      lastPossibleTimeToAttack = lastKilledTimeMilliseconds; //time should be a value before curTime
       
-      timeBossRespawns = lastKilledTimeMilliseconds + timeAllocatedToRespawn;
+//      timeBossRespawns = lastKilledTimeMilliseconds + timeAllocatedToRespawn;
       
       //values are set like this to ensure "boss needs to respawn" or "boss has respawned" case executes
-    }
+//    }
     
     if (startTime <= timeOfAttack && timeOfAttack < lastPossibleTimeToAttack) {
       boolean bossHasHealth = (aUserBoss.getCurrentHealth() > 0);
@@ -245,22 +246,23 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         return false;
       }
 
-    }	else if (lastPossibleTimeToAttack <= timeOfAttack && timeOfAttack < timeBossRespawns) {
-      //user can't attack because boss needs to respawn
-      log.error("boss has not respawned yet. time boss first attacked = " +  aUserBoss.getStartTime()
-          + "; last possible time to attack boss = " + new Date(lastPossibleTimeToAttack)
-      + "; time user launched attack = " + curTime);
-      resBuilder.setStatus(BossActionStatus.FAIL_BOSS_HAS_NOT_SPAWNED);
-      return false;
-    } else if (timeBossRespawns <= timeOfAttack) {
-      //boss has respawned
-      resBuilder.setStatus(BossActionStatus.SUCCESS);
-      aUserBoss.setCurrentHealth(aBoss.getBaseHealth());
-      aUserBoss.setStartTime(new Date(curTime.getTime()));
-      
-      aUserBoss.setLastTimeKilled(null);
-      return true;
-    }
+    }	
+//    else if (lastPossibleTimeToAttack <= timeOfAttack && timeOfAttack < timeBossRespawns) {
+//      //user can't attack because boss needs to respawn
+//      log.error("boss has not respawned yet. time boss first attacked = " +  aUserBoss.getStartTime()
+//          + "; last possible time to attack boss = " + new Date(lastPossibleTimeToAttack)
+//      + "; time user launched attack = " + curTime);
+//      resBuilder.setStatus(BossActionStatus.FAIL_BOSS_HAS_NOT_SPAWNED);
+//      return false;
+//    } else if (timeBossRespawns <= timeOfAttack) {
+//      //boss has respawned
+//      resBuilder.setStatus(BossActionStatus.SUCCESS);
+//      aUserBoss.setCurrentHealth(aBoss.getBaseHealth());
+//      aUserBoss.setStartTime(new Date(curTime.getTime()));
+//      
+//      aUserBoss.setLastTimeKilled(null);
+//      return true;
+//    }
 
     resBuilder.setStatus(BossActionStatus.FAIL_OTHER);
     return false;
@@ -281,18 +283,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 		expGained = generateExpGained(aBoss, isSuperAttack, individualDamages, aUser.getLevel());
 		
 		int currentHealth = aUserBoss.getCurrentHealth() - damageGenerated;
-		int numTimesKilled = aUserBoss.getNumTimesKilled();
-		Date lastTimeKilled = aUserBoss.getLastTimeKilled();
+		int currentLevel = aUserBoss.getCurrentLevel();
 		if (0 >= currentHealth) {
 			//boss killed
 			currentHealth = 0;
-			numTimesKilled++;
-			lastTimeKilled = curTime;
+			currentLevel++;
 		}
 	  
 		aUserBoss.setCurrentHealth(currentHealth);
-		aUserBoss.setNumTimesKilled(numTimesKilled);
-		aUserBoss.setLastTimeKilled(lastTimeKilled);
+		aUserBoss.setCurrentLevel(currentLevel);
 		
 		Map<String, Integer> damageExp = new HashMap<String, Integer>();
 		damageExp.put(damage, damageGenerated);
@@ -609,9 +608,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int bossId = aUserBoss.getBossId();
     int userId = aUserBoss.getUserId();
     //update user_boss table
-    if (!UpdateUtils.get().decrementUserBossHealthAndMaybeIncrementNumTimesKilled(
+    if (!UpdateUtils.get().replaceBoss(
         userId, bossId, aUserBoss.getStartTime(), aUserBoss.getCurrentHealth(), 
-        aUserBoss.getNumTimesKilled(), aUserBoss.getLastTimeKilled())) {
+        aUserBoss.getCurrentLevel())) {
       log.error("either updated no rows after boss attack or updated more than expected");
       return;
     }
@@ -641,8 +640,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int bossRewardDropHistoryId = InsertUtils.get()
           .insertIntoBossRewardDropHistoryReturnId(bossId, userId, silverChange, goldChange, clientTime);
       log.info("id of new boss reward drop history row: " + bossRewardDropHistoryId);
-      int numUpdated = InsertUtils.get().insertIntoBossEquipDropHistory(bossRewardDropHistoryId, allEquipIds);
-      log.info("number of distinct equips boss dropped=" + numUpdated + ". The equips are: " + allEquipIds);
+//      int numUpdated = InsertUtils.get().insertIntoBossEquipDropHistory(bossRewardDropHistoryId, allEquipIds);
+//      log.info("number of distinct equips boss dropped=" + numUpdated + ". The equips are: " + allEquipIds);
     }
   }
 

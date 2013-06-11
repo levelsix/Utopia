@@ -218,6 +218,10 @@ public class ControllerConstants {
   
   //TASK ACTION
   public static final int TASK_ACTION__MAX_CITY_RANK = 5;
+  public static final float TASK_ACTION__GEM_DROP_RATE = 0.25f; 
+  public static final int TASK_ACTION__MAX_ENERGY_COST_MULTIPLIER = 5;
+  public static final int TASK_ACTION__MAX_REWARD_MULTIPLIER = 3;
+  public static final int TASK_ACTION__MAX_CITY_RANK_UP_REWARD_MULTIPLIER = 5;
   
   //PURCHASE NORM STRUCTURE
   public static final int PURCHASE_NORM_STRUCTURE__MAX_NUM_OF_CERTAIN_STRUCTURE = 2;

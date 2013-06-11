@@ -53,7 +53,7 @@ import com.lvl6.utils.DBConnection;
     return toreturn;
   }
 
-  public static List<Boss> getAllBossesForCityId(int cityId) {
+  public static List<Boss> getBossesForCityId(int cityId) {
     log.debug("retrieving all bosses for cityId " + cityId);
     if (cityIdsToBosses == null) {
       setStaticCityIdsToBosses();
@@ -138,12 +138,11 @@ import com.lvl6.utils.DBConnection;
     int minDamage = rs.getInt(i++);
     int maxDamage = rs.getInt(i++);
     int minutesToKill = rs.getInt(i++);
-    int minutesToRespawn = rs.getInt(i++);
     int minExp = rs.getInt(i++);
     int maxExp = rs.getInt(i++);
     
     Boss boss = new Boss(id, cityId, assetNumWithinCity, staminaCost, minDamage, 
-        maxDamage, minutesToKill, minutesToRespawn, baseHealth, minExp, maxExp);
+        maxDamage, minutesToKill, baseHealth, minExp, maxExp);
     return boss;
   }
 }

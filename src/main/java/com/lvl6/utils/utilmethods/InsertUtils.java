@@ -865,35 +865,51 @@ public class InsertUtils implements InsertUtil{
 	  return anId;
   }
   
-  public int insertIntoBossEquipDropHistory(int bossRewardDropHistoryId, List<Integer> equipIds) {
-	  String tableName = DBConstants.TABLE_BOSS_EQUIP_DROP_HISTORY;
-	  Map<String, List<Object>> insertParams = new HashMap<String, List<Object>>();
-	  
-	  Map<Integer, Integer> equipIdsAndQuantities = generateEquipIdAndQuantitiesMap(equipIds);
-	  
-	  List<Object> bossRewardDropHistoryIds = new ArrayList<Object>();
-	  List<Object> distinctEquipIds = new ArrayList<Object>();
-	  
-	  for(Integer distinctEquipId: equipIdsAndQuantities.keySet()) {
-	    bossRewardDropHistoryIds.add(bossRewardDropHistoryId);
-	    distinctEquipIds.add(distinctEquipId);
-	  }
-	  
-	  List<Object> quantities = new ArrayList<Object>();
-	  for(Object equipId : distinctEquipIds) {
-	    quantities.add(equipIdsAndQuantities.get((Integer) equipId));
-	  }
-	  
-	  int numRows = bossRewardDropHistoryIds.size();
-	  
-	  insertParams.put(DBConstants.BOSS_EQUIP_DROP_HISTORY__BOSS_REWARD_DROP_HISTORY_ID, bossRewardDropHistoryIds);
-	  insertParams.put(DBConstants.BOSS_EQUIP_DROP_HISTORY__EQUIP_ID, distinctEquipIds);
-	  insertParams.put(DBConstants.BOSS_EQUIP_DROP_HISTORY__QUANTITY, quantities);
-	  
-	  int numUpdated = DBConnection.get().insertIntoTableMultipleRows(tableName, insertParams, numRows);
-	  return numUpdated;
-	  
+  public int insertIntoUserBossHistory(int bossId, int userId,
+      Timestamp startTime, int curHealth, int currentLevel) {
+    String tableName = DBConstants.TABLE_USER_BOSS_HISTORY;
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    
+    insertParams.put(DBConstants.USER_BOSSES__BOSS_ID, bossId);
+    insertParams.put(DBConstants.USER_BOSSES__USER_ID, userId);
+    insertParams.put(DBConstants.USER_BOSSES__START_TIME, startTime);
+    insertParams.put(DBConstants.USER_BOSSES__CUR_HEALTH, curHealth);
+    insertParams.put(DBConstants.USER_BOSSES__CURRENT_LEVEL, currentLevel);
+    
+    int amount =
+        DBConnection.get().insertIntoTableBasic(tableName, insertParams);
+    return amount;
   }
+  
+//  public int insertIntoBossEquipDropHistory(int bossRewardDropHistoryId, List<Integer> equipIds) {
+//	  String tableName = DBConstants.TABLE_BOSS_EQUIP_DROP_HISTORY;
+//	  Map<String, List<Object>> insertParams = new HashMap<String, List<Object>>();
+//	  
+//	  Map<Integer, Integer> equipIdsAndQuantities = generateEquipIdAndQuantitiesMap(equipIds);
+//	  
+//	  List<Object> bossRewardDropHistoryIds = new ArrayList<Object>();
+//	  List<Object> distinctEquipIds = new ArrayList<Object>();
+//	  
+//	  for(Integer distinctEquipId: equipIdsAndQuantities.keySet()) {
+//	    bossRewardDropHistoryIds.add(bossRewardDropHistoryId);
+//	    distinctEquipIds.add(distinctEquipId);
+//	  }
+//	  
+//	  List<Object> quantities = new ArrayList<Object>();
+//	  for(Object equipId : distinctEquipIds) {
+//	    quantities.add(equipIdsAndQuantities.get((Integer) equipId));
+//	  }
+//	  
+//	  int numRows = bossRewardDropHistoryIds.size();
+//	  
+//	  insertParams.put(DBConstants.BOSS_EQUIP_DROP_HISTORY__BOSS_REWARD_DROP_HISTORY_ID, bossRewardDropHistoryIds);
+//	  insertParams.put(DBConstants.BOSS_EQUIP_DROP_HISTORY__EQUIP_ID, distinctEquipIds);
+//	  insertParams.put(DBConstants.BOSS_EQUIP_DROP_HISTORY__QUANTITY, quantities);
+//	  
+//	  int numUpdated = DBConnection.get().insertIntoTableMultipleRows(tableName, insertParams, numRows);
+//	  return numUpdated;
+//	  
+//  }
   
   private Map<Integer, Integer> generateEquipIdAndQuantitiesMap(List<Integer> equipIds) {
     Map<Integer, Integer> equipIdsAndQuantities = new HashMap<Integer, Integer>();

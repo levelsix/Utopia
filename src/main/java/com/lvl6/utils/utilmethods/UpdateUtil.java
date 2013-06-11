@@ -183,8 +183,8 @@ public interface UpdateUtil {
   //public abstract boolean updateRedeemLockBoxItems(int eventId, int userId, List<Integer> lockBoxItemIds, boolean redeem);
   public abstract boolean updateRedeemLockBoxEvent(int eventId, int userId, boolean redeem);
   
-  public boolean decrementUserBossHealthAndMaybeIncrementNumTimesKilled(int userId, int bossId, Date startTime, int currentHealth, 
-      int numTimesKilled, Date lastTimeKilled);
+  public boolean replaceBoss(int userId, int bossId, Date startTime, int currentHealth, 
+      int currentLevel);
   
   public boolean incrementCurrentTierLevelForClan(int clanId);
   public abstract boolean updateClanTowerOwnerAndOrAttacker(int clanTowerId, int ownerId, Date ownedStartTime, int ownerBattleWins, 
@@ -208,4 +208,7 @@ public interface UpdateUtil {
   public abstract boolean updateMentorshipTerminate(int mentorshipId);
   
   public abstract boolean updateMentorshipQuestCompleteTime(int mentorshipId, Date timeCompleted, MenteeQuestType type);
+  
+  public abstract boolean updateUserCityGems(int userId, int cityId,
+      Map<Integer, Integer> gemIdsToQuantities);
 }
