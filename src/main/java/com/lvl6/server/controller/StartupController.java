@@ -35,6 +35,7 @@ import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.BoosterItem;
 import com.lvl6.info.BoosterPack;
 import com.lvl6.info.City;
+import com.lvl6.info.CityGem;
 import com.lvl6.info.Clan;
 import com.lvl6.info.ClanChatPost;
 import com.lvl6.info.ClanTower;
@@ -73,6 +74,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus;
 import com.lvl6.proto.InfoProto.BoosterPackProto;
+import com.lvl6.proto.InfoProto.CityGemProto;
 import com.lvl6.proto.InfoProto.EquipEnhancementProto;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.FullStructureProto;
@@ -104,6 +106,7 @@ import com.lvl6.retrieveutils.UserLockBoxEventRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterPackRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.CityGemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DailyBonusRewardRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
@@ -255,6 +258,7 @@ public class StartupController extends EventController {
           setEquipEnhancementStuff(resBuilder, user);
           setAllies(resBuilder, user);
           setPrivateChatPosts(resBuilder, user);
+          setCityGems(resBuilder);
 
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
@@ -389,6 +393,18 @@ public class StartupController extends EventController {
         postIdsToPrivateChatPosts);
 
     resBuilder.addAllPcpp(pcppList);
+  }
+  
+  private void setCityGems(Builder b) {
+    //sending to the client all the active city gems
+    Map<Integer, CityGem> activeGemsForAllCities = 
+        CityGemRetrieveUtils.getActiveCityGemIdsToCityGems();
+    
+    for (CityGem cg : activeGemsForAllCities.values()) {
+      CityGemProto cgp = CreateInfoProtoUtils.createCityGemProto(cg);
+      b.addGemsForAllCities(cgp);
+    }
+    
   }
 
   private Map<Integer, Integer> aggregateOtherUserIdsAndPrivateChatPost(

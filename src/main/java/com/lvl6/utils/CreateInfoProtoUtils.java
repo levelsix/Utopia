@@ -20,6 +20,7 @@ import com.lvl6.info.BoosterPack;
 import com.lvl6.info.Boss;
 import com.lvl6.info.BossEvent;
 import com.lvl6.info.City;
+import com.lvl6.info.CityGem;
 import com.lvl6.info.Clan;
 import com.lvl6.info.ClanBulletinPost;
 import com.lvl6.info.ClanChatPost;
@@ -93,6 +94,7 @@ import com.lvl6.proto.InfoProto.FullQuestProto;
 import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullTaskProto.FullTaskEquipReqProto;
+import com.lvl6.proto.InfoProto.CityGemProto;
 import com.lvl6.proto.InfoProto.FullUserBossProto;
 import com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto;
 import com.lvl6.proto.InfoProto.FullUserCityProto;
@@ -1413,6 +1415,18 @@ public class CreateInfoProtoUtils {
     ucgb.setGemId(ucg.getGemId());
     ucgb.setQuantity(ucg.getQuantity());
     return ucgb.build();
+  }
+  
+  public static CityGemProto createCityGemProto(CityGem cg) {
+    CityGemProto.Builder cgpb = CityGemProto.newBuilder();
+    
+    cgpb.setId(cg.getId());
+    cgpb.setDropRate(cg.getDropRate());
+    cgpb.setIsActive(cg.isActive());
+    cgpb.setGemImageName(cg.getGemImageName());
+    cgpb.setDroppedOnlyFromBosses(cg.isDroppedOnlyFromBosses());
+    
+    return cgpb.build();
   }
   
 }
