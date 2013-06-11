@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -159,6 +160,7 @@ public class TaskActionController extends EventController {
           resBuilder, cityRankList);
       if (legitAction) {
         cityId = task.getCityId();
+        City city = CityRetrieveUtils.getCityForCityId(cityId);
         int cityRank = cityRankList.get(0);
         previousSilver = user.getCoins() + user.getVaultBalance();
         
@@ -168,7 +170,6 @@ public class TaskActionController extends EventController {
         //expGained = calculateExpGained(resBuilder, task);
         lootEquipId = chooseLootEquipId(task);
         lockBoxEventId = checkIfUserAcquiresLockBox(user, task, clientTime);
-        ucg = checkIfGemDropped(userId, cityId);
         
         //if equip dropped give it to him
         lootEquipId = giveEquip(resBuilder, userId, lootEquipId);
@@ -177,9 +178,12 @@ public class TaskActionController extends EventController {
         //if (cityRank < ControllerConstants.TASK_ACTION__MAX_CITY_RANK) {
         Map<Integer, Integer> taskIdToNumTimesActedInRank = UserTaskRetrieveUtils
             .getTaskIdToNumTimesActedInRankForUser(userId);
-
+        
         //num times the user did this task + 1
         int numTimesActedInRank = determineNumTimesTaskCompleted(taskId,
+            taskIdToNumTimesActedInRank);
+        
+        ucg = checkIfGemDropped(userId, user, cityId, city, cityRank,
             taskIdToNumTimesActedInRank);
         
         //if user already completed this task, don't record
@@ -197,7 +201,6 @@ public class TaskActionController extends EventController {
         
         if (cityRankedUp) {
           //user gets bonus exp and coins when city ranks up
-          City city = CityRetrieveUtils.getCityForCityId(cityId);
           coinBonus = coinBonusOnCityRankup(city, cityRank);
           expBonus = expBonusOnCityRankup(city, cityRank);
         }
@@ -708,10 +711,114 @@ public class TaskActionController extends EventController {
   
   //for now, give a user one gem until the player has all
   //five gems, then don't give any gems
-  private UserCityGem checkIfGemDropped(int userId, int cityId) {
+  //starting users should get all non boss gems before the
+  //city's first rank up
+  private UserCityGem checkIfGemDropped(int userId, User user, int cityId,
+      City c, int cityRank, Map<Integer, Integer> taskIdToNumTimesActedInRank) {
     Map<Integer, UserCityGem> gemIdsToUserCityGems = UserCityGemRetrieveUtils
         .getGemIdsToGemsForUserAndCity(userId, cityId);
     
+    boolean hasPrestige = (user.getPrestigeLevel() > 0);
+    boolean isKirinVillage =
+        (c.getId() == ControllerConstants.TUTORIAL__FIRST_NEUTRAL_CITY_ID);
+    boolean kirinVillageUnranked = (1 == cityRank);
+    
+    if (!hasPrestige && isKirinVillage && kirinVillageUnranked) {
+      //starting users should get all non boss gems before the
+      //city's first rank up
+      return selectGemForNoob(userId, cityId, gemIdsToUserCityGems,
+          taskIdToNumTimesActedInRank);
+    } else {
+      return selectGemRandomly(userId, cityId, gemIdsToUserCityGems);
+    }
+  }
+  
+  //taskIdToNumActionsBefore contains the tasks user did before
+  //updating the user's tasks
+  //taskIdToNumTimesActedInRank contains the tasks user did after
+  //updating the user's tasks
+  private UserCityGem selectGemForNoob(int userId, int cityId,
+      Map<Integer, UserCityGem> gemIdsToUserCityGems,
+      Map<Integer, Integer> taskIdToNumTimesActedInRank) {
+    
+    //if user has all non boss gems, exit
+    List<Integer> nonbossGemIds = 
+        CityGemRetrieveUtils.getNonbossGemsIds();
+    if (gemIdsToUserCityGems.size() == nonbossGemIds.size()) {
+      return null;
+    }
+    int absoluteNumTapsToRankupCity = 
+        TaskRetrieveUtils.getNumTapsToRankupCity(cityId);
+    
+    //logic now is, every 3rd tap done, give a gem, user starts off
+    //with 2 taps
+    List<Task> tasksForCity =
+        TaskRetrieveUtils.getAllTasksForCityId(cityId);
+    CityGem newGem = gemForCurrentTap(tasksForCity, taskIdToNumTimesActedInRank,
+        nonbossGemIds, absoluteNumTapsToRankupCity, gemIdsToUserCityGems);
+    
+    UserCityGem returnVal = null;
+    //if user got a gem, increment the quantity user has by one
+    if (null != newGem) {
+      int gemId = newGem.getId();
+      if (!gemIdsToUserCityGems.containsKey(gemId)) {
+        UserCityGem ucg = new UserCityGem(userId, cityId, gemId, 0);
+        gemIdsToUserCityGems.put(gemId, ucg);
+      }
+      returnVal = gemIdsToUserCityGems.get(gemId);
+      int newQuantity = returnVal.getQuantity() + 1;
+      returnVal.setQuantity(newQuantity);
+    }
+    return returnVal;
+  }
+  
+  //nonbossGemIds is modified by this method
+  private CityGem gemForCurrentTap(List<Task> tasksForCity,
+      Map<Integer, Integer> taskIdToNumTimesActedInRank,
+      List<Integer> nonbossGemIds, int absoluteNumTapsToRankupCity,
+      Map<Integer, UserCityGem> gemIdsToUserCityGems) {
+    
+    //find out the average amount of taps to get all non boss gems
+    //before ranking up a city, so if currentTapNum is a multiple of it
+    //give a gem
+    int avgTapsToProduceGem =
+        absoluteNumTapsToRankupCity / nonbossGemIds.size(); 
+    
+    //calculate the current tap from the tasks user has done
+    int currentTapNum = getCurrentTapNum(tasksForCity,
+        taskIdToNumTimesActedInRank);
+    
+    //if user can get a gem, give him a gem he has not gotten already
+    if (0 != currentTapNum % avgTapsToProduceGem) {
+      return null;
+    }
+    
+    //retain gems user has not gotten yet
+    nonbossGemIds.removeAll(gemIdsToUserCityGems.keySet());
+    //give first available gem
+    CityGem returnVal = null;
+    if (!nonbossGemIds.isEmpty()) {
+      int gemId = nonbossGemIds.get(0);
+      returnVal = CityGemRetrieveUtils.getCityGemForId(gemId);
+    }
+    return returnVal;
+  }
+  
+  //calculate the current tap from the tasks user has done
+  private int getCurrentTapNum(List<Task> tasksForCity,
+      Map<Integer, Integer> taskIdToNumTimesActedInRank) {
+    int currentTapNum = 0;
+    for (Task aTask : tasksForCity) {
+      int taskId = aTask.getId();
+      if (taskIdToNumTimesActedInRank.containsKey(taskId)) {
+        currentTapNum += taskIdToNumTimesActedInRank.get(taskId);
+      }
+    }
+    return currentTapNum;
+  }
+  
+  private UserCityGem selectGemRandomly(int userId, int cityId,
+      Map<Integer, UserCityGem> gemIdsToUserCityGems) {
     float dropProbability = ControllerConstants.TASK_ACTION__GEM_DROP_RATE;
     Random rand = new Random();
     float randFloat = rand.nextFloat();
@@ -736,6 +843,12 @@ public class TaskActionController extends EventController {
     if (null != cg) {
       //increment the quantity by 1
       int gemId = cg.getId();
+      
+      //base case, in case user does not have this gem
+      if (!gemIdsToUserCityGems.containsKey(gemId)) {
+        UserCityGem ucg = new UserCityGem(userId, cityId, gemId, 0);
+        gemIdsToUserCityGems.put(gemId, ucg);
+      }
       returnValue = gemIdsToUserCityGems.get(gemId);
       int newQuantity = returnValue.getQuantity() + 1;
       returnValue.setQuantity(newQuantity);
@@ -768,7 +881,7 @@ public class TaskActionController extends EventController {
     List<CityGem> potentialGems = getPotentialGems(allowDuplicates,
         gemIdsToUserCityGems, gemIdsToActiveCityGems);   
     
-    //efficiency check
+    //efficiency check, if <= 1 gem left return returnValue
     int size = potentialGems.size();
     if (1 == size) {
       returnValue = potentialGems.get(0);
