@@ -3,7 +3,9 @@ package com.lvl6.retrieveutils.rarechange;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -22,7 +24,34 @@ import com.lvl6.utils.DBConnection;
   private static Map<Integer, CityGem> activeCityGemIdsToCityGems;
 
   private static final String TABLE_NAME = DBConstants.TABLE_CITY_GEMS;
+  
+  public static List<Integer> getNonbossGemsIds() {
+    List<Integer> returnValue = new ArrayList<Integer>();
+    if (activeCityGemIdsToCityGems == null) {
+      setStaticActiveCityGemIdsToCityGems();
+    }
+    if (null == activeCityGemIdsToCityGems) {
+      log.error("unexpected error: no city gems exist");
+      return returnValue;
+    }
+    
+    for (CityGem cg : activeCityGemIdsToCityGems.values()) {
+      if (!cg.isDroppedOnlyFromBosses()) {
+        int id = cg.getId();
+        returnValue.add(id);
+      }
+    }
+    
+    return returnValue;
+  }
 
+  public static CityGem getCityGemForId(int gemId) {
+    if (activeCityGemIdsToCityGems == null) {
+      setStaticActiveCityGemIdsToCityGems();
+    }
+    return activeCityGemIdsToCityGems.get(gemId);
+  }
+  
   public static Map<Integer, CityGem> getActiveCityGemIdsToCityGems() {
     log.debug("retrieving all cityGems data map");
     if (activeCityGemIdsToCityGems == null) {
