@@ -191,7 +191,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     try {
       //get the booster pack for this city
       City c = CityRetrieveUtils.getCityForCityId(cityId);
-      int boosterPackId = 1;//c.getBoosterPackIdDropped();
+      int boosterPackId = c.getBoosterPackId();
+      if (ControllerConstants.NOT_SET == boosterPackId) {
+        log.error("unexpected error: no booster pack id associated with" +
+        		" this city. city=" + c);
+        return false;
+      }
       int expectedNumEquips = 1;
 
       //"buy" the booster pack
