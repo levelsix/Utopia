@@ -7,7 +7,7 @@ public class Boss implements Serializable {
   private int id;
   private int cityId;
   private int assetNumberWithinCity;
-  private int energyCost;
+  private int regularAttackEnergyCost;
   private int minDamage;
   private int maxDamage;
   private int minutesToKill;
@@ -16,7 +16,7 @@ public class Boss implements Serializable {
   private float superAttackDamageMultiplier;
   private int superAttackEnergyCost;
   
-  public Boss(int id, int cityId, int assetNumberWithinCity, int energyCost,
+  public Boss(int id, int cityId, int assetNumberWithinCity, int regularAttackEnergyCost,
       int minDamage, int maxDamage, int minutesToKill, int baseHealth,
       int baseExp, float superAttackDamageMultiplier,
       int superAttackEnergyCost) {
@@ -24,7 +24,7 @@ public class Boss implements Serializable {
     this.id = id;
     this.cityId = cityId;
     this.assetNumberWithinCity = assetNumberWithinCity;
-    this.energyCost = energyCost;
+    this.regularAttackEnergyCost = regularAttackEnergyCost;
     this.minDamage = minDamage;
     this.maxDamage = maxDamage;
     this.minutesToKill = minutesToKill;
@@ -58,12 +58,12 @@ public class Boss implements Serializable {
     this.assetNumberWithinCity = assetNumberWithinCity;
   }
 
-  public int getEnergyCost() {
-    return energyCost;
+  public int getRegularAttackEnergyCost() {
+    return regularAttackEnergyCost;
   }
 
-  public void setEnergyCost(int energyCost) {
-    this.energyCost = energyCost;
+  public void setRegularAttackEnergyCost(int regularAttackEnergyCost) {
+    this.regularAttackEnergyCost = regularAttackEnergyCost;
   }
 
   public int getMinDamage() {

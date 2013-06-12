@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
@@ -19,8 +20,10 @@ import com.lvl6.events.response.BossActionResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Boss;
 import com.lvl6.info.BossReward;
+import com.lvl6.info.CityGem;
 import com.lvl6.info.User;
 import com.lvl6.info.UserBoss;
+import com.lvl6.info.UserCityGem;
 import com.lvl6.info.UserEquip;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
@@ -30,10 +33,13 @@ import com.lvl6.proto.EventProto.BossActionResponseProto.BossActionStatus;
 import com.lvl6.proto.EventProto.BossActionResponseProto.Builder;
 import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.UserCityGemProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserBossRetrieveUtils;
+import com.lvl6.retrieveutils.UserCityGemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRewardRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.CityGemRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
@@ -81,57 +87,58 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     try {
       User aUser = RetrieveUtils.userRetrieveUtils().getUserById(userId);
       Boss aBoss = BossRetrieveUtils.getBossForBossId(bossId);
+      List<UserBoss> userBossList = new ArrayList<UserBoss>();
       int previousSilver = 0;
       int previousGold = 0;
 
-      boolean legit = checkLegit(resBuilder, aUser, aBoss, curTime);
+      //userBossList should be populated if successful
+      boolean legit = checkLegit(resBuilder, aUser, userId, aBoss,
+          bossId, curTime, isSuperAttack, userBossList);
       
       if(legit) {
-        UserBoss aUserBoss = UserBossRetrieveUtils.getSpecificUserBoss(userId, bossId);
+        UserBoss aUserBoss = userBossList.get(0);
+        previousSilver = aUser.getCoins() + aUser.getVaultBalance();
+        previousGold = aUser.getDiamonds();
 
-        if(null == aUserBoss) {
-          aUserBoss = createUserBoss(aUser, aBoss, curTime);
-        }
+        //aUserBoss will be modified to account for user's attack
+        Map<String, Integer> damageExp = 
+            attackBoss(resBuilder, aUserBoss, aUser, aBoss, curTime, isSuperAttack);
+        int damageDone = damageExp.get(damage);
+        int expGained = damageExp.get(experience);
+        
+        //get the city gem the user gets
+        Map<Integer, UserCityGem> gemIdsToUserCityGems = new HashMap<Integer, UserCityGem>();
+        int cityId = aBoss.getCityId();
+        CityGem cg = determineIfGemDropped(aUserBoss, userId, cityId,
+            gemIdsToUserCityGems);
+        List<BossReward> brList = determineLoot(aUserBoss);
 
-        //set the BossActionStatus to return. Determine if user can attack
-        boolean userCanAttack = canAttack(resBuilder, aUserBoss, aUser, aBoss, curTime);
+        List<Integer> allSilver = new ArrayList<Integer>();
+        List<Integer> allGold = new ArrayList<Integer>();
+        List<Integer> allEquipIds = new ArrayList<Integer>();
+        Map<String, Integer> money = new HashMap<String, Integer>();
+        List<Integer> allUserEquipIds = new ArrayList<Integer>();
 
-        if(userCanAttack) {   
-          previousSilver = aUser.getCoins() + aUser.getVaultBalance();
-          previousGold = aUser.getDiamonds();
-          
-          Map<String, Integer> damageExp = 
-              attackBoss(resBuilder, aUserBoss, aUser, aBoss, curTime, isSuperAttack);
-          int damageDone = damageExp.get(damage);
-          int expGained = damageExp.get(experience);
-          resBuilder.setDamageDone(damageDone);
-          resBuilder.setExpGained(expGained);
+        //set silver, gold, equips
+        separateSilverGoldAndEquips(resBuilder, brList, allSilver, allGold, allEquipIds, money);
 
-          List<BossReward> brList = determineLoot(aUserBoss);
+        //generate levels for each equip
+        List<Integer> levels = generateLevelsForEquips(allEquipIds);
 
-          List<Integer> allSilver = new ArrayList<Integer>();
-          List<Integer> allGold = new ArrayList<Integer>();
-          List<Integer> allEquipIds = new ArrayList<Integer>();
-          Map<String, Integer> money = new HashMap<String, Integer>();
-          List<Integer> allUserEquipIds = new ArrayList<Integer>();
+        writeChangesToDB(resBuilder, aUserBoss, aUser, aBoss, isSuperAttack,
+            money, allEquipIds, levels, allUserEquipIds, curTime, expGained);
+        writeUserCityGems(resBuilder, userId, cityId, cg, gemIdsToUserCityGems);
+        
+        //send stuff back to client
+        resBuilder.setDamageDone(damageDone);
+        resBuilder.setExpGained(expGained);
+        resBuilder.addAllCoinsGained(allSilver);
+        resBuilder.addAllDiamondsGained(allGold);
+        List<FullUserEquipProto> ueList = getFullUserEquipProtosForClient(
+            resBuilder, allUserEquipIds, aUser.getId(), allEquipIds, levels);
+        resBuilder.addAllLootUserEquip(ueList);
 
-          //set silver, gold, equips
-          separateSilverGoldAndEquips(resBuilder, brList, allSilver, allGold, allEquipIds, money);
-          resBuilder.addAllCoinsGained(allSilver);
-          resBuilder.addAllDiamondsGained(allGold);
-
-          //generate levels for each equip
-          List<Integer> levels = generateLevelsForEquips(allEquipIds);
-
-          writeChangesToDB(resBuilder, aUserBoss, aUser, aBoss, money, 
-              allEquipIds, levels, allUserEquipIds, curTime, expGained);
-          //send stuff back to client
-          List<FullUserEquipProto> ueList = getFullUserEquipProtosForClient(
-              resBuilder, allUserEquipIds, aUser.getId(), allEquipIds, levels);
-          resBuilder.addAllLootUserEquip(ueList);
-          
-          writeToUserCurrencyHistory(aUser, money, curTime, previousSilver, previousGold);
-        }
+        writeToUserCurrencyHistory(aUser, money, curTime, previousSilver, previousGold);
       }
       BossActionResponseEvent resEvent = new BossActionResponseEvent(userId);
       resEvent.setTag(event.getTag());
@@ -153,25 +160,52 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
    * Return true if user request is valid; false otherwise and set the
    * builder status to the appropriate value.
    */
-  private boolean checkLegit (Builder resBuilder, User u, Boss b,
-      Timestamp curTime) {
+  private boolean checkLegit(Builder resBuilder, User u, int userId, Boss b,
+      int bossId, Timestamp curTime, boolean isSuperAttack,
+      List<UserBoss> userBossList) {
     if (null == u || null == b) {
       log.error("unexpected error: user or boss is null. user=" + u
           + "\t boss="+ b);
-      resBuilder.setStatus(BossActionStatus.FAIL_OTHER);
       return false;
     }
-    //copy pasted from PickLockBoxController.java checkLegitPick()
+    //copy pasted from PickLockBoxController.java Pick()
     if (!MiscMethods.checkClientTimeAroundApproximateNow(curTime)) {
       log.error("client time too apart of server time. client time =" + curTime + ", servertime~="
           + new Date());
       resBuilder.setStatus(BossActionStatus.FAIL_CLIENT_TOO_APART_FROM_SERVER_TIME);
       return false;
     } 
-    if(!userHasSufficientEnergy(u, b)) {
+    if(!userHasSufficientEnergy(u, b, isSuperAttack)) {
       log.error("user error: use does not have enough energy to attack boss" +
           "user energy=" + u.getEnergy() + "\t boss=" + b);
       resBuilder.setStatus(BossActionStatus.FAIL_USER_NOT_ENOUGH_ENERGY);
+      return false;
+    }
+    
+    //In order to attack boss, user needs to rank up a city. When ranking
+    //up a city, a user_boss entry should be created/updated.
+    //Ergo entry in user_bosses should exist when this controller executes.
+    UserBoss aUserBoss = UserBossRetrieveUtils.getSpecificUserBoss(userId, bossId);
+    if(null == aUserBoss) {
+      log.error("unexpected error: user_boss should exist before user can" +
+      		" event send BossActionRequest. user=" + u + "\t boss=" + b);
+      return false;
+    }
+    userBossList.add(aUserBoss);
+    
+    //check if user can attack the boss
+    if (!inAttackWindow(aUserBoss, u, b, curTime)) {
+      log.error("user error: user is trying to attack a boss outside of the" +
+      		" allotted time. boss=" + b + "\t userboss=" + aUserBoss);
+      resBuilder.setStatus(BossActionStatus.FAIL_ATTACK_WINDOW_EXPIRED);
+      return false;
+    }
+    
+    //check if boss is alive
+    if (aUserBoss.getCurrentHealth() <= 0) {
+      log.error("user error: user is trying to attack a dead boss. boss=" +
+          b + "\t userBoss=" + aUserBoss);
+      resBuilder.setStatus(BossActionStatus.FAIL_BOSS_IS_DEAD);
       return false;
     }
     
@@ -181,106 +215,33 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   /* 
    * Return true if user has energy >= to energy cost to attack boss
    */
-  private boolean userHasSufficientEnergy(User u, Boss b) {
+  private boolean userHasSufficientEnergy(User u, Boss b,
+      boolean isSuperAttack) {
+    int energyCost = b.getRegularAttackEnergyCost();
+    if (isSuperAttack) {
+      energyCost = b.getSuperAttackEnergyCost();
+    }
     int userEnergy = u.getEnergy();
-    int bossEnergyCost = b.getEnergyCost();
-    boolean enough = userEnergy >= bossEnergyCost;
-    return enough;
+    boolean enoughEnergy = userEnergy >= energyCost;
+    return enoughEnergy;
   }
 
   /*
-   * Make a new UserBoss: full health, 0 for numTimesKilled, now for startTime.
-   */
-  private UserBoss createUserBoss(User u, Boss b, Timestamp curTime) {
-    int userId = u.getId();
-    int bossId = b.getId();
-    int currentHealth = b.getBaseHealth();
-    int currentLevel = 0;
-    Date now = new Date(curTime.getTime());
-    return new UserBoss(bossId, userId, currentHealth,
-        currentLevel, now);
-  }
-
-  /*
-   * Returns true if the user can attack, false otherwise. The user can attack if the boss has positive
-   * nonzero health and the time the user attacks is between start_time (in kingdom.user_bosses table)
+   * Returns true if the user can attack, false otherwise. The user can attack if
+   * the time the user attacks is between start_time (in kingdom.user_bosses table)
    * and start_time + minutes_to_kill (in kingdom.bosses table). 
-   * Resets user_boss's start_time and cur_health if boss can respawn.
-   * Sets BossActionStatus to one of the following:
-   * 	BOSS_HAS_NOT_SPAWNED
-   * 	CLIENT_TOO_APART_FROM_SERVER_TIME
-   * 	OTHER_FAIL
-   * 	SUCCESS
    */
-  private boolean canAttack(Builder resBuilder, UserBoss aUserBoss, User aUser, Boss aBoss, Timestamp curTime) {
-    //CHECK IF USER CAN ATTACK BOSS. DETERMINED BY THE TIME INTERVALS:
-    // case 1:
-    // - start_time or last_killed_time in kingdom.user_bosses table 
-    // - minutes_to_kill in kingdom.bosses table
-    // so time interval is [start_time, start_time + minutes_to_kill] or
-    //case 2:
-    // let start_time2 = last_killed_time + minutes_to_respawn
-    // [start_time2, start_time2 + minutes_to_kill] 
-
-    long timeAllocatedToKill = 60000*aBoss.getMinutesToKill();
-    //long timeAllocatedToRespawn = 60000*aBoss.getMinutesToRespawn();
+  private boolean inAttackWindow(UserBoss aUserBoss, User u, Boss b,
+      Timestamp curTime) {
+    Date timeOfFirstHit = aUserBoss.getStartTime();
+    int attackWindow = b.getMinutesToKill();
+    DateTime timeForLastHit = new DateTime(timeOfFirstHit);
+    timeForLastHit.plusMinutes(attackWindow);
     
-    //case 1
-    long startTime = aUserBoss.getStartTime().getTime(); //the time the user initially attacked boss
-    long lastPossibleTimeToAttack = startTime + timeAllocatedToKill; //the last possible time user can attack boss
-    long timeOfAttack = curTime.getTime();
-//    long timeBossRespawns = lastPossibleTimeToAttack + timeAllocatedToRespawn;
-
-    //case 2
-    //Date lastKilledTime = aUserBoss.getLastTimeKilled();
-//    if(null != lastKilledTime) {
-//      //user killed boss 
-//      long lastKilledTimeMilliseconds = lastKilledTime.getTime();
-//
-//      startTime = lastKilledTimeMilliseconds; //doesn't matter what this value is
-//      lastPossibleTimeToAttack = lastKilledTimeMilliseconds; //time should be a value before curTime
-      
-//      timeBossRespawns = lastKilledTimeMilliseconds + timeAllocatedToRespawn;
-      
-      //values are set like this to ensure "boss needs to respawn" or "boss has respawned" case executes
-//    }
-    
-    if (startTime <= timeOfAttack && timeOfAttack < lastPossibleTimeToAttack) {
-      boolean bossHasHealth = (aUserBoss.getCurrentHealth() > 0);
-
-      if(bossHasHealth) {
-        //user can attack
-        resBuilder.setStatus(BossActionStatus.SUCCESS);
-        return true;
-      }   else {
-        //can't attack because boss is already dead
-        log.error("client is attacking a dead boss. \n" 
-            + "time user launched attack = " + curTime + ". \n" + "user is " + aUser + ". \n"
-            + "boss is " + aBoss + ". \n " + "user_boss is " + aUserBoss + ". \n");
-        resBuilder.setStatus(BossActionStatus.FAIL_BOSS_HAS_NOT_SPAWNED);
-        return false;
-      }
-
-    }	
-//    else if (lastPossibleTimeToAttack <= timeOfAttack && timeOfAttack < timeBossRespawns) {
-//      //user can't attack because boss needs to respawn
-//      log.error("boss has not respawned yet. time boss first attacked = " +  aUserBoss.getStartTime()
-//          + "; last possible time to attack boss = " + new Date(lastPossibleTimeToAttack)
-//      + "; time user launched attack = " + curTime);
-//      resBuilder.setStatus(BossActionStatus.FAIL_BOSS_HAS_NOT_SPAWNED);
-//      return false;
-//    } else if (timeBossRespawns <= timeOfAttack) {
-//      //boss has respawned
-//      resBuilder.setStatus(BossActionStatus.SUCCESS);
-//      aUserBoss.setCurrentHealth(aBoss.getBaseHealth());
-//      aUserBoss.setStartTime(new Date(curTime.getTime()));
-//      
-//      aUserBoss.setLastTimeKilled(null);
-//      return true;
-//    }
-
-    resBuilder.setStatus(BossActionStatus.FAIL_OTHER);
-    return false;
+    if (timeForLastHit.isBefore(curTime.getTime())) {
+      return false;
+    }
+    return true;
   }
 
 
@@ -298,15 +259,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 		expGained = generateExpGained(aBoss, isSuperAttack, individualDamages, aUser.getLevel());
 		
 		int currentHealth = aUserBoss.getCurrentHealth() - damageGenerated;
-		int currentLevel = aUserBoss.getCurrentLevel();
 		if (0 >= currentHealth) {
 			//boss killed
 			currentHealth = 0;
-			currentLevel++;
 		}
 	  
 		aUserBoss.setCurrentHealth(currentHealth);
-		aUserBoss.setCurrentLevel(currentLevel);
 		
 		Map<String, Integer> damageExp = new HashMap<String, Integer>();
 		damageExp.put(damage, damageGenerated);
@@ -369,8 +327,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private int generateExpGained(Boss aBoss, boolean isSuperAttack, 
       List<Integer> individualDamages, int userLevel) {
     int expGained = 1;
-//    int minExp = aBoss.getMinExp();
-//    int maxExp = aBoss.getMaxExp();
+    int minExp = aBoss.getBaseExp();
+    int maxExp = aBoss.getBaseExp() * 2;
 
     if(isSuperAttack) {
       log.info("superattack");
@@ -381,37 +339,73 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int indexOfLastDamage = individualDamages.size() - 1;
       for(int i = 0; i < indexOfLastDamage; i++) {
         int dmgDone = individualDamages.get(i); //not really needed because of new formula
-        //int exp = calculateExpGained(minExp, maxExp);
-//        int exp = generateNumInRange(minExp, maxExp);
-//        exp = Math.max(1, exp + userLevel);
-//        expGained += exp;
-//
-//        log.info("damage=" + dmgDone + ", exp=" + exp);
+        int exp = generateNumInRange(minExp, maxExp);
+        exp = Math.max(1, exp + userLevel);
+        expGained += exp;
+
+        log.info("damage=" + dmgDone + ", exp=" + exp);
       }
 
       int lastDmgDone = individualDamages.get(indexOfLastDamage); //not really needed, just for logging
-      //int lastExp = calculateExpGained(minExp, maxExp);
-//      int lastExp = generateNumInRange(minExp, maxExp);
+      int lastExp = generateNumInRange(minExp, maxExp);
       
-//      if(superAttack != integerPart) {
-//        lastExp = (int) (lastExp * fractionalPart); //truncating some values
-//        lastExp = Math.max(1, lastExp + userLevel); //once again, minimum exp could be 1 and 1*(float from 0 to 1) is 0
-//        log.info("super attack not a whole number.");
-//      }
-//      log.info("lastDmgDone=" + lastDmgDone + ", the last exp gained=" + lastExp);
-//      expGained += lastExp;  
+      if(superAttack != integerPart) {
+        lastExp = (int) (lastExp * fractionalPart); //truncating some values
+        lastExp = Math.max(1, lastExp + userLevel); //once again, minimum exp could be 1 and 1*(float from 0 to 1) is 0
+        log.info("super attack not a whole number.");
+      }
+      log.info("lastDmgDone=" + lastDmgDone + ", the last exp gained=" + lastExp);
+      expGained += lastExp;  
 
     } else {
       int dmgDone = individualDamages.get(0);
-      //int exp = calculateExpGained(minExp, maxExp);
-//      int exp = generateNumInRange(minExp, maxExp);
-//      exp = Math.max(1, exp + userLevel);
-//      expGained += exp;
-//
-//      log.info("damage=" + dmgDone + ", exp=" + exp);
+      int exp = generateNumInRange(minExp, maxExp);
+      exp = Math.max(1, exp + userLevel);
+      expGained += exp;
+
+      log.info("damage=" + dmgDone + ", exp=" + exp);
     }
 
     return expGained;
+  }
+  
+  private CityGem determineIfGemDropped(UserBoss aUserBoss, int userId,
+      int cityId, Map<Integer, UserCityGem> gemIdsToUserCityGems) {
+    if (aUserBoss.getCurrentHealth() > 0) {
+      return null;
+    }
+    
+    Map<Integer, CityGem> gemIdsToActiveCityGems = 
+        CityGemRetrieveUtils.getActiveCityGemIdsToCityGems();
+    if (null == gemIdsToActiveCityGems || gemIdsToActiveCityGems.isEmpty()) {
+      log.error("unexpected error: no city gems in the db!");
+      return null;
+    }
+    Map<Integer, UserCityGem> gemIdsToUserCityGemsTemp = UserCityGemRetrieveUtils
+        .getGemIdsToGemsForUserAndCity(userId, cityId);
+    
+    //select the next boss gem the user gets
+    boolean getBossGem = true;
+    boolean allowDuplicates = false;
+    List<CityGem> potentialBossGems = MiscMethods.getPotentialGems(
+        allowDuplicates, getBossGem, gemIdsToUserCityGemsTemp,
+        gemIdsToActiveCityGems);
+    
+    //assuming only one boss gem
+    if (potentialBossGems.isEmpty()) {
+      return null;
+    }
+    
+    //if randFloat is between [bossGemDropRate, 1), don't give a gem
+    CityGem cg = potentialBossGems.get(0); 
+    Random rand = new Random();
+    float bossGemDropRate = cg.getDropRate();
+    float randFloat = rand.nextFloat();
+    
+    if (randFloat >= bossGemDropRate) {
+      cg = null;
+    }
+    return cg;
   }
   
   private List<BossReward> determineLoot(UserBoss aUserBoss) { 
@@ -599,8 +593,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return levels;
   }
 
-  private void writeChangesToDB(Builder resBuilder, UserBoss aUserBoss, User aUser, Boss aBoss,
-      Map<String, Integer> money, List<Integer> allEquipIds, List<Integer> levels,
+  private void writeChangesToDB(Builder resBuilder, UserBoss aUserBoss, User aUser,
+      Boss aBoss, boolean isSuperAttack, Map<String, Integer> money,
+      List<Integer> allEquipIds, List<Integer> levels,
       List<Integer> allUserEquipIds, Timestamp clientTime, int expChange) {
     
     int bossId = aUserBoss.getBossId();
@@ -616,9 +611,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int goldChange = money.get(MiscMethods.gold);
 
     //update users table regarding silver and gold
-    boolean simulateStaminaRefill = aUser.getStamina() == aUser.getStaminaMax();
-    if(!aUser.updateUserAfterAttackingBoss(-aBoss.getEnergyCost(), silverChange, 
-        goldChange, simulateStaminaRefill, clientTime, expChange) ){
+    boolean simulateEnergyRefill = aUser.getEnergy() == aUser.getEnergyMax();
+    int energyCost = aBoss.getRegularAttackEnergyCost();
+    if (isSuperAttack) {
+      energyCost = aBoss.getSuperAttackEnergyCost();
+    }
+    if(!aUser.updateUserAfterAttackingBoss(-1 * energyCost, silverChange, 
+        goldChange, simulateEnergyRefill, clientTime, expChange) ){
       log.error("Error in updating user after attacking a boss.");
       return;
     }
@@ -640,6 +639,39 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.info("id of new boss reward drop history row: " + bossRewardDropHistoryId);
 //      int numUpdated = InsertUtils.get().insertIntoBossEquipDropHistory(bossRewardDropHistoryId, allEquipIds);
 //      log.info("number of distinct equips boss dropped=" + numUpdated + ". The equips are: " + allEquipIds);
+    }
+  }
+  
+  //increase the user's city gem by 1
+  private void writeUserCityGems(Builder resBuilder, int userId, int cityId,
+      CityGem cg, Map<Integer, UserCityGem> gemIdsToUserCityGems) {
+    if (null == cg) {
+      return;
+    }
+    
+    int gemId = cg.getId();
+    int quantity = 0;
+    UserCityGem ucg = null;
+    
+    //if the user has this gem already, get the quantity
+    if (gemIdsToUserCityGems.containsKey(gemId)) {
+      ucg = gemIdsToUserCityGems.get(gemId);
+      quantity = ucg.getQuantity();
+    } else {
+      ucg = new UserCityGem(userId, cityId, gemId, quantity);
+    }
+    
+    int newQuantity = quantity + 1;
+    ucg.setQuantity(newQuantity);
+    
+    //update the quantity for user's gem in the database
+    if (!UpdateUtils.get().updateUserCityGem(userId, cityId, gemId, newQuantity) ) {
+      log.error("unexpected error: did not update the user's gems. "
+          + "userCityGem=" + ucg);
+    } else {
+      //send this to the client
+      UserCityGemProto gem = CreateInfoProtoUtils.createUserCityGemProto(ucg);
+      resBuilder.setGemDropped(gem);
     }
   }
 

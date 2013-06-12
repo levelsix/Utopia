@@ -2119,4 +2119,114 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     
     return Math.min(maxEnergyCost, calculatedCost);
   }
+  
+  //the user can only get one of each gem until the full set is acquired
+  //or the user gets gems regardless if the full set is acquired
+  public static  CityGem selectCityGemOne(boolean allowDuplicates,
+      boolean getBossGem, Map<Integer, UserCityGem> gemIdsToUserCityGems,
+      Map<Integer, CityGem> gemIdsToActiveCityGems, Random rand) {
+    CityGem returnValue = null;
+    List<CityGem> potentialGems = getPotentialGems(allowDuplicates,
+        getBossGem, gemIdsToUserCityGems, gemIdsToActiveCityGems);   
+    
+    //efficiency check, if <= 1 gem left return returnValue
+    int size = potentialGems.size();
+    if (1 == size) {
+      returnValue = potentialGems.get(0);
+      return returnValue;
+    } else if (0 == size) {
+      return returnValue;
+    }
+    
+    float probabilityForNoGem = getProbabilityForNoGem(potentialGems);
+    float randFloat = rand.nextFloat();
+    if (randFloat < probabilityForNoGem) {
+      //user gets nothing
+      return returnValue;
+    }
+    
+    returnValue = selectFromGems(randFloat,
+        probabilityForNoGem, potentialGems);
+    return returnValue;
+  }
+  
+  public static List<CityGem> getPotentialGems(boolean allowDuplicates,
+      boolean getBossGem, Map<Integer, UserCityGem> gemIdsToUserCityGems,
+      Map<Integer, CityGem> gemIdsToActiveCityGems) {
+    List<CityGem> potentialGems =  new ArrayList<CityGem>();
+    
+    for (int gemId : gemIdsToActiveCityGems.keySet()) {
+      CityGem cg = gemIdsToActiveCityGems.get(gemId);
+      
+      //if nonboss gems are requested exclude gems dropped from bosses
+      //if boss gems are requested exclude gems not dropped from bosses 
+      boolean droppedFromBosses = cg.isDroppedOnlyFromBosses();
+      if (droppedFromBosses != getBossGem) {
+        continue;
+      }
+      
+      //maybe exclude this gem if user already has one
+      UserCityGem ucg = gemIdsToUserCityGems.get(gemId);
+      int quantityUserHas = 0;
+      if (null != ucg) {
+        quantityUserHas = ucg.getQuantity();
+      }
+      
+      if (allowDuplicates) {
+        //don't care if the user has this gem already.
+        potentialGems.add(cg);
+        
+      } else if (!allowDuplicates && 0 == quantityUserHas) {
+        //since only allow user to have one set of gems,
+        //get only those with 0 quantity
+        potentialGems.add(cg);
+      }
+      
+    }
+    
+    return potentialGems;
+  }
+  
+  public static float getProbabilityForNoGem(List<CityGem> potentialGems) {
+    float probabilityForNoGem = 1.0f;
+    
+    for (CityGem cg : potentialGems) {
+      float dropRate = cg.getDropRate();
+      probabilityForNoGem -= dropRate;
+    }
+    
+    return probabilityForNoGem;
+  }
+  
+  
+  public static CityGem selectFromGems(float randFloat,
+      float probabilityForNoGem, List<CityGem> potentialGems) {
+    CityGem returnValue = null;
+    //loop through potential gems and choose a gem to give out
+    float probabilityForCurrentGem = probabilityForNoGem;
+    for (CityGem cg : potentialGems) {
+      float dropRate = cg.getDropRate();
+      probabilityForCurrentGem += dropRate;
+      if (randFloat < probabilityForCurrentGem) {
+        returnValue = cg;
+        break;
+      }
+    }
+    return returnValue;
+  }
+  
+  //the user can get as many gems as he wants
+  public static CityGem selectCityGemTwo(boolean allowDuplicates,
+      boolean getBossGem, Map<Integer, UserCityGem> gemIdsToUserCityGems,
+      Map<Integer, CityGem> gemIdsToActiveCityGems, Random rand) {
+    CityGem returnValue = null;
+    List<CityGem> potentialGems = getPotentialGems(allowDuplicates,
+        getBossGem, gemIdsToUserCityGems, gemIdsToActiveCityGems);
+
+    float probabilityForNoGem = 0.0f;
+    float randFloat = rand.nextFloat();
+    returnValue = selectFromGems(randFloat,
+        probabilityForNoGem, potentialGems);
+    return returnValue;
+  }
 }

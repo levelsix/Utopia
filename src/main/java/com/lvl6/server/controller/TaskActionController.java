@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -469,20 +468,26 @@ public class TaskActionController extends EventController {
     //get the current user boss
     UserBoss ub = UserBossRetrieveUtils.getSpecificUserBoss(userId, bossId);
     
-    //record user boss into history
-    Date startDate = ub.getStartTime();
-    Timestamp startTime = new Timestamp(startDate.getTime());
-    int curHealth = ub.getCurrentHealth();
-    int currentLevel = ub.getCurrentLevel();
-    InsertUtils.get().insertIntoUserBossHistory(bossId, userId,
-        startTime, curHealth, currentLevel);
-    
-    //reset boss health and start time and if boss died, increment level
-    int newLevel = currentLevel;
-    Timestamp newSpawnTime = new Timestamp(clientDate.getTime());
-    if (0 == curHealth) {
-      newLevel++;
+    int newLevel = 1;
+    if (null != ub) {
+      //if it exists record user boss into history
+      Date startDate = ub.getStartTime();
+      Timestamp startTime = new Timestamp(startDate.getTime());
+      int curHealth = ub.getCurrentHealth();
+      int currentLevel = ub.getCurrentLevel();
+      InsertUtils.get().insertIntoUserBossHistory(bossId, userId,
+          startTime, curHealth, currentLevel);
+      
+      if (curHealth <= 0) {
+        //user slayed the boss, boss should level up
+        newLevel = currentLevel + 1;
+      } else{
+        //user did not slay the boss, level stays the same
+        newLevel = currentLevel;
+      }
     }
+    
+    Timestamp newSpawnTime = new Timestamp(clientDate.getTime());
     ub.setCurrentHealth(defaultHealth);
     ub.setStartTime(clientDate);
     ub.setCurrentLevel(newLevel);
@@ -872,9 +877,14 @@ public class TaskActionController extends EventController {
       return null;
     }
     
-    //select the next gem the user gets
-    CityGem cg = selectCityGemOne(gemIdsToUserCityGems, gemIdsToActiveCityGems, rand);
-    //CityGem cg = selectCityGemTwo(gemIdsToUserCityGems, gemIdsToActiveCityGems, rand);
+    boolean getBossGem = false;
+    //select the next nonboss gem the user gets
+    boolean allowDuplicates = false;
+    CityGem cg = MiscMethods.selectCityGemOne(allowDuplicates, getBossGem,
+        gemIdsToUserCityGems, gemIdsToActiveCityGems, rand);
+//    boolean allowDuplicates = true;
+//    CityGem cg = MiscMethods.selectCityGemTwo(allowDuplicates, getBossGem,
+//        gemIdsToUserCityGems, gemIdsToActiveCityGems, rand);
     
     UserCityGem returnValue = null;
     if (null != cg) {
@@ -910,113 +920,7 @@ public class TaskActionController extends EventController {
     return numTimesActedInRank;
   }
   
-  //the user can only get one of each gem until the full set is acquired
-  private CityGem selectCityGemOne(Map<Integer, UserCityGem> gemIdsToUserCityGems,
-      Map<Integer, CityGem> gemIdsToActiveCityGems, Random rand) {
-    CityGem returnValue = null;
-    boolean allowDuplicates = false;
-    List<CityGem> potentialGems = getPotentialGems(allowDuplicates,
-        gemIdsToUserCityGems, gemIdsToActiveCityGems);   
-    
-    //efficiency check, if <= 1 gem left return returnValue
-    int size = potentialGems.size();
-    if (1 == size) {
-      returnValue = potentialGems.get(0);
-      return returnValue;
-    } else if (0 == size) {
-      return returnValue;
-    }
-    
-    float probabilityForNoGem = getProbabilityForNoGem(potentialGems);
-    float randFloat = rand.nextFloat();
-    if (randFloat < probabilityForNoGem) {
-      //user gets nothing
-      return returnValue;
-    }
-    
-    returnValue = selectFromGems(randFloat,
-        probabilityForNoGem, potentialGems);
-    return returnValue;
-  }
-  
-  //potential gems are ones that aren't dropped from a boss
-  //and maybe if user does not have one yet
-  private List<CityGem> getPotentialGems(boolean allowDuplicates,
-      Map<Integer, UserCityGem> gemIdsToUserCityGems,
-      Map<Integer, CityGem> gemIdsToActiveCityGems) {
-    List<CityGem> potentialGems =  new ArrayList<CityGem>();
-    
-    for (int gemId : gemIdsToActiveCityGems.keySet()) {
-      CityGem cg = gemIdsToActiveCityGems.get(gemId);
-      //exclude gems dropped from bosses
-      if (cg.isDroppedOnlyFromBosses()) {
-        continue;
-      }
-      
-      //maybe exclude this gem if user already has one
-      UserCityGem ucg = gemIdsToUserCityGems.get(gemId);
-      int quantityUserHas = 0;
-      if (null != ucg) {
-        quantityUserHas = ucg.getQuantity();
-      }
-      
-      if (allowDuplicates) {
-        //don't care if the user has this gem already.
-        potentialGems.add(cg);
-        
-      } else if (!allowDuplicates && 0 == quantityUserHas) {
-        //since only allow user to have one set of gems,
-        //get only those with 0 quantity
-        potentialGems.add(cg);
-      }
-      
-    }
-    
-    return potentialGems;
-  }
-  
-  private float getProbabilityForNoGem(List<CityGem> potentialGems) {
-    float probabilityForNoGem = 1.0f;
-    
-    for (CityGem cg : potentialGems) {
-      float dropRate = cg.getDropRate();
-      probabilityForNoGem -= dropRate;
-    }
-    
-    return probabilityForNoGem;
-  }
-  
-  private CityGem selectFromGems(float randFloat, float probabilityForNoGem,
-      List<CityGem> potentialGems) {
-    CityGem returnValue = null;
-    //loop through potential gems and choose a gem to give out
-    float probabilityForCurrentGem = probabilityForNoGem;
-    for (CityGem cg : potentialGems) {
-      float dropRate = cg.getDropRate();
-      probabilityForCurrentGem += dropRate;
-      if (randFloat < probabilityForCurrentGem) {
-        returnValue = cg;
-        break;
-      }
-    }
-    return returnValue;
-  }
 
-  //the user can get as many gems as he wants
-  private CityGem selectCityGemTwo(Map<Integer, UserCityGem> gemIdsToUserCityGems,
-      Map<Integer, CityGem> gemIdsToActiveCityGems, Random rand) {
-    CityGem returnValue = null;
-    boolean allowDuplicates = true;
-    List<CityGem> potentialGems = getPotentialGems(allowDuplicates,
-        gemIdsToUserCityGems, gemIdsToActiveCityGems);
-    
-    float probabilityForNoGem = 0.0f;
-    float randFloat = rand.nextFloat();
-    returnValue = selectFromGems(randFloat,
-        probabilityForNoGem, potentialGems);
-    return returnValue;
-  }
-  
   private int giveEquip(Builder resBuilder, int userId, int lootEquipId) {
     if (lootEquipId != ControllerConstants.NOT_SET) {
       int userEquipId = InsertUtils.get().insertUserEquip(
