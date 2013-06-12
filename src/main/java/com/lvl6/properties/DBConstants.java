@@ -464,7 +464,9 @@ public class DBConstants {
   public static final String BOSSES__MAX_ATTACK = "max_attack";
   public static final String BOSSES__MINUTES_TO_KILL = "minutes_to_kill";
 //  public static final String BOSSES__MINUTES_TO_RESPAWN = "minutes_to_respawn";
-  public static final String BOSSES__EXPERIENCE_GAINED = "experience_gained";
+  public static final String BOSSES__BASS_EXP = "bass_exp";
+  public static final String BOSSES__SUPER_ATTACK_DAMAGE_MULTIPLIER = "super_attack_damage_multiplier";
+  public static final String BOSSES__SUPER_ATTACK_ENERGY_COST = "super_attack_energy_cost";
   
   /*USER BOSSES and USER BOSS HISTORY*/
   public static final String USER_BOSS_HISTORY__ID = GENERIC__ID;

@@ -138,11 +138,13 @@ import com.lvl6.utils.DBConnection;
     int minDamage = rs.getInt(i++);
     int maxDamage = rs.getInt(i++);
     int minutesToKill = rs.getInt(i++);
-    int minExp = rs.getInt(i++);
-    int maxExp = rs.getInt(i++);
+    int baseExp = rs.getInt(i++);
+    float superAttackDamageMultiplier = rs.getFloat(i++);
+    int superAttackEnergyCost = rs.getInt(i++);
     
     Boss boss = new Boss(id, cityId, assetNumWithinCity, staminaCost, minDamage, 
-        maxDamage, minutesToKill, baseHealth, minExp, maxExp);
+        maxDamage, minutesToKill, baseHealth, baseExp,
+        superAttackDamageMultiplier, superAttackEnergyCost);
     return boss;
   }
 }

@@ -74,17 +74,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     //set some values to send to the client (the response proto)
     BossActionResponseProto.Builder resBuilder = BossActionResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
+    resBuilder.setStatus(BossActionStatus.FAIL_OTHER); //default
     resBuilder.setBossId(bossId);
 
     server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User aUser = RetrieveUtils.userRetrieveUtils().getUserById(userId);
       Boss aBoss = BossRetrieveUtils.getBossForBossId(bossId);
-      resBuilder.setStatus(BossActionStatus.FAIL_OTHER);
       int previousSilver = 0;
       int previousGold = 0;
 
-      if(userHasSufficientStamina(resBuilder, aUser, aBoss)) {
+      boolean legit = checkLegit(resBuilder, aUser, aBoss);
+      
+      if(legit) {
         UserBoss aUserBoss = UserBossRetrieveUtils.getSpecificUserBoss(userId, bossId);
 
         if(null == aUserBoss) {
@@ -147,22 +149,35 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  /* 
-   * Return true if user has stamina >= to stamina cost to attack boss
+  /*
+   * Return true if user request is valid; false otherwise and set the
+   * builder status to the appropriate value.
    */
-  private boolean userHasSufficientStamina(Builder resBuilder, User u, Boss b) {
-    if(null != u && null != b) {
-      int userStamina = u.getStamina();
-      int bossStaminaCost = b.getStaminaCost();
-      boolean enough = userStamina >= bossStaminaCost;
-      if (!enough) {
-        resBuilder.setStatus(BossActionStatus.FAIL_USER_NOT_ENOUGH_ENERGY);
-      } 
-      return enough;
-    } else {
+  private boolean checkLegit (Builder resBuilder, User u, Boss b) {
+    if (null == u || null == b) {
+      log.error("unexpected error: user or boss is null. user=" + u
+          + "\t boss="+ b);
       resBuilder.setStatus(BossActionStatus.FAIL_OTHER);
       return false;
     }
+    if(!userHasSufficientEnergy(u, b)) {
+      log.error("user error: use does not have enough energy to attack boss" +
+          "user energy=" + u.getEnergy() + "\t boss=" + b);
+      resBuilder.setStatus(BossActionStatus.FAIL_USER_NOT_ENOUGH_ENERGY);
+      return false;
+    }
+    
+    return true;
+  }
+  
+  /* 
+   * Return true if user has energy >= to energy cost to attack boss
+   */
+  private boolean userHasSufficientEnergy(User u, Boss b) {
+    int userEnergy = u.getEnergy();
+    int bossEnergyCost = b.getEnergyCost();
+    boolean enough = userEnergy >= bossStaminaCost;
+    return enough;
   }
 
   /*
@@ -354,8 +369,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private int generateExpGained(Boss aBoss, boolean isSuperAttack, 
       List<Integer> individualDamages, int userLevel) {
     int expGained = 1;
-    int minExp = aBoss.getMinExp();
-    int maxExp = aBoss.getMaxExp();
+//    int minExp = aBoss.getMinExp();
+//    int maxExp = aBoss.getMaxExp();
 
     if(isSuperAttack) {
       log.info("superattack");
@@ -367,54 +382,37 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       for(int i = 0; i < indexOfLastDamage; i++) {
         int dmgDone = individualDamages.get(i); //not really needed because of new formula
         //int exp = calculateExpGained(minExp, maxExp);
-        int exp = generateNumInRange(minExp, maxExp);
-        exp = Math.max(1, exp + userLevel);
-        expGained += exp;
-
-        log.info("damage=" + dmgDone + ", exp=" + exp);
+//        int exp = generateNumInRange(minExp, maxExp);
+//        exp = Math.max(1, exp + userLevel);
+//        expGained += exp;
+//
+//        log.info("damage=" + dmgDone + ", exp=" + exp);
       }
 
       int lastDmgDone = individualDamages.get(indexOfLastDamage); //not really needed, just for logging
       //int lastExp = calculateExpGained(minExp, maxExp);
-      int lastExp = generateNumInRange(minExp, maxExp);
+//      int lastExp = generateNumInRange(minExp, maxExp);
       
-      if(superAttack != integerPart) {
-        lastExp = (int) (lastExp * fractionalPart); //truncating some values
-        lastExp = Math.max(1, lastExp + userLevel); //once again, minimum exp could be 1 and 1*(float from 0 to 1) is 0
-        log.info("super attack not a whole number.");
-      }
-      log.info("lastDmgDone=" + lastDmgDone + ", the last exp gained=" + lastExp);
-      expGained += lastExp;  
+//      if(superAttack != integerPart) {
+//        lastExp = (int) (lastExp * fractionalPart); //truncating some values
+//        lastExp = Math.max(1, lastExp + userLevel); //once again, minimum exp could be 1 and 1*(float from 0 to 1) is 0
+//        log.info("super attack not a whole number.");
+//      }
+//      log.info("lastDmgDone=" + lastDmgDone + ", the last exp gained=" + lastExp);
+//      expGained += lastExp;  
 
     } else {
       int dmgDone = individualDamages.get(0);
       //int exp = calculateExpGained(minExp, maxExp);
-      int exp = generateNumInRange(minExp, maxExp);
-      exp = Math.max(1, exp + userLevel);
-      expGained += exp;
-
-      log.info("damage=" + dmgDone + ", exp=" + exp);
+//      int exp = generateNumInRange(minExp, maxExp);
+//      exp = Math.max(1, exp + userLevel);
+//      expGained += exp;
+//
+//      log.info("damage=" + dmgDone + ", exp=" + exp);
     }
 
     return expGained;
   }
-  /*
-  private int calculateExpGained(int minExp, int maxExp) {
-    double minDmg = aBoss.getMinDamage();
-    double maxDmg = aBoss.getMaxDamage();
-    double maxMinDmgDifference = maxDmg - minDmg;
-    
-    double minExp = aBoss.getMinExp();
-    double maxExp = aBoss.getMaxExp();
-    double maxMinExpDifference = maxExp - minExp;
-    
-    double dmgDoneMinDmgDifference = (dmgDone - minDmg);
-    double differencesRatio = dmgDoneMinDmgDifference/maxMinDmgDifference;
-    
-    log.info("differencesRatio=" + differencesRatio);
-    return (int) (minExp + differencesRatio*maxMinExpDifference);
-    
-  }*/
   
   private List<BossReward> determineLoot(UserBoss aUserBoss) { 
     List<BossReward> rewardsAwarded = new ArrayList<BossReward>();

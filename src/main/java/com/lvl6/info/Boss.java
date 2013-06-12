@@ -7,87 +7,81 @@ public class Boss implements Serializable {
   private int id;
   private int cityId;
   private int assetNumberWithinCity;
-  private int staminaCost;
+  private int energyCost;
   private int minDamage;
   private int maxDamage;
   private int minutesToKill;
   private int baseHealth;
-  private int minExp;
-  private int maxExp;
-
-  public Boss(int id, int cityId,
-      int assetNumberWithinCity, int staminaCost, int minDamage, int maxDamage,
-      int minutesToKill, int baseHealth, int minExp, int maxExp) {
+  private int baseExp;
+  private float superAttackDamageMultiplier;
+  private int superAttackEnergyCost;
+  
+  public Boss(int id, int cityId, int assetNumberWithinCity, int energyCost,
+      int minDamage, int maxDamage, int minutesToKill, int baseHealth,
+      int baseExp, float superAttackDamageMultiplier,
+      int superAttackEnergyCost) {
     super();
     this.id = id;
     this.cityId = cityId;
     this.assetNumberWithinCity = assetNumberWithinCity;
-    this.staminaCost = staminaCost;
+    this.energyCost = energyCost;
     this.minDamage = minDamage;
     this.maxDamage = maxDamage;
     this.minutesToKill = minutesToKill;
     this.baseHealth = baseHealth;
-    this.minExp = minExp;
-    this.maxExp = maxExp;
+    this.baseExp = baseExp;
+    this.superAttackDamageMultiplier = superAttackDamageMultiplier;
+    this.superAttackEnergyCost = superAttackEnergyCost;
   }
 
   public int getId() {
     return id;
   }
+
   public void setId(int id) {
     this.id = id;
   }
+
   public int getCityId() {
     return cityId;
   }
+
   public void setCityId(int cityId) {
     this.cityId = cityId;
   }
+
   public int getAssetNumberWithinCity() {
     return assetNumberWithinCity;
   }
+
   public void setAssetNumberWithinCity(int assetNumberWithinCity) {
     this.assetNumberWithinCity = assetNumberWithinCity;
   }
-  public int getStaminaCost() {
-    return staminaCost;
+
+  public int getEnergyCost() {
+    return energyCost;
   }
-  public void setStaminaCost(int staminaCost) {
-    this.staminaCost = staminaCost;
+
+  public void setEnergyCost(int energyCost) {
+    this.energyCost = energyCost;
   }
-  
+
   public int getMinDamage() {
     return minDamage;
   }
-  
+
   public void setMinDamage(int minDamage) {
     this.minDamage = minDamage;
   }
-  
+
   public int getMaxDamage() {
     return maxDamage;
   }
-  
+
   public void setMaxDamage(int maxDamage) {
     this.maxDamage = maxDamage;
   }
-  
-  public int getMinExp() {
-    return minExp;
-  }
-  
-  public void setMinExp(int minExp) {
-    this.minExp = minExp;
-  }
-  
-  public int getMaxExp() {
-    return maxExp;
-  }
-  
-  public void setMaxExp(int maxExp) {
-    this.maxExp = maxExp;
-  }
-  
+
   public int getMinutesToKill() {
     return minutesToKill;
   }
@@ -104,13 +98,27 @@ public class Boss implements Serializable {
     this.baseHealth = baseHealth;
   }
 
-  @Override
-  public String toString() {
-    return "Boss [id=" + id + ", cityId=" + cityId + ", assetNumberWithinCity="
-        + assetNumberWithinCity + ", staminaCost=" + staminaCost
-        + ", minDamage=" + minDamage + ", maxDamage=" + maxDamage
-        + ", minutesToKill=" + minutesToKill + ", baseHealth=" + baseHealth
-        + ", minExp=" + minExp + ", maxExp=" + maxExp + "]";
+  public int getBaseExp() {
+    return baseExp;
   }
 
+  public void setBaseExp(int baseExp) {
+    this.baseExp = baseExp;
+  }
+
+  public float getSuperAttackDamageMultiplier() {
+    return superAttackDamageMultiplier;
+  }
+
+  public void setSuperAttackDamageMultiplier(float superAttackDamageMultiplier) {
+    this.superAttackDamageMultiplier = superAttackDamageMultiplier;
+  }
+
+  public int getSuperAttackEnergyCost() {
+    return superAttackEnergyCost;
+  }
+
+  public void setSuperAttackEnergyCost(int superAttackEnergyCost) {
+    this.superAttackEnergyCost = superAttackEnergyCost;
+  }
 }

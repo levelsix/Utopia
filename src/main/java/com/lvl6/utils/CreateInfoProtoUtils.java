@@ -1162,12 +1162,19 @@ public class CreateInfoProtoUtils {
   }
 
   public static FullBossProto createFullBossProtoFromBoss(Boss boss) {
-    return FullBossProto.newBuilder().setBossId(boss.getId()).setBaseHealth(boss.getBaseHealth())
-        .setMinDamage(boss.getMinDamage()).setMaxDamage(boss.getMaxDamage())
-        .setMinutesToKill(boss.getMinutesToKill()).setMinExp(boss.getMinExp())
-        .setMaxExp(boss.getMaxExp()).setCityId(boss.getCityId())
-        .setAssetNumWithinCity(boss.getAssetNumberWithinCity())
-        .setStaminaCost(boss.getStaminaCost()).build();
+    FullBossProto.Builder fbp = FullBossProto.newBuilder();
+    fbp.setBossId(boss.getId());
+    fbp.setBaseHealth(boss.getBaseHealth());
+    fbp.setMinDamage(boss.getMinDamage());
+    fbp.setMaxDamage(boss.getMaxDamage());
+    fbp.setMinutesToKill(boss.getMinutesToKill());
+    fbp.setBaseExp(boss.getBaseExp());
+    fbp.setCityId(boss.getCityId());
+    fbp.setAssetNumWithinCity(boss.getAssetNumberWithinCity());
+    fbp.setStaminaCost(boss.getEnergyCost());
+    fbp.setSuperAttackDamageMultiplier(boss.getSuperAttackDamageMultiplier());
+    
+    return fbp.build();
   }
 
   public static FullUserBossProto createFullUserBossProtoFromUserBoss(UserBoss b) {
@@ -1420,7 +1427,7 @@ public class CreateInfoProtoUtils {
   public static CityGemProto createCityGemProto(CityGem cg) {
     CityGemProto.Builder cgpb = CityGemProto.newBuilder();
     
-    cgpb.setId(cg.getId());
+    cgpb.setGemId(cg.getId());
     cgpb.setDropRate(cg.getDropRate());
     cgpb.setIsActive(cg.isActive());
     cgpb.setGemImageName(cg.getGemImageName());
