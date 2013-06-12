@@ -134,7 +134,7 @@ import com.lvl6.utils.DBConnection;
     int cityId = rs.getInt(i++);
     int assetNumWithinCity = rs.getInt(i++);
     int baseHealth = rs.getInt(i++);
-    int staminaCost = rs.getInt(i++);
+    int energyCost = rs.getInt(i++);
     int minDamage = rs.getInt(i++);
     int maxDamage = rs.getInt(i++);
     int minutesToKill = rs.getInt(i++);
@@ -142,7 +142,7 @@ import com.lvl6.utils.DBConnection;
     float superAttackDamageMultiplier = rs.getFloat(i++);
     int superAttackEnergyCost = rs.getInt(i++);
     
-    Boss boss = new Boss(id, cityId, assetNumWithinCity, staminaCost, minDamage, 
+    Boss boss = new Boss(id, cityId, assetNumWithinCity, energyCost, minDamage, 
         maxDamage, minutesToKill, baseHealth, baseExp,
         superAttackDamageMultiplier, superAttackEnergyCost);
     return boss;
