@@ -73,8 +73,9 @@ public class NameGenerator {
 	}
 
 	public NameGenerator(){
-
+		
 	}
+
 	
 	/**
 	 * Change the file. refresh() is automatically called during the process.
@@ -96,6 +97,7 @@ public class NameGenerator {
 	    BufferedReader bufRead;
 	    String line;
         bufRead = new BufferedReader(new InputStreamReader(nameFile.getInputStream()));
+
         line="";   
         while(line != null){        
         	line = bufRead.readLine();		
