@@ -84,7 +84,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int previousSilver = 0;
       int previousGold = 0;
 
-      boolean legit = checkLegit(resBuilder, aUser, aBoss);
+      boolean legit = checkLegit(resBuilder, aUser, aBoss, curTime);
       
       if(legit) {
         UserBoss aUserBoss = UserBossRetrieveUtils.getSpecificUserBoss(userId, bossId);
@@ -153,13 +153,21 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
    * Return true if user request is valid; false otherwise and set the
    * builder status to the appropriate value.
    */
-  private boolean checkLegit (Builder resBuilder, User u, Boss b) {
+  private boolean checkLegit (Builder resBuilder, User u, Boss b,
+      Timestamp curTime) {
     if (null == u || null == b) {
       log.error("unexpected error: user or boss is null. user=" + u
           + "\t boss="+ b);
       resBuilder.setStatus(BossActionStatus.FAIL_OTHER);
       return false;
     }
+    //copy pasted from PickLockBoxController.java checkLegitPick()
+    if (!MiscMethods.checkClientTimeAroundApproximateNow(curTime)) {
+      log.error("client time too apart of server time. client time =" + curTime + ", servertime~="
+          + new Date());
+      resBuilder.setStatus(BossActionStatus.FAIL_CLIENT_TOO_APART_FROM_SERVER_TIME);
+      return false;
+    } 
     if(!userHasSufficientEnergy(u, b)) {
       log.error("user error: use does not have enough energy to attack boss" +
           "user energy=" + u.getEnergy() + "\t boss=" + b);
@@ -205,14 +213,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
    * 	SUCCESS
    */
   private boolean canAttack(Builder resBuilder, UserBoss aUserBoss, User aUser, Boss aBoss, Timestamp curTime) {
-    //copy pasted from PickLockBoxController.java checkLegitPick()
-    if (!MiscMethods.checkClientTimeAroundApproximateNow(curTime)) {
-      log.error("client time too apart of server time. client time =" + curTime + ", servertime~="
-          + new Date());
-      resBuilder.setStatus(BossActionStatus.FAIL_CLIENT_TOO_APART_FROM_SERVER_TIME);
-      return false;
-    } 
-
     //CHECK IF USER CAN ATTACK BOSS. DETERMINED BY THE TIME INTERVALS:
     // case 1:
     // - start_time or last_killed_time in kingdom.user_bosses table 

@@ -53,6 +53,7 @@ import com.lvl6.info.Quest;
 import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.info.UserBoss;
 import com.lvl6.info.UserClan;
 import com.lvl6.info.UserDailyBonusRewardHistory;
 import com.lvl6.info.UserEquip;
@@ -79,6 +80,7 @@ import com.lvl6.proto.InfoProto.EquipEnhancementProto;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
+import com.lvl6.proto.InfoProto.FullUserBossProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.GoldSaleProto;
 import com.lvl6.proto.InfoProto.GroupChatMessageProto;
@@ -101,6 +103,7 @@ import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
 import com.lvl6.retrieveutils.PrivateChatPostRetrieveUtils;
 import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
 import com.lvl6.retrieveutils.UserBoosterItemRetrieveUtils;
+import com.lvl6.retrieveutils.UserBossRetrieveUtils;
 import com.lvl6.retrieveutils.UserDailyBonusRewardHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.UserLockBoxEventRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
@@ -253,13 +256,15 @@ public class StartupController extends EventController {
           // if(server.lockClanTowersTable()) {
           setClanTowers(resBuilder);
           // }
-          resBuilder.addAllBossEvents(MiscMethods.currentBossEvents());
+          //resBuilder.addAllBossEvents(MiscMethods.currentBossEvents());
+          
           setLeaderboardEventStuff(resBuilder);
           setEquipEnhancementStuff(resBuilder, user);
           setAllies(resBuilder, user);
           setPrivateChatPosts(resBuilder, user);
           setCityGems(resBuilder);
-
+          setLivingBosses(resBuilder, user);
+          
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
 
@@ -322,6 +327,19 @@ public class StartupController extends EventController {
     // regardless of whether the user is new or restarting from an account
     // reset
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);
+  }
+  
+  private void setLivingBosses(Builder resBuilder, User aUser) {
+    int userId = aUser.getId();
+    boolean livingBossesOnly = true;
+    List<UserBoss> userBosses = UserBossRetrieveUtils
+        .getUserBossesForUserId(userId, livingBossesOnly);
+    
+    for (UserBoss ub : userBosses) {
+      FullUserBossProto ubp = CreateInfoProtoUtils
+          .createFullUserBossProtoFromUserBoss(ub);
+      resBuilder.addLivingBosses(ubp);
+    }
   }
 
   private void setPrivateChatPosts(Builder resBuilder, User aUser) {

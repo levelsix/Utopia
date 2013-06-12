@@ -234,8 +234,11 @@ import com.lvl6.utils.RetrieveUtils;
     }
   }
 
+  //for each of this city's bosses send the corresponding user_bosses
   private void setResponseUserBossInfos(Builder resBuilder, List<Integer> bossIds, int userId) {
-    List<UserBoss> userBosses = UserBossRetrieveUtils.getUserBossesForUserId(userId);
+    boolean livingBossesOnly = false;
+    List<UserBoss> userBosses = UserBossRetrieveUtils
+        .getUserBossesForUserId(userId, livingBossesOnly);
     for (UserBoss b : userBosses) {
       if (bossIds.contains(b.getBossId())) {
         resBuilder.addUserBosses(CreateInfoProtoUtils.createFullUserBossProtoFromUserBoss(b));

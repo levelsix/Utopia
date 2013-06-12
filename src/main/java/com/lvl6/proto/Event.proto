@@ -193,6 +193,8 @@ message StartupResponseProto {
 	
 	repeated CityGemProto gemsForAllCities = 46;
 	
+	repeated FullUserBossProto livingBosses = 47;
+	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
 		optional int32 dayOneCoins = 2;
@@ -1611,7 +1613,7 @@ message LoadNeutralCityResponseProto {
      repeated FullUserQuestDataLargeProto inProgressUserQuestDataInCity = 7;
      
      repeated FullUserBossProto userBosses = 8;
-     repeated UserCityGemProto myGems = 9;
+     repeated UserCityGemProto myGems = 9; //gems for requested city
      
      enum LoadNeutralCityStatus {
      	SUCCESS = 0;

@@ -1,6 +1,7 @@
 package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
+//DO NOT USE ID AS THE NAME OF A PROPERTY IN ANY PROTO
 
 message UserCityGemProto {
 	optional int32 userId = 1;
