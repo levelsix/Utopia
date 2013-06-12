@@ -617,7 +617,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     //update users table regarding silver and gold
     boolean simulateStaminaRefill = aUser.getStamina() == aUser.getStaminaMax();
-    if(!aUser.updateUserAfterAttackingBoss(-aBoss.getStaminaCost(), silverChange, 
+    if(!aUser.updateUserAfterAttackingBoss(-aBoss.getEnergyCost(), silverChange, 
         goldChange, simulateStaminaRefill, clientTime, expChange) ){
       log.error("Error in updating user after attacking a boss.");
       return;
