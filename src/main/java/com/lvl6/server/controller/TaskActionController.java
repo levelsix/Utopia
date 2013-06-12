@@ -238,6 +238,8 @@ public class TaskActionController extends EventController {
       server.writeEvent(resEvent);
 
       if (legitAction) {
+        writeUserCityGems(userId, cityId, ucg);
+        
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods
             .createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
@@ -487,6 +489,16 @@ public class TaskActionController extends EventController {
     UpdateUtils.get().replaceBoss(userId, bossId, newSpawnTime,
         defaultHealth, newLevel);
     return ub;
+  }
+  
+  private void writeUserCityGems(int userId, int cityId, UserCityGem ucg) {
+    int gemId = ucg.getGemId();
+    int newQuantity = ucg.getQuantity();
+    
+    if (!UpdateUtils.get().updateUserCityGem(userId, cityId, gemId, newQuantity) ) {
+      log.error("unexpected error: did not update the user's gems. "
+          + "userCityGem=" + ucg);
+    }
   }
   
   private boolean checkCityRankup(int cityId, List<Task> tasksInCity,
@@ -828,6 +840,17 @@ public class TaskActionController extends EventController {
     return currentTapNum;
   }
   
+  //initial maybe 25% hurdle to get a gem
+  //if user gets a gem then gem dropping scheme is thus:
+  //sum of drop rates for non boss gems = 1.
+  //Generate randomNumber.
+  //probabilityForNoGem = sum of drop rates for gems user has already
+  //if randomNumber < probabilityForNoGem 
+  //  then user does not get a gem
+  //currentDropRate = probabilityForNoGem
+  //if random number < currentDropRate + current gem drop rate,
+  //  then this is the gem the user gets
+  //
   private UserCityGem selectGemRandomly(int userId, int cityId,
       Map<Integer, UserCityGem> gemIdsToUserCityGems) {
     float dropProbability = ControllerConstants.TASK_ACTION__GEM_DROP_RATE;
@@ -929,16 +952,16 @@ public class TaskActionController extends EventController {
       
       //maybe exclude this gem if user already has one
       UserCityGem ucg = gemIdsToUserCityGems.get(gemId);
-      int quantity = 0;
+      int quantityUserHas = 0;
       if (null != ucg) {
-        quantity = ucg.getQuantity();
+        quantityUserHas = ucg.getQuantity();
       }
       
       if (allowDuplicates) {
         //don't care if the user has this gem already.
         potentialGems.add(cg);
         
-      } else if (!allowDuplicates && 0 == quantity) {
+      } else if (!allowDuplicates && 0 == quantityUserHas) {
         //since only allow user to have one set of gems,
         //get only those with 0 quantity
         potentialGems.add(cg);

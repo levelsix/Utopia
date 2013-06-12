@@ -1316,4 +1316,20 @@ public class UpdateUtils implements UpdateUtil {
     return false;
   }
   
+  public boolean updateUserCityGem(int userId, int cityId, int gemId,
+      int quantity) {
+    String tableName = DBConstants.TABLE_USER_CITY_GEMS;
+    Map<String, Object> columnsAndValues = new HashMap<String, Object>();
+    
+    columnsAndValues.put(DBConstants.USER_CITY_GEMS__USER_ID, userId);
+    columnsAndValues.put(DBConstants.USER_CITY_GEMS__CITY_ID, cityId);
+    columnsAndValues.put(DBConstants.USER_CITY_GEMS__GEM_ID, gemId);
+    columnsAndValues.put(DBConstants.USER_CITY_GEMS__QUANTITY, quantity);
+    int numUpdated = DBConnection.get().replace(tableName, columnsAndValues);
+    if (numUpdated >= 1) {
+      return true; 
+    }
+    return false;
+  }
+  
 }

@@ -211,4 +211,7 @@ public interface UpdateUtil {
   
   public abstract boolean updateUserCityGems(int userId, int cityId,
       Map<Integer, Integer> gemIdsToQuantities);
+  
+  public abstract boolean updateUserCityGem(int userId, int cityId,
+      int gemId, int newQuantity);
 }
