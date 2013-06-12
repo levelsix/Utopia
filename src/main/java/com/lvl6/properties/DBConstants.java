@@ -459,7 +459,7 @@ public class DBConstants {
   public static final String BOSSES__CITY_ID = "city_id";
   public static final String BOSSES__ASSET_NUM_WITHIN_CITY = "asset_num_within_city";
   public static final String BOSSES__BASE_HP = "base_hp";
-  public static final String BOSSES__STAMIN_COST = "stamina_cost";
+  public static final String BOSSES__ENERGY_COST = "energy_cost";
   public static final String BOSSES__MIN_ATTACK = "min_attack";
   public static final String BOSSES__MAX_ATTACK = "max_attack";
   public static final String BOSSES__MINUTES_TO_KILL = "minutes_to_kill";

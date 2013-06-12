@@ -176,7 +176,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private boolean userHasSufficientEnergy(User u, Boss b) {
     int userEnergy = u.getEnergy();
     int bossEnergyCost = b.getEnergyCost();
-    boolean enough = userEnergy >= bossStaminaCost;
+    boolean enough = userEnergy >= bossEnergyCost;
     return enough;
   }
 
