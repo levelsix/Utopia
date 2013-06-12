@@ -730,7 +730,9 @@ message TaskActionResponseProto {
 	
 	optional int32 eventIdOfLockBoxGained = 10;
 	
-	optional UserCityGemProto gems = 11;
+	//a gem if dropped
+	optional UserCityGemProto gem = 11;
+	
 	//send this if city ranked up and no active bosses
 	optional FullUserBossProto boss = 12; 
 	
@@ -2391,9 +2393,13 @@ message BossActionResponseProto {
 	optional int32 bossId = 8;
 	optional int32 expGained = 9;
 	
+	//give possible gem that boss can drop
+	optional UserCityGemProto gemDropped = 10; 
+	
+	
 	enum BossActionStatus {
 		SUCCESS = 0; 
-		FAIL_USER_NOT_ENOUGH_ENERGY = 1; //only energy
+		FAIL_USER_NOT_ENOUGH_ENERGY = 1;
 		FAIL_BOSS_HAS_NOT_SPAWNED = 2;
 		FAIL_OTHER = 3;
 		FAIL_CLIENT_TOO_APART_FROM_SERVER_TIME = 4;

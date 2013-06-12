@@ -128,15 +128,14 @@ public class TaskActionController extends EventController {
     Date clientDate = new Date(reqProto.getCurTime());
     Timestamp clientTime = new Timestamp(reqProto.getCurTime());
 
+    TaskActionResponseProto.Builder resBuilder = TaskActionResponseProto
+        .newBuilder();
+    resBuilder.setSender(senderProto);
+    
     server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(userId);
       int previousSilver = 0;
-      
-      TaskActionResponseProto.Builder resBuilder = TaskActionResponseProto
-          .newBuilder();
-      resBuilder.setSender(senderProto);
-
       Task task = TaskRetrieveUtils.getTaskForTaskId(taskId);
       // TODO: check the level of this task's city, use that as multiplier
       // for expGained, energyCost, etc.
@@ -233,8 +232,7 @@ public class TaskActionController extends EventController {
 
       //send stuff to the client
       TaskActionResponseProto resProto = resBuilder.build();
-      TaskActionResponseEvent resEvent = new TaskActionResponseEvent(
-          senderProto.getUserId());
+      TaskActionResponseEvent resEvent = new TaskActionResponseEvent(userId);
       resEvent.setTag(event.getTag());
       resEvent.setTaskActionResponseProto(resProto);
       server.writeEvent(resEvent);
@@ -251,6 +249,16 @@ public class TaskActionController extends EventController {
       }
     } catch (Exception e) {
       log.error("exception in TaskActionController processEvent", e);
+      try {
+        resBuilder.setStatus(TaskActionStatus.OTHER_FAIL);
+        TaskActionResponseProto resProto = resBuilder.build();
+        TaskActionResponseEvent resEvent = new TaskActionResponseEvent(userId);
+        resEvent.setTag(event.getTag());
+        resEvent.setTaskActionResponseProto(resProto);
+        server.writeEvent(resEvent);
+      } catch (Exception e2) {
+        log.error("exception2 in TaskActionController processEvent", e2);
+      }
     } finally {
       server.unlockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     }
@@ -539,7 +547,7 @@ public class TaskActionController extends EventController {
     if (null != ucg) {
       UserCityGemProto ucgp = 
           CreateInfoProtoUtils.createUserCityGemProto(ucg);
-      resBuilder.setGems(ucgp);
+      resBuilder.setGem(ucgp);
     }
     if (ControllerConstants.NOT_SET == coinBonus) {
       resBuilder.setCoinBonusIfCityRankup(coinBonus);
