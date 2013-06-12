@@ -50,6 +50,7 @@
 		<property name="appStoreUrl" ><value><![CDATA[${globals.appStoreUrl}]]></value></property>
 		<property name="reviewPageUrl" ><value><![CDATA[${globals.reviewPageUrl}]]></value></property>
 		<property name="appleBundleId" value="${globals.appleBundleId}" />
+		<property name="initialDiamonds" value="${globals.initial.diamonds}" />
 		<property name="versionNumber" value="${lvl6.application.version}" />
 		<property name="healthCheckTimeoutSeconds" value="${lvl6.application.healthcheck.timeout.seconds}" />
 	</bean>

@@ -130,22 +130,23 @@ public class StartupController extends EventController {
   private static int syllablesInName1 = 2;
   private static int syllablesInName2 = 3;
 
-	@Autowired
-	protected NameGeneratorElven nameGeneratorElven;
-
-	public NameGeneratorElven getNameGeneratorElven() {
-		return nameGeneratorElven;
-	}
-
-	public void setNameGeneratorElven(NameGeneratorElven nameGeneratorElven) {
-		this.nameGeneratorElven = nameGeneratorElven;
-	}
   private static Logger log = LoggerFactory.getLogger(new Object() {
   }.getClass().getEnclosingClass());
 
   public StartupController() {
     numAllocatedThreads = 3;
   }
+  
+  @Autowired
+  	protected NameGeneratorElven nameGeneratorElven;
+  
+  	public NameGeneratorElven getNameGeneratorElven() {
+  		return nameGeneratorElven;
+  	}
+  
+  	public void setNameGeneratorElven(NameGeneratorElven nameGeneratorElven) {
+  		this.nameGeneratorElven = nameGeneratorElven;
+   	}
 
   @Resource(name = "goodEquipsRecievedFromBoosterPacks")
   protected IList<RareBoosterPurchaseProto> goodEquipsRecievedFromBoosterPacks;
@@ -1491,7 +1492,7 @@ public class StartupController extends EventController {
 				.setMaxNameLength(ControllerConstants.USER_CREATE__MAX_NAME_LENGTH)
 				.setCoinRewardForBeingReferred(
 						ControllerConstants.USER_CREATE__COIN_REWARD_FOR_BEING_REFERRED)
-				.setInitDiamonds(ControllerConstants.TUTORIAL__INIT_DIAMONDS)
+				.setInitDiamonds(Globals.INITIAL_DIAMONDS())
 				.setInitCoins(ControllerConstants.TUTORIAL__INIT_COINS)
 				.setFirstBattleCoinGain(ControllerConstants.TUTORIAL__FIRST_BATTLE_COIN_GAIN)
 				.setFirstBattleExpGain(ControllerConstants.TUTORIAL__FIRST_BATTLE_EXP_GAIN)
