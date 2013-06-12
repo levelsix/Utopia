@@ -492,6 +492,9 @@ public class TaskActionController extends EventController {
   }
   
   private void writeUserCityGems(int userId, int cityId, UserCityGem ucg) {
+    if (null == ucg) {
+      return;
+    }
     int gemId = ucg.getGemId();
     int newQuantity = ucg.getQuantity();
     
