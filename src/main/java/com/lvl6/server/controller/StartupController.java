@@ -1487,7 +1487,7 @@ public class StartupController extends EventController {
                                                             .setMaxNameLength(ControllerConstants.USER_CREATE__MAX_NAME_LENGTH)
                                                             .setCoinRewardForBeingReferred(
                                                                 ControllerConstants.USER_CREATE__COIN_REWARD_FOR_BEING_REFERRED)
-                                                                .setInitDiamonds(ControllerConstants.TUTORIAL__INIT_DIAMONDS)
+                                                                .setInitDiamonds(Globals.INITIAL_DIAMONDS())
                                                                 .setInitCoins(ControllerConstants.TUTORIAL__INIT_COINS)
                                                                 .setFirstBattleCoinGain(ControllerConstants.TUTORIAL__FIRST_BATTLE_COIN_GAIN)
                                                                 .setFirstBattleExpGain(ControllerConstants.TUTORIAL__FIRST_BATTLE_EXP_GAIN)

@@ -155,7 +155,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           - StructureRetrieveUtils.getStructForStructId(ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD).getCoinPrice(); 
       if (referrer != null) playerCoins += ControllerConstants.USER_CREATE__COIN_REWARD_FOR_BEING_REFERRED;
 
-      playerDiamonds = ControllerConstants.TUTORIAL__INIT_DIAMONDS;
+      playerDiamonds = Globals.INITIAL_DIAMONDS();
       if (usedDiamondsToBuild) playerDiamonds -= ControllerConstants.TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT;
 
       Integer amuletEquipped = ControllerConstants.TUTORIAL__FAKE_QUEST_AMULET_LOOT_EQUIP_ID;

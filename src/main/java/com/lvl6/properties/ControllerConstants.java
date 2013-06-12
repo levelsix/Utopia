@@ -127,7 +127,7 @@ public class ControllerConstants {
   public static final int TUTORIAL__INIT_ENERGY = 20;
   public static final int TUTORIAL__INIT_STAMINA = 3;
   public static final int TUTORIAL__INIT_HEALTH = 30;
-  public static final int TUTORIAL__INIT_DIAMONDS = 20;
+  //public static final int TUTORIAL__INIT_DIAMONDS = 20;
   public static final int TUTORIAL__INIT_COINS = 50;
   public static final int TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT = 2; //Because it does not warn the user
   public static final int TUTORIAL__ARCHER_INIT_WEAPON_ID = 1;
@@ -181,8 +181,8 @@ public class ControllerConstants {
   public static final int STARTUP__ENHANCING_MIN_LEVEL_TO_UNLOCK = 20; 
   public static final boolean STARTUP__USE_OLD_BATTLE_FORMULA = true;
   public static final int STARTUP__ADMIN_CHAT_USER_ID = 98394;//Globals.IS_SANDBOX() ? 98437 : 131287;
-  public static final int STARTUP__MAX_PRIVATE_CHAT_POSTS_SENT = 150;
-  public static final int STARTUP__MAX_PRIVATE_CHAT_POSTS_RECEIVED = 150;
+  public static final int STARTUP__MAX_PRIVATE_CHAT_POSTS_SENT = 50;
+  public static final int STARTUP__MAX_PRIVATE_CHAT_POSTS_RECEIVED = 50;
   //ARMORY
   public static final double ARMORY__SELL_RATIO = 0.15;
   

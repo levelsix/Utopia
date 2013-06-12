@@ -85,8 +85,8 @@
 
 	<rabbit:listener-container
 		connection-factory="amqpConnectionFactory" 
-		concurrency="60" 
-		prefetch="60"
+		concurrency="42" 
+		prefetch="42"
 		error-handler="amqpErrorHandler">
 		<rabbit:listener queues="clientMessages" ref="clientEventHandler"	method="onMessage" />
 	</rabbit:listener-container>
