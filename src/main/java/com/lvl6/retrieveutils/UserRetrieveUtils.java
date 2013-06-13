@@ -210,8 +210,10 @@ import com.lvl6.utils.utilmethods.StringUtils;
         ", latLowerBound=" + latLowerBound + ", latUpperBound=" + latUpperBound + 
         ", longLowerBound=" + longLowerBound + ", longUpperBound=" + longUpperBound + ", forBattle=" + forBattle);
 
+    //when there was a map in AoC, players displayed were +- 3,
+    //hence use of -1 and +1
     int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2 - 1, 2);
-    int levelMax = playerLevel + BATTLE_INITIAL_LEVEL_RANGE/2;
+    int levelMax = playerLevel + BATTLE_INITIAL_LEVEL_RANGE/2 + 1;
 
     List <Object> values = new ArrayList<Object>();
 
