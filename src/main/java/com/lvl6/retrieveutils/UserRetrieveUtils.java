@@ -302,7 +302,6 @@ import com.lvl6.utils.utilmethods.StringUtils;
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
-      log.error("\tquery=" + query + "\t values=" + values);
       rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
       //this is in case there aren't enough users to satisfy caller's requested number of users
       //so level range is widened and db requeried
