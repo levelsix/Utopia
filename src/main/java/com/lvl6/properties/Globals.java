@@ -15,9 +15,18 @@ public class Globals {
 	protected boolean iddictionOn = true;
 	protected float versionNumber = 1.0f;
 	protected int healthCheckTimeoutSeconds = 6;
+	protected int initialDiamonds = 20;
 	
 	
 	
+	public int getInitialDiamonds() {
+		return initialDiamonds;
+	}
+
+	public void setInitialDiamonds(int initialDiamonds) {
+		this.initialDiamonds = initialDiamonds;
+	}
+
 	public boolean isKabamEnabled() {
 		return kabamEnabled;
 	}
@@ -121,7 +130,7 @@ public class Globals {
 
     public static int HEALTH_CHECK_TIMEOUT() {return AppContext.getApplicationContext().getBean(Globals.class).getHealthCheckTimeoutSeconds();};
     
-    
+    public static final Integer INITIAL_DIAMONDS() {return AppContext.getApplicationContext().getBean(Globals.class).getInitialDiamonds();};
 
 
 

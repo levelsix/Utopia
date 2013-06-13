@@ -96,6 +96,7 @@ public class NameGenerator {
 	    BufferedReader bufRead;
 	    String line;
         bufRead = new BufferedReader(new InputStreamReader(nameFile.getInputStream()));
+
         line="";   
         while(line != null){        
         	line = bufRead.readLine();		
@@ -195,6 +196,7 @@ public class NameGenerator {
 	public String compose(int syls){
 		if(syls > 2 && mid.size() == 0) throw new RuntimeException("You are trying to create a name with more than 3 parts, which requires middle parts, " +
 				"which you have none in the file . You should add some. Every word, which doesn't have + or - for a prefix is counted as a middle part.");
+
 		if(pre.size() == 0) throw new RuntimeException("You have no prefixes to start creating a name. add some and use \"-\" prefix, to identify it as a prefix for a name. (example: -asd)");
 		if(sur.size() == 0) throw new RuntimeException("You have no suffixes to end a name. add some and use \"+\" prefix, to identify it as a suffix for a name. (example: +asd)");
 		if(syls < 1) throw new RuntimeException("compose(int syls) can't have less than 1 syllable");

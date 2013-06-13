@@ -28,3 +28,4 @@ public class NameGeneratorElven extends NameGenerator implements ResourceLoaderA
 	}
 
 }
+

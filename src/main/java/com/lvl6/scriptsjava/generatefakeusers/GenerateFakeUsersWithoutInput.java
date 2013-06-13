@@ -35,6 +35,7 @@ public class GenerateFakeUsersWithoutInput {
     nameFile = context.getResource("classpath:namerulesElven.txt");
     try {
       nameGenerator = new NameGenerator(nameFile);
+
     } catch (IOException e) {
       e.printStackTrace();
     }
