@@ -448,18 +448,19 @@ public class TaskActionController extends EventController {
   
   private UserBoss writeBossStuff(int userId, int cityId,
       boolean cityRankedUp, Date clientDate) {
+    log.error("cityRankedUp=" + cityRankedUp);
     if (!cityRankedUp) {
       return null;
     }
+    log.error("updating user's city boss.");
     //since city ranked up, spawn boss
     //get the boss for the city
     List<Boss> bossList = BossRetrieveUtils.getBossesForCityId(cityId);
-    Boss aBoss = null;
-    
     if(null == bossList || bossList.isEmpty()) {
       log.error("unexpected error: no boss exists for cityId=" + cityId);
       return null;
     }
+    Boss aBoss = null;
     //for now assume there exists only one boss per city
     aBoss = bossList.get(0);
     int bossId = aBoss.getId();
@@ -469,6 +470,7 @@ public class TaskActionController extends EventController {
     UserBoss ub = UserBossRetrieveUtils.getSpecificUserBoss(userId, bossId);
     
     int newLevel = 1;
+    int newHealth = defaultHealth;
     if (null != ub) {
       //if it exists record user boss into history
       Date startDate = ub.getStartTime();
@@ -481,30 +483,44 @@ public class TaskActionController extends EventController {
       if (curHealth <= 0) {
         //user slayed the boss, boss should level up
         newLevel = currentLevel + 1;
+        log.error("user killed the boss.");
       } else{
-        //user did not slay the boss, level stays the same
+        //user did not slay the boss, level and health stay the same
         newLevel = currentLevel;
+        newHealth = curHealth;
+        log.error("user didn't kill the boss.");
       }
     } else {
       //create dummy user boss
       ub = new UserBoss(bossId, userId, 0, 0, null);
+      log.error("no boss for user.");
     }
     
-    Timestamp newSpawnTime = new Timestamp(clientDate.getTime());
-    ub.setCurrentHealth(defaultHealth);
-    ub.setStartTime(clientDate);
-    ub.setCurrentLevel(newLevel);
-    UpdateUtils.get().replaceBoss(userId, bossId, newSpawnTime,
-        defaultHealth, newLevel);
+   updateUserBoss(ub, userId, bossId, newLevel, newHealth, clientDate);
+    
+    log.error("boss returned to client boss=" + ub);
     return ub;
   }
   
+  private void updateUserBoss(UserBoss ub, int userId, int bossId,
+      int newLevel, int newHealth, Date clientDate) {
+    Timestamp newSpawnTime = new Timestamp(clientDate.getTime());
+    ub.setCurrentHealth(newHealth);
+    ub.setStartTime(clientDate);
+    ub.setCurrentLevel(newLevel);
+    if (!UpdateUtils.get().replaceBoss(userId, bossId, newSpawnTime,
+        newHealth, newLevel)) {
+      log.error("unexpected error: could not replace userBoss. ub=" + ub);
+    }
+  }
+  
+  //setting the user boss and the name of the boss
   private void setBossStuff(Builder resBuilder, User aUser,
       UserBoss newBoss, int cityId) {
     FullUserBossProto fubp = CreateInfoProtoUtils
         .createFullUserBossProtoFromUserBoss(newBoss);
     resBuilder.setBoss(fubp);
-    
+    log.error("\t\t\t fubp=" + fubp);
     int bossId = newBoss.getBossId();
     Boss aBoss = BossRetrieveUtils.getBossForBossId(bossId);
     if (null == aBoss) {
@@ -530,6 +546,7 @@ public class TaskActionController extends EventController {
     if (null != bossName) {
       resBuilder.setBossName(bossName);
     }
+    log.error("\t\t\t bossName=" + bossName);
   }
   
   private void writeUserCityGems(int userId, int cityId, UserCityGem ucg) {
@@ -608,10 +625,10 @@ public class TaskActionController extends EventController {
           CreateInfoProtoUtils.createUserCityGemProto(ucg);
       resBuilder.setGem(ucgp);
     }
-    if (ControllerConstants.NOT_SET == coinBonus) {
+    if (ControllerConstants.NOT_SET != coinBonus) {
       resBuilder.setCoinBonusIfCityRankup(coinBonus);
     }
-    if (ControllerConstants.NOT_SET == expBonus) {
+    if (ControllerConstants.NOT_SET != expBonus) {
       resBuilder.setExpBonusIfCityRankup(expBonus);
     }
 
