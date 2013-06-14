@@ -569,6 +569,7 @@ public class TaskActionController extends EventController {
   }
   
   private int coinBonusOnCityRankup(City aCity, int cityRank) {
+    log.error("\t\t\t cityRank=" + cityRank);
     if (ControllerConstants.NOT_SET == cityRank) {
       return ControllerConstants.NOT_SET;
     }
@@ -577,7 +578,9 @@ public class TaskActionController extends EventController {
         ControllerConstants.TASK_ACTION__MAX_CITY_RANK_UP_REWARD_MULTIPLIER;
     int multiplier = Math.min(cityRank + 1, maxMultiplier);
     int coinBonus = multiplier * aCity.getCoinsGainedBaseOnRankup();
-    
+    log.error("\t\t\t maxMultiplier=" + maxMultiplier);
+    log.error("\t\t\t multiplier=" + multiplier);
+    log.error("\t\t\t coinBonus=" + multiplier);
     return coinBonus;
   }
 
