@@ -194,6 +194,7 @@ message StartupResponseProto {
 	repeated CityGemProto gemsForAllCities = 46;
 	
 	repeated FullUserBossProto livingBosses = 47;
+	repeated FullBossProto bosses = 48;
 	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
@@ -737,6 +738,7 @@ message TaskActionResponseProto {
 	
 	//send this if city ranked up and no active bosses
 	optional FullUserBossProto boss = 12; 
+	optional string bossName = 13;
 	
 	enum TaskActionStatus {
 		SUCCESS = 0; 

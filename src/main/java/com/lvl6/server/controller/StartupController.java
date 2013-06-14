@@ -34,6 +34,7 @@ import com.lvl6.info.BattleDetails;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.BoosterItem;
 import com.lvl6.info.BoosterPack;
+import com.lvl6.info.Boss;
 import com.lvl6.info.City;
 import com.lvl6.info.CityGem;
 import com.lvl6.info.Clan;
@@ -77,6 +78,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus;
 import com.lvl6.proto.InfoProto.BoosterPackProto;
 import com.lvl6.proto.InfoProto.CityGemProto;
 import com.lvl6.proto.InfoProto.EquipEnhancementProto;
+import com.lvl6.proto.InfoProto.FullBossProto;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
@@ -109,6 +111,7 @@ import com.lvl6.retrieveutils.UserLockBoxEventRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterPackRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityGemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DailyBonusRewardRetrieveUtils;
@@ -263,7 +266,8 @@ public class StartupController extends EventController {
           setAllies(resBuilder, user);
           setPrivateChatPosts(resBuilder, user);
           setCityGems(resBuilder);
-          setLivingBosses(resBuilder, user);
+          setLivingBossesForUser(resBuilder, user);
+          setAllBosses(resBuilder);
           
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
@@ -329,7 +333,7 @@ public class StartupController extends EventController {
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);
   }
   
-  private void setLivingBosses(Builder resBuilder, User aUser) {
+  private void setLivingBossesForUser(Builder resBuilder, User aUser) {
     int userId = aUser.getId();
     boolean livingBossesOnly = true;
     List<UserBoss> userBosses = UserBossRetrieveUtils
@@ -339,6 +343,17 @@ public class StartupController extends EventController {
       FullUserBossProto ubp = CreateInfoProtoUtils
           .createFullUserBossProtoFromUserBoss(ub);
       resBuilder.addLivingBosses(ubp);
+    }
+  }
+  
+  private void setAllBosses(Builder resBuilder) {
+    Map<Integer, Boss> bossIdsToBosses = 
+        BossRetrieveUtils.getBossIdsToBosses();
+    
+    for (Boss b : bossIdsToBosses.values()) {
+      FullBossProto fbp =
+          CreateInfoProtoUtils.createFullBossProtoFromBoss(b);
+      resBuilder.addBosses(fbp);
     }
   }
 
