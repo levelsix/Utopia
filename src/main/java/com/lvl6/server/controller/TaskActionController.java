@@ -485,6 +485,9 @@ public class TaskActionController extends EventController {
         //user did not slay the boss, level stays the same
         newLevel = currentLevel;
       }
+    } else {
+      //create dummy user boss
+      ub = new UserBoss(bossId, userId, 0, 0, null);
     }
     
     Timestamp newSpawnTime = new Timestamp(clientDate.getTime());
