@@ -1306,7 +1306,8 @@ public class UpdateUtils implements UpdateUtil {
       newRows.add(aRow);
     }
 
-    int numUpdated = DBConnection.get().replaceIntoTableValues(DBConstants.TABLE_USER_STRUCTS, newRows);
+    int numUpdated = DBConnection.get().replaceIntoTableValues(
+        DBConstants.TABLE_USER_CITY_GEMS, newRows);
 
     log.info("num userCityGems updated: " + numUpdated 
         + ". userCityGems: " + gemIdsToQuantities);
