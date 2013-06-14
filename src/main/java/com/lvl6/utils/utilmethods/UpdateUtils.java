@@ -731,7 +731,10 @@ public class UpdateUtils implements UpdateUtil {
     }
     query += StringUtils.getListInString(condClauses, "or") + ")";
     int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
-    if (numUpdated == tasksInCity.size()) {
+    if (numUpdated == tasksInCity.size() ||
+        numUpdated == tasksInCity.size() - 1) {
+      //the minus one is for the case when the last thing user has to tap
+      //to rank up the city is something that needs only one tap
       return true;
     }
     log.error("problem with resetting times completed in rank for userid " + userId + ". tasks are=" + tasksInCity
