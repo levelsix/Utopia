@@ -165,7 +165,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         newGemQuantities(delta, gemIdsToUserCityGems);
     
     if (!UpdateUtils.get().updateUserCityGems(userId, cityId, gemIdsToNewQuantities)) {
-      log.error("unexpected error: could not redeem lock box items for user" +
+      log.error("unexpected error: could not redeem city gems for user=" +
           user + "\t gemIdsToUserCityGems=" + gemIdsToNewQuantities);
       return false;
     }
