@@ -448,11 +448,9 @@ public class TaskActionController extends EventController {
   
   private UserBoss writeBossStuff(int userId, int cityId,
       boolean cityRankedUp, Date clientDate) {
-    log.error("cityRankedUp=" + cityRankedUp);
     if (!cityRankedUp) {
       return null;
     }
-    log.error("updating user's city boss.");
     //since city ranked up, spawn boss
     //get the boss for the city
     List<Boss> bossList = BossRetrieveUtils.getBossesForCityId(cityId);
@@ -483,22 +481,18 @@ public class TaskActionController extends EventController {
       if (curHealth <= 0) {
         //user slayed the boss, boss should level up
         newLevel = currentLevel + 1;
-        log.error("user killed the boss.");
       } else{
         //user did not slay the boss, level and health stay the same
         newLevel = currentLevel;
         newHealth = curHealth;
-        log.error("user didn't kill the boss.");
       }
     } else {
       //create dummy user boss
       ub = new UserBoss(bossId, userId, 0, 0, null);
-      log.error("no boss for user.");
     }
     
    updateUserBoss(ub, userId, bossId, newLevel, newHealth, clientDate);
     
-    log.error("boss returned to client boss=" + ub);
     return ub;
   }
   
@@ -520,7 +514,6 @@ public class TaskActionController extends EventController {
     FullUserBossProto fubp = CreateInfoProtoUtils
         .createFullUserBossProtoFromUserBoss(newBoss);
     resBuilder.setBoss(fubp);
-    log.error("\t\t\t fubp=" + fubp);
     int bossId = newBoss.getBossId();
     Boss aBoss = BossRetrieveUtils.getBossForBossId(bossId);
     if (null == aBoss) {
@@ -546,7 +539,6 @@ public class TaskActionController extends EventController {
     if (null != bossName) {
       resBuilder.setBossName(bossName);
     }
-    log.error("\t\t\t bossName=" + bossName);
   }
   
   private void writeUserCityGems(int userId, int cityId, UserCityGem ucg) {
@@ -586,7 +578,6 @@ public class TaskActionController extends EventController {
   }
   
   private int coinBonusOnCityRankup(City aCity, int cityRank) {
-    log.error("\t\t\t cityRank=" + cityRank);
     if (ControllerConstants.NOT_SET == cityRank) {
       return ControllerConstants.NOT_SET;
     }
@@ -595,9 +586,6 @@ public class TaskActionController extends EventController {
         ControllerConstants.TASK_ACTION__MAX_CITY_RANK_UP_REWARD_MULTIPLIER;
     int multiplier = Math.min(cityRank + 1, maxMultiplier);
     int coinBonus = multiplier * aCity.getCoinsGainedBaseOnRankup();
-    log.error("\t\t\t maxMultiplier=" + maxMultiplier);
-    log.error("\t\t\t multiplier=" + multiplier);
-    log.error("\t\t\t coinBonus=" + multiplier);
     return coinBonus;
   }
 
