@@ -467,6 +467,8 @@ public class DBConstants {
   public static final String BOSSES__BASS_EXP = "bass_exp";
   public static final String BOSSES__SUPER_ATTACK_DAMAGE_MULTIPLIER = "super_attack_damage_multiplier";
   public static final String BOSSES__SUPER_ATTACK_ENERGY_COST = "super_attack_energy_cost";
+  public static final String BOSSES__GOOD_NAME = "good_name";
+  public static final String BOSSES__BAD_NAME = "bad_name";
   
   /*USER BOSSES and USER BOSS HISTORY*/
   public static final String USER_BOSS_HISTORY__ID = GENERIC__ID;

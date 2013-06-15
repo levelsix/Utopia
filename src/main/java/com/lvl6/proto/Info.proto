@@ -290,6 +290,8 @@ message FullBossProto {
 	optional int32 regularAttackEnergyCost = 9;
 	optional float superAttackDamageMultiplier = 10;
 	optional int32 superAttackEnergyCost = 11;
+	optional string goodName = 12;
+	optional string badName = 13;
 }
 
 message FullUserBossProto {

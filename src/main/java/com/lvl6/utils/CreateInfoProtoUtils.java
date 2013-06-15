@@ -1173,6 +1173,8 @@ public class CreateInfoProtoUtils {
     fbp.setAssetNumWithinCity(boss.getAssetNumberWithinCity());
     fbp.setRegularAttackEnergyCost(boss.getRegularAttackEnergyCost());
     fbp.setSuperAttackDamageMultiplier(boss.getSuperAttackDamageMultiplier());
+    fbp.setGoodName(boss.getGoodName());
+    fbp.setBadName(boss.getBadName());
     
     return fbp.build();
   }
