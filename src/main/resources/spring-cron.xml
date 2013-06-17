@@ -19,4 +19,5 @@
 
 	<bean id="clanTowersScheduledTasks" class="com.lvl6.scheduledtasks.ClanTowersScheduledTasks" />
 	<bean id="leaderboardEventScheduledTasks" class="com.lvl6.scheduledtasks.LeaderboardEventScheduledTasks" />
+	<bean id="hazelcastScheduledTasks" class="com.lvl6.scheduledtasks.HazelcastScheduledTasks" />
 </beans>
