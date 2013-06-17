@@ -221,7 +221,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   
   private void notifyClan(User aUser, Clan aClan, boolean requestToJoinRequired) {
     int clanOwnerId = aClan.getOwnerId();
-    int clanId = aClan.getId();
     
     int level = aUser.getLevel();
     String requester = aUser.getName();
@@ -230,13 +229,12 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     if (requestToJoinRequired) {
       //notify leader someone requested to join clan
       aNote.setAsUserRequestedToJoinClan(level, requester);
-      MiscMethods.writeNotificationToUser(aNote, server, clanOwnerId);
     } else {
-      //notify whole clan someone joined the clan
+      //notify whole clan someone joined the clan <- too annoying, just leader
       //TODO: Maybe exclude the guy who joined from receiving the notification?
       aNote.setAsUserJoinedClan(level, requester);
-      MiscMethods.writeClanApnsNotification(aNote, server, clanId);
     }
+    MiscMethods.writeNotificationToUser(aNote, server, clanOwnerId);
     
 //    GeneralNotificationResponseProto.Builder notificationProto =
 //        aNote.generateNotificationBuilder();
