@@ -76,7 +76,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int bossId = reqProto.getBossId();
     Timestamp curTime = new Timestamp(reqProto.getCurTime());
     boolean isSuperAttack = reqProto.getIsSuperAttack();
-    		
+
     //set some values to send to the client (the response proto)
     BossActionResponseProto.Builder resBuilder = BossActionResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -95,7 +95,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       //userBossList should be populated if successful
       boolean legit = checkLegit(resBuilder, aUser, userId, aBoss,
           bossId, curTime, isSuperAttack, userBossList);
-      
+
       if(legit) {
         UserBoss aUserBoss = userBossList.get(0);
         previousSilver = aUser.getCoins() + aUser.getVaultBalance();
@@ -106,7 +106,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             attackBoss(resBuilder, aUserBoss, aUser, aBoss, curTime, isSuperAttack);
         int damageDone = damageExp.get(damage);
         int expGained = damageExp.get(experience);
-        
+
         //get the city gem the user gets
         Map<Integer, UserCityGem> gemIdsToUserCityGems = new HashMap<Integer, UserCityGem>();
         int cityId = aBoss.getCityId();
@@ -129,7 +129,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         writeChangesToDB(resBuilder, aUserBoss, aUser, aBoss, isSuperAttack,
             money, allEquipIds, levels, allUserEquipIds, curTime, expGained);
         writeUserCityGems(resBuilder, userId, cityId, cg, gemIdsToUserCityGems);
-        
+
         //send stuff back to client
         resBuilder.setDamageDone(damageDone);
         resBuilder.setExpGained(expGained);
@@ -182,26 +182,26 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       resBuilder.setStatus(BossActionStatus.FAIL_USER_NOT_ENOUGH_ENERGY);
       return false;
     }
-    
+
     //In order to attack boss, user needs to rank up a city. When ranking
     //up a city, a user_boss entry should be created/updated.
     //Ergo entry in user_bosses should exist when this controller executes.
     UserBoss aUserBoss = UserBossRetrieveUtils.getSpecificUserBoss(userId, bossId);
     if(null == aUserBoss) {
       log.error("unexpected error: user_boss should exist before user can" +
-      		" event send BossActionRequest. user=" + u + "\t boss=" + b);
+          " event send BossActionRequest. user=" + u + "\t boss=" + b);
       return false;
     }
     userBossList.add(aUserBoss);
-    
+
     //check if user can attack the boss
     if (!inAttackWindow(aUserBoss, u, b, curTime)) {
       log.error("user error: user is trying to attack a boss outside of the" +
-      		" allotted time. boss=" + b + "\t userboss=" + aUserBoss);
+          " allotted time. boss=" + b + "\t userboss=" + aUserBoss);
       resBuilder.setStatus(BossActionStatus.FAIL_ATTACK_WINDOW_EXPIRED);
       return false;
     }
-    
+
     //check if boss is alive
     if (aUserBoss.getCurrentHealth() <= 0) {
       log.error("user error: user is trying to attack a dead boss. boss=" +
@@ -209,11 +209,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       resBuilder.setStatus(BossActionStatus.FAIL_BOSS_IS_DEAD);
       return false;
     }
-    
+
     resBuilder.setStatus(BossActionStatus.SUCCESS);
     return true;
   }
-  
+
   /* 
    * Return true if user has energy >= to energy cost to attack boss
    */
@@ -239,7 +239,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int attackWindow = b.getMinutesToKill();
     DateTime timeForLastHit = new DateTime(timeOfFirstHit);
     timeForLastHit = timeForLastHit.plusMinutes(attackWindow);
-    
+
     if (timeForLastHit.isBefore(curTime.getTime())) {
       return false;
     }
@@ -251,28 +251,28 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
    * Since user "attacked," change the user_boss object to reflect it,
    * Return map to reflecting the amount of damage user did and exp gained from attacking. 
    */
-	private Map<String, Integer> attackBoss(Builder resBuilder, UserBoss aUserBoss, User aUser, 
-			Boss aBoss, Timestamp curTime, boolean isSuperAttack) {
-		int damageGenerated = 0;
-		List<Integer> individualDamages = new ArrayList<Integer>(); //records the damages generated
-		int expGained = 0;
-		
-		damageGenerated = generateDamage(aBoss, isSuperAttack, individualDamages);
-		expGained = generateExpGained(aBoss, isSuperAttack, individualDamages, aUser.getLevel());
-		
-		int currentHealth = aUserBoss.getCurrentHealth() - damageGenerated;
-		if (0 >= currentHealth) {
-			//boss killed
-			currentHealth = 0;
-		}
-	  
-		aUserBoss.setCurrentHealth(currentHealth);
-		
-		Map<String, Integer> damageExp = new HashMap<String, Integer>();
-		damageExp.put(damage, damageGenerated);
-		damageExp.put(experience, expGained);
-		
-		return damageExp;
+  private Map<String, Integer> attackBoss(Builder resBuilder, UserBoss aUserBoss, User aUser, 
+      Boss aBoss, Timestamp curTime, boolean isSuperAttack) {
+    int damageGenerated = 0;
+    List<Integer> individualDamages = new ArrayList<Integer>(); //records the damages generated
+    int expGained = 0;
+
+    damageGenerated = generateDamage(aBoss, isSuperAttack, individualDamages);
+    expGained = generateExpGained(aBoss, isSuperAttack, individualDamages, aUser.getLevel());
+
+    int currentHealth = aUserBoss.getCurrentHealth() - damageGenerated;
+    if (0 >= currentHealth) {
+      //boss killed
+      currentHealth = 0;
+    }
+
+    aUserBoss.setCurrentHealth(currentHealth);
+
+    Map<String, Integer> damageExp = new HashMap<String, Integer>();
+    damageExp.put(damage, damageGenerated);
+    damageExp.put(experience, expGained);
+
+    return damageExp;
   }
 
 
@@ -283,38 +283,38 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     Random rand = new Random();
     return rand.nextInt(upperBound - lowerBound + 1) + lowerBound;
   }
-  
+
   private int generateDamage(Boss aBoss, boolean isSuperAttack, List<Integer> individualDamages) {
     int minDamage = aBoss.getMinDamage();
     int maxDamage = aBoss.getMaxDamage();
-	  int damageGenerated = 0;
+    int damageGenerated = 0;
 
-	  if(isSuperAttack) {
-  	  double superAttack = aBoss.getSuperAttackDamageMultiplier();
-  	  int integerPart = (int) superAttack;
-  	  double fractionalPart = superAttack - integerPart;
-  		
-  	  for(int i = 0; i < integerPart; i++) {
-  	    int dmg = generateNumInRange(minDamage, maxDamage);
-  		  damageGenerated += dmg;
-  		  individualDamages.add(dmg);
-  	  }
-  		
-  	  //this should account for when the superAttack value is a non-whole number
-  	  if(superAttack != integerPart) { //3.0 does equal 3 
-  	    int dmg = generateNumInRange(minDamage, maxDamage);
-  		  damageGenerated += dmg * fractionalPart; //damages are not rounded
-  	    individualDamages.add(dmg);
-  	  }
-  	  
-	  } else {
-	    //not super attack
-	    int dmg = generateNumInRange(minDamage, maxDamage);
-	    damageGenerated += dmg;
-	    individualDamages.add(dmg);
-	  }
-	  
-	  return damageGenerated;
+    if(isSuperAttack) {
+      double superAttack = aBoss.getSuperAttackDamageMultiplier();
+      int integerPart = (int) superAttack;
+      double fractionalPart = superAttack - integerPart;
+
+      for(int i = 0; i < integerPart; i++) {
+        int dmg = generateNumInRange(minDamage, maxDamage);
+        damageGenerated += dmg;
+        individualDamages.add(dmg);
+      }
+
+      //this should account for when the superAttack value is a non-whole number
+      if(superAttack != integerPart) { //3.0 does equal 3 
+        int dmg = generateNumInRange(minDamage, maxDamage);
+        damageGenerated += dmg * fractionalPart; //damages are not rounded
+        individualDamages.add(dmg);
+      }
+
+    } else {
+      //not super attack
+      int dmg = generateNumInRange(minDamage, maxDamage);
+      damageGenerated += dmg;
+      individualDamages.add(dmg);
+    }
+
+    return damageGenerated;
   }
 
   //  user's experience based on the attack
@@ -350,7 +350,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       int lastDmgDone = individualDamages.get(indexOfLastDamage); //not really needed, just for logging
       int lastExp = generateNumInRange(minExp, maxExp);
-      
+
       if(superAttack != integerPart) {
         lastExp = (int) (lastExp * fractionalPart); //truncating some values
         lastExp = Math.max(1, lastExp + userLevel); //once again, minimum exp could be 1 and 1*(float from 0 to 1) is 0
@@ -370,13 +370,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     return expGained;
   }
-  
+
   private CityGem determineIfGemDropped(UserBoss aUserBoss, int userId,
       int cityId, Map<Integer, UserCityGem> gemIdsToUserCityGems) {
-    if (aUserBoss.getCurrentHealth() > 0) {
+    int bossHealth = aUserBoss.getCurrentHealth();
+    if (bossHealth > 0) {
+      //boss still has health
       return null;
     }
-    
+
     Map<Integer, CityGem> gemIdsToActiveCityGems = 
         CityGemRetrieveUtils.getActiveCityGemIdsToCityGems();
     if (null == gemIdsToActiveCityGems || gemIdsToActiveCityGems.isEmpty()) {
@@ -385,31 +387,39 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     Map<Integer, UserCityGem> gemIdsToUserCityGemsTemp = UserCityGemRetrieveUtils
         .getGemIdsToGemsForUserAndCity(userId, cityId);
-    
+
     //select the next boss gem the user gets
     boolean getBossGem = true;
     boolean allowDuplicates = false;
     List<CityGem> potentialBossGems = MiscMethods.getPotentialGems(
         allowDuplicates, getBossGem, gemIdsToUserCityGemsTemp,
         gemIdsToActiveCityGems);
-    
-    //assuming only one boss gem
+
     if (potentialBossGems.isEmpty()) {
       return null;
     }
+
+    //assuming only one boss gem
+    CityGem cg = potentialBossGems.get(0); 
+
+    //if first time user killing Kirin Village's boss, give it
+    int level = aUserBoss.getCurrentLevel();
+    int firstCityId = ControllerConstants.TUTORIAL__FIRST_NEUTRAL_CITY_ID;
+    if (1 == level && cityId == firstCityId) {
+      return cg;
+    }
     
     //if randFloat is between [bossGemDropRate, 1), don't give a gem
-    CityGem cg = potentialBossGems.get(0); 
     Random rand = new Random();
     float bossGemDropRate = cg.getDropRate();
     float randFloat = rand.nextFloat();
-    
+
     if (randFloat >= bossGemDropRate) {
       cg = null;
     }
     return cg;
   }
-  
+
   private List<BossReward> determineLoot(UserBoss aUserBoss) { 
     List<BossReward> rewardsAwarded = new ArrayList<BossReward>();
 
@@ -542,7 +552,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         allEquipIds.add(reward.getEquipId());
       }
     }
-    
+
     money.put(MiscMethods.silver, silverTotal);
     money.put(MiscMethods.gold, goldTotal);
   }
@@ -595,7 +605,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       Boss aBoss, boolean isSuperAttack, Map<String, Integer> money,
       List<Integer> allEquipIds, List<Integer> levels,
       List<Integer> allUserEquipIds, Timestamp clientTime, int expChange) {
-    
+
     int bossId = aUserBoss.getBossId();
     int userId = aUserBoss.getUserId();
     //update user_boss table
@@ -635,22 +645,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int bossRewardDropHistoryId = InsertUtils.get()
           .insertIntoBossRewardDropHistoryReturnId(bossId, userId, silverChange, goldChange, clientTime);
       log.info("id of new boss reward drop history row: " + bossRewardDropHistoryId);
-//      int numUpdated = InsertUtils.get().insertIntoBossEquipDropHistory(bossRewardDropHistoryId, allEquipIds);
-//      log.info("number of distinct equips boss dropped=" + numUpdated + ". The equips are: " + allEquipIds);
+      //      int numUpdated = InsertUtils.get().insertIntoBossEquipDropHistory(bossRewardDropHistoryId, allEquipIds);
+      //      log.info("number of distinct equips boss dropped=" + numUpdated + ". The equips are: " + allEquipIds);
     }
   }
-  
+
   //increase the user's city gem by 1
   private void writeUserCityGems(Builder resBuilder, int userId, int cityId,
       CityGem cg, Map<Integer, UserCityGem> gemIdsToUserCityGems) {
     if (null == cg) {
       return;
     }
-    
+
     int gemId = cg.getId();
     int quantity = 0;
     UserCityGem ucg = null;
-    
+
     //if the user has this gem already, get the quantity
     if (gemIdsToUserCityGems.containsKey(gemId)) {
       ucg = gemIdsToUserCityGems.get(gemId);
@@ -658,10 +668,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } else {
       ucg = new UserCityGem(userId, cityId, gemId, quantity);
     }
-    
+
     int newQuantity = quantity + 1;
     ucg.setQuantity(newQuantity);
-    
+
     //update the quantity for user's gem in the database
     if (!UpdateUtils.get().updateUserCityGem(userId, cityId, gemId, newQuantity) ) {
       log.error("unexpected error: did not update the user's gems. "
@@ -688,7 +698,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     return fullUserEquipProtos;
   }
-  
+
   private void writeToUserCurrencyHistory(User aUser, Map<String, Integer> money, Timestamp curTime,
       int previousSilver, int previousGold) {
     Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
@@ -696,14 +706,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     String reasonForChange = ControllerConstants.UCHRFC__BOSS_ACTION;
     String gold = MiscMethods.gold;
     String silver = MiscMethods.silver;
-    
+
     previousGoldSilver.put(gold, previousGold);
     previousGoldSilver.put(silver, previousSilver);
     reasonsForChanges.put(gold, reasonForChange);
     reasonsForChanges.put(silver, reasonForChange);
-    
+
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, curTime, money, 
         previousGoldSilver, reasonsForChanges);
-    
+
   }
 }
