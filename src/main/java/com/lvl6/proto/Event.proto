@@ -31,6 +31,7 @@ message BattleRequestProto {
     optional int64 clientTime = 4;
     optional int32 neutralCityId = 5;
     repeated FullUserEquipProto defenderUserEquips = 6;
+    optional bool isTutorialBattle = 7;
 }
 
 																						//DONE

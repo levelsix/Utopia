@@ -108,6 +108,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     List<FullUserEquipProto> oldDefenderUserEquipsList = reqProto.getDefenderUserEquipsList();
 
+    boolean isTutorialBattle = reqProto.getIsTutorialBattle();
+    
     if( server.lockPlayers(attackerProto.getUserId(), defenderProto.getUserId(), this.getClass().getSimpleName())) {
 
       try {
@@ -229,12 +231,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             }
             int stolenEquipId = (lostEquip == null) ? ControllerConstants.NOT_SET : lostEquip.getEquipId();
             int stolenEquipLevel = (lostEquip == null) ? ControllerConstants.NOT_SET : lostEquip.getLevel();
-
-            if (!insertUtils.insertBattleHistory(attacker.getId(), defender.getId(), result, battleTime, lostCoins, stolenEquipId, expGained, stolenEquipLevel)) {
-              log.error("problem with adding battle history into the db for attacker " + attacker.getId() + " and defender " + defender.getId() 
-                  + " at " + battleTime);
-            }
             
+            //don't record the loss forced upon players
+            if (!isTutorialBattle) {
+              //since real/nontutorial, battle record it
+              if (!insertUtils.insertBattleHistory(attacker.getId(), defender.getId(), result, battleTime, lostCoins, stolenEquipId, expGained, stolenEquipLevel)) {
+                log.error("problem with adding battle history into the db for attacker " + attacker.getId() + " and defender " + defender.getId() 
+                    + " at " + battleTime);
+              }
+            }
             writeToUserCurrencyHistory(winner, attacker, defender, battleTime, attackerCurrencyChange, 
                 defenderCurrencyChange, attackerPreviousSilver, defenderPreviousSilver);
           }
