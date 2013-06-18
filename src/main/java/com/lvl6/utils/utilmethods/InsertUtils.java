@@ -251,9 +251,12 @@ public class InsertUtils implements InsertUtil{
 		  row.put(DBConstants.USER_EQUIP__USER_ID, userId);
 		  row.put(DBConstants.USER_EQUIP__EQUIP_ID, equipIds.get(i));
 		  row.put(DBConstants.USER_EQUIP__LEVEL, levels.get(i));
-		  if (null == enhancement || enhancement.isEmpty()) {
-		    row.put(DBConstants.USER_EQUIP__ENHANCEMENT_PERCENT, enhancement.get(i));
+		  int enhancementPercent = 
+		      ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT;
+		  if (null != enhancement && !enhancement.isEmpty()) {
+		    enhancementPercent = enhancement.get(i);
 		  }
+		  row.put(DBConstants.USER_EQUIP__ENHANCEMENT_PERCENT, enhancementPercent);
 		  newRows.add(row);
 	  }
 	  List<Integer> userEquipIds = DBConnection.get().insertIntoTableBasicReturnIds(tableName, newRows);
