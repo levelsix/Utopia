@@ -82,6 +82,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     resBuilder.setSender(senderProto);
     resBuilder.setStatus(BossActionStatus.FAIL_OTHER); //default
     resBuilder.setBossId(bossId);
+    resBuilder.setIsSuperAttack(isSuperAttack);
 
     server.lockPlayer(senderProto.getUserId(), this.getClass().getSimpleName());
     try {
