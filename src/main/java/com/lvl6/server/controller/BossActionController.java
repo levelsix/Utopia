@@ -238,7 +238,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     DateTime timeForLastHit = new DateTime(timeOfFirstHit);
     log.info("1: "+timeOfFirstHit);
     log.info("2: "+timeForLastHit);
-    timeForLastHit.plusMinutes(attackWindow);
+    timeForLastHit = timeForLastHit.plusMinutes(attackWindow);
     log.info("3: "+timeForLastHit);
     log.info("4: "+curTime.getTime());
     
