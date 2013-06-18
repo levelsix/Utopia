@@ -290,7 +290,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 	  int damageGenerated = 0;
 
 	  if(isSuperAttack) {
-  	  double superAttack = ControllerConstants.BOSS_EVENT__SUPER_ATTACK;
+  	  double superAttack = aBoss.getSuperAttackDamageMultiplier();
   	  int integerPart = (int) superAttack;
   	  double fractionalPart = superAttack - integerPart;
   		
