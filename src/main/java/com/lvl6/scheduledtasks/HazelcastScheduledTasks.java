@@ -57,7 +57,7 @@ public class HazelcastScheduledTasks {
 					ConnectedPlayer player = getPlayersByPlayerId().get(playerId);
 					if(System.currentTimeMillis() - tenMinutes > player.getLastMessageSentToServer().getTime()) {
 						log.info("Player {} timed out... removing from playersByPlayerId map", player.getPlayerId());
-						getPlayersByPlayerId().remove(player);
+						getPlayersByPlayerId().remove(playerId);
 						count++;
 					}else {
 						countActive++;
