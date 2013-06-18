@@ -236,7 +236,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     Date timeOfFirstHit = aUserBoss.getStartTime();
     int attackWindow = b.getMinutesToKill();
     DateTime timeForLastHit = new DateTime(timeOfFirstHit);
+    log.info("1: "+timeOfFirstHit);
+    log.info("2: "+timeForLastHit);
     timeForLastHit.plusMinutes(attackWindow);
+    log.info("3: "+timeForLastHit);
+    log.info("4: "+curTime.getTime());
     
     if (timeForLastHit.isBefore(curTime.getTime())) {
       return false;
