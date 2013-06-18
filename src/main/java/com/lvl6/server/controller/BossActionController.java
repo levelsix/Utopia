@@ -236,11 +236,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     Date timeOfFirstHit = aUserBoss.getStartTime();
     int attackWindow = b.getMinutesToKill();
     DateTime timeForLastHit = new DateTime(timeOfFirstHit);
-    log.info("1: "+timeOfFirstHit);
-    log.info("2: "+timeForLastHit);
     timeForLastHit = timeForLastHit.plusMinutes(attackWindow);
-    log.info("3: "+timeForLastHit);
-    log.info("4: "+curTime.getTime());
     
     if (timeForLastHit.isBefore(curTime.getTime())) {
       return false;
@@ -545,12 +541,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
     }
     
-    if (0 != silverTotal) {
-      money.put(MiscMethods.silver, silverTotal);
-    }
-    if (0 != goldTotal) {
-      money.put(MiscMethods.gold, goldTotal);
-    }
+    money.put(MiscMethods.silver, silverTotal);
+    money.put(MiscMethods.gold, goldTotal);
   }
 
   private boolean isSilverReward(BossReward br) {
