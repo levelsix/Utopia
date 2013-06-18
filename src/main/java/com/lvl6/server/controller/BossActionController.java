@@ -209,6 +209,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return false;
     }
     
+    resBuilder.setStatus(BossActionStatus.SUCCESS);
     return true;
   }
   
