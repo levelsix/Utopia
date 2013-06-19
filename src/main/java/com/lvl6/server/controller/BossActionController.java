@@ -195,7 +195,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     userBossList.add(aUserBoss);
 
     //check if user can attack the boss
-    if (!inAttackWindow(aUserBoss, u, b, curTime)) {
+    if (!MiscMethods.inBossAttackWindow(aUserBoss, u, b, curTime.getTime())) {
       log.error("user error: user is trying to attack a boss outside of the" +
           " allotted time. boss=" + b + "\t userboss=" + aUserBoss);
       resBuilder.setStatus(BossActionStatus.FAIL_ATTACK_WINDOW_EXPIRED);
@@ -226,24 +226,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int userEnergy = u.getEnergy();
     boolean enoughEnergy = userEnergy >= energyCost;
     return enoughEnergy;
-  }
-
-  /*
-   * Returns true if the user can attack, false otherwise. The user can attack if
-   * the time the user attacks is between start_time (in kingdom.user_bosses table)
-   * and start_time + minutes_to_kill (in kingdom.bosses table). 
-   */
-  private boolean inAttackWindow(UserBoss aUserBoss, User u, Boss b,
-      Timestamp curTime) {
-    Date timeOfFirstHit = aUserBoss.getStartTime();
-    int attackWindow = b.getMinutesToKill();
-    DateTime timeForLastHit = new DateTime(timeOfFirstHit);
-    timeForLastHit = timeForLastHit.plusMinutes(attackWindow);
-
-    if (timeForLastHit.isBefore(curTime.getTime())) {
-      return false;
-    }
-    return true;
   }
 
 

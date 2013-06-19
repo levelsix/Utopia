@@ -32,6 +32,7 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.BoosterItem;
 import com.lvl6.info.BoosterPack;
+import com.lvl6.info.Boss;
 import com.lvl6.info.BossEvent;
 import com.lvl6.info.City;
 import com.lvl6.info.CityGem;
@@ -51,6 +52,7 @@ import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.Mentorship;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.info.UserBoss;
 import com.lvl6.info.UserCityGem;
 import com.lvl6.info.UserClan;
 import com.lvl6.info.UserEquip;
@@ -2228,5 +2230,23 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     returnValue = selectFromGems(randFloat,
         probabilityForNoGem, potentialGems);
     return returnValue;
+  }
+  
+  /*
+   * Returns true if the user can attack, false otherwise. The user can attack if
+   * the time the user attacks is between start_time (in kingdom.user_bosses table)
+   * and start_time + minutes_to_kill (in kingdom.bosses table). 
+   */
+  public static boolean inBossAttackWindow(UserBoss aUserBoss, User u,
+      Boss b, long curTime) {
+    Date timeOfFirstHit = aUserBoss.getStartTime();
+    int attackWindow = b.getMinutesToKill();
+    DateTime timeForLastHit = new DateTime(timeOfFirstHit);
+    timeForLastHit = timeForLastHit.plusMinutes(attackWindow);
+
+    if (timeForLastHit.isBefore(curTime)) {
+      return false;
+    }
+    return true;
   }
 }
