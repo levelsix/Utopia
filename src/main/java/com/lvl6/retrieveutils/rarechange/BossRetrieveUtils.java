@@ -141,13 +141,11 @@ import com.lvl6.utils.DBConnection;
     int baseExp = rs.getInt(i++);
     float superAttackDamageMultiplier = rs.getFloat(i++);
     int superAttackEnergyCost = rs.getInt(i++);
-    String goodName = rs.getString(i++);
-    String badName = rs.getString(i++);
+    String name = rs.getString(i++);
     
     Boss boss = new Boss(id, cityId, assetNumWithinCity, energyCost,
         minDamage, maxDamage, minutesToKill, baseHealth, baseExp,
-        superAttackDamageMultiplier, superAttackEnergyCost, goodName,
-        badName);
+        superAttackDamageMultiplier, superAttackEnergyCost, name);
     return boss;
   }
 }

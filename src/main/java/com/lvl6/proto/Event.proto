@@ -739,7 +739,6 @@ message TaskActionResponseProto {
 	
 	//send this if city ranked up and no active bosses
 	optional FullUserBossProto boss = 12; 
-	optional string bossName = 13;
 	
 	enum TaskActionStatus {
 		SUCCESS = 0; 

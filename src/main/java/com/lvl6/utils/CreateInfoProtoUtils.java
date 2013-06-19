@@ -1174,8 +1174,7 @@ public class CreateInfoProtoUtils {
     fbp.setRegularAttackEnergyCost(boss.getRegularAttackEnergyCost());
     fbp.setSuperAttackDamageMultiplier(boss.getSuperAttackDamageMultiplier());
     fbp.setSuperAttackEnergyCost(boss.getSuperAttackEnergyCost());
-    fbp.setGoodName(boss.getGoodName());
-    fbp.setBadName(boss.getBadName());
+    fbp.setName(boss.getName());
     
     return fbp.build();
   }

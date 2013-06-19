@@ -25,7 +25,6 @@ import com.lvl6.info.Boss;
 import com.lvl6.info.City;
 import com.lvl6.info.CityGem;
 import com.lvl6.info.LockBoxEvent;
-import com.lvl6.info.NeutralCityElement;
 import com.lvl6.info.Quest;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
@@ -52,7 +51,6 @@ import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityGemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LockBoxEventRetrieveUtils;
-import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
@@ -514,31 +512,7 @@ public class TaskActionController extends EventController {
     FullUserBossProto fubp = CreateInfoProtoUtils
         .createFullUserBossProtoFromUserBoss(newBoss);
     resBuilder.setBoss(fubp);
-    int bossId = newBoss.getBossId();
-    Boss aBoss = BossRetrieveUtils.getBossForBossId(bossId);
-    if (null == aBoss) {
-      log.error("unexpected error: no boss exists... userBoss=" + newBoss);
-      return;
-    }
-    int assetId = aBoss.getAssetNumberWithinCity();
-    NeutralCityElement bossCityElement = NeutralCityElementsRetrieveUtils
-        .getNeutralCityElement(cityId, assetId);
-    if (null == bossCityElement) {
-      log.error("unexpected error: no neutral city element exists..." +
-      		" aBoss=" + aBoss);
-      return;
-    }
-    String bossName = null;
     
-    if(MiscMethods.checkIfGoodSide(aUser.getType())) {
-      bossName = bossCityElement.getGoodName();
-    } else {
-      bossName = bossCityElement.getBadName();
-    }
-    
-    if (null != bossName) {
-      resBuilder.setBossName(bossName);
-    }
   }
   
   private void writeUserCityGems(int userId, int cityId, UserCityGem ucg) {
