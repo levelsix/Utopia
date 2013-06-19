@@ -604,6 +604,8 @@ public class CreateInfoProtoUtils {
         builder.addBossIds(b.getId());
       }
     }
+    
+    builder.setBoosterPackId(c.getBoosterPackId());
 
     return builder.build();
   }

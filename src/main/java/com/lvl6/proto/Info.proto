@@ -666,6 +666,7 @@ message FullCityProto {
 	
 	repeated int32 taskIds = 10;
 	repeated int32 bossIds = 11;
+	optional int32 boosterPackId = 12;
 }
 
 //------------------------------------------------------------------------------------------
