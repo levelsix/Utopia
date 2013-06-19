@@ -221,7 +221,7 @@ public class TaskActionController extends EventController {
         
         //write stuff to user_boss table
         UserBoss newBoss = 
-            writeBossStuff(userId, cityId, cityRankedUp, clientDate);
+            writeChangesToUserBoss(user, userId, cityId, cityRankedUp, clientDate);
         if (null != newBoss) {
           setBossStuff(resBuilder, user, newBoss, cityId);
         }
@@ -444,59 +444,82 @@ public class TaskActionController extends EventController {
     }
   }
   
-  private UserBoss writeBossStuff(int userId, int cityId,
+  private UserBoss writeChangesToUserBoss(User u, int userId, int cityId,
       boolean cityRankedUp, Date clientDate) {
     if (!cityRankedUp) {
       return null;
     }
-    //since city ranked up, spawn boss
+    //since city ranked up, "spawn" boss (health/start time reset)
     //get the boss for the city
     List<Boss> bossList = BossRetrieveUtils.getBossesForCityId(cityId);
     if(null == bossList || bossList.isEmpty()) {
       log.error("unexpected error: no boss exists for cityId=" + cityId);
       return null;
     }
+    
     Boss aBoss = null;
     //for now assume there exists only one boss per city
     aBoss = bossList.get(0);
     int bossId = aBoss.getId();
-    int defaultHealth = aBoss.getBaseHealth(); 
+    int newHealth = aBoss.getBaseHealth(); 
     
     //get the current user boss
     UserBoss ub = UserBossRetrieveUtils.getSpecificUserBoss(userId, bossId);
     
     int newLevel = 1;
-    int newHealth = defaultHealth;
+    //if userBoss exists record current user boss into history
     if (null != ub) {
-      //if it exists record user boss into history
-      Date startDate = ub.getStartTime();
-      Timestamp startTime = new Timestamp(startDate.getTime());
-      int curHealth = ub.getCurrentHealth();
-      int currentLevel = ub.getCurrentLevel();
-      InsertUtils.get().insertIntoUserBossHistory(bossId, userId,
-          startTime, curHealth, currentLevel);
-      
-      if (curHealth <= 0) {
-        //user slayed the boss, boss should level up
-        newLevel = currentLevel + 1;
-      } else{
-        //user did not slay the boss, level and health stay the same
-        newLevel = currentLevel;
-        newHealth = curHealth;
-      }
+      saveUserBossIntoHistory(ub, bossId, userId);
+      //DETERMINE THE LEVEL FOR THE NEWLY SPAWNED BOSS
+      newLevel = determineBossLevel(ub);
+      newHealth = determineBossHealth(ub, u, aBoss, clientDate);
     } else {
       //create dummy user boss
       ub = new UserBoss(bossId, userId, 0, 0, null);
     }
     
-   updateUserBoss(ub, userId, bossId, newLevel, newHealth, clientDate);
+   updateUserBossInDb(ub, userId, bossId, newLevel, newHealth, clientDate);
     
     return ub;
   }
   
-  private void updateUserBoss(UserBoss ub, int userId, int bossId,
-      int newLevel, int newHealth, Date clientDate) {
+  private void saveUserBossIntoHistory(UserBoss ub, int bossId, int userId) {
+    Date startDate = ub.getStartTime();
+    Timestamp startTime = new Timestamp(startDate.getTime());
+    int curHealth = ub.getCurrentHealth();
+    int currentLevel = ub.getCurrentLevel();
+    InsertUtils.get().insertIntoUserBossHistory(bossId, userId,
+        startTime, curHealth, currentLevel);
+  }
+  
+  private int determineBossLevel(UserBoss ub) {
+    int currentLevel = ub.getCurrentLevel();
+    int curHealth = ub.getCurrentHealth();
+    int newLevel = currentLevel;
+    if (curHealth <= 0) {
+      //user slayed the boss, boss should level up
+      newLevel = currentLevel + 1;
+    }
+    return newLevel;
+  }
+  
+  //if user can still attack boss then return the current health
+  //otherwise return the boss's default health
+  private int determineBossHealth(UserBoss ub, User u, Boss b,
+      Date clientDate) {
+    if (MiscMethods.inBossAttackWindow(ub, u, b, clientDate.getTime())) {
+      return ub.getCurrentHealth();
+    } else {
+      return b.getBaseHealth();
+    }
+  }
+  
+  //updates the user_boss entry for the user and boss and returns 
+  //the object stored into the table
+  private void updateUserBossInDb(UserBoss ub, int userId, int bossId,
+      int newLevel, int defaultHealth, Date clientDate) {
     Timestamp newSpawnTime = new Timestamp(clientDate.getTime());
+    int newHealth = determineHealthForBossLevel(newLevel, defaultHealth);
     ub.setCurrentHealth(newHealth);
     ub.setStartTime(clientDate);
     ub.setCurrentLevel(newLevel);
@@ -504,6 +527,12 @@ public class TaskActionController extends EventController {
         newHealth, newLevel)) {
       log.error("unexpected error: could not replace userBoss. ub=" + ub);
     }
+  }
+  
+  private int determineHealthForBossLevel(int newLevel, int defaultHealth) {
+    int maxMultiplier = ControllerConstants.SOLO_BOSS__MAX_HEALTH_MULTIPLIER;
+    int multiplier = Math.min(newLevel, maxMultiplier);
+    return multiplier * defaultHealth;
   }
   
   //setting the user boss and the name of the boss
