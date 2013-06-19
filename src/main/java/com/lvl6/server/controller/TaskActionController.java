@@ -507,9 +507,15 @@ public class TaskActionController extends EventController {
   //otherwise return the boss's default health
   private int determineBossHealth(UserBoss ub, User u, Boss b,
       Date clientDate) {
-    if (MiscMethods.inBossAttackWindow(ub, u, b, clientDate.getTime())) {
-      return ub.getCurrentHealth();
+    int curHealth = ub.getCurrentHealth();
+
+    if (MiscMethods.inBossAttackWindow(ub, u, b, clientDate.getTime()) &&
+        curHealth > 0) {
+      //since boss is alive and can attack, return the current health
+      return curHealth;
     } else {
+      //since city ranked up (so user can attack) and since boss is dead, 
+      //return full health
       return b.getBaseHealth();
     }
   }
