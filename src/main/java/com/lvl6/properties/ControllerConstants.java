@@ -291,7 +291,8 @@ public class ControllerConstants {
   public static final int USER_CREATE__COIN_REWARD_FOR_BEING_REFERRED = 50;
   public static final double USER_CREATE__PERCENTAGE_OF_COIN_WEALTH_GIVEN_TO_REFERRER = .2;
   public static final int USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL = 98394;
-  public static final String USER_CREATE__FIRST_WALL_POST_TEXT = "Hi! My name's Stevie, one of the creators of this game. Feel free to message me if you need any help.";
+  public static final String USER_CREATE__FIRST_WALL_POST_TEXT = 
+	  "Hi! My name's " + (Globals.KABAM_ENABLED() ? "Stevie" : "Andrew") + ", one of the creators of this game. Feel free to message me if you need any help.";
   public static final int USER_CREATE__INITIAL_GLOBAL_CHATS = 10;
 
   
