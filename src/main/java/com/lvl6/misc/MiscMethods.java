@@ -1545,14 +1545,14 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
   }
   
   //given a date time, e.g. 2013-02-08 00:33:57 (UTC),
-  //spits out the start of day in UTC relative to PST
-  //using prior example, returns 2013-02-07 08:00:00
+  //spits out the start of day in UTC relative to L.A. time
+  //using prior example, L.A. time is 2013-02-07 16:33:57 (no daylight savings) 
+  //returns 2013-02-07 08:00:00 
+  //(the start of the day in L.A. represented in UTC time)
   public static Timestamp getPstDateAndHourFromUtcTime(Date now) {
     Calendar cal = Calendar.getInstance();
     cal.setTimeZone(TimeZone.getTimeZone("Europe/London"));
     cal.setTime(now);
-    
-    log.info("utc now =" + cal);
     
     //PST = UTC - 8 or 7(because of daylight savings time) hours
     TimeZone laTimeZone = TimeZone.getTimeZone("America/Los_Angeles");
@@ -1561,17 +1561,16 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     //get the offset from gmt in hours and account for daylight savings time
     int offset = (laCal.get(Calendar.ZONE_OFFSET) + laCal.get(Calendar.DST_OFFSET)) / (1000*60*60);
     
-    log.info("offset from Europe/London time and America/Los_Angeles. offset=" +
-        offset);
+    //getting the date in L.A. requires subtracting the offset (7 or 8)
+    //from UTC 
+    cal.add(Calendar.HOUR_OF_DAY, offset); //time in L.A.
     
-    cal.add(Calendar.HOUR_OF_DAY, offset);
-    log.info("pdt now =" + cal);
-    //hopefully this gives me YYYY-MM-DD HH:00:00
+    //but just want the date and hour
     cal.set(Calendar.MINUTE, 0);
     cal.set(Calendar.SECOND, 0);
     cal.set(Calendar.MILLISECOND, 0);
-    
     cal.set(Calendar.HOUR_OF_DAY, -offset);
+    
     long millis = cal.getTimeInMillis();
     Timestamp PSTDateAndHourInUTC = new Timestamp(millis);
     return PSTDateAndHourInUTC;

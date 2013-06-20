@@ -11,6 +11,10 @@ import java.util.TimeZone;
 
 import javax.annotation.Resource;
 
+import org.joda.time.DateMidnight;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.Minutes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
@@ -366,7 +370,18 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
     cal.add(Calendar.DATE, 1);
     long nextDayInMillisGmt = cal.getTimeInMillis();
 
-    return (int) Math.ceil((nextDayInMillisGmt - now.getTime())/60000);
+    DateTimeZone laTZ = DateTimeZone.forID("America/Los_Angeles");
+    DateTime nowInLa = new DateTime(now.getTime(), laTZ);
+    DateMidnight nextDayInLa = new DateMidnight(now.getTime(), laTZ);
+    nextDayInLa = nextDayInLa.plusDays(1);
+    Minutes minutesDiff = Minutes.minutesBetween(nowInLa, nextDayInLa);
+    
+    int originalMinutesLeft = (int) Math.ceil((nextDayInMillisGmt - now.getTime())/60000);
+    int newMinutesLeft = minutesDiff.getMinutes();
+    log.info("originalMinutesLeft=" + originalMinutesLeft + "\t " +
+	"newMinutesLeft=" + newMinutesLeft);
+    
+    return originalMinutesLeft;
   }
   
   /*moved all to misc methods
