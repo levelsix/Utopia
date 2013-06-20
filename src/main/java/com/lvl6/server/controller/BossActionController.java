@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
@@ -295,7 +294,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       damageGenerated += dmg;
       individualDamages.add(dmg);
     }
+    //there is a 15% chance that the damage increases by 1.6
+    damageGenerated = criticalHit(damageGenerated);
 
+    return damageGenerated;
+  }
+  
+  private int criticalHit (int damageGenerated) {
+    Random rand = new Random();
+    double criticalHitChance = ControllerConstants.SOLO_BOSS__CRITICAL_HIT_CHANCE;
+    double criticalHitDamageMultiplier = 
+        ControllerConstants.SOLO_BOSS__CRITICAL_HIT_DAMAGE_MULTIPLIER;
+    double randDouble = rand.nextDouble();
+    
+    if (randDouble < criticalHitChance) {
+      return (int) (((double)damageGenerated) * criticalHitDamageMultiplier);
+    }
     return damageGenerated;
   }
 
