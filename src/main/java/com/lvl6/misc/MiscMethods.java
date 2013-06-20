@@ -1559,6 +1559,9 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     //get the offset from gmt in hours and account for daylight savings time
     int offset = (laCal.get(Calendar.ZONE_OFFSET) + laCal.get(Calendar.DST_OFFSET)) / (1000*60*60);
     
+    log.info("offset from Europe/London time and America/Los_Angeles. offset=" +
+        offset);
+    
     cal.add(Calendar.HOUR_OF_DAY, offset);
     //hopefully this gives me YYYY-MM-DD HH:00:00
     cal.set(Calendar.MINUTE, 0);
