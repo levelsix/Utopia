@@ -543,6 +543,8 @@ message StartupResponseProto {
 			optional int32 forgeMaxForgeSlots = 6;
 			optional int32 costOfPurchasingSlotTwo = 7;
 			optional int32 costOfPurchasingSlotThree = 8;
+			optional double forgeSpeedupConstantA = 9;
+			optional double forgeSpeedupConstantB = 10;
 		}
 	}
 	

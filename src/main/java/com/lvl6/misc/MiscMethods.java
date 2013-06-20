@@ -165,8 +165,9 @@ public class MiscMethods {
   }
 
   public static int calculateDiamondCostToSpeedupForgeWaittime(Equipment equipment, int goalLevel) {
-    return (int) Math.ceil(calculateMinutesToFinishForgeAttempt(equipment, goalLevel) / 
-        (float)ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
+    return (int) Math.max(1, Math.ceil(ControllerConstants.FORGE_SPEEDUP_CONSTANT_A * 
+        Math.log(calculateMinutesToFinishForgeAttempt(equipment, goalLevel)) + 
+        ControllerConstants.FORGE_SPEEDUP_CONSTANT_B));
   }
 
   public static UserEquip chooseUserEquipWithEquipIdPreferrablyNonEquippedIgnoreLevel(User user, List<UserEquip> userEquipsForEquipId) {
@@ -511,6 +512,8 @@ public class MiscMethods {
         .setForgeMaxForgeSlots(ControllerConstants.FORGE__ADDITIONAL_MAX_FORGE_SLOTS)
         .setCostOfPurchasingSlotTwo(ControllerConstants.FORGE_COST_OF_PURCHASING_SLOT_TWO)
         .setCostOfPurchasingSlotThree(ControllerConstants.FORGE_COST_OF_PURCHASING_SLOT_THREE)
+        .setForgeSpeedupConstantA(ControllerConstants.FORGE_SPEEDUP_CONSTANT_A)
+        .setForgeSpeedupConstantB(ControllerConstants.FORGE_SPEEDUP_CONSTANT_B)
         .build();
 
     cb.setForgeConstants(forgeConstants);
