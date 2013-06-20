@@ -2,16 +2,13 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 
 import javax.annotation.Resource;
 
-import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Minutes;
@@ -385,8 +382,6 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
     Minutes minutesDiff = Minutes.minutesBetween(nowInLa, nextDayInLa);
     
     int newMinutesLeft = minutesDiff.getMinutes();
-    log.info("newMinutesLeft=" + newMinutesLeft);
-    
     return newMinutesLeft;
   }
   
