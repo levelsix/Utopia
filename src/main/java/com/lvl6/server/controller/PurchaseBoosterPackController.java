@@ -2,16 +2,13 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 
 import javax.annotation.Resource;
 
-import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Minutes;
@@ -337,9 +334,13 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
   
   private boolean underDailyPurchaseLimit(Builder resBuilder, int userId, BoosterPack aPack, 
       int boosterPackId, Date now, int numUserWantsToBuy) {
-    Timestamp startOfDayPstInUtc = MiscMethods.getPstDateAndHourFromUtcTime(now);
-    int numPurchased = UserBoosterPackRetrieveUtils
-        .getNumPacksPurchasedAfterDateForUserAndPackId(userId, boosterPackId, startOfDayPstInUtc);
+    //get the time at the start of the day in L.A.
+    DateTimeZone laTZ = DateTimeZone.forID("America/Los_Angeles");
+    DateTime nowInLa = new DateTime(now.getTime(), laTZ);
+    DateTime startOfDayInLa = nowInLa.withTimeAtStartOfDay();
+    
+    int numPurchased = getNumEquipsPurchasedToday(userId, boosterPackId,
+        startOfDayInLa);
     
     boolean limitSet = true;
     int dailyLimit = aPack.getDailyLimit();
@@ -350,7 +351,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
     if (limitSet && numUserWillHave > dailyLimit) {
       //user will have more than the limit
       int numMorePacksUserCanBuy = Math.max(0, dailyLimit - numPurchased);
-      int minutesUntilLimitReset = determineTimeUntilReset(startOfDayPstInUtc, now);
+      int minutesUntilLimitReset = determineTimeUntilReset(nowInLa, startOfDayInLa);
       
       resBuilder.setStatus(PurchaseBoosterPackStatus.EXCEEDING_PURCHASE_LIMIT);
       resBuilder.setNumPacksToExceedLimit(numMorePacksUserCanBuy);
@@ -362,26 +363,26 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
     
     return true;
   }
-  
-  private int determineTimeUntilReset(Timestamp startOfDayPstInUtc, Date now) {
-    Calendar cal = Calendar.getInstance();
-    cal.setTimeZone(TimeZone.getTimeZone("Europe/London"));
-    cal.setTime(startOfDayPstInUtc);
-    cal.add(Calendar.DATE, 1);
-    long nextDayInMillisGmt = cal.getTimeInMillis();
 
-    DateTimeZone laTZ = DateTimeZone.forID("America/Los_Angeles");
-    DateTime nowInLa = new DateTime(now.getTime(), laTZ);
-    DateMidnight nextDayInLa = new DateMidnight(now.getTime(), laTZ);
-    nextDayInLa = nextDayInLa.plusDays(1);
+  private int getNumEquipsPurchasedToday(int userId, int boosterPackId, 
+      DateTime startOfDayInLA) {
+    //get the time at the start of the day in UTC
+    DateTimeZone utcTZ = DateTimeZone.UTC;
+    DateTime startOfDayInLAInUtc = startOfDayInLA.withZone(utcTZ);
+    Timestamp startTime = new Timestamp(startOfDayInLAInUtc.toDate().getTime());
+
+    int numPurchased = UserBoosterPackRetrieveUtils
+        .getNumPacksPurchasedAfterDateForUserAndPackId(userId, boosterPackId, startTime);
+    
+    return numPurchased;
+  }
+  
+  private int determineTimeUntilReset(DateTime nowInLa, DateTime startOfDayInLa) {
+    DateTime nextDayInLa = startOfDayInLa.plusDays(1);
     Minutes minutesDiff = Minutes.minutesBetween(nowInLa, nextDayInLa);
     
-    int originalMinutesLeft = (int) Math.ceil((nextDayInMillisGmt - now.getTime())/60000);
     int newMinutesLeft = minutesDiff.getMinutes();
-    log.info("originalMinutesLeft=" + originalMinutesLeft + "\t " +
-	"newMinutesLeft=" + newMinutesLeft);
-    
-    return originalMinutesLeft;
+    return newMinutesLeft;
   }
   
   /*moved all to misc methods

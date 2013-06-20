@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -15,7 +14,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.StringTokenizer;
-import java.util.TimeZone;
 
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
@@ -1545,38 +1543,6 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
         packageS1SaleIdentifier, packageS2SaleIdentifier, packageS3SaleIdentifier, packageS4SaleIdentifier, packageS5SaleIdentifier, true);
 
     return CreateInfoProtoUtils.createGoldSaleProtoFromGoldSale(sale);
-  }
-  
-  //given a date time, e.g. 2013-02-08 00:33:57 (UTC),
-  //spits out the start of day in UTC relative to L.A. time
-  //using prior example, L.A. time is 2013-02-07 16:33:57 (no daylight savings) 
-  //returns 2013-02-07 08:00:00 
-  //(the start of the day in L.A. represented in UTC time)
-  public static Timestamp getPstDateAndHourFromUtcTime(Date now) {
-    Calendar cal = Calendar.getInstance();
-    cal.setTimeZone(TimeZone.getTimeZone("Europe/London"));
-    cal.setTime(now);
-    
-    //PST = UTC - 8 or 7(because of daylight savings time) hours
-    TimeZone laTimeZone = TimeZone.getTimeZone("America/Los_Angeles");
-    Calendar laCal = Calendar.getInstance(laTimeZone);
-    
-    //get the offset from gmt in hours and account for daylight savings time
-    int offset = (laCal.get(Calendar.ZONE_OFFSET) + laCal.get(Calendar.DST_OFFSET)) / (1000*60*60);
-    
-    //getting the date in L.A. requires subtracting the offset (7 or 8)
-    //from UTC 
-    cal.add(Calendar.HOUR_OF_DAY, offset); //time in L.A.
-    
-    //but just want the date and hour
-    cal.set(Calendar.MINUTE, 0);
-    cal.set(Calendar.SECOND, 0);
-    cal.set(Calendar.MILLISECOND, 0);
-    cal.set(Calendar.HOUR_OF_DAY, -offset);
-    
-    long millis = cal.getTimeInMillis();
-    Timestamp PSTDateAndHourInUTC = new Timestamp(millis);
-    return PSTDateAndHourInUTC;
   }
   
   public static int dateDifferenceInDays(Date start, Date end) {
