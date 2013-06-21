@@ -304,8 +304,6 @@ message StartupResponseProto {
 		optional int32 averageSizeOfLevelBracket = 63;
 		optional ForgeConstants forgeConstants = 64;
 		
-		optional double healthFormulaExponentBase = 65;
-		
 		optional double levelEquipBoostExponentBase = 66;
 		
 		optional int32 adColonyVideosRequiredToRedeemDiamonds = 67;
@@ -377,6 +375,15 @@ message StartupResponseProto {
 		optional int32 numBeginnerSalesAllowed = 107;
 		
 		optional int32 defaultDaysBattleShieldIsActive = 108;
+		
+		optional HealthConstants healthConstants = 109;
+		
+		message HealthConstants {
+			optional double healthFormulaExponentBase = 1;
+			optional double healthFormulaLinearA = 2;
+			optional double healthFormulaLinearB = 3;
+			optional int32 healthFormulaLevelCutoff = 4;
+		}
 		
 		message PrestigeConstants {
 			optional int32 minLevelForPrestige = 1;

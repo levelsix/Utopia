@@ -92,8 +92,11 @@ public class ControllerConstants {
   public static final int SOLO_BOSS__MAX_HEALTH_MULTIPLIER = 5;
   
   public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.5;
-  
+
   public static final double HEALTH__FORMULA_EXPONENT_BASE = 1.18;
+  public static final double HEALTH__FORMULA_LINEAR_A = 999.75;
+  public static final double HEALTH__FORMULA_LINEAR_B = -26381;
+  public static final int HEALTH__FORMULA_LEVEL_CUTOFF = 31;
   
   public static final int AVERAGE_SIZE_OF_LEVEL_BRACKET = 5;
 
@@ -118,7 +121,7 @@ public class ControllerConstants {
   
   public static final int SIZE_OF_ATTACK_LIST = 20;
 
-  public static final int BATTLE__MAX_NUM_TIMES_ATTACKED_BY_ONE_IN_PROTECTION_PERIOD = 25;
+  public static final int BATTLE__MAX_NUM_TIMES_ATTACKED_BY_ONE_IN_PROTECTION_PERIOD = 2;
   public static final int BATTLE__HOURS_IN_ATTACKED_BY_ONE_PROTECTION_PERIOD = 2;
   public static final int BATTLE__MAX_LEVEL_TO_STEAL = 4;
   public static final int BATTLE__MAX_LEVEL_TO_STEAL_EPICS = 2;
