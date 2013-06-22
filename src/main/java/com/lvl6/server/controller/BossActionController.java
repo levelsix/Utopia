@@ -630,7 +630,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       //update user_equips table with equipment rewards.
       List<Integer> enhancement = null;
       List<Integer> createdUserEquipIds = InsertUtils.get().insertUserEquips(
-          aUser.getId(), allEquipIds, levels, enhancement);
+          aUser.getId(), allEquipIds, levels, enhancement, clientTime);
 
       allUserEquipIds.addAll(createdUserEquipIds);
     }

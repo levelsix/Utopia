@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -56,7 +58,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
     MinimumUserProto senderProto = reqProto.getSender();
     int blacksmithId = reqProto.getBlacksmithId();
-
+    Timestamp now = new Timestamp((new Date()).getTime());
+    
     CollectForgeEquipsResponseProto.Builder resBuilder = CollectForgeEquipsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
     resBuilder.setBlacksmithId(blacksmithId);
@@ -78,7 +81,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         if (successfulForge) {
           //forging enhanced weapons deletes the enhancement percentages
           int newUserEquipId = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel(),
-              ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
+              ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT, now);
           if (newUserEquipId < 0) {
             resBuilder.setStatus(CollectForgeEquipsStatus.OTHER_FAIL);
             log.error("problem with giving 1 of equip " + blacksmithAttempt.getEquipId() + " to forger " + user.getId());
@@ -95,9 +98,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           int equipOneEnhancementPercent = blacksmithAttempt.getEquipOneEnhancementPercent();
           int equipTwoEnhancementPercent = blacksmithAttempt.getEquipTwoEnhancementPercent();
           int newUserEquipId1 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1,
-              equipOneEnhancementPercent);
+              equipOneEnhancementPercent, now);
           int newUserEquipId2 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1,
-              equipTwoEnhancementPercent);
+              equipTwoEnhancementPercent, now);
           
           if (newUserEquipId1 < 0 || newUserEquipId2 < 0) {
             resBuilder.setStatus(CollectForgeEquipsStatus.OTHER_FAIL);

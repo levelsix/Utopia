@@ -105,6 +105,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
     int boosterPackId = reqProto.getBoosterPackId();
     PurchaseOption option = reqProto.getPurchaseOption();
     Date now = new Date(reqProto.getClientTime());
+    Timestamp nowTimestamp = new Timestamp(now.getTime());
 
     PurchaseBoosterPackResponseProto.Builder resBuilder = PurchaseBoosterPackResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -155,7 +156,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
         previousGold = user.getDiamonds();
         successful = writeChangesToDB(resBuilder, user, boosterItemIdsToNumCollected,
             newBoosterItemIdsToNumCollected, itemsUserReceives, collectedBeforeReset, 
-            goldSilverChange, userEquipIds, resetOccurred);
+            goldSilverChange, userEquipIds, resetOccurred, nowTimestamp);
       }
       
       if (successful) {
@@ -179,7 +180,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        Timestamp nowTimestamp = new Timestamp(now.getTime());
+        
         int numBought = itemsUserReceives.size();
         
         //multiple scenarios where user can "buy" booster pack, but,
@@ -587,12 +588,16 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
   } */
   
   //sets values for newBoosterItemIdsToNumCollected
-  private boolean writeChangesToDB(Builder resBuilder, User user, Map<Integer, Integer> boosterItemIdsToNumCollected,
-      Map<Integer, Integer> newBoosterItemIdsToNumCollected, List<BoosterItem> itemsUserReceives, 
-      List<Boolean> collectedBeforeReset, Map<String, Integer> goldSilverChange, List<Integer> uEquipIds, boolean resetOccurred) {
+  private boolean writeChangesToDB(Builder resBuilder, User user,
+      Map<Integer, Integer> boosterItemIdsToNumCollected,
+      Map<Integer, Integer> newBoosterItemIdsToNumCollected,
+      List<BoosterItem> itemsUserReceives, List<Boolean> collectedBeforeReset,
+      Map<String, Integer> goldSilverChange, List<Integer> uEquipIds,
+      boolean resetOccurred, Timestamp nowTimestamp) {
     //insert into user_equips, update user, update user_booster_items
     int userId = user.getId();
-    List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId, itemsUserReceives);
+    List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId,
+        itemsUserReceives, nowTimestamp);
     if (null == userEquipIds || userEquipIds.isEmpty() 
         || userEquipIds.size() != itemsUserReceives.size()) {
       resBuilder.setStatus(PurchaseBoosterPackStatus.OTHER_FAIL);

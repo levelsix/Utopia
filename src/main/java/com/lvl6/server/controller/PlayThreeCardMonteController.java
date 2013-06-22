@@ -54,7 +54,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     PlayThreeCardMonteRequestProto reqProto = ((PlayThreeCardMonteRequestEvent)event).getPlayThreeCardMonteRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
-
+    Timestamp now = new Timestamp((new Date()).getTime());
+    
     PlayThreeCardMonteResponseProto.Builder resBuilder = PlayThreeCardMonteResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
@@ -75,7 +76,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       if (legitPlay) {
         if (equipId != ControllerConstants.NOT_SET && equipId > 0 && equipLevel > 0) {
           int newUserEquipId = InsertUtils.get().insertUserEquip(user.getId(), equipId, equipLevel,
-              ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
+              ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT, now);
           if (newUserEquipId     < 0) {
             resBuilder.setStatus(PlayThreeCardMonteStatus.OTHER_FAIL);
             log.error("problem with giving 1 of equip " + equipId + " to forger " + user.getId());
@@ -103,7 +104,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        writeToUserCurrencyHistory(user, money, previousSilver, previousGold);
+        writeToUserCurrencyHistory(user, money, previousSilver, previousGold, now);
       }
 
     } catch (Exception e) {
@@ -149,8 +150,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
   
   public void writeToUserCurrencyHistory(User aUser, Map<String, Integer> money,
-      int previousSilver, int previousGold) {
-    Timestamp date = new Timestamp((new Date()).getTime());
+      int previousSilver, int previousGold, Timestamp date) {
     Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
     Map<String, String> reasonsForChanges = new HashMap<String, String>();
     String gold = MiscMethods.gold;

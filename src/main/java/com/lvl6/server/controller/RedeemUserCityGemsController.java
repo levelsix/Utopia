@@ -287,7 +287,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     //userEquipIds is populated
     boolean successful = writeBoosterStuffToDB(u, newBoosterItemIdsToNumCollectedCopy,
         newBoosterItemIdsToNumCollected, allItemsUserReceives, allCollectedBeforeReset,
-        resetOccurred, userEquipIds);
+        resetOccurred, userEquipIds, now);
     if (successful) {
       recordPurchases(userId, now, packIdToItemsUserReceives, boosterPackIdsToQuantities);
       returnValue = constructFullUserEquipProtos(
@@ -339,11 +339,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   
   
   
-  private boolean writeBoosterStuffToDB(User aUser, Map<Integer, Integer> boosterItemIdsToNumCollected,
-      Map<Integer, Integer> newBoosterItemIdsToNumCollected, List<BoosterItem> itemsUserReceives,
-      List<Boolean> collectedBeforeReset, boolean resetOccurred, List<Integer> newUserEquipIds) {
+  private boolean writeBoosterStuffToDB(User aUser,
+      Map<Integer, Integer> boosterItemIdsToNumCollected,
+      Map<Integer, Integer> newBoosterItemIdsToNumCollected,
+      List<BoosterItem> itemsUserReceives, List<Boolean> collectedBeforeReset,
+      boolean resetOccurred, List<Integer> newUserEquipIds, Timestamp now) {
     int userId = aUser.getId();
-    List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId, itemsUserReceives);
+    List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId,
+        itemsUserReceives, now);
     if (null == userEquipIds || userEquipIds.isEmpty() || userEquipIds.size() != itemsUserReceives.size()) {
       log.error("unexpected error: failed to insert equip for user. boosteritems="
           + MiscMethods.shallowListToString(itemsUserReceives));

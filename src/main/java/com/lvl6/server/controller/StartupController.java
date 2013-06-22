@@ -1009,7 +1009,8 @@ public class StartupController extends EventController {
           collectedBeforeReset);
       newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>(boosterItemIdsToNumCollected);
       boolean successful = writeBoosterStuffToDB(aUser, boosterItemIdsToNumCollected,
-          newBoosterItemIdsToNumCollected, itemsUserReceives, collectedBeforeReset, resetOccurred);
+          newBoosterItemIdsToNumCollected, itemsUserReceives, collectedBeforeReset,
+          resetOccurred, now);
       if (successful) {
         //exclude from daily limit check in PurchaseBoosterPackController
         boolean excludeFromLimitCheck = true;
@@ -1036,9 +1037,10 @@ public class StartupController extends EventController {
 
   private boolean writeBoosterStuffToDB(User aUser, Map<Integer, Integer> boosterItemIdsToNumCollected,
       Map<Integer, Integer> newBoosterItemIdsToNumCollected, List<BoosterItem> itemsUserReceives,
-      List<Boolean> collectedBeforeReset, boolean resetOccurred) {
+      List<Boolean> collectedBeforeReset, boolean resetOccurred, Timestamp now) {
     int userId = aUser.getId();
-    List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId, itemsUserReceives);
+    List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId,
+        itemsUserReceives, now);
     if (null == userEquipIds || userEquipIds.isEmpty() || userEquipIds.size() != itemsUserReceives.size()) {
       log.error("unexpected error: failed to insert equip for user. boosteritems="
           + MiscMethods.shallowListToString(itemsUserReceives));

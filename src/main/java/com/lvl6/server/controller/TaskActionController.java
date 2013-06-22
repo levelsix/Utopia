@@ -170,7 +170,7 @@ public class TaskActionController extends EventController {
         lockBoxEventId = checkIfUserAcquiresLockBox(user, task, clientTime);
         
         //if equip dropped give it to him
-        lootEquipId = giveEquip(resBuilder, userId, lootEquipId);
+        lootEquipId = giveEquip(resBuilder, userId, lootEquipId, clientTime);
         
         //don't limit city ranks because of city boss feature
         //if (cityRank < ControllerConstants.TASK_ACTION__MAX_CITY_RANK) {
@@ -974,12 +974,14 @@ public class TaskActionController extends EventController {
   }
   
 
-  private int giveEquip(Builder resBuilder, int userId, int lootEquipId) {
+  private int giveEquip(Builder resBuilder, int userId, int lootEquipId,
+      Timestamp clientTime) {
     if (lootEquipId != ControllerConstants.NOT_SET) {
       int userEquipId = InsertUtils.get().insertUserEquip(
           userId, lootEquipId,
           ControllerConstants.DEFAULT_USER_EQUIP_LEVEL,
-          ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
+          ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT,
+          clientTime);
       if (userEquipId < 0) {
         log.error("problem with giving 1 of equip " + lootEquipId + 
             " to task completer " + userId);

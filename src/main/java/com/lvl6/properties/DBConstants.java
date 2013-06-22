@@ -174,6 +174,7 @@ public class DBConstants {
   public static final String USER_EQUIP__EQUIP_ID = "equip_id";
   public static final String USER_EQUIP__LEVEL = "level";
   public static final String USER_EQUIP__ENHANCEMENT_PERCENT = "enhancement_percent";
+  public static final String USER_EQUIP__CREATE_TIME = "create_time";
   
   /*EQUIP ENHANCEMENT*/
   public static final String EQUIP_ENHANCEMENT__ID = GENERIC__ID;

@@ -134,7 +134,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
     int enhancementPercentageAfterEnhancement = MiscMethods.calculateEnhancementForEquip(equipUnderEnhancement,
         feedersForEnhancement)+enhancementPercentageBeforeEnhancement;
-    int userEquipId = InsertUtils.get().insertUserEquip(userId, equipId, equipLevel, enhancementPercentageAfterEnhancement);
+    int userEquipId = InsertUtils.get().insertUserEquip(userId, equipId,
+        equipLevel, enhancementPercentageAfterEnhancement, clientTime);
     
     
     if(1 > userEquipId) {

@@ -149,7 +149,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             lostEquip = chooseLostEquip(defenderEquips, equipmentIdsToEquipment,
                 defender, oldDefenderUserEquipsList);
             if (lostEquip != null) {
-              lostEquip = setLostEquip(resBuilder, lostEquip, winner, loser);
+              lostEquip = setLostEquip(resBuilder, lostEquip, winner, loser, battleTime);
             }
           } else if (result == BattleResult.DEFENDER_WIN || result == BattleResult.ATTACKER_FLEE){
             winner = defender;
@@ -255,7 +255,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private UserEquip setLostEquip(BattleResponseProto.Builder resBuilder,
-      UserEquip lostEquip, User winner, User loser) {
+      UserEquip lostEquip, User winner, User loser, Timestamp battleTime) {
     if (!loser.isFake()) { //real, unequip and transfer
       if (!MiscMethods.unequipUserEquipIfEquipped(loser, lostEquip)) {
         log.error("problem with unequipping userequip" + lostEquip.getId());
@@ -273,7 +273,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
     } else {  //fake, just insert
       int userEquipId = InsertUtils.get().insertUserEquip(winner.getId(), lostEquip.getEquipId(), lostEquip.getLevel(),
-          ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
+          ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT, battleTime);
       if (userEquipId < 0) {
         log.error("problem with giving 1 of equip " + lostEquip.getEquipId() + " to winner " + winner.getId());
         lostEquip = null;

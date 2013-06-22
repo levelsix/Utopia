@@ -423,7 +423,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     //newUserEquipIds is populated
     boolean successful = writeBoosterStuffToDB(u, newBoosterItemIdsToNumCollectedCopy,
         newBoosterItemIdsToNumCollected, allItemsUserReceives, allCollectedBeforeReset,
-        resetOccurred, userEquipIds);
+        resetOccurred, userEquipIds, now);
     if (successful) {
       recordPurchases(userId, now, packIdToItemsUserReceives, boosterPackIdsToQuantities);
       returnValue = constructFullUserEquipProtos(
@@ -476,67 +476,69 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   
   //purchase some amount of one booster pack, return the full user equip protos and
   //populate userEquipIds
-  private List<FullUserEquipProto> purchaseBoosterPack(BoosterPack aPack, 
-      Map<Integer, BoosterItem> boosterItemIdsToBoosterItemsForAPack,
-      Map<Integer, Integer> boosterItemIdsToNumCollected, User aUser,
-      int numBoosterItemsUserWants, Timestamp now, List<Integer> userEquipIds) {
-    //return value
-    List<FullUserEquipProto> newUserEquipProtos  = null;
-    
-    //the booster item list that user has after "purchasing"
-    List<BoosterItem> itemsUserReceives = new ArrayList<BoosterItem>();
-    //user equip ids generated when recording user "bought" booster packs
-    List<Integer> newUserEquipIds = new ArrayList<Integer>();
-    
-    try {
-      //local vars
-      int userId = aUser.getId();
-      int boosterPackId = aPack.getId();
-      
-      //this is what will be recorded to the db
-      Map<Integer, Integer> newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>();
-      List<Boolean> collectedBeforeReset = new ArrayList<Boolean>();
-      
-      //actually selecting equips
-      boolean resetOccurred = MiscMethods.getAllBoosterItemsForUser(
-          boosterItemIdsToBoosterItemsForAPack, boosterItemIdsToNumCollected,
-          numBoosterItemsUserWants, aUser, aPack, itemsUserReceives,
-          collectedBeforeReset); 
-      
-      newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>(boosterItemIdsToNumCollected);
-      
-      //newUserEquipIds is populated
-      boolean successful = writeBoosterStuffToDB(aUser, boosterItemIdsToNumCollected,
-          newBoosterItemIdsToNumCollected, itemsUserReceives, collectedBeforeReset,
-          resetOccurred, newUserEquipIds);
-      if (successful) {
-        
-        //this one won't count towards the daily limit
-        boolean excludeFromLimitCheck = true;
-        
-        MiscMethods.writeToUserBoosterPackHistoryOneUser(userId, boosterPackId,
-            numBoosterItemsUserWants, now, itemsUserReceives, excludeFromLimitCheck);
-      } else {
-        return null;
-      }
-      //need to "return" user equip ids
-      userEquipIds.addAll(newUserEquipIds);
-      newUserEquipProtos = constructFullUserEquipProtos(userId,
-          itemsUserReceives, newUserEquipIds);
-      
-    } catch (Exception e) {
-      log.error("unexpected error: ", e);
-      newUserEquipProtos = null;
-    }
-    
-    return newUserEquipProtos; 
-  }
+//  private List<FullUserEquipProto> purchaseBoosterPack(BoosterPack aPack, 
+//      Map<Integer, BoosterItem> boosterItemIdsToBoosterItemsForAPack,
+//      Map<Integer, Integer> boosterItemIdsToNumCollected, User aUser,
+//      int numBoosterItemsUserWants, Timestamp now, List<Integer> userEquipIds) {
+//    //return value
+//    List<FullUserEquipProto> newUserEquipProtos  = null;
+//    
+//    //the booster item list that user has after "purchasing"
+//    List<BoosterItem> itemsUserReceives = new ArrayList<BoosterItem>();
+//    //user equip ids generated when recording user "bought" booster packs
+//    List<Integer> newUserEquipIds = new ArrayList<Integer>();
+//    
+//    try {
+//      //local vars
+//      int userId = aUser.getId();
+//      int boosterPackId = aPack.getId();
+//      
+//      //this is what will be recorded to the db
+//      Map<Integer, Integer> newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>();
+//      List<Boolean> collectedBeforeReset = new ArrayList<Boolean>();
+//      
+//      //actually selecting equips
+//      boolean resetOccurred = MiscMethods.getAllBoosterItemsForUser(
+//          boosterItemIdsToBoosterItemsForAPack, boosterItemIdsToNumCollected,
+//          numBoosterItemsUserWants, aUser, aPack, itemsUserReceives,
+//          collectedBeforeReset); 
+//      
+//      newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>(boosterItemIdsToNumCollected);
+//      
+//      //newUserEquipIds is populated
+//      boolean successful = writeBoosterStuffToDB(aUser, boosterItemIdsToNumCollected,
+//          newBoosterItemIdsToNumCollected, itemsUserReceives, collectedBeforeReset,
+//          resetOccurred, newUserEquipIds);
+//      if (successful) {
+//        
+//        //this one won't count towards the daily limit
+//        boolean excludeFromLimitCheck = true;
+//        
+//        MiscMethods.writeToUserBoosterPackHistoryOneUser(userId, boosterPackId,
+//            numBoosterItemsUserWants, now, itemsUserReceives, excludeFromLimitCheck);
+//      } else {
+//        return null;
+//      }
+//      //need to "return" user equip ids
+//      userEquipIds.addAll(newUserEquipIds);
+//      newUserEquipProtos = constructFullUserEquipProtos(userId,
+//          itemsUserReceives, newUserEquipIds);
+//      
+//    } catch (Exception e) {
+//      log.error("unexpected error: ", e);
+//      newUserEquipProtos = null;
+//    }
+//    
+//    return newUserEquipProtos; 
+//  }
   
   private boolean writeBoosterStuffToDB(User aUser, Map<Integer, Integer> boosterItemIdsToNumCollected,
       Map<Integer, Integer> newBoosterItemIdsToNumCollected, List<BoosterItem> itemsUserReceives,
-      List<Boolean> collectedBeforeReset, boolean resetOccurred, List<Integer> newUserEquipIds) {
+      List<Boolean> collectedBeforeReset, boolean resetOccurred, List<Integer> newUserEquipIds,
+      Timestamp now) {
     int userId = aUser.getId();
-    List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId, itemsUserReceives);
+    List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId, itemsUserReceives,
+        now);
     if (null == userEquipIds || userEquipIds.isEmpty() || userEquipIds.size() != itemsUserReceives.size()) {
       log.error("unexpected error: failed to insert equip for user. boosteritems="
           + MiscMethods.shallowListToString(itemsUserReceives));
