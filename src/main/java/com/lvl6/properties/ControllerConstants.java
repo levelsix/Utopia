@@ -92,8 +92,11 @@ public class ControllerConstants {
   public static final int SOLO_BOSS__MAX_HEALTH_MULTIPLIER = 5;
   
   public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.5;
-  
+
   public static final double HEALTH__FORMULA_EXPONENT_BASE = 1.18;
+  public static final double HEALTH__FORMULA_LINEAR_A = 999.75;
+  public static final double HEALTH__FORMULA_LINEAR_B = -26381;
+  public static final int HEALTH__FORMULA_LEVEL_CUTOFF = 31;
   
   public static final int AVERAGE_SIZE_OF_LEVEL_BRACKET = 5;
 
@@ -101,6 +104,8 @@ public class ControllerConstants {
   public static final double FORGE_DIAMOND_COST_FOR_GUARANTEE_EXPONENTIAL_MULTIPLIER = 2;
   public static final int FORGE_MAX_EQUIP_LEVEL = 10;
   public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 15;
+  public static final double FORGE_SPEEDUP_CONSTANT_A = 10.116;
+  public static final double FORGE_SPEEDUP_CONSTANT_B = -32.59;
   public static final double FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER = 1.8;
   public static final int FORGE_DEFAULT_NUMBER_OF_FORGE_SLOTS = 1;
   public static final int FORGE__ADDITIONAL_MAX_FORGE_SLOTS = 2;

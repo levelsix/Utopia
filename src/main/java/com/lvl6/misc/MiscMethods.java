@@ -78,6 +78,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.Expansion
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ForgeConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.GoldmineConstants;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.HealthConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditions;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.LeaderboardEventConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.LockBoxConstants;
@@ -163,8 +164,9 @@ public class MiscMethods {
   }
 
   public static int calculateDiamondCostToSpeedupForgeWaittime(Equipment equipment, int goalLevel) {
-    return (int) Math.ceil(calculateMinutesToFinishForgeAttempt(equipment, goalLevel) / 
-        (float)ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
+    return (int) Math.max(1, Math.ceil(ControllerConstants.FORGE_SPEEDUP_CONSTANT_A * 
+        Math.log(calculateMinutesToFinishForgeAttempt(equipment, goalLevel)) + 
+        ControllerConstants.FORGE_SPEEDUP_CONSTANT_B));
   }
 
   public static UserEquip chooseUserEquipWithEquipIdPreferrablyNonEquippedIgnoreLevel(User user, List<UserEquip> userEquipsForEquipId) {
@@ -423,7 +425,6 @@ public class MiscMethods {
         .setPlayerWallPostsRetrieveCap(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP)
         .setMaxLevelForUser(ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER)
         .setAverageSizeOfLevelBracket(ControllerConstants.AVERAGE_SIZE_OF_LEVEL_BRACKET)
-        .setHealthFormulaExponentBase(ControllerConstants.HEALTH__FORMULA_EXPONENT_BASE)
         .setLevelEquipBoostExponentBase(ControllerConstants.LEVEL_EQUIP_BOOST_EXPONENT_BASE)
         .setAdColonyVideosRequiredToRedeemDiamonds(ControllerConstants.EARN_FREE_DIAMONDS__NUM_VIDEOS_FOR_DIAMOND_REWARD)
         .setMinNameLength(ControllerConstants.USER_CREATE__MIN_NAME_LENGTH)
@@ -471,6 +472,14 @@ public class MiscMethods {
     }
 
     cb.setKiipRewardConditions(krcb.build());
+    
+    HealthConstants hc = HealthConstants.newBuilder()
+        .setHealthFormulaExponentBase(ControllerConstants.HEALTH__FORMULA_EXPONENT_BASE)
+        .setHealthFormulaLinearA(ControllerConstants.HEALTH__FORMULA_LINEAR_A)
+        .setHealthFormulaLinearB(ControllerConstants.HEALTH__FORMULA_LINEAR_B)
+        .setHealthFormulaLevelCutoff(ControllerConstants.HEALTH__FORMULA_LEVEL_CUTOFF)
+        .build();
+    cb.setHealthConstants(hc);
 
     CharacterModConstants charModConstants = CharacterModConstants.newBuilder()
         .setDiamondCostToChangeCharacterType(ControllerConstants.CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_CHARACTER_TYPE)
@@ -509,6 +518,8 @@ public class MiscMethods {
         .setForgeMaxForgeSlots(ControllerConstants.FORGE__ADDITIONAL_MAX_FORGE_SLOTS)
         .setCostOfPurchasingSlotTwo(ControllerConstants.FORGE_COST_OF_PURCHASING_SLOT_TWO)
         .setCostOfPurchasingSlotThree(ControllerConstants.FORGE_COST_OF_PURCHASING_SLOT_THREE)
+        .setForgeSpeedupConstantA(ControllerConstants.FORGE_SPEEDUP_CONSTANT_A)
+        .setForgeSpeedupConstantB(ControllerConstants.FORGE_SPEEDUP_CONSTANT_B)
         .build();
 
     cb.setForgeConstants(forgeConstants);
