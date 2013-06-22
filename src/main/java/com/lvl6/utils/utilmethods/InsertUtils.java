@@ -112,23 +112,26 @@ public class InsertUtils implements InsertUtil{
       //@CacheEvict(value = "userEquipsForUser", key = "#userId"),
       //@CacheEvict(value = "equipsToUserEquipsForUser", key = "#userId"),
       //@CacheEvict(value = "userEquipsWithEquipId", key = "#userId+':'+#equipId") })*/
-  public int insertUserEquip(int userId, int equipId, int level) {
-    Map<String, Object> insertParams = new HashMap<String, Object>();
-    insertParams.put(DBConstants.USER_EQUIP__USER_ID, userId);
-    insertParams.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
-    insertParams.put(DBConstants.USER_EQUIP__LEVEL, level);
-
-    int userEquipId = DBConnection.get().insertIntoTableBasicReturnId(
-        DBConstants.TABLE_USER_EQUIP, insertParams);
-    return userEquipId;
-  }
+//  public int insertUserEquip(int userId, int equipId, int level, Timestamp now) {
+//    Map<String, Object> insertParams = new HashMap<String, Object>();
+//    insertParams.put(DBConstants.USER_EQUIP__USER_ID, userId);
+//    insertParams.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
+//    insertParams.put(DBConstants.USER_EQUIP__LEVEL, level);
+//    
+//
+//    int userEquipId = DBConnection.get().insertIntoTableBasicReturnId(
+//        DBConstants.TABLE_USER_EQUIP, insertParams);
+//    return userEquipId;
+//  }
   
-  public int insertUserEquip(int userId, int equipId, int level, int enhancementPercentage) {
+  public int insertUserEquip(int userId, int equipId, int level,
+	  int enhancementPercentage, Timestamp now) {
     Map<String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_EQUIP__USER_ID, userId);
     insertParams.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
     insertParams.put(DBConstants.USER_EQUIP__LEVEL, level);
     insertParams.put(DBConstants.USER_EQUIP__ENHANCEMENT_PERCENT, enhancementPercentage);
+    insertParams.put(DBConstants.USER_EQUIP__CREATE_TIME, now);
 
     int userEquipId = DBConnection.get().insertIntoTableBasicReturnId(
         DBConstants.TABLE_USER_EQUIP, insertParams);
@@ -243,7 +246,7 @@ public class InsertUtils implements InsertUtil{
   }
   
   public List<Integer> insertUserEquips(int userId, List<Integer> equipIds, List<Integer> levels,
-      List<Integer> enhancement) {
+      List<Integer> enhancement, Timestamp now) {
 	  String tableName = DBConstants.TABLE_USER_EQUIP;
 	  List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
 	  for(int i = 0; i < equipIds.size(); i++){
@@ -257,6 +260,7 @@ public class InsertUtils implements InsertUtil{
 		    enhancementPercent = enhancement.get(i);
 		  }
 		  row.put(DBConstants.USER_EQUIP__ENHANCEMENT_PERCENT, enhancementPercent);
+		  row.put(DBConstants.USER_EQUIP__CREATE_TIME, now);
 		  newRows.add(row);
 	  }
 	  List<Integer> userEquipIds = DBConnection.get().insertIntoTableBasicReturnIds(tableName, newRows);
@@ -676,9 +680,8 @@ public class InsertUtils implements InsertUtil{
       int stamina, int experience, int coins, int diamonds,
       Integer weaponEquipped, Integer armorEquipped,
       Integer amuletEquipped, boolean isFake, int numGroupChatsRemaining,
-      boolean activateShield) {
+      boolean activateShield, Timestamp createTime) {
 
-    Timestamp now = new Timestamp(new Date().getTime());
     Map<String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER__UDID, udid);
     insertParams.put(DBConstants.USER__NAME, name);
@@ -696,7 +699,7 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.USER__REFERRAL_CODE, newReferCode);
     insertParams.put(DBConstants.USER__LATITUDE, location.getLatitude());
     insertParams.put(DBConstants.USER__LONGITUDE, location.getLongitude());
-    insertParams.put(DBConstants.USER__LAST_LOGIN, now);
+    insertParams.put(DBConstants.USER__LAST_LOGIN, createTime);
     insertParams.put(DBConstants.USER__DEVICE_TOKEN, deviceToken);
     insertParams.put(DBConstants.USER__IS_FAKE, isFake);
     insertParams.put(DBConstants.USER__WEAPON_EQUIPPED_USER_EQUIP_ID,
@@ -705,7 +708,7 @@ public class InsertUtils implements InsertUtil{
         armorEquipped);
     insertParams.put(DBConstants.USER__AMULET_EQUIPPED_USER_EQUIP_ID,
         amuletEquipped);
-    insertParams.put(DBConstants.USER__CREATE_TIME, now);
+    insertParams.put(DBConstants.USER__CREATE_TIME, createTime);
     insertParams.put(DBConstants.USER__NUM_GROUP_CHATS_REMAINING, 5);
     insertParams.put(DBConstants.USER__HAS_ACTIVE_SHIELD, activateShield);
     
