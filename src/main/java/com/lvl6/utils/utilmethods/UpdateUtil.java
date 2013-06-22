@@ -163,8 +163,6 @@ public interface UpdateUtil {
 
   public abstract boolean updateUserEquipOwner(int userEquipId, int newOwnerId);
 
-  public abstract boolean updateUserEquipAfterEnhancment (int userEquipId, int enhancementPercent);
-  
   public abstract boolean updateAbsoluteBlacksmithAttemptcompleteTimeofspeedup(int blacksmithId, Date timeOfSpeedup, boolean attemptComplete);
 
   public abstract boolean updateUsersClanId(Integer clanId, List<Integer> userIds);
