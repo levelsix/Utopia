@@ -323,6 +323,7 @@ message FullUserClanProto {
 enum UserClanStatus {
 	MEMBER = 0;
 	REQUESTING = 2;
+	COLEADER = 3;
 }
 
 //------------------------------------------------------------------------------------------

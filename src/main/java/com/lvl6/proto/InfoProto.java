@@ -156,10 +156,12 @@ public final class InfoProto {
       implements com.google.protobuf.ProtocolMessageEnum {
     MEMBER(0, 0),
     REQUESTING(1, 2),
+    COLEADER(2, 3),
     ;
     
     public static final int MEMBER_VALUE = 0;
     public static final int REQUESTING_VALUE = 2;
+    public static final int COLEADER_VALUE = 3;
     
     
     public final int getNumber() { return value; }
@@ -168,6 +170,7 @@ public final class InfoProto {
       switch (value) {
         case 0: return MEMBER;
         case 2: return REQUESTING;
+        case 3: return COLEADER;
         default: return null;
       }
     }
@@ -198,7 +201,7 @@ public final class InfoProto {
     }
     
     private static final UserClanStatus[] VALUES = {
-      MEMBER, REQUESTING, 
+      MEMBER, REQUESTING, COLEADER, 
     };
     
     public static UserClanStatus valueOf(
@@ -58779,39 +58782,39 @@ public final class InfoProto {
       "\017forgeSlotNumber\030\r \001(\005*\"\n\016PurchaseOption" +
       "\022\007\n\003ONE\020\000\022\007\n\003TWO\020\001*C\n\016EquipClassType\022\013\n\007" +
       "WARRIOR\020\000\022\n\n\006ARCHER\020\001\022\010\n\004MAGE\020\002\022\016\n\nALL_A",
-      "MULET\020\003*,\n\016UserClanStatus\022\n\n\006MEMBER\020\000\022\016\n" +
-      "\nREQUESTING\020\002*@\n\016GroupChatScope\022\n\n\006GLOBA" +
-      "L\020\000\022\014\n\010ALLIANCE\020\001\022\n\n\006LEGION\020\002\022\010\n\004CLAN\020\003*" +
-      "^\n\017LeaderboardType\022\024\n\020MOST_BATTLES_WON\020\002" +
-      "\022\016\n\nMOST_COINS\020\003\022\014\n\010MOST_EXP\020\004\022\014\n\010BEST_K" +
-      "DR\020\005\022\t\n\005EVENT\020\006*f\n\020CharacterModType\022\016\n\nN" +
-      "EW_PLAYER\020\001\022\026\n\022RESET_SKILL_POINTS\020\002\022\031\n\025C" +
-      "HANGE_CHARACTER_TYPE\020\003\022\017\n\013CHANGE_NAME\020\004*" +
-      ";\n\rAnimationType\022\022\n\016GENERIC_ACTION\020\001\022\n\n\006" +
-      "ATTACK\020\002\022\n\n\006DRAGON\020\003*i\n\024EarnFreeDiamonds",
-      "Type\022\010\n\004KIIP\020\001\022\014\n\010ADCOLONY\020\002\022\016\n\nFB_CONNE" +
-      "CT\020\003\022\n\n\006TAPJOY\020\004\022\020\n\014FLURRY_VIDEO\020\005\022\013\n\007TW" +
-      "ITTER\020\006*\371\001\n\022SpecialQuestAction\022\030\n\024PURCHA" +
-      "SE_FROM_ARMORY\020\001\022\035\n\031PURCHASE_FROM_MARKET" +
-      "PLACE\020\002\022\022\n\016SELL_TO_ARMORY\020\003\022\027\n\023POST_TO_M" +
-      "ARKETPLACE\020\004\022\024\n\020DEPOSIT_IN_VAULT\020\005\022\027\n\023WI" +
-      "THDRAW_FROM_VAULT\020\006\022\027\n\023WRITE_ON_ENEMY_WA" +
-      "LL\020\007\022\025\n\021REQUEST_JOIN_CLAN\020\010\022\036\n\032SUCCESSFU" +
-      "LLY_FORGE_AN_ITEM\020\t*k\n\010UserType\022\020\n\014GOOD_" +
-      "WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020",
-      "\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BA" +
-      "D_MAGE\020\005*E\n\014BattleResult\022\020\n\014ATTACKER_WIN" +
-      "\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*" +
-      "B\n\023MarketplacePostType\022\026\n\022PREMIUM_EQUIP_" +
-      "POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035Marketpla" +
-      "ceJobRequirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*" +
-      "c\n\016CritStructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPENT" +
-      "ER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLA" +
-      "CE\020\005\022\016\n\nBLACKSMITH\020\006*3\n\021StructOrientatio" +
-      "n\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001*P\n\022Exp",
-      "ansionDirection\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RIG" +
-      "HT\020\001\022\r\n\tNEAR_LEFT\020\002\022\016\n\nNEAR_RIGHT\020\003B\013B\tI" +
-      "nfoProto"
+      "MULET\020\003*:\n\016UserClanStatus\022\n\n\006MEMBER\020\000\022\016\n" +
+      "\nREQUESTING\020\002\022\014\n\010COLEADER\020\003*@\n\016GroupChat" +
+      "Scope\022\n\n\006GLOBAL\020\000\022\014\n\010ALLIANCE\020\001\022\n\n\006LEGIO" +
+      "N\020\002\022\010\n\004CLAN\020\003*^\n\017LeaderboardType\022\024\n\020MOST" +
+      "_BATTLES_WON\020\002\022\016\n\nMOST_COINS\020\003\022\014\n\010MOST_E" +
+      "XP\020\004\022\014\n\010BEST_KDR\020\005\022\t\n\005EVENT\020\006*f\n\020Charact" +
+      "erModType\022\016\n\nNEW_PLAYER\020\001\022\026\n\022RESET_SKILL" +
+      "_POINTS\020\002\022\031\n\025CHANGE_CHARACTER_TYPE\020\003\022\017\n\013" +
+      "CHANGE_NAME\020\004*;\n\rAnimationType\022\022\n\016GENERI" +
+      "C_ACTION\020\001\022\n\n\006ATTACK\020\002\022\n\n\006DRAGON\020\003*i\n\024Ea",
+      "rnFreeDiamondsType\022\010\n\004KIIP\020\001\022\014\n\010ADCOLONY" +
+      "\020\002\022\016\n\nFB_CONNECT\020\003\022\n\n\006TAPJOY\020\004\022\020\n\014FLURRY" +
+      "_VIDEO\020\005\022\013\n\007TWITTER\020\006*\371\001\n\022SpecialQuestAc" +
+      "tion\022\030\n\024PURCHASE_FROM_ARMORY\020\001\022\035\n\031PURCHA" +
+      "SE_FROM_MARKETPLACE\020\002\022\022\n\016SELL_TO_ARMORY\020" +
+      "\003\022\027\n\023POST_TO_MARKETPLACE\020\004\022\024\n\020DEPOSIT_IN" +
+      "_VAULT\020\005\022\027\n\023WITHDRAW_FROM_VAULT\020\006\022\027\n\023WRI" +
+      "TE_ON_ENEMY_WALL\020\007\022\025\n\021REQUEST_JOIN_CLAN\020" +
+      "\010\022\036\n\032SUCCESSFULLY_FORGE_AN_ITEM\020\t*k\n\010Use" +
+      "rType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001",
+      "\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_" +
+      "ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResult\022\020" +
+      "\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rAT" +
+      "TACKER_FLEE\020\002*B\n\023MarketplacePostType\022\026\n\022" +
+      "PREMIUM_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_POST\020" +
+      "\002*2\n\035MarketplaceJobRequirementType\022\007\n\003BU" +
+      "Y\020\000\022\010\n\004SELL\020\001*c\n\016CritStructType\022\n\n\006AVIAR" +
+      "Y\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020" +
+      "\004\022\017\n\013MARKETPLACE\020\005\022\016\n\nBLACKSMITH\020\006*3\n\021St" +
+      "ructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSIT",
+      "ION_2\020\001*P\n\022ExpansionDirection\022\014\n\010FAR_LEF" +
+      "T\020\000\022\r\n\tFAR_RIGHT\020\001\022\r\n\tNEAR_LEFT\020\002\022\016\n\nNEA" +
+      "R_RIGHT\020\003B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

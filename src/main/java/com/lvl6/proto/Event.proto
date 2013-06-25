@@ -1996,6 +1996,24 @@ message CreateClanResponseProto {
 	}	
 }
 
+message CreateColeaderRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional userID = 2;
+	optional bool makeColeader = 3;
+}
+
+message CreateColeaderResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional CreateColeaderStatus status = 2;
+	
+	enum CreateColeaderStatus {
+		SUCCESS = 0;
+		SAME_CLAN = 0;
+		
+		
+		
+		
+		
 //------------------------------------------------------------------------------------------
 
 //if no newOwner set, assume wanting to delete

@@ -27,12 +27,15 @@ import com.lvl6.utils.DBConnection;
   private final String TABLE_NAME = DBConstants.TABLE_USER_CLANS;
 
   public List<UserClan> getUserClanMembersInClan(int clanId) {
-    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
-    paramsToVals.put(DBConstants.USER_CLANS__CLAN_ID, clanId);
-    paramsToVals.put(DBConstants.USER_CLANS__STATUS, UserClanStatus.MEMBER.getNumber());
+    String query = "select * from " + TABLE_NAME + "where " + DBConstants.USER_CLANS__CLAN_ID + 
+    		" = ? and " + DBConstants.USER_CLANS__STATUS + " != ?";
+	  
+    List<Object> values = new ArrayList<Object>();
+    values.add(clanId);
+    values.add(UserClanStatus.REQUESTING.getNumber());
 
     Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
     List<UserClan> userClans = grabUserClansFromRS(rs);
     DBConnection.get().close(rs, null, conn);
     return userClans;
@@ -41,12 +44,12 @@ import com.lvl6.utils.DBConnection;
   public List<UserClan> getUserClanMembersInClanOr(int clanId1, int clanId2) {
     String query = "select * from " + TABLE_NAME + " where (" + DBConstants.USER_CLANS__CLAN_ID +
         " = ? or " + DBConstants.USER_CLANS__CLAN_ID + " = ? ) and " + DBConstants.USER_CLANS__STATUS +
-        " = ?";
+        " != ?";
     
     List<Object> values = new ArrayList<Object>();
     values.add(clanId1);
     values.add(clanId2);
-    values.add(UserClanStatus.MEMBER.getNumber());
+    values.add(UserClanStatus.REQUESTING.getNumber());
 
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
