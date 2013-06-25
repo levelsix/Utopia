@@ -132,20 +132,27 @@ import com.lvl6.utils.DBConnection;
     int i = 1;
     int id = rs.getInt(i++);
     int cityId = rs.getInt(i++);
-    int assetNumWithinCity = rs.getInt(i++);
-    int baseHealth = rs.getInt(i++);
-    int energyCost = rs.getInt(i++);
-    int minDamage = rs.getInt(i++);
-    int maxDamage = rs.getInt(i++);
+    int assetNumberWithinCity = rs.getInt(i++);
+    int regularAttackEnergyCost = rs.getInt(i++);
     int minutesToKill = rs.getInt(i++);
-    int baseExp = rs.getInt(i++);
     float superAttackDamageMultiplier = rs.getFloat(i++);
     int superAttackEnergyCost = rs.getInt(i++);
     String name = rs.getString(i++);
+    int expConstantA = rs.getInt(i++);
+    int expConstantB = rs.getInt(i++);
+    int hpConstantA = rs.getInt(i++);
+    int hpConstantB = rs.getInt(i++);
+    int hpConstantC = rs.getInt(i++);
+    int dmgConstantA = rs.getInt(i++);
+    int dmgConstantB = rs.getInt(i++);
+    String mapImageName = rs.getString(i++);
     
-    Boss boss = new Boss(id, cityId, assetNumWithinCity, energyCost,
-        minDamage, maxDamage, minutesToKill, baseHealth, baseExp,
-        superAttackDamageMultiplier, superAttackEnergyCost, name);
+    Boss boss = new Boss(id, cityId, assetNumberWithinCity,
+        regularAttackEnergyCost, minutesToKill, superAttackDamageMultiplier,
+        superAttackEnergyCost, name, expConstantA, expConstantB,
+        hpConstantA, hpConstantB, hpConstantC, dmgConstantA, dmgConstantB,
+        mapImageName);
+        
     return boss;
   }
 }

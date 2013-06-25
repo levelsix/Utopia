@@ -461,24 +461,21 @@ public class TaskActionController extends EventController {
     //for now assume there exists only one boss per city
     aBoss = bossList.get(0);
     int bossId = aBoss.getId();
-    int newHealth = aBoss.getBaseHealth(); 
     
     //get the current user boss
     UserBoss ub = UserBossRetrieveUtils.getSpecificUserBoss(userId, bossId);
     
-    int newLevel = 1;
     //if userBoss exists record current user boss into history
     if (null != ub) {
       saveUserBossIntoHistory(ub, bossId, userId);
-      //DETERMINE THE LEVEL FOR THE NEWLY SPAWNED BOSS
-      newLevel = determineBossLevel(ub);
-      newHealth = determineBossHealth(ub, u, aBoss, clientDate);
-    } else {
-      //create dummy user boss
-      ub = new UserBoss(bossId, userId, 0, 0, null);
     }
+    //DETERMINE THE LEVEL AND HP FOR THE NEWLY SPAWNED BOSS
+    int newLevel = determineBossLevel(ub);
+    int newHealth = determineBossHealth(ub, u, aBoss, clientDate, newLevel);
+    Timestamp newSpawnTime = new Timestamp(clientDate.getTime());
     
-   updateUserBossInDb(ub, userId, bossId, newLevel, newHealth, clientDate);
+    updateUserBossInDb(ub, userId, bossId, newLevel, newHealth, clientDate,
+        newSpawnTime);
     
     return ub;
   }
@@ -493,11 +490,16 @@ public class TaskActionController extends EventController {
   }
   
   private int determineBossLevel(UserBoss ub) {
+    if (null == ub) {
+      return 1;
+    }
+    
     int currentLevel = ub.getCurrentLevel();
     int curHealth = ub.getCurrentHealth();
     int newLevel = currentLevel;
+    
+    //if boss died up the level
     if (curHealth <= 0) {
-      //user slayed the boss, boss should level up
       newLevel = currentLevel + 1;
     }
     return newLevel;
@@ -506,40 +508,48 @@ public class TaskActionController extends EventController {
   //if user can still attack boss then return the current health
   //otherwise return the boss's default health
   private int determineBossHealth(UserBoss ub, User u, Boss b,
-      Date clientDate) {
-    int curHealth = ub.getCurrentHealth();
+      Date clientDate, int newLevel) {
 
-    if (MiscMethods.inBossAttackWindow(ub, u, b, clientDate.getTime()) &&
-        curHealth > 0) {
-      //since boss is alive and can attack, return the current health
-      return curHealth;
-    } else {
-      //since city ranked up (so user can attack) and since boss is dead, 
-      //return full health
-      return b.getBaseHealth();
+    int newHealth = MiscMethods.calculateBossHealth(b, newLevel);
+
+    if (null != ub && ub.getCurrentHealth() > 0 &&
+        MiscMethods.inBossAttackWindow(ub, u, b, clientDate.getTime())) {
+      //since boss is alive and can be attacked, return the current health
+      newHealth = ub.getCurrentHealth();
+      
     }
+    //if base case (first ever boss) or 
+    //boss is dead or
+    //user can't attack, return full health
+    return newHealth;
   }
   
   //updates the user_boss entry for the user and boss and returns 
   //the object stored into the table
-  private void updateUserBossInDb(UserBoss ub, int userId, int bossId,
-      int newLevel, int defaultHealth, Date clientDate) {
-    Timestamp newSpawnTime = new Timestamp(clientDate.getTime());
-    int newHealth = determineHealthForBossLevel(newLevel, defaultHealth);
-    ub.setCurrentHealth(newHealth);
+  private UserBoss updateUserBossInDb(UserBoss ub, int userId, int bossId,
+      int newLevel, int defaultHealth, Date clientDate,
+      Timestamp newSpawnTime) {
+    if (null == ub) {
+      return new UserBoss(bossId, userId, defaultHealth,
+          newLevel, clientDate);
+    }
+    
+    //int newHealth = determineHealthForBossLevel(newLevel, defaultHealth);
+    ub.setCurrentHealth(defaultHealth);
     ub.setStartTime(clientDate);
     ub.setCurrentLevel(newLevel);
     if (!UpdateUtils.get().replaceBoss(userId, bossId, newSpawnTime,
-        newHealth, newLevel)) {
+        defaultHealth, newLevel)) {
       log.error("unexpected error: could not replace userBoss. ub=" + ub);
     }
+    return ub;
   }
   
-  private int determineHealthForBossLevel(int newLevel, int defaultHealth) {
-    int maxMultiplier = ControllerConstants.SOLO_BOSS__MAX_HEALTH_MULTIPLIER;
-    int multiplier = Math.min(newLevel, maxMultiplier);
-    return multiplier * defaultHealth;
-  }
+//  private int determineHealthForBossLevel(int newLevel, int defaultHealth) {
+//    int maxMultiplier = ControllerConstants.SOLO_BOSS__MAX_HEALTH_MULTIPLIER;
+//    int multiplier = Math.min(newLevel, maxMultiplier);
+//    return multiplier * defaultHealth;
+//  }
   
   //setting the user boss and the name of the boss
   private void setBossStuff(Builder resBuilder, User aUser,

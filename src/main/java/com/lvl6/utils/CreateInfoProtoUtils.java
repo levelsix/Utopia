@@ -1166,17 +1166,21 @@ public class CreateInfoProtoUtils {
   public static FullBossProto createFullBossProtoFromBoss(Boss boss) {
     FullBossProto.Builder fbp = FullBossProto.newBuilder();
     fbp.setBossId(boss.getId());
-    fbp.setBaseHealth(boss.getBaseHealth());
-    fbp.setMinDamage(boss.getMinDamage());
-    fbp.setMaxDamage(boss.getMaxDamage());
-    fbp.setMinutesToKill(boss.getMinutesToKill());
-    fbp.setBaseExp(boss.getBaseExp());
     fbp.setCityId(boss.getCityId());
     fbp.setAssetNumWithinCity(boss.getAssetNumberWithinCity());
     fbp.setRegularAttackEnergyCost(boss.getRegularAttackEnergyCost());
+    fbp.setMinutesToKill(boss.getMinutesToKill());
     fbp.setSuperAttackDamageMultiplier(boss.getSuperAttackDamageMultiplier());
     fbp.setSuperAttackEnergyCost(boss.getSuperAttackEnergyCost());
     fbp.setName(boss.getName());
+    fbp.setExpConstantA(boss.getExpConstantA());
+    fbp.setExpConstantB(boss.getExpConstantB());
+    fbp.setHpConstantA(boss.getHpConstantA());
+    fbp.setHpConstantB(boss.getHpConstantB());
+    fbp.setHpConstantC(boss.getHpConstantC());
+    fbp.setDmgConstantA(boss.getDmgConstantA());
+    fbp.setDmgConstantB(boss.getDmgConstantB());
+    fbp.setMapImageName(boss.getMapImageName());
     
     return fbp.build();
   }

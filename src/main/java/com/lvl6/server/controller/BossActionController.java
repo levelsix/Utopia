@@ -101,8 +101,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         previousGold = aUser.getDiamonds();
 
         //aUserBoss will be modified to account for user's attack
-        Map<String, Integer> damageExp = 
-            attackBoss(resBuilder, aUserBoss, aUser, aBoss, curTime, isSuperAttack);
+        List<Boolean> isCriticalHit = new ArrayList<Boolean>();
+        Map<String, Integer> damageExp =  attackBoss(aUserBoss,
+            aUser, aBoss, curTime, isSuperAttack, isCriticalHit);
         int damageDone = damageExp.get(damage);
         int expGained = damageExp.get(experience);
 
@@ -130,6 +131,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         writeUserCityGems(resBuilder, userId, cityId, cg, gemIdsToUserCityGems);
 
         //send stuff back to client
+        boolean isCritical = isCriticalHit.get(0);
+        resBuilder.setIsCriticalAttack(isCritical);
         resBuilder.setDamageDone(damageDone);
         resBuilder.setExpGained(expGained);
         resBuilder.addAllCoinsGained(allSilver);
@@ -232,22 +235,18 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
    * Since user "attacked," change the user_boss object to reflect it,
    * Return map to reflecting the amount of damage user did and exp gained from attacking. 
    */
-  private Map<String, Integer> attackBoss(Builder resBuilder, UserBoss aUserBoss, User aUser, 
-      Boss aBoss, Timestamp curTime, boolean isSuperAttack) {
-    int damageGenerated = 0;
-    List<Integer> individualDamages = new ArrayList<Integer>(); //records the damages generated
-    int expGained = 0;
-
-    damageGenerated = generateDamage(aBoss, isSuperAttack, individualDamages);
-    expGained = generateExpGained(aBoss, isSuperAttack, individualDamages, aUser.getLevel());
-
+  private Map<String, Integer> attackBoss(UserBoss aUserBoss, User aUser, 
+      Boss aBoss, Timestamp curTime, boolean isSuperAttack, List<Boolean> isCriticalHit) {
+    
+    int damageGenerated = generateDamage(aBoss, isSuperAttack, aUser, isCriticalHit);
     int currentHealth = aUserBoss.getCurrentHealth() - damageGenerated;
     if (0 >= currentHealth) {
       //boss killed
       currentHealth = 0;
     }
-
+    
     aUserBoss.setCurrentHealth(currentHealth);
+    int expGained = MiscMethods.calculateBossExpAwarded(aBoss, aUserBoss);
 
     Map<String, Integer> damageExp = new HashMap<String, Integer>();
     damageExp.put(damage, damageGenerated);
@@ -264,41 +263,64 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     Random rand = new Random();
     return rand.nextInt(upperBound - lowerBound + 1) + lowerBound;
   }
-
-  private int generateDamage(Boss aBoss, boolean isSuperAttack, List<Integer> individualDamages) {
-    int minDamage = aBoss.getMinDamage();
-    int maxDamage = aBoss.getMaxDamage();
-    int damageGenerated = 0;
-
-    if(isSuperAttack) {
-      double superAttack = aBoss.getSuperAttackDamageMultiplier();
-      int integerPart = (int) superAttack;
-      double fractionalPart = superAttack - integerPart;
-
-      for(int i = 0; i < integerPart; i++) {
-        int dmg = generateNumInRange(minDamage, maxDamage);
-        damageGenerated += dmg;
-        individualDamages.add(dmg);
-      }
-
-      //this should account for when the superAttack value is a non-whole number
-      if(superAttack != integerPart) { //3.0 does equal 3 
-        int dmg = generateNumInRange(minDamage, maxDamage);
-        damageGenerated += dmg * fractionalPart; //damages are not rounded
-        individualDamages.add(dmg);
-      }
-
-    } else {
-      //not super attack
-      int dmg = generateNumInRange(minDamage, maxDamage);
-      damageGenerated += dmg;
-      individualDamages.add(dmg);
+  
+  /*
+   * use those constants in Boss to generate attack. returns attack damage,
+   * and if there was a critical hit
+   */
+  private int generateDamage(Boss b, boolean isSuperAttack, User u,
+      List<Boolean> isCriticalHit) {
+    int damageGenerated = MiscMethods.dealDamageToBoss(b, u);
+    
+    if (isSuperAttack) {
+      damageGenerated = (int) (((float) damageGenerated) * b.getSuperAttackDamageMultiplier());
     }
+    
     //there is a 15% chance that the damage increases by 1.6
-    damageGenerated = criticalHit(damageGenerated);
-
-    return damageGenerated;
+    int damageGeneratedPlusCrit = criticalHit(damageGenerated);
+    
+    if (damageGeneratedPlusCrit != damageGenerated) {
+      isCriticalHit.add(true);
+    } else {
+      isCriticalHit.add(false);
+    }
+    return damageGeneratedPlusCrit;
   }
+
+//  private int generateDamage(Boss aBoss, boolean isSuperAttack, List<Integer> individualDamages) {
+//    int minDamage = aBoss.getMinDamage();
+//    int maxDamage = aBoss.getMaxDamage();
+//    int damageGenerated = 0;
+//
+//    if(isSuperAttack) {
+//      double superAttack = aBoss.getSuperAttackDamageMultiplier();
+//      int integerPart = (int) superAttack;
+//      double fractionalPart = superAttack - integerPart;
+//
+//      for(int i = 0; i < integerPart; i++) {
+//        int dmg = generateNumInRange(minDamage, maxDamage);
+//        damageGenerated += dmg;
+//        individualDamages.add(dmg);
+//      }
+//
+//      //this should account for when the superAttack value is a non-whole number
+//      if(superAttack != integerPart) { //3.0 does equal 3 
+//        int dmg = generateNumInRange(minDamage, maxDamage);
+//        damageGenerated += dmg * fractionalPart; //damages are not rounded
+//        individualDamages.add(dmg);
+//      }
+//
+//    } else {
+//      //not super attack
+//      int dmg = generateNumInRange(minDamage, maxDamage);
+//      damageGenerated += dmg;
+//      individualDamages.add(dmg);
+//    }
+//    //there is a 15% chance that the damage increases by 1.6
+//    damageGenerated = criticalHit(damageGenerated);
+//
+//    return damageGenerated;
+//  }
   
   private int criticalHit (int damageGenerated) {
     Random rand = new Random();
@@ -322,50 +344,50 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   //  value2 = randomNumFrom(aBoss.minExp, aBoss.maxExp) + currentLevel 
   //  Take max because value2 could be negative. 
   //  THE MINIMUM EXP GAINED IS 1! This is for the low level players.
-  private int generateExpGained(Boss aBoss, boolean isSuperAttack, 
-      List<Integer> individualDamages, int userLevel) {
-    int expGained = 1;
-    int minExp = aBoss.getBaseExp();
-    int maxExp = aBoss.getBaseExp() * 2;
-
-    if(isSuperAttack) {
-      log.info("superattack");
-      double superAttack = ControllerConstants.BOSS_EVENT__SUPER_ATTACK;
-      int integerPart = (int) superAttack;
-      double fractionalPart = superAttack - (double) integerPart;
-
-      int indexOfLastDamage = individualDamages.size() - 1;
-      for(int i = 0; i < indexOfLastDamage; i++) {
-        int dmgDone = individualDamages.get(i); //not really needed because of new formula
-        int exp = generateNumInRange(minExp, maxExp);
-        exp = Math.max(1, exp + userLevel);
-        expGained += exp;
-
-        log.info("damage=" + dmgDone + ", exp=" + exp);
-      }
-
-      int lastDmgDone = individualDamages.get(indexOfLastDamage); //not really needed, just for logging
-      int lastExp = generateNumInRange(minExp, maxExp);
-
-      if(superAttack != integerPart) {
-        lastExp = (int) (lastExp * fractionalPart); //truncating some values
-        lastExp = Math.max(1, lastExp + userLevel); //once again, minimum exp could be 1 and 1*(float from 0 to 1) is 0
-        log.info("super attack not a whole number.");
-      }
-      log.info("lastDmgDone=" + lastDmgDone + ", the last exp gained=" + lastExp);
-      expGained += lastExp;  
-
-    } else {
-      int dmgDone = individualDamages.get(0);
-      int exp = generateNumInRange(minExp, maxExp);
-      exp = Math.max(1, exp + userLevel);
-      expGained += exp;
-
-      log.info("damage=" + dmgDone + ", exp=" + exp);
-    }
-
-    return expGained;
-  }
+//  private int generateExpGained(Boss aBoss, boolean isSuperAttack, 
+//      List<Integer> individualDamages, int userLevel) {
+//    int expGained = 1;
+//    int minExp = aBoss.getBaseExp();
+//    int maxExp = aBoss.getBaseExp() * 2;
+//
+//    if(isSuperAttack) {
+//      log.info("superattack");
+//      double superAttack = ControllerConstants.BOSS_EVENT__SUPER_ATTACK;
+//      int integerPart = (int) superAttack;
+//      double fractionalPart = superAttack - (double) integerPart;
+//
+//      int indexOfLastDamage = individualDamages.size() - 1;
+//      for(int i = 0; i < indexOfLastDamage; i++) {
+//        int dmgDone = individualDamages.get(i); //not really needed because of new formula
+//        int exp = generateNumInRange(minExp, maxExp);
+//        exp = Math.max(1, exp + userLevel);
+//        expGained += exp;
+//
+//        log.info("damage=" + dmgDone + ", exp=" + exp);
+//      }
+//
+//      int lastDmgDone = individualDamages.get(indexOfLastDamage); //not really needed, just for logging
+//      int lastExp = generateNumInRange(minExp, maxExp);
+//
+//      if(superAttack != integerPart) {
+//        lastExp = (int) (lastExp * fractionalPart); //truncating some values
+//        lastExp = Math.max(1, lastExp + userLevel); //once again, minimum exp could be 1 and 1*(float from 0 to 1) is 0
+//        log.info("super attack not a whole number.");
+//      }
+//      log.info("lastDmgDone=" + lastDmgDone + ", the last exp gained=" + lastExp);
+//      expGained += lastExp;  
+//
+//    } else {
+//      int dmgDone = individualDamages.get(0);
+//      int exp = generateNumInRange(minExp, maxExp);
+//      exp = Math.max(1, exp + userLevel);
+//      expGained += exp;
+//
+//      log.info("damage=" + dmgDone + ", exp=" + exp);
+//    }
+//
+//    return expGained;
+//  }
 
   private CityGem determineIfGemDropped(UserBoss aUserBoss, int userId,
       int cityId, Map<Integer, UserCityGem> gemIdsToUserCityGems) {

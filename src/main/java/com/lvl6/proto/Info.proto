@@ -279,18 +279,22 @@ enum EquipClassType {
 
 message FullBossProto {
 	optional int32 bossId = 1;
-	optional int32 baseHealth = 2;
-	optional int32 minDamage = 3;
-	optional int32 maxDamage = 4;
+	optional int32 cityId = 2;
+	optional int32 assetNumWithinCity = 3;
+	optional int32 regularAttackEnergyCost = 4;
 	optional int32 minutesToKill = 5;
-	//optional int32 minutesToRespawn = 6;
-	optional int32 baseExp = 6;
-	optional int32 cityId = 7;
-	optional int32 assetNumWithinCity = 8;
-	optional int32 regularAttackEnergyCost = 9;
-	optional float superAttackDamageMultiplier = 10;
-	optional int32 superAttackEnergyCost = 11;
-	optional string name = 12;
+	optional float superAttackDamageMultiplier = 6;
+	optional int32 superAttackEnergyCost = 7;
+	optional string name = 8;
+	optional int32 expConstantA = 9;
+	optional int32 expConstantB = 10; 
+	optional int32 hpConstantA = 11;
+	optional int32 hpConstantB = 12;
+	optional int32 hpConstantC = 13;
+	optional int32 dmgConstantA = 14;
+	optional int32 dmgConstantB = 15;
+	optional string mapImageName = 16;
+	
 }
 
 message FullUserBossProto {

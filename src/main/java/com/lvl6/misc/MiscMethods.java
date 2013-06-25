@@ -2233,4 +2233,52 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     }
     return true;
   }
+  
+  public static int calculateBossHealth(Boss b, int newLevel) {
+    int newHealth = b.getHpConstantA() *
+        (b.getHpConstantB() * newLevel + b.getHpConstantC());
+    return newHealth;
+  }
+  
+  public static int calculateBossExpAwarded(Boss aBoss, UserBoss ub) {
+    int expRewarded = 0;
+    
+    int health = ub.getCurrentHealth();
+    if (0 >= health) {
+      int a = aBoss.getExpConstantA();
+      int b = aBoss.getExpConstantB();
+      int ubLvl = ub.getCurrentLevel(); 
+      expRewarded = a * ubLvl + b;
+    }
+    
+    return expRewarded;
+  }
+  
+  public static int dealDamageToBoss(Boss aBoss, User u) {
+    int userId = u.getId();
+    List<UserEquip> userEquips = RetrieveUtils.userEquipRetrieveUtils()
+        .getUserEquipsForUser(userId);
+    
+    int equipAttackPower = 0;
+    for (UserEquip ue: userEquips) {
+      int equipId = ue.getEquipId();
+      int forgeLevel = ue.getLevel();
+      int enhanceLevel = ue.getEnhancementPercentage();
+      equipAttackPower += 
+          attackPowerForEquip(equipId, forgeLevel, enhanceLevel);
+    }
+    
+    int equipDamage = equipDamagePortionForBoss(equipAttackPower);
+    
+    int a = aBoss.getDmgConstantA();
+    int b = aBoss.getDmgConstantB();
+    
+    int totalDamage = a * (b + equipDamage);
+    return totalDamage;
+  }
+  
+  private static int equipDamagePortionForBoss(int equipAttackPower) {
+    int equipDamage = (int) (10.613 * Math.log(equipAttackPower) - 45.091);
+    return equipDamage;
+  }
 }

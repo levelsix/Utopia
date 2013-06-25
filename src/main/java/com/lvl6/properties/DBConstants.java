@@ -459,17 +459,26 @@ public class DBConstants {
   public static final String BOSSES__ID = GENERIC__USER_ID;
   public static final String BOSSES__CITY_ID = "city_id";
   public static final String BOSSES__ASSET_NUM_WITHIN_CITY = "asset_num_within_city";
-  public static final String BOSSES__BASE_HP = "base_hp";
+  //public static final String BOSSES__BASE_HP = "base_hp";
   public static final String BOSSES__REGULAR_ATTACK_ENERGY_COST = "regular_attack_energy_cost";
-  public static final String BOSSES__MIN_ATTACK = "min_attack";
-  public static final String BOSSES__MAX_ATTACK = "max_attack";
+  //public static final String BOSSES__MIN_ATTACK = "min_attack";
+  //public static final String BOSSES__MAX_ATTACK = "max_attack";
   public static final String BOSSES__MINUTES_TO_KILL = "minutes_to_kill";
-//  public static final String BOSSES__MINUTES_TO_RESPAWN = "minutes_to_respawn";
-  public static final String BOSSES__BASS_EXP = "bass_exp";
+  //public static final String BOSSES__MINUTES_TO_RESPAWN = "minutes_to_respawn";
+  //public static final String BOSSES__BASS_EXP = "bass_exp";
   public static final String BOSSES__SUPER_ATTACK_DAMAGE_MULTIPLIER = "super_attack_damage_multiplier";
   public static final String BOSSES__SUPER_ATTACK_ENERGY_COST = "super_attack_energy_cost";
-  public static final String BOSSES__GOOD_NAME = "good_name";
-  public static final String BOSSES__BAD_NAME = "bad_name";
+  //public static final String BOSSES__GOOD_NAME = "good_name";
+  //public static final String BOSSES__BAD_NAME = "bad_name";
+  public static final String BOSSES__NAME = "name";
+  public static final String BOSSES__EXP_CONSTANTS_A = "exp_constants_a";
+  public static final String BOSSES__EXP_CONSTANTS_B = "exp_constants_b";
+  public static final String BOSSES__HP_CONSTANTS_A = "hp_constants_a";
+  public static final String BOSSES__HP_CONSTANTS_B = "hp_constants_b";
+  public static final String BOSSES__HP_CONSTANTS_C = "hp_constants_c";
+  public static final String BOSSES__DMG_CONSTANTS_A = "dmg_constants_a";
+  public static final String BOSSES__DMG_CONSTANTS_B = "dmg_constants_b";
+  public static final String BOSSES__MAP_IMAGE_NAME = "map_image_name";
   
   /*USER BOSSES and USER BOSS HISTORY*/
   public static final String USER_BOSS_HISTORY__ID = GENERIC__ID;

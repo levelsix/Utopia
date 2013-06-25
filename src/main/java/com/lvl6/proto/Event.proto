@@ -2410,6 +2410,7 @@ message BossActionResponseProto {
 	optional UserCityGemProto gemDropped = 10; 
 	
 	optional bool isSuperAttack = 11;
+	optional bool isCriticalAttack = 12;
 	
 	enum BossActionStatus {
 		SUCCESS = 0; 
