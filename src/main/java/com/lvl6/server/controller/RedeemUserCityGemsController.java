@@ -31,6 +31,7 @@ import com.lvl6.proto.EventProto.RedeemUserCityGemsResponseProto.Builder;
 import com.lvl6.proto.EventProto.RedeemUserCityGemsResponseProto.RedeemUserCityGemsStatus;
 import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.UserBoosterPackProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserBoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.UserCityGemRetrieveUtils;
@@ -101,7 +102,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       
       if (success) {
         //"buy" the booster packs for the user
-        success = redeemForABoosterPack(resBuilder, user, cityId);
+        success = redeemForABoosterPack(resBuilder, user, userId, cityId);
       } 
 
       if (!success){
@@ -186,7 +187,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
   
   private boolean redeemForABoosterPack(Builder responseBuilder,
-      User aUser, int cityId) {
+      User aUser, int userId, int cityId) {
     boolean success = true;
     try {
       //get the booster pack for this city
@@ -204,8 +205,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           new HashMap<Integer, Integer>();
       boosterPackIdsToQuantities.put(boosterPackId, expectedNumEquips);
       List<Integer> userEquipIds = new ArrayList<Integer>();
+      
+      //WARNING: this will contain booster items from multiple booster
+      //packs if redeeming gems will be for more than one booster pack
+      Map<Integer, Integer> sendToClientBoosterItemIdsToQuantities = 
+          new HashMap<Integer, Integer>();
+      
       List<FullUserEquipProto> userEquipList = purchaseBoosterPacks(aUser,
-          boosterPackIdsToQuantities, userEquipIds);
+          boosterPackIdsToQuantities, userEquipIds,
+          sendToClientBoosterItemIdsToQuantities);
       
       //error checking
       int size = userEquipList.size();
@@ -218,6 +226,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       } else {
         //success! give the user his reward
         responseBuilder.addAllEquips(userEquipList);
+        //return the number of booster items the user has
+        UserBoosterPackProto aUserBoosterPackProto = 
+            CreateInfoProtoUtils.createUserBoosterPackProto(boosterPackId,
+                userId, sendToClientBoosterItemIdsToQuantities);
+        responseBuilder.setUserBoosterPack(aUserBoosterPackProto);
       }
       
     } catch (Exception e) {
@@ -228,7 +241,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   
   //return list of full user equip protos and populate userEquipIds
   private List<FullUserEquipProto> purchaseBoosterPacks(User u,
-      Map<Integer, Integer> boosterPackIdsToQuantities, List<Integer> userEquipIds) {
+      Map<Integer, Integer> boosterPackIdsToQuantities, List<Integer> userEquipIds,
+      Map<Integer, Integer> sendToClientBoosterItemIdsToQuantities) {
     
     List<FullUserEquipProto> returnValue = new ArrayList<FullUserEquipProto>();
     Timestamp now = new Timestamp((new Date()).getTime());
@@ -293,6 +307,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       returnValue = constructFullUserEquipProtos(
           userId, allItemsUserReceives, userEquipIds);
     }
+    
+    sendToClientBoosterItemIdsToQuantities.putAll(newBoosterItemIdsToNumCollected);
     return returnValue;
   }
   
