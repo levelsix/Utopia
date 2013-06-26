@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -15,7 +14,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.StringTokenizer;
-import java.util.TimeZone;
 
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
@@ -32,8 +30,10 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.BoosterItem;
 import com.lvl6.info.BoosterPack;
+import com.lvl6.info.Boss;
 import com.lvl6.info.BossEvent;
 import com.lvl6.info.City;
+import com.lvl6.info.CityGem;
 import com.lvl6.info.Clan;
 import com.lvl6.info.ClanTierLevel;
 import com.lvl6.info.ClanTower;
@@ -50,6 +50,8 @@ import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.Mentorship;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.info.UserBoss;
+import com.lvl6.info.UserCityGem;
 import com.lvl6.info.UserClan;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.ValidLocationBox;
@@ -60,14 +62,15 @@ import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.properties.MDCKeys;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto;
-import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowerChange;
 import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
+import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto;
 import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto.MenteeQuestType;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BazaarMinLevelConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BoosterPackConstants;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BossConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.CharacterModConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ClanConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.DownloadableNibConstants;
@@ -76,6 +79,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.Expansion
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ForgeConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.GoldmineConstants;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.HealthConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditions;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.LeaderboardEventConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.LockBoxConstants;
@@ -107,6 +111,7 @@ import com.lvl6.retrieveutils.rarechange.BossEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BossRewardRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.CityGemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.ClanTierLevelRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DailyBonusRewardRetrieveUtils;
@@ -160,8 +165,9 @@ public class MiscMethods {
   }
 
   public static int calculateDiamondCostToSpeedupForgeWaittime(Equipment equipment, int goalLevel) {
-    return (int) Math.ceil(calculateMinutesToFinishForgeAttempt(equipment, goalLevel) / 
-        (float)ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
+    return (int) Math.max(1, Math.ceil(ControllerConstants.FORGE_SPEEDUP_CONSTANT_A * 
+        Math.log(calculateMinutesToFinishForgeAttempt(equipment, goalLevel)) + 
+        ControllerConstants.FORGE_SPEEDUP_CONSTANT_B));
   }
 
   public static UserEquip chooseUserEquipWithEquipIdPreferrablyNonEquippedIgnoreLevel(User user, List<UserEquip> userEquipsForEquipId) {
@@ -420,7 +426,6 @@ public class MiscMethods {
         .setPlayerWallPostsRetrieveCap(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP)
         .setMaxLevelForUser(ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER)
         .setAverageSizeOfLevelBracket(ControllerConstants.AVERAGE_SIZE_OF_LEVEL_BRACKET)
-        .setHealthFormulaExponentBase(ControllerConstants.HEALTH__FORMULA_EXPONENT_BASE)
         .setLevelEquipBoostExponentBase(ControllerConstants.LEVEL_EQUIP_BOOST_EXPONENT_BASE)
         .setAdColonyVideosRequiredToRedeemDiamonds(ControllerConstants.EARN_FREE_DIAMONDS__NUM_VIDEOS_FOR_DIAMOND_REWARD)
         .setMinNameLength(ControllerConstants.USER_CREATE__MIN_NAME_LENGTH)
@@ -468,6 +473,14 @@ public class MiscMethods {
     }
 
     cb.setKiipRewardConditions(krcb.build());
+    
+    HealthConstants hc = HealthConstants.newBuilder()
+        .setHealthFormulaExponentBase(ControllerConstants.HEALTH__FORMULA_EXPONENT_BASE)
+        .setHealthFormulaLinearA(ControllerConstants.HEALTH__FORMULA_LINEAR_A)
+        .setHealthFormulaLinearB(ControllerConstants.HEALTH__FORMULA_LINEAR_B)
+        .setHealthFormulaLevelCutoff(ControllerConstants.HEALTH__FORMULA_LEVEL_CUTOFF)
+        .build();
+    cb.setHealthConstants(hc);
 
     CharacterModConstants charModConstants = CharacterModConstants.newBuilder()
         .setDiamondCostToChangeCharacterType(ControllerConstants.CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_CHARACTER_TYPE)
@@ -506,6 +519,8 @@ public class MiscMethods {
         .setForgeMaxForgeSlots(ControllerConstants.FORGE__ADDITIONAL_MAX_FORGE_SLOTS)
         .setCostOfPurchasingSlotTwo(ControllerConstants.FORGE_COST_OF_PURCHASING_SLOT_TWO)
         .setCostOfPurchasingSlotThree(ControllerConstants.FORGE_COST_OF_PURCHASING_SLOT_THREE)
+        .setForgeSpeedupConstantA(ControllerConstants.FORGE_SPEEDUP_CONSTANT_A)
+        .setForgeSpeedupConstantB(ControllerConstants.FORGE_SPEEDUP_CONSTANT_B)
         .build();
 
     cb.setForgeConstants(forgeConstants);
@@ -694,6 +709,10 @@ public class MiscMethods {
     MinimumUserProto adminChatUserProto = CreateInfoProtoUtils.createMinimumUserProtoFromUser(adminChatUser);
     cb.setAdminChatUserProto(adminChatUserProto);
     
+    BossConstants.Builder bc = BossConstants.newBuilder();
+    bc.setMaxHealthMultiplier(ControllerConstants.SOLO_BOSS__MAX_HEALTH_MULTIPLIER);
+    cb.setBossConstants(bc.build());
+    
     return cb.build();  
   }
 
@@ -786,6 +805,7 @@ public class MiscMethods {
     BoosterItemRetrieveUtils.reload();
     BannedUserRetrieveUtils.reload();
     DailyBonusRewardRetrieveUtils.reload();
+    CityGemRetrieveUtils.reload();
   }
 
   public static UserType getUserTypeFromDefeatTypeJobUserType(
@@ -1538,33 +1558,6 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     return CreateInfoProtoUtils.createGoldSaleProtoFromGoldSale(sale);
   }
   
-  //given a date time, e.g. 2013-02-08 00:33:57 (UTC),
-  //spits out the start of day in UTC relative to PST
-  //using prior example, returns 2013-02-07 08:00:00
-  public static Timestamp getPstDateAndHourFromUtcTime(Date now) {
-    Calendar cal = Calendar.getInstance();
-    cal.setTimeZone(TimeZone.getTimeZone("Europe/London"));
-    cal.setTime(now);
-    
-    //PST = UTC - 8 or 7(because of daylight savings time) hours
-    TimeZone laTimeZone = TimeZone.getTimeZone("America/Los_Angeles");
-    Calendar laCal = Calendar.getInstance(laTimeZone);
-    
-    //get the offset from gmt in hours and account for daylight savings time
-    int offset = (laCal.get(Calendar.ZONE_OFFSET) + laCal.get(Calendar.DST_OFFSET)) / (1000*60*60);
-    
-    cal.add(Calendar.HOUR_OF_DAY, offset);
-    //hopefully this gives me YYYY-MM-DD HH:00:00
-    cal.set(Calendar.MINUTE, 0);
-    cal.set(Calendar.SECOND, 0);
-    cal.set(Calendar.MILLISECOND, 0);
-    
-    cal.set(Calendar.HOUR_OF_DAY, -offset);
-    long millis = cal.getTimeInMillis();
-    Timestamp PSTDateAndHourInUTC = new Timestamp(millis);
-    return PSTDateAndHourInUTC;
-  }
-  
   public static int dateDifferenceInDays(Date start, Date end) {
     DateMidnight previous = (new DateTime(start)).toDateMidnight(); //
     DateMidnight current = (new DateTime(end)).toDateMidnight();
@@ -1910,7 +1903,8 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     return itemsUserReceives;
   }
   /*cut out from purchase booster pack controller*/
-  public static List<Integer> insertNewUserEquips(int userId, List<BoosterItem> itemsUserReceives) {
+  public static List<Integer> insertNewUserEquips(int userId,
+      List<BoosterItem> itemsUserReceives, Timestamp now) {
     int amount = itemsUserReceives.size();
     int forgeLevel = ControllerConstants.DEFAULT_USER_EQUIP_LEVEL;
     int enhancementLevel = ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT;
@@ -1923,7 +1917,8 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
       equipIds.add(equipId);
     }
     
-    return InsertUtils.get().insertUserEquips(userId, equipIds, levels, enhancement);
+    return InsertUtils.get().insertUserEquips(userId, equipIds, levels,
+        enhancement, now);
   }
   /*cut out from purchase booster pack controller*/
   public static boolean updateUserBoosterItems(List<BoosterItem> itemsUserReceives, 
@@ -2076,5 +2071,236 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     mfqre.setMenteeFinishedQuestResponseProto(mfqrpb.build());
     
     server.writeAPNSNotificationOrEvent(mfqre);
+  }
+  
+  public static boolean doesUserHaveAllGemTypes(
+      Map<Integer, UserCityGem> gemIdsToUserCityGems,
+      Map<Integer, CityGem> cityGemIdsToActiveCityGems) {
+    int numDistinctGems = cityGemIdsToActiveCityGems.size();
+    int numUserCityGems = gemIdsToUserCityGems.size();
+    
+    //if user doesn't have all gems return null;
+    if (numDistinctGems != numUserCityGems) {
+      return false;
+    }
+
+    //user has a quantity for each gem
+    //make sure user has at least one of each gem
+    boolean hasNonzeroGems = true;
+    for (int gemId : gemIdsToUserCityGems.keySet()) {
+      UserCityGem ucg = gemIdsToUserCityGems.get(gemId);
+      if (ucg.getQuantity() <= 0) {
+        hasNonzeroGems = false;
+        break;
+      }
+    }
+    return hasNonzeroGems;
+  }
+  
+  public static int taskEnergyCostForCityRank (Task aTask, int cityRank) {
+    int cost = aTask.getEnergyCost();
+    if (ControllerConstants.NOT_SET == cityRank) {
+      return cost;
+    }
+    int maxEnergyCost = cost *
+        ControllerConstants.TASK_ACTION__MAX_ENERGY_COST_MULTIPLIER;
+    
+    //TODO: CALCULATE THE COST
+    int calculatedCost = cost;
+    
+    return Math.min(maxEnergyCost, calculatedCost);
+  }
+  
+  //the user can only get one of each gem until the full set is acquired
+  //or the user gets gems regardless if the full set is acquired
+  public static  CityGem selectCityGemOne(boolean allowDuplicates,
+      boolean getBossGem, Map<Integer, UserCityGem> gemIdsToUserCityGems,
+      Map<Integer, CityGem> gemIdsToActiveCityGems, Random rand) {
+    CityGem returnValue = null;
+    List<CityGem> potentialGems = getPotentialGems(allowDuplicates,
+        getBossGem, gemIdsToUserCityGems, gemIdsToActiveCityGems);   
+    
+    //efficiency check, if <= 1 gem left return returnValue
+    int size = potentialGems.size();
+    if (1 == size) {
+      returnValue = potentialGems.get(0);
+      return returnValue;
+    } else if (0 == size) {
+      return returnValue;
+    }
+    
+    float probabilityForNoGem = getProbabilityForNoGem(potentialGems);
+    float randFloat = rand.nextFloat();
+    if (randFloat < probabilityForNoGem) {
+      //user gets nothing
+      return returnValue;
+    }
+    
+    returnValue = selectFromGems(randFloat,
+        probabilityForNoGem, potentialGems);
+    return returnValue;
+  }
+  
+  public static List<CityGem> getPotentialGems(boolean allowDuplicates,
+      boolean getBossGem, Map<Integer, UserCityGem> gemIdsToUserCityGems,
+      Map<Integer, CityGem> gemIdsToActiveCityGems) {
+    List<CityGem> potentialGems =  new ArrayList<CityGem>();
+    
+    for (int gemId : gemIdsToActiveCityGems.keySet()) {
+      CityGem cg = gemIdsToActiveCityGems.get(gemId);
+      
+      //if nonboss gems are requested exclude gems dropped from bosses
+      //if boss gems are requested exclude gems not dropped from bosses 
+      boolean droppedFromBosses = cg.isDroppedOnlyFromBosses();
+      if (droppedFromBosses != getBossGem) {
+        continue;
+      }
+      
+      //maybe exclude this gem if user already has one
+      UserCityGem ucg = gemIdsToUserCityGems.get(gemId);
+      int quantityUserHas = 0;
+      if (null != ucg) {
+        quantityUserHas = ucg.getQuantity();
+      }
+      
+      if (allowDuplicates) {
+        //don't care if the user has this gem already.
+        potentialGems.add(cg);
+        
+      } else if (!allowDuplicates && 0 == quantityUserHas) {
+        //since only allow user to have one set of gems,
+        //get only those with 0 quantity
+        potentialGems.add(cg);
+      }
+      
+    }
+    
+    return potentialGems;
+  }
+  
+  public static float getProbabilityForNoGem(List<CityGem> potentialGems) {
+    float probabilityForNoGem = 1.0f;
+    
+    for (CityGem cg : potentialGems) {
+      float dropRate = cg.getDropRate();
+      probabilityForNoGem -= dropRate;
+    }
+    
+    return probabilityForNoGem;
+  }
+  
+  
+  public static CityGem selectFromGems(float randFloat,
+      float probabilityForNoGem, List<CityGem> potentialGems) {
+    CityGem returnValue = null;
+    //loop through potential gems and choose a gem to give out
+    float probabilityForCurrentGem = probabilityForNoGem;
+    for (CityGem cg : potentialGems) {
+      float dropRate = cg.getDropRate();
+      probabilityForCurrentGem += dropRate;
+      if (randFloat < probabilityForCurrentGem) {
+        returnValue = cg;
+        break;
+      }
+    }
+    return returnValue;
+  }
+  
+  //the user can get as many gems as he wants
+  public static CityGem selectCityGemTwo(boolean allowDuplicates,
+      boolean getBossGem, Map<Integer, UserCityGem> gemIdsToUserCityGems,
+      Map<Integer, CityGem> gemIdsToActiveCityGems, Random rand) {
+    CityGem returnValue = null;
+    List<CityGem> potentialGems = getPotentialGems(allowDuplicates,
+        getBossGem, gemIdsToUserCityGems, gemIdsToActiveCityGems);
+
+    float probabilityForNoGem = 0.0f;
+    float randFloat = rand.nextFloat();
+    returnValue = selectFromGems(randFloat,
+        probabilityForNoGem, potentialGems);
+    return returnValue;
+  }
+  
+  /*
+   * Returns true if the user can attack, false otherwise. The user can attack if
+   * the time the user attacks is between start_time (in kingdom.user_bosses table)
+   * and start_time + minutes_to_kill (in kingdom.bosses table). 
+   */
+  public static boolean inBossAttackWindow(UserBoss aUserBoss, User u,
+      Boss b, long curTime) {
+    Date timeOfFirstHit = aUserBoss.getStartTime();
+    int attackWindow = b.getMinutesToKill();
+    DateTime timeForLastHit = new DateTime(timeOfFirstHit);
+    timeForLastHit = timeForLastHit.plusMinutes(attackWindow);
+
+    if (timeForLastHit.isBefore(curTime)) {
+      return false;
+    }
+    return true;
+  }
+  
+  public static int calculateBossHealth(Boss b, int newLevel) {
+    int maxLevel = ControllerConstants.SOLO_BOSS__MAX_HEALTH_MULTIPLIER;
+    int levelCap = Math.min(newLevel, maxLevel);
+    int newHealth = b.getHpConstantA() *
+        (b.getHpConstantB() * levelCap + b.getHpConstantC());
+    return newHealth;
+  }
+  
+  public static int calculateBossExpAwarded(Boss aBoss, UserBoss ub) {
+    int expRewarded = 0;
+    
+    int health = ub.getCurrentHealth();
+    if (0 >= health) {
+      int a = aBoss.getExpConstantA();
+      int b = aBoss.getExpConstantB();
+      int ubLvl = ub.getCurrentLevel(); 
+      expRewarded = a * ubLvl + b;
+    }
+    
+    return expRewarded;
+  }
+  
+  public static int dealDamageToBoss(Boss aBoss, User u) {
+    ArrayList<Integer> userEquipIds = new ArrayList<Integer>();
+    if (u.getWeaponEquippedUserEquipId() > 0) userEquipIds.add(u.getWeaponEquippedUserEquipId());
+    if (u.getArmorEquippedUserEquipId() > 0) userEquipIds.add(u.getArmorEquippedUserEquipId());
+    if (u.getAmuletEquippedUserEquipId() > 0) userEquipIds.add(u.getAmuletEquippedUserEquipId());
+    if (u.getWeaponTwoEquippedUserEquipId() > 0) userEquipIds.add(u.getWeaponTwoEquippedUserEquipId());
+    if (u.getArmorTwoEquippedUserEquipId() > 0) userEquipIds.add(u.getArmorTwoEquippedUserEquipId());
+    if (u.getAmuletTwoEquippedUserEquipId() > 0) userEquipIds.add(u.getAmuletTwoEquippedUserEquipId());
+    
+    List<UserEquip> userEquips = RetrieveUtils.userEquipRetrieveUtils()
+        .getSpecificUserEquips(userEquipIds);
+    
+    int equipAttackPower = 0;
+    for (UserEquip ue: userEquips) {
+      int equipId = ue.getEquipId();
+      int forgeLevel = ue.getLevel();
+      int enhanceLevel = ue.getEnhancementPercentage();
+      int equipIndivPower = attackPowerForEquip(equipId, forgeLevel, enhanceLevel);
+      equipAttackPower += equipIndivPower;
+      log.info(equipId + ": " + equipIndivPower);
+    }
+    
+    int equipDamage = equipDamagePortionForBoss(equipAttackPower);
+    
+    int a = aBoss.getDmgConstantA();
+    int b = aBoss.getDmgConstantB();
+    
+    int totalDamage = a * (b + equipDamage);
+    totalDamage = new Random().nextInt((int)(totalDamage*0.2))+(int)(totalDamage*0.9);
+    log.info("total damage: " + totalDamage);
+    return totalDamage;
+  }
+  
+  private static int equipDamagePortionForBoss(int equipAttackPower) {
+    if (equipAttackPower <= 0) {
+      return 0;
+    }
+    int equipDamage = (int) (10.613 * Math.log(equipAttackPower) - 45.091);
+    log.info("attack power: " + equipAttackPower);
+    log.info("equip damage: " + equipDamage);
+    return Math.max(0, equipDamage);
   }
 }

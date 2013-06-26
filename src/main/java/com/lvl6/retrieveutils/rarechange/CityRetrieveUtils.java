@@ -81,8 +81,10 @@ private static City convertRSRowToCity(ResultSet rs) throws SQLException {
   int coinsGainedBaseOnRankup = rs.getInt(i++);
   String mapImgName = rs.getString(i++);
   CoordinatePair center = new CoordinatePair(rs.getFloat(i++), rs.getFloat(i++));
-
-  return new City(id, name, minLevel, expGainedBaseOnRankup, coinsGainedBaseOnRankup, mapImgName, center);
+  int boosterPackId = rs.getInt(i++);
+  
+  return new City(id, name, minLevel, expGainedBaseOnRankup,
+      coinsGainedBaseOnRankup, mapImgName, center, boosterPackId);
 }
 
 }

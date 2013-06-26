@@ -12,10 +12,11 @@ public class City implements Serializable {
 	private int coinsGainedBaseOnRankup;
 	private String mapImgName;
 	private CoordinatePair center;
+	private int boosterPackId;
 
 	public City(int id, String name, int minLevel, int expGainedBaseOnRankup,
 			int coinsGainedBaseOnRankup, String mapImgName,
-			CoordinatePair center) {
+			CoordinatePair center, int boosterPackId) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -24,6 +25,7 @@ public class City implements Serializable {
 		this.coinsGainedBaseOnRankup = coinsGainedBaseOnRankup;
 		this.mapImgName = mapImgName;
 		this.center = center;
+		this.boosterPackId = boosterPackId;
 	}
 
 	public int getId() {
@@ -82,12 +84,21 @@ public class City implements Serializable {
 		this.center = center;
 	}
 
-	@Override
-	public String toString() {
-		return "City [id=" + id + ", name=" + name + ", minLevel=" + minLevel
-				+ ", expGainedBaseOnRankup=" + expGainedBaseOnRankup
-				+ ", coinsGainedBaseOnRankup=" + coinsGainedBaseOnRankup
-				+ ", mapImgName=" + mapImgName + ", center=" + center + "]";
-	}
+	public int getBoosterPackId() {
+    return boosterPackId;
+  }
+
+  public void setBoosterPackId(int boosterPackId) {
+    this.boosterPackId = boosterPackId;
+  }
+
+  @Override
+  public String toString() {
+    return "City [id=" + id + ", name=" + name + ", minLevel=" + minLevel
+        + ", expGainedBaseOnRankup=" + expGainedBaseOnRankup
+        + ", coinsGainedBaseOnRankup=" + coinsGainedBaseOnRankup
+        + ", mapImgName=" + mapImgName + ", center=" + center
+        + ", boosterPackId=" + boosterPackId + "]";
+  }
 
 }

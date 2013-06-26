@@ -1,6 +1,8 @@
 package com.lvl6.scriptsjava.generatefakeusers;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Random;
 
 import org.springframework.context.ApplicationContext;
@@ -84,7 +86,7 @@ public class GenerateFakeUsersWithoutInput {
         location, null, newReferCode, level, attack, defense, 0, 0, 0, 0, 0,
         null, null, null, true,
         ControllerConstants.PURCHASE_GROUP_CHAT__NUM_CHATS_GIVEN_FOR_PACKAGE,
-        activateShield) < 0) {
+        activateShield, new Timestamp((new Date()).getTime())) < 0) {
       System.out.println("error in creating user");
     }
 

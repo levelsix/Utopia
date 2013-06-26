@@ -34,7 +34,9 @@ import com.lvl6.info.BattleDetails;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.BoosterItem;
 import com.lvl6.info.BoosterPack;
+import com.lvl6.info.Boss;
 import com.lvl6.info.City;
+import com.lvl6.info.CityGem;
 import com.lvl6.info.Clan;
 import com.lvl6.info.ClanChatPost;
 import com.lvl6.info.ClanTower;
@@ -52,6 +54,7 @@ import com.lvl6.info.Quest;
 import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.info.UserBoss;
 import com.lvl6.info.UserClan;
 import com.lvl6.info.UserDailyBonusRewardHistory;
 import com.lvl6.info.UserEquip;
@@ -73,10 +76,13 @@ import com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus;
 import com.lvl6.proto.InfoProto.BoosterPackProto;
+import com.lvl6.proto.InfoProto.CityGemProto;
 import com.lvl6.proto.InfoProto.EquipEnhancementProto;
+import com.lvl6.proto.InfoProto.FullBossProto;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
+import com.lvl6.proto.InfoProto.FullUserBossProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.GoldSaleProto;
 import com.lvl6.proto.InfoProto.GroupChatMessageProto;
@@ -99,11 +105,14 @@ import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
 import com.lvl6.retrieveutils.PrivateChatPostRetrieveUtils;
 import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
 import com.lvl6.retrieveutils.UserBoosterItemRetrieveUtils;
+import com.lvl6.retrieveutils.UserBossRetrieveUtils;
 import com.lvl6.retrieveutils.UserDailyBonusRewardHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.UserLockBoxEventRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterItemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BoosterPackRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.CityGemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DailyBonusRewardRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
@@ -251,12 +260,16 @@ public class StartupController extends EventController {
           // if(server.lockClanTowersTable()) {
           setClanTowers(resBuilder);
           // }
-          resBuilder.addAllBossEvents(MiscMethods.currentBossEvents());
+          //resBuilder.addAllBossEvents(MiscMethods.currentBossEvents());
+          
           setLeaderboardEventStuff(resBuilder);
           setEquipEnhancementStuff(resBuilder, user);
           setAllies(resBuilder, user);
           setPrivateChatPosts(resBuilder, user);
-
+          setCityGems(resBuilder);
+          setLivingBossesForUser(resBuilder, user);
+          setAllBosses(resBuilder);
+          
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
 
@@ -319,6 +332,30 @@ public class StartupController extends EventController {
     // regardless of whether the user is new or restarting from an account
     // reset
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);
+  }
+  
+  private void setLivingBossesForUser(Builder resBuilder, User aUser) {
+    int userId = aUser.getId();
+    boolean livingBossesOnly = true;
+    List<UserBoss> userBosses = UserBossRetrieveUtils
+        .getUserBossesForUserId(userId, livingBossesOnly);
+    
+    for (UserBoss ub : userBosses) {
+      FullUserBossProto ubp = CreateInfoProtoUtils
+          .createFullUserBossProtoFromUserBoss(ub);
+      resBuilder.addLivingBosses(ubp);
+    }
+  }
+  
+  private void setAllBosses(Builder resBuilder) {
+    Map<Integer, Boss> bossIdsToBosses = 
+        BossRetrieveUtils.getBossIdsToBosses();
+    
+    for (Boss b : bossIdsToBosses.values()) {
+      FullBossProto fbp =
+          CreateInfoProtoUtils.createFullBossProtoFromBoss(b);
+      resBuilder.addBosses(fbp);
+    }
   }
 
   private void setPrivateChatPosts(Builder resBuilder, User aUser) {
@@ -390,6 +427,18 @@ public class StartupController extends EventController {
         postIdsToPrivateChatPosts);
 
     resBuilder.addAllPcpp(pcppList);
+  }
+  
+  private void setCityGems(Builder b) {
+    //sending to the client all the active city gems
+    Map<Integer, CityGem> activeGemsForAllCities = 
+        CityGemRetrieveUtils.getActiveCityGemIdsToCityGems();
+    
+    for (CityGem cg : activeGemsForAllCities.values()) {
+      CityGemProto cgp = CreateInfoProtoUtils.createCityGemProto(cg);
+      b.addGemsForAllCities(cgp);
+    }
+    
   }
 
   private Map<Integer, Integer> aggregateOtherUserIdsAndPrivateChatPost(
@@ -961,7 +1010,8 @@ public class StartupController extends EventController {
           collectedBeforeReset);
       newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>(boosterItemIdsToNumCollected);
       boolean successful = writeBoosterStuffToDB(aUser, boosterItemIdsToNumCollected,
-          newBoosterItemIdsToNumCollected, itemsUserReceives, collectedBeforeReset, resetOccurred);
+          newBoosterItemIdsToNumCollected, itemsUserReceives, collectedBeforeReset,
+          resetOccurred, now);
       if (successful) {
         //exclude from daily limit check in PurchaseBoosterPackController
         boolean excludeFromLimitCheck = true;
@@ -988,9 +1038,10 @@ public class StartupController extends EventController {
 
   private boolean writeBoosterStuffToDB(User aUser, Map<Integer, Integer> boosterItemIdsToNumCollected,
       Map<Integer, Integer> newBoosterItemIdsToNumCollected, List<BoosterItem> itemsUserReceives,
-      List<Boolean> collectedBeforeReset, boolean resetOccurred) {
+      List<Boolean> collectedBeforeReset, boolean resetOccurred, Timestamp now) {
     int userId = aUser.getId();
-    List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId, itemsUserReceives);
+    List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId,
+        itemsUserReceives, now);
     if (null == userEquipIds || userEquipIds.isEmpty() || userEquipIds.size() != itemsUserReceives.size()) {
       log.error("unexpected error: failed to insert equip for user. boosteritems="
           + MiscMethods.shallowListToString(itemsUserReceives));

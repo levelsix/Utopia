@@ -78,12 +78,25 @@ public class ControllerConstants {
   public static final double BATTLE__FAKE_PLAYER_COIN_GAIN_MULTIPLIER = 3;
   public static final double BATTLE__CHANCE_OF_ZERO_GAIN_FOR_SILVER = .2;
   
+  //old boss constants
   public static final double BOSS_EVENT__SUPER_ATTACK = 3.0;
   public static final int BOSS_EVENT__NUMBER_OF_ATTACKS_UNTIL_SUPER_ATTACK = 5;
+  //revamped boss constants
+  //ublic static final int SOLO_BOSS__ATTACK_COST = 1;
+  //public static final int SOLO_BOSS__SUPER_ATTACK_COST = 3;
+  //public static final double SOLO_BOSS__SUPER_ATTACK_DAMGE_MULTIPLIER = 1.5; 
+  
+  //new revamped boss constants
+  public static final double SOLO_BOSS__CRITICAL_HIT_CHANCE = 0.15;
+  public static final double SOLO_BOSS__CRITICAL_HIT_DAMAGE_MULTIPLIER = 1.6;
+  public static final int SOLO_BOSS__MAX_HEALTH_MULTIPLIER = 10;
   
   public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.5;
-  
+
   public static final double HEALTH__FORMULA_EXPONENT_BASE = 1.18;
+  public static final double HEALTH__FORMULA_LINEAR_A = 999.75;
+  public static final double HEALTH__FORMULA_LINEAR_B = -26381;
+  public static final int HEALTH__FORMULA_LEVEL_CUTOFF = 31;
   
   public static final int AVERAGE_SIZE_OF_LEVEL_BRACKET = 5;
 
@@ -91,6 +104,8 @@ public class ControllerConstants {
   public static final double FORGE_DIAMOND_COST_FOR_GUARANTEE_EXPONENTIAL_MULTIPLIER = 2;
   public static final int FORGE_MAX_EQUIP_LEVEL = 10;
   public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 15;
+  public static final double FORGE_SPEEDUP_CONSTANT_A = 10.116;
+  public static final double FORGE_SPEEDUP_CONSTANT_B = -32.59;
   public static final double FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER = 1.8;
   public static final int FORGE_DEFAULT_NUMBER_OF_FORGE_SLOTS = 1;
   public static final int FORGE__ADDITIONAL_MAX_FORGE_SLOTS = 2;
@@ -213,6 +228,11 @@ public class ControllerConstants {
   
   //TASK ACTION
   public static final int TASK_ACTION__MAX_CITY_RANK = 5;
+  //if dev server then always drop gem, else production go with whatever
+  public static final float TASK_ACTION__GEM_DROP_RATE = Globals.IS_SANDBOX() ? 1.0f : 0.25f; 
+  public static final int TASK_ACTION__MAX_ENERGY_COST_MULTIPLIER = 5;
+  public static final int TASK_ACTION__MAX_REWARD_MULTIPLIER = 3;
+  public static final int TASK_ACTION__MAX_CITY_RANK_UP_REWARD_MULTIPLIER = 5;
   
   //PURCHASE NORM STRUCTURE
   public static final int PURCHASE_NORM_STRUCTURE__MAX_NUM_OF_CERTAIN_STRUCTURE = 2;
@@ -278,7 +298,8 @@ public class ControllerConstants {
   public static final int USER_CREATE__COIN_REWARD_FOR_BEING_REFERRED = 50;
   public static final double USER_CREATE__PERCENTAGE_OF_COIN_WEALTH_GIVEN_TO_REFERRER = .2;
   public static final int USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL = 98394;
-  public static final String USER_CREATE__FIRST_WALL_POST_TEXT = "Hi! My name's Stevie, one of the creators of this game. Feel free to message me if you need any help.";
+  public static final String USER_CREATE__FIRST_WALL_POST_TEXT = 
+	  "Hi! My name's " + (Globals.KABAM_ENABLED() ? "Stevie" : "Andrew") + ", one of the creators of this game. Feel free to message me if you need any help.";
   public static final int USER_CREATE__INITIAL_GLOBAL_CHATS = 10;
 
   

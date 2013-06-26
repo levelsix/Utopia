@@ -163,8 +163,6 @@ public interface UpdateUtil {
 
   public abstract boolean updateUserEquipOwner(int userEquipId, int newOwnerId);
 
-  public abstract boolean updateUserEquipAfterEnhancment (int userEquipId, int enhancementPercent);
-  
   public abstract boolean updateAbsoluteBlacksmithAttemptcompleteTimeofspeedup(int blacksmithId, Date timeOfSpeedup, boolean attemptComplete);
 
   public abstract boolean updateUsersClanId(Integer clanId, List<Integer> userIds);
@@ -183,8 +181,8 @@ public interface UpdateUtil {
   //public abstract boolean updateRedeemLockBoxItems(int eventId, int userId, List<Integer> lockBoxItemIds, boolean redeem);
   public abstract boolean updateRedeemLockBoxEvent(int eventId, int userId, boolean redeem);
   
-  public boolean decrementUserBossHealthAndMaybeIncrementNumTimesKilled(int userId, int bossId, Date startTime, int currentHealth, 
-      int numTimesKilled, Date lastTimeKilled);
+  public boolean replaceBoss(int userId, int bossId, Date startTime, int currentHealth, 
+      int currentLevel);
   
   public boolean incrementCurrentTierLevelForClan(int clanId);
   public abstract boolean updateClanTowerOwnerAndOrAttacker(int clanTowerId, int ownerId, Date ownedStartTime, int ownerBattleWins, 
@@ -208,4 +206,10 @@ public interface UpdateUtil {
   public abstract boolean updateMentorshipTerminate(int mentorshipId);
   
   public abstract boolean updateMentorshipQuestCompleteTime(int mentorshipId, Date timeCompleted, MenteeQuestType type);
+  
+  public abstract boolean updateUserCityGems(int userId, int cityId,
+      Map<Integer, Integer> gemIdsToQuantities);
+  
+  public abstract boolean updateUserCityGem(int userId, int cityId,
+      int gemId, int newQuantity);
 }

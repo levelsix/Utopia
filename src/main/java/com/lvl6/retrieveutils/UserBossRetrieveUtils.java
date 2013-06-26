@@ -6,17 +6,19 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.info.Boss;
 import com.lvl6.info.UserBoss;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
-import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.utils.DBConnection;
 
 @Component @DependsOn("gameServer") public class UserBossRetrieveUtils {
@@ -37,32 +39,38 @@ import com.lvl6.utils.DBConnection;
     return userBoss;
   }
 
-  public static List<UserBoss> getUserBossesForUserId(int userId) {
-    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
-    paramsToVals.put(DBConstants.USER_BOSSES__USER_ID, userId);
-
+  public static List<UserBoss> getUserBossesForUserId(int userId,
+      boolean livingBossesOnly) {
+    
     Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    List<String> columns = null; //all columns
+    Map<String, Object> absoluteConditionParams = new HashMap<String, Object>();
+    Map<String, Object> relativeGreaterThanConditionParams =
+        new HashMap<String, Object>();
+    Map<String, Object> relativeLessThanConditionParams = null;
+    Map<String, Object> likeCondParams = null;
+    String tablename = TABLE_NAME;
+    String conddelim = "AND";
+    String orderByColumn = null;
+    boolean orderByAsc = false;
+    int limit = ControllerConstants.NOT_SET;
+    boolean random = false;
+    
+    absoluteConditionParams.put(DBConstants.USER_BOSSES__USER_ID, userId);
+    if (livingBossesOnly) {
+      relativeGreaterThanConditionParams.put(
+          DBConstants.USER_BOSSES__CUR_HEALTH, 0);
+    }
+    
+    ResultSet rs = DBConnection.get().selectRows(conn, columns,
+        absoluteConditionParams, relativeGreaterThanConditionParams,
+        relativeLessThanConditionParams, likeCondParams,
+        tablename, conddelim, orderByColumn, orderByAsc, limit, random);
     List<UserBoss> userBosses = grabUserBossesFromRS(rs);
     DBConnection.get().close(rs, null, conn);
     return userBosses;
   }
 
-  public static List<UserBoss> getActiveUserBossesForUserId(int userId) {
-    List<UserBoss> userBosses = getUserBossesForUserId(userId);
-    List<UserBoss> toReturn = new ArrayList<UserBoss>();
-    
-    long curTime = new Date().getTime();
-    for (UserBoss ub : userBosses) {
-      Boss b = BossRetrieveUtils.getBossForBossId(ub.getBossId());
-      
-      if (ub.getCurrentHealth() > 0 && ub.getStartTime().getTime()+60000*b.getMinutesToKill() > curTime) {
-        toReturn.add(ub);
-      }
-    }
-    
-    return toReturn.size() > 0 ? toReturn : null;
-  }
 
   private static UserBoss grabUserBossFromRS(ResultSet rs) {
     if (rs != null) {
@@ -115,15 +123,10 @@ import com.lvl6.utils.DBConnection;
     }
     
     int curHealth = rs.getInt(i++);
-    int numTimesKilled = rs.getInt(i++);
+    int currentLevel = rs.getInt(i++);
 
-    Date lastTimeKilled = null;
-    ts = rs.getTimestamp(i++);
-    if(!rs.wasNull()) {
-      lastTimeKilled = new Date(ts.getTime());
-    }
     
-    return new UserBoss(userId, bossId, curHealth, numTimesKilled, startTime, lastTimeKilled);
+    return new UserBoss(bossId, userId, curHealth, currentLevel, startTime);
   }
 
 }

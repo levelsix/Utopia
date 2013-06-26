@@ -62,6 +62,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     MinimumUserProto senderProto = reqProto.getSender();
     int questId = reqProto.getQuestId();
 
+    Timestamp now = new Timestamp((new Date()).getTime());
+    
     QuestRedeemResponseProto.Builder resBuilder = QuestRedeemResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
@@ -104,7 +106,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
         if (quest.getEquipIdGained() > 0) {
           int userEquipId = InsertUtils.get().insertUserEquip(userQuest.getUserId(), quest.getEquipIdGained(),
-              ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
+              ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT,
+              now);
           if (userEquipId < 0) {
             resBuilder.setStatus(QuestRedeemStatus.OTHER_FAIL);
             log.error("problem with giving user 1 reward equip after completing the quest, equipId=" 
@@ -138,7 +141,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
         }
         
-        writeToUserCurrencyHistory(user, money, previousSilver, previousGold);
+        writeToUserCurrencyHistory(user, money, previousSilver, previousGold, now);
       }
     } catch (Exception e) {
       log.error("exception in QuestRedeem processEvent", e);
@@ -217,8 +220,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   public void writeToUserCurrencyHistory(User aUser, Map<String, Integer> money,
-      int previousSilver, int previousGold) {
-    Timestamp date = new Timestamp((new Date()).getTime());
+      int previousSilver, int previousGold, Timestamp date) {
 
     Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
     Map<String, String> reasonsForChanges = new HashMap<String, String>();

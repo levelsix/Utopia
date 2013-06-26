@@ -298,21 +298,6 @@ public class UpdateUtils implements UpdateUtil {
     return false;
   }
 
-  public boolean updateUserEquipAfterEnhancment (int userEquipId, int enhancementPercent) {
-    Map<String, Object> conditionParams = new HashMap<String, Object>();
-    Map<String, Object> absoluteParams = new HashMap<String, Object>();
-
-    conditionParams.put(DBConstants.USER_EQUIP__EQUIP_ID, userEquipId);
-    absoluteParams.put(DBConstants.USER_EQUIP__ENHANCEMENT_PERCENT, enhancementPercent);
-
-    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_EQUIP, null, absoluteParams, 
-        conditionParams, "and");
-    if (numUpdated == 1) {
-      return true;
-    }
-    return false;
-  }
-
   /*
    * used for updating is_complete=true and last_retrieved to upgrade_time+minutestogain for a userstruct
    */
@@ -731,7 +716,10 @@ public class UpdateUtils implements UpdateUtil {
     }
     query += StringUtils.getListInString(condClauses, "or") + ")";
     int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
-    if (numUpdated == tasksInCity.size()) {
+    if (numUpdated == tasksInCity.size() ||
+        numUpdated == tasksInCity.size() - 1) {
+      //the minus one is for the case when the last thing user has to tap
+      //to rank up the city is something that needs only one tap
       return true;
     }
     log.error("problem with resetting times completed in rank for userid " + userId + ". tasks are=" + tasksInCity
@@ -852,8 +840,8 @@ public class UpdateUtils implements UpdateUtil {
   }
 
   //updating user_boss table
-  public boolean decrementUserBossHealthAndMaybeIncrementNumTimesKilled(int userId, int bossId, Date startTime, 
-      int currentHealth, int numTimesKilled, Date lastTimeKilled) { 
+  public boolean replaceBoss(int userId, int bossId, Date startTime, 
+      int currentHealth, int currentLevel) { 
     String tableName = DBConstants.TABLE_USER_BOSSES;
     Map<String, Object> columnsAndValues = new HashMap<String, Object>();
 
@@ -861,8 +849,8 @@ public class UpdateUtils implements UpdateUtil {
     columnsAndValues.put(DBConstants.USER_BOSSES__BOSS_ID, bossId);
     columnsAndValues.put(DBConstants.USER_BOSSES__START_TIME, new Timestamp(startTime.getTime()));
     columnsAndValues.put(DBConstants.USER_BOSSES__CUR_HEALTH, currentHealth);
-    columnsAndValues.put(DBConstants.USER_BOSSES__NUM_TIMES_KILLED, numTimesKilled);
-    columnsAndValues.put(DBConstants.USER_BOSSES__LAST_TIME_KILLED, lastTimeKilled);
+    columnsAndValues.put(DBConstants.USER_BOSSES__CURRENT_LEVEL, currentLevel);
+//    columnsAndValues.put(DBConstants.USER_BOSSES__LAST_TIME_KILLED, lastTimeKilled);
 
     int numUpdated = DBConnection.get().replace(tableName, columnsAndValues);
 
@@ -1286,6 +1274,49 @@ public class UpdateUtils implements UpdateUtil {
         conditionParams, "AND");
     if (numUpdated == 1) {
       return true;
+    }
+    return false;
+  }
+  
+  public boolean updateUserCityGems(int userId, int cityId, 
+      Map<Integer, Integer> gemIdsToQuantities) {
+    List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
+
+    for(Integer gemId : gemIdsToQuantities.keySet()) {
+      int quantity = gemIdsToQuantities.get(gemId);
+      Map <String, Object> aRow = new HashMap<String, Object>();
+
+      aRow.put(DBConstants.USER_CITY_GEMS__USER_ID, userId);
+      aRow.put(DBConstants.USER_CITY_GEMS__CITY_ID, cityId);
+      aRow.put(DBConstants.USER_CITY_GEMS__GEM_ID, gemId);
+      aRow.put(DBConstants.USER_CITY_GEMS__QUANTITY, quantity);
+
+      newRows.add(aRow);
+    }
+
+    int numUpdated = DBConnection.get().replaceIntoTableValues(
+        DBConstants.TABLE_USER_CITY_GEMS, newRows);
+
+    log.info("num userCityGems updated: " + numUpdated 
+        + ". userCityGems: " + gemIdsToQuantities);
+    if (numUpdated == gemIdsToQuantities.size()*2) {
+      return true;
+    }
+    return false;
+  }
+  
+  public boolean updateUserCityGem(int userId, int cityId, int gemId,
+      int quantity) {
+    String tableName = DBConstants.TABLE_USER_CITY_GEMS;
+    Map<String, Object> columnsAndValues = new HashMap<String, Object>();
+    
+    columnsAndValues.put(DBConstants.USER_CITY_GEMS__USER_ID, userId);
+    columnsAndValues.put(DBConstants.USER_CITY_GEMS__CITY_ID, cityId);
+    columnsAndValues.put(DBConstants.USER_CITY_GEMS__GEM_ID, gemId);
+    columnsAndValues.put(DBConstants.USER_CITY_GEMS__QUANTITY, quantity);
+    int numUpdated = DBConnection.get().replace(tableName, columnsAndValues);
+    if (numUpdated >= 1) {
+      return true; 
     }
     return false;
   }

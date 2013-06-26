@@ -114,8 +114,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     String referrerCode = (reqProto.hasReferrerCode()) ? reqProto.getReferrerCode() : null;
     String deviceToken = (reqProto.hasDeviceToken() && reqProto.getDeviceToken().length() > 0) ? reqProto.getDeviceToken() : null;
 
-    Timestamp timeOfStructPurchase = new Timestamp((new Date()).getTime()); //new Timestamp(reqProto.getTimeOfStructPurchase());
-    Timestamp timeOfStructBuild = new Timestamp((new Date()).getTime()); //new Timestamp(reqProto.getTimeOfStructBuild());
+    Timestamp createTime = new Timestamp((new Date()).getTime());
+    Timestamp timeOfStructPurchase = createTime; //new Timestamp(reqProto.getTimeOfStructPurchase());
+    Timestamp timeOfStructBuild = createTime; //new Timestamp(reqProto.getTimeOfStructBuild());
     CoordinatePair structCoords = new CoordinatePair(reqProto.getStructCoords().getX(), reqProto.getStructCoords().getY());
 
     int attack = reqProto.getAttack();
@@ -188,14 +189,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           attack, defense, energy, stamina, playerExp, playerCoins,
           playerDiamonds, null, null, null, false,
           ControllerConstants.PURCHASE_GROUP_CHAT__NUM_CHATS_GIVEN_FOR_PACKAGE,
-          activateShield);
+          activateShield, createTime);
             
       if (userId > 0) {
         server.lockPlayer(userId, this.getClass().getSimpleName());
         try {
           user = RetrieveUtils.userRetrieveUtils().getUserById(userId);
 
-          Map<EquipType, Integer> userEquipIds = writeUserEquips(user.getId(), equipIds);
+          Map<EquipType, Integer> userEquipIds = writeUserEquips(user.getId(),
+        	  equipIds, createTime);
           if (!user.updateAbsoluteAllEquipped(userEquipIds.get(EquipType.WEAPON), 
               userEquipIds.get(EquipType.ARMOR), userEquipIds.get(EquipType.AMULET))) {
             log.error("problem with marking user's equipped userequips, weapon:" + userEquipIds.get(EquipType.WEAPON) +
@@ -298,7 +300,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private Map<EquipType, Integer> writeUserEquips(int userId, List<Integer> equipIds) {
+  private Map<EquipType, Integer> writeUserEquips(int userId, List<Integer> equipIds,
+	  Timestamp createTime) {
     Map <EquipType, Integer> userEquipIds = new HashMap<EquipType, Integer>();
     if (equipIds.size() > 0) {
       int rustyDaggerId = 1;
@@ -312,7 +315,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           forgeLevel = 2;
         }
         int userEquipId = insertUtils.insertUserEquip(userId, equipIds.get(i),
-            forgeLevel, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT); 
+            forgeLevel, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT, createTime); 
         if (userEquipId < 0) {
           log.error("problem with giving user " + userId + " 1 " + equipIds.get(i));
         } else {
@@ -324,7 +327,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (Globals.IDDICTION_ON()) {
         //since user create, equips should have no enhancement
         int userEquipId = insertUtils.insertUserEquip(userId, ControllerConstants.IDDICTION__EQUIP_ID, 
-            ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
+            ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT,
+            createTime);
         if (userEquipId < 0) {
           log.error("problem with giving user iddiction reward to " + userId + " 1 " + ControllerConstants.IDDICTION__EQUIP_ID);
         }

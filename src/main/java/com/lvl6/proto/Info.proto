@@ -1,6 +1,24 @@
 package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
+//DO NOT USE ID AS THE NAME OF A PROPERTY IN ANY PROTO
+
+message UserCityGemProto {
+	optional int32 userId = 1;
+	optional int32 cityId = 2;
+	optional int32 gemId = 3;
+	optional int32 quantity = 4;
+}
+
+message CityGemProto {
+	optional int32 gemId = 1;
+	optional float dropRate = 2;
+	optional bool isActive = 3;
+	optional string gemImageName = 4;
+	optional bool droppedOnlyFromBosses = 5;
+}
+
+//------------------------------------------------------------------------------------------
 
 message MentorshipProto {
 	optional int32 id = 1;
@@ -261,25 +279,31 @@ enum EquipClassType {
 
 message FullBossProto {
 	optional int32 bossId = 1;
-	optional int32 baseHealth = 2;
-	optional int32 minDamage = 3;
-	optional int32 maxDamage = 4;
+	optional int32 cityId = 2;
+	optional int32 assetNumWithinCity = 3;
+	optional int32 regularAttackEnergyCost = 4;
 	optional int32 minutesToKill = 5;
-	optional int32 minutesToRespawn = 6;
-	optional int32 minExp = 7;
-	optional int32 maxExp = 13;
-	optional int32 cityId = 8;
-	optional int32 assetNumWithinCity = 9;
-	optional int32 staminaCost = 12;
+	optional float superAttackDamageMultiplier = 6;
+	optional int32 superAttackEnergyCost = 7;
+	optional string name = 8;
+	optional int32 expConstantA = 9;
+	optional int32 expConstantB = 10; 
+	optional int32 hpConstantA = 11;
+	optional int32 hpConstantB = 12;
+	optional int32 hpConstantC = 13;
+	optional int32 dmgConstantA = 14;
+	optional int32 dmgConstantB = 15;
+	optional string mapImageName = 16;
+	
 }
 
 message FullUserBossProto {
 	optional int32 bossId = 1;
 	optional int32 userId = 2;
 	optional int32 curHealth = 3;
-	optional int32 numTimesKilled = 4;
+	optional int32 currentLevel = 4; //starts at 0
 	optional int64 startTime = 5;
-	optional int64 lastKilledTime = 6;
+	//optional int64 lastKilledTime = 6;
 }
 
 //------------------------------------------------------------------------------------------
@@ -646,6 +670,7 @@ message FullCityProto {
 	
 	repeated int32 taskIds = 10;
 	repeated int32 bossIds = 11;
+	optional int32 boosterPackId = 12;
 }
 
 //------------------------------------------------------------------------------------------

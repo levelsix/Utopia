@@ -31,23 +31,22 @@ import com.lvl6.utils.DBConnection;
   }
   
   private static Map<Integer, Integer> convertRSToTaskIdToNumTimesCompletedMap(ResultSet rs) {
+    Map<Integer, Integer> taskIdToNumTimesCompletedInRank = new HashMap<Integer, Integer>();
     if (rs != null) {
       try {
         rs.last();
         rs.beforeFirst();
-        Map<Integer, Integer> taskIdToNumTimesCompletedInRank = new HashMap<Integer, Integer>();
         while(rs.next()) {  //should only be one
           int taskId = rs.getInt(DBConstants.USER_TASK__TASK_ID);
           int numTimesCompletedInRank = rs.getInt(DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK);
           taskIdToNumTimesCompletedInRank.put(taskId, numTimesCompletedInRank);
         }
-        return taskIdToNumTimesCompletedInRank;
       } catch (SQLException e) {
         log.error("problem with database call.", e);
         
       }
     }
-    return null;
+    return taskIdToNumTimesCompletedInRank;
   }
   
 }

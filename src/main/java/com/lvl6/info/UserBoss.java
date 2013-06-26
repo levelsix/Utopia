@@ -5,22 +5,20 @@ import java.util.Date;
 
 public class UserBoss implements Serializable {
   private static final long serialVersionUID = -6613940156097697826L;
-  private int userId;
   private int bossId;
+  private int userId;
   private int currentHealth;
-  private int numTimesKilled;
+  private int currentLevel; //starts at 0
   private Date startTime;
-  private Date lastTimeKilled;
 
-  public UserBoss(int userId, int bossId, int currentHealth, int numTimesKilled, Date startTime,
-      Date lastTimeKilled) {
+  public UserBoss(int bossId, int userId, int currentHealth,
+      int currentLevel, Date startTime) {
     super();
-    this.userId = userId;
     this.bossId = bossId;
+    this.userId = userId;
     this.currentHealth = currentHealth;
-    this.numTimesKilled = numTimesKilled;
+    this.currentLevel = currentLevel;
     this.startTime = startTime;
-    this.lastTimeKilled = lastTimeKilled;
   }
   
   public Date getStartTime() {
@@ -31,41 +29,44 @@ public class UserBoss implements Serializable {
     this.startTime = startTime;
   }
   
-  public int getUserId() {
-    return userId;
-  }
-  public void setUserId(int userId) {
-    this.userId = userId;
-  }
   public int getBossId() {
     return bossId;
   }
   public void setBossId(int bossId) {
     this.bossId = bossId;
   }
+
+  public int getUserId() {
+    return userId;
+  }
+  public void setUserId(int userId) {
+    this.userId = userId;
+  }
+  
   public int getCurrentHealth() {
     return currentHealth;
   }
   public void setCurrentHealth(int currentHealth) {
     this.currentHealth = currentHealth;
   }
-  public int getNumTimesKilled() {
-    return numTimesKilled;
+  
+  public int getCurrentLevel() {
+    return currentLevel;
   }
-  public void setNumTimesKilled(int numTimesKilled) {
-    this.numTimesKilled = numTimesKilled;
+  public void setCurrentLevel(int currentLevel) {
+    this.currentLevel = currentLevel;
   }
-  public Date getLastTimeKilled() {
-    return lastTimeKilled;
-  }
-  public void setLastTimeKilled(Date lastTimeKilled) {
-    this.lastTimeKilled = lastTimeKilled;
-  }
+//  public Date getLastTimeKilled() {
+//    return lastTimeKilled;
+//  }
+//  public void setLastTimeKilled(Date lastTimeKilled) {
+//    this.lastTimeKilled = lastTimeKilled;
+//  }
+
   @Override
   public String toString() {
-    return "UserBoss [userId=" + userId + ", bossId=" + bossId
-        + ", currentHealth=" + currentHealth + ", numTimesKilled="
-        + numTimesKilled + ", startTime=" + startTime 
-        + "lastTimeKilled" + lastTimeKilled+ "]";
+    return "UserBoss [bossId=" + bossId + ", userId=" + userId
+        + ", currentHealth=" + currentHealth + ", currentLevel=" + currentLevel
+        + ", startTime=" + startTime + "]";
   }
 }

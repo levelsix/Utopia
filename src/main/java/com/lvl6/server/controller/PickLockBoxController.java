@@ -95,7 +95,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             legitPick = false;
           } else {
             resBuilder.setItem(CreateInfoProtoUtils.createLockBoxItemProtoFromLockBoxItem(item));
-            UserEquip equip = checkIfUserHasAllItems(lockBoxEvent, user);
+            UserEquip equip = checkIfUserHasAllItems(lockBoxEvent, user, curTime);
             if (equip != null) {
               resBuilder.setPrizeEquip(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(equip));
               hadAllItems = true;
@@ -194,7 +194,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return null;
   }
 
-  private UserEquip checkIfUserHasAllItems(LockBoxEvent lockBoxEvent, User user) {
+  private UserEquip checkIfUserHasAllItems(LockBoxEvent lockBoxEvent,
+      User user, Timestamp curTime) {
     List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(lockBoxEvent.getId());
     Map<Integer, Integer> map = UserLockBoxItemRetrieveUtils.getLockBoxItemIdsToQuantityForUser(user.getId());
 
@@ -215,7 +216,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       boolean success = UpdateUtils.get().decrementLockBoxItemsForUser(forUpdate, user.getId(), 1);
       if (success) {
         int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), lockBoxEvent.getPrizeEquipId(), 1,
-            ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT);
+            ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT, curTime);
         if (userEquipId > 0) {
           return new UserEquip(userEquipId, user.getId(), lockBoxEvent.getPrizeEquipId(), 1, 0);
         }

@@ -2,15 +2,16 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 
 import javax.annotation.Resource;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.Minutes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
@@ -104,6 +105,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
     int boosterPackId = reqProto.getBoosterPackId();
     PurchaseOption option = reqProto.getPurchaseOption();
     Date now = new Date(reqProto.getClientTime());
+    Timestamp nowTimestamp = new Timestamp(now.getTime());
 
     PurchaseBoosterPackResponseProto.Builder resBuilder = PurchaseBoosterPackResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -154,7 +156,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
         previousGold = user.getDiamonds();
         successful = writeChangesToDB(resBuilder, user, boosterItemIdsToNumCollected,
             newBoosterItemIdsToNumCollected, itemsUserReceives, collectedBeforeReset, 
-            goldSilverChange, userEquipIds, resetOccurred);
+            goldSilverChange, userEquipIds, resetOccurred, nowTimestamp);
       }
       
       if (successful) {
@@ -178,7 +180,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        Timestamp nowTimestamp = new Timestamp(now.getTime());
+        
         int numBought = itemsUserReceives.size();
         
         //multiple scenarios where user can "buy" booster pack, but,
@@ -333,9 +335,13 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
   
   private boolean underDailyPurchaseLimit(Builder resBuilder, int userId, BoosterPack aPack, 
       int boosterPackId, Date now, int numUserWantsToBuy) {
-    Timestamp startOfDayPstInUtc = MiscMethods.getPstDateAndHourFromUtcTime(now);
-    int numPurchased = UserBoosterPackRetrieveUtils
-        .getNumPacksPurchasedAfterDateForUserAndPackId(userId, boosterPackId, startOfDayPstInUtc);
+    //get the time at the start of the day in L.A.
+    DateTimeZone laTZ = DateTimeZone.forID("America/Los_Angeles");
+    DateTime nowInLa = new DateTime(now.getTime(), laTZ);
+    DateTime startOfDayInLa = nowInLa.withTimeAtStartOfDay();
+    
+    int numPurchased = getNumEquipsPurchasedToday(userId, boosterPackId,
+        startOfDayInLa);
     
     boolean limitSet = true;
     int dailyLimit = aPack.getDailyLimit();
@@ -346,7 +352,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
     if (limitSet && numUserWillHave > dailyLimit) {
       //user will have more than the limit
       int numMorePacksUserCanBuy = Math.max(0, dailyLimit - numPurchased);
-      int minutesUntilLimitReset = determineTimeUntilReset(startOfDayPstInUtc, now);
+      int minutesUntilLimitReset = determineTimeUntilReset(nowInLa, startOfDayInLa);
       
       resBuilder.setStatus(PurchaseBoosterPackStatus.EXCEEDING_PURCHASE_LIMIT);
       resBuilder.setNumPacksToExceedLimit(numMorePacksUserCanBuy);
@@ -358,15 +364,26 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
     
     return true;
   }
-  
-  private int determineTimeUntilReset(Timestamp startOfDayPstInUtc, Date now) {
-    Calendar cal = Calendar.getInstance();
-    cal.setTimeZone(TimeZone.getTimeZone("Europe/London"));
-    cal.setTime(startOfDayPstInUtc);
-    cal.add(Calendar.DATE, 1);
-    long nextDayInMillisGmt = cal.getTimeInMillis();
 
-    return (int) Math.ceil((nextDayInMillisGmt - now.getTime())/60000);
+  private int getNumEquipsPurchasedToday(int userId, int boosterPackId, 
+      DateTime startOfDayInLA) {
+    //get the time at the start of the day in UTC
+    DateTimeZone utcTZ = DateTimeZone.UTC;
+    DateTime startOfDayInLAInUtc = startOfDayInLA.withZone(utcTZ);
+    Timestamp startTime = new Timestamp(startOfDayInLAInUtc.toDate().getTime());
+
+    int numPurchased = UserBoosterPackRetrieveUtils
+        .getNumPacksPurchasedAfterDateForUserAndPackId(userId, boosterPackId, startTime);
+    
+    return numPurchased;
+  }
+  
+  private int determineTimeUntilReset(DateTime nowInLa, DateTime startOfDayInLa) {
+    DateTime nextDayInLa = startOfDayInLa.plusDays(1);
+    Minutes minutesDiff = Minutes.minutesBetween(nowInLa, nextDayInLa);
+    
+    int newMinutesLeft = minutesDiff.getMinutes();
+    return newMinutesLeft;
   }
   
   /*moved all to misc methods
@@ -571,12 +588,16 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
   } */
   
   //sets values for newBoosterItemIdsToNumCollected
-  private boolean writeChangesToDB(Builder resBuilder, User user, Map<Integer, Integer> boosterItemIdsToNumCollected,
-      Map<Integer, Integer> newBoosterItemIdsToNumCollected, List<BoosterItem> itemsUserReceives, 
-      List<Boolean> collectedBeforeReset, Map<String, Integer> goldSilverChange, List<Integer> uEquipIds, boolean resetOccurred) {
+  private boolean writeChangesToDB(Builder resBuilder, User user,
+      Map<Integer, Integer> boosterItemIdsToNumCollected,
+      Map<Integer, Integer> newBoosterItemIdsToNumCollected,
+      List<BoosterItem> itemsUserReceives, List<Boolean> collectedBeforeReset,
+      Map<String, Integer> goldSilverChange, List<Integer> uEquipIds,
+      boolean resetOccurred, Timestamp nowTimestamp) {
     //insert into user_equips, update user, update user_booster_items
     int userId = user.getId();
-    List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId, itemsUserReceives);
+    List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId,
+        itemsUserReceives, nowTimestamp);
     if (null == userEquipIds || userEquipIds.isEmpty() 
         || userEquipIds.size() != itemsUserReceives.size()) {
       resBuilder.setStatus(PurchaseBoosterPackStatus.OTHER_FAIL);

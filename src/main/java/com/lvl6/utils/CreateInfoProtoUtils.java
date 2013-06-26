@@ -20,6 +20,7 @@ import com.lvl6.info.BoosterPack;
 import com.lvl6.info.Boss;
 import com.lvl6.info.BossEvent;
 import com.lvl6.info.City;
+import com.lvl6.info.CityGem;
 import com.lvl6.info.Clan;
 import com.lvl6.info.ClanBulletinPost;
 import com.lvl6.info.ClanChatPost;
@@ -50,6 +51,7 @@ import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserBoss;
 import com.lvl6.info.UserCityExpansionData;
+import com.lvl6.info.UserCityGem;
 import com.lvl6.info.UserClan;
 import com.lvl6.info.UserCritstruct;
 import com.lvl6.info.UserEquip;
@@ -92,6 +94,7 @@ import com.lvl6.proto.InfoProto.FullQuestProto;
 import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullTaskProto.FullTaskEquipReqProto;
+import com.lvl6.proto.InfoProto.CityGemProto;
 import com.lvl6.proto.InfoProto.FullUserBossProto;
 import com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto;
 import com.lvl6.proto.InfoProto.FullUserCityProto;
@@ -134,6 +137,7 @@ import com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto;
 import com.lvl6.proto.InfoProto.UpgradeStructJobProto;
 import com.lvl6.proto.InfoProto.UserBoosterItemProto;
 import com.lvl6.proto.InfoProto.UserBoosterPackProto;
+import com.lvl6.proto.InfoProto.UserCityGemProto;
 import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.InfoProto.UserLockBoxEventProto;
 import com.lvl6.proto.InfoProto.UserLockBoxItemProto;
@@ -594,12 +598,14 @@ public class CreateInfoProtoUtils {
         builder.addTaskIds(t.getId());
       }
     }
-    List<Boss> bosses = BossRetrieveUtils.getAllBossesForCityId(c.getId());
+    List<Boss> bosses = BossRetrieveUtils.getBossesForCityId(c.getId());
     if (bosses != null) {
       for (Boss b : bosses) {
         builder.addBossIds(b.getId());
       }
     }
+    
+    builder.setBoosterPackId(c.getBoosterPackId());
 
     return builder.build();
   }
@@ -1158,23 +1164,38 @@ public class CreateInfoProtoUtils {
   }
 
   public static FullBossProto createFullBossProtoFromBoss(Boss boss) {
-    return FullBossProto.newBuilder().setBossId(boss.getId()).setBaseHealth(boss.getBaseHealth())
-        .setMinDamage(boss.getMinDamage()).setMaxDamage(boss.getMaxDamage()).setMinutesToKill(boss.getMinutesToKill())
-        .setMinutesToRespawn(boss.getMinutesToRespawn()).setMinExp(boss.getMinExp()).setMaxExp(boss.getMaxExp())
-        .setCityId(boss.getCityId()).setAssetNumWithinCity(boss.getAssetNumberWithinCity())
-        .setStaminaCost(boss.getStaminaCost()).build();
+    FullBossProto.Builder fbp = FullBossProto.newBuilder();
+    fbp.setBossId(boss.getId());
+    fbp.setCityId(boss.getCityId());
+    fbp.setAssetNumWithinCity(boss.getAssetNumberWithinCity());
+    fbp.setRegularAttackEnergyCost(boss.getRegularAttackEnergyCost());
+    fbp.setMinutesToKill(boss.getMinutesToKill());
+    fbp.setSuperAttackDamageMultiplier(boss.getSuperAttackDamageMultiplier());
+    fbp.setSuperAttackEnergyCost(boss.getSuperAttackEnergyCost());
+    fbp.setName(boss.getName());
+    fbp.setExpConstantA(boss.getExpConstantA());
+    fbp.setExpConstantB(boss.getExpConstantB());
+    fbp.setHpConstantA(boss.getHpConstantA());
+    fbp.setHpConstantB(boss.getHpConstantB());
+    fbp.setHpConstantC(boss.getHpConstantC());
+    fbp.setDmgConstantA(boss.getDmgConstantA());
+    fbp.setDmgConstantB(boss.getDmgConstantB());
+    fbp.setMapImageName(boss.getMapImageName());
+    
+    return fbp.build();
   }
 
   public static FullUserBossProto createFullUserBossProtoFromUserBoss(UserBoss b) {
-    FullUserBossProto.Builder bu = FullUserBossProto.newBuilder().setBossId(b.getBossId()).setUserId(b.getUserId())
-        .setCurHealth(b.getCurrentHealth()).setNumTimesKilled(b.getNumTimesKilled());
+    FullUserBossProto.Builder bu = FullUserBossProto.newBuilder()
+        .setBossId(b.getBossId()).setUserId(b.getUserId())
+        .setCurHealth(b.getCurrentHealth()).setCurrentLevel(b.getCurrentLevel());
 
     if (b.getStartTime() != null) {
       bu.setStartTime(b.getStartTime().getTime());
     }
-    if (b.getLastTimeKilled() != null) {
-      bu.setLastKilledTime(b.getLastTimeKilled().getTime());
-    }
+//    if (b.getLastTimeKilled() != null) {
+//      bu.setLastKilledTime(b.getLastTimeKilled().getTime());
+//    }
     return bu.build();
   }
 
@@ -1400,6 +1421,27 @@ public class CreateInfoProtoUtils {
     }
     
     return mpb.build();
+  }
+  
+  public static UserCityGemProto createUserCityGemProto(UserCityGem ucg) {
+    UserCityGemProto.Builder ucgb = UserCityGemProto.newBuilder();
+    ucgb.setCityId(ucg.getCityId());
+    ucgb.setUserId(ucg.getUserId());
+    ucgb.setGemId(ucg.getGemId());
+    ucgb.setQuantity(ucg.getQuantity());
+    return ucgb.build();
+  }
+  
+  public static CityGemProto createCityGemProto(CityGem cg) {
+    CityGemProto.Builder cgpb = CityGemProto.newBuilder();
+    
+    cgpb.setGemId(cg.getId());
+    cgpb.setDropRate(cg.getDropRate());
+    cgpb.setIsActive(cg.isActive());
+    cgpb.setGemImageName(cg.getGemImageName());
+    cgpb.setDroppedOnlyFromBosses(cg.isDroppedOnlyFromBosses());
+    
+    return cgpb.build();
   }
   
 }

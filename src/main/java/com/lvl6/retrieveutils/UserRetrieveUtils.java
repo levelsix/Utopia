@@ -301,6 +301,9 @@ import com.lvl6.utils.utilmethods.StringUtils;
     int rangeIncrease = BATTLE_INITIAL_RANGE_INCREASE;
     int numDBHits = 1;
 
+    log.info("\t\t\t userRetrieveUtils.getUsers() query=" + query +
+        "\t\t values=" + values);
+    
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {

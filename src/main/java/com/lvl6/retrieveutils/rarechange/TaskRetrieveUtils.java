@@ -63,6 +63,20 @@ import com.lvl6.utils.DBConnection;
     }
     return cityIdsToTasks.get(cityId);
   }
+  
+  public static int getNumTapsToRankupCity(int cityId) {
+    if (cityIdsToTasks == null) {
+      setStaticCityIdsToTasks();
+    }
+    List<Task> tasksForCity = cityIdsToTasks.get(cityId);
+    
+    int numTaps = 0;
+    for (Task t : tasksForCity) {
+      numTaps += t.getNumForCompletion();
+    }
+    
+    return numTaps;
+  }
 
   private static void setStaticCityIdsToTasks() {
     log.debug("setting static map of cityId to tasks");

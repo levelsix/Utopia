@@ -53,7 +53,7 @@ import com.lvl6.utils.DBConnection;
     return toreturn;
   }
 
-  public static List<Boss> getAllBossesForCityId(int cityId) {
+  public static List<Boss> getBossesForCityId(int cityId) {
     log.debug("retrieving all bosses for cityId " + cityId);
     if (cityIdsToBosses == null) {
       setStaticCityIdsToBosses();
@@ -132,18 +132,27 @@ import com.lvl6.utils.DBConnection;
     int i = 1;
     int id = rs.getInt(i++);
     int cityId = rs.getInt(i++);
-    int assetNumWithinCity = rs.getInt(i++);
-    int baseHealth = rs.getInt(i++);
-    int staminaCost = rs.getInt(i++);
-    int minDamage = rs.getInt(i++);
-    int maxDamage = rs.getInt(i++);
+    int assetNumberWithinCity = rs.getInt(i++);
+    int regularAttackEnergyCost = rs.getInt(i++);
     int minutesToKill = rs.getInt(i++);
-    int minutesToRespawn = rs.getInt(i++);
-    int minExp = rs.getInt(i++);
-    int maxExp = rs.getInt(i++);
+    float superAttackDamageMultiplier = rs.getFloat(i++);
+    int superAttackEnergyCost = rs.getInt(i++);
+    String name = rs.getString(i++);
+    int expConstantA = rs.getInt(i++);
+    int expConstantB = rs.getInt(i++);
+    int hpConstantA = rs.getInt(i++);
+    int hpConstantB = rs.getInt(i++);
+    int hpConstantC = rs.getInt(i++);
+    int dmgConstantA = rs.getInt(i++);
+    int dmgConstantB = rs.getInt(i++);
+    String mapImageName = rs.getString(i++);
     
-    Boss boss = new Boss(id, cityId, assetNumWithinCity, staminaCost, minDamage, 
-        maxDamage, minutesToKill, minutesToRespawn, baseHealth, minExp, maxExp);
+    Boss boss = new Boss(id, cityId, assetNumberWithinCity,
+        regularAttackEnergyCost, minutesToKill, superAttackDamageMultiplier,
+        superAttackEnergyCost, name, expConstantA, expConstantB,
+        hpConstantA, hpConstantB, hpConstantC, dmgConstantA, dmgConstantB,
+        mapImageName);
+        
     return boss;
   }
 }

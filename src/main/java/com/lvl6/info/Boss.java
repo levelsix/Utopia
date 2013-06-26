@@ -7,89 +7,77 @@ public class Boss implements Serializable {
   private int id;
   private int cityId;
   private int assetNumberWithinCity;
-  private int staminaCost;
-  private int minDamage;
-  private int maxDamage;
+  private int regularAttackEnergyCost;
   private int minutesToKill;
-  private int minutesToRespawn;
-  private int baseHealth;
-  private int minExp;
-  private int maxExp;
-
-  public Boss(int id, int cityId,
-      int assetNumberWithinCity, int staminaCost, int minDamage, int maxDamage,
-      int minutesToKill, int minutesToRespawn, int baseHealth, int minExp, int maxExp) {
+  private float superAttackDamageMultiplier;
+  private int superAttackEnergyCost;
+  private String name;
+  private int expConstantA;
+  private int expConstantB;
+  private int hpConstantA;
+  private int hpConstantB;
+  private int hpConstantC;
+  private int dmgConstantA;
+  private int dmgConstantB;
+  private String mapImageName;
+  
+  public Boss(int id, int cityId, int assetNumberWithinCity,
+      int regularAttackEnergyCost, int minutesToKill,
+      float superAttackDamageMultiplier, int superAttackEnergyCost,
+      String name, int expConstantA, int expConstantB, int hpConstantA,
+      int hpConstantB, int hpConstantC, int dmgConstantA, int dmgConstantB,
+      String mapImageName) {
     super();
     this.id = id;
     this.cityId = cityId;
     this.assetNumberWithinCity = assetNumberWithinCity;
-    this.staminaCost = staminaCost;
-    this.minDamage = minDamage;
-    this.maxDamage = maxDamage;
+    this.regularAttackEnergyCost = regularAttackEnergyCost;
     this.minutesToKill = minutesToKill;
-    this.minutesToRespawn = minutesToRespawn;
-    this.baseHealth = baseHealth;
-    this.minExp = minExp;
-    this.maxExp = maxExp;
+    this.superAttackDamageMultiplier = superAttackDamageMultiplier;
+    this.superAttackEnergyCost = superAttackEnergyCost;
+    this.name = name;
+    this.expConstantA = expConstantA;
+    this.expConstantB = expConstantB;
+    this.hpConstantA = hpConstantA;
+    this.hpConstantB = hpConstantB;
+    this.hpConstantC = hpConstantC;
+    this.dmgConstantA = dmgConstantA;
+    this.dmgConstantB = dmgConstantB;
+    this.mapImageName = mapImageName;
   }
 
   public int getId() {
     return id;
   }
+
   public void setId(int id) {
     this.id = id;
   }
+
   public int getCityId() {
     return cityId;
   }
+
   public void setCityId(int cityId) {
     this.cityId = cityId;
   }
+
   public int getAssetNumberWithinCity() {
     return assetNumberWithinCity;
   }
+
   public void setAssetNumberWithinCity(int assetNumberWithinCity) {
     this.assetNumberWithinCity = assetNumberWithinCity;
   }
-  public int getStaminaCost() {
-    return staminaCost;
+
+  public int getRegularAttackEnergyCost() {
+    return regularAttackEnergyCost;
   }
-  public void setStaminaCost(int staminaCost) {
-    this.staminaCost = staminaCost;
+
+  public void setRegularAttackEnergyCost(int regularAttackEnergyCost) {
+    this.regularAttackEnergyCost = regularAttackEnergyCost;
   }
-  
-  public int getMinDamage() {
-    return minDamage;
-  }
-  
-  public void setMinDamage(int minDamage) {
-    this.minDamage = minDamage;
-  }
-  
-  public int getMaxDamage() {
-    return maxDamage;
-  }
-  
-  public void setMaxDamage(int maxDamage) {
-    this.maxDamage = maxDamage;
-  }
-  
-  public int getMinExp() {
-    return minExp;
-  }
-  
-  public void setMinExp(int minExp) {
-    this.minExp = minExp;
-  }
-  
-  public int getMaxExp() {
-    return maxExp;
-  }
-  
-  public void setMaxExp(int maxExp) {
-    this.maxExp = maxExp;
-  }
-  
+
   public int getMinutesToKill() {
     return minutesToKill;
   }
@@ -98,31 +86,106 @@ public class Boss implements Serializable {
     this.minutesToKill = minutesToKill;
   }
 
-  public int getMinutesToRespawn() {
-    return minutesToRespawn;
+  public float getSuperAttackDamageMultiplier() {
+    return superAttackDamageMultiplier;
   }
 
-  public void setMinutesToRespawn(int minutesToRespawn) {
-    this.minutesToRespawn = minutesToRespawn;
+  public void setSuperAttackDamageMultiplier(float superAttackDamageMultiplier) {
+    this.superAttackDamageMultiplier = superAttackDamageMultiplier;
   }
 
-  public int getBaseHealth() {
-    return baseHealth;
+  public int getSuperAttackEnergyCost() {
+    return superAttackEnergyCost;
   }
 
-  public void setBaseHealth(int baseHealth) {
-    this.baseHealth = baseHealth;
+  public void setSuperAttackEnergyCost(int superAttackEnergyCost) {
+    this.superAttackEnergyCost = superAttackEnergyCost;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public int getExpConstantA() {
+    return expConstantA;
+  }
+
+  public void setExpConstantA(int expConstantA) {
+    this.expConstantA = expConstantA;
+  }
+
+  public int getExpConstantB() {
+    return expConstantB;
+  }
+
+  public void setExpConstantB(int expConstantB) {
+    this.expConstantB = expConstantB;
+  }
+
+  public int getHpConstantA() {
+    return hpConstantA;
+  }
+
+  public void setHpConstantA(int hpConstantA) {
+    this.hpConstantA = hpConstantA;
+  }
+
+  public int getHpConstantB() {
+    return hpConstantB;
+  }
+
+  public void setHpConstantB(int hpConstantB) {
+    this.hpConstantB = hpConstantB;
+  }
+
+  public int getHpConstantC() {
+    return hpConstantC;
+  }
+
+  public void setHpConstantC(int hpConstantC) {
+    this.hpConstantC = hpConstantC;
+  }
+
+  public int getDmgConstantA() {
+    return dmgConstantA;
+  }
+
+  public void setDmgConstantA(int dmgConstantA) {
+    this.dmgConstantA = dmgConstantA;
+  }
+
+  public int getDmgConstantB() {
+    return dmgConstantB;
+  }
+
+  public void setDmgConstantB(int dmgConstantB) {
+    this.dmgConstantB = dmgConstantB;
+  }
+
+  public String getMapImageName() {
+    return mapImageName;
+  }
+
+  public void setMapImageName(String mapImageName) {
+    this.mapImageName = mapImageName;
   }
 
   @Override
   public String toString() {
-    return "Boss [id=" + id
-        + ", cityId=" + cityId + ", assetNumberWithinCity="
-        + assetNumberWithinCity + ", staminaCost=" + staminaCost
-        + ", minDamage=" + minDamage + ", maxDamage=" + maxDamage
-        + ", minutesToKill=" + minutesToKill + ", minutesToRespawn="
-        + minutesToRespawn + ", baseHealth=" + baseHealth + ", minExp="
-        + minExp + ", maxExp=" + maxExp + "]";
+    return "Boss [id=" + id + ", cityId=" + cityId + ", assetNumberWithinCity="
+        + assetNumberWithinCity + ", regularAttackEnergyCost="
+        + regularAttackEnergyCost + ", minutesToKill=" + minutesToKill
+        + ", superAttackDamageMultiplier=" + superAttackDamageMultiplier
+        + ", superAttackEnergyCost=" + superAttackEnergyCost + ", name=" + name
+        + ", expConstantA=" + expConstantA + ", expConstantB=" + expConstantB
+        + ", hpConstantA=" + hpConstantA + ", hpConstantB=" + hpConstantB
+        + ", hpConstantC=" + hpConstantC + ", dmgConstantA=" + dmgConstantA
+        + ", dmgConstantB=" + dmgConstantB + ", mapImageName=" + mapImageName
+        + "]";
   }
-
+  
 }

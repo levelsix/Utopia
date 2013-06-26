@@ -31,9 +31,11 @@ public interface InsertUtil {
       //@CacheEvict(value = "userEquipsForUser", key = "#userId"),
       //@CacheEvict(value = "equipsToUserEquipsForUser", key = "#userId"),
       //@CacheEvict(value = "userEquipsWithEquipId", key = "#userId+':'+#equipId") })*/
-  public abstract int insertUserEquip(int userId, int equipId, int level);
+//  public abstract int insertUserEquip(int userId, int equipId, int level,
+//	  Timestamp now);
 
-  public abstract int insertUserEquip(int userId, int equipId, int level, int enhancementPercentage);
+  public abstract int insertUserEquip(int userId, int equipId, int level,
+	  int enhancementPercentage, Timestamp now);
   
   public abstract int insertEquipEnhancement(int userId, int equipId, int equipLevel,
       int enhancementPercentageBeforeEnhancement, Timestamp startTimeOfEnhancement);
@@ -112,7 +114,7 @@ public interface InsertUtil {
       int stamina, int experience, int coins, int diamonds,
       Integer weaponEquipped, Integer armorEquipped,
       Integer amuletEquipped, boolean isFake, int numGroupChatsRemaining,
-      boolean activateShield);
+      boolean activateShield, Timestamp createTime);
 
   /*
    * returns the id of the post, -1 if none
@@ -146,11 +148,14 @@ public interface InsertUtil {
   public abstract int insertClanChatPost(int userId, int clanId, String content,
       Timestamp timeOfPost);
   
-  public abstract List<Integer> insertUserEquips(int userId, List<Integer> equipIds, List<Integer> levels, List<Integer> enhancement);
+  public abstract List<Integer> insertUserEquips(int userId, List<Integer> equipIds,
+	  List<Integer> levels, List<Integer> enhancement, Timestamp now);
   
   public abstract int insertIntoBossRewardDropHistoryReturnId(int bossId, int userId, int silverDropped, int goldDropped, Timestamp timeOfDrop);
   
-  public abstract int insertIntoBossEquipDropHistory(int bossRewardDropHistoryId, List<Integer> equipIds);
+  public abstract int insertIntoUserBossHistory(int bossId, int userId,
+      Timestamp startTime, int curHealth, int currentLevel);
+  //public abstract int insertIntoBossEquipDropHistory(int bossRewardDropHistoryId, List<Integer> equipIds);
 
   public int insertIntoUserLeaderboardEvent(int leaderboardEventId, int userId, int battlesWonChange, int battlesLostChange, int battlesFledChange);
 
