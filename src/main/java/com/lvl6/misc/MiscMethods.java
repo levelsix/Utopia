@@ -2274,11 +2274,17 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     int b = aBoss.getDmgConstantB();
     
     int totalDamage = a * (b + equipDamage);
+    log.info("total damage: " + totalDamage);
     return totalDamage;
   }
   
   private static int equipDamagePortionForBoss(int equipAttackPower) {
+    if (equipAttackPower <= 0) {
+      return 0;
+    }
     int equipDamage = (int) (10.613 * Math.log(equipAttackPower) - 45.091);
-    return equipDamage;
+    log.info("attack power: " + equipAttackPower);
+    log.info("equip damage: " + equipDamage);
+    return Math.max(0, equipDamage);
   }
 }
