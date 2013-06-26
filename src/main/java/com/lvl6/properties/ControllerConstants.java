@@ -89,7 +89,7 @@ public class ControllerConstants {
   //new revamped boss constants
   public static final double SOLO_BOSS__CRITICAL_HIT_CHANCE = 0.15;
   public static final double SOLO_BOSS__CRITICAL_HIT_DAMAGE_MULTIPLIER = 1.6;
-  public static final int SOLO_BOSS__MAX_HEALTH_MULTIPLIER = 5;
+  public static final int SOLO_BOSS__MAX_HEALTH_MULTIPLIER = 10;
   
   public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.5;
 
