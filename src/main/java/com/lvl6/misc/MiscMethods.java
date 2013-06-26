@@ -2264,8 +2264,9 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
       int equipId = ue.getEquipId();
       int forgeLevel = ue.getLevel();
       int enhanceLevel = ue.getEnhancementPercentage();
-      equipAttackPower += 
-          attackPowerForEquip(equipId, forgeLevel, enhanceLevel);
+      int equipIndivPower = attackPowerForEquip(equipId, forgeLevel, enhanceLevel);
+      equipAttackPower += equipIndivPower;
+      log.info(equipId + ": " + equipIndivPower);
     }
     
     int equipDamage = equipDamagePortionForBoss(equipAttackPower);
