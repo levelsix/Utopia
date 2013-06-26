@@ -378,6 +378,12 @@ message StartupResponseProto {
 		
 		optional HealthConstants healthConstants = 109;
 		
+		optional BossConstants bossConstants = 110;
+		
+		message BossConstants {
+			optional int32 maxHealthMultiplier = 1;
+		}
+		
 		message HealthConstants {
 			optional double healthFormulaExponentBase = 1;
 			optional double healthFormulaLinearA = 2;

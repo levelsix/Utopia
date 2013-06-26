@@ -70,6 +70,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BazaarMinLevelConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BoosterPackConstants;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BossConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.CharacterModConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ClanConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.DownloadableNibConstants;
@@ -707,6 +708,10 @@ public class MiscMethods {
         .getUserById(ControllerConstants.STARTUP__ADMIN_CHAT_USER_ID);
     MinimumUserProto adminChatUserProto = CreateInfoProtoUtils.createMinimumUserProtoFromUser(adminChatUser);
     cb.setAdminChatUserProto(adminChatUserProto);
+    
+    BossConstants.Builder bc = BossConstants.newBuilder();
+    bc.setMaxHealthMultiplier(ControllerConstants.SOLO_BOSS__MAX_HEALTH_MULTIPLIER);
+    cb.setBossConstants(bc.build());
     
     return cb.build();  
   }
@@ -2235,8 +2240,10 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
   }
   
   public static int calculateBossHealth(Boss b, int newLevel) {
+    int maxLevel = ControllerConstants.SOLO_BOSS__MAX_HEALTH_MULTIPLIER;
+    int levelCap = Math.min(newLevel, maxLevel);
     int newHealth = b.getHpConstantA() *
-        (b.getHpConstantB() * newLevel + b.getHpConstantC());
+        (b.getHpConstantB() * levelCap + b.getHpConstantC());
     return newHealth;
   }
   
