@@ -2289,6 +2289,7 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     int b = aBoss.getDmgConstantB();
     
     int totalDamage = a * (b + equipDamage);
+    totalDamage = new Random().nextInt((int)(totalDamage*0.2))+(int)(totalDamage*0.9);
     log.info("total damage: " + totalDamage);
     return totalDamage;
   }
