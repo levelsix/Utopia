@@ -1219,7 +1219,7 @@ public class User implements Serializable {
   public boolean updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill (
       int stamina, int experience, int coins, int battlesWon, int battlesLost,
       int fleesChange,  boolean simulateStaminaRefill, boolean updateLastAttackedTime,
-      Timestamp clientTime, boolean deactivateShield) {
+      Timestamp clientTime, boolean deactivateShield, boolean recordWinLossFlee) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -1227,10 +1227,12 @@ public class User implements Serializable {
     if (stamina != 0) relativeParams.put(DBConstants.USER__STAMINA, stamina);
     if (experience != 0) relativeParams.put(DBConstants.USER__EXPERIENCE, experience);
     if (coins != 0) relativeParams.put(DBConstants.USER__COINS, coins);
-    if (battlesWon != 0) relativeParams.put(DBConstants.USER__BATTLES_WON, battlesWon);
-    if (battlesLost != 0) relativeParams.put(DBConstants.USER__BATTLES_LOST, battlesLost);
-    if (fleesChange != 0) relativeParams.put(DBConstants.USER__FLEES, fleesChange);
-
+    if (recordWinLossFlee) {
+      if (battlesWon != 0) relativeParams.put(DBConstants.USER__BATTLES_WON, battlesWon);
+      if (battlesLost != 0) relativeParams.put(DBConstants.USER__BATTLES_LOST, battlesLost);
+      if (fleesChange != 0) relativeParams.put(DBConstants.USER__FLEES, fleesChange);
+    }
+    
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     if (simulateStaminaRefill) {
       absoluteParams.put(DBConstants.USER__LAST_STAMINA_REFILL_TIME, clientTime);
@@ -1257,9 +1259,11 @@ public class User implements Serializable {
       this.stamina += stamina;
       this.experience += experience;
       this.coins += coins;
-      this.battlesWon += battlesWon;
-      this.battlesLost += battlesLost;
-      this.flees += fleesChange;
+      if (recordWinLossFlee) {
+        this.battlesWon += battlesWon;
+        this.battlesLost += battlesLost;
+        this.flees += fleesChange;
+      }
       if (hasActiveShield && deactivateShield) {
         this.hasActiveShield = false;
       }

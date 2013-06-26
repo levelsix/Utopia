@@ -185,7 +185,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           boolean attackerFled = result==BattleResult.ATTACKER_FLEE;
           writeChangesToDB(stolenEquipIsLastOne, winner, loser, attacker,
               defender, expGained, lostCoins, battleTime, attackerFled,
-              lockBoxEventId, attackerCurrencyChange, defenderCurrencyChange);
+              lockBoxEventId, attackerCurrencyChange, defenderCurrencyChange,
+              isTutorialBattle);
 
           //clan towers
           log.debug("BattleController... locking all clan towers");
@@ -233,7 +234,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             int stolenEquipLevel = (lostEquip == null) ? ControllerConstants.NOT_SET : lostEquip.getLevel();
             
             //don't record the loss forced upon players
-            log.info("!!!!!!!!!!!!!!isTutorialBattle=" + isTutorialBattle);
             if (!isTutorialBattle) {
               //since real/nontutorial, battle record it
               if (!insertUtils.insertBattleHistory(attacker.getId(), defender.getId(), result, battleTime, lostCoins, stolenEquipId, expGained, stolenEquipLevel)) {
@@ -409,7 +409,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private void writeChangesToDB(boolean stolenEquipIsLastOne, User winner, User loser, User attacker, User defender, 
       int expGained, int lostCoins, Timestamp battleTime, boolean isFlee, int lockBoxEventId,
-      Map<String, Integer> attackerCurrencyChange, Map<String, Integer> defenderCurrencyChange) {
+      Map<String, Integer> attackerCurrencyChange, Map<String, Integer> defenderCurrencyChange, boolean isTutorialBattle) {
 
     boolean simulateStaminaRefill = (attacker.getStamina() == attacker.getStaminaMax());
     
@@ -420,16 +420,23 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       attackerDeactivateShield = true;
     }
     
+    boolean recordWinLossFlee = true;
+    if (isTutorialBattle) {
+      recordWinLossFlee = false;
+    }
+    
     if (winner == attacker) {
       if (!attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
-          expGained, lostCoins, 1, 0, 0, simulateStaminaRefill, false, battleTime, attackerDeactivateShield)) {
+          expGained, lostCoins, 1, 0, 0, simulateStaminaRefill, false, battleTime, attackerDeactivateShield,
+          recordWinLossFlee)) {
         log.error("problem with updating info for winner/attacker " + attacker.getId() + " in battle at " 
             + battleTime + " vs " + loser.getId());
       } else {//for user currency history
         attackerCurrencyChange.put(MiscMethods.silver, lostCoins);
       }
       if (!defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
-          0, (defender.isFake()) ? 0 : lostCoins * -1, 0, 1, 0, false, true, battleTime, defenderDeactivateShield)) {
+          0, (defender.isFake()) ? 0 : lostCoins * -1, 0, 1, 0, false, true, battleTime, defenderDeactivateShield,
+              recordWinLossFlee)) {
         log.error("problem with updating info for defender/loser " + defender.getId() + " in battle at " 
             + battleTime + " vs " + winner.getId());
       } else { //for user currency history
@@ -440,14 +447,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } else if (winner == defender) {
       if (isFlee) {
         if (!attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
-            0, lostCoins * -1, 0, 1, 1, simulateStaminaRefill, false, battleTime, attackerDeactivateShield)) {
+            0, lostCoins * -1, 0, 1, 1, simulateStaminaRefill, false, battleTime, attackerDeactivateShield,
+            recordWinLossFlee)) {
           log.error("problem with updating info for loser/attacker/flee-er " + attacker.getId() + " in battle at " 
               + battleTime + " vs " + winner.getId());
         } else {//for user currency history
           attackerCurrencyChange.put(MiscMethods.silver, lostCoins * -1);
         }
         if (!defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
-            0, (defender.isFake()) ? 0 : lostCoins, 1, 0, 0, false, false, battleTime, defenderDeactivateShield)) {
+            0, (defender.isFake()) ? 0 : lostCoins, 1, 0, 0, false, false, battleTime, defenderDeactivateShield,
+                recordWinLossFlee)) {
           log.error("problem with updating info for winner/defender " + defender.getId() + " in battle at " 
               + battleTime + " vs " + loser.getId() + " who fled");
         } else {//for user currency history
@@ -457,14 +466,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
       } else {
         if (!attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
-            0, lostCoins * -1, 0, 1, 0, simulateStaminaRefill, false, battleTime, attackerDeactivateShield)) {
+            0, lostCoins * -1, 0, 1, 0, simulateStaminaRefill, false, battleTime, attackerDeactivateShield,
+            recordWinLossFlee)) {
           log.error("problem with updating info for loser/attacker " + attacker.getId() + " in battle at " 
               + battleTime + " vs " + winner.getId());
         } else {//for user currency history
           attackerCurrencyChange.put(MiscMethods.silver, lostCoins * -1);
         }
         if (!defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
-            0, (defender.isFake()) ? 0 : lostCoins, 1, 0, 0, false, true, battleTime, defenderDeactivateShield)) {
+            0, (defender.isFake()) ? 0 : lostCoins, 1, 0, 0, false, true, battleTime, defenderDeactivateShield,
+                recordWinLossFlee)) {
           log.error("problem with updating info for winner/defender " + defender.getId() + " in battle at " 
               + battleTime + " vs " + loser.getId());
         } else {//for user currency history
