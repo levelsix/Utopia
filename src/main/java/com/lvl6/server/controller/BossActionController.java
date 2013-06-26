@@ -141,6 +141,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             resBuilder, allUserEquipIds, aUser.getId(), allEquipIds, levels);
         resBuilder.addAllLootUserEquip(ueList);
         int numCityGemsForUser = UserCityGemRetrieveUtils.numCityGemsForUser(userId);
+        log.info("numCityGemsForUser=" + numCityGemsForUser);
         if (0 >= numCityGemsForUser) {
           resBuilder.setIsFirstGem(true);
         } else {
