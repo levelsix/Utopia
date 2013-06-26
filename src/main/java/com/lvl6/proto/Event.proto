@@ -754,6 +754,7 @@ message TaskActionResponseProto {
 	
 	//send this if city ranked up and no active bosses
 	optional FullUserBossProto boss = 12; 
+	optional bool isFirstGem = 13;
 	
 	enum TaskActionStatus {
 		SUCCESS = 0; 
@@ -2417,6 +2418,7 @@ message BossActionResponseProto {
 	
 	optional bool isSuperAttack = 11;
 	optional bool isCriticalAttack = 12;
+	optional bool isFirstGem = 13;
 	
 	enum BossActionStatus {
 		SUCCESS = 0; 
