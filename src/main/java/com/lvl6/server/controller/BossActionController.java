@@ -99,7 +99,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         UserBoss aUserBoss = userBossList.get(0);
         previousSilver = aUser.getCoins() + aUser.getVaultBalance();
         previousGold = aUser.getDiamonds();
-
+        int numCityGemsForUser = UserCityGemRetrieveUtils.numCityGemsForUser(userId);
+        
         //aUserBoss will be modified to account for user's attack
         List<Boolean> isCriticalHit = new ArrayList<Boolean>();
         Map<String, Integer> damageExp =  attackBoss(aUserBoss,
@@ -140,8 +141,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         List<FullUserEquipProto> ueList = getFullUserEquipProtosForClient(
             resBuilder, allUserEquipIds, aUser.getId(), allEquipIds, levels);
         resBuilder.addAllLootUserEquip(ueList);
-        int numCityGemsForUser = UserCityGemRetrieveUtils.numCityGemsForUser(userId);
-        log.info("numCityGemsForUser=" + numCityGemsForUser);
+        
         if (0 >= numCityGemsForUser) {
           resBuilder.setIsFirstGem(true);
         } else {
