@@ -191,7 +191,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     UserBoss aUserBoss = UserBossRetrieveUtils.getSpecificUserBoss(userId, bossId);
     if(null == aUserBoss) {
       log.error("unexpected error: user_boss should exist before user can" +
-          " event send BossActionRequest. user=" + u + "\t boss=" + b);
+          " send event BossActionRequest. user=" + u + "\t boss=" + b);
       return false;
     }
     userBossList.add(aUserBoss);

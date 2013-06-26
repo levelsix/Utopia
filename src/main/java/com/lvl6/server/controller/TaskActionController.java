@@ -478,10 +478,9 @@ public class TaskActionController extends EventController {
     //DETERMINE THE LEVEL AND HP FOR THE NEWLY SPAWNED BOSS
     int newLevel = determineBossLevel(ub);
     int newHealth = determineBossHealth(ub, u, aBoss, clientDate, newLevel);
-    Timestamp newSpawnTime = new Timestamp(clientDate.getTime());
     
     ub = updateUserBossInDb(ub, userId, bossId, newLevel, newHealth,
-        clientDate, newSpawnTime);
+        clientDate);
     
     return ub;
   }
@@ -533,21 +532,26 @@ public class TaskActionController extends EventController {
   //updates the user_boss entry for the user and boss and returns 
   //the object stored into the table
   private UserBoss updateUserBossInDb(UserBoss ub, int userId, int bossId,
-      int newLevel, int defaultHealth, Date clientDate,
-      Timestamp newSpawnTime) {
+      int newLevel, int defaultHealth, Date clientDate) {
+    Timestamp newSpawnTime = new Timestamp(clientDate.getTime());
+    
     if (null == ub) {
-      return new UserBoss(bossId, userId, defaultHealth,
+      ub = new UserBoss(bossId, userId, defaultHealth,
           newLevel, clientDate);
+      
+    } else {
+      //not really needed in an else block...
+      //int newHealth = determineHealthForBossLevel(newLevel, defaultHealth);
+      ub.setCurrentHealth(defaultHealth);
+      ub.setStartTime(clientDate);
+      ub.setCurrentLevel(newLevel);
+    }
+
+    if (!UpdateUtils.get().replaceBoss(userId, bossId, newSpawnTime,
+          defaultHealth, newLevel)) {
+        log.error("unexpected error: could not replace userBoss. ub=" + ub);
     }
     
-    //int newHealth = determineHealthForBossLevel(newLevel, defaultHealth);
-    ub.setCurrentHealth(defaultHealth);
-    ub.setStartTime(clientDate);
-    ub.setCurrentLevel(newLevel);
-    if (!UpdateUtils.get().replaceBoss(userId, bossId, newSpawnTime,
-        defaultHealth, newLevel)) {
-      log.error("unexpected error: could not replace userBoss. ub=" + ub);
-    }
     return ub;
   }
   
