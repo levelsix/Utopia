@@ -2865,6 +2865,7 @@ message RedeemUserCityGemsResponseProto {
 	optional MinimumUserProto sender = 1;
 	repeated FullUserEquipProto equips = 2; 	
 	optional RedeemUserCityGemsStatus status = 3;
+	optional UserBoosterPackProto userBoosterPack = 4;
 	
 	enum RedeemUserCityGemsStatus {
 		SUCCESS = 0;
