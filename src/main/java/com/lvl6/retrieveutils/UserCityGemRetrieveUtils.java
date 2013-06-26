@@ -3,7 +3,9 @@ package com.lvl6.retrieveutils;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -37,6 +39,22 @@ import com.lvl6.utils.DBConnection;
     return cityGemIdsToNumLockBoxes;
   }
   
+  public static int numCityGemsForUser(int userId) {
+    
+    String query = 
+        "SELECT COUNT(*) " +
+    		"FROM kingdom.user_city_gems ucg" +
+    		"WHERE ucg.user_city_gems = ?";
+    
+    List<Object> values = new ArrayList<Object>();
+    values.add(userId);
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
+    int numGems = convertRSToNumGemsCollected(rs);
+    DBConnection.get().close(rs, null, conn);
+    return numGems;
+  }
+  
   private static Map<Integer, UserCityGem> convertRSToGemIdsToGemsForUserAndCity(ResultSet rs) {
     Map<Integer, UserCityGem> cityGemIdsToUserCityGems = new HashMap<Integer, UserCityGem>();
     if (null != rs) {
@@ -54,6 +72,23 @@ import com.lvl6.utils.DBConnection;
       }
     }
     return cityGemIdsToUserCityGems;
+  }
+  
+  private static int convertRSToNumGemsCollected(ResultSet rs) {
+    int count = 0;
+    if (null != rs) {
+      try {
+        rs.last();
+        rs.beforeFirst();
+        while (rs.next()) {
+          int i = 1;
+          count = rs.getInt(i++);
+        }
+      } catch (SQLException e) {
+        log.error("problem with database call.", e);
+      }
+    }
+    return count;
   }
   
   private static UserCityGem convertRSRowToUserCityGem(ResultSet rs) throws SQLException {

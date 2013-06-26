@@ -140,7 +140,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         List<FullUserEquipProto> ueList = getFullUserEquipProtosForClient(
             resBuilder, allUserEquipIds, aUser.getId(), allEquipIds, levels);
         resBuilder.addAllLootUserEquip(ueList);
-
+        int numCityGemsForUser = UserCityGemRetrieveUtils.numCityGemsForUser(userId);
+        if (0 >= numCityGemsForUser) {
+          resBuilder.setIsFirstGem(true);
+        } else {
+          resBuilder.setIsFirstGem(false);
+        }
         writeToUserCurrencyHistory(aUser, money, curTime, previousSilver, previousGold);
       }
       BossActionResponseEvent resEvent = new BossActionResponseEvent(userId);
