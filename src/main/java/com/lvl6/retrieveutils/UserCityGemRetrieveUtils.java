@@ -43,8 +43,8 @@ import com.lvl6.utils.DBConnection;
     
     String query = 
         "SELECT COUNT(*) " +
-    		"FROM kingdom.user_city_gems ucg" +
-    		"WHERE ucg.user_city_gems = ?";
+    		"FROM kingdom.user_city_gems ucg " +
+    		"WHERE ucg.user_city_gems = ? ";
     
     List<Object> values = new ArrayList<Object>();
     values.add(userId);
