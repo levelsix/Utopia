@@ -2255,9 +2255,16 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
   }
   
   public static int dealDamageToBoss(Boss aBoss, User u) {
-    int userId = u.getId();
+    ArrayList<Integer> userEquipIds = new ArrayList<Integer>();
+    if (u.getWeaponEquippedUserEquipId() > 0) userEquipIds.add(u.getWeaponEquippedUserEquipId());
+    if (u.getArmorEquippedUserEquipId() > 0) userEquipIds.add(u.getArmorEquippedUserEquipId());
+    if (u.getAmuletEquippedUserEquipId() > 0) userEquipIds.add(u.getAmuletEquippedUserEquipId());
+    if (u.getWeaponTwoEquippedUserEquipId() > 0) userEquipIds.add(u.getWeaponTwoEquippedUserEquipId());
+    if (u.getArmorTwoEquippedUserEquipId() > 0) userEquipIds.add(u.getArmorTwoEquippedUserEquipId());
+    if (u.getAmuletTwoEquippedUserEquipId() > 0) userEquipIds.add(u.getAmuletTwoEquippedUserEquipId());
+    
     List<UserEquip> userEquips = RetrieveUtils.userEquipRetrieveUtils()
-        .getUserEquipsForUser(userId);
+        .getSpecificUserEquips(userEquipIds);
     
     int equipAttackPower = 0;
     for (UserEquip ue: userEquips) {
