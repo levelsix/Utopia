@@ -1180,7 +1180,8 @@ public class CreateInfoProtoUtils {
     fbp.setHpConstantC(boss.getHpConstantC());
     fbp.setDmgConstantA(boss.getDmgConstantA());
     fbp.setDmgConstantB(boss.getDmgConstantB());
-    fbp.setMapImageName(boss.getMapImageName());
+    fbp.setMapIconImageName(boss.getMapIconImageName());
+    fbp.setUnlockedBossImageName(boss.getUnlockedBossImageName());
     
     return fbp.build();
   }

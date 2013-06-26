@@ -478,7 +478,8 @@ public class DBConstants {
   public static final String BOSSES__HP_CONSTANTS_C = "hp_constants_c";
   public static final String BOSSES__DMG_CONSTANTS_A = "dmg_constants_a";
   public static final String BOSSES__DMG_CONSTANTS_B = "dmg_constants_b";
-  public static final String BOSSES__MAP_IMAGE_NAME = "map_image_name";
+  public static final String BOSSES__MAP_ICON_IMAGE_NAME = "map_icon_image_name";
+  public static final String BOSSES__UNLOCKED_BOSS_IMAGE_NAME = "unlocked_boss_image_name";
   
   /*USER BOSSES and USER BOSS HISTORY*/
   public static final String USER_BOSS_HISTORY__ID = GENERIC__ID;

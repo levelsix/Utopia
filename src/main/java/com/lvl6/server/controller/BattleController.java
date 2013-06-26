@@ -233,6 +233,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             int stolenEquipLevel = (lostEquip == null) ? ControllerConstants.NOT_SET : lostEquip.getLevel();
             
             //don't record the loss forced upon players
+            log.info("!!!!!!!!!!!!!!isTutorialBattle=" + isTutorialBattle);
             if (!isTutorialBattle) {
               //since real/nontutorial, battle record it
               if (!insertUtils.insertBattleHistory(attacker.getId(), defender.getId(), result, battleTime, lostCoins, stolenEquipId, expGained, stolenEquipLevel)) {

@@ -293,7 +293,9 @@ message FullBossProto {
 	optional int32 hpConstantC = 13;
 	optional int32 dmgConstantA = 14;
 	optional int32 dmgConstantB = 15;
-	optional string mapImageName = 16;
+	optional string mapIconImageName = 16;
+	optional string unlockedBossImageName = 17;
+	
 	
 }
 

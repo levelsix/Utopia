@@ -223,6 +223,7 @@ public class TaskActionController extends EventController {
         UserBoss newBoss = 
             writeChangesToUserBoss(user, userId, cityId, cityRankedUp, clientDate);
         if (null != newBoss) {
+          log.info("the userBoss=" + newBoss);
           setBossStuff(resBuilder, user, newBoss, cityId);
         }
       }
@@ -449,6 +450,8 @@ public class TaskActionController extends EventController {
     if (!cityRankedUp) {
       return null;
     }
+    log.info("sending boss!");
+    
     //since city ranked up, "spawn" boss (health/start time reset)
     //get the boss for the city
     List<Boss> bossList = BossRetrieveUtils.getBossesForCityId(cityId);
@@ -819,6 +822,7 @@ public class TaskActionController extends EventController {
     if (!hasPrestige && isKirinVillage && kirinVillageUnranked) {
       //starting users should get all non boss gems before the
       //city's first rank up
+      log.info("selecting gem for nub");
       return selectGemForNoob(userId, cityId, gemIdsToUserCityGems,
           taskIdToNumTimesActedInRank);
     } else {
@@ -842,6 +846,11 @@ public class TaskActionController extends EventController {
     }
     int absoluteNumTapsToRankupCity = 
         TaskRetrieveUtils.getNumTapsToRankupCity(cityId);
+
+    log.info("user has these gem ids. gemIdsToUserCityGems=" + gemIdsToUserCityGems);
+    log.info("nonbossGemIds=" + nonbossGemIds);
+    log.info("absolute number of taps to rankup city=" +
+        absoluteNumTapsToRankupCity); 
     
     //logic now is, every 3rd tap done, give a gem, user starts off
     //with 2 taps
@@ -877,24 +886,37 @@ public class TaskActionController extends EventController {
     int avgTapsToProduceGem =
         absoluteNumTapsToRankupCity / nonbossGemIds.size(); 
     
+    log.info("average taps to produce gem: " +
+    		"absoluteNumTapsToRankupCity / nonbossGemIds.size() => " +
+    		absoluteNumTapsToRankupCity + "/" + nonbossGemIds.size() + " = " +
+    		avgTapsToProduceGem);
+    
     //calculate the current tap from the tasks user has done
     int currentTapNum = getCurrentTapNum(tasksForCity,
         taskIdToNumTimesActedInRank);
+    
+    log.info("current tap user is on = " + currentTapNum);
     
     //if user can get a gem, give him a gem he has not gotten already
     if (0 != currentTapNum % avgTapsToProduceGem) {
       //not time to get a gem
       return null;
     }
+    log.info("user gets a gem!!");
     
     //retain gems user has not gotten yet
     nonbossGemIds.removeAll(gemIdsToUserCityGems.keySet());
+    
+    log.info("availableGems=" + nonbossGemIds);
+    
     //give first available gem
     CityGem returnVal = null;
     if (!nonbossGemIds.isEmpty()) {
       int gemId = nonbossGemIds.get(0);
       returnVal = CityGemRetrieveUtils.getCityGemForId(gemId);
     }
+    
+    log.info("user city gem returned = " + returnVal);
     return returnVal;
   }
   
