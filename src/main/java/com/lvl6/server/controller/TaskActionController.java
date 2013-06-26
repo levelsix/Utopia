@@ -468,8 +468,11 @@ public class TaskActionController extends EventController {
     //get the current user boss
     UserBoss ub = UserBossRetrieveUtils.getSpecificUserBoss(userId, bossId);
     
+    log.info("current ub=" + ub);
+    
     //if userBoss exists record current user boss into history
     if (null != ub) {
+      log.info("saving boss to history");
       saveUserBossIntoHistory(ub, bossId, userId);
     }
     //DETERMINE THE LEVEL AND HP FOR THE NEWLY SPAWNED BOSS
@@ -477,8 +480,8 @@ public class TaskActionController extends EventController {
     int newHealth = determineBossHealth(ub, u, aBoss, clientDate, newLevel);
     Timestamp newSpawnTime = new Timestamp(clientDate.getTime());
     
-    updateUserBossInDb(ub, userId, bossId, newLevel, newHealth, clientDate,
-        newSpawnTime);
+    ub = updateUserBossInDb(ub, userId, bossId, newLevel, newHealth,
+        clientDate, newSpawnTime);
     
     return ub;
   }
