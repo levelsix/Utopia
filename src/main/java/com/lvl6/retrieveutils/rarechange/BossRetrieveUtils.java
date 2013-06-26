@@ -146,12 +146,13 @@ import com.lvl6.utils.DBConnection;
     int dmgConstantA = rs.getInt(i++);
     int dmgConstantB = rs.getInt(i++);
     String mapImageName = rs.getString(i++);
+    String unlockedBossImageName = rs.getString(i++);
     
     Boss boss = new Boss(id, cityId, assetNumberWithinCity,
         regularAttackEnergyCost, minutesToKill, superAttackDamageMultiplier,
         superAttackEnergyCost, name, expConstantA, expConstantB,
         hpConstantA, hpConstantB, hpConstantC, dmgConstantA, dmgConstantB,
-        mapImageName);
+        mapImageName, unlockedBossImageName);
         
     return boss;
   }

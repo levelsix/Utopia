@@ -19,14 +19,15 @@ public class Boss implements Serializable {
   private int hpConstantC;
   private int dmgConstantA;
   private int dmgConstantB;
-  private String mapImageName;
-  
+  private String mapIconImageName;
+  private String unlockedBossImageName;
+
   public Boss(int id, int cityId, int assetNumberWithinCity,
       int regularAttackEnergyCost, int minutesToKill,
       float superAttackDamageMultiplier, int superAttackEnergyCost,
       String name, int expConstantA, int expConstantB, int hpConstantA,
       int hpConstantB, int hpConstantC, int dmgConstantA, int dmgConstantB,
-      String mapImageName) {
+      String mapIconImageName, String unlockedBossImageName) {
     super();
     this.id = id;
     this.cityId = cityId;
@@ -43,7 +44,8 @@ public class Boss implements Serializable {
     this.hpConstantC = hpConstantC;
     this.dmgConstantA = dmgConstantA;
     this.dmgConstantB = dmgConstantB;
-    this.mapImageName = mapImageName;
+    this.mapIconImageName = mapIconImageName;
+    this.unlockedBossImageName = unlockedBossImageName;
   }
 
   public int getId() {
@@ -166,12 +168,20 @@ public class Boss implements Serializable {
     this.dmgConstantB = dmgConstantB;
   }
 
-  public String getMapImageName() {
-    return mapImageName;
+  public String getMapIconImageName() {
+    return mapIconImageName;
   }
 
-  public void setMapImageName(String mapImageName) {
-    this.mapImageName = mapImageName;
+  public void setMapIconImageName(String mapIconImageName) {
+    this.mapIconImageName = mapIconImageName;
+  }
+
+  public String getUnlockedBossImageName() {
+    return unlockedBossImageName;
+  }
+
+  public void setUnlockedBossImageName(String unlockedBossImageName) {
+    this.unlockedBossImageName = unlockedBossImageName;
   }
 
   @Override
@@ -180,12 +190,13 @@ public class Boss implements Serializable {
         + assetNumberWithinCity + ", regularAttackEnergyCost="
         + regularAttackEnergyCost + ", minutesToKill=" + minutesToKill
         + ", superAttackDamageMultiplier=" + superAttackDamageMultiplier
-        + ", superAttackEnergyCost=" + superAttackEnergyCost + ", name=" + name
-        + ", expConstantA=" + expConstantA + ", expConstantB=" + expConstantB
-        + ", hpConstantA=" + hpConstantA + ", hpConstantB=" + hpConstantB
-        + ", hpConstantC=" + hpConstantC + ", dmgConstantA=" + dmgConstantA
-        + ", dmgConstantB=" + dmgConstantB + ", mapImageName=" + mapImageName
-        + "]";
+        + ", superAttackEnergyCost=" + superAttackEnergyCost + ", name="
+        + name + ", expConstantA=" + expConstantA + ", expConstantB="
+        + expConstantB + ", hpConstantA=" + hpConstantA + ", hpConstantB="
+        + hpConstantB + ", hpConstantC=" + hpConstantC + ", dmgConstantA="
+        + dmgConstantA + ", dmgConstantB=" + dmgConstantB
+        + ", mapIconImageName=" + mapIconImageName
+        + ", unlockedBossImageName=" + unlockedBossImageName + "]";
   }
-  
+
 }
