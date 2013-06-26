@@ -189,7 +189,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           attack, defense, energy, stamina, playerExp, playerCoins,
           playerDiamonds, null, null, null, false,
           ControllerConstants.PURCHASE_GROUP_CHAT__NUM_CHATS_GIVEN_FOR_PACKAGE,
-          activateShield, createTime);
+          activateShield, createTime, createTime, createTime);
             
       if (userId > 0) {
         server.lockPlayer(userId, this.getClass().getSimpleName());

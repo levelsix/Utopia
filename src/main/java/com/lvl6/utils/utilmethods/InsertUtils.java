@@ -680,7 +680,8 @@ public class InsertUtils implements InsertUtil{
       int stamina, int experience, int coins, int diamonds,
       Integer weaponEquipped, Integer armorEquipped,
       Integer amuletEquipped, boolean isFake, int numGroupChatsRemaining,
-      boolean activateShield, Timestamp createTime) {
+      boolean activateShield, Timestamp createTime,
+      Timestamp lastEnergyRefillTime, Timestamp lastStaminaRefillTime) {
 
     Map<String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER__UDID, udid);
@@ -711,7 +712,12 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.USER__CREATE_TIME, createTime);
     insertParams.put(DBConstants.USER__NUM_GROUP_CHATS_REMAINING, 5);
     insertParams.put(DBConstants.USER__HAS_ACTIVE_SHIELD, activateShield);
-    
+    if (null != lastEnergyRefillTime) {
+      insertParams.put(DBConstants.USER__LAST_ENERGY_REFILL_TIME, lastEnergyRefillTime);
+    }
+    if (null != lastStaminaRefillTime) {
+      insertParams.put(DBConstants.USER__LAST_STAMINA_REFILL_TIME, lastStaminaRefillTime);
+    }
     int userId = DBConnection.get().insertIntoTableBasicReturnId(
         DBConstants.TABLE_USER, insertParams);
     return userId;
