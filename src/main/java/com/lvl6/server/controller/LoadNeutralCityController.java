@@ -210,7 +210,7 @@ import com.lvl6.utils.RetrieveUtils;
       List<UserType> temp = new ArrayList<UserType>();
       temp.add(type);
       boolean realPlayersOnly = false;
-      boolean fakePlayersOnly = false;
+      boolean fakePlayersOnly = true;
       boolean offlinePlayersOnly = false;
       boolean prestigePlayersOrBotsOnly = false;
       boolean inactiveShield = true;
