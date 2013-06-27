@@ -878,7 +878,8 @@ public class InsertUtils implements InsertUtil{
   }
   
   public int insertIntoUserBossHistory(int bossId, int userId,
-      Timestamp startTime, int curHealth, int currentLevel) {
+      Timestamp startTime, int curHealth, int currentLevel,
+      int gemlessStreak) {
     String tableName = DBConstants.TABLE_USER_BOSS_HISTORY;
     Map<String, Object> insertParams = new HashMap<String, Object>();
     
@@ -887,6 +888,7 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.USER_BOSSES__START_TIME, startTime);
     insertParams.put(DBConstants.USER_BOSSES__CUR_HEALTH, curHealth);
     insertParams.put(DBConstants.USER_BOSSES__CURRENT_LEVEL, currentLevel);
+    insertParams.put(DBConstants.USER_BOSSES__GEMLESS_STREAK, gemlessStreak);
     
     int amount =
         DBConnection.get().insertIntoTableBasic(tableName, insertParams);

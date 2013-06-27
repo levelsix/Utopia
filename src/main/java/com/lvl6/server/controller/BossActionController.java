@@ -111,6 +111,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         //get the city gem the user gets
         Map<Integer, UserCityGem> gemIdsToUserCityGems = new HashMap<Integer, UserCityGem>();
         int cityId = aBoss.getCityId();
+        //aUserBoss's gemlessStreak property may be modified
         CityGem cg = determineIfGemDropped(aUserBoss, userId, cityId,
             gemIdsToUserCityGems);
         List<BossReward> brList = determineLoot(aUserBoss);
@@ -433,19 +434,36 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return cg;
     }
     
+    //at the moment, if user kills boss 5 times, user gets a gem
+    int ubGemlessStreak = aUserBoss.getGemlessStreak() + 1; //+1 for current kill
+    int maxStreak = ControllerConstants.SOLO_BOSS__LONGEST_GEMLESS_STREAK;
+    if (ubGemlessStreak < maxStreak) {
+      //see if gem drops through randomness
+      cg = gemDroppedViaRandomness(cg);
+    } //otherwise user gets the gem
+    
+    if (null != cg) {
+      aUserBoss.setGemlessStreak(0);
+    } else {
+      aUserBoss.setGemlessStreak(ubGemlessStreak);
+    }
+    
+    return cg;
+  }
+
+  private CityGem gemDroppedViaRandomness(CityGem cg) {
     //if randFloat is between [bossGemDropRate, 1), don't give a gem
     Random rand = new Random();
     float bossGemDropRate = cg.getDropRate();
     float randFloat = rand.nextFloat();
 
     //log.info("randFloat=" + randFloat + "; bossGemDropRate=" + bossGemDropRate);
-    
     if (randFloat >= bossGemDropRate) {
       cg = null;
     }
     return cg;
   }
-
+  
   private List<BossReward> determineLoot(UserBoss aUserBoss) { 
     List<BossReward> rewardsAwarded = new ArrayList<BossReward>();
 
@@ -635,9 +653,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int bossId = aUserBoss.getBossId();
     int userId = aUserBoss.getUserId();
     //update user_boss table
-    if (!UpdateUtils.get().replaceBoss(
+    if (!UpdateUtils.get().replaceUserBoss(
         userId, bossId, aUserBoss.getStartTime(), aUserBoss.getCurrentHealth(), 
-        aUserBoss.getCurrentLevel())) {
+        aUserBoss.getCurrentLevel(), aUserBoss.getGemlessStreak())) {
       log.error("either updated no rows after boss attack or updated more than expected");
       return;
     }

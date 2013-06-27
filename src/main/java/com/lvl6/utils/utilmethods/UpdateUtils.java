@@ -840,8 +840,8 @@ public class UpdateUtils implements UpdateUtil {
   }
 
   //updating user_boss table
-  public boolean replaceBoss(int userId, int bossId, Date startTime, 
-      int currentHealth, int currentLevel) { 
+  public boolean replaceUserBoss(int userId, int bossId, Date startTime, 
+      int currentHealth, int currentLevel, int gemlessStreak) { 
     String tableName = DBConstants.TABLE_USER_BOSSES;
     Map<String, Object> columnsAndValues = new HashMap<String, Object>();
 
@@ -851,7 +851,8 @@ public class UpdateUtils implements UpdateUtil {
     columnsAndValues.put(DBConstants.USER_BOSSES__CUR_HEALTH, currentHealth);
     columnsAndValues.put(DBConstants.USER_BOSSES__CURRENT_LEVEL, currentLevel);
 //    columnsAndValues.put(DBConstants.USER_BOSSES__LAST_TIME_KILLED, lastTimeKilled);
-
+    columnsAndValues.put(DBConstants.USER_BOSSES__GEMLESS_STREAK, gemlessStreak);
+    
     int numUpdated = DBConnection.get().replace(tableName, columnsAndValues);
 
     //1 means one row inserted, 2 means one row deleted and one row inserted 
