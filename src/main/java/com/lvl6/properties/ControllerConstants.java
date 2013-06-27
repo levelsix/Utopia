@@ -139,7 +139,7 @@ public class ControllerConstants {
   public static final int TUTORIAL__MAGE_INIT_DEFENSE = 10;
   public static final int TUTORIAL__WARRIOR_INIT_ATTACK = 10;
   public static final int TUTORIAL__WARRIOR_INIT_DEFENSE = 14;
-  public static final int TUTORIAL__INIT_ENERGY = 20;
+  public static final int TUTORIAL__INIT_ENERGY = 50;
   public static final int TUTORIAL__INIT_STAMINA = 3;
   public static final int TUTORIAL__INIT_HEALTH = 30;
   //public static final int TUTORIAL__INIT_DIAMONDS = 20;
