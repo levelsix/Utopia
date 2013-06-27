@@ -188,7 +188,7 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
         boolean excludeFromLimitCheck = false;
         
         MiscMethods.writeToUserBoosterPackHistoryOneUser(userId, boosterPackId, numBought, 
-            nowTimestamp, itemsUserReceives, excludeFromLimitCheck);
+            nowTimestamp, itemsUserReceives, excludeFromLimitCheck, userEquipIds);
         writeToUserCurrencyHistory(user, boosterPackId, nowTimestamp,
             goldSilverChange, previousSilver, previousGold);
         

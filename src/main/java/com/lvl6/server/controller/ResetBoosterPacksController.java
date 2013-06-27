@@ -173,6 +173,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     //
     boolean excludeFromLimitCheck = false;
     MiscMethods.writeToUserBoosterPackHistoryOneUser(userId, packId, numBought, nowTimestamp,
-        new ArrayList<BoosterItem>(), excludeFromLimitCheck);
+        new ArrayList<BoosterItem>(), excludeFromLimitCheck, null);
   }
 }
