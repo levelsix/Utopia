@@ -1003,7 +1003,8 @@ public class StartupController extends EventController {
       Map<Integer, Integer> newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>();
       List<BoosterItem> itemsUserReceives = new ArrayList<BoosterItem>();
       List<Boolean> collectedBeforeReset = new ArrayList<Boolean>();
-
+      List<Integer> userEquipIds = new ArrayList<Integer>();
+      
       // actually selecting equips
       boolean resetOccurred = MiscMethods.getAllBoosterItemsForUser(boosterItemIdsToBoosterItems,
           boosterItemIdsToNumCollected, numBoosterItemsUserWants, aUser, aPack, itemsUserReceives,
@@ -1011,12 +1012,13 @@ public class StartupController extends EventController {
       newBoosterItemIdsToNumCollected = new HashMap<Integer, Integer>(boosterItemIdsToNumCollected);
       boolean successful = writeBoosterStuffToDB(aUser, boosterItemIdsToNumCollected,
           newBoosterItemIdsToNumCollected, itemsUserReceives, collectedBeforeReset,
-          resetOccurred, now);
+          resetOccurred, now, userEquipIds);
       if (successful) {
         //exclude from daily limit check in PurchaseBoosterPackController
         boolean excludeFromLimitCheck = true;
         MiscMethods.writeToUserBoosterPackHistoryOneUser(userId, boosterPackId,
-            numBoosterItemsUserWants, now, itemsUserReceives, excludeFromLimitCheck);
+            numBoosterItemsUserWants, now, itemsUserReceives, excludeFromLimitCheck,
+            userEquipIds);
         equipId = getEquipId(numBoosterItemsUserWants, itemsUserReceives);
       }
 
@@ -1038,13 +1040,14 @@ public class StartupController extends EventController {
 
   private boolean writeBoosterStuffToDB(User aUser, Map<Integer, Integer> boosterItemIdsToNumCollected,
       Map<Integer, Integer> newBoosterItemIdsToNumCollected, List<BoosterItem> itemsUserReceives,
-      List<Boolean> collectedBeforeReset, boolean resetOccurred, Timestamp now) {
+      List<Boolean> collectedBeforeReset, boolean resetOccurred, Timestamp now,
+      List<Integer> userEquipIdsForHistoryTable) {
     int userId = aUser.getId();
     List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId,
         itemsUserReceives, now);
     if (null == userEquipIds || userEquipIds.isEmpty() || userEquipIds.size() != itemsUserReceives.size()) {
       log.error("unexpected error: failed to insert equip for user. boosteritems="
-          + MiscMethods.shallowListToString(itemsUserReceives));
+          + MiscMethods.shallowListToString(itemsUserReceives) + "\t userEquipIds="+ userEquipIds);
       return false;
     }
 
@@ -1056,6 +1059,7 @@ public class StartupController extends EventController {
       DeleteUtils.get().deleteUserEquips(userEquipIds);
       return false;
     }
+    userEquipIdsForHistoryTable.addAll(userEquipIds);
     return true;
   }
 

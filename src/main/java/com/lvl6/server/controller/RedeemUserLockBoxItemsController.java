@@ -425,7 +425,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         newBoosterItemIdsToNumCollected, allItemsUserReceives, allCollectedBeforeReset,
         resetOccurred, userEquipIds, now);
     if (successful) {
-      recordPurchases(userId, now, packIdToItemsUserReceives, boosterPackIdsToQuantities);
+      recordPurchases(userId, now, packIdToItemsUserReceives,
+          boosterPackIdsToQuantities, userEquipIds);
       returnValue = constructFullUserEquipProtos(
           userId, allItemsUserReceives, userEquipIds);
     }
@@ -460,7 +461,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   
   private void recordPurchases(int userId, Timestamp now,
       Map<Integer, List<BoosterItem>> packIdToItemsUserReceives,
-      Map<Integer, Integer> boosterPackIdsToQuantities) {
+      Map<Integer, Integer> boosterPackIdsToQuantities,
+      List<Integer> userEquipIds) {
     //this one won't count towards the daily limit
     boolean excludeFromLimitCheck = true;
 
@@ -469,7 +471,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int numBoosterItemsUserWants = boosterPackIdsToQuantities.get(boosterPackId);
       
       MiscMethods.writeToUserBoosterPackHistoryOneUser(userId, boosterPackId,
-          numBoosterItemsUserWants, now, itemsUserReceives, excludeFromLimitCheck);
+          numBoosterItemsUserWants, now, itemsUserReceives, excludeFromLimitCheck,
+          userEquipIds);
     }
   }
   

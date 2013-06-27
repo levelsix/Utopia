@@ -438,6 +438,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     float bossGemDropRate = cg.getDropRate();
     float randFloat = rand.nextFloat();
 
+    //log.info("randFloat=" + randFloat + "; bossGemDropRate=" + bossGemDropRate);
+    
     if (randFloat >= bossGemDropRate) {
       cg = null;
     }

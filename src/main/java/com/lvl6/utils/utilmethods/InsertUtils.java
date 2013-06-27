@@ -1068,7 +1068,8 @@ public class InsertUtils implements InsertUtil{
   
   public int insertIntoUserBoosterPackHistory(int userId, int boosterPackId, 
       int numBought, Timestamp timeOfPurchase, int rarityOneQuantity, 
-      int rarityTwoQuantity, int rarityThreeQuantity, boolean excludeFromLimitCheck) {
+      int rarityTwoQuantity, int rarityThreeQuantity, boolean excludeFromLimitCheck,
+      List<Integer> equipIds, List<Integer> userEquipIds) {
     String tableName = DBConstants.TABLE_USER_BOOSTER_PACK_HISTORY;
     
     Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -1081,6 +1082,15 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__RARITY_TWO_QUANTITY, rarityTwoQuantity);
     insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__RARITY_THREE_QUANTITY, rarityThreeQuantity);
     insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__EXCLUDE_FROM_LIMIT_CHECK, excludeFromLimitCheck);
+    
+    if (null != equipIds && !equipIds.isEmpty()) {
+      String ids = StringUtils.csvIntList(equipIds);
+      insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__EQUIP_IDS, ids);
+    }
+    if (null != userEquipIds && !userEquipIds.isEmpty()) {
+      String ids = StringUtils.csvIntList(userEquipIds);
+      insertParams.put(DBConstants.USER_BOOSTER_PACK_HISTORY__USER_EQUIP_IDS, ids);
+    }
     
     int numInserted = DBConnection.get().insertIntoTableBasic(tableName, insertParams);
     return numInserted;

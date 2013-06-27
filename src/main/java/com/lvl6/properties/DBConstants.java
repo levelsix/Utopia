@@ -637,6 +637,8 @@ public class DBConstants {
   public static final String USER_BOOSTER_PACK_HISTORY__RARITY_TWO_QUANTITY = "rarity_two_quantity";
   public static final String USER_BOOSTER_PACK_HISTORY__RARITY_THREE_QUANTITY = "rarity_three_quantity";
   public static final String USER_BOOSTER_PACK_HISTORY__EXCLUDE_FROM_LIMIT_CHECK = "exclude_from_limit_check";
+  public static final String USER_BOOSTER_PACK_HISTORY__EQUIP_IDS = "equip_ids";
+  public static final String USER_BOOSTER_PACK_HISTORY__USER_EQUIP_IDS = "user_equip_ids";
   
   /*BOOSTER ITEM*/
   public static final String BOOSTER_ITEM__ID = GENERIC__ID;
