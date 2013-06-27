@@ -208,7 +208,7 @@ public class TaskActionController extends EventController {
       } //endif (legitAction)
       
       setBuilderStuff(resBuilder, lockBoxEventId, ucg, coinBonus, expBonus,
-          taskCompleted, cityRankedUp);
+          taskCompleted, cityRankedUp, userId);
       
       int totalCoinGain = sumUpCoinsGained(legitAction, coinsGained, coinBonus);
       int totalExpGain = sumUpExpGained(legitAction, task, expBonus);
@@ -633,7 +633,7 @@ public class TaskActionController extends EventController {
   
   private void setBuilderStuff(Builder resBuilder, int lockBoxEventId,
       UserCityGem ucg, int coinBonus, int expBonus, boolean taskCompleted,
-      boolean cityRankedUp) {
+      boolean cityRankedUp, int userId) {
     if (lockBoxEventId != ControllerConstants.NOT_SET) {
       resBuilder.setEventIdOfLockBoxGained(lockBoxEventId);
     }
@@ -648,7 +648,13 @@ public class TaskActionController extends EventController {
     if (ControllerConstants.NOT_SET != expBonus) {
       resBuilder.setExpBonusIfCityRankup(expBonus);
     }
-
+    int numCityGemsForUser = UserCityGemRetrieveUtils.numCityGemsForUser(userId);
+    if (0 >= numCityGemsForUser) {
+      resBuilder.setIsFirstGem(true);
+    } else {
+      resBuilder.setIsFirstGem(false);
+    }
+    
     resBuilder.setTaskCompleted(taskCompleted);
     resBuilder.setCityRankedUp(cityRankedUp);
   }

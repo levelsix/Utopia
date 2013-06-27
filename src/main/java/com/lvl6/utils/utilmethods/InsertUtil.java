@@ -114,7 +114,8 @@ public interface InsertUtil {
       int stamina, int experience, int coins, int diamonds,
       Integer weaponEquipped, Integer armorEquipped,
       Integer amuletEquipped, boolean isFake, int numGroupChatsRemaining,
-      boolean activateShield, Timestamp createTime);
+      boolean activateShield, Timestamp createTime, Timestamp lastEnergyRefillTime,
+      Timestamp lastStaminaRefillTime);
 
   /*
    * returns the id of the post, -1 if none
