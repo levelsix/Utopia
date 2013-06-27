@@ -1041,13 +1041,13 @@ public class StartupController extends EventController {
   private boolean writeBoosterStuffToDB(User aUser, Map<Integer, Integer> boosterItemIdsToNumCollected,
       Map<Integer, Integer> newBoosterItemIdsToNumCollected, List<BoosterItem> itemsUserReceives,
       List<Boolean> collectedBeforeReset, boolean resetOccurred, Timestamp now,
-      List<Integer> userEquipIds) {
+      List<Integer> userEquipIdsForHistoryTable) {
     int userId = aUser.getId();
-    List<Integer> userEquipIdsTemp = MiscMethods.insertNewUserEquips(userId,
+    List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId,
         itemsUserReceives, now);
     if (null == userEquipIds || userEquipIds.isEmpty() || userEquipIds.size() != itemsUserReceives.size()) {
       log.error("unexpected error: failed to insert equip for user. boosteritems="
-          + MiscMethods.shallowListToString(itemsUserReceives));
+          + MiscMethods.shallowListToString(itemsUserReceives) + "\t userEquipIds="+ userEquipIds);
       return false;
     }
 
@@ -1059,7 +1059,7 @@ public class StartupController extends EventController {
       DeleteUtils.get().deleteUserEquips(userEquipIds);
       return false;
     }
-    userEquipIds.addAll(userEquipIdsTemp);
+    userEquipIdsForHistoryTable.addAll(userEquipIds);
     return true;
   }
 
