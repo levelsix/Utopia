@@ -440,9 +440,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (ubGemlessStreak < maxStreak) {
       //see if gem drops through randomness
       cg = gemDroppedViaRandomness(cg);
-    } //otherwise user gets the gem
+    } //otherwise user gets the gem since this is the 5th kill sans gem
     
     if (null != cg) {
+      //since user got gem, reset gemless streak 
       aUserBoss.setGemlessStreak(0);
     } else {
       aUserBoss.setGemlessStreak(ubGemlessStreak);
