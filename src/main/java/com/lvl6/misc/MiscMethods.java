@@ -1384,7 +1384,7 @@ public class MiscMethods {
       int enhancementId, List<Integer> enhancementFeederIds) {
     String tableName = DBConstants.TABLE_DELETED_USER_EQUIPS_FOR_ENHANCING;
     try {
-      log.info("writing into deleted user equips for enhancing");
+      //log.info("writing into deleted user equips for enhancing");
       int numRows = 1 + feederUserEquips.size();
 
       Map<String, List<Object>> insertParams = new HashMap<String, List<Object>>();
@@ -1567,17 +1567,20 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
   
   public static void writeToUserBoosterPackHistoryOneUser(int userId, int packId,
       int numBought, Timestamp nowTimestamp, List<BoosterItem> itemsUserReceives,
-      boolean excludeFromLimitCheck) {
-    List<Integer> raritiesCollected = getRaritiesCollected(itemsUserReceives);
+      boolean excludeFromLimitCheck, List<Integer> userEquipIds) {
+    List<Integer> equipIds = new ArrayList<Integer>();
+    List<Integer> raritiesCollected = getRaritiesCollected(itemsUserReceives, equipIds);
     int rarityOne = raritiesCollected.get(0);
     int rarityTwo = raritiesCollected.get(1);
     int rarityThree = raritiesCollected.get(2);
+    
     InsertUtils.get().insertIntoUserBoosterPackHistory(userId,
         packId, numBought, nowTimestamp, rarityOne, rarityTwo,
-        rarityThree, excludeFromLimitCheck);
+        rarityThree, excludeFromLimitCheck, equipIds, userEquipIds);
   }
   
-  private static List<Integer> getRaritiesCollected(List<BoosterItem> itemsUserReceives) {
+  private static List<Integer> getRaritiesCollected(
+      List<BoosterItem> itemsUserReceives, List<Integer> equipIds) {
     List<Integer> raritiesCollected = new ArrayList<Integer>();
     
     Map<Integer, Equipment> equipIdsToEquips = 
@@ -1589,6 +1592,7 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
       int equipId = bi.getEquipId();
       Equipment tempEquip = null;
       if (equipIdsToEquips.containsKey(equipId)) {
+        equipIds.add(equipId); //returning what equipIds this was
         tempEquip = equipIdsToEquips.get(equipId);
       } else {
         log.error("No equiment exists for equipId=" + equipId
@@ -2280,8 +2284,8 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
       int enhanceLevel = ue.getEnhancementPercentage()/10000;
       int equipIndivPower = attackPowerForEquip(equipId, forgeLevel, enhanceLevel);
       equipAttackPower += equipIndivPower;
-      log.info(equipId + ": " + equipIndivPower);
-      log.info("equipAttackPower: " + equipAttackPower);
+      //log.info(equipId + ": " + equipIndivPower);
+      //log.info("equipAttackPower: " + equipAttackPower);
     }
     
     int equipDamage = equipDamagePortionForBoss(equipAttackPower);
@@ -2291,7 +2295,7 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     
     int totalDamage = a * (b + equipDamage);
     totalDamage = new Random().nextInt((int)(totalDamage*0.2))+(int)(totalDamage*0.9);
-    log.info("total damage: " + totalDamage);
+    //log.info("total damage: " + totalDamage);
     return totalDamage;
   }
   
@@ -2300,8 +2304,8 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
       return 0;
     }
     int equipDamage = (int) (10.613 * Math.log(equipAttackPower) - 45.091);
-    log.info("attack power: " + equipAttackPower);
-    log.info("equip damage: " + equipDamage);
+    //log.info("attack power: " + equipAttackPower);
+    //log.info("equip damage: " + equipDamage);
     return Math.max(0, equipDamage);
   }
 }
