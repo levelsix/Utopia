@@ -305,6 +305,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     Map <EquipType, Integer> userEquipIds = new HashMap<EquipType, Integer>();
     if (equipIds.size() > 0) {
       int rustyDaggerId = 1;
+      String reason = ControllerConstants.UER__USER_CREATED;
 
       for (int i = 0; i < equipIds.size(); i++) {
         //since user create, equips should have no enhancement
@@ -315,7 +316,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           forgeLevel = 2;
         }
         int userEquipId = insertUtils.insertUserEquip(userId, equipIds.get(i),
-            forgeLevel, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT, createTime); 
+            forgeLevel, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT,
+            createTime, reason); 
         if (userEquipId < 0) {
           log.error("problem with giving user " + userId + " 1 " + equipIds.get(i));
         } else {
@@ -328,7 +330,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         //since user create, equips should have no enhancement
         int userEquipId = insertUtils.insertUserEquip(userId, ControllerConstants.IDDICTION__EQUIP_ID, 
             ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT,
-            createTime);
+            createTime, reason);
         if (userEquipId < 0) {
           log.error("problem with giving user iddiction reward to " + userId + " 1 " + ControllerConstants.IDDICTION__EQUIP_ID);
         }

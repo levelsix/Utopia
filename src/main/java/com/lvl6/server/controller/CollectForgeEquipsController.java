@@ -81,7 +81,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         if (successfulForge) {
           //forging enhanced weapons deletes the enhancement percentages
           int newUserEquipId = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel(),
-              ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT, now);
+              ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT, now,
+              ControllerConstants.UER__SUCCESSFUL_FORGE);
           if (newUserEquipId < 0) {
             resBuilder.setStatus(CollectForgeEquipsStatus.OTHER_FAIL);
             log.error("problem with giving 1 of equip " + blacksmithAttempt.getEquipId() + " to forger " + user.getId());
@@ -98,9 +99,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           int equipOneEnhancementPercent = blacksmithAttempt.getEquipOneEnhancementPercent();
           int equipTwoEnhancementPercent = blacksmithAttempt.getEquipTwoEnhancementPercent();
           int newUserEquipId1 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1,
-              equipOneEnhancementPercent, now);
+              equipOneEnhancementPercent, now, ControllerConstants.UER__UNSUCCESSFUL_FORGE);
           int newUserEquipId2 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1,
-              equipTwoEnhancementPercent, now);
+              equipTwoEnhancementPercent, now, ControllerConstants.UER__UNSUCCESSFUL_FORGE);
           
           if (newUserEquipId1 < 0 || newUserEquipId2 < 0) {
             resBuilder.setStatus(CollectForgeEquipsStatus.OTHER_FAIL);

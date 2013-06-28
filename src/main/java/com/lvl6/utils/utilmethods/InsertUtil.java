@@ -35,7 +35,7 @@ public interface InsertUtil {
 //	  Timestamp now);
 
   public abstract int insertUserEquip(int userId, int equipId, int level,
-	  int enhancementPercentage, Timestamp now);
+	  int enhancementPercentage, Timestamp now, String reason);
   
   public abstract int insertEquipEnhancement(int userId, int equipId, int equipLevel,
       int enhancementPercentageBeforeEnhancement, Timestamp startTimeOfEnhancement);
@@ -150,7 +150,7 @@ public interface InsertUtil {
       Timestamp timeOfPost);
   
   public abstract List<Integer> insertUserEquips(int userId, List<Integer> equipIds,
-	  List<Integer> levels, List<Integer> enhancement, Timestamp now);
+	  List<Integer> levels, List<Integer> enhancement, Timestamp now, String reason);
   
   public abstract int insertIntoBossRewardDropHistoryReturnId(int bossId, int userId, int silverDropped, int goldDropped, Timestamp timeOfDrop);
   

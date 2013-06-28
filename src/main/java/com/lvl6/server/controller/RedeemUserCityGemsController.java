@@ -364,8 +364,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       List<BoosterItem> itemsUserReceives, List<Boolean> collectedBeforeReset,
       boolean resetOccurred, List<Integer> newUserEquipIds, Timestamp now) {
     int userId = aUser.getId();
+    String reason = ControllerConstants.UER__REDEEM_USER_CITY_GEMS;
     List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId,
-        itemsUserReceives, now);
+        itemsUserReceives, now, reason);
     if (null == userEquipIds || userEquipIds.isEmpty() || userEquipIds.size() != itemsUserReceives.size()) {
       log.error("unexpected error: failed to insert equip for user. boosteritems="
           + MiscMethods.shallowListToString(itemsUserReceives));

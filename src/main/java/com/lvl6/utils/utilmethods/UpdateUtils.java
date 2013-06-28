@@ -283,13 +283,14 @@ public class UpdateUtils implements UpdateUtil {
       //@CacheEvict(value="equipsToUserEquipsForUser", key="#newOwnerId"),
       //@CacheEvict(value="userEquipsWithEquipId", key="#newOwnerId+':'+#equipId")  
   })*/
-  public boolean updateUserEquipOwner(int userEquipId, int newOwnerId) {
+  public boolean updateUserEquipOwner(int userEquipId, int newOwnerId, String reason) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_EQUIP__ID, userEquipId);
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     absoluteParams.put(DBConstants.USER_EQUIP__USER_ID, newOwnerId); 
-
+    absoluteParams.put(DBConstants.USER_EQUIP__REASON, reason);
+    
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_EQUIP, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {

@@ -1028,7 +1028,8 @@ public class TaskActionController extends EventController {
           userId, lootEquipId,
           ControllerConstants.DEFAULT_USER_EQUIP_LEVEL,
           ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT,
-          clientTime);
+          clientTime,
+          ControllerConstants.UER__TASK_ACTION);
       if (userEquipId < 0) {
         log.error("problem with giving 1 of equip " + lootEquipId + 
             " to task completer " + userId);

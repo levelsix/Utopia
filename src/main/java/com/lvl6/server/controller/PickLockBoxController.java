@@ -216,7 +216,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       boolean success = UpdateUtils.get().decrementLockBoxItemsForUser(forUpdate, user.getId(), 1);
       if (success) {
         int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), lockBoxEvent.getPrizeEquipId(), 1,
-            ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT, curTime);
+            ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT, curTime,
+            ControllerConstants.UER__PICK_LOCK_BOX);
         if (userEquipId > 0) {
           return new UserEquip(userEquipId, user.getId(), lockBoxEvent.getPrizeEquipId(), 1, 0);
         }

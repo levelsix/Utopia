@@ -161,7 +161,7 @@ public interface UpdateUtil {
   public abstract boolean resetTimesCompletedInRankForUserTasksInCity(
       int userId, List<Task> tasksInCity);
 
-  public abstract boolean updateUserEquipOwner(int userEquipId, int newOwnerId);
+  public abstract boolean updateUserEquipOwner(int userEquipId, int newOwnerId, String reason);
 
   public abstract boolean updateAbsoluteBlacksmithAttemptcompleteTimeofspeedup(int blacksmithId, Date timeOfSpeedup, boolean attemptComplete);
 

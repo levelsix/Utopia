@@ -39,7 +39,22 @@ public class ControllerConstants {
   
   public static final int DEFAULT_USER_EQUIP_LEVEL = 1;
   public static final int DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT = 0;
-  
+  public static final String UER__BOSS_ACTION = "boss action";
+  public static final String UER__BATTLE = "battle";
+  public static final String UER__COLLECT_EQUIP_ENHANCEMENT = "collect equip enhancement";
+  public static final String UER__SUCCESSFUL_FORGE = "successful forge";
+  public static final String UER__UNSUCCESSFUL_FORGE = "unsuccessful forge";
+  public static final String UER__PICK_LOCK_BOX = "pick lock box";
+  public static final String UER__THREE_CARD_MONTE = "three card monte";
+  public static final String UER__PURCHASE_BOOSTER_PACK = "purhcase booster pack";
+  public static final String UER__PURCHASE_FROM_MARKETPLACE = "purchase from marketplace";
+  public static final String UER__QUEST_REDEEM = "quest redeem";
+  public static final String UER__REDEEM_USER_CITY_GEMS = "redeem user city gems";
+  public static final String UER__REDEEM_USER_LOCK_BOX_ITEMS = "redeem user lock box items";
+  public static final String UER__DAILY_BONUS_REWARD = "daily bonus reward";
+  public static final String UER__RETRACT_MARKETPLACE_POST = "retract_marketplace_post";
+  public static final String UER__TASK_ACTION = "task action";
+  public static final String UER__USER_CREATED = "user created";
   //--------------------------------------------------------------------------------------------------------------------------
   
   //FORMULA CONSTANTS (ALSO) SENT TO CLIENT

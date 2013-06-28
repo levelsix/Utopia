@@ -262,7 +262,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         log.error("problem with unequipping userequip" + lostEquip.getId());
         lostEquip = null;
       } else {
-        if (!(UpdateUtils.get().updateUserEquipOwner(lostEquip.getId(), winner.getId()))) {
+        if (!(UpdateUtils.get().updateUserEquipOwner(lostEquip.getId(), winner.getId(),
+            ControllerConstants.UER__BATTLE))) {
           log.error("problem with giving equip " + lostEquip.getEquipId() + " to user " + winner.getId());
           lostEquip = null;
         } else {
@@ -273,8 +274,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
       }
     } else {  //fake, just insert
-      int userEquipId = InsertUtils.get().insertUserEquip(winner.getId(), lostEquip.getEquipId(), lostEquip.getLevel(),
-          ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT, battleTime);
+      int userEquipId = InsertUtils.get().insertUserEquip(winner.getId(),
+          lostEquip.getEquipId(), lostEquip.getLevel(),
+          ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT, battleTime,
+          ControllerConstants.UER__BATTLE);
       if (userEquipId < 0) {
         log.error("problem with giving 1 of equip " + lostEquip.getEquipId() + " to winner " + winner.getId());
         lostEquip = null;
