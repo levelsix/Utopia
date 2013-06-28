@@ -227,7 +227,7 @@ public class ControllerConstants {
   public static final double BATTLE__EXP_BASE_MULTIPLIER = 0.8;
   public static final int BATTLE__EXP_MIN = 1;
   public static final double BATTLE__EXP_LEVEL_DIFF_WEIGHT = 0.2;
-  public static final double BATTLE__CHANCE_OF_EQUIP_LOOT_INITIAL_WALL = 0.15;
+  public static final double BATTLE__CHANCE_OF_EQUIP_LOOT_INITIAL_WALL = Globals.IS_SANDBOX() ? 0.5 : 0.15;
   public static final double BATTLE__EQUIP_AND_STATS_WEIGHT = 1.08;
   public static final double BATTLE__MIN_LEVEL_TO_NOT_DISPLAY_BOTS_IN_ATTACK_LIST = 30;
 
