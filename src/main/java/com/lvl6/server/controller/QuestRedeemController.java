@@ -107,7 +107,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         if (quest.getEquipIdGained() > 0) {
           int userEquipId = InsertUtils.get().insertUserEquip(userQuest.getUserId(), quest.getEquipIdGained(),
               ControllerConstants.DEFAULT_USER_EQUIP_LEVEL, ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT,
-              now);
+              now, ControllerConstants.UER__QUEST_REDEEM);
           if (userEquipId < 0) {
             resBuilder.setStatus(QuestRedeemStatus.OTHER_FAIL);
             log.error("problem with giving user 1 reward equip after completing the quest, equipId=" 

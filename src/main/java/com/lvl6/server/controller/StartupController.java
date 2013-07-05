@@ -1044,7 +1044,7 @@ public class StartupController extends EventController {
       List<Integer> userEquipIdsForHistoryTable) {
     int userId = aUser.getId();
     List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId,
-        itemsUserReceives, now);
+        itemsUserReceives, now, ControllerConstants.UER__DAILY_BONUS_REWARD);
     if (null == userEquipIds || userEquipIds.isEmpty() || userEquipIds.size() != itemsUserReceives.size()) {
       log.error("unexpected error: failed to insert equip for user. boosteritems="
           + MiscMethods.shallowListToString(itemsUserReceives) + "\t userEquipIds="+ userEquipIds);

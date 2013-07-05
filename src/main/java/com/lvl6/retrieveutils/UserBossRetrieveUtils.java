@@ -124,9 +124,10 @@ import com.lvl6.utils.DBConnection;
     
     int curHealth = rs.getInt(i++);
     int currentLevel = rs.getInt(i++);
-
+    int gemlessStreak = rs.getInt(i++);
     
-    return new UserBoss(bossId, userId, curHealth, currentLevel, startTime);
+    return new UserBoss(bossId, userId, curHealth, currentLevel,
+        startTime, gemlessStreak);
   }
 
 }

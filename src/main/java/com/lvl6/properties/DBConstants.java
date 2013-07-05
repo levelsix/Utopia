@@ -175,6 +175,7 @@ public class DBConstants {
   public static final String USER_EQUIP__LEVEL = "level";
   public static final String USER_EQUIP__ENHANCEMENT_PERCENT = "enhancement_percent";
   public static final String USER_EQUIP__CREATE_TIME = "create_time";
+  public static final String USER_EQUIP__REASON = "reason";
   
   /*EQUIP ENHANCEMENT*/
   public static final String EQUIP_ENHANCEMENT__ID = GENERIC__ID;
@@ -489,6 +490,7 @@ public class DBConstants {
   public static final String USER_BOSSES__CUR_HEALTH = "cur_health";
   public static final String USER_BOSSES__CURRENT_LEVEL = "current_level";
 //  public static final String USER_BOSSES__LAST_TIME_KILLED = "last_time_killed";
+  public static final String USER_BOSSES__GEMLESS_STREAK = "gemless_streak";
 
   /*BOSS EVENTS*/
   public static final String BOSS_EVENTS__ID = GENERIC__USER_ID;

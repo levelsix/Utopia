@@ -490,8 +490,9 @@ public class TaskActionController extends EventController {
     Timestamp startTime = new Timestamp(startDate.getTime());
     int curHealth = ub.getCurrentHealth();
     int currentLevel = ub.getCurrentLevel();
+    int gemlessStreak = ub.getGemlessStreak();
     InsertUtils.get().insertIntoUserBossHistory(bossId, userId,
-        startTime, curHealth, currentLevel);
+        startTime, curHealth, currentLevel, gemlessStreak);
   }
   
   private int determineBossLevel(UserBoss ub) {
@@ -534,10 +535,10 @@ public class TaskActionController extends EventController {
   private UserBoss updateUserBossInDb(UserBoss ub, int userId, int bossId,
       int newLevel, int defaultHealth, Date clientDate) {
     Timestamp newSpawnTime = new Timestamp(clientDate.getTime());
-    
+    int gemlessStreak = 0;
     if (null == ub) {
       ub = new UserBoss(bossId, userId, defaultHealth,
-          newLevel, clientDate);
+          newLevel, clientDate, gemlessStreak);
       
     } else {
       //not really needed in an else block...
@@ -545,10 +546,11 @@ public class TaskActionController extends EventController {
       ub.setCurrentHealth(defaultHealth);
       ub.setStartTime(clientDate);
       ub.setCurrentLevel(newLevel);
+      gemlessStreak = ub.getGemlessStreak();
     }
 
-    if (!UpdateUtils.get().replaceBoss(userId, bossId, newSpawnTime,
-          defaultHealth, newLevel)) {
+    if (!UpdateUtils.get().replaceUserBoss(userId, bossId, newSpawnTime,
+          defaultHealth, newLevel, gemlessStreak)) {
         log.error("unexpected error: could not replace userBoss. ub=" + ub);
     }
     
@@ -1026,7 +1028,8 @@ public class TaskActionController extends EventController {
           userId, lootEquipId,
           ControllerConstants.DEFAULT_USER_EQUIP_LEVEL,
           ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT,
-          clientTime);
+          clientTime,
+          ControllerConstants.UER__TASK_ACTION);
       if (userEquipId < 0) {
         log.error("problem with giving 1 of equip " + lootEquipId + 
             " to task completer " + userId);

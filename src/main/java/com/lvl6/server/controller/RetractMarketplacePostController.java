@@ -101,7 +101,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
       if (legitRetract) {
         int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), mp.getPostedEquipId(), 
-            mp.getEquipLevel(), mp.getEquipEnhancementPercentage(), timeOfRetractionRequest);
+            mp.getEquipLevel(), mp.getEquipEnhancementPercentage(), timeOfRetractionRequest,
+            ControllerConstants.UER__RETRACT_MARKETPLACE_POST);
         if (userEquipId < 0) {
           resBuilder.setStatus(RetractMarketplacePostStatus.OTHER_FAIL);
           log.error("problem with giving user 1 more of equip " + mp.getPostedEquipId());

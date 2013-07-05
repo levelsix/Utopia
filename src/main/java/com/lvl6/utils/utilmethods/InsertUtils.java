@@ -125,13 +125,14 @@ public class InsertUtils implements InsertUtil{
 //  }
   
   public int insertUserEquip(int userId, int equipId, int level,
-	  int enhancementPercentage, Timestamp now) {
+	  int enhancementPercentage, Timestamp now, String reason) {
     Map<String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_EQUIP__USER_ID, userId);
     insertParams.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
     insertParams.put(DBConstants.USER_EQUIP__LEVEL, level);
     insertParams.put(DBConstants.USER_EQUIP__ENHANCEMENT_PERCENT, enhancementPercentage);
     insertParams.put(DBConstants.USER_EQUIP__CREATE_TIME, now);
+    insertParams.put(DBConstants.USER_EQUIP__REASON, reason);
 
     int userEquipId = DBConnection.get().insertIntoTableBasicReturnId(
         DBConstants.TABLE_USER_EQUIP, insertParams);
@@ -246,7 +247,7 @@ public class InsertUtils implements InsertUtil{
   }
   
   public List<Integer> insertUserEquips(int userId, List<Integer> equipIds, List<Integer> levels,
-      List<Integer> enhancement, Timestamp now) {
+      List<Integer> enhancement, Timestamp now, String reason) {
 	  String tableName = DBConstants.TABLE_USER_EQUIP;
 	  List<Map<String, Object>> newRows = new ArrayList<Map<String, Object>>();
 	  for(int i = 0; i < equipIds.size(); i++){
@@ -261,6 +262,7 @@ public class InsertUtils implements InsertUtil{
 		  }
 		  row.put(DBConstants.USER_EQUIP__ENHANCEMENT_PERCENT, enhancementPercent);
 		  row.put(DBConstants.USER_EQUIP__CREATE_TIME, now);
+		  row.put(DBConstants.USER_EQUIP__REASON, reason);
 		  newRows.add(row);
 	  }
 	  List<Integer> userEquipIds = DBConnection.get().insertIntoTableBasicReturnIds(tableName, newRows);
@@ -878,7 +880,8 @@ public class InsertUtils implements InsertUtil{
   }
   
   public int insertIntoUserBossHistory(int bossId, int userId,
-      Timestamp startTime, int curHealth, int currentLevel) {
+      Timestamp startTime, int curHealth, int currentLevel,
+      int gemlessStreak) {
     String tableName = DBConstants.TABLE_USER_BOSS_HISTORY;
     Map<String, Object> insertParams = new HashMap<String, Object>();
     
@@ -887,6 +890,7 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.USER_BOSSES__START_TIME, startTime);
     insertParams.put(DBConstants.USER_BOSSES__CUR_HEALTH, curHealth);
     insertParams.put(DBConstants.USER_BOSSES__CURRENT_LEVEL, currentLevel);
+    insertParams.put(DBConstants.USER_BOSSES__GEMLESS_STREAK, gemlessStreak);
     
     int amount =
         DBConnection.get().insertIntoTableBasic(tableName, insertParams);

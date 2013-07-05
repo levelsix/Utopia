@@ -283,13 +283,14 @@ public class UpdateUtils implements UpdateUtil {
       //@CacheEvict(value="equipsToUserEquipsForUser", key="#newOwnerId"),
       //@CacheEvict(value="userEquipsWithEquipId", key="#newOwnerId+':'+#equipId")  
   })*/
-  public boolean updateUserEquipOwner(int userEquipId, int newOwnerId) {
+  public boolean updateUserEquipOwner(int userEquipId, int newOwnerId, String reason) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_EQUIP__ID, userEquipId);
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     absoluteParams.put(DBConstants.USER_EQUIP__USER_ID, newOwnerId); 
-
+    absoluteParams.put(DBConstants.USER_EQUIP__REASON, reason);
+    
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_EQUIP, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
@@ -840,8 +841,8 @@ public class UpdateUtils implements UpdateUtil {
   }
 
   //updating user_boss table
-  public boolean replaceBoss(int userId, int bossId, Date startTime, 
-      int currentHealth, int currentLevel) { 
+  public boolean replaceUserBoss(int userId, int bossId, Date startTime, 
+      int currentHealth, int currentLevel, int gemlessStreak) { 
     String tableName = DBConstants.TABLE_USER_BOSSES;
     Map<String, Object> columnsAndValues = new HashMap<String, Object>();
 
@@ -851,7 +852,8 @@ public class UpdateUtils implements UpdateUtil {
     columnsAndValues.put(DBConstants.USER_BOSSES__CUR_HEALTH, currentHealth);
     columnsAndValues.put(DBConstants.USER_BOSSES__CURRENT_LEVEL, currentLevel);
 //    columnsAndValues.put(DBConstants.USER_BOSSES__LAST_TIME_KILLED, lastTimeKilled);
-
+    columnsAndValues.put(DBConstants.USER_BOSSES__GEMLESS_STREAK, gemlessStreak);
+    
     int numUpdated = DBConnection.get().replace(tableName, columnsAndValues);
 
     //1 means one row inserted, 2 means one row deleted and one row inserted 

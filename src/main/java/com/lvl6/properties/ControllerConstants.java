@@ -39,7 +39,22 @@ public class ControllerConstants {
   
   public static final int DEFAULT_USER_EQUIP_LEVEL = 1;
   public static final int DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT = 0;
-  
+  public static final String UER__BOSS_ACTION = "boss action";
+  public static final String UER__BATTLE = "battle";
+  public static final String UER__COLLECT_EQUIP_ENHANCEMENT = "collect equip enhancement";
+  public static final String UER__SUCCESSFUL_FORGE = "successful forge";
+  public static final String UER__UNSUCCESSFUL_FORGE = "unsuccessful forge";
+  public static final String UER__PICK_LOCK_BOX = "pick lock box";
+  public static final String UER__THREE_CARD_MONTE = "three card monte";
+  public static final String UER__PURCHASE_BOOSTER_PACK = "purhcase booster pack";
+  public static final String UER__PURCHASE_FROM_MARKETPLACE = "purchase from marketplace";
+  public static final String UER__QUEST_REDEEM = "quest redeem";
+  public static final String UER__REDEEM_USER_CITY_GEMS = "redeem user city gems";
+  public static final String UER__REDEEM_USER_LOCK_BOX_ITEMS = "redeem user lock box items";
+  public static final String UER__DAILY_BONUS_REWARD = "daily bonus reward";
+  public static final String UER__RETRACT_MARKETPLACE_POST = "retract_marketplace_post";
+  public static final String UER__TASK_ACTION = "task action";
+  public static final String UER__USER_CREATED = "user created";
   //--------------------------------------------------------------------------------------------------------------------------
   
   //FORMULA CONSTANTS (ALSO) SENT TO CLIENT
@@ -90,6 +105,7 @@ public class ControllerConstants {
   public static final double SOLO_BOSS__CRITICAL_HIT_CHANCE = 0.15;
   public static final double SOLO_BOSS__CRITICAL_HIT_DAMAGE_MULTIPLIER = 1.6;
   public static final int SOLO_BOSS__MAX_HEALTH_MULTIPLIER = 10;
+  public static final int SOLO_BOSS__LONGEST_GEMLESS_STREAK = 5;
   
   public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.5;
 
@@ -211,7 +227,7 @@ public class ControllerConstants {
   public static final double BATTLE__EXP_BASE_MULTIPLIER = 0.8;
   public static final int BATTLE__EXP_MIN = 1;
   public static final double BATTLE__EXP_LEVEL_DIFF_WEIGHT = 0.2;
-  public static final double BATTLE__CHANCE_OF_EQUIP_LOOT_INITIAL_WALL = 0.15;
+  public static final double BATTLE__CHANCE_OF_EQUIP_LOOT_INITIAL_WALL = Globals.IS_SANDBOX() ? 0.5 : 0.15;
   public static final double BATTLE__EQUIP_AND_STATS_WEIGHT = 1.08;
   public static final double BATTLE__MIN_LEVEL_TO_NOT_DISPLAY_BOTS_IN_ATTACK_LIST = 30;
 

@@ -161,7 +161,7 @@ public interface UpdateUtil {
   public abstract boolean resetTimesCompletedInRankForUserTasksInCity(
       int userId, List<Task> tasksInCity);
 
-  public abstract boolean updateUserEquipOwner(int userEquipId, int newOwnerId);
+  public abstract boolean updateUserEquipOwner(int userEquipId, int newOwnerId, String reason);
 
   public abstract boolean updateAbsoluteBlacksmithAttemptcompleteTimeofspeedup(int blacksmithId, Date timeOfSpeedup, boolean attemptComplete);
 
@@ -181,8 +181,8 @@ public interface UpdateUtil {
   //public abstract boolean updateRedeemLockBoxItems(int eventId, int userId, List<Integer> lockBoxItemIds, boolean redeem);
   public abstract boolean updateRedeemLockBoxEvent(int eventId, int userId, boolean redeem);
   
-  public boolean replaceBoss(int userId, int bossId, Date startTime, int currentHealth, 
-      int currentLevel);
+  public boolean replaceUserBoss(int userId, int bossId, Date startTime, int currentHealth, 
+      int currentLevel, int gemlessStreak);
   
   public boolean incrementCurrentTierLevelForClan(int clanId);
   public abstract boolean updateClanTowerOwnerAndOrAttacker(int clanTowerId, int ownerId, Date ownedStartTime, int ownerBattleWins, 

@@ -76,7 +76,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       if (legitPlay) {
         if (equipId != ControllerConstants.NOT_SET && equipId > 0 && equipLevel > 0) {
           int newUserEquipId = InsertUtils.get().insertUserEquip(user.getId(), equipId, equipLevel,
-              ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT, now);
+              ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT, now,
+              ControllerConstants.UER__THREE_CARD_MONTE);
           if (newUserEquipId     < 0) {
             resBuilder.setStatus(PlayThreeCardMonteStatus.OTHER_FAIL);
             log.error("problem with giving 1 of equip " + equipId + " to forger " + user.getId());

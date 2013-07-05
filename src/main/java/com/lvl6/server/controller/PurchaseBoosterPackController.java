@@ -596,8 +596,9 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
       boolean resetOccurred, Timestamp nowTimestamp) {
     //insert into user_equips, update user, update user_booster_items
     int userId = user.getId();
+    String reason = ControllerConstants.UER__PURCHASE_BOOSTER_PACK;
     List<Integer> userEquipIds = MiscMethods.insertNewUserEquips(userId,
-        itemsUserReceives, nowTimestamp);
+        itemsUserReceives, nowTimestamp, reason);
     if (null == userEquipIds || userEquipIds.isEmpty() 
         || userEquipIds.size() != itemsUserReceives.size()) {
       resBuilder.setStatus(PurchaseBoosterPackStatus.OTHER_FAIL);

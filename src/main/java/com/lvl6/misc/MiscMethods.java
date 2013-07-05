@@ -1908,7 +1908,7 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
   }
   /*cut out from purchase booster pack controller*/
   public static List<Integer> insertNewUserEquips(int userId,
-      List<BoosterItem> itemsUserReceives, Timestamp now) {
+      List<BoosterItem> itemsUserReceives, Timestamp now, String reason) {
     int amount = itemsUserReceives.size();
     int forgeLevel = ControllerConstants.DEFAULT_USER_EQUIP_LEVEL;
     int enhancementLevel = ControllerConstants.DEFAULT_USER_EQUIP_ENHANCEMENT_PERCENT;
@@ -1922,7 +1922,7 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     }
     
     return InsertUtils.get().insertUserEquips(userId, equipIds, levels,
-        enhancement, now);
+        enhancement, now, reason);
   }
   /*cut out from purchase booster pack controller*/
   public static boolean updateUserBoosterItems(List<BoosterItem> itemsUserReceives, 

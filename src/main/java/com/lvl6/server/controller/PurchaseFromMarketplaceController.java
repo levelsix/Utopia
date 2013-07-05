@@ -93,7 +93,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         resBuilder.setSellerHadLicense(MiscMethods.validateMarketplaceLicense(seller, timeOfPurchaseRequest));
         
         int userEquipId = InsertUtils.get().insertUserEquip(buyer.getId(), mp.getPostedEquipId(), mp.getEquipLevel(),
-            mp.getEquipEnhancementPercentage(), timeOfPurchaseRequest);
+            mp.getEquipEnhancementPercentage(), timeOfPurchaseRequest,
+            ControllerConstants.UER__PURCHASE_FROM_MARKETPLACE);
         if (userEquipId < 0) {
           resBuilder.setStatus(PurchaseFromMarketplaceStatus.OTHER_FAIL);
           log.error("problem with giving 1 of equip " + mp.getPostedEquipId() + " to buyer " + buyer.getId());
