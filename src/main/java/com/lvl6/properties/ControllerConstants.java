@@ -188,10 +188,10 @@ public class ControllerConstants {
   //public static final double STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_LEGENDARY_EQUIP = 0;
   //public static final int STARTUP__DAILY_BONUS_RECEIVE_EQUIP_LEVEL_RANGE = 5;
   //public static final int STARTUP__DAILY_BONUS_MYSTERY_BOX_EQUIP_FORGE_LEVEL_MAX = 2;
-  public static final int STARTUP__CLAN_HOUSE_MIN_LEVEL = 4;
+  public static final int STARTUP__CLAN_HOUSE_MIN_LEVEL = 16;
   public static final int STARTUP__VAULT_MIN_LEVEL = 1;
   public static final int STARTUP__ARMORY_MIN_LEVEL = 1;
-  public static final int STARTUP__MARKETPLACE_MIN_LEVEL = 16;
+  public static final int STARTUP__MARKETPLACE_MIN_LEVEL = 20;
   public static final int STARTUP__BLACKSMITH_MIN_LEVEL = 1;
   public static final int STARTUP__LEADERBOARD_MIN_LEVEL = 1;
   public static final int STARTUP__ENHANCING_MIN_LEVEL_TO_UNLOCK = 20; 
@@ -229,10 +229,9 @@ public class ControllerConstants {
   //TASK ACTION
   public static final int TASK_ACTION__MAX_CITY_RANK = 5;
   //if dev server then always drop gem, else production go with whatever
-  public static final float TASK_ACTION__GEM_DROP_RATE = Globals.IS_SANDBOX() ? 1.0f : 0.25f; 
+  public static final float TASK_ACTION__GEM_DROP_RATE = Globals.IS_SANDBOX() ? 0.1f : 0.1f; 
   public static final int TASK_ACTION__MAX_ENERGY_COST_MULTIPLIER = 5;
-  public static final int TASK_ACTION__MAX_REWARD_MULTIPLIER = 3;
-  public static final int TASK_ACTION__MAX_CITY_RANK_UP_REWARD_MULTIPLIER = 5;
+  public static final int TASK_ACTION__MAX_CITY_RANK_UP_REWARD_MULTIPLIER = 6;
   
   //PURCHASE NORM STRUCTURE
   public static final int PURCHASE_NORM_STRUCTURE__MAX_NUM_OF_CERTAIN_STRUCTURE = 2;
