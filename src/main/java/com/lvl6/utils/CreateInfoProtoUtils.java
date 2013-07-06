@@ -1163,7 +1163,19 @@ public class CreateInfoProtoUtils {
     return b.build();
   }
 
-  public static FullBossProto createFullBossProtoFromBoss(Boss boss) {
+  public static FullBossProto createFullBossProtoFromBoss(UserType type, Boss boss) {
+    boolean goodSide = MiscMethods.checkIfGoodSide(type);
+    String mapIconImageName = null;
+    String unlockedBossImageName = null;
+
+    if (goodSide) {
+      mapIconImageName = boss.getMapIconImageNameGood();
+      unlockedBossImageName = boss.getUnlockedBossImageNameGood();
+    } else {
+      mapIconImageName = boss.getMapIconImageNameBad();
+      unlockedBossImageName = boss.getUnlockedBossImageNameBad();
+    }
+    
     FullBossProto.Builder fbp = FullBossProto.newBuilder();
     fbp.setBossId(boss.getId());
     fbp.setCityId(boss.getCityId());
@@ -1180,8 +1192,8 @@ public class CreateInfoProtoUtils {
     fbp.setHpConstantC(boss.getHpConstantC());
     fbp.setDmgConstantA(boss.getDmgConstantA());
     fbp.setDmgConstantB(boss.getDmgConstantB());
-    fbp.setMapIconImageName(boss.getMapIconImageName());
-    fbp.setUnlockedBossImageName(boss.getUnlockedBossImageName());
+    fbp.setMapIconImageName(mapIconImageName);
+    fbp.setUnlockedBossImageName(unlockedBossImageName);
     
     return fbp.build();
   }

@@ -238,7 +238,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
       for (Integer bossId :  bossIds) {
         Boss boss = bosses.get(bossId);
         if (boss != null) {
-          resBuilder.addBosses(CreateInfoProtoUtils.createFullBossProtoFromBoss(boss));
+          resBuilder.addBosses(CreateInfoProtoUtils.createFullBossProtoFromBoss(type, boss));
         } else {
           resBuilder.setStatus(RetrieveStaticDataStatus.SOME_FAIL);
           log.error("problem with retrieving boss with id " + boss);

@@ -19,15 +19,18 @@ public class Boss implements Serializable {
   private int hpConstantC;
   private int dmgConstantA;
   private int dmgConstantB;
-  private String mapIconImageName;
-  private String unlockedBossImageName;
+  private String mapIconImageNameGood;
+  private String mapIconImageNameBad;
+  private String unlockedBossImageNameGood;
+  private String unlockedBossImageNameBad;
 
   public Boss(int id, int cityId, int assetNumberWithinCity,
       int regularAttackEnergyCost, int minutesToKill,
       float superAttackDamageMultiplier, int superAttackEnergyCost,
       String name, int expConstantA, int expConstantB, int hpConstantA,
       int hpConstantB, int hpConstantC, int dmgConstantA, int dmgConstantB,
-      String mapIconImageName, String unlockedBossImageName) {
+      String mapIconImageNameGood, String unlockedBossImageNameGood,
+      String mapIconImageNameBad, String unlockedBossImageNameBad) {
     super();
     this.id = id;
     this.cityId = cityId;
@@ -44,8 +47,10 @@ public class Boss implements Serializable {
     this.hpConstantC = hpConstantC;
     this.dmgConstantA = dmgConstantA;
     this.dmgConstantB = dmgConstantB;
-    this.mapIconImageName = mapIconImageName;
-    this.unlockedBossImageName = unlockedBossImageName;
+    this.mapIconImageNameGood = mapIconImageNameGood;
+    this.mapIconImageNameBad = mapIconImageNameBad;
+    this.unlockedBossImageNameGood = unlockedBossImageNameGood;
+    this.unlockedBossImageNameBad = unlockedBossImageNameBad;
   }
 
   public int getId() {
@@ -168,20 +173,36 @@ public class Boss implements Serializable {
     this.dmgConstantB = dmgConstantB;
   }
 
-  public String getMapIconImageName() {
-    return mapIconImageName;
+  public String getMapIconImageNameGood() {
+    return mapIconImageNameGood;
   }
 
-  public void setMapIconImageName(String mapIconImageName) {
-    this.mapIconImageName = mapIconImageName;
+  public void setMapIconImageNameGood(String mapIconImageNameGood) {
+    this.mapIconImageNameGood = mapIconImageNameGood;
   }
 
-  public String getUnlockedBossImageName() {
-    return unlockedBossImageName;
+  public String getMapIconImageNameBad() {
+    return mapIconImageNameBad;
   }
 
-  public void setUnlockedBossImageName(String unlockedBossImageName) {
-    this.unlockedBossImageName = unlockedBossImageName;
+  public void setMapIconImageNameBad(String mapIconImageNameBad) {
+    this.mapIconImageNameBad = mapIconImageNameBad;
+  }
+
+  public String getUnlockedBossImageNameGood() {
+    return unlockedBossImageNameGood;
+  }
+
+  public void setUnlockedBossImageNameGood(String unlockedBossImageNameGood) {
+    this.unlockedBossImageNameGood = unlockedBossImageNameGood;
+  }
+
+  public String getUnlockedBossImageNameBad() {
+    return unlockedBossImageNameBad;
+  }
+
+  public void setUnlockedBossImageNameBad(String unlockedBossImageNameBad) {
+    this.unlockedBossImageNameBad = unlockedBossImageNameBad;
   }
 
   @Override
@@ -195,8 +216,8 @@ public class Boss implements Serializable {
         + expConstantB + ", hpConstantA=" + hpConstantA + ", hpConstantB="
         + hpConstantB + ", hpConstantC=" + hpConstantC + ", dmgConstantA="
         + dmgConstantA + ", dmgConstantB=" + dmgConstantB
-        + ", mapIconImageName=" + mapIconImageName
-        + ", unlockedBossImageName=" + unlockedBossImageName + "]";
+        + ", mapIconImageName=" + mapIconImageNameGood
+        + ", unlockedBossImageName=" + unlockedBossImageNameGood + "]";
   }
 
 }

@@ -268,7 +268,7 @@ public class StartupController extends EventController {
           setPrivateChatPosts(resBuilder, user);
           setCityGems(resBuilder);
           setLivingBossesForUser(resBuilder, user);
-          setAllBosses(resBuilder);
+          setAllBosses(resBuilder, user.getType());
           
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
@@ -347,13 +347,13 @@ public class StartupController extends EventController {
     }
   }
   
-  private void setAllBosses(Builder resBuilder) {
+  private void setAllBosses(Builder resBuilder, UserType type) {
     Map<Integer, Boss> bossIdsToBosses = 
         BossRetrieveUtils.getBossIdsToBosses();
     
     for (Boss b : bossIdsToBosses.values()) {
       FullBossProto fbp =
-          CreateInfoProtoUtils.createFullBossProtoFromBoss(b);
+          CreateInfoProtoUtils.createFullBossProtoFromBoss(type, b);
       resBuilder.addBosses(fbp);
     }
   }
