@@ -154,7 +154,7 @@ import com.lvl6.utils.DBConnection;
         regularAttackEnergyCost, minutesToKill, superAttackDamageMultiplier,
         superAttackEnergyCost, name, expConstantA, expConstantB,
         hpConstantA, hpConstantB, hpConstantC, dmgConstantA, dmgConstantB,
-        mapImageNameGood, mapImageNameBad, unlockedBossImageNameGood,
+        mapImageNameGood, unlockedBossImageNameGood, mapImageNameBad,
         unlockedBossImageNameBad);
         
     return boss;
