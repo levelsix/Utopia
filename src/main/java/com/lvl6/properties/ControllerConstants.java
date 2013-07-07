@@ -207,7 +207,7 @@ public class ControllerConstants {
   public static final int STARTUP__CLAN_HOUSE_MIN_LEVEL = 16;
   public static final int STARTUP__VAULT_MIN_LEVEL = 1;
   public static final int STARTUP__ARMORY_MIN_LEVEL = 1;
-  public static final int STARTUP__MARKETPLACE_MIN_LEVEL = 25;
+  public static final int STARTUP__MARKETPLACE_MIN_LEVEL = 7;
   public static final int STARTUP__BLACKSMITH_MIN_LEVEL = 1;
   public static final int STARTUP__LEADERBOARD_MIN_LEVEL = 1;
   public static final int STARTUP__ENHANCING_MIN_LEVEL_TO_UNLOCK = 20; 
