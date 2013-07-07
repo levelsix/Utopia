@@ -630,6 +630,7 @@ public class ControllerConstants {
 //    "FREE limited edition gold equip for joining today!"
 //    "Forging Contest! 50 GOLD reward! Details at forum.lvl6.com"
 //      "We have just added 40+ equips, a new city, and increased the level cap!"
+      "Please look at your private chats for an important message from Oishii."
     };
   
   
