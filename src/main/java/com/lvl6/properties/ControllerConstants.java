@@ -110,9 +110,9 @@ public class ControllerConstants {
   public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.5;
 
   public static final double HEALTH__FORMULA_EXPONENT_BASE = 1.18;
-  public static final double HEALTH__FORMULA_LINEAR_A = 999.75;
-  public static final double HEALTH__FORMULA_LINEAR_B = -26381;
-  public static final int HEALTH__FORMULA_LEVEL_CUTOFF = 31;
+  public static final double HEALTH__FORMULA_LINEAR_A = 2000;
+  public static final double HEALTH__FORMULA_LINEAR_B = -62454;
+  public static final int HEALTH__FORMULA_LEVEL_CUTOFF = 36;
   
   public static final int AVERAGE_SIZE_OF_LEVEL_BRACKET = 5;
 
