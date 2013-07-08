@@ -163,28 +163,28 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 		executor.execute(new Runnable() {
 			@Override
 			public void run() {
-				UserRetrieveUtils uru = RetrieveUtils.userRetrieveUtils();
-				int count = uru.countUsers(false);
-				log.info("Loading leaderboard stats for {} users", count);
-				List<Integer> ids = jdbc.query("select " + DBConstants.USER__ID + " from " + DBConstants.TABLE_USER
-						+ " where " + DBConstants.USER__IS_FAKE + "=0", new RowMapper<Integer>() {
-					@Override
-					public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
-						return rs.getInt(DBConstants.USER__ID);
-					}
-				});
-				Map<Integer, User> users = uru.getUsersByIds(ids);
-				for (final User usr : users.values()) {
-					executor.execute(new Runnable() {
+				try {
+					UserRetrieveUtils uru = RetrieveUtils.userRetrieveUtils();
+					List<Integer> ids = jdbc.query("select " + DBConstants.USER__ID + " from " + DBConstants.TABLE_USER
+							+ " where " + DBConstants.USER__IS_FAKE + "=0;", new RowMapper<Integer>() {
 						@Override
-						public void run() {
-							try {
-								leaderboard.updateLeaderboardForUser(usr);
-							} catch (Exception e) {
-								log.error("Error updating leaderboard for user: {}", usr.getId(), e);
-							}
+						public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+							return rs.getInt(DBConstants.USER__ID);
 						}
 					});
+					log.info("Reloading leaderboard stats for {} users", ids.size());
+					//Map<Integer, User> users = uru.getUsersByIds(ids);
+					for (final Integer id : ids) {
+						try {
+							User usr = uru.getUserById(id);
+							log.info("Batch reloading leaderboard for user {}", usr.getId());
+							leaderboard.updateLeaderboardForUser(usr);
+						} catch (Exception e) {
+							log.error("Error updating leaderboard for user: {}", id, e);
+						}
+					}
+				}catch(Exception e) {
+					log.error("Error reloading leaderboard",e);
 				}
 			}
 		});
