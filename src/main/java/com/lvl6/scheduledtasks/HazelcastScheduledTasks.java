@@ -42,7 +42,7 @@ public class HazelcastScheduledTasks {
 		this.hazel = hazel;
 	}
 	
-	private int tenMinutes = 60*10*1000;
+	private int fifteenMinutes = 60*15*1000;
 	
 	@Scheduled(fixedRate=60000)
 	public void cleanupPlayersByPlayerIdMap() {
@@ -54,13 +54,17 @@ public class HazelcastScheduledTasks {
 			if(playersCleanupLock.tryLock()) {
 				gotLock = true;
 				for(Integer playerId : getPlayersByPlayerId().keySet()) {
-					ConnectedPlayer player = getPlayersByPlayerId().get(playerId);
-					if(System.currentTimeMillis() - tenMinutes > player.getLastMessageSentToServer().getTime()) {
-						log.info("Player {} timed out... removing from playersByPlayerId map", player.getPlayerId());
-						getPlayersByPlayerId().remove(playerId);
-						count++;
-					}else {
-						countActive++;
+					try {
+						ConnectedPlayer player = getPlayersByPlayerId().get(playerId);
+						if(System.currentTimeMillis() - fifteenMinutes > player.getLastMessageSentToServer().getTime()) {
+							log.info("Player {} timed out... removing from playersByPlayerId map", player.getPlayerId());
+							getPlayersByPlayerId().remove(playerId);
+							count++;
+						}else {
+							countActive++;
+						}
+					}catch(Exception e) {
+						log.error("Error removing player {}, playerId from connectedPlayers", playerId, e);
 					}
 				}
 				log.info("Removed {} players from playersByPlayerId map during cleanup", count);
