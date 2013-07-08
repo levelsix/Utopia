@@ -165,22 +165,22 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 			public void run() {
 				try {
 					UserRetrieveUtils uru = RetrieveUtils.userRetrieveUtils();
-					int count = uru.countUsers(false);
-					log.info("Reloading leaderboard stats for {} users", count);
 					List<Integer> ids = jdbc.query("select " + DBConstants.USER__ID + " from " + DBConstants.TABLE_USER
-							+ " where " + DBConstants.USER__IS_FAKE + "=0", new RowMapper<Integer>() {
+							+ " where " + DBConstants.USER__IS_FAKE + "=0;", new RowMapper<Integer>() {
 						@Override
 						public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
 							return rs.getInt(DBConstants.USER__ID);
 						}
 					});
-					Map<Integer, User> users = uru.getUsersByIds(ids);
-					for (final User usr : users.values()) {
+					log.info("Reloading leaderboard stats for {} users", ids.size());
+					//Map<Integer, User> users = uru.getUsersByIds(ids);
+					for (final Integer id : ids) {
 						try {
+							User usr = uru.getUserById(id);
 							log.info("Batch reloading leaderboard for user {}", usr.getId());
 							leaderboard.updateLeaderboardForUser(usr);
 						} catch (Exception e) {
-							log.error("Error updating leaderboard for user: {}", usr.getId(), e);
+							log.error("Error updating leaderboard for user: {}", id, e);
 						}
 					}
 				}catch(Exception e) {
