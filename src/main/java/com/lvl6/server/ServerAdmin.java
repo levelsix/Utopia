@@ -64,7 +64,7 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 		this.jdbc = new JdbcTemplate(dataSource);
 	}
 
-	@Resource(name = "controllersExecutor")
+	@Resource(name = "serverTasksExecutor")
 	protected TaskExecutor executor;
 
 	public TaskExecutor getExecutor() {
@@ -160,30 +160,36 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 	}
 
 	public void reloadLeaderboard() {
-		UserRetrieveUtils uru = RetrieveUtils.userRetrieveUtils();
-		int count = uru.countUsers(false);
-		log.info("Loading leaderboard stats for {} users", count);
-		List<Integer> ids = jdbc.query("select " + DBConstants.USER__ID + " from " + DBConstants.TABLE_USER
-				+ " where " + DBConstants.USER__IS_FAKE + "=0", new RowMapper<Integer>() {
+		executor.execute(new Runnable() {
 			@Override
-			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
-				return rs.getInt(DBConstants.USER__ID);
+			public void run() {
+				UserRetrieveUtils uru = RetrieveUtils.userRetrieveUtils();
+				int count = uru.countUsers(false);
+				log.info("Loading leaderboard stats for {} users", count);
+				List<Integer> ids = jdbc.query("select " + DBConstants.USER__ID + " from " + DBConstants.TABLE_USER
+						+ " where " + DBConstants.USER__IS_FAKE + "=0", new RowMapper<Integer>() {
+					@Override
+					public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+						return rs.getInt(DBConstants.USER__ID);
+					}
+				});
+				Map<Integer, User> users = uru.getUsersByIds(ids);
+				for (final User usr : users.values()) {
+					executor.execute(new Runnable() {
+						@Override
+						public void run() {
+							try {
+								leaderboard.updateLeaderboardForUser(usr);
+							} catch (Exception e) {
+								log.error("Error updating leaderboard for user: {}", usr.getId(), e);
+							}
+						}
+					});
+				}
 			}
 		});
-		Map<Integer, User> users = uru.getUsersByIds(ids);
-		for (final User usr : users.values()) {
-			executor.execute(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						leaderboard.updateLeaderboardForUser(usr);
-					} catch (Exception e) {
-						log.error("Error updating leaderboard for user: {}", usr.getId(), e);
-					}
-				}
-			});
-		}
 	}
+		
 	
 	public void setApplicationMode(Boolean maintenanceMode, String messageForUsers) {
 		log.info("Setting application maintenance mode: {} message: {}", maintenanceMode, messageForUsers);
