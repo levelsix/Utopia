@@ -639,7 +639,7 @@ public class ControllerConstants {
   public static final int[] STARTUP__QUESTS_THAT_TRIGGER_KIIP_REWARDS_ON_REDEEM = {};
   public static final int STARTUP__QUEST_ID_FOR_FIRST_LOSS_TUTORIAL = 326;
   public static final int[] STARTUP__QUEST_IDS_FOR_GUARANTEED_WIN = {325};
-  public static final String STARTUP__FAQ_FILE_NAME = "FAQ.2.txt";
+  public static final String STARTUP__FAQ_FILE_NAME = "FAQ.3.txt";
   public static final String STARTUP__PRESTIGE_FAQ_FILE_NAME = "PrestigeFAQ.txt";
   public static final int STARTUP__DEFAULT_DAYS_BATTLE_SHIELD_IS_ACTIVE = 7;
   public static final float CHANCE_TO_GET_KIIP_ON_BATTLE_WIN = 1.f;
