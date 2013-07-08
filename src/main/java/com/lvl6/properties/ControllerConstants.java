@@ -245,7 +245,7 @@ public class ControllerConstants {
   //TASK ACTION
   public static final int TASK_ACTION__MAX_CITY_RANK = 5;
   //if dev server then always drop gem, else production go with whatever
-  public static final float TASK_ACTION__GEM_DROP_RATE = Globals.IS_SANDBOX() ? 0.1f : 1.f; 
+  public static final float TASK_ACTION__GEM_DROP_RATE = Globals.IS_SANDBOX() ? 1.f : 0.1f; 
   public static final int TASK_ACTION__MAX_ENERGY_COST_MULTIPLIER = 5;
   public static final int TASK_ACTION__MAX_CITY_RANK_UP_REWARD_MULTIPLIER = 6;
   
