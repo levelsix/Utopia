@@ -26,6 +26,12 @@
 		pool-size="5-50"
 		queue-capacity="5" 
 		rejection-policy="CALLER_RUNS" />
+
+
+	<task:executor id="serverTasksExecutor" 
+		pool-size="5-15"
+		queue-capacity="5" 
+		rejection-policy="CALLER_RUNS" />
 	
 	
 	<bean id="apnsProperties" class="com.lvl6.properties.APNSProperties">
