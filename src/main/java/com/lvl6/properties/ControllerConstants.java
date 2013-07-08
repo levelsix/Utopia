@@ -110,9 +110,9 @@ public class ControllerConstants {
   public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.5;
 
   public static final double HEALTH__FORMULA_EXPONENT_BASE = 1.18;
-  public static final double HEALTH__FORMULA_LINEAR_A = 999.75;
-  public static final double HEALTH__FORMULA_LINEAR_B = -26381;
-  public static final int HEALTH__FORMULA_LEVEL_CUTOFF = 31;
+  public static final double HEALTH__FORMULA_LINEAR_A = 2000;
+  public static final double HEALTH__FORMULA_LINEAR_B = -62454;
+  public static final int HEALTH__FORMULA_LEVEL_CUTOFF = 36;
   
   public static final int AVERAGE_SIZE_OF_LEVEL_BRACKET = 5;
 
@@ -639,7 +639,7 @@ public class ControllerConstants {
   public static final int[] STARTUP__QUESTS_THAT_TRIGGER_KIIP_REWARDS_ON_REDEEM = {};
   public static final int STARTUP__QUEST_ID_FOR_FIRST_LOSS_TUTORIAL = 326;
   public static final int[] STARTUP__QUEST_IDS_FOR_GUARANTEED_WIN = {325};
-  public static final String STARTUP__FAQ_FILE_NAME = "FAQ.2.txt";
+  public static final String STARTUP__FAQ_FILE_NAME = "FAQ.3.txt";
   public static final String STARTUP__PRESTIGE_FAQ_FILE_NAME = "PrestigeFAQ.txt";
   public static final int STARTUP__DEFAULT_DAYS_BATTLE_SHIELD_IS_ACTIVE = 7;
   public static final float CHANCE_TO_GET_KIIP_ON_BATTLE_WIN = 1.f;
