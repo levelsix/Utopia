@@ -104,7 +104,7 @@ public class ControllerConstants {
   //new revamped boss constants
   public static final double SOLO_BOSS__CRITICAL_HIT_CHANCE = 0.15;
   public static final double SOLO_BOSS__CRITICAL_HIT_DAMAGE_MULTIPLIER = 1.6;
-  public static final int SOLO_BOSS__MAX_HEALTH_MULTIPLIER = 10;
+  public static final int SOLO_BOSS__MAX_HEALTH_MULTIPLIER = 15;
   public static final int SOLO_BOSS__LONGEST_GEMLESS_STREAK = 5;
   
   public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.5;
@@ -240,6 +240,7 @@ public class ControllerConstants {
   public static final int POST_TO_MARKETPLACE__MIN_MILLISECOND_DELAY_ADDED_TO_POST_TIME =  600000;//10*60*1000; //10 minutes
   
   //PURCHASE FROM MARKETPLACE
+  
   public static final double PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN = .30;
   
   //TASK ACTION
@@ -261,6 +262,7 @@ public class ControllerConstants {
   //RETRIEVE CURRENT MARKETPLACE POSTS
   public static final int RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP = 100;
   public static final int RETRIEVE_CURRENT_MARKETPLACE_POSTS__MAX_NUM_POPULATE_RETRIES = 5;
+  
   public static final int RETRIEVE_CURRENT_MARKETPLACE_POSTS__MIN_NUM_OF_POSTS_FOR_NO_POPULATE = 15;
   public static final int RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE = 250;   //ANYONE SHOULD BE ABLE TO EQUIP, and should be cheap AND ACCESSIBLE IN ARMORY and needs to have a coin cost
   public static final int[] RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_POSTER_IDS = {2};
