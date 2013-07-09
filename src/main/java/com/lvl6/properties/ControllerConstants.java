@@ -626,6 +626,7 @@ public class ControllerConstants {
     new AnimatedSpriteOffset("Bandit", new CoordinatePair(0, -15)),
     new AnimatedSpriteOffset("FarmerMitch", new CoordinatePair(0, -8)),
     new AnimatedSpriteOffset("Carpenter", new CoordinatePair(0, -6)),
+    new AnimatedSpriteOffset("Bandit", new CoordinatePair(0, -6)),
   };
   
   public static final String[] STARTUP__NOTICES_TO_PLAYERS = {
