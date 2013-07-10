@@ -1541,13 +1541,13 @@ public static GoldSaleProto createFakeGoldSaleForNewPlayer(User user) {
     String package1SaleIdentifier = IAPValues.PACKAGE1BSALE;
     String package2SaleIdentifier = IAPValues.PACKAGE2BSALE;
     String package3SaleIdentifier = IAPValues.PACKAGE3BSALE;
-    String package4SaleIdentifier = IAPValues.PACKAGE4BSALE;
-    String package5SaleIdentifier = IAPValues.PACKAGE5BSALE;
+    String package4SaleIdentifier = null;
+    String package5SaleIdentifier = null;
     String packageS1SaleIdentifier = IAPValues.PACKAGES1BSALE;
     String packageS2SaleIdentifier = IAPValues.PACKAGES2BSALE;
     String packageS3SaleIdentifier = IAPValues.PACKAGES3BSALE;
-    String packageS4SaleIdentifier = IAPValues.PACKAGES4BSALE;
-    String packageS5SaleIdentifier = IAPValues.PACKAGES5BSALE;
+    String packageS4SaleIdentifier = null;
+    String packageS5SaleIdentifier = null;
 
     String goldShoppeImageName = ControllerConstants.GOLD_SHOPPE_IMAGE_NAME_NEW_USER_GOLD_SALE;
     String goldBarImageName = ControllerConstants.GOLD_BAR_IMAGE_NAME_NEW_USER_GOLD_SALE;
