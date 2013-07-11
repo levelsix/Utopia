@@ -1,14 +1,17 @@
 package com.lvl6.server.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.ChangeClanDescriptionRequestEvent;
 import com.lvl6.events.response.ChangeClanDescriptionResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Clan;
 import com.lvl6.info.User;
+import com.lvl6.info.UserClan;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.ChangeClanDescriptionRequestProto;
@@ -16,6 +19,7 @@ import com.lvl6.proto.EventProto.ChangeClanDescriptionResponseProto;
 import com.lvl6.proto.EventProto.ChangeClanDescriptionResponseProto.Builder;
 import com.lvl6.proto.EventProto.ChangeClanDescriptionResponseProto.ChangeClanDescriptionStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
@@ -98,7 +102,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("user not in clan");
       return false;      
     }
-    if (clan.getOwnerId() != user.getId()) {
+    int clanId = clan.getId();
+    UserClan uc = RetrieveUtils.userClanRetrieveUtils().getSpecificUserClan(user.getId(), clanId);
+    if (clan.getOwnerId() != user.getId() && uc.getStatus() != UserClanStatus.COLEADER) {
       resBuilder.setStatus(ChangeClanDescriptionStatus.NOT_OWNER);
       log.error("clan owner isn't this guy, clan owner id is " + clan.getOwnerId());
       return false;      

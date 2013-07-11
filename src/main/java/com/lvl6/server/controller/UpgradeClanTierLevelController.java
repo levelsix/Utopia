@@ -17,6 +17,7 @@ import com.lvl6.events.response.UpgradeClanTierLevelResponseEvent;
 import com.lvl6.info.Clan;
 import com.lvl6.info.ClanTierLevel;
 import com.lvl6.info.User;
+import com.lvl6.info.UserClan;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.UpgradeClanTierLevelRequestProto;
@@ -24,6 +25,7 @@ import com.lvl6.proto.EventProto.UpgradeClanTierLevelResponseProto;
 import com.lvl6.proto.EventProto.UpgradeClanTierLevelResponseProto.Builder;
 import com.lvl6.proto.EventProto.UpgradeClanTierLevelResponseProto.UpgradeClanTierLevelStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.ClanTierLevelRetrieveUtils;
@@ -114,18 +116,36 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
    * Returns false otherwise.
    */
   private boolean isValidUpdateClanTierLevelRequest(Builder aBuilder, User aUser, int clanId,
-      List<Integer> currencyChange) {
-    //check if user who sent request is the owner of the clan
-    //then check if user has enough money
-    //then check if the clan is at the highest level
+  		List<Integer> currencyChange) {
+  	//check if user who sent request is the owner of the clan
+  	//then check if user has enough money
+  	//then check if the clan is at the highest level
 
-    int clanIdOfUser = aUser.getClanId();
+  	if(aUser == null) {
+  		aBuilder.setStatus(UpgradeClanTierLevelStatus.OTHER_FAIL);
+  		return false;
+  	}
 
+  	int clanIdOfUser = aUser.getClanId();
+
+    Clan clan = ClanRetrieveUtils.getClanWithId(aUser.getClanId());
+    
+    if(clan == null) {
+    	aBuilder.setStatus(UpgradeClanTierLevelStatus.OTHER_FAIL);
+    	return false;
+    }
+    
     if(clanIdOfUser != clanId) {
       aBuilder.setStatus(UpgradeClanTierLevelStatus.NOT_CLAN_LEADER);
       return false;
     }
-
+    
+    UserClan uc = RetrieveUtils.userClanRetrieveUtils().getSpecificUserClan(aUser.getId(), clanId);
+    if(uc == null || (clan.getOwnerId() != aUser.getId() && uc.getStatus() != UserClanStatus.COLEADER )){
+    	aBuilder.setStatus(UpgradeClanTierLevelStatus.NOT_CLAN_LEADER);
+    	return false;
+    }
+    	
     //user is clan leader, now check the gold the user has with 
     //the gold cost to upgrade to next tier lvl
     int usersGold = aUser.getDiamonds();

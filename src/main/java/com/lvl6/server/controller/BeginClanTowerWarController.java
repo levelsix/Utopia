@@ -21,6 +21,7 @@ import com.lvl6.info.Clan;
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.ClanTowerHistory;
 import com.lvl6.info.User;
+import com.lvl6.info.UserClan;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.misc.Notification;
 import com.lvl6.properties.ControllerConstants;
@@ -30,6 +31,7 @@ import com.lvl6.proto.EventProto.BeginClanTowerWarResponseProto.BeginClanTowerWa
 import com.lvl6.proto.EventProto.BeginClanTowerWarResponseProto.Builder;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowerChange;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerHistoryRetrieveUtils;
@@ -158,15 +160,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return false;
     }
 
-    //check if the request sender is the clan leader or in a clan
-    if(null == clanOfRequester || clanOfRequester.getOwnerId() != user.getId()) {
-      //non-clan-leader, non-clanned person sent request
-      resBuilder.setStatus(BeginClanTowerWarStatus.NOT_CLAN_LEADER);
-      log.error("user error: user is not the clan leader or not in a clan. user=" + user);
-      return false;
-    }
-
     int clanId = clanOfRequester.getId();
+    UserClan uc = RetrieveUtils.userClanRetrieveUtils().getSpecificUserClan(user.getId(), clanId);
+    //check if the request sender is the clan leader or in a clan
+    if(uc ==null || null == clanOfRequester || (clanOfRequester.getOwnerId() != user.getId() && uc.getStatus() != UserClanStatus.COLEADER )) {
+    	//non-clan-leader, non clan coleader, non-clanned person sent request
+    	resBuilder.setStatus(BeginClanTowerWarStatus.NOT_CLAN_LEADER);
+    	log.error("user error: user is not the clan leader, coleader, or not in a clan. user=" + user);
+    	return false;
+    }
+    
+    
     //check if clan has enough members
     if (ControllerConstants.MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER >
     RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId).size() ){

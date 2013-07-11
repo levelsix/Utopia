@@ -20,6 +20,7 @@ import com.lvl6.events.response.ConcedeClanTowerWarResponseEvent;
 import com.lvl6.info.Clan;
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.User;
+import com.lvl6.info.UserClan;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.misc.Notification;
 import com.lvl6.properties.ControllerConstants;
@@ -29,6 +30,7 @@ import com.lvl6.proto.EventProto.ConcedeClanTowerWarResponseProto;
 import com.lvl6.proto.EventProto.ConcedeClanTowerWarResponseProto.Builder;
 import com.lvl6.proto.EventProto.ConcedeClanTowerWarResponseProto.ConcedeClanTowerWarStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
@@ -163,40 +165,46 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return false;
     }
 
-    int oldClanTowerOwnerClanOwnerId = oldClanTowerOwner.getOwnerId();
+    int oldClanTowerOwnerClanOwnerId = oldClanTowerOwner.getOwnerId();  
     int oldClanTowerAttackerClanOwnerId = oldClanTowerAttacker.getOwnerId();
     int userId = user.getId();
-
-    //check if the request sender is the clan leader
-    if(oldClanTowerAttackerClanOwnerId == userId) {
-      //tower owner wins
-      aTower.setClanAttackerId(ControllerConstants.NOT_SET);
-      aTower.setAttackerBattleWins(0);
-      aTower.setAttackStartTime(null);
-      resBuilder.setStatus(ConcedeClanTowerWarStatus.SUCCESS);
-      return true;
+    
+    UserClan uc1 = RetrieveUtils.userClanRetrieveUtils().getSpecificUserClan(userId, oldClanTowerAttacker.getId());
+    UserClan uc2 = RetrieveUtils.userClanRetrieveUtils().getSpecificUserClan(userId, oldClanTowerOwner.getId());
+    if(uc1 != null) {
+    	//check if the request sender is the clan leader
+    	if(oldClanTowerAttackerClanOwnerId == userId || uc1.getStatus() == UserClanStatus.COLEADER) {
+    		//tower owner wins
+    		aTower.setClanAttackerId(ControllerConstants.NOT_SET);
+    		aTower.setAttackerBattleWins(0);
+    		aTower.setAttackStartTime(null);
+    		resBuilder.setStatus(ConcedeClanTowerWarStatus.SUCCESS);
+    		return true;
+    	}
     }
+    if(uc2 != null) {
+    	if(oldClanTowerOwnerClanOwnerId == userId || uc2.getStatus() == UserClanStatus.COLEADER) {
+    		if (0 > oldClanTowerAttackerClanOwnerId || 
+    				ControllerConstants.NOT_SET == oldClanTowerAttackerClanOwnerId) {
+    			//don't let the clan give up the tower since there's no attacker
+    			resBuilder.setStatus(ConcedeClanTowerWarStatus.NO_ATTACKER);
+    			return false;
+    		} else {
+    			//tower attacker wins
+    			aTower.setClanOwnerId(aTower.getClanAttackerId());
+    			aTower.setOwnedStartTime(curTime);
+    			aTower.setOwnerBattleWins(0);
 
-    if(oldClanTowerOwnerClanOwnerId == userId) {
-      if (0 > oldClanTowerAttackerClanOwnerId || 
-          ControllerConstants.NOT_SET == oldClanTowerAttackerClanOwnerId) {
-        //don't let the clan give up the tower since there's no attacker
-        resBuilder.setStatus(ConcedeClanTowerWarStatus.NO_ATTACKER);
-        return false;
-      } else {
-        //tower attacker wins
-        aTower.setClanOwnerId(aTower.getClanAttackerId());
-        aTower.setOwnedStartTime(curTime);
-        aTower.setOwnerBattleWins(0);
-
-        aTower.setClanAttackerId(ControllerConstants.NOT_SET);
-        aTower.setAttackerBattleWins(0);
-        aTower.setAttackStartTime(null);
-        aTower.setLastRewardGiven(null);
-        resBuilder.setStatus(ConcedeClanTowerWarStatus.SUCCESS);
-        return true;
-      }
+    			aTower.setClanAttackerId(ControllerConstants.NOT_SET);
+    			aTower.setAttackerBattleWins(0);
+    			aTower.setAttackStartTime(null);
+    			aTower.setLastRewardGiven(null);
+    			resBuilder.setStatus(ConcedeClanTowerWarStatus.SUCCESS);
+    			return true;
+    		}
+    	}
     }
+    log.error("userclan is null.");
 
     resBuilder.setStatus(ConcedeClanTowerWarStatus.NOT_CLAN_LEADER);
     return false;

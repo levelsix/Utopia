@@ -1996,23 +1996,32 @@ message CreateClanResponseProto {
 	}	
 }
 
-message CreateColeaderRequestProto {
+//------------------------------------------------------------------------------------------
+
+//DEF NOT DONE
+message CreateClanColeaderRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional userID = 2;
-	optional bool makeColeader = 3;
+    optional int32 userId = 2;
+    optional bool makeColeader = 3;
 }
 
-message CreateColeaderResponseProto {
+message CreateClanColeaderResponseProto {
 	optional MinimumUserProto sender = 1;
-	optional CreateColeaderStatus status = 2;
-	
-	enum CreateColeaderStatus {
+    optional int32 userId = 2;
+    optional bool makeColeader = 3;
+    optional CreateClanColeaderStatus status = 4;
+    
+       
+    enum CreateClanColeaderStatus {
 		SUCCESS = 0;
-		SAME_CLAN = 0;
-		
-		
-		
-		
+        NOT_SAME_CLAN = 1;
+        ALREADY_COLEADER = 2;
+        IS_LEADER = 3;
+        MAX_COLEADERS = 4;
+        OTHER_FAIL = 5;
+        NOT_OWNER = 6;
+    }
+}
 		
 //------------------------------------------------------------------------------------------
 

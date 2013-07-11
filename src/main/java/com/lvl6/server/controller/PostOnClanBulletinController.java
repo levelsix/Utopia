@@ -3,16 +3,19 @@ package com.lvl6.server.controller;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PostOnClanBulletinRequestEvent;
 import com.lvl6.events.response.PostOnClanBulletinResponseEvent;
 import com.lvl6.info.Clan;
 import com.lvl6.info.ClanBulletinPost;
 import com.lvl6.info.User;
+import com.lvl6.info.UserClan;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.PostOnClanBulletinRequestProto;
 import com.lvl6.proto.EventProto.PostOnClanBulletinResponseProto;
@@ -20,6 +23,7 @@ import com.lvl6.proto.EventProto.PostOnClanBulletinResponseProto.Builder;
 import com.lvl6.proto.EventProto.PostOnClanBulletinResponseProto.PostOnClanBulletinStatus;
 import com.lvl6.proto.InfoProto.ClanBulletinPostProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
@@ -111,7 +115,9 @@ import com.lvl6.utils.utilmethods.InsertUtil;
       log.error("user not in clan. user is " + user);
       return false;
     }
-    if (user.getId() != clan.getOwnerId()) {
+    int clanId = clan.getId();
+    UserClan uc = RetrieveUtils.userClanRetrieveUtils().getSpecificUserClan(user.getId(), clanId);
+    if (uc == null || (user.getId() != clan.getOwnerId() && uc.getStatus() != UserClanStatus.COLEADER)) {
       resBuilder.setStatus(PostOnClanBulletinStatus.OTHER_FAIL);
       log.error("user not leader. user is " + user + ". clan is "+clan);
       return false;

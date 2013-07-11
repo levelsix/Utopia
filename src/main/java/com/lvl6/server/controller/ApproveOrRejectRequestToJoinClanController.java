@@ -131,7 +131,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return false;      
     }
     Clan clan = ClanRetrieveUtils.getClanWithId(user.getClanId());
-    if (clan.getOwnerId() != user.getId()) {
+    //user making decision is leader or coleader
+    int clanId = clan.getId();
+    UserClan uc2 = RetrieveUtils.userClanRetrieveUtils().getSpecificUserClan(user.getId(), clanId);
+    if (uc2 == null ||(clan.getOwnerId() != user.getId() && uc2.getStatus() != UserClanStatus.COLEADER)) {
       resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.NOT_OWNER);
       log.error("clan owner isn't this guy, clan owner id is " + clan.getOwnerId());
       return false;      
@@ -144,7 +147,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     	//are deleted later on in writeChangesToDB
     	return false;
     }
-    int clanId = clan.getId();
+    //int clanId = clan.getId();
     UserClan uc = RetrieveUtils.userClanRetrieveUtils().getSpecificUserClan(requester.getId(), clanId);
     if (uc == null || uc.getStatus() != UserClanStatus.REQUESTING) {
       resBuilder.setStatus(ApproveOrRejectRequestToJoinClanStatus.NOT_A_REQUESTER);

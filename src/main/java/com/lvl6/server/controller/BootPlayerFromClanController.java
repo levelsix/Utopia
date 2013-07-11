@@ -19,6 +19,7 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Clan;
 import com.lvl6.info.ClanTower;
 import com.lvl6.info.User;
+import com.lvl6.info.UserClan;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.proto.EventProto.BootPlayerFromClanRequestProto;
 import com.lvl6.proto.EventProto.BootPlayerFromClanResponseProto;
@@ -26,6 +27,7 @@ import com.lvl6.proto.EventProto.BootPlayerFromClanResponseProto.BootPlayerFromC
 import com.lvl6.proto.EventProto.BootPlayerFromClanResponseProto.Builder;
 import com.lvl6.proto.EventProto.ChangedClanTowerResponseProto.ReasonForClanTowerChange;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.ClanTowerRetrieveUtils;
@@ -134,10 +136,24 @@ import com.lvl6.utils.utilmethods.DeleteUtils;
       return false;      
     }
     Clan clan = ClanRetrieveUtils.getClanWithId(user.getClanId());
-    if (clan.getOwnerId() != user.getId()) {
-      resBuilder.setStatus(BootPlayerFromClanStatus.NOT_OWNER_OF_CLAN);
-      log.error("clan owner isn't this guy, clan owner id is " + clan.getOwnerId());
-      return false;      
+    int clanId = clan.getId();
+    UserClan uc = RetrieveUtils.userClanRetrieveUtils().getSpecificUserClan(user.getId(), clanId);
+    if (uc == null || (clan.getOwnerId() != user.getId() && uc.getStatus() != UserClanStatus.COLEADER)) {
+    	resBuilder.setStatus(BootPlayerFromClanStatus.NOT_OWNER_OF_CLAN);
+    	log.error("clan owner isn't this guy, clan owner id is " + clan.getOwnerId());
+   		return false;      
+   	}
+   
+    if (playerToBoot.getId() == clan.getOwnerId()) {
+    	resBuilder.setStatus(BootPlayerFromClanStatus.OTHER_FAIL);
+    	log.error(user.getId() + "tried to boot leader");
+    	return false;
+    }
+    UserClan uc2 = RetrieveUtils.userClanRetrieveUtils().getSpecificUserClan(user.getId(), clanId);
+    if (uc.getStatus() == UserClanStatus.COLEADER && uc2.getStatus() == UserClanStatus.COLEADER) {
+    	resBuilder.setStatus(BootPlayerFromClanStatus.OTHER_FAIL);
+    	log.error(user.getId() + "tried to boot" + playerToBoot.getId() + "when both are coleaders");
+    	return false;
     }
     if (playerToBoot.getClanId() != user.getClanId()) {
       resBuilder.setStatus(BootPlayerFromClanStatus.BOOTED_NOT_IN_CLAN);
