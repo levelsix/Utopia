@@ -111,6 +111,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         delta = 1;
         writeChangesToDB(user, userId, cityId, gemIdsToUserCityGems, delta);
       } else {
+        updateNumTimesRedeemed(userId, cityId);
         resBuilder.setStatus(RedeemUserCityGemsStatus.SUCCESS);
       }
 
@@ -403,6 +404,26 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       returnValue.add(fuep);
     }
     return returnValue;
+  }
+  
+  private void updateNumTimesRedeemed(int userId, int cityId) {
+    int numTimesRedeemed = RetrieveUtils.userCityRetrieveUtils()
+        .getNumTimesRedeemedGemsForUserAndCity(userId, cityId);
+    
+    if (ControllerConstants.NOT_SET == numTimesRedeemed) {
+      numTimesRedeemed = 0;
+    }
+    
+    numTimesRedeemed += 1;
+    
+    boolean successful = UpdateUtils.get().incrementUserCityNumTimesRedeemedGems(
+        userId, cityId, numTimesRedeemed);
+    
+    if (!successful) {
+      log.error("unexpected error: failed to increment the amount of times" +
+          " the user redeemed his city gems. userId=" + userId + "\t cityId=" +
+          cityId + "\t should be numTimesReeemed=" + numTimesRedeemed);
+    }
   }
   
 }
