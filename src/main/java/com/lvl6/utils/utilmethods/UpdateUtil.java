@@ -212,4 +212,8 @@ public interface UpdateUtil {
   
   public abstract boolean updateUserCityGem(int userId, int cityId,
       int gemId, int newQuantity);
+  
+  public abstract boolean incrementUserCityNumTimesRedeemedGems(int userId,
+      int cityId, int newQuantity);
+  
 }

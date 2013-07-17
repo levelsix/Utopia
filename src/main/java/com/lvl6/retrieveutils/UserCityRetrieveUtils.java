@@ -52,6 +52,18 @@ import com.lvl6.utils.DBConnection;
     return cityRank;
   }
   
+  public int getNumTimesRedeemedGemsForUserAndCity(int userId, int cityId) {
+    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
+    paramsToVals.put(DBConstants.USER_CITIES__USER_ID, userId);
+    paramsToVals.put(DBConstants.USER_CITIES__CITY_ID, cityId);
+
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    int cityRank = convertRSToNumTimesRedeemedGems(rs);
+    DBConnection.get().close(rs, null, conn);
+    return cityRank;
+  }
+  
   private int convertRSToCityRank(ResultSet rs) {
     if (rs != null) {
       try {
@@ -60,6 +72,24 @@ import com.lvl6.utils.DBConnection;
         while(rs.next()) {  //should only be one
           int currentRank = rs.getInt(DBConstants.USER_CITIES__CURRENT_RANK);
           return currentRank;
+        }
+      } catch (SQLException e) {
+        log.error("problem with database call.", e);
+        
+      }
+    }
+    return NOT_SET;
+  }
+  
+  private int convertRSToNumTimesRedeemedGems(ResultSet rs) {
+    if (rs != null) {
+      try {
+        rs.last();
+        rs.beforeFirst();
+        while(rs.next()) {  //should only be one
+          int numTimesRedeemed =
+              rs.getInt(DBConstants.USER_CITIES__NUM_TIMES_REDEEMED_GEMS);
+          return numTimesRedeemed;
         }
       } catch (SQLException e) {
         log.error("problem with database call.", e);

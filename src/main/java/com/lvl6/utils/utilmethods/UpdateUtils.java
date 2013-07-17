@@ -1323,4 +1323,23 @@ public class UpdateUtils implements UpdateUtil {
     return false;
   }
   
+  public boolean incrementUserCityNumTimesRedeemedGems(int userId, int cityId,
+      int newQuantity) {
+    String tableName = DBConstants.TABLE_USER_CITIES;
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_CITIES__USER_ID, userId);
+    conditionParams.put(DBConstants.USER_CITIES__CITY_ID, cityId);
+    
+    Map<String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER_CITIES__NUM_TIMES_REDEEMED_GEMS,
+        newQuantity);
+    
+    int numUpdated = DBConnection.get().updateTableRows(tableName, null, absoluteParams, 
+        conditionParams, "AND");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+  
 }

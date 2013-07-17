@@ -106,6 +106,12 @@ public class ControllerConstants {
   public static final double SOLO_BOSS__CRITICAL_HIT_DAMAGE_MULTIPLIER = 1.6;
   public static final int SOLO_BOSS__MAX_HEALTH_MULTIPLIER = 15;
   public static final int SOLO_BOSS__LONGEST_GEMLESS_STREAK = 5;
+  public static final int SOLO_BOSS__MAX_REDEEMS_WITH_GUARANTEED_DROP = 15;
+  public static final int SOLO_BOSS__NUM_REDEEMS_LEVEL_TWO_CAP = 30;
+  public static final float SOLO_BOSS__NUM_REDEEMS_LEVEL_TWO_DROP_RATE = 0.1f;
+  public static final int SOLO_BOSS__NUM_REDEEMS_LEVEL_THREE_CAP = 45;
+  public static final float SOLO_BOSS__NUM_REDEEMS_LEVEL_THREE_DROP_RATE = 0.05f;
+  public static final float SOLO_BOSS__ABOVE_LEVEL_THREE_DROP_RATE = 0.02f;
   
   public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.5;
 
