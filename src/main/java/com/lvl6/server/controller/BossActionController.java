@@ -536,13 +536,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       groupedBRList.get(rewardGroup).add(br);
     }
     
-    for (int rewardGroup: groupedBRList.keySet()) {
-      log.info("rewardGroup=" + rewardGroup);
-      for(BossReward br : groupedBRList.get(rewardGroup)) {
-        log.info("\t reward=" + br);
-      }
-    }
-    
     return groupedBRList;
   }
 
@@ -554,12 +547,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private void pickLootFromSpecialRewardGroup(List<BossReward> brList,
       List<BossReward> rewards) {
     Random rand = new Random();
-    log.info("\t picking from special reward group:" + brList);
     for(BossReward br: brList) {
       float percent = rand.nextFloat();
       float rewardPercent = br.getProbabilityToBeAwarded();
       if(percent < rewardPercent) {
-        log.info("\t\t picked reward:" + br);
         rewards.add(br);
       }
     }
@@ -593,7 +584,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   // all rewards have an equal chance of being selected
   private BossReward fairlyPickReward(List<BossReward> brList) {
-    log.info("\t fairly picking reward from: " + brList);
     int numRewards = brList.size();
     Random rand = new Random();
     int rewardIndex = rand.nextInt(numRewards);
@@ -602,8 +592,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   //each reward has it's own probability to be selected, so normalize then pick
   private BossReward unfairlyPickReward(List<BossReward> brList, float highestProbability){
-    log.info("\t unfairly picking reward from: " + brList);
-    log.info("\t highestProbability=" + highestProbability);
     Random rand = new Random();
     float f = rand.nextFloat();
 
@@ -617,7 +605,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       probabilitySoFar += br.getProbabilityToBeAwarded();
       normalizedProbability = probabilitySoFar / highestProbability;
 
-      log.info("\t normalizedProbability=" + normalizedProbability);
       if (f < normalizedProbability) {
         log.info("brList=" + brList + ", index=" + index + ", f=" + f + ",");
         return br;
