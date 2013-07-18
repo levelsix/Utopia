@@ -145,7 +145,6 @@ import com.lvl6.utils.DBConnection;
     int equipId = rs.getInt(i++);
     if (equipId == 0) equipId = ControllerConstants.NOT_SET;
     float probabilityToBeAwarded = rs.getFloat(i++);
-    if (probabilityToBeAwarded == 0) probabilityToBeAwarded = ControllerConstants.NOT_SET;
     int rewardGroup = rs.getInt(i++);
     
     BossReward br = new BossReward(id, bossId, minSilver, maxSilver, minGold, maxGold, equipId, probabilityToBeAwarded, rewardGroup);
