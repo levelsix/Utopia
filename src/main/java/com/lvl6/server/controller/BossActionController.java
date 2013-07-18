@@ -448,6 +448,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       //see if gem drops through randomness
       float bossGemDropRate = determineBossGemDropRate(cg, numTimesRedeemedGems);
       log.info("\t\tbossGemDropRate=" + bossGemDropRate);
+      log.info("\t numTimesRedeemedGems=" + numTimesRedeemedGems);
+      
       cg = gemDroppedViaRandomness(cg, bossGemDropRate);
     } //otherwise user gets the gem since this is the 5th kill sans gem and 
     //user is below redeem limit
