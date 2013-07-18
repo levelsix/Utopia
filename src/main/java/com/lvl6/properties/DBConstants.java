@@ -228,6 +228,7 @@ public class DBConstants {
   public static final String USER_CITIES__USER_ID = GENERIC__USER_ID;
   public static final String USER_CITIES__CITY_ID = "city_id";
   public static final String USER_CITIES__CURRENT_RANK = "current_rank";
+  public static final String USER_CITIES__NUM_TIMES_REDEEMED_GEMS = "num_times_redeemed_gems";
   
   /*REFILL STAT HISTORY*/ //missing time_of_refill column because adding to table does it automatically
   public static final String REFILL_STAT_HISTORY__USER_ID = GENERIC__USER_ID;
