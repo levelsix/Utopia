@@ -447,7 +447,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (numTimesRedeemedGems > maxRedeems || ubGemlessStreak < maxStreak) {
       //see if gem drops through randomness
       float bossGemDropRate = determineBossGemDropRate(cg, numTimesRedeemedGems);
-      log.info("\t\tbossGemDropRate=" + bossGemDropRate);
+      log.info("\t bossGemDropRate=" + bossGemDropRate);
       log.info("\t numTimesRedeemedGems=" + numTimesRedeemedGems);
       
       cg = gemDroppedViaRandomness(cg, bossGemDropRate);
