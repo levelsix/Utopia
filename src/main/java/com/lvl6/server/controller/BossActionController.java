@@ -99,7 +99,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         UserBoss aUserBoss = userBossList.get(0);
         previousSilver = aUser.getCoins() + aUser.getVaultBalance();
         previousGold = aUser.getDiamonds();
-        int numCityGemsForUser = UserCityGemRetrieveUtils.numCityGemsForUser(userId);
         
         //aUserBoss will be modified to account for user's attack
         List<Boolean> isCriticalHit = new ArrayList<Boolean>();
@@ -111,9 +110,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         //get the city gem the user gets
         Map<Integer, UserCityGem> gemIdsToUserCityGems = new HashMap<Integer, UserCityGem>();
         int cityId = aBoss.getCityId();
+        int numCityGemsForUser = UserCityGemRetrieveUtils.numCityGemsForUser(userId);
+        int numTimesRedeemedGems = RetrieveUtils.userCityRetrieveUtils()
+            .getNumTimesRedeemedGemsForUserAndCity(userId, cityId);
+        
         //aUserBoss's gemlessStreak property may be modified
         CityGem cg = determineIfGemDropped(aUserBoss, userId, cityId,
-            gemIdsToUserCityGems);
+            gemIdsToUserCityGems, numTimesRedeemedGems);
         List<BossReward> brList = determineLoot(aUserBoss);
 
         List<Integer> allSilver = new ArrayList<Integer>();
@@ -397,7 +400,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 //  }
 
   private CityGem determineIfGemDropped(UserBoss aUserBoss, int userId,
-      int cityId, Map<Integer, UserCityGem> gemIdsToUserCityGems) {
+      int cityId, Map<Integer, UserCityGem> gemIdsToUserCityGems,
+      int numTimesRedeemedGems) {
     int bossHealth = aUserBoss.getCurrentHealth();
     if (bossHealth > 0) {
       //boss still has health
@@ -434,13 +438,21 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return cg;
     }
     
-    //at the moment, if user kills boss 5 times, user gets a gem
+    //at the moment, if user kills boss 5 times, user gets a gem, but if user
+    //redeemed gems 15 times or more don't auto give gem to user
     int ubGemlessStreak = aUserBoss.getGemlessStreak() + 1; //+1 for current kill
     int maxStreak = ControllerConstants.SOLO_BOSS__LONGEST_GEMLESS_STREAK;
-    if (ubGemlessStreak < maxStreak) {
+    int maxRedeems = ControllerConstants.SOLO_BOSS__MAX_REDEEMS_WITH_GUARANTEED_DROP;
+    
+    if (numTimesRedeemedGems > maxRedeems || ubGemlessStreak < maxStreak) {
       //see if gem drops through randomness
-      cg = gemDroppedViaRandomness(cg);
-    } //otherwise user gets the gem since this is the 5th kill sans gem
+      float bossGemDropRate = determineBossGemDropRate(cg, numTimesRedeemedGems);
+      //log.info("\t bossGemDropRate=" + bossGemDropRate);
+      //log.info("\t numTimesRedeemedGems=" + numTimesRedeemedGems);
+      
+      cg = gemDroppedViaRandomness(cg, bossGemDropRate);
+    } //otherwise user gets the gem since this is the 5th kill sans gem and 
+    //user is below redeem limit
     
     if (null != cg) {
       //since user got gem, reset gemless streak 
@@ -451,11 +463,40 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     
     return cg;
   }
+  
+  //if user redeemed less than 16 times, drop rate is regular gem drop rate
+  //if user redeemed less than 31 times, drop rate is 10%
+  //if user redeemed less than 46 times, drop rate is 5%
+  //else drop rate 2%
+  private float determineBossGemDropRate(CityGem cg, int numTimesRedeemedGems) {
+    int numRedeemsLevelOne = ControllerConstants.SOLO_BOSS__MAX_REDEEMS_WITH_GUARANTEED_DROP;
+    float levelOneDropRate = cg.getDropRate();
+    
+    int numRedeemsLevelTwo = ControllerConstants.SOLO_BOSS__NUM_REDEEMS_LEVEL_TWO_CAP;
+    float levelTwoDropRate = ControllerConstants.SOLO_BOSS__NUM_REDEEMS_LEVEL_TWO_DROP_RATE;
+    
+    int numRedeemsLevelThree = ControllerConstants.SOLO_BOSS__NUM_REDEEMS_LEVEL_THREE_CAP;
+    float levelThreeDropRate = ControllerConstants.SOLO_BOSS__NUM_REDEEMS_LEVEL_THREE_DROP_RATE;
+    
+    float aboveLevelThreeDropRate = ControllerConstants.SOLO_BOSS__ABOVE_LEVEL_THREE_DROP_RATE; 
+    
+    if (numTimesRedeemedGems <= numRedeemsLevelOne) {
+      return levelOneDropRate;
+      
+    } else if (numTimesRedeemedGems <= numRedeemsLevelTwo) {
+      return levelTwoDropRate;
+      
+    } else if (numTimesRedeemedGems <= numRedeemsLevelThree) {
+      return levelThreeDropRate;
+      
+    } else {
+      return aboveLevelThreeDropRate;
+    }
+  }
 
-  private CityGem gemDroppedViaRandomness(CityGem cg) {
+  private CityGem gemDroppedViaRandomness(CityGem cg, float bossGemDropRate) {
     //if randFloat is between [bossGemDropRate, 1), don't give a gem
     Random rand = new Random();
-    float bossGemDropRate = cg.getDropRate();
     float randFloat = rand.nextFloat();
 
     //log.info("randFloat=" + randFloat + "; bossGemDropRate=" + bossGemDropRate);
@@ -494,6 +535,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
       groupedBRList.get(rewardGroup).add(br);
     }
+    
+    for (int rewardGroup: groupedBRList.keySet()) {
+      log.info("rewardGroup=" + rewardGroup);
+      for(BossReward br : groupedBRList.get(rewardGroup)) {
+        log.info("\t reward=" + br);
+      }
+    }
+    
     return groupedBRList;
   }
 
@@ -505,10 +554,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private void pickLootFromSpecialRewardGroup(List<BossReward> brList,
       List<BossReward> rewards) {
     Random rand = new Random();
+    log.info("\t picking from special reward group:" + brList);
     for(BossReward br: brList) {
       float percent = rand.nextFloat();
       float rewardPercent = br.getProbabilityToBeAwarded();
       if(percent < rewardPercent) {
+        log.info("\t\t picked reward:" + br);
         rewards.add(br);
       }
     }
@@ -542,6 +593,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   // all rewards have an equal chance of being selected
   private BossReward fairlyPickReward(List<BossReward> brList) {
+    log.info("\t fairly picking reward from: " + brList);
     int numRewards = brList.size();
     Random rand = new Random();
     int rewardIndex = rand.nextInt(numRewards);
@@ -550,20 +602,23 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   //each reward has it's own probability to be selected, so normalize then pick
   private BossReward unfairlyPickReward(List<BossReward> brList, float highestProbability){
+    log.info("\t unfairly picking reward from: " + brList);
+    log.info("\t highestProbability=" + highestProbability);
     Random rand = new Random();
     float f = rand.nextFloat();
 
     float probabilitySoFar = 0.0f; 
-    float bound = 0.0f; 
+    float normalizedProbability = 0.0f; 
 
     //for each reward, calculate its normalized probability and 
     //determine if it is the reward to be returned 
     for(int index = 0; index < brList.size(); index++) {
       BossReward br = brList.get(index);
       probabilitySoFar += br.getProbabilityToBeAwarded();
-      bound = probabilitySoFar / highestProbability;
+      normalizedProbability = probabilitySoFar / highestProbability;
 
-      if (f < bound) {
+      log.info("\t normalizedProbability=" + normalizedProbability);
+      if (f < normalizedProbability) {
         log.info("brList=" + brList + ", index=" + index + ", f=" + f + ",");
         return br;
       }
