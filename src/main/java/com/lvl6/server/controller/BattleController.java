@@ -132,7 +132,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         User winner = null;
         User loser = null;
 
-        boolean legitBattle = checkLegitBattle(resBuilder, result, attacker, defender);
+        boolean legitBattle = checkLegitBattle(resBuilder, result, attacker, defender, battleTime);
 
         boolean stolenEquipIsLastOne = false;
 
@@ -301,7 +301,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return expGain;
   }
 
-  private boolean checkLegitBattle(Builder resBuilder, BattleResult result, User attacker, User defender) {
+  private boolean checkLegitBattle(Builder resBuilder, BattleResult result, User attacker, User defender, Timestamp battleTime) {
     if (attacker == null || defender == null || attacker.getStamina() <= 0) {
       resBuilder.setStatus(BattleStatus.OTHER_FAIL);
       log.error("problem with battle- attacker or defender is null. attacker is " + attacker + " and defender is " + defender);
@@ -312,7 +312,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("problem with battle- attacker and defender same side. attacker=" + attacker + ", defender=" + defender);
       return false;
     }
-    if (defender.isHasActiveShield()) {
+    if (defender.isHasActiveShield() &&
+        battleTime.getTime() < defender.getCreateTime().getTime()+ControllerConstants.STARTUP__DEFAULT_DAYS_BATTLE_SHIELD_IS_ACTIVE*24*60*60*1000) {
       resBuilder.setStatus(BattleStatus.OPPONENT_HAS_ACTIVE_SHIELD);
       log.error("user error: user trying to attack a defender who has an active" +
       		" shield. attacker=" + attacker + "\t defender=" + defender);
