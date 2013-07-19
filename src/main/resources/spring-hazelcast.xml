@@ -4,12 +4,12 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:hz="http://www.hazelcast.com/schema/spring"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-		http://www.springframework.org/schema/aop 
-		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-		http://www.hazelcast.com/schema/spring
-        http://www.hazelcast.com/schema/spring/hazelcast-spring-2.4.xsd
-		">
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.hazelcast.com/schema/spring
+        http://www.hazelcast.com/schema/spring/hazelcast-spring-2.5.xsd
+	">
 	
 	<import resource="classpath:spring-hazelcast-cluster-${hazelcast.config}.xml"/>
 	

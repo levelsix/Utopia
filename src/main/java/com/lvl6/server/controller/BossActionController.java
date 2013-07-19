@@ -447,6 +447,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (numTimesRedeemedGems > maxRedeems || ubGemlessStreak < maxStreak) {
       //see if gem drops through randomness
       float bossGemDropRate = determineBossGemDropRate(cg, numTimesRedeemedGems);
+      //log.info("\t bossGemDropRate=" + bossGemDropRate);
+      //log.info("\t numTimesRedeemedGems=" + numTimesRedeemedGems);
+      
       cg = gemDroppedViaRandomness(cg, bossGemDropRate);
     } //otherwise user gets the gem since this is the 5th kill sans gem and 
     //user is below redeem limit
@@ -532,6 +535,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
       groupedBRList.get(rewardGroup).add(br);
     }
+    
+    for (int rewardGroup: groupedBRList.keySet()) {
+      log.info("rewardGroup=" + rewardGroup);
+      for(BossReward br : groupedBRList.get(rewardGroup)) {
+        log.info("\t reward=" + br);
+      }
+    }
+    
     return groupedBRList;
   }
 
@@ -543,10 +554,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private void pickLootFromSpecialRewardGroup(List<BossReward> brList,
       List<BossReward> rewards) {
     Random rand = new Random();
+    log.info("\t picking from special reward group:" + brList);
     for(BossReward br: brList) {
       float percent = rand.nextFloat();
       float rewardPercent = br.getProbabilityToBeAwarded();
       if(percent < rewardPercent) {
+        log.info("\t\t picked reward:" + br);
         rewards.add(br);
       }
     }
@@ -580,6 +593,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   // all rewards have an equal chance of being selected
   private BossReward fairlyPickReward(List<BossReward> brList) {
+    log.info("\t fairly picking reward from: " + brList);
     int numRewards = brList.size();
     Random rand = new Random();
     int rewardIndex = rand.nextInt(numRewards);
@@ -588,20 +602,23 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   //each reward has it's own probability to be selected, so normalize then pick
   private BossReward unfairlyPickReward(List<BossReward> brList, float highestProbability){
+    log.info("\t unfairly picking reward from: " + brList);
+    log.info("\t highestProbability=" + highestProbability);
     Random rand = new Random();
     float f = rand.nextFloat();
 
     float probabilitySoFar = 0.0f; 
-    float bound = 0.0f; 
+    float normalizedProbability = 0.0f; 
 
     //for each reward, calculate its normalized probability and 
     //determine if it is the reward to be returned 
     for(int index = 0; index < brList.size(); index++) {
       BossReward br = brList.get(index);
       probabilitySoFar += br.getProbabilityToBeAwarded();
-      bound = probabilitySoFar / highestProbability;
+      normalizedProbability = probabilitySoFar / highestProbability;
 
-      if (f < bound) {
+      log.info("\t normalizedProbability=" + normalizedProbability);
+      if (f < normalizedProbability) {
         log.info("brList=" + brList + ", index=" + index + ", f=" + f + ",");
         return br;
       }
