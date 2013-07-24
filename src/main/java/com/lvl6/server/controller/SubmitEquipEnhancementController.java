@@ -3,8 +3,10 @@ package com.lvl6.server.controller;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,7 @@ import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.misc.MiscMethods;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.SubmitEquipEnhancementRequestProto;
 import com.lvl6.proto.EventProto.SubmitEquipEnhancementResponseProto;
 import com.lvl6.proto.EventProto.SubmitEquipEnhancementResponseProto.Builder;
@@ -226,6 +229,18 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     }
     resBuilder.setStatus(EnhanceEquipStatus.SUCCESS);
     return true;
+  }
+  
+  //based on total stats of feeder equips
+  private int costOfEnhancement(List<UserEquip> feederUserEquips) {
+  	Iterator<UserEquip> enhancementIterator = feederUserEquips.iterator();
+  	int totalStats=0;
+  	//calculate total stats of feeder equips
+  	while(enhancementIterator.hasNext()) {
+  		UserEquip feederEquip = enhancementIterator.next();
+  		totalStats = MiscMethods.attackPowerForEquip(feederEquip.getEquipId(), feederEquip.getLevel(), feederEquip.getEnhancementPercentage()) + MiscMethods.defensePowerForEquip(feederEquip.getEquipId(), feederEquip.getLevel(), feederEquip.getEnhancementPercentage());
+  	}
+  	return (int)Math.ceil(totalStats * ControllerConstants.ENHANCEMENT_COST_CONSTANT);
   }
   
 }
