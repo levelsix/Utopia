@@ -133,10 +133,12 @@ public class ControllerConstants {
   public static final int FORGE__ADDITIONAL_MAX_FORGE_SLOTS = 2;
   public static final int FORGE_COST_OF_PURCHASING_SLOT_TWO = 250;
   public static final int FORGE_COST_OF_PURCHASING_SLOT_THREE = 650;
+  public static final double FORGE_LATE_SPEEDUP_CONSTANT = 0.5;
 
   public static final int EXPANSION_WAIT_COMPLETE__HOUR_CONSTANT = 0;
   public static final int EXPANSION_WAIT_COMPLETE__HOUR_INCREMENT_BASE = 4;
   public static final int EXPANSION_WAIT_COMPLETE__BASE_MINUTES_TO_ONE_GOLD = 3;
+  public static final double EXPANSION_LATE_SPEEDUP_CONSTANT = 0.5;
 
   public static final int PURCHASE_EXPANSION__COST_CONSTANT = 1000;
   public static final int PURCHASE_EXPANSION__COST_EXPONENT_BASE = 2;
@@ -259,6 +261,10 @@ public class ControllerConstants {
   //PURCHASE NORM STRUCTURE
   public static final int PURCHASE_NORM_STRUCTURE__MAX_NUM_OF_CERTAIN_STRUCTURE = 3;
 
+  //SPEEDUP NORM STRUCTURE CONSTANT
+  public static final double BUILD_LATE_SPEEDUP_CONSTANT = 0.5;
+  public static final double UPGRADE_LATE_SPEEDUP_CONSTANT = 0.5;
+  
   //UPGRADE NORM STRUCTURE
   public static final int UPGRADE_NORM_STRUCTURE__MAX_STRUCT_LEVEL = 5;
   

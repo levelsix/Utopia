@@ -14,6 +14,7 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.FinishNormStructWaittimeWithDiamondsRequestEvent;
 import com.lvl6.events.response.FinishNormStructWaittimeWithDiamondsResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
+import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.Structure;
 import com.lvl6.info.User;
 import com.lvl6.info.UserStruct;
@@ -26,6 +27,7 @@ import com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponsePro
 import com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.QuestUtils;
@@ -108,7 +110,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private void writeChangesToDB(User user, UserStruct userStruct, Timestamp timeOfPurchase, NormStructWaitTimeType waitTimeType, Structure struct,
       Map<String, Integer> money) {
     if (waitTimeType == NormStructWaitTimeType.FINISH_CONSTRUCTION) {
-      int goldCost = struct.getInstaBuildDiamondCost() * -1;
+      int goldCost = buildDiamondCost(userStruct, struct, timeOfPurchase) * -1;
       if (!user.updateRelativeDiamondsNaive(goldCost)) {
         log.error("problem with using diamonds to finish norm struct build");
       } else {
@@ -132,7 +134,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
     }
     if (waitTimeType == NormStructWaitTimeType.FINISH_UPGRADE) {
-      int goldCost = calculateDiamondCostForInstaUpgrade(userStruct, struct) * -1;
+      int goldCost = upgradeDiamondCost(userStruct, struct, timeOfPurchase) * -1;
       if (!user.updateRelativeDiamondsNaive(goldCost)) {
         log.error("problem with using diamonds to finish norm struct upgrade waittime");
       } else {
@@ -169,11 +171,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     
     int diamondCost;
     if (waitTimeType == NormStructWaitTimeType.FINISH_CONSTRUCTION) {
-      diamondCost = struct.getInstaBuildDiamondCost();
+      diamondCost = buildDiamondCost(userStruct, struct, timeOfSpeedup);
     } else if (waitTimeType == NormStructWaitTimeType.FINISH_INCOME_WAITTIME) {
       diamondCost = calculateDiamondCostForInstaRetrieve(userStruct, struct);
     } else if (waitTimeType == NormStructWaitTimeType.FINISH_UPGRADE) {
-      diamondCost = calculateDiamondCostForInstaUpgrade(userStruct, struct);
+      diamondCost = buildDiamondCost(userStruct, struct, timeOfSpeedup);
     } else {
       resBuilder.setStatus(FinishNormStructWaittimeStatus.OTHER_FAIL);
       log.error("norm struct wait time type is unknown: " + waitTimeType);
@@ -234,4 +236,26 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, timeOfPurchase, money,
         previousGoldSilver, reasonsForChanges);
   }
+  
+  public int buildDiamondCost(UserStruct userStruct, Structure structure, Timestamp timeOfSpeedup) {
+    long timePassed = timeOfSpeedup.getTime() - userStruct.getPurchaseTime().getTime();
+    long timeRemaining = MiscMethods.calculateMinutesToBuildOrUpgradeForUserStruct(structure.getMinutesToUpgradeBase(), 0) - timePassed;
+    long percentRemaining = timeRemaining/(timeRemaining+timePassed);
+    double speedUpConstant = 1+ControllerConstants.BUILD_LATE_SPEEDUP_CONSTANT*(1-percentRemaining);
+    
+    int diamondCost = (int)(speedUpConstant*percentRemaining*calculateDiamondCostForInstaUpgrade(userStruct, structure));
+    return diamondCost;
+  }
+  
+  public int upgradeDiamondCost(UserStruct userStruct, Structure structure, Timestamp timeOfSpeedup) {
+  	long upgradeStartTime = userStruct.getLastUpgradeTime().getTime();
+    long timePassed = timeOfSpeedup.getTime() - upgradeStartTime;
+    long timeRemaining = MiscMethods.calculateMinutesToBuildOrUpgradeForUserStruct(structure.getMinutesToUpgradeBase(), userStruct.getLevel()) - timePassed;
+    long percentRemaining = timeRemaining/(timeRemaining+timePassed);
+    double speedUpConstant = 1+ControllerConstants.UPGRADE_LATE_SPEEDUP_CONSTANT*(1-percentRemaining);
+    
+    int diamondCost = (int)(speedUpConstant*percentRemaining*calculateDiamondCostForInstaUpgrade(userStruct, structure));
+    return diamondCost;
+  }
+  
 }

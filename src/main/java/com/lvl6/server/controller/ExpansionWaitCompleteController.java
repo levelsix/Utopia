@@ -76,7 +76,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         previousGold = user.getDiamonds();
         
         Map<String, Integer> money = new HashMap<String, Integer>();
-        writeChangesToDB(user, userCityExpansionData, speedUp, money);
+        writeChangesToDB(user, userCityExpansionData, speedUp, money, clientTime);
         writeToUserCurrencyHistory(user, clientTime, money, userCityExpansionData, previousGold);
       }
       server.writeEvent(resEvent);
@@ -88,7 +88,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private void writeChangesToDB(User user, UserCityExpansionData userCityExpansionData, boolean speedUp, 
-      Map<String, Integer> money) {
+      Map<String, Integer> money, Timestamp clientTime) {
     int farLeftExpansionChange = userCityExpansionData.getFarLeftExpansions(), farRightExpansionChange = userCityExpansionData.getFarRightExpansions(), 
         nearLeftExpansionChange = userCityExpansionData.getNearLeftExpansions(), nearRightExpansionChange = userCityExpansionData.getNearRightExpansions();
     if (userCityExpansionData.getLastExpandDirection() == ExpansionDirection.FAR_LEFT) {
@@ -106,7 +106,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     
     if (speedUp) {
-      int diamondChange = -calculateExpansionSpeedupCost(userCityExpansionData);
+      int diamondChange = -expansionDiamondCost(userCityExpansionData, clientTime);
       if (!user.updateRelativeDiamondsNaive(diamondChange)) {
         log.error("problem updating user diamonds");
       } else {
@@ -133,7 +133,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       resBuilder.setStatus(ExpansionWaitCompleteStatus.NOT_DONE_YET);
       return false;      
     }
-    if (speedUp && user.getDiamonds() < calculateExpansionSpeedupCost(userCityExpansionData)) {
+    if (speedUp && user.getDiamonds() < expansionDiamondCost(userCityExpansionData, clientTime)) {
       resBuilder.setStatus(ExpansionWaitCompleteStatus.OTHER_FAIL);
       return false;      
     }
@@ -149,6 +149,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private int calculateExpansionSpeedupCost(UserCityExpansionData userCityExpansionData) {
     return calculateMinutesForCurrentExpansion(userCityExpansionData)/ControllerConstants.EXPANSION_WAIT_COMPLETE__BASE_MINUTES_TO_ONE_GOLD;
+  }
+  
+  private int expansionDiamondCost(UserCityExpansionData userCityExpansionData, Timestamp clientTime) {
+  	long timePassed = clientTime.getTime() - userCityExpansionData.getLastExpandTime().getTime();
+  	long timeRemaining = calculateMinutesForCurrentExpansion(userCityExpansionData);
+  	long percentRemaining = timeRemaining/(timeRemaining+timePassed);
+    double speedUpConstant = 1+ControllerConstants.EXPANSION_LATE_SPEEDUP_CONSTANT*(1-percentRemaining);
+    
+    int diamondCost = (int)(speedUpConstant*percentRemaining*calculateExpansionSpeedupCost(userCityExpansionData));
+    return diamondCost;
   }
   
   private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money,
