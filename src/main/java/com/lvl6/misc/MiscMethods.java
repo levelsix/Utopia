@@ -311,7 +311,7 @@ public class MiscMethods {
     if(userStructLevel==0) {
     	return minutesToUpgradeBase;
     }
-  	return Math.max(1, (int)(minutesToUpgradeBase * userStructLevel * ControllerConstants.MINUTES_TO_UPGRADE_FOR_NORM_STRUCT_MULTIPLIER));
+  	return Math.max(1, (int)(minutesToUpgradeBase * (userStructLevel+1) * ControllerConstants.MINUTES_TO_UPGRADE_FOR_NORM_STRUCT_MULTIPLIER));
   }
 
   public static int calculateIncomeGainedFromUserStruct(int structIncomeBase, int userStructLevel) {
