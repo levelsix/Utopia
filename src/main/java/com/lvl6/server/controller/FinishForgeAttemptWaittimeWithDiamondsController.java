@@ -66,8 +66,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       Map<Integer, BlacksmithAttempt> blacksmithIdToBlacksmithAttempt = UnhandledBlacksmithAttemptRetrieveUtils.getUnhandledBlacksmithAttemptsForUser(senderProto.getUserId());
       int previousGold = 0;
-      
-      boolean legitFinish = checkLegitFinish(resBuilder, blacksmithId, blacksmithIdToBlacksmithAttempt, user, timeOfSpeedup);
+      BlacksmithAttempt ba = blacksmithIdToBlacksmithAttempt.get(blacksmithId);
+      int diamondCost = diamondCost(ba, timeOfSpeedup);
+      boolean legitFinish = checkLegitFinish(resBuilder, blacksmithId, blacksmithIdToBlacksmithAttempt, user, timeOfSpeedup, diamondCost);
 
       FinishForgeAttemptWaittimeWithDiamondsResponseEvent resEvent = new FinishForgeAttemptWaittimeWithDiamondsResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
@@ -76,11 +77,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       if (legitFinish) {
         previousGold = user.getDiamonds();
-        
-        BlacksmithAttempt ba = blacksmithIdToBlacksmithAttempt.get(blacksmithId);
         Map<String, Integer> money = new HashMap<String, Integer>();
-        
-        int diamondCost = MiscMethods.calculateDiamondCostToSpeedupForgeWaittime(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ba.getEquipId()), ba.getGoalLevel());
         writeChangesToDB(user, ba, timeOfSpeedup, diamondCost, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
@@ -111,7 +108,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private boolean checkLegitFinish(Builder resBuilder, int blacksmithId,
       Map<Integer, BlacksmithAttempt> blacksmithIdToBlacksmithAttempt, User user,
-      Timestamp timeOfSpeedup) {
+      Timestamp timeOfSpeedup, int diamondCost) {
     if (blacksmithIdToBlacksmithAttempt == null || user == null || timeOfSpeedup == null) {
       resBuilder.setStatus(FinishForgeAttemptWaittimeWithDiamondsStatus.OTHER_FAIL);
       log.error("a parameter passed in is null or invalid. unhandledBlacksmithAttemptsForUser= "
@@ -147,7 +144,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return false;
     }
 
-    int diamondCost = MiscMethods.calculateDiamondCostToSpeedupForgeWaittime(equip, blacksmithAttempt.getGoalLevel());
     if (user.getDiamonds() < diamondCost) {
       resBuilder.setStatus(FinishForgeAttemptWaittimeWithDiamondsStatus.NOT_ENOUGH_DIAMONDS);
       log.error("user doesn't have enough diamonds. has " + user.getDiamonds() +", needs " + diamondCost);
@@ -168,6 +164,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     reasonsForChanges.put(gold, reasonForChange);
     
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonsForChanges);
+  }
+  
+  public int diamondCost(BlacksmithAttempt ba, Timestamp timeOfSpeedup) {
+  	long forgeStartTime = ba.getStartTime().getTime();
+    long timePassed = timeOfSpeedup.getTime() - forgeStartTime;
+    long timeRemaining = MiscMethods.calculateMinutesToFinishForgeAttempt(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ba.getEquipId()), ba.getGoalLevel()) - timePassed;
+    long percentRemaining = timeRemaining/(timeRemaining+timePassed);
+    double speedUpConstant = 1+ControllerConstants.FORGE_LATE_SPEEDUP_CONSTANT*(1-percentRemaining);
+    
+    int diamondCost = (int)(speedUpConstant*percentRemaining*MiscMethods.calculateDiamondCostToSpeedupForgeWaittime(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ba.getEquipId()), ba.getGoalLevel()));
+    return diamondCost;
   }
   
 }

@@ -578,7 +578,7 @@ public class CreateInfoProtoUtils {
 
   public static FullStructureProto createFullStructureProtoFromStructure(Structure s) {
     return FullStructureProto.newBuilder().setStructId(s.getId()).setName(s.getName()).setIncome(s.getIncome())
-        .setMinutesToGain(s.getMinutesToGain()).setMinutesToBuild(s.getMinutesToBuild())
+        .setMinutesToGain(s.getMinutesToGain()).setMinutesToBuild(MiscMethods.calculateMinutesToBuildOrUpgradeForUserStruct(s.getMinutesToUpgradeBase(), 0))
         .setMinutesToUpgradeBase(s.getMinutesToUpgradeBase()).setCoinPrice(s.getCoinPrice())
         .setDiamondPrice(s.getDiamondPrice()).setMinLevel(s.getMinLevel())
         .setXLength(s.getxLength()).setYLength(s.getyLength())
