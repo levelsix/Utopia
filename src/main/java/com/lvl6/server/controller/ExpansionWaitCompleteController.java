@@ -157,7 +157,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   	long percentRemaining = timeRemaining/(timeRemaining+timePassed);
     double speedUpConstant = 1+ControllerConstants.EXPANSION_LATE_SPEEDUP_CONSTANT*(1-percentRemaining);
     
-    int diamondCost = (int)(speedUpConstant*percentRemaining*calculateExpansionSpeedupCost(userCityExpansionData));
+    int diamondCost = (int)Math.ceil(speedUpConstant*percentRemaining*calculateExpansionSpeedupCost(userCityExpansionData));
     return diamondCost;
   }
   
