@@ -169,8 +169,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   public int diamondCost(BlacksmithAttempt ba, Timestamp timeOfSpeedup) {
   	long forgeStartTime = ba.getStartTime().getTime();
     long timePassed = timeOfSpeedup.getTime() - forgeStartTime;
-    long timeRemaining = MiscMethods.calculateMinutesToFinishForgeAttempt(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ba.getEquipId()), ba.getGoalLevel()) - timePassed;
-    long percentRemaining = timeRemaining/(timeRemaining+timePassed);
+    long timeRemaining = MiscMethods.calculateMinutesToFinishForgeAttempt(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ba.getEquipId()), ba.getGoalLevel())*60 - timePassed;
+    double percentRemaining = timeRemaining/(double)(timeRemaining+timePassed);
     double speedUpConstant = 1+ControllerConstants.FORGE_LATE_SPEEDUP_CONSTANT*(1-percentRemaining);
     
     int diamondCost = (int)(speedUpConstant*percentRemaining*MiscMethods.calculateDiamondCostToSpeedupForgeWaittime(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ba.getEquipId()), ba.getGoalLevel()));
