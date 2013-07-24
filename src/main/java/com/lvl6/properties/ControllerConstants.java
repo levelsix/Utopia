@@ -58,7 +58,7 @@ public class ControllerConstants {
   //--------------------------------------------------------------------------------------------------------------------------
   
   //FORMULA CONSTANTS (ALSO) SENT TO CLIENT
-  public static final double MINUTES_TO_UPGRADE_FOR_NORM_STRUCT_MULTIPLIER = .5;
+  public static final int MINUTES_TO_UPGRADE_FOR_NORM_STRUCT_MULTIPLIER = 1;
   public static final double INCOME_FROM_NORM_STRUCT_MULTIPLIER = 1;
   public static final double UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_COIN_COST_EXPONENT_BASE = 1.7;
   public static final double UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_DIAMOND_COST_EXPONENT_BASE = 1.1;
