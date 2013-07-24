@@ -380,6 +380,15 @@ message StartupResponseProto {
 		
 		optional BossConstants bossConstants = 110;
 		
+		optional SpeedupConstants speedupConstants = 111;
+		
+		message SpeedupConstants {
+			optional double buildLateSpeedupConstant = 1;
+			optional double expansionLateSpeedupConstant = 2;
+			optional double forgeLateSpeedupConstant = 3;
+			optional double upgradeLateSpeedupConstant = 4;
+		} 
+		
 		message BossConstants {
 			optional int32 maxHealthMultiplier = 1;
 		}

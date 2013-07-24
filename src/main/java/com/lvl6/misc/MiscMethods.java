@@ -84,6 +84,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewar
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.LeaderboardEventConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.LockBoxConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.PrestigeConstants;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.SpeedupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ThreeCardMonteConstants;
 import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
 import com.lvl6.proto.InfoProto.BossEventProto;
@@ -715,6 +716,13 @@ public class MiscMethods {
     BossConstants.Builder bc = BossConstants.newBuilder();
     bc.setMaxHealthMultiplier(ControllerConstants.SOLO_BOSS__MAX_HEALTH_MULTIPLIER);
     cb.setBossConstants(bc.build());
+    
+    SpeedupConstants.Builder scb = SpeedupConstants.newBuilder();
+    scb.setBuildLateSpeedupConstant(ControllerConstants.BUILD_LATE_SPEEDUP_CONSTANT);
+    scb.setExpansionLateSpeedupConstant(ControllerConstants.EXPANSION_LATE_SPEEDUP_CONSTANT);
+    scb.setForgeLateSpeedupConstant(ControllerConstants.FORGE_LATE_SPEEDUP_CONSTANT);
+    scb.setUpgradeLateSpeedupConstant(ControllerConstants.UPGRADE_LATE_SPEEDUP_CONSTANT);
+    cb.setSpeedupConstants(scb.build());
     
     return cb.build();  
   }
