@@ -243,7 +243,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     long percentRemaining = timeRemaining/(timeRemaining+timePassed);
     double speedUpConstant = 1+ControllerConstants.BUILD_LATE_SPEEDUP_CONSTANT*(1-percentRemaining);
     
-    int diamondCost = (int)(speedUpConstant*percentRemaining*calculateDiamondCostForInstaUpgrade(userStruct, structure));
+    int diamondCost = (int)Math.ceil(speedUpConstant*percentRemaining*calculateDiamondCostForInstaUpgrade(userStruct, structure));
     return diamondCost;
   }
   
@@ -254,7 +254,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     long percentRemaining = timeRemaining/(timeRemaining+timePassed);
     double speedUpConstant = 1+ControllerConstants.UPGRADE_LATE_SPEEDUP_CONSTANT*(1-percentRemaining);
     
-    int diamondCost = (int)(speedUpConstant*percentRemaining*calculateDiamondCostForInstaUpgrade(userStruct, structure));
+    int diamondCost = (int)Math.ceil(speedUpConstant*percentRemaining*calculateDiamondCostForInstaUpgrade(userStruct, structure));
     return diamondCost;
   }
   

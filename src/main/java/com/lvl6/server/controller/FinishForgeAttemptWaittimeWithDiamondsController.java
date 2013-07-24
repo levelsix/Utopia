@@ -173,7 +173,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     long percentRemaining = timeRemaining/(timeRemaining+timePassed);
     double speedUpConstant = 1+ControllerConstants.FORGE_LATE_SPEEDUP_CONSTANT*(1-percentRemaining);
     
-    int diamondCost = (int)(speedUpConstant*percentRemaining*MiscMethods.calculateDiamondCostToSpeedupForgeWaittime(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ba.getEquipId()), ba.getGoalLevel()));
+    int diamondCost = (int)Math.ceil(speedUpConstant*percentRemaining*MiscMethods.calculateDiamondCostToSpeedupForgeWaittime(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ba.getEquipId()), ba.getGoalLevel()));
     return diamondCost;
   }
   
