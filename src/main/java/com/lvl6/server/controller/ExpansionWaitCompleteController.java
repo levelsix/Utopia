@@ -154,7 +154,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private int expansionDiamondCost(UserCityExpansionData userCityExpansionData, Timestamp clientTime) {
   	long timePassed = (clientTime.getTime() - userCityExpansionData.getLastExpandTime().getTime())/1000;
   	long timeRemaining = calculateMinutesForCurrentExpansion(userCityExpansionData)*60;
-  	double percentRemaining = (double)(timeRemaining/(timeRemaining+timePassed));
+  	double percentRemaining = timeRemaining/(double)(timeRemaining+timePassed);
     double speedUpConstant = 1+ControllerConstants.EXPANSION_LATE_SPEEDUP_CONSTANT*(1-percentRemaining);
     
     int diamondCost = (int)Math.ceil(speedUpConstant*percentRemaining*calculateExpansionSpeedupCost(userCityExpansionData));
