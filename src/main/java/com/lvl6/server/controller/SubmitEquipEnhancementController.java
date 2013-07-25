@@ -3,6 +3,7 @@ package com.lvl6.server.controller;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +66,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     Timestamp clientTime = new Timestamp(reqProto.getClientTime());
     int userId = senderProto.getUserId();
     
+    
     SubmitEquipEnhancementResponseProto.Builder resBuilder = SubmitEquipEnhancementResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
@@ -75,6 +77,10 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       UserEquip enhancingUserEquip = RetrieveUtils.userEquipRetrieveUtils()
           .getSpecificUserEquip(enhancingUserEquipId);
 
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      int previousSilver = 0;
+      int previousGold = 0;
+      
       //The user equips to be sacrified for enhancing.
       //this could be null, or does not contain null but could still be empty
       List<UserEquip> feederUserEquips = RetrieveUtils.userEquipRetrieveUtils()
@@ -82,15 +88,17 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       
       Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
 
-      boolean legitEquip = checkEquip(resBuilder, userId, enhancingUserEquip, feederUserEquipIds, feederUserEquips, 
+      boolean legitEquip = checkEquip(resBuilder, user, userId, enhancingUserEquip, feederUserEquipIds, feederUserEquips, 
           equipmentIdsToEquipment, clientTime);
 
       boolean successful = false;
       List<Integer> enhancementInteger = new ArrayList<Integer>();
       List<Integer> enhancementFeederIds = new ArrayList<Integer>(); 
       if (legitEquip) {
-        successful = writeChangesToDB(resBuilder, enhancingUserEquipId, enhancingUserEquip,
-            feederUserEquipIds, feederUserEquips, clientTime, enhancementInteger, enhancementFeederIds);
+      	previousSilver = user.getCoins() + user.getVaultBalance();
+      	Map<String, Integer> money = new HashMap<String, Integer>();
+        successful = writeChangesToDB(resBuilder, user, enhancingUserEquipId, enhancingUserEquip,
+            feederUserEquipIds, feederUserEquips, clientTime, enhancementInteger, enhancementFeederIds, money);
       }
       int enhancementId = 0;
       if (successful) {
@@ -119,14 +127,26 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   //delete enhancing user equip; make entry in equip enhancement table
   //delete all the feeder user equips; make entries in equip enhancement feeders table
   //delete feederuserequip, write enhanceduserequip to the db
-  private boolean writeChangesToDB(Builder resBuilder, int mainUserEquipId, UserEquip mainUserEquip,
+  private boolean writeChangesToDB(Builder resBuilder, User user, int mainUserEquipId, UserEquip mainUserEquip,
       List<Integer> feederUserEquipIds, List<UserEquip> feederUserEquips, Timestamp clientTime,
-      List<Integer> enhancementInteger, List<Integer> equipEnhancementFeederIds) {
+      List<Integer> enhancementInteger, List<Integer> equipEnhancementFeederIds, Map<String, Integer> money) {
     int userId = mainUserEquip.getUserId();
     int equipId = mainUserEquip.getEquipId();
     int equipLevel = mainUserEquip.getLevel();
     int enhancementPercentageBeforeEnhancement = mainUserEquip.getEnhancementPercentage();
     Timestamp startTimeOfEnhancement = clientTime;
+    int silverChange = -1*costOfEnhancement(feederUserEquips);
+    int goldChange = 0;
+    
+    if (!user.updateRelativeDiamondsCoinsExperienceNaive(goldChange, silverChange, 0)) {
+      log.error("problem with updating user stats: diamondChange=" + goldChange
+          + ", coinChange=" + silverChange + ", user is " + user);
+    } else {
+      //everything went well
+      if (0 != silverChange) {
+        money.put(MiscMethods.silver, silverChange);
+      }
+    }
     
     //make entry in equip enhancement table
     int equipEnhancementId = InsertUtils.get().insertEquipEnhancement(userId, equipId, equipLevel, 
@@ -147,7 +167,6 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     
     //maybe there should be a check to see if this fails...eh
     //unequip all the user equips
-    User user = RetrieveUtils.userRetrieveUtils().getUserById(userId);
     
     List<UserEquip> userEquips = new ArrayList<UserEquip>(feederUserEquips);
     userEquips.add(mainUserEquip);
@@ -185,7 +204,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     return returnValue;
   }
   
-  private boolean checkEquip(Builder resBuilder, int userId, UserEquip enhancingUserEquip, List<Integer> feederUserEquipIds, 
+  private boolean checkEquip(Builder resBuilder, User user, int userId, UserEquip enhancingUserEquip, List<Integer> feederUserEquipIds, 
       List<UserEquip> feederUserEquips, Map<Integer, Equipment> equipmentIdsToEquipment, Timestamp startTime) {
     //the case where client asked for a user equip and user equip is not there.
     if (!MiscMethods.checkClientTimeAroundApproximateNow(startTime)) {
@@ -227,6 +246,13 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       + enhancingUserEquip);
       return false;
     }
+    
+    if(user.getCoins() < costOfEnhancement(feederUserEquips)) {
+    	resBuilder.setStatus(EnhanceEquipStatus.NOT_ENOUGH_SILVER);
+    	log.error("not enough silver to enhance, user has" + user.getCoins() + "silver but requires" + costOfEnhancement(feederUserEquips));
+    	return false;
+    }
+    
     resBuilder.setStatus(EnhanceEquipStatus.SUCCESS);
     return true;
   }
