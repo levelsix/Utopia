@@ -2532,6 +2532,7 @@ message SubmitEquipEnhancementResponseProto {
 		MAIN_OR_FEEDER_OR_EQUIPS_NONEXISTENT = 3;
 		TRYING_TO_SURPASS_MAX_LEVEL = 4;
 		ALREADY_ENHANCING = 5;
+		NOT_ENOUGH_SILVER = 6;
 	}
 }
 

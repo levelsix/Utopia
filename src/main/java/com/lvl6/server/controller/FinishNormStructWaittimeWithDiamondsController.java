@@ -175,7 +175,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } else if (waitTimeType == NormStructWaitTimeType.FINISH_INCOME_WAITTIME) {
       diamondCost = calculateDiamondCostForInstaRetrieve(userStruct, struct);
     } else if (waitTimeType == NormStructWaitTimeType.FINISH_UPGRADE) {
-      diamondCost = buildDiamondCost(userStruct, struct, timeOfSpeedup);
+      diamondCost = upgradeDiamondCost(userStruct, struct, timeOfSpeedup);
     } else {
       resBuilder.setStatus(FinishNormStructWaittimeStatus.OTHER_FAIL);
       log.error("norm struct wait time type is unknown: " + waitTimeType);
@@ -238,9 +238,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
   
   public int buildDiamondCost(UserStruct userStruct, Structure structure, Timestamp timeOfSpeedup) {
-    long timePassed = timeOfSpeedup.getTime() - userStruct.getPurchaseTime().getTime();
-    long timeRemaining = MiscMethods.calculateMinutesToBuildOrUpgradeForUserStruct(structure.getMinutesToUpgradeBase(), 0) - timePassed;
-    long percentRemaining = timeRemaining/(timeRemaining+timePassed);
+    long timePassed = (timeOfSpeedup.getTime() - userStruct.getPurchaseTime().getTime())/1000;
+    long timeRemaining = (MiscMethods.calculateMinutesToBuildOrUpgradeForUserStruct(structure.getMinutesToUpgradeBase(), 0))*60 - timePassed;
+    double percentRemaining = (double)(timeRemaining/(timeRemaining+timePassed));
     double speedUpConstant = 1+ControllerConstants.BUILD_LATE_SPEEDUP_CONSTANT*(1-percentRemaining);
     
     int diamondCost = (int)Math.ceil(speedUpConstant*percentRemaining*calculateDiamondCostForInstaUpgrade(userStruct, structure));
@@ -249,9 +249,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   
   public int upgradeDiamondCost(UserStruct userStruct, Structure structure, Timestamp timeOfSpeedup) {
   	long upgradeStartTime = userStruct.getLastUpgradeTime().getTime();
-    long timePassed = timeOfSpeedup.getTime() - upgradeStartTime;
-    long timeRemaining = MiscMethods.calculateMinutesToBuildOrUpgradeForUserStruct(structure.getMinutesToUpgradeBase(), userStruct.getLevel()) - timePassed;
-    long percentRemaining = timeRemaining/(timeRemaining+timePassed);
+    long timePassed = (timeOfSpeedup.getTime() - upgradeStartTime)/1000;
+    long timeRemaining = (MiscMethods.calculateMinutesToBuildOrUpgradeForUserStruct(structure.getMinutesToUpgradeBase(), userStruct.getLevel()))*60 - timePassed;
+    double percentRemaining = (double)(timeRemaining/(timeRemaining+timePassed));
     double speedUpConstant = 1+ControllerConstants.UPGRADE_LATE_SPEEDUP_CONSTANT*(1-percentRemaining);
     
     int diamondCost = (int)Math.ceil(speedUpConstant*percentRemaining*calculateDiamondCostForInstaUpgrade(userStruct, structure));
