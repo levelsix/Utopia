@@ -240,7 +240,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   public int buildDiamondCost(UserStruct userStruct, Structure structure, Timestamp timeOfSpeedup) {
     long timePassed = (timeOfSpeedup.getTime() - userStruct.getPurchaseTime().getTime())/1000;
     long timeRemaining = (MiscMethods.calculateMinutesToBuildOrUpgradeForUserStruct(structure.getMinutesToUpgradeBase(), 0))*60 - timePassed;
-    double percentRemaining = (double)(timeRemaining/(timeRemaining+timePassed));
+    double percentRemaining = timeRemaining/(double)(timeRemaining+timePassed);
     double speedUpConstant = 1+ControllerConstants.BUILD_LATE_SPEEDUP_CONSTANT*(1-percentRemaining);
     
     int diamondCost = (int)(speedUpConstant*percentRemaining*calculateDiamondCostForInstaUpgrade(userStruct, structure));
@@ -251,7 +251,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   	long upgradeStartTime = userStruct.getLastUpgradeTime().getTime();
     long timePassed = (timeOfSpeedup.getTime() - upgradeStartTime)/1000;
     long timeRemaining = (MiscMethods.calculateMinutesToBuildOrUpgradeForUserStruct(structure.getMinutesToUpgradeBase(), userStruct.getLevel()))*60 - timePassed;
-    double percentRemaining = (double)(timeRemaining/(timeRemaining+timePassed));
+    double percentRemaining = timeRemaining/(double)(timeRemaining+timePassed);
     double speedUpConstant = 1+ControllerConstants.UPGRADE_LATE_SPEEDUP_CONSTANT*(1-percentRemaining);
     
     int diamondCost = (int)(speedUpConstant*percentRemaining*calculateDiamondCostForInstaUpgrade(userStruct, structure));
