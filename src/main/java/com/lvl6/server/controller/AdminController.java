@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.AdminChangeRequestEvent;
 import com.lvl6.events.response.PurgeClientStaticDataResponseEvent;
 import com.lvl6.misc.MiscMethods;

@@ -1,9 +1,7 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -14,10 +12,7 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.ArmoryRequestEvent;
 import com.lvl6.events.response.ArmoryResponseEvent;
-import com.lvl6.events.response.UpdateClientUserResponseEvent;
-import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
-import com.lvl6.info.UserEquip;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.ArmoryRequestProto;
@@ -25,14 +20,7 @@ import com.lvl6.proto.EventProto.ArmoryRequestProto.ArmoryRequestType;
 import com.lvl6.proto.EventProto.ArmoryResponseProto;
 import com.lvl6.proto.EventProto.ArmoryResponseProto.ArmoryStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
-import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
-import com.lvl6.utils.CreateInfoProtoUtils;
-import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.DeleteUtils;
-import com.lvl6.utils.utilmethods.InsertUtils;
-import com.lvl6.utils.utilmethods.QuestUtils;
 
 @Component @DependsOn("gameServer") public class ArmoryController extends EventController {
 
