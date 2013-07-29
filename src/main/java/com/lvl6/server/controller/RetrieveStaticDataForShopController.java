@@ -3,10 +3,12 @@ package com.lvl6.server.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrieveStaticDataForShopRequestEvent;
 import com.lvl6.events.response.RetrieveStaticDataForShopResponseEvent;
 import com.lvl6.info.Equipment;

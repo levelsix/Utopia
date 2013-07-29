@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.mortbay.log.Log;
-import org.springframework.cache.annotation.CacheEvict;
-
 import com.lvl6.properties.DBConstants;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.DBConnection;

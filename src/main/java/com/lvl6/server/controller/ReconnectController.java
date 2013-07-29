@@ -5,12 +5,14 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.integration.Message;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.ReconnectRequestEvent;
 import com.lvl6.events.response.ReconnectResponseEvent;
 import com.lvl6.proto.EventProto.ReconnectRequestProto;
