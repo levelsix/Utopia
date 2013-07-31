@@ -2,10 +2,12 @@ package com.lvl6.server.controller;
 
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.events.RequestEvent; import org.slf4j.*;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.EquipEquipmentRequestEvent;
 import com.lvl6.events.response.EquipEquipmentResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -19,8 +21,8 @@ import com.lvl6.proto.EventProto.EquipEquipmentResponseProto;
 import com.lvl6.proto.EventProto.EquipEquipmentResponseProto.Builder;
 import com.lvl6.proto.EventProto.EquipEquipmentResponseProto.EquipEquipmentStatus;
 import com.lvl6.proto.InfoProto.EquipClassType;
-import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
+import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;

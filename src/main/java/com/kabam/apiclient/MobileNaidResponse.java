@@ -1,7 +1,8 @@
 package com.kabam.apiclient;
 
-import org.codehaus.jackson.annotate.JsonProperty;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.annotate.JsonProperty;
 
 @XmlRootElement
 public class MobileNaidResponse extends Response {

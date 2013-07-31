@@ -44,7 +44,6 @@ import com.lvl6.properties.KabamProperties;
 import com.lvl6.proto.EventProto.InAppPurchaseRequestProto;
 import com.lvl6.proto.EventProto.InAppPurchaseResponseProto;
 import com.lvl6.proto.EventProto.InAppPurchaseResponseProto.InAppPurchaseStatus;
-import com.lvl6.proto.EventProto.MenteeFinishedQuestResponseProto.MenteeQuestType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.IAPHistoryRetrieveUtils;

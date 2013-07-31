@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.TreeMap;
 
 import org.slf4j.Logger;
-import org.slf4j.*;
+import org.slf4j.LoggerFactory;
 
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;

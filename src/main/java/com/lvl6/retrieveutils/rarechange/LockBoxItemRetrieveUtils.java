@@ -8,14 +8,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import com.lvl6.info.LockBoxItem;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.EquipClassType;
-import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.utils.DBConnection;
 
 @Component @DependsOn("gameServer") public class LockBoxItemRetrieveUtils {

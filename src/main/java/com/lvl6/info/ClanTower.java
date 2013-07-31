@@ -3,8 +3,6 @@ package com.lvl6.info;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 public class ClanTower implements Serializable {
   private static final long serialVersionUID = 1936952538114402802L;
   private int id;
