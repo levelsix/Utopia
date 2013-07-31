@@ -632,6 +632,7 @@ public class MiscMethods {
         .setEnhancePercentConstantA(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_A)
         .setEnhancePercentConstantB(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B)
         .setDefaultSecondsToEnhance(ControllerConstants.ENHANCEMENT__DEFAULT_SECONDS_TO_ENHANCE)
+        .setEnhancingCost(ControllerConstants.ENHANCEMENT__COST_CONSTANT)
         .build();
 
     cb = cb.setEnhanceConstants(enc);

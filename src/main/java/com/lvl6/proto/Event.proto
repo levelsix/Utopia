@@ -427,6 +427,7 @@ message StartupResponseProto {
 			optional float enhancePercentConstantB = 11;
 			optional float enhanceLevelExponentBase = 12;
 			optional int32 defaultSecondsToEnhance = 13;
+			optional double enhancingCost = 14;
 		}
 		
 		message LeaderboardEventConstants {
