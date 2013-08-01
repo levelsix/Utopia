@@ -266,7 +266,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   		UserEquip feederEquip = enhancementIterator.next();
   		totalStats = MiscMethods.attackPowerForEquip(feederEquip.getEquipId(), feederEquip.getLevel(), feederEquip.getEnhancementPercentage()) + MiscMethods.defensePowerForEquip(feederEquip.getEquipId(), feederEquip.getLevel(), feederEquip.getEnhancementPercentage());
   	}
-  	return (int)Math.ceil(totalStats * ControllerConstants.ENHANCEMENT_COST_CONSTANT);
+  	return (int)Math.ceil(totalStats * ControllerConstants.ENHANCEMENT__COST_CONSTANT);
   }
   
 }
