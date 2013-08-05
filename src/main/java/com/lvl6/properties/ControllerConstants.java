@@ -639,7 +639,7 @@ public class ControllerConstants {
 //    "FREE limited edition gold equip for joining today!"
 //    "Forging Contest! 50 GOLD reward! Details at forum.lvl6.com"
 //      "We have just added 40+ equips, a new city, and increased the level cap!"
-    "Happy Anniversary! We have decreased the time to collect from buildings by half!"
+      "Happy birthday AoC! Your buildings will produce silver twice as fast all week long!"
     };
   
   
