@@ -1,5 +1,8 @@
 package com.lvl6.server.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,6 +19,10 @@ import java.util.Set;
 import javax.annotation.Resource;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,17 +152,17 @@ public class StartupController extends EventController {
   public StartupController() {
     numAllocatedThreads = 3;
   }
-  
+
   @Autowired
-  	protected NameGeneratorElven nameGeneratorElven;
-  
-  	public NameGeneratorElven getNameGeneratorElven() {
-  		return nameGeneratorElven;
-  	}
-  
-  	public void setNameGeneratorElven(NameGeneratorElven nameGeneratorElven) {
-  		this.nameGeneratorElven = nameGeneratorElven;
-   	}
+  protected NameGeneratorElven nameGeneratorElven;
+
+  public NameGeneratorElven getNameGeneratorElven() {
+    return nameGeneratorElven;
+  }
+
+  public void setNameGeneratorElven(NameGeneratorElven nameGeneratorElven) {
+    this.nameGeneratorElven = nameGeneratorElven;
+  }
 
   @Resource(name = "goodEquipsRecievedFromBoosterPacks")
   protected IList<RareBoosterPurchaseProto> goodEquipsRecievedFromBoosterPacks;
@@ -261,7 +268,7 @@ public class StartupController extends EventController {
           setClanTowers(resBuilder);
           // }
           //resBuilder.addAllBossEvents(MiscMethods.currentBossEvents());
-          
+
           setLeaderboardEventStuff(resBuilder);
           setEquipEnhancementStuff(resBuilder, user);
           setAllies(resBuilder, user);
@@ -269,7 +276,7 @@ public class StartupController extends EventController {
           setCityGems(resBuilder);
           setLivingBossesForUser(resBuilder, user);
           setAllBosses(resBuilder, user.getType());
-          
+
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
 
@@ -313,6 +320,8 @@ public class StartupController extends EventController {
           reqProto.getAdvertiserId());
       resBuilder.setKabamNaid(naid);
     }
+    
+    sendOfferChartInstall(now, reqProto.getAdvertiserId());
 
     StartupResponseProto resProto = resBuilder.build();
     StartupResponseEvent resEvent = new StartupResponseEvent(udid);
@@ -333,24 +342,24 @@ public class StartupController extends EventController {
     // reset
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);
   }
-  
+
   private void setLivingBossesForUser(Builder resBuilder, User aUser) {
     int userId = aUser.getId();
     boolean livingBossesOnly = true;
     List<UserBoss> userBosses = UserBossRetrieveUtils
         .getUserBossesForUserId(userId, livingBossesOnly);
-    
+
     for (UserBoss ub : userBosses) {
       FullUserBossProto ubp = CreateInfoProtoUtils
           .createFullUserBossProtoFromUserBoss(ub);
       resBuilder.addLivingBosses(ubp);
     }
   }
-  
+
   private void setAllBosses(Builder resBuilder, UserType type) {
     Map<Integer, Boss> bossIdsToBosses = 
         BossRetrieveUtils.getBossIdsToBosses();
-    
+
     for (Boss b : bossIdsToBosses.values()) {
       FullBossProto fbp =
           CreateInfoProtoUtils.createFullBossProtoFromBoss(type, b);
@@ -428,17 +437,17 @@ public class StartupController extends EventController {
 
     resBuilder.addAllPcpp(pcppList);
   }
-  
+
   private void setCityGems(Builder b) {
     //sending to the client all the active city gems
     Map<Integer, CityGem> activeGemsForAllCities = 
         CityGemRetrieveUtils.getActiveCityGemIdsToCityGems();
-    
+
     for (CityGem cg : activeGemsForAllCities.values()) {
       CityGemProto cgp = CreateInfoProtoUtils.createCityGemProto(cg);
       b.addGemsForAllCities(cgp);
     }
-    
+
   }
 
   private Map<Integer, Integer> aggregateOtherUserIdsAndPrivateChatPost(
@@ -551,6 +560,40 @@ public class StartupController extends EventController {
   // retrieve's the active leaderboard event prizes and rewards for the events
   private void setLeaderboardEventStuff(StartupResponseProto.Builder resBuilder) {
     resBuilder.addAllLeaderboardEvents(MiscMethods.currentLeaderboardEventProtos());
+  }
+
+  private void sendOfferChartInstall(Date installTime, String advertiserId) {
+    String clientId = "15";
+    String appId = "648221050";
+    String geo = "N/A";
+    String installTimeStr = ""+installTime.getTime();
+    String devicePlatform = "iphone";
+    String deviceType = "iphone";
+
+    String urlString = "http://offerchart.com/mobileapp/api/send_install_ping?" +
+        "client_id="+clientId +
+        "&app_id="+appId +
+        "&device_id="+advertiserId +
+        "&device_type="+deviceType +
+        "&geo="+geo +
+        "&install_time="+installTimeStr +
+        "&device_platform="+devicePlatform;
+
+    DefaultHttpClient httpclient = new DefaultHttpClient();
+    HttpGet httpGet = new HttpGet(urlString);
+
+    try {
+      HttpResponse response1 = httpclient.execute(httpGet);
+      BufferedReader rd = new BufferedReader(new InputStreamReader(response1.getEntity().getContent()));
+      String responseString = "";
+      String line;
+      while ((line = rd.readLine()) != null) {
+        responseString += line;
+      }
+      log.info("Received response: " + responseString);
+    } catch (Exception e) {
+      log.error("failed to make offer chart call", e);
+    }
   }
 
   private String retrieveKabamNaid(User user, String openUdid, String mac, String advertiserId) {
@@ -1004,7 +1047,7 @@ public class StartupController extends EventController {
       List<BoosterItem> itemsUserReceives = new ArrayList<BoosterItem>();
       List<Boolean> collectedBeforeReset = new ArrayList<Boolean>();
       List<Integer> userEquipIds = new ArrayList<Integer>();
-      
+
       // actually selecting equips
       boolean resetOccurred = MiscMethods.getAllBoosterItemsForUser(boosterItemIdsToBoosterItems,
           boosterItemIdsToNumCollected, numBoosterItemsUserWants, aUser, aPack, itemsUserReceives,
@@ -1505,62 +1548,62 @@ public class StartupController extends EventController {
         ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL);
 
     String name = "";
-      int syllablesInName = (Math.random() < .5) ? syllablesInName1 : syllablesInName2;
-      name = nameGeneratorElven.compose(syllablesInName);
-    
+    int syllablesInName = (Math.random() < .5) ? syllablesInName1 : syllablesInName2;
+    name = nameGeneratorElven.compose(syllablesInName);
 
-		TutorialConstants.Builder builder = TutorialConstants
-				.newBuilder()
-				.setInitEnergy(ControllerConstants.TUTORIAL__INIT_ENERGY)
-				.setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA)
-				.setInitHealth(ControllerConstants.TUTORIAL__INIT_HEALTH)
-				.setStructToBuild(ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD)
-				.setDiamondCostToInstabuildFirstStruct(
-						ControllerConstants.TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT)
-				.setArcherInitAttack(ControllerConstants.TUTORIAL__ARCHER_INIT_ATTACK)
-				.setArcherInitDefense(ControllerConstants.TUTORIAL__ARCHER_INIT_DEFENSE)
-				.setArcherInitWeapon(
-						CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
-								.get(ControllerConstants.TUTORIAL__ARCHER_INIT_WEAPON_ID)))
-				.setArcherInitArmor(
-						CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
-								.get(ControllerConstants.TUTORIAL__ARCHER_INIT_ARMOR_ID)))
-				.setMageInitAttack(ControllerConstants.TUTORIAL__MAGE_INIT_ATTACK)
-				.setMageInitDefense(ControllerConstants.TUTORIAL__MAGE_INIT_DEFENSE)
-				.setMageInitWeapon(
-						CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
-								.get(ControllerConstants.TUTORIAL__MAGE_INIT_WEAPON_ID)))
-				.setMageInitArmor(
-						CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
-								.get(ControllerConstants.TUTORIAL__MAGE_INIT_ARMOR_ID)))
-				.setWarriorInitAttack(ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK)
-				.setWarriorInitDefense(ControllerConstants.TUTORIAL__WARRIOR_INIT_DEFENSE)
-				.setWarriorInitWeapon(
-						CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
-								.get(ControllerConstants.TUTORIAL__WARRIOR_INIT_WEAPON_ID)))
-				.setWarriorInitArmor(
-						CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
-								.get(ControllerConstants.TUTORIAL__WARRIOR_INIT_ARMOR_ID)))
-				.setTutorialQuest(tqbp)
-				.setMinNameLength(ControllerConstants.USER_CREATE__MIN_NAME_LENGTH)
-				.setTutorialQuest(tqbp)
-				.setMaxNameLength(ControllerConstants.USER_CREATE__MAX_NAME_LENGTH)
-				.setCoinRewardForBeingReferred(
-						ControllerConstants.USER_CREATE__COIN_REWARD_FOR_BEING_REFERRED)
-				.setInitDiamonds(Globals.INITIAL_DIAMONDS())
-				.setInitCoins(ControllerConstants.TUTORIAL__INIT_COINS)
-				.setFirstBattleCoinGain(ControllerConstants.TUTORIAL__FIRST_BATTLE_COIN_GAIN)
-				.setFirstBattleExpGain(ControllerConstants.TUTORIAL__FIRST_BATTLE_EXP_GAIN)
-				.setFirstTaskGood(ftpGood)
-				.setFirstTaskBad(ftpBad)
-				.setExpRequiredForLevelTwo(
-						LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(2))
-				.setExpRequiredForLevelThree(
-						LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(3))
-				.setFirstWallPost(
-						CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, poster))
-				.setDefaultName(name)
-				.setCostToSpeedUpForge(ControllerConstants.TUTORIAL__COST_TO_SPEED_UP_FORGE);
+
+    TutorialConstants.Builder builder = TutorialConstants
+        .newBuilder()
+        .setInitEnergy(ControllerConstants.TUTORIAL__INIT_ENERGY)
+        .setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA)
+        .setInitHealth(ControllerConstants.TUTORIAL__INIT_HEALTH)
+        .setStructToBuild(ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD)
+        .setDiamondCostToInstabuildFirstStruct(
+            ControllerConstants.TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT)
+            .setArcherInitAttack(ControllerConstants.TUTORIAL__ARCHER_INIT_ATTACK)
+            .setArcherInitDefense(ControllerConstants.TUTORIAL__ARCHER_INIT_DEFENSE)
+            .setArcherInitWeapon(
+                CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
+                    .get(ControllerConstants.TUTORIAL__ARCHER_INIT_WEAPON_ID)))
+                    .setArcherInitArmor(
+                        CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
+                            .get(ControllerConstants.TUTORIAL__ARCHER_INIT_ARMOR_ID)))
+                            .setMageInitAttack(ControllerConstants.TUTORIAL__MAGE_INIT_ATTACK)
+                            .setMageInitDefense(ControllerConstants.TUTORIAL__MAGE_INIT_DEFENSE)
+                            .setMageInitWeapon(
+                                CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
+                                    .get(ControllerConstants.TUTORIAL__MAGE_INIT_WEAPON_ID)))
+                                    .setMageInitArmor(
+                                        CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
+                                            .get(ControllerConstants.TUTORIAL__MAGE_INIT_ARMOR_ID)))
+                                            .setWarriorInitAttack(ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK)
+                                            .setWarriorInitDefense(ControllerConstants.TUTORIAL__WARRIOR_INIT_DEFENSE)
+                                            .setWarriorInitWeapon(
+                                                CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
+                                                    .get(ControllerConstants.TUTORIAL__WARRIOR_INIT_WEAPON_ID)))
+                                                    .setWarriorInitArmor(
+                                                        CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment
+                                                            .get(ControllerConstants.TUTORIAL__WARRIOR_INIT_ARMOR_ID)))
+                                                            .setTutorialQuest(tqbp)
+                                                            .setMinNameLength(ControllerConstants.USER_CREATE__MIN_NAME_LENGTH)
+                                                            .setTutorialQuest(tqbp)
+                                                            .setMaxNameLength(ControllerConstants.USER_CREATE__MAX_NAME_LENGTH)
+                                                            .setCoinRewardForBeingReferred(
+                                                                ControllerConstants.USER_CREATE__COIN_REWARD_FOR_BEING_REFERRED)
+                                                                .setInitDiamonds(Globals.INITIAL_DIAMONDS())
+                                                                .setInitCoins(ControllerConstants.TUTORIAL__INIT_COINS)
+                                                                .setFirstBattleCoinGain(ControllerConstants.TUTORIAL__FIRST_BATTLE_COIN_GAIN)
+                                                                .setFirstBattleExpGain(ControllerConstants.TUTORIAL__FIRST_BATTLE_EXP_GAIN)
+                                                                .setFirstTaskGood(ftpGood)
+                                                                .setFirstTaskBad(ftpBad)
+                                                                .setExpRequiredForLevelTwo(
+                                                                    LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(2))
+                                                                    .setExpRequiredForLevelThree(
+                                                                        LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(3))
+                                                                        .setFirstWallPost(
+                                                                            CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, poster))
+                                                                            .setDefaultName(name)
+                                                                            .setCostToSpeedUpForge(ControllerConstants.TUTORIAL__COST_TO_SPEED_UP_FORGE);
 
 
     List<NeutralCityElement> neutralCityElements = NeutralCityElementsRetrieveUtils
