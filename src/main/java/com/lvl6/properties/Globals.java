@@ -11,12 +11,21 @@ public class Globals {
 	protected String appStoreUrl;
 	protected String reviewPageUrl;
 	protected boolean kabamEnabled = true;
+	protected boolean offerChartEnabled = false;
+
 	protected boolean sandbox = true;
 	protected boolean iddictionOn = true;
 	protected float versionNumber = 1.0f;
 	protected int healthCheckTimeoutSeconds = 6;
 	protected int initialDiamonds = 20;
 	
+	public boolean isOfferChartEnabled() {
+		return offerChartEnabled;
+	}
+	
+	public void setOfferChartEnabled(boolean offerChartEnabled) {
+		this.offerChartEnabled = offerChartEnabled;
+	}
 	
 	
 	public int getInitialDiamonds() {
@@ -113,6 +122,8 @@ public class Globals {
     public static final boolean IS_SANDBOX(){return AppContext.getApplicationContext().getBean(Globals.class).getSandbox();};
     
     public static final boolean KABAM_ENABLED() {return AppContext.getApplicationContext().getBean(Globals.class).isKabamEnabled();};
+    
+    public static final boolean OFFERCHART_ENABLED() {return AppContext.getApplicationContext().getBean(Globals.class).isOfferChartEnabled();};
 
     public static final int NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME = 10;
     
