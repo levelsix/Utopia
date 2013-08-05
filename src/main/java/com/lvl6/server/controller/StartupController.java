@@ -307,6 +307,10 @@ public class StartupController extends EventController {
           InsertUtils.get().insertIntoFirstTimeUsers(udid, null,
               reqProto.getMacAddress(), reqProto.getAdvertiserId(), now);
         }
+        
+        if (Globals.OFFERCHART_ENABLED() && isFirstTimeUser) {
+          sendOfferChartInstall(now, reqProto.getAdvertiserId());
+        }
 
         boolean goingThroughTutorial = true;
         InsertUtils.get().insertIntoLoginHistory(udid, 0, now, isLogin, goingThroughTutorial);
@@ -320,8 +324,6 @@ public class StartupController extends EventController {
           reqProto.getAdvertiserId());
       resBuilder.setKabamNaid(naid);
     }
-    
-    sendOfferChartInstall(now, reqProto.getAdvertiserId());
 
     StartupResponseProto resProto = resBuilder.build();
     StartupResponseEvent resEvent = new StartupResponseEvent(udid);
