@@ -295,6 +295,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       reasonForChange += " & fail";
     }
 
+    log.info("reasonForChange=" + reasonForChange);
+    
     previousGoldSilver.put(gold, previousGold);
     previousGoldSilver.put(silver, previousSilver);
     reasonsForChanges.put(gold, reasonForChange);
