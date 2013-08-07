@@ -309,7 +309,6 @@ public class StartupController extends EventController {
         if (Globals.OFFERCHART_ENABLED() && isFirstTimeUser) {
           sendOfferChartInstall(now, reqProto.getAdvertiserId());
         }
-        sendOfferChartInstall(now, reqProto.getAdvertiserId());
 
         boolean goingThroughTutorial = true;
         InsertUtils.get().insertIntoLoginHistory(udid, 0, now, isLogin, goingThroughTutorial);
