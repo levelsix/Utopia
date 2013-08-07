@@ -53,6 +53,7 @@
 		<property name="sandbox" value="${globals.isSandbox}" />
 		<property name="iddictionOn" value="${globals.iddictionOn}" />
 		<property name="kabamEnabled" value="${globals.kabamEnabled}" />
+		<property name="offerChartEnabled" value="${globals.offerChartEnabled}" />
 		<property name="appStoreUrl" ><value><![CDATA[${globals.appStoreUrl}]]></value></property>
 		<property name="reviewPageUrl" ><value><![CDATA[${globals.reviewPageUrl}]]></value></property>
 		<property name="appleBundleId" value="${globals.appleBundleId}" />
