@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -113,14 +114,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         previousSilver = user.getCoins() + user.getVaultBalance();
         previousGold = user.getDiamonds();
         
+        //stuff for tracking currency history
         Map<String, Integer> money = new HashMap<String, Integer>();
-        writeChangesToDB(user, method, lockBoxEvent, userEvent, successfulPick, hadAllItems, curTime, money);
+        List<String> rfcDetails = new ArrayList<String>();
+        
+        writeChangesToDB(user, method, lockBoxEvent, userEvent, successfulPick, hadAllItems, curTime, money, rfcDetails);
 
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
-        writeToUserCurrencyHistory(user, curTime, money, previousSilver, previousGold);
+        writeToUserCurrencyHistory(user, curTime, money, previousSilver, previousGold, rfcDetails, successfulPick);
       }
     } catch (Exception e) {
       log.error("exception in PickLockBox processEvent", e);
@@ -228,11 +232,29 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private void writeChangesToDB(User user, PickLockBoxMethod method, LockBoxEvent event, UserLockBoxEvent userEvent, 
-      boolean successfulPick, boolean hadAllItems, Timestamp curTime, Map<String, Integer> money) {
-    int diamondCost = method == PickLockBoxMethod.GOLD ? ControllerConstants.LOCK_BOXES__GOLD_COST_TO_PICK : 0;
-    if (userEvent.getLastPickTime() != null && userEvent.getLastPickTime().getTime() + 60000*ControllerConstants.LOCK_BOXES__NUM_MINUTES_TO_REPICK > curTime.getTime())
+      boolean successfulPick, boolean hadAllItems, Timestamp curTime, Map<String, Integer> money, List<String> rfcDetails) {
+    //explaining why user was charged (user currency history table)
+    String rfcDetail = "";
+    
+    int diamondCost = 0;
+    int coinCost = 0;
+    
+    if (userEvent.getLastPickTime() != null && userEvent.getLastPickTime().getTime() + 60000*ControllerConstants.LOCK_BOXES__NUM_MINUTES_TO_REPICK > curTime.getTime()) {
       diamondCost += ControllerConstants.LOCK_BOXES__GOLD_COST_TO_RESET_PICK;
-    int coinCost = method == PickLockBoxMethod.SILVER ? ControllerConstants.LOCK_BOXES__SILVER_COST_TO_PICK : 0;
+      rfcDetail += " reset &";
+    }
+
+    if (PickLockBoxMethod.GOLD == method) {
+      diamondCost += ControllerConstants.LOCK_BOXES__GOLD_COST_TO_PICK;
+      rfcDetail += " pick method gold";
+      
+    } else if (PickLockBoxMethod.SILVER == method) {
+      coinCost += ControllerConstants.LOCK_BOXES__SILVER_COST_TO_PICK;
+      rfcDetail += " pick method silver";
+      
+    } else {
+      rfcDetail += " pick method free";
+    }
     
     boolean changeNumPostsInMarketplace = false;
     if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(-diamondCost, -coinCost, 0, changeNumPostsInMarketplace)) {
@@ -245,6 +267,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (0 != coinCost) {
         money.put(MiscMethods.silver, -coinCost);
       }
+      //explaining why user was charged (user currency history table)
+      rfcDetails.add(rfcDetail);
     }
 
     if (!UpdateUtils.get().decrementNumLockBoxesIncrementNumTimesCompletedForUser(event.getId(), user.getId(), successfulPick ? 1 : 0, hadAllItems, curTime)) {
@@ -254,12 +278,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
   
   private void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money,
-      int previousSilver, int previousGold) {
+      int previousSilver, int previousGold, List<String> rfcDetails, boolean successfulPick) {
     Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
     Map<String, String> reasonsForChanges = new HashMap<String, String>();
     String gold = MiscMethods.gold;
     String silver = MiscMethods.silver;
     String reasonForChange = ControllerConstants.UCHRFC__PICK_LOCKBOX;
+    
+    if (!rfcDetails.isEmpty()) {
+      reasonForChange += rfcDetails.get(0);
+    }
+    
+    if (successfulPick) {
+      reasonForChange += " & success";
+    } else {
+      reasonForChange += " & fail";
+    }
 
     previousGoldSilver.put(gold, previousGold);
     previousGoldSilver.put(silver, previousSilver);
