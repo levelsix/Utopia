@@ -294,8 +294,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } else {
       reasonForChange += " & fail";
     }
-
-    log.info("reasonForChange=" + reasonForChange);
     
     previousGoldSilver.put(gold, previousGold);
     previousGoldSilver.put(silver, previousSilver);
