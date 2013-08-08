@@ -663,7 +663,7 @@ public class ControllerConstants {
 
   public static final String NIB_NAME__THREE_CARD_MONTE = "ThreeCardMonte.4";
   public static final String NIB_NAME__LOCK_BOX = "LockBox.4";
-  public static final String NIB_NAME__TRAVELING_MAP = "TravelingMap.3";
+  public static final String NIB_NAME__TRAVELING_MAP = "TravelingMap.4";
   public static final String NIB_NAME__GOLD_MINE = "GoldMine.2";
   public static final String NIB_NAME__EXPANSION = "Expansion.2";
   public static final String NIB_NAME__MARKET_FILTERS = "MarketplaceFilters.3";
