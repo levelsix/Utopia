@@ -1,8 +1,10 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -66,9 +68,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       Map<Integer, BlacksmithAttempt> blacksmithIdToBlacksmithAttempt = UnhandledBlacksmithAttemptRetrieveUtils.getUnhandledBlacksmithAttemptsForUser(senderProto.getUserId());
       int previousGold = 0;
-      BlacksmithAttempt ba = blacksmithIdToBlacksmithAttempt.get(blacksmithId);
-      int diamondCost = diamondCost(ba, timeOfSpeedup);
-      boolean legitFinish = checkLegitFinish(resBuilder, blacksmithId, blacksmithIdToBlacksmithAttempt, user, timeOfSpeedup, diamondCost);
+      List<Integer> diamondCostList = new ArrayList<Integer>();
+      boolean legitFinish = checkLegitFinish(resBuilder, blacksmithId, blacksmithIdToBlacksmithAttempt, user, timeOfSpeedup, diamondCostList);
 
       FinishForgeAttemptWaittimeWithDiamondsResponseEvent resEvent = new FinishForgeAttemptWaittimeWithDiamondsResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
@@ -77,6 +78,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       if (legitFinish) {
         previousGold = user.getDiamonds();
+        int diamondCost = diamondCostList.get(0);
+        log.info("write changes to db diamondCost=" + diamondCost);
+        BlacksmithAttempt ba = blacksmithIdToBlacksmithAttempt.get(blacksmithId);
+        
         Map<String, Integer> money = new HashMap<String, Integer>();
         writeChangesToDB(user, ba, timeOfSpeedup, diamondCost, money);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
@@ -108,7 +113,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private boolean checkLegitFinish(Builder resBuilder, int blacksmithId,
       Map<Integer, BlacksmithAttempt> blacksmithIdToBlacksmithAttempt, User user,
-      Timestamp timeOfSpeedup, int diamondCost) {
+      Timestamp timeOfSpeedup, List<Integer> diamondCostList) {
     if (blacksmithIdToBlacksmithAttempt == null || user == null || timeOfSpeedup == null) {
       resBuilder.setStatus(FinishForgeAttemptWaittimeWithDiamondsStatus.OTHER_FAIL);
       log.error("a parameter passed in is null or invalid. unhandledBlacksmithAttemptsForUser= "
@@ -122,6 +127,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           + new Date());
       return false;
     }
+    
+    if (!blacksmithIdToBlacksmithAttempt.containsKey(blacksmithId)) {
+      resBuilder.setStatus(FinishForgeAttemptWaittimeWithDiamondsStatus.OTHER_FAIL);
+      log.error("unexpected error: blacksmithId does not exist. blacksmithId=" + blacksmithId +
+          "\t blacksmithIdToBlacksmithAttempt=" + blacksmithIdToBlacksmithAttempt);
+      return false;
+    }
+    
     
     BlacksmithAttempt blacksmithAttempt = blacksmithIdToBlacksmithAttempt.get(blacksmithId);
     Equipment equip = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(blacksmithAttempt.getEquipId());
@@ -143,13 +156,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("start time after speedup time. starttime = " + blacksmithAttempt.getStartTime() + ", speedup time is " + timeOfSpeedup);
       return false;
     }
-
+    
+    int diamondCost = diamondCost(blacksmithAttempt, timeOfSpeedup);
+    
     if (user.getDiamonds() < diamondCost) {
       resBuilder.setStatus(FinishForgeAttemptWaittimeWithDiamondsStatus.NOT_ENOUGH_DIAMONDS);
       log.error("user doesn't have enough diamonds. has " + user.getDiamonds() +", needs " + diamondCost);
       return false;
     }
+    
+    //pass diamond cost up to the parent function
+    diamondCostList.add(diamondCost);
     resBuilder.setStatus(FinishForgeAttemptWaittimeWithDiamondsStatus.SUCCESS);
+    
     return true;  
   }
 
@@ -166,14 +185,42 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonsForChanges);
   }
   
+  //calculate the diamond cost to speed up forging an equip proportional to the time remaining
   public int diamondCost(BlacksmithAttempt ba, Timestamp timeOfSpeedup) {
-  	long forgeStartTime = ba.getStartTime().getTime();
-    long timePassed = (timeOfSpeedup.getTime() - forgeStartTime)/1000;
-    long timeRemaining = (MiscMethods.calculateMinutesToFinishForgeAttempt(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ba.getEquipId()), ba.getGoalLevel()))*60 - timePassed;
-    double percentRemaining = (double)(timeRemaining/(timeRemaining+timePassed));
-    double speedUpConstant = 1+ControllerConstants.FORGE_LATE_SPEEDUP_CONSTANT*(1-percentRemaining);
+    int baEquipId = ba.getEquipId();
+    int baGoalLvl = ba.getGoalLevel();
     
-    int diamondCost = (int)Math.ceil(speedUpConstant*percentRemaining*MiscMethods.calculateDiamondCostToSpeedupForgeWaittime(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ba.getEquipId()), ba.getGoalLevel()));
+  	long forgeStartTimeMillis = ba.getStartTime().getTime();
+  	log.info("forgeStartTimeMillis=" + forgeStartTimeMillis);
+  	log.info("timeOfSpeedupMillis=" + timeOfSpeedup.getTime());
+  	
+    long timePassedSec = (timeOfSpeedup.getTime() - forgeStartTimeMillis)/1000;
+    log.info("timePassedSec=" + timePassedSec);
+    
+    Equipment equip = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(baEquipId); 
+    
+    long finishForgeAttemptMinutes =
+        MiscMethods.calculateMinutesToFinishForgeAttempt(equip, baGoalLvl);
+    log.info("finishForgeAttemptMinutes=" + finishForgeAttemptMinutes);
+    
+    long timeRemainingSec = (finishForgeAttemptMinutes * 60) - timePassedSec;
+    log.info("timeRemaining=" + timeRemainingSec);
+    
+    double percentRemaining = (double)(timeRemainingSec/(timeRemainingSec+timePassedSec));
+    log.info("percentRemaining before cast=" + (timeRemainingSec/(timeRemainingSec+timePassedSec)));
+    log.info("percentRemaining=" + percentRemaining);
+    
+    double speedUpConstant = 1+ControllerConstants.FORGE_LATE_SPEEDUP_CONSTANT*(1-percentRemaining);
+    log.info("speedUpConstant first factor (1-percentRemaining)=" + (1-percentRemaining));
+    log.info("speedUpConstant second factor =" + ControllerConstants.FORGE_LATE_SPEEDUP_CONSTANT*(1-percentRemaining));
+    log.info("speedUpConstant=" + speedUpConstant);
+    
+    int maxDiamondCost = MiscMethods.calculateDiamondCostToSpeedupForgeWaittime(equip, baGoalLvl);
+    log.info("maxDiamondCost=" + maxDiamondCost);
+    
+    int diamondCost = (int)Math.ceil(speedUpConstant* percentRemaining * maxDiamondCost);
+    log.info("diamondCost=" + diamondCost);
+    
     return diamondCost;
   }
   
