@@ -206,7 +206,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     long timeRemainingSec = (finishForgeAttemptMinutes * 60) - timePassedSec;
     log.info("timeRemaining=" + timeRemainingSec);
     
-    double percentRemaining = (double)(timeRemainingSec/(timeRemainingSec+timePassedSec));
+    double percentRemaining = ((double) timeRemainingSec) / ((double) (timeRemainingSec+timePassedSec));
     log.info("percentRemaining before cast=" + (timeRemainingSec/(timeRemainingSec+timePassedSec)));
     log.info("percentRemaining=" + percentRemaining);
     
