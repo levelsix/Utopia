@@ -79,7 +79,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (legitFinish) {
         previousGold = user.getDiamonds();
         int diamondCost = diamondCostList.get(0);
-        log.info("write changes to db diamondCost=" + diamondCost);
+        //log.info("write changes to db diamondCost=" + diamondCost);
         BlacksmithAttempt ba = blacksmithIdToBlacksmithAttempt.get(blacksmithId);
         
         Map<String, Integer> money = new HashMap<String, Integer>();
@@ -189,37 +189,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   public int diamondCost(BlacksmithAttempt ba, Timestamp timeOfSpeedup) {
     int baEquipId = ba.getEquipId();
     int baGoalLvl = ba.getGoalLevel();
-    
-  	long forgeStartTimeMillis = ba.getStartTime().getTime();
-  	log.info("forgeStartTimeMillis=" + forgeStartTimeMillis);
-  	log.info("timeOfSpeedupMillis=" + timeOfSpeedup.getTime());
-  	
-    long timePassedSec = (timeOfSpeedup.getTime() - forgeStartTimeMillis)/1000;
-    log.info("timePassedSec=" + timePassedSec);
-    
     Equipment equip = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(baEquipId); 
-    
     long finishForgeAttemptMinutes =
         MiscMethods.calculateMinutesToFinishForgeAttempt(equip, baGoalLvl);
-    log.info("finishForgeAttemptMinutes=" + finishForgeAttemptMinutes);
     
+    long forgeStartTimeMillis = ba.getStartTime().getTime();
+    long timePassedSec = (timeOfSpeedup.getTime() - forgeStartTimeMillis)/1000;
     long timeRemainingSec = (finishForgeAttemptMinutes * 60) - timePassedSec;
-    log.info("timeRemaining=" + timeRemainingSec);
-    
     double percentRemaining = ((double) timeRemainingSec) / ((double) (timeRemainingSec+timePassedSec));
-    log.info("percentRemaining before cast=" + (timeRemainingSec/(timeRemainingSec+timePassedSec)));
-    log.info("percentRemaining=" + percentRemaining);
     
-    double speedUpConstant = 1+ControllerConstants.FORGE_LATE_SPEEDUP_CONSTANT*(1-percentRemaining);
-    log.info("speedUpConstant first factor (1-percentRemaining)=" + (1-percentRemaining));
-    log.info("speedUpConstant second factor =" + ControllerConstants.FORGE_LATE_SPEEDUP_CONSTANT*(1-percentRemaining));
-    log.info("speedUpConstant=" + speedUpConstant);
+    double speedUpConstant = 1.0d + ControllerConstants.FORGE_LATE_SPEEDUP_CONSTANT * (1.0d - percentRemaining);
     
     int maxDiamondCost = MiscMethods.calculateDiamondCostToSpeedupForgeWaittime(equip, baGoalLvl);
-    log.info("maxDiamondCost=" + maxDiamondCost);
-    
     int diamondCost = (int)Math.ceil(speedUpConstant* percentRemaining * maxDiamondCost);
-    log.info("diamondCost=" + diamondCost);
     
     return diamondCost;
   }
