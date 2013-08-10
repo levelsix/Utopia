@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.SubmitEquipEnhancementRequestEvent;
 import com.lvl6.events.response.SubmitEquipEnhancementResponseEvent;
+import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.EquipEnhancement;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
@@ -114,6 +115,10 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       server.writeEvent(resEvent);
       
       if (successful) {
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
+        resEventUpdate.setTag(event.getTag());
+        server.writeEvent(resEventUpdate);
+        
         MiscMethods.writeIntoDUEFE(enhancingUserEquip, feederUserEquips, enhancementId, enhancementFeederIds);
       }
       
