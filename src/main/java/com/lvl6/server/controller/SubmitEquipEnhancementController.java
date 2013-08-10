@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.SubmitEquipEnhancementRequestEvent;
 import com.lvl6.events.response.SubmitEquipEnhancementResponseEvent;
-import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.EquipEnhancement;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
@@ -72,10 +71,6 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       //The main user equip to enhance.
       UserEquip enhancingUserEquip = RetrieveUtils.userEquipRetrieveUtils()
           .getSpecificUserEquip(enhancingUserEquipId);
-      
-      //maybe there should be a check to see if this fails...eh
-      //unequip all the user equips
-      User user = RetrieveUtils.userRetrieveUtils().getUserById(userId);
 
       //The user equips to be sacrified for enhancing.
       //this could be null, or does not contain null but could still be empty
@@ -91,7 +86,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       List<Integer> enhancementInteger = new ArrayList<Integer>();
       List<Integer> enhancementFeederIds = new ArrayList<Integer>(); 
       if (legitEquip) {
-        successful = writeChangesToDB(user, resBuilder, enhancingUserEquipId, enhancingUserEquip,
+        successful = writeChangesToDB(resBuilder, enhancingUserEquipId, enhancingUserEquip,
             feederUserEquipIds, feederUserEquips, clientTime, enhancementInteger, enhancementFeederIds);
       }
       int enhancementId = 0;
@@ -106,10 +101,6 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       resEvent.setTag(event.getTag());
       resEvent.setSubmitEquipEnhancementResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
-
-      UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
-      resEventUpdate.setTag(event.getTag());
-      server.writeEvent(resEventUpdate);
       
       if (successful) {
         MiscMethods.writeIntoDUEFE(enhancingUserEquip, feederUserEquips, enhancementId, enhancementFeederIds);
@@ -125,7 +116,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   //delete enhancing user equip; make entry in equip enhancement table
   //delete all the feeder user equips; make entries in equip enhancement feeders table
   //delete feederuserequip, write enhanceduserequip to the db
-  private boolean writeChangesToDB(User user, Builder resBuilder, int mainUserEquipId, UserEquip mainUserEquip,
+  private boolean writeChangesToDB(Builder resBuilder, int mainUserEquipId, UserEquip mainUserEquip,
       List<Integer> feederUserEquipIds, List<UserEquip> feederUserEquips, Timestamp clientTime,
       List<Integer> enhancementInteger, List<Integer> equipEnhancementFeederIds) {
     int userId = mainUserEquip.getUserId();
@@ -150,6 +141,10 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     if (null != eeFeederIds && !eeFeederIds.isEmpty()) {
       equipEnhancementFeederIds.addAll(eeFeederIds);
     }
+    
+    //maybe there should be a check to see if this fails...eh
+    //unequip all the user equips
+    User user = RetrieveUtils.userRetrieveUtils().getUserById(userId);
     
     List<UserEquip> userEquips = new ArrayList<UserEquip>(feederUserEquips);
     userEquips.add(mainUserEquip);
