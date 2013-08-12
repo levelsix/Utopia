@@ -270,7 +270,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   	//calculate total stats of feeder equips
   	while(enhancementIterator.hasNext()) {
   		UserEquip feederEquip = enhancementIterator.next();
-  		totalStats = MiscMethods.attackPowerForEquip(feederEquip.getEquipId(), feederEquip.getLevel(), feederEquip.getEnhancementPercentage()) + MiscMethods.defensePowerForEquip(feederEquip.getEquipId(), feederEquip.getLevel(), feederEquip.getEnhancementPercentage());
+  		totalStats += MiscMethods.attackPowerForEquip(feederEquip.getEquipId(), feederEquip.getLevel(), feederEquip.getEnhancementPercentage()) + MiscMethods.defensePowerForEquip(feederEquip.getEquipId(), feederEquip.getLevel(), feederEquip.getEnhancementPercentage());
   	}
   	return (int)Math.ceil(totalStats * ControllerConstants.ENHANCEMENT__COST_CONSTANT);
   }
