@@ -60,7 +60,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     MinimumUserProto senderProto = reqProto.getSender();
     int equipEnhancementId = reqProto.getEquipEnhancementId(); 
     Timestamp clientTime = new Timestamp(reqProto.getClientTime());
-    boolean speedUp = reqProto.getSpeedUp();
+    boolean speedUp = false;//reqProto.getSpeedUp();
     int userId = senderProto.getUserId();
     
     CollectEquipEnhancementResponseProto.Builder resBuilder = CollectEquipEnhancementResponseProto.newBuilder();
@@ -77,7 +77,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
           .getEquipEnhancementFeedersForEquipEnhancementId(equipEnhancementId);
 
       User aUser = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId()); 
-      int previousGold = 0;
+//      int previousGold = 0;
       
       //check if the time is right, if speed up, check if user has enough gold, check if enhancement is complete
       boolean legitEquip = checkEquip(resBuilder, aUser, equipUnderEnhancement, feedersForEnhancement, 
@@ -87,7 +87,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       FullUserEquipProto.Builder userEquipBuilder = FullUserEquipProto.newBuilder();
       Map<String, Integer> goldSilverChange = new HashMap<String, Integer>();
       if (legitEquip) {
-        previousGold = aUser.getDiamonds();
+//        previousGold = aUser.getDiamonds();
         //add the user equip, delete the equip enhancement and equip enhancement feeders,
         //record what happened
         successful = writeChangesToDB(resBuilder, equipEnhancementId, equipUnderEnhancement,
@@ -111,7 +111,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
         writeIntoEquipEnhancementHistory(equipUnderEnhancement, userEquipBuilder, speedUp, clientTime);
         writeIntoEquipEnhancementFeederHistory(equipEnhancementId, feedersForEnhancement);
-        writeToUserCurrencyHistory(aUser, clientTime, goldSilverChange, previousGold);
+//        writeToUserCurrencyHistory(aUser, clientTime, goldSilverChange, previousGold);
       }
       
     } catch (Exception e) {
@@ -169,31 +169,31 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     userEquipBuilder.setLevel(equipLevel);
     userEquipBuilder.setEnhancementPercentage(enhancementPercentageAfterEnhancement);
     
-    if (speedUp) {
-      int cost = MiscMethods.calculateCostToSpeedUpEnhancing(equipUnderEnhancement, feedersForEnhancement, clientTime);
-      if(!aUser.updateRelativeDiamondsNaive(-cost)) {
-        log.error("Could not deduct cost to speed up enhancing for user:" + aUser);
-      } else {
-        if(0 != cost) {
-          goldSilverChange.put(MiscMethods.gold, -cost);
-        }
-      }
-    }
+//    if (speedUp) {
+//      int cost = MiscMethods.calculateCostToSpeedUpEnhancing(equipUnderEnhancement, feedersForEnhancement, clientTime);
+//      if(!aUser.updateRelativeDiamondsNaive(-cost)) {
+//        log.error("Could not deduct cost to speed up enhancing for user:" + aUser);
+//      } else {
+//        if(0 != cost) {
+//          goldSilverChange.put(MiscMethods.gold, -cost);
+//        }
+//      }
+//    }
     
     return true;
   }
 
-  //feederUserEquips could be null or empty
-  private List<Integer> getFeederIds(List<EquipEnhancementFeeder> feeders) {
-    List<Integer> returnValue = new ArrayList<Integer>();
-    
-    for(EquipEnhancementFeeder aFeeder: feeders) {
-      int feederId = aFeeder.getId();
-      returnValue.add(feederId);
-    }
-    
-    return returnValue;
-  }
+//  //feederUserEquips could be null or empty
+//  private List<Integer> getFeederIds(List<EquipEnhancementFeeder> feeders) {
+//    List<Integer> returnValue = new ArrayList<Integer>();
+//    
+//    for(EquipEnhancementFeeder aFeeder: feeders) {
+//      int feederId = aFeeder.getId();
+//      returnValue.add(feederId);
+//    }
+//    
+//    return returnValue;
+//  }
 
   //check if the time is right; if speed up, check if user has enough gold; check if enhancement is complete
   private boolean checkEquip(Builder resBuilder, User aUser, EquipEnhancement equipUnderEnhancement, 
@@ -214,33 +214,33 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       return false;
     }
     
-    if(speedUp) {
-      int cost = MiscMethods.calculateCostToSpeedUpEnhancing(equipUnderEnhancement, feedersForEnhancement, clientTime);
-      int userGold = aUser.getDiamonds();
-      if(userGold >= cost) {
-        resBuilder.setStatus(CollectEquipStatus.SUCCESS);
-        return true;
-      } else {
-        resBuilder.setStatus(CollectEquipStatus.NOT_ENOUGH_GOLD);
-        log.error("insufficient gold to speed up enhancing. user's gold=" + userGold + ", cost=" + cost);
-        return false;
-      }
-    }
+//    if(speedUp) {
+//      int cost = MiscMethods.calculateCostToSpeedUpEnhancing(equipUnderEnhancement, feedersForEnhancement, clientTime);
+//      int userGold = aUser.getDiamonds();
+//      if(userGold >= cost) {
+//        resBuilder.setStatus(CollectEquipStatus.SUCCESS);
+//        return true;
+//      } else {
+//        resBuilder.setStatus(CollectEquipStatus.NOT_ENOUGH_GOLD);
+//        log.error("insufficient gold to speed up enhancing. user's gold=" + userGold + ", cost=" + cost);
+//        return false;
+//      }
+//    }
     
-    int minutesForEnhancing = 
-        MiscMethods.calculateMinutesToFinishEnhancing(equipUnderEnhancement, feedersForEnhancement);
-    long millisecondsForEnhancing = minutesForEnhancing * 60 * 1000;
-    
-    long enhancingStartTime = equipUnderEnhancement.getStartTimeOfEnhancement().getTime();
-    long enhancingEndTime = enhancingStartTime + millisecondsForEnhancing;
-    
-    if(enhancingEndTime > clientTime.getTime()) {
-      resBuilder.setStatus(CollectEquipStatus.ENHANCEMENT_NOT_COMPLETE);
-      log.info("user tried collecting unfinished enhanced equip. user=" + aUser
-          + ", equipUnderEnhancement=" + equipUnderEnhancement + ", enhandingEndTime=" 
-          + enhancingEndTime + ", timeOfCollection=" + clientTime);
-      return false;
-    }
+//    int minutesForEnhancing = 
+//        MiscMethods.calculateMinutesToFinishEnhancing(equipUnderEnhancement, feedersForEnhancement);
+//    long millisecondsForEnhancing = minutesForEnhancing * 60 * 1000;
+//    
+//    long enhancingStartTime = equipUnderEnhancement.getStartTimeOfEnhancement().getTime();
+//    long enhancingEndTime = enhancingStartTime + millisecondsForEnhancing;
+//    
+//    if(enhancingEndTime > clientTime.getTime()) {
+//      resBuilder.setStatus(CollectEquipStatus.ENHANCEMENT_NOT_COMPLETE);
+//      log.info("user tried collecting unfinished enhanced equip. user=" + aUser
+//          + ", equipUnderEnhancement=" + equipUnderEnhancement + ", enhandingEndTime=" 
+//          + enhancingEndTime + ", timeOfCollection=" + clientTime);
+//      return false;
+//    }
     
     resBuilder.setStatus(CollectEquipStatus.SUCCESS);
     return true;
@@ -291,16 +291,16 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     }
   }
   
-  private void writeToUserCurrencyHistory(User aUser, Timestamp date,
-      Map<String, Integer> goldSilverChange, int previousGold) {
-    String gold = MiscMethods.gold;
-    String reasonForChange = ControllerConstants.UCHRFC__SPED_UP_ENHANCING;
-    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
-    Map<String, String> reasonsForChanges = new HashMap<String, String>();
-    
-    previousGoldSilver.put(gold, previousGold);
-    reasonsForChanges.put(gold, reasonForChange);
-    
-    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange, previousGoldSilver, reasonsForChanges);
-  }
+//  private void writeToUserCurrencyHistory(User aUser, Timestamp date,
+//      Map<String, Integer> goldSilverChange, int previousGold) {
+//    String gold = MiscMethods.gold;
+//    String reasonForChange = ControllerConstants.UCHRFC__SPED_UP_ENHANCING;
+//    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+//    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+//    
+//    previousGoldSilver.put(gold, previousGold);
+//    reasonsForChanges.put(gold, reasonForChange);
+//    
+//    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange, previousGoldSilver, reasonsForChanges);
+//  }
 }

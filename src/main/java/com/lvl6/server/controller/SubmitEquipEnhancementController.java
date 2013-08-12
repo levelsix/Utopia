@@ -80,7 +80,6 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       int previousSilver = 0;
-      int previousGold = 0;
       
       //The user equips to be sacrified for enhancing.
       //this could be null, or does not contain null but could still be empty
@@ -95,9 +94,10 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       boolean successful = false;
       List<Integer> enhancementInteger = new ArrayList<Integer>();
       List<Integer> enhancementFeederIds = new ArrayList<Integer>(); 
+      Map<String, Integer> money = new HashMap<String, Integer>();
+      
       if (legitEquip) {
       	previousSilver = user.getCoins() + user.getVaultBalance();
-      	Map<String, Integer> money = new HashMap<String, Integer>();
         successful = writeChangesToDB(resBuilder, user, enhancingUserEquipId, enhancingUserEquip,
             feederUserEquipIds, feederUserEquips, clientTime, enhancementInteger, enhancementFeederIds, money);
       }
@@ -119,6 +119,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
+        writeToUserCurrencyHistory(user, clientTime, money, previousSilver);
         MiscMethods.writeIntoDUEFE(enhancingUserEquip, feederUserEquips, enhancementId, enhancementFeederIds);
       }
       
@@ -272,6 +273,19 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   		totalStats = MiscMethods.attackPowerForEquip(feederEquip.getEquipId(), feederEquip.getLevel(), feederEquip.getEnhancementPercentage()) + MiscMethods.defensePowerForEquip(feederEquip.getEquipId(), feederEquip.getLevel(), feederEquip.getEnhancementPercentage());
   	}
   	return (int)Math.ceil(totalStats * ControllerConstants.ENHANCEMENT__COST_CONSTANT);
+  }
+  
+  public void writeToUserCurrencyHistory(User aUser, Timestamp date, Map<String, Integer> money,
+      int previousSilver) {
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String reasonForChange = ControllerConstants.UCHRFC__ENHANCING;
+    String silver = MiscMethods.silver;
+    
+    previousGoldSilver.put(silver, previousSilver);
+    reasonsForChanges.put(silver, reasonForChange);
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonsForChanges);
   }
   
 }

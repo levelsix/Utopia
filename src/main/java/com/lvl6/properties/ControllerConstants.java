@@ -564,7 +564,8 @@ public class ControllerConstants {
   public static final String UCHRFC__CHARACTER_MOD_SKILL_POINTS = "character skill points";
   public static final String UCHRFC__GOLDMINE = "goldmine reset";
   public static final String UCHRFC__COLLECT_GOLDMINE = "collect from goldmine";
-  public static final String UCHRFC__SPED_UP_ENHANCING = "sped up enhancing ";
+  //public static final String UCHRFC__SPED_UP_ENHANCING = "sped up enhancing ";
+  public static final String UCHRFC__ENHANCING = "enhancing";
   public static final String UCHRFC__PURHCASED_BOOSTER_PACK = "purchased booster pack with id ";
   public static final String UCHRFC__PURCHASED_ADDITIONAL_FORGE_SLOTS = "purchased additional forge slots";
   //silver only reasons
