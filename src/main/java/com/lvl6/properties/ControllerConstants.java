@@ -592,7 +592,7 @@ public class ControllerConstants {
   public static final float ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B = 2.f;
   public static final float ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE = 1.2f;
   public static final int ENHANCEMENT__DEFAULT_SECONDS_TO_ENHANCE = 5;
-  public static final double ENHANCEMENT__COST_CONSTANT = 1.25;
+  public static final double ENHANCEMENT__COST_CONSTANT = 2;
   
   //BOOSTER PACKS
   //amount of booster packs user can buy at one time
