@@ -82,18 +82,26 @@ import com.lvl6.utils.DBConnection;
   public static void setStaticBoosterItemIdsToBoosterItemsForBoosterPackIds() {
     try {
       log.debug("setting static map of boosterPackId to (boosterItemIds to boosterItems) ");
-      if (boosterItemIdsToBoosterItemsForBoosterPackIds == null) {
+      if (boosterItemIdsToBoosterItems == null) {
         setStaticBoosterItemIdsToBoosterItems();      
-        boosterItemIdsToBoosterItemsForBoosterPackIds = new HashMap<Integer, Map<Integer, BoosterItem>>();
       }
+      //reset all the existing boosterItems for each booster pack
+      boosterItemIdsToBoosterItemsForBoosterPackIds = new HashMap<Integer, Map<Integer, BoosterItem>>();
+      
+      //get all the existing booster items, so it's "easier" to iterate through them.
       List<BoosterItem> bis = new ArrayList<BoosterItem>(boosterItemIdsToBoosterItems.values());
+      
+      //for each booster item, group them by pack id
       for(BoosterItem bi : bis) {
         int packId = bi.getBoosterPackId();
+        
         if(!boosterItemIdsToBoosterItemsForBoosterPackIds.containsKey(packId)) {
+          //base case: create the initial group of booster items for a booster pack
           Map<Integer, BoosterItem> bItemIdToBItem = new HashMap<Integer, BoosterItem>();
           boosterItemIdsToBoosterItemsForBoosterPackIds.put(packId, bItemIdToBItem);
         }
-        //each itemId is unique (autoincrementing in the table)
+        
+        //insert item into group of existing booster items for a booster pack
         Map<Integer, BoosterItem> itemIdToItem =
             boosterItemIdsToBoosterItemsForBoosterPackIds.get(packId);
         itemIdToItem.put(bi.getId(), bi);
