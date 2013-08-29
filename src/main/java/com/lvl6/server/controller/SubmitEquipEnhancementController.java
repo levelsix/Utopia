@@ -21,6 +21,7 @@ import com.lvl6.info.EquipEnhancement;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
+import com.lvl6.info.UserStruct;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.SubmitEquipEnhancementRequestProto;
@@ -99,6 +100,9 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       	Map<String, Integer> money = new HashMap<String, Integer>();
         successful = writeChangesToDB(resBuilder, user, enhancingUserEquipId, enhancingUserEquip,
             feederUserEquipIds, feederUserEquips, clientTime, enhancementInteger, enhancementFeederIds, money);
+        
+        writeToUserCurrencyHistory(user, clientTime, enhancingUserEquipId, 
+        		feederUserEquips, money, previousSilver);
       }
       int enhancementId = 0;
       if (successful) {
@@ -112,6 +116,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       resEvent.setTag(event.getTag());
       resEvent.setSubmitEquipEnhancementResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
+     
       
       if (successful) {
         MiscMethods.writeIntoDUEFE(enhancingUserEquip, feederUserEquips, enhancementId, enhancementFeederIds);
@@ -255,6 +260,28 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     
     resBuilder.setStatus(EnhanceEquipStatus.SUCCESS);
     return true;
+  }
+  
+  private void writeToUserCurrencyHistory(User user, Timestamp clientTime, int mainUserEquipId, 
+  		List<UserEquip> feederUserEquips, Map<String, Integer> money, int previousSilver) {
+    
+    int userId = user.getId();
+    
+    String enhanceDetails = "userId:" + userId + " mainUserEquipId:" + mainUserEquipId
+        + " silverCost:" + costOfEnhancement(feederUserEquips);
+    
+    Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
+    String reasonForChange = ControllerConstants.UCHRFC__ENHANCEMENT_SILVER + " "
+        + enhanceDetails;
+    Map<String, String> reasonsForChanges = new HashMap<String, String>();
+    String silver = MiscMethods.silver;
+    
+    previousGoldSilver.put(silver, previousSilver);
+    
+    reasonsForChanges.put(silver,  reasonForChange);
+    
+    MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(user, clientTime, 
+        money, previousGoldSilver, reasonsForChanges);
   }
   
   //based on total stats of feeder equips

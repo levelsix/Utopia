@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ import com.lvl6.events.response.CollectEquipEnhancementResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.EquipEnhancement;
 import com.lvl6.info.EquipEnhancementFeeder;
+import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.properties.ControllerConstants;
@@ -30,6 +32,7 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.EquipEnhancementFeederRetrieveUtils;
 import com.lvl6.retrieveutils.EquipEnhancementRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
@@ -42,6 +45,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     numAllocatedThreads = 3;
   }
   
+
   @Override
   public RequestEvent createRequestEvent() {
     return new CollectEquipEnhancementRequestEvent();
@@ -76,12 +80,25 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       List<EquipEnhancementFeeder> feedersForEnhancement = EquipEnhancementFeederRetrieveUtils
           .getEquipEnhancementFeedersForEquipEnhancementId(equipEnhancementId);
 
+      List<Integer> equipIds = new ArrayList<Integer>();
+      List<Equipment> baseFeederEquips = new ArrayList<Equipment>();
+      
+      for(EquipEnhancementFeeder eef : feedersForEnhancement) {
+      	equipIds.add(eef.getEquipId());
+      }
+      
+      Map<Integer, Equipment> baseFeederEquipsMap = EquipmentRetrieveUtils.getEquipmentIdsToEquipment(equipIds);
+      
+      for(int key : baseFeederEquipsMap.keySet()) {
+      	baseFeederEquips.add(baseFeederEquipsMap.get(key));
+      }
+      
       User aUser = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId()); 
       int previousGold = 0;
       
       //check if the time is right, if speed up, check if user has enough gold, check if enhancement is complete
       boolean legitEquip = checkEquip(resBuilder, aUser, equipUnderEnhancement, feedersForEnhancement, 
-          clientTime, speedUp);
+          clientTime, speedUp, baseFeederEquips);
 
       boolean successful = false;
       FullUserEquipProto.Builder userEquipBuilder = FullUserEquipProto.newBuilder();
@@ -91,7 +108,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         //add the user equip, delete the equip enhancement and equip enhancement feeders,
         //record what happened
         successful = writeChangesToDB(resBuilder, equipEnhancementId, equipUnderEnhancement,
-            feedersForEnhancement, clientTime, speedUp, userEquipBuilder, aUser, goldSilverChange);
+            feedersForEnhancement, clientTime, speedUp, userEquipBuilder, aUser, goldSilverChange, baseFeederEquips);
       }
       
       if (successful) {
@@ -125,7 +142,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   //record what happened
   private boolean writeChangesToDB(Builder resBuilder, int equipEnhancementId, EquipEnhancement equipUnderEnhancement, 
       List<EquipEnhancementFeeder> feedersForEnhancement, Timestamp clientTime, boolean speedUp, 
-      FullUserEquipProto.Builder userEquipBuilder, User aUser, Map<String, Integer> goldSilverChange) {
+      FullUserEquipProto.Builder userEquipBuilder, User aUser, Map<String, Integer> goldSilverChange, List<Equipment> baseFeederEquips) {
     //stuff to create user equip
     int userId = equipUnderEnhancement.getUserId();
     int equipId = equipUnderEnhancement.getEquipId();
@@ -133,7 +150,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     int enhancementPercentageBeforeEnhancement = equipUnderEnhancement.getEnhancementPercentage();
 
     int enhancementPercentageAfterEnhancement = MiscMethods.calculateEnhancementForEquip(equipUnderEnhancement,
-        feedersForEnhancement)+enhancementPercentageBeforeEnhancement;
+        feedersForEnhancement, baseFeederEquips)+enhancementPercentageBeforeEnhancement;
     int userEquipId = InsertUtils.get().insertUserEquip(userId, equipId,
         equipLevel, enhancementPercentageAfterEnhancement, clientTime,
         ControllerConstants.UER__COLLECT_EQUIP_ENHANCEMENT);
@@ -170,7 +187,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     userEquipBuilder.setEnhancementPercentage(enhancementPercentageAfterEnhancement);
     
     if (speedUp) {
-      int cost = MiscMethods.calculateCostToSpeedUpEnhancing(equipUnderEnhancement, feedersForEnhancement, clientTime);
+      int cost = MiscMethods.calculateCostToSpeedUpEnhancing(equipUnderEnhancement, feedersForEnhancement, clientTime, baseFeederEquips);
       if(!aUser.updateRelativeDiamondsNaive(-cost)) {
         log.error("Could not deduct cost to speed up enhancing for user:" + aUser);
       } else {
@@ -197,7 +214,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
   //check if the time is right; if speed up, check if user has enough gold; check if enhancement is complete
   private boolean checkEquip(Builder resBuilder, User aUser, EquipEnhancement equipUnderEnhancement, 
-      List<EquipEnhancementFeeder> feedersForEnhancement, Timestamp clientTime, boolean speedUp) {
+      List<EquipEnhancementFeeder> feedersForEnhancement, Timestamp clientTime, boolean speedUp, List<Equipment> baseFeederEquips) {
     if(null == aUser || null == equipUnderEnhancement || null == feedersForEnhancement ||
         feedersForEnhancement.isEmpty()) {
       resBuilder.setStatus(CollectEquipStatus.OTHER_FAIL);
@@ -215,7 +232,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     }
     
     if(speedUp) {
-      int cost = MiscMethods.calculateCostToSpeedUpEnhancing(equipUnderEnhancement, feedersForEnhancement, clientTime);
+      int cost = MiscMethods.calculateCostToSpeedUpEnhancing(equipUnderEnhancement, feedersForEnhancement, clientTime, baseFeederEquips);
       int userGold = aUser.getDiamonds();
       if(userGold >= cost) {
         resBuilder.setStatus(CollectEquipStatus.SUCCESS);
@@ -228,7 +245,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     }
     
     int minutesForEnhancing = 
-        MiscMethods.calculateMinutesToFinishEnhancing(equipUnderEnhancement, feedersForEnhancement);
+        MiscMethods.calculateMinutesToFinishEnhancing(equipUnderEnhancement, feedersForEnhancement, baseFeederEquips);
     long millisecondsForEnhancing = minutesForEnhancing * 60 * 1000;
     
     long enhancingStartTime = equipUnderEnhancement.getStartTimeOfEnhancement().getTime();
@@ -303,4 +320,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, goldSilverChange, previousGoldSilver, reasonsForChanges);
   }
+
+
+  
 }

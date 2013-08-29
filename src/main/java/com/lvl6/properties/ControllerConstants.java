@@ -570,6 +570,7 @@ public class ControllerConstants {
   public static final String UCHRFC__VAULT_DEPOSIT = "vault deposit";
   public static final String UCHRFC__BATTLE_WON = "won battle";
   public static final String UCHRFC__BATTLE_LOST = "lost battle";
+  public static final String UCHRFC__ENHANCEMENT_SILVER = "enhancement silver";
   
   //ENHANCING
   public static final int MAX_ENHANCEMENT_LEVEL = 5;
@@ -586,6 +587,9 @@ public class ControllerConstants {
   public static final float ENHANCEMENT__ENHANCE_LEVEL_EXPONENT_BASE = 1.2f;
   public static final int ENHANCEMENT__DEFAULT_SECONDS_TO_ENHANCE = 5;
   public static final double ENHANCEMENT_COST_CONSTANT = 12.5;
+  public static final double ENHANCEMENT__RARE_MULTIPLIER = 1.5;
+  public static final double ENHANCEMENT__FORGED_MULTIPLIER = 1.5;
+
   
   //BOOSTER PACKS
   //amount of booster packs user can buy at one time

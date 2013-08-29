@@ -21,6 +21,7 @@ import org.joda.time.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 
 import com.lvl6.events.response.ChangedClanTowerResponseEvent;
@@ -143,8 +144,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class MiscMethods {
 
+	@Autowired
+	protected EquipmentRetrieveUtils equipmentRetrieveUtils;
 
-  private static final Logger log = LoggerFactory.getLogger(MiscMethods.class);
+	public EquipmentRetrieveUtils getEquipmentRetrieveUtils() {
+		return equipmentRetrieveUtils;
+	}
+
+	public void setEquipmentRetrieveUtils(
+			EquipmentRetrieveUtils equipmentRetrieveUtils) {
+		this.equipmentRetrieveUtils = equipmentRetrieveUtils;
+	}
+
+	private static final Logger log = LoggerFactory.getLogger(MiscMethods.class);
   public static final String clanTowersClanAttacked = "clanTowersClanAttacked";
   public static final String clanTowersClanOwned = "clanTowersClanOwned";
   public static final String gold = "gold";
@@ -1477,11 +1489,41 @@ public class MiscMethods {
     return 0;
   }
 
-  private static int calculateEnhancementForEquip(EquipEnhancement mainEquip, EquipEnhancementFeeder feederEquip) {
+//  private static int calculateEnhancementForEquip(EquipEnhancement mainEquip, EquipEnhancementFeeder feederEquip) {
+//    int mainStats = attackPowerForEquip(mainEquip.getEquipId(), mainEquip.getEquipLevel(), mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL) +
+//        defensePowerForEquip(mainEquip.getEquipId(), mainEquip.getEquipLevel(), mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL);
+//    int feederStats = attackPowerForEquip(feederEquip.getEquipId(), feederEquip.getEquipLevel(), feederEquip.getEnhancementPercentageBeforeEnhancement()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL) +
+//        defensePowerForEquip(feederEquip.getEquipId(), feederEquip.getEquipLevel(), feederEquip.getEnhancementPercentageBeforeEnhancement()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL);
+//    int result = (int)((((float)feederStats)/mainStats)/(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_A*
+//        Math.pow(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B, mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL+1))*
+//        ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL);
+//
+//    //    log.info("percentage="+result);
+//    return result;
+//  }
+  
+  //this formula factors in level of feeder and if it's rare or better
+  private static int calculateEnhancementForEquip(EquipEnhancement mainEquip, EquipEnhancementFeeder feederEquip, Equipment baseFeederEquip) {
     int mainStats = attackPowerForEquip(mainEquip.getEquipId(), mainEquip.getEquipLevel(), mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL) +
         defensePowerForEquip(mainEquip.getEquipId(), mainEquip.getEquipLevel(), mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL);
-    int feederStats = attackPowerForEquip(feederEquip.getEquipId(), feederEquip.getEquipLevel(), feederEquip.getEnhancementPercentageBeforeEnhancement()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL) +
-        defensePowerForEquip(feederEquip.getEquipId(), feederEquip.getEquipLevel(), feederEquip.getEnhancementPercentageBeforeEnhancement()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL);
+    int feederStats;
+    if(feederEquip.getEquipLevel()>1) {
+    	int statsFromStars = (attackPowerForEquip(feederEquip.getEquipId(), feederEquip.getEquipLevel(), feederEquip.getEnhancementPercentageBeforeEnhancement()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL)
+    			- attackPowerForEquip(feederEquip.getEquipId(), feederEquip.getEquipLevel(), 0)) 
+    			+ (defensePowerForEquip(feederEquip.getEquipId(), feederEquip.getEquipLevel(), feederEquip.getEnhancementPercentageBeforeEnhancement()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL)
+    			- defensePowerForEquip(feederEquip.getEquipId(), feederEquip.getEquipLevel(), 0));
+    	int feederBaseStats = attackPowerForEquip(feederEquip.getEquipId(), 1, 0) + defensePowerForEquip(feederEquip.getEquipId(), 1, 0);
+    	int statsOfCollectiveIndivComponents = (int)(Math.pow(2, feederEquip.getEquipLevel()-1) * feederBaseStats); 
+    	int statsOfCollectiveIndivComponentsAfterBonus = statsOfCollectiveIndivComponents * (int)(Math.pow(ControllerConstants.ENHANCEMENT__FORGED_MULTIPLIER, feederEquip.getEquipLevel()-1));
+    	feederStats = statsOfCollectiveIndivComponentsAfterBonus + statsFromStars;
+    }
+    else	feederStats = attackPowerForEquip(feederEquip.getEquipId(), feederEquip.getEquipLevel(), feederEquip.getEnhancementPercentageBeforeEnhancement()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL) +
+          defensePowerForEquip(feederEquip.getEquipId(), feederEquip.getEquipLevel(), feederEquip.getEnhancementPercentageBeforeEnhancement()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL);
+    
+    if(baseFeederEquip.getRarity() != Rarity.COMMON && baseFeederEquip.getRarity() != Rarity.UNCOMMON) {
+    	feederStats = (int)(feederStats * ControllerConstants.ENHANCEMENT__RARE_MULTIPLIER);
+    }
+    	
     int result = (int)((((float)feederStats)/mainStats)/(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_A*
         Math.pow(ControllerConstants.ENHANCEMENT__PERCENT_FORMULA_CONSTANT_B, mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL+1))*
         ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL);
@@ -1489,12 +1531,16 @@ public class MiscMethods {
     //    log.info("percentage="+result);
     return result;
   }
+  
 
   public static int calculateEnhancementForEquip(EquipEnhancement mainEquip,
-      List<EquipEnhancementFeeder> feederEquips) {
+      List<EquipEnhancementFeeder> feederEquips, List<Equipment> baseFeederEquips) {
     int totalChange = 0;
+    int count = 0;
     for (EquipEnhancementFeeder f : feederEquips) {
-      totalChange += calculateEnhancementForEquip(mainEquip, f);
+    	Equipment baseFeederEquip = baseFeederEquips.get(count);
+      totalChange += calculateEnhancementForEquip(mainEquip, f, baseFeederEquip);
+      count++;
     }
 
     int maxChange = (mainEquip.getEnhancementPercentage()/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL+1)*ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL-mainEquip.getEnhancementPercentage();
@@ -1503,8 +1549,8 @@ public class MiscMethods {
     return Math.min(maxChange, totalChange);
   }
 
-  public static int calculateMinutesToFinishEnhancing(EquipEnhancement mainEquip, List<EquipEnhancementFeeder> feederEquips) {
-    int pChange = calculateEnhancementForEquip(mainEquip, feederEquips);
+  public static int calculateMinutesToFinishEnhancing(EquipEnhancement mainEquip, List<EquipEnhancementFeeder> feederEquips, List<Equipment> baseFeederEquips) {
+    int pChange = calculateEnhancementForEquip(mainEquip, feederEquips, baseFeederEquips);
     float percent = ((float)pChange)/ControllerConstants.ENHANCEMENT__PERCENTAGE_PER_LEVEL;
     int totalTime = totalMinutesToLevelUpEnhancementEquip(mainEquip);
     int result = (int)Math.ceil(percent*totalTime);
@@ -1514,8 +1560,8 @@ public class MiscMethods {
   }
 
   public static int calculateCostToSpeedUpEnhancing(EquipEnhancement e, List<EquipEnhancementFeeder> feeder,
-      Timestamp timeOfSpeedUp) {
-    int mins = calculateMinutesToFinishEnhancing(e, feeder);
+      Timestamp timeOfSpeedUp, List<Equipment> baseFeederEquips) {
+    int mins = calculateMinutesToFinishEnhancing(e, feeder, baseFeederEquips);
     int result = (int)Math.ceil(((float)mins)/ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD);
 
     // log.info("diamonds="+result);
