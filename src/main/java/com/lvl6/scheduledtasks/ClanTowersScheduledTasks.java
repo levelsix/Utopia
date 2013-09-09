@@ -295,8 +295,8 @@ public class ClanTowersScheduledTasks {
 	protected void giveRewardsToClanMembers(ClanTower tower) {
 		log.info("Distributing rewards for tower: {} to clan: {}", tower.getId(), tower.getClanOwnerId());
 		jdbcTemplate.update(
-				"update " + DBConstants.TABLE_USER + " SET " + DBConstants.USER__COINS + "=("
-						+ DBConstants.USER__COINS + " + ?), " + DBConstants.USER__DIAMONDS + "=("
+				"update " + DBConstants.TABLE_USER + " SET " + DBConstants.USER__VAULT_BALANCE + "=("
+						+ DBConstants.USER__VAULT_BALANCE + " + ?), " + DBConstants.USER__DIAMONDS + "=("
 						+ DBConstants.USER__DIAMONDS + " + ?) WHERE " + DBConstants.USER__CLAN_ID + "="
 						+ tower.getClanOwnerId(), tower.getSilverReward(), tower.getGoldReward());
 	}
