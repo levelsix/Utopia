@@ -518,7 +518,8 @@ public class ControllerConstants {
   public static final int NUM_BEGINNER_SALES_ALLOWED = 2;
   
   //CLAN TOWER
-  public static final int MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER = Globals.IS_SANDBOX() ? 2 : 25;
+  //on production, aoc 25 minimum to hold or attack a tower, but on loc 20
+  public static final int MIN_CLAN_MEMBERS_TO_HOLD_CLAN_TOWER = Globals.IS_SANDBOX() ? 2 : (Globals.KABAM_ENABLED() ? 25 : 20);
   public static final int NUM_HOURS_BEFORE_REWAGING_WAR_ON_TOWER = 6;
   public static final int CLAN_TOWER__MAX_NUM_TOWERS_CLAN_CAN_HOLD = 1;
   
