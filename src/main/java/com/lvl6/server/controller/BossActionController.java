@@ -606,7 +606,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       normalizedProbability = probabilitySoFar / highestProbability;
 
       if (f < normalizedProbability) {
-        log.info("brList=" + brList + ", index=" + index + ", f=" + f + ",");
+        //log.info("brList=" + brList + ", index=" + index + ", f=" + f + ",");
         return br;
       }
     }
@@ -732,7 +732,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       //boss died so record the rewards
       int bossRewardDropHistoryId = InsertUtils.get()
           .insertIntoBossRewardDropHistoryReturnId(bossId, userId, silverChange, goldChange, clientTime);
-      log.info("id of new boss reward drop history row: " + bossRewardDropHistoryId);
+      //log.info("id of new boss reward drop history row: " + bossRewardDropHistoryId);
       //      int numUpdated = InsertUtils.get().insertIntoBossEquipDropHistory(bossRewardDropHistoryId, allEquipIds);
       //      log.info("number of distinct equips boss dropped=" + numUpdated + ". The equips are: " + allEquipIds);
     }
