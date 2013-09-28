@@ -649,7 +649,7 @@ public class ControllerConstants {
 //    "Forging Contest! 50 GOLD reward! Details at forum.lvl6.com"
 //      "We have just added 40+ equips, a new city, and increased the level cap!"
 //      "Happy birthday AoC! Buildings will make silver twice as fast all week long!"
-      "SURPRISE! A gold drop event is now taking place! Details at forum.lvl6.com." 
+      "SURPRISE! A gold drop event is on! Details at forum.lvl6.com."
     };
   
   
