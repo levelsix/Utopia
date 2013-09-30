@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PrestigeRequestEvent;
 import com.lvl6.events.response.PrestigeResponseEvent;
+import com.lvl6.events.response.ReceivedGroupChatResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.misc.Notification;
@@ -24,6 +25,8 @@ import com.lvl6.proto.EventProto.PrestigeRequestProto;
 import com.lvl6.proto.EventProto.PrestigeResponseProto;
 import com.lvl6.proto.EventProto.PrestigeResponseProto.Builder;
 import com.lvl6.proto.EventProto.PrestigeResponseProto.PrestigeStatus;
+import com.lvl6.proto.EventProto.ReceivedGroupChatResponseProto;
+import com.lvl6.proto.InfoProto.GroupChatScope;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.RetrieveUtils;
@@ -118,7 +121,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         writeToUserCurrencyHistory(user, aDate, cost, previousGold, newPrestigeLevel);
       } else {
         //send notification if there is one
-        sendNotification(userId, notifications);
+        sendNotification(senderProto, userId, notifications);
       }
       
     } catch (Exception e) {
@@ -249,9 +252,22 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonsForChanges);
   }
   
-  private void sendNotification(int userId, List<Notification> nList) {
+  private void sendNotification(MinimumUserProto mup, int userId, List<Notification> nList) {
     for (Notification n : nList) {
       MiscMethods.writeNotificationToUser(n, server, userId);
+      
+      //have a pop up message
+      ReceivedGroupChatResponseProto.Builder chatProto = ReceivedGroupChatResponseProto
+          .newBuilder();
+      chatProto.setSender(mup);
+      chatProto.setScope(GroupChatScope.GLOBAL);
+      chatProto.setIsAdmin(true);
+      chatProto.setChatMessage(n.titleAndSubtitle());
+      
+      ReceivedGroupChatResponseEvent ce = new
+          ReceivedGroupChatResponseEvent(userId);
+      ce.setReceivedGroupChatResponseProto(chatProto.build());
+      server.writeEvent(ce);
     }
   }
   

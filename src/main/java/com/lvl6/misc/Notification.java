@@ -386,4 +386,10 @@ public class Notification {
     keysAndValues.put("subtitle", apnsSubtitle);
     keysAndValues.put("rgb", rgb.build());
   }
+  
+  public String titleAndSubtitle() {
+    return keysAndValues.get("title").toString() + " " +
+        keysAndValues.get("subtitle").toString();
+  }
+  
 }
