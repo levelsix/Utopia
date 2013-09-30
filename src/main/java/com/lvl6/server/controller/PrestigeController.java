@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PrestigeRequestEvent;
 import com.lvl6.events.response.PrestigeResponseEvent;
-import com.lvl6.events.response.ReceivedGroupChatResponseEvent;
+import com.lvl6.events.response.SendAdminMessageResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.misc.MiscMethods;
 import com.lvl6.misc.Notification;
@@ -25,8 +25,7 @@ import com.lvl6.proto.EventProto.PrestigeRequestProto;
 import com.lvl6.proto.EventProto.PrestigeResponseProto;
 import com.lvl6.proto.EventProto.PrestigeResponseProto.Builder;
 import com.lvl6.proto.EventProto.PrestigeResponseProto.PrestigeStatus;
-import com.lvl6.proto.EventProto.ReceivedGroupChatResponseProto;
-import com.lvl6.proto.InfoProto.GroupChatScope;
+import com.lvl6.proto.EventProto.SendAdminMessageResponseProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.RetrieveUtils;
@@ -257,16 +256,14 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       MiscMethods.writeNotificationToUser(n, server, userId);
       
       //have a pop up message
-      ReceivedGroupChatResponseProto.Builder chatProto = ReceivedGroupChatResponseProto
-          .newBuilder();
-      chatProto.setSender(mup);
-      chatProto.setScope(GroupChatScope.GLOBAL);
-      chatProto.setIsAdmin(true);
-      chatProto.setChatMessage(n.titleAndSubtitle());
+      SendAdminMessageResponseProto.Builder chatProto =
+          SendAdminMessageResponseProto.newBuilder();
+      chatProto.setSenderId(userId);
+      chatProto.setMessage(n.titleAndSubtitle());
       
-      ReceivedGroupChatResponseEvent ce = new
-          ReceivedGroupChatResponseEvent(userId);
-      ce.setReceivedGroupChatResponseProto(chatProto.build());
+      SendAdminMessageResponseEvent ce = new
+          SendAdminMessageResponseEvent(userId);
+      ce.setSendAdminMessageResponseProto(chatProto.build());
       server.writeEvent(ce);
     }
   }
