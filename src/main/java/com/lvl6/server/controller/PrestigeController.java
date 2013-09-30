@@ -220,6 +220,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         log.error("user error: user does not have enough gold when going" +
             " above prestige level 3. cost=" + prestigeGoldCost +
             ". userGold=" + userGold);
+        resBuilder.setStatus(PrestigeStatus.FAIL_OTHER);
         return false;
       }
       //user should be charged this much gold
