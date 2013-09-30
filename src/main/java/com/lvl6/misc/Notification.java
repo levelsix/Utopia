@@ -8,6 +8,7 @@ import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.NotificationConstants;
 import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.InfoProto.ColorProto;
@@ -355,6 +356,19 @@ public class Notification {
     
     setUpNotification(arguments, title, subtitle, blue, green, red);
     log.info("created left clan notification for level" + level + " " + deserter);
+  }
+  
+  public void setAsNotEnoughGoldToPrestige() {
+    int gold = ControllerConstants.PRESTIGE__PRESTIGE_GOLD_COST;
+    Object[] argumentsToMsgFormat = { gold };
+    String title = NotificationConstants.PRESTIGE_NOT_ENOUGH_GOLD__TITLE;
+    String subtitle = NotificationConstants.PRESTIGE_NOT_ENOUGH_GOLD__SUBTITLE;
+    int blue = NotificationConstants.PRESTIGE_NOT_ENOUGH_GOLD__BLUE;
+    int green = NotificationConstants.PRESTIGE_NOT_ENOUGH_GOLD__GREEN;
+    int red = NotificationConstants.PRESTIGE_NOT_ENOUGH_GOLD__RED;
+    
+    setUpNotification(argumentsToMsgFormat, title, subtitle, blue, green, red);
+    log.info("created not-enough-gold-to-prestige notification");
   }
   
   private void setUpNotification(Object[] argumentsToMsgFormat, String title, String subtitle,

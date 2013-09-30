@@ -569,6 +569,7 @@ public class ControllerConstants {
   public static final String UCHRFC__ENHANCING = "enhancing";
   public static final String UCHRFC__PURHCASED_BOOSTER_PACK = "purchased booster pack with id ";
   public static final String UCHRFC__PURCHASED_ADDITIONAL_FORGE_SLOTS = "purchased additional forge slots";
+  public static final String UCHRFC__PRESTIGE = "prestige to lvl:";
   //silver only reasons
   public static final String UCHRFC__RETRIEVE_CURRENCY_FROM_NORM_STRUCT = "retrieve currency from normal structures";
   public static final String UCHRFC__TASK_ACTION = "performed task with id ";
@@ -683,7 +684,8 @@ public class ControllerConstants {
   public static final int PRESTIGE__LEVEL_TO_UNLOCK_EXTRA_WEAPON = 1;
   public static final int PRESTIGE__LEVEL_TO_UNLOCK_EXTRA_ARMOR = 2;
   public static final int PRESTIGE__LEVEL_TO_UNLOCK_EXTRA_AMULET = 3;
-  public static final int PRESTIGE__MIN_LEVEL_FOR_PRESTIGE = 60;
-  public static final int PRESTIGE__MAX_PRESTIGE_LEVEL = 3;
-
+  public static final int PRESTIGE__MIN_LEVEL_FOR_PRESTIGE = 75;
+  public static final int PRESTIGE__MAX_PRESTIGE_LEVEL = 999;
+  public static final int PRESTIGE__MAX_PRESTIGE_LEVEL_WITH_NO_GOLD_COST = 3;
+  public static final int PRESTIGE__PRESTIGE_GOLD_COST = 75; //COST TO GO TO LEVEL 4 AND ABOVE
 }

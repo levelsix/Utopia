@@ -1403,7 +1403,7 @@ public class User implements Serializable {
     return false;
   }
   
-  public boolean prestige(int oldEnergy, int oldStamina) {
+  public boolean prestige(int oldEnergy, int oldStamina, int diamondChange) {
     //copied most from reset stat method named resetSkillPoints(...)
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
@@ -1411,6 +1411,9 @@ public class User implements Serializable {
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     //increment prestige level
     relativeParams.put(DBConstants.USER__PRESTIGE_LEVEL, 1);
+    if (0 != diamondChange) {
+      relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
+    }
     
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     //skill points need to be reset
@@ -1463,6 +1466,9 @@ public class User implements Serializable {
       this.amuletEquippedUserEquipId = ControllerConstants.NOT_SET;
       this.amuletTwoEquippedUserEquipId = ControllerConstants.NOT_SET;
       this.prestigeLevel += 1;
+      if (0 != diamondChange) {
+        this.diamonds += diamondChange;
+      }
       return true;
     }
 
