@@ -144,8 +144,8 @@ public class NotificationConstants {
   public static final String USER_LEFT_A_CLAN__SUBTITLE = " :(";
 
   //PRESTIGE
-  public static final String PRESTIGE_NOT_ENOUGH_CURRENCY__TITLE = "You do not have enough gold to prestige.";
-  public static final String PRESTIGE_NOT_ENOUGH_CURRENCY__SUBTITLE = "You need {0} silver. Please restart the game.";
+  public static final String PRESTIGE_NOT_ENOUGH_CURRENCY__TITLE = "Insufficient silver.";
+  public static final String PRESTIGE_NOT_ENOUGH_CURRENCY__SUBTITLE = "You need {0}. Please restart the game.";
   
   //THE ESCAPE CHARACTER IN MESSAGEFORMAT IS A SINGLE APOSTROPHE CHARACTER, '.
   //PRECEDE APOSTROPHES WITH ANOTHER APOSTROPHE TO DISPLAY ONE QUOTE TO THE USER. 
