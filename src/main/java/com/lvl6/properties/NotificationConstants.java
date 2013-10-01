@@ -61,6 +61,11 @@ public class NotificationConstants {
   public static final int USER_LEFT_A_CLAN__GREEN = 220;
   public static final int USER_LEFT_A_CLAN__RED = 255;
   
+  //PRESTIGE
+  public static final int PRESTIGE_NOT_ENOUGH_CURRENCY__BLUE = 0;
+  public static final int PRESTIGE_NOT_ENOUGH_CURRENCY__GREEN = 220;
+  public static final int PRESTIGE_NOT_ENOUGH_CURRENCY__RED = 255;
+  
   /*TITLE AND SUBTITLE CONSTANTS*/
   //THE ESCAPE CHARACTER IN MESSAGEFORMAT IS A SINGLE APOSTROPHE CHARACTER, '.
   //PRECEDE APOSTROPHES WITH ANOTHER APOSTROPHE TO DISPLAY ONE QUOTE TO THE USER. 
@@ -138,6 +143,10 @@ public class NotificationConstants {
   public static final String USER_LEFT_A_CLAN__TITLE = "Level {0} {1} has left the clan!";
   public static final String USER_LEFT_A_CLAN__SUBTITLE = " :(";
 
+  //PRESTIGE
+  public static final String PRESTIGE_NOT_ENOUGH_CURRENCY__TITLE = "Insufficient silver.";
+  public static final String PRESTIGE_NOT_ENOUGH_CURRENCY__SUBTITLE = "You need {0}. Please restart the game.";
+  
   //THE ESCAPE CHARACTER IN MESSAGEFORMAT IS A SINGLE APOSTROPHE CHARACTER, '.
   //PRECEDE APOSTROPHES WITH ANOTHER APOSTROPHE TO DISPLAY ONE QUOTE TO THE USER. 
 }

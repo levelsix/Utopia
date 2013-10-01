@@ -569,10 +569,11 @@ public class ControllerConstants {
   public static final String UCHRFC__ENHANCING = "enhancing";
   public static final String UCHRFC__PURHCASED_BOOSTER_PACK = "purchased booster pack with id ";
   public static final String UCHRFC__PURCHASED_ADDITIONAL_FORGE_SLOTS = "purchased additional forge slots";
+  public static final String UCHRFC__STARTUP_DAILY_BONUS = "startup daily bonus";
+  public static final String UCHRFC__PRESTIGE = "prestige to lvl:";
   //silver only reasons
   public static final String UCHRFC__RETRIEVE_CURRENCY_FROM_NORM_STRUCT = "retrieve currency from normal structures";
   public static final String UCHRFC__TASK_ACTION = "performed task with id ";
-  public static final String UCHRFC__STARTUP_DAILY_BONUS = "startup daily bonus";
   public static final String UCHRFC__PURCHASE_CITY_EXPANSION = "expanded city: ";
   public static final String UCHRFC__USER_CREATE_REFERRED_A_USER = "referred a user";
   public static final String UCHRFC__VAULT_DEPOSIT = "vault deposit";
@@ -649,6 +650,7 @@ public class ControllerConstants {
 //    "Forging Contest! 50 GOLD reward! Details at forum.lvl6.com"
 //      "We have just added 40+ equips, a new city, and increased the level cap!"
 //      "Happy birthday AoC! Buildings will make silver twice as fast all week long!"
+    "Prestige has been updated! Details at forum.lvl6.com."
     };
   
   
@@ -658,7 +660,7 @@ public class ControllerConstants {
   public static final int STARTUP__QUEST_ID_FOR_FIRST_LOSS_TUTORIAL = 326;
   public static final int[] STARTUP__QUEST_IDS_FOR_GUARANTEED_WIN = {325};
   public static final String STARTUP__FAQ_FILE_NAME = "FAQ.3.txt";
-  public static final String STARTUP__PRESTIGE_FAQ_FILE_NAME = "PrestigeFAQ.txt";
+  public static final String STARTUP__PRESTIGE_FAQ_FILE_NAME = "PrestigeFAQ.2.txt";
   public static final int STARTUP__DEFAULT_DAYS_BATTLE_SHIELD_IS_ACTIVE = 7;
   public static final float CHANCE_TO_GET_KIIP_ON_BATTLE_WIN = 1.f;
   public static final float CHANCE_TO_GET_KIIP_ON_QUEST_REDEEM = 1.f;
@@ -681,7 +683,8 @@ public class ControllerConstants {
   public static final int PRESTIGE__LEVEL_TO_UNLOCK_EXTRA_WEAPON = 1;
   public static final int PRESTIGE__LEVEL_TO_UNLOCK_EXTRA_ARMOR = 2;
   public static final int PRESTIGE__LEVEL_TO_UNLOCK_EXTRA_AMULET = 3;
-  public static final int PRESTIGE__MIN_LEVEL_FOR_PRESTIGE = 60;
-  public static final int PRESTIGE__MAX_PRESTIGE_LEVEL = 3;
-
+  public static final int PRESTIGE__MIN_LEVEL_FOR_PRESTIGE = 75;
+  public static final int PRESTIGE__MAX_PRESTIGE_LEVEL = 2048;
+  public static final int PRESTIGE__MAX_PRESTIGE_LEVEL_WITH_NO_COST = 3;
+  public static final int PRESTIGE__PRESTIGE_SILVER_COST = 2000000; //COST TO GO TO LEVEL 4 AND ABOVE
 }

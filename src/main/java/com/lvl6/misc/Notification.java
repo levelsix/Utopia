@@ -8,6 +8,7 @@ import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.NotificationConstants;
 import com.lvl6.proto.EventProto.GeneralNotificationResponseProto;
 import com.lvl6.proto.InfoProto.ColorProto;
@@ -357,6 +358,19 @@ public class Notification {
     log.info("created left clan notification for level" + level + " " + deserter);
   }
   
+  public void setAsNotEnoughCurrencyToPrestige() {
+    int silver = ControllerConstants.PRESTIGE__PRESTIGE_SILVER_COST;
+    Object[] argumentsToMsgFormat = { silver };
+    String title = NotificationConstants.PRESTIGE_NOT_ENOUGH_CURRENCY__TITLE;
+    String subtitle = NotificationConstants.PRESTIGE_NOT_ENOUGH_CURRENCY__SUBTITLE;
+    int blue = NotificationConstants.PRESTIGE_NOT_ENOUGH_CURRENCY__BLUE;
+    int green = NotificationConstants.PRESTIGE_NOT_ENOUGH_CURRENCY__GREEN;
+    int red = NotificationConstants.PRESTIGE_NOT_ENOUGH_CURRENCY__RED;
+    
+    setUpNotification(argumentsToMsgFormat, title, subtitle, blue, green, red);
+    log.info("created not-enough-gold-to-prestige notification");
+  }
+  
   private void setUpNotification(Object[] argumentsToMsgFormat, String title, String subtitle,
       int blue, int green, int red) {
     MessageFormat formatTitle = new MessageFormat(title);
@@ -372,4 +386,10 @@ public class Notification {
     keysAndValues.put("subtitle", apnsSubtitle);
     keysAndValues.put("rgb", rgb.build());
   }
+  
+  public String titleAndSubtitle() {
+    return keysAndValues.get("title").toString() + " " +
+        keysAndValues.get("subtitle").toString();
+  }
+  
 }
