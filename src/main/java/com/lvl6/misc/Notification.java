@@ -358,7 +358,7 @@ public class Notification {
     log.info("created left clan notification for level" + level + " " + deserter);
   }
   
-  public void setAsNotEnoughGoldToPrestige() {
+  public void setAsNotEnoughCurrencyToPrestige() {
     int silver = ControllerConstants.PRESTIGE__PRESTIGE_SILVER_COST;
     Object[] argumentsToMsgFormat = { silver };
     String title = NotificationConstants.PRESTIGE_NOT_ENOUGH_CURRENCY__TITLE;

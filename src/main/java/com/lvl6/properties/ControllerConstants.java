@@ -569,11 +569,11 @@ public class ControllerConstants {
   public static final String UCHRFC__ENHANCING = "enhancing";
   public static final String UCHRFC__PURHCASED_BOOSTER_PACK = "purchased booster pack with id ";
   public static final String UCHRFC__PURCHASED_ADDITIONAL_FORGE_SLOTS = "purchased additional forge slots";
+  public static final String UCHRFC__STARTUP_DAILY_BONUS = "startup daily bonus";
   public static final String UCHRFC__PRESTIGE = "prestige to lvl:";
   //silver only reasons
   public static final String UCHRFC__RETRIEVE_CURRENCY_FROM_NORM_STRUCT = "retrieve currency from normal structures";
   public static final String UCHRFC__TASK_ACTION = "performed task with id ";
-  public static final String UCHRFC__STARTUP_DAILY_BONUS = "startup daily bonus";
   public static final String UCHRFC__PURCHASE_CITY_EXPANSION = "expanded city: ";
   public static final String UCHRFC__USER_CREATE_REFERRED_A_USER = "referred a user";
   public static final String UCHRFC__VAULT_DEPOSIT = "vault deposit";

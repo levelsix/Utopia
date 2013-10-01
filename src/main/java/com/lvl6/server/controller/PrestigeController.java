@@ -77,7 +77,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       int preprestigeSkillPoints = 0;
       List<Notification> notifications = new ArrayList<Notification>();
       List<Integer> costs = new ArrayList<Integer>();
-      int previousGold = 0;
+      int previousSilver = 0;
       int cost = 0;
       
       boolean legitPrestige = checkLegitPrestige(resBuilder, user,
@@ -93,7 +93,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         preprestigeExperience = user.getExperience();
         preprestigeSkillPoints = user.getSkillPoints();
         
-        previousGold = user.getDiamonds();
+        previousSilver = user.getCoins();
         if (!costs.isEmpty()) {
           cost = costs.get(0) * -1;
         }
@@ -117,7 +117,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
             aDate, preprestigeExperience, preprestigeSkillPoints);
         //keep track of gold change if needed
         
-        writeToUserCurrencyHistory(user, aDate, cost, previousGold, newPrestigeLevel);
+        writeToUserCurrencyHistory(user, aDate, cost, previousSilver, newPrestigeLevel);
       } else {
         //send notification if there is one
         sendNotification(senderProto, userId, notifications);
@@ -207,47 +207,47 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     int maxPrestigeLvlNoCost = ControllerConstants
         .PRESTIGE__MAX_PRESTIGE_LEVEL_WITH_NO_GOLD_COST;
     int userPrestigeLvl = user.getPrestigeLevel();
-    int prestigeGoldCost = ControllerConstants
+    int prestigeSilverCost = ControllerConstants
         .PRESTIGE__PRESTIGE_SILVER_COST;
-    int userGold = user.getDiamonds();
+    int userSilver = user.getCoins();
     
     //see if user should be charged if he is going above prestige lvl 3
     if (userPrestigeLvl >= maxPrestigeLvlNoCost) {
       
-      //gold cost
-      if (userGold < prestigeGoldCost) {
+      //silver cost
+      if (userSilver < prestigeSilverCost) {
         Notification n = new Notification();
-        n.setAsNotEnoughGoldToPrestige();
+        n.setAsNotEnoughCurrencyToPrestige();
         notifications.add(n);
-        log.error("user error: user does not have enough gold when going" +
-            " above prestige level 3. cost=" + prestigeGoldCost +
-            ". userGold=" + userGold);
+        log.error("user error: user does not have enough silver when going" +
+            " above prestige level 3. cost=" + prestigeSilverCost +
+            ". userSilver=" + userSilver);
         resBuilder.setStatus(PrestigeStatus.FAIL_OTHER);
         return false;
       }
-      //user should be charged this much gold
-      costs.add(prestigeGoldCost);
+      //user should be charged this much silver
+      costs.add(prestigeSilverCost);
     }
     
     return true;  
   }
   
   private void writeToUserCurrencyHistory(User aUser, Date aDate, int cost,
-      int previousGold, int newPrestigeLvl) {
+      int previousSilver, int newPrestigeLvl) {
     if (0 == cost) {
       return;
     }
     Map<String, Integer> previousGoldSilver = new HashMap<String, Integer>();
     Map<String, String> reasonsForChanges = new HashMap<String, String>();
     String reasonForChange = ControllerConstants.UCHRFC__PRESTIGE + newPrestigeLvl;
-    String gold = MiscMethods.gold;
+    String silver = MiscMethods.silver;
     
-    previousGoldSilver.put(gold, previousGold);
-    reasonsForChanges.put(gold, reasonForChange);
+    previousGoldSilver.put(silver, previousSilver);
+    reasonsForChanges.put(silver, reasonForChange);
     
     Timestamp date = new Timestamp(aDate.getTime());
     Map<String, Integer> money = new HashMap<String, Integer>();
-    money.put(gold, cost);
+    money.put(silver, cost);
     MiscMethods.writeToUserCurrencyOneUserGoldAndOrSilver(aUser, date, money, previousGoldSilver, reasonsForChanges);
   }
   
