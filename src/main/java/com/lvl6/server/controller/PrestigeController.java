@@ -93,7 +93,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         preprestigeExperience = user.getExperience();
         preprestigeSkillPoints = user.getSkillPoints();
         
-        previousSilver = user.getCoins();
+        previousSilver = user.getCoins() + user.getVaultBalance();
         if (!costs.isEmpty()) {
           cost = costs.get(0) * -1;
         }
@@ -107,6 +107,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       
       if (success) {
         newPrestigeLevel = user.getPrestigeLevel();
+        
         if (Globals.IS_SANDBOX()) {
           log.info("user prestige event, writing to prestige history!");
         }
@@ -115,7 +116,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
             preprestigePrestigeLevel, newPrestigeLevel, preprestigeAttackStat,
             preprestigeDefenseStat, preprestigeStaminaStat, preprestigeEnergyStat,
             aDate, preprestigeExperience, preprestigeSkillPoints);
-        //keep track of gold change if needed
+        //keep track of currency change if possible
         
         writeToUserCurrencyHistory(user, aDate, cost, previousSilver, newPrestigeLevel);
       } else {
@@ -133,7 +134,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   private boolean writeChangesToDB(Builder resBuilder, User user, int cost) {
     //unequip everything
     //all skill points reset
-    //charge diamonds if needed
+    //charge silver if possible
     if (!user.prestige(user.getEnergy(), user.getStamina(), cost)) {
       log.error("unexpected error: could not reset user back to level 1. user=" + user);
       return false;
@@ -203,9 +204,9 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       return false;
     }
     
-    //for prestige level 4 and above, user must have enough gold 
+    //for prestige level 4 and above, user must have enough silver 
     int maxPrestigeLvlNoCost = ControllerConstants
-        .PRESTIGE__MAX_PRESTIGE_LEVEL_WITH_NO_GOLD_COST;
+        .PRESTIGE__MAX_PRESTIGE_LEVEL_WITH_NO_COST;
     int userPrestigeLvl = user.getPrestigeLevel();
     int prestigeSilverCost = ControllerConstants
         .PRESTIGE__PRESTIGE_SILVER_COST;
@@ -228,7 +229,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       //user should be charged this much silver
       costs.add(prestigeSilverCost);
     }
-    
+    resBuilder.setStatus(PrestigeStatus.SUCCESS);
     return true;  
   }
   

@@ -685,6 +685,6 @@ public class ControllerConstants {
   public static final int PRESTIGE__LEVEL_TO_UNLOCK_EXTRA_AMULET = 3;
   public static final int PRESTIGE__MIN_LEVEL_FOR_PRESTIGE = 75;
   public static final int PRESTIGE__MAX_PRESTIGE_LEVEL = 2048;
-  public static final int PRESTIGE__MAX_PRESTIGE_LEVEL_WITH_NO_GOLD_COST = 3;
+  public static final int PRESTIGE__MAX_PRESTIGE_LEVEL_WITH_NO_COST = 3;
   public static final int PRESTIGE__PRESTIGE_SILVER_COST = 2000000; //COST TO GO TO LEVEL 4 AND ABOVE
 }
