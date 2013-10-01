@@ -359,13 +359,13 @@ public class Notification {
   }
   
   public void setAsNotEnoughGoldToPrestige() {
-    int gold = ControllerConstants.PRESTIGE__PRESTIGE_GOLD_COST;
-    Object[] argumentsToMsgFormat = { gold };
-    String title = NotificationConstants.PRESTIGE_NOT_ENOUGH_GOLD__TITLE;
-    String subtitle = NotificationConstants.PRESTIGE_NOT_ENOUGH_GOLD__SUBTITLE;
-    int blue = NotificationConstants.PRESTIGE_NOT_ENOUGH_GOLD__BLUE;
-    int green = NotificationConstants.PRESTIGE_NOT_ENOUGH_GOLD__GREEN;
-    int red = NotificationConstants.PRESTIGE_NOT_ENOUGH_GOLD__RED;
+    int silver = ControllerConstants.PRESTIGE__PRESTIGE_SILVER_COST;
+    Object[] argumentsToMsgFormat = { silver };
+    String title = NotificationConstants.PRESTIGE_NOT_ENOUGH_CURRENCY__TITLE;
+    String subtitle = NotificationConstants.PRESTIGE_NOT_ENOUGH_CURRENCY__SUBTITLE;
+    int blue = NotificationConstants.PRESTIGE_NOT_ENOUGH_CURRENCY__BLUE;
+    int green = NotificationConstants.PRESTIGE_NOT_ENOUGH_CURRENCY__GREEN;
+    int red = NotificationConstants.PRESTIGE_NOT_ENOUGH_CURRENCY__RED;
     
     setUpNotification(argumentsToMsgFormat, title, subtitle, blue, green, red);
     log.info("created not-enough-gold-to-prestige notification");

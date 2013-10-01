@@ -208,7 +208,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
         .PRESTIGE__MAX_PRESTIGE_LEVEL_WITH_NO_GOLD_COST;
     int userPrestigeLvl = user.getPrestigeLevel();
     int prestigeGoldCost = ControllerConstants
-        .PRESTIGE__PRESTIGE_GOLD_COST;
+        .PRESTIGE__PRESTIGE_SILVER_COST;
     int userGold = user.getDiamonds();
     
     //see if user should be charged if he is going above prestige lvl 3
@@ -253,7 +253,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   
   private void sendNotification(MinimumUserProto mup, int userId, List<Notification> nList) {
     for (Notification n : nList) {
-      MiscMethods.writeNotificationToUser(n, server, userId);
+      //MiscMethods.writeNotificationToUser(n, server, userId);
       
       //have a pop up message
       SendAdminMessageResponseProto.Builder chatProto =

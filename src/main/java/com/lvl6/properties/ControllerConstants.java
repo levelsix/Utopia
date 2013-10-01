@@ -661,7 +661,7 @@ public class ControllerConstants {
   public static final int STARTUP__QUEST_ID_FOR_FIRST_LOSS_TUTORIAL = 326;
   public static final int[] STARTUP__QUEST_IDS_FOR_GUARANTEED_WIN = {325};
   public static final String STARTUP__FAQ_FILE_NAME = "FAQ.3.txt";
-  public static final String STARTUP__PRESTIGE_FAQ_FILE_NAME = "PrestigeFAQ.txt";
+  public static final String STARTUP__PRESTIGE_FAQ_FILE_NAME = "PrestigeFAQ.2.txt";
   public static final int STARTUP__DEFAULT_DAYS_BATTLE_SHIELD_IS_ACTIVE = 7;
   public static final float CHANCE_TO_GET_KIIP_ON_BATTLE_WIN = 1.f;
   public static final float CHANCE_TO_GET_KIIP_ON_QUEST_REDEEM = 1.f;
@@ -685,7 +685,7 @@ public class ControllerConstants {
   public static final int PRESTIGE__LEVEL_TO_UNLOCK_EXTRA_ARMOR = 2;
   public static final int PRESTIGE__LEVEL_TO_UNLOCK_EXTRA_AMULET = 3;
   public static final int PRESTIGE__MIN_LEVEL_FOR_PRESTIGE = 75;
-  public static final int PRESTIGE__MAX_PRESTIGE_LEVEL = 999;
+  public static final int PRESTIGE__MAX_PRESTIGE_LEVEL = 2048;
   public static final int PRESTIGE__MAX_PRESTIGE_LEVEL_WITH_NO_GOLD_COST = 3;
-  public static final int PRESTIGE__PRESTIGE_GOLD_COST = 75; //COST TO GO TO LEVEL 4 AND ABOVE
+  public static final int PRESTIGE__PRESTIGE_SILVER_COST = 2000000; //COST TO GO TO LEVEL 4 AND ABOVE
 }
