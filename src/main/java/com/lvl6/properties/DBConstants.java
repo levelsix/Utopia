@@ -99,6 +99,10 @@ public class DBConstants {
   public static final String TABLE_CITY_GEMS = "city_gems";
   public static final String TABLE_USER_CITY_GEMS = "user_city_gems";
   
+  public static final String TABLE_CITY_COLLECTIBLE_EVENT = "city_collectible_event";
+  public static final String TABLE_USER_CITY_COLLECTIBLE_EVENT_HISTORY = "user_city_collectible_event_history";
+  public static final String TABLE_STARTUP_NOTICES_TO_PLAYERS = "startup_notices_to_players";
+  
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
   public static final String GENERIC__ID = "id";
@@ -735,5 +739,10 @@ public class DBConstants {
   public static final String USER_CITY_GEMS__CITY_ID = "city_id";
   public static final String USER_CITY_GEMS__GEM_ID = "gem_id";
   public static final String USER_CITY_GEMS__QUANTITY = "quantity";
+
+  /*STARTUP NOTICES TO PLAYERS*/
+  public static final String STARTUP_NOTICES_TO_PLAYERS__ID = GENERIC__ID;
+  public static final String STARTUP_NOTICES_TO_PLAYERS__MESSAGE = "message";
+  public static final String STARTUP_NOTICES_TO_PLAYERS__IS_ACTIVE = "is_active";
   
 }

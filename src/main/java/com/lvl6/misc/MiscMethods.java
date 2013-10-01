@@ -128,6 +128,7 @@ import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.PossessEquipJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.ProfanityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.StartupNoticesToPlayersRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
@@ -790,34 +791,36 @@ public class MiscMethods {
 
   public static void reloadAllRareChangeStaticData() {
     log.info("Reloading rare change static data");
+    BannedUserRetrieveUtils.reload();
+    BoosterItemRetrieveUtils.reload();
+    BoosterPackRetrieveUtils.reload();
+    BossEventRetrieveUtils.reload();
+    BossRetrieveUtils.reload();
+    BossRewardRetrieveUtils.reload();
     BuildStructJobRetrieveUtils.reload();
+    //CityCollectibleEventRetrieveUtils.reload();
+    CityGemRetrieveUtils.reload();
     CityRetrieveUtils.reload();
+    ClanTierLevelRetrieveUtils.reload();
+    DailyBonusRewardRetrieveUtils.reload();
     DefeatTypeJobRetrieveUtils.reload();
     EquipmentRetrieveUtils.reload();
-    QuestRetrieveUtils.reload();
-    TaskEquipReqRetrieveUtils.reload();
-    TaskRetrieveUtils.reload();
-    UpgradeStructJobRetrieveUtils.reload();
-    StructureRetrieveUtils.reload();
-    PossessEquipJobRetrieveUtils.reload();
-    LevelsRequiredExperienceRetrieveUtils.reload();
-    NeutralCityElementsRetrieveUtils.reload(); 
-    ThreeCardMonteRetrieveUtils.reload();
-    BossRetrieveUtils.reload();
-    LockBoxEventRetrieveUtils.reload();
-    LockBoxItemRetrieveUtils.reload();
     GoldSaleRetrieveUtils.reload();
-    ClanTierLevelRetrieveUtils.reload();
-    BossEventRetrieveUtils.reload();
-    BossRewardRetrieveUtils.reload();
     LeaderboardEventRetrieveUtils.reload();
     LeaderboardEventRewardRetrieveUtils.reload();
+    LevelsRequiredExperienceRetrieveUtils.reload();
+    LockBoxEventRetrieveUtils.reload();
+    LockBoxItemRetrieveUtils.reload();
+    NeutralCityElementsRetrieveUtils.reload(); 
+    PossessEquipJobRetrieveUtils.reload();
     ProfanityRetrieveUtils.reload();
-    BoosterPackRetrieveUtils.reload();
-    BoosterItemRetrieveUtils.reload();
-    BannedUserRetrieveUtils.reload();
-    DailyBonusRewardRetrieveUtils.reload();
-    CityGemRetrieveUtils.reload();
+    QuestRetrieveUtils.reload();
+    StartupNoticesToPlayersRetrieveUtils.reload();
+    StructureRetrieveUtils.reload();
+    TaskEquipReqRetrieveUtils.reload();
+    TaskRetrieveUtils.reload();
+    ThreeCardMonteRetrieveUtils.reload();
+    UpgradeStructJobRetrieveUtils.reload();
   }
 
   public static UserType getUserTypeFromDefeatTypeJobUserType(

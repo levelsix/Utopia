@@ -125,6 +125,7 @@ import com.lvl6.retrieveutils.rarechange.GoldSaleRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.StartupNoticesToPlayersRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.scriptsjava.generatefakeusers.NameGeneratorElven;
@@ -802,9 +803,15 @@ public class StartupController extends EventController {
   }
 
   private void setNoticesToPlayers(Builder resBuilder, User user) {
-    if (ControllerConstants.STARTUP__NOTICES_TO_PLAYERS != null) {
-      for (int i = 0; i < ControllerConstants.STARTUP__NOTICES_TO_PLAYERS.length; i++) {
-        resBuilder.addNoticesToPlayers(ControllerConstants.STARTUP__NOTICES_TO_PLAYERS[i]);
+//    if (ControllerConstants.STARTUP__NOTICES_TO_PLAYERS != null) {
+//      for (int i = 0; i < ControllerConstants.STARTUP__NOTICES_TO_PLAYERS.length; i++) {
+//        resBuilder.addNoticesToPlayers(ControllerConstants.STARTUP__NOTICES_TO_PLAYERS[i]);
+//      }
+//    }
+    List<String> notices = StartupNoticesToPlayersRetrieveUtils.getAllActiveNotices();
+    if (null != notices) {
+      for (String notice : notices) {
+        resBuilder.addNoticesToPlayers(notice);
       }
     }
     if (user.getLastLogout() == null && Globals.IDDICTION_ON()) {

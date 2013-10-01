@@ -1452,6 +1452,7 @@ public class User implements Serializable {
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER,
         relativeParams, absoluteParams, conditionParams, "and");
     if (numUpdated == 1) {
+      //this.level = 1; //maybe this should be added in...
       this.attack = initialAttack;
       this.defense = initialDefense;
       this.energyMax = ControllerConstants.TUTORIAL__INIT_ENERGY;
@@ -1459,6 +1460,7 @@ public class User implements Serializable {
       this.staminaMax = ControllerConstants.TUTORIAL__INIT_STAMINA;
       this.stamina = initialStamina;
       this.skillPoints = returnSkillPoints;
+      //this.experience = 0; //maybe this should be added in...
       this.weaponEquippedUserEquipId = ControllerConstants.NOT_SET;
       this.weaponTwoEquippedUserEquipId = ControllerConstants.NOT_SET;
       this.armorEquippedUserEquipId = ControllerConstants.NOT_SET;
