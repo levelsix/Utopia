@@ -72,7 +72,7 @@ import com.lvl6.utils.DBConnection;
    */
   private static String convertRSRowToNotices(ResultSet rs) throws SQLException {
     int i = 1;
-    String noticesTerm = rs.getString(i++);
+    String noticesTerm = rs.getString(DBConstants.STARTUP_NOTICES_TO_PLAYERS__MESSAGE);
     
     return noticesTerm;
   }
