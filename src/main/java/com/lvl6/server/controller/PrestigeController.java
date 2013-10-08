@@ -145,43 +145,43 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     //user_cities delete all of them
     int numDeleted = DeleteUtils.get().deleteAllUserCitiesForUser(userId);
     if (0 >= numDeleted) {
-      log.error("unexpected error: no user cities were deleted for user but continuing" +
+      log.warn("unexpected error: no user cities were deleted for user but continuing" +
       		" processing. numDeleted=" + numDeleted + ", user=" + user);
     }
     //user_quests delete all of them
     numDeleted = DeleteUtils.get().deleteAllUserQuestsForUser(userId);
     if (0 >= numDeleted) {
-      log.error("unexpected error: no user quests were deleted for user but continuing" +
+      log.warn("unexpected error: no user quests were deleted for user but continuing" +
       		" processing numDeleted=" + numDeleted + ", user=" + user);
     }
     //user_quests_completed_defeat_type_jobs
     numDeleted = DeleteUtils.get().deleteAllUserQuestsCompletedDefeatTypeJobsForUser(userId);
     if (0 >= numDeleted) {
-      log.error("unexpected error: no user quests completed defeat type jobs were deleted" +
+      log.warn("unexpected error: no user quests completed defeat type jobs were deleted" +
       		" for user but continuing processing. numDeleted=" + numDeleted + ", user=" + user);
     }
     //user_quests_completed_tasks
     numDeleted = DeleteUtils.get().deleteAllUserQuestsCompletedTasksForUser(userId);
     if (0 >= numDeleted) {
-      log.error("unexpected error: no user quests completed tasks were deleted for user" +
+      log.warn("unexpected error: no user quests completed tasks were deleted for user" +
       		" but continuing processing. numDeleted=" + numDeleted + ", user=" + user);
     }
     //user_quests_defeat_type_job_progress
     numDeleted = DeleteUtils.get().deleteAllUserQuestsDefeatTypeJobProgressForUser(userId);
     if (0 >= numDeleted) {
-      log.error("unexpected error: no user quests defeat type job progress were deleted for" +
+      log.warn("unexpected error: no user quests defeat type job progress were deleted for" +
       		" user but continuing processing. numDeleted=" + numDeleted + ", user=" + user);
     }
     //user_quests_task_progress
     numDeleted = DeleteUtils.get().deleteAllUserQuestsTaskProgress(userId);
     if (0 >= numDeleted) {
-      log.error("unexpected error: no user quests task progress were deleted for user" +
+      log.warn("unexpected error: no user quests task progress were deleted for user" +
       		" but continuing processing. numDeleted=" + numDeleted + ", user=" + user);
     }
     //user_tasks
     numDeleted = DeleteUtils.get().deleteAllUserTasksForUser(userId);
     if (0 >= numDeleted) {
-      log.error("unexpected error: no user tasks were deleted for user but continuing" +
+      log.warn("unexpected error: no user tasks were deleted for user but continuing" +
       		" processing. numDeleted=" + numDeleted + ", user=" + user);
     }
     //don't know what else to do if something goes wrong...
