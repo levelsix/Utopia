@@ -449,19 +449,29 @@ import com.lvl6.utils.utilmethods.StringUtils;
     int attack = rs.getInt(i++);
     int defense = rs.getInt(i++);
     int stamina = rs.getInt(i++);
-
+    
+    Timestamp ts;
     Date lastStaminaRefillTime = null;
-    Timestamp ts = rs.getTimestamp(i++);
-    if (!rs.wasNull()) {
-      lastStaminaRefillTime = new Date(ts.getTime());
+    
+    try {
+      ts = rs.getTimestamp(i++);
+      if (!rs.wasNull()) {
+        lastStaminaRefillTime = new Date(ts.getTime());
+      }
+    } catch (SQLException e) {
+      log.error("user has null last_stamina_refill_time. user_id=" + userId);
     }
 
     int energy = rs.getInt(i++);
 
     Date lastEnergyRefillTime = null;
-    ts = rs.getTimestamp(i++);
-    if (!rs.wasNull()) {
-      lastEnergyRefillTime = new Date(ts.getTime());
+    try {
+      ts = rs.getTimestamp(i++);
+      if (!rs.wasNull()) {
+        lastEnergyRefillTime = new Date(ts.getTime());
+      }
+    } catch (SQLException e) {
+      log.error("user has null last_energy_refill_time. user_id=" + userId);
     }
 
     int skillPoints = rs.getInt(i++);
@@ -498,51 +508,79 @@ import com.lvl6.utils.utilmethods.StringUtils;
     }
 
     Date lastLoginTime = null;
-    ts = rs.getTimestamp(i++);
-    if (!rs.wasNull()) {
-      lastLoginTime = new Date(ts.getTime());
+    try {
+      ts = rs.getTimestamp(i++);
+      if (!rs.wasNull()) {
+        lastLoginTime = new Date(ts.getTime());
+      }
+    } catch (SQLException e) {
+      log.error("user has null last_login_time. user_id=" + userId);
     }
 
     Date lastLogoutTime = null;
-    ts = rs.getTimestamp(i++);
-    if (!rs.wasNull()) {
-      lastLogoutTime = new Date(ts.getTime());
+    try {
+      ts = rs.getTimestamp(i++);
+      if (!rs.wasNull()) {
+        lastLogoutTime = new Date(ts.getTime());
+      }
+    } catch (SQLException e) {
+      log.error("user has null last_logout_time. user_id=" + userId);
     }
 
     String deviceToken = rs.getString(i++);
 
     Date lastBattleNotificationTime = null;
-    ts = rs.getTimestamp(i++);
-    if (!rs.wasNull()) {
-      lastBattleNotificationTime = new Date(ts.getTime());
+    try {
+      ts = rs.getTimestamp(i++);
+      if (!rs.wasNull()) {
+        lastBattleNotificationTime = new Date(ts.getTime());
+      }
+    } catch (SQLException e) {
+      log.error("user has null last_battle_notification_time. user_id=" + userId);
     }
 
     Date lastTimeAttacked = null;
-    ts = rs.getTimestamp(i++);
-    if (!rs.wasNull()) {
-      lastTimeAttacked = new Date(ts.getTime());
+    try {
+      ts = rs.getTimestamp(i++);
+      if (!rs.wasNull()) {
+        lastTimeAttacked = new Date(ts.getTime());
+      }
+    } catch (SQLException e) {
+      log.error("user has null last_time_attacked. user_id=" + userId);
     }
 
     int numBadges = rs.getInt(i++);
 
     Date lastShortLicensePurchaseTime = null;
-    ts = rs.getTimestamp(i++);
-    if (!rs.wasNull()) {
-      lastShortLicensePurchaseTime = new Date(ts.getTime());
+    try {
+      ts = rs.getTimestamp(i++);
+      if (!rs.wasNull()) {
+        lastShortLicensePurchaseTime = new Date(ts.getTime());
+      }
+    } catch (SQLException e) {
+      log.error("user has null last_short_license_purchase_time. user_id=" + userId);
     }
 
     Date lastLongLicensePurchaseTime = null;
-    ts = rs.getTimestamp(i++);
-    if (!rs.wasNull()) {
-      lastLongLicensePurchaseTime = new Date(ts.getTime());
+    try {
+      ts = rs.getTimestamp(i++);
+      if (!rs.wasNull()) {
+        lastLongLicensePurchaseTime = new Date(ts.getTime());
+      }
+    } catch (SQLException e) {
+      log.error("user has null last_long_license_purchase_time. user_id=" + userId);
     }
 
     boolean isFake = rs.getBoolean(i++);
     
     Date userCreateTime = null;
-    ts = rs.getTimestamp(i++);
-    if (!rs.wasNull()) {
-      userCreateTime = new Date(ts.getTime());
+    try {
+      ts = rs.getTimestamp(i++);
+      if (!rs.wasNull()) {
+        userCreateTime = new Date(ts.getTime());
+      }
+    } catch (SQLException e) {
+      log.error("user has null user_create_time. user_id=" + userId);
     }
 
     boolean isAdmin = rs.getBoolean(i++);
@@ -560,21 +598,33 @@ import com.lvl6.utils.utilmethods.StringUtils;
     }
     
     Date lastGoldmineRetrieval = null;
-    ts = rs.getTimestamp(i++);
-    if (!rs.wasNull()) {
-      lastGoldmineRetrieval = new Date(ts.getTime());
+    try {
+      ts = rs.getTimestamp(i++);
+      if (!rs.wasNull()) {
+        lastGoldmineRetrieval = new Date(ts.getTime());
+      }
+    } catch (SQLException e) {
+      log.error("user has null last_goldmine_retrieval. user_id=" + userId);
     }
 
     Date lastMktNotificationTime = null;
-    ts = rs.getTimestamp(i++);
-    if (!rs.wasNull()) {
-      lastMktNotificationTime = new Date(ts.getTime());
+    try {
+      ts = rs.getTimestamp(i++);
+      if (!rs.wasNull()) {
+        lastMktNotificationTime = new Date(ts.getTime());
+      }
+    } catch (SQLException e) {
+      log.error("user has null last_market_notification_time. user_id=" + userId);
     }
 
     Date lastWallNotificationTime = null;
-    ts = rs.getTimestamp(i++);
-    if (!rs.wasNull()) {
-      lastWallNotificationTime = new Date(ts.getTime());
+    try {
+      ts = rs.getTimestamp(i++);
+      if (!rs.wasNull()) {
+        lastWallNotificationTime = new Date(ts.getTime());
+      }
+    } catch (SQLException e) {
+      log.error("user has null last_wall_notification_time. user_id=" + userId);
     }
     
     int kabamNaid = rs.getInt(i++);
